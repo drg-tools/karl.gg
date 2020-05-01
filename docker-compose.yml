@@ -8,9 +8,9 @@ services:
     ports:
     - "3306:3306"
     environment:
-      - MYSQL_USER=nova
-      - MYSQL_PASSWORD=nova
-      - MYSQL_DATABASE=nova
+      - MYSQL_USER=laravel
+      - MYSQL_PASSWORD=secrets
+      - MYSQL_DATABASE=laravel
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
   redis:
     image: redis
