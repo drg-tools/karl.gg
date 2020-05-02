@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'BuildController@index');
+Route::resource('builds', 'BuildController')->except(['index']);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('test', function() {
+    $gun = \App\Gun::first();
+
+    dd($gun->mods->groupBy('row')->all());
+
+    foreach ($gun->mods->groupBy('row')->all() as $row) {
+        dd($row);
+    }
 });
+
