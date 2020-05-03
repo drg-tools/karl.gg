@@ -55,7 +55,7 @@ class BuildController extends Controller
      */
     public function show(Build $build)
     {
-        //
+        return view('builds.show', compact('build'));
     }
 
     /**
