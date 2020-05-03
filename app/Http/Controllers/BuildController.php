@@ -22,6 +22,19 @@ class BuildController extends Controller
     }
 
     /**
+     * Display a listing of user's builds.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function myBuilds(Request $request)
+    {
+        $builds = $request->user()->builds()->latest()->paginate(25);
+
+        return view('builds.index', compact('builds'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

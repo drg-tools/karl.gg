@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('my-builds', 'BuildController@myBuilds')->name('builds.my');
     Route::resource('builds', 'BuildController')->except(['index', 'show']);
 });
 
