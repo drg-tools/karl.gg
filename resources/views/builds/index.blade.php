@@ -76,6 +76,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                {{ $builds->links() }}
             </div>
         </div>
     </div>

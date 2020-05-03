@@ -16,7 +16,7 @@ class BuildController extends Controller
      */
     public function index()
     {
-        $builds = Build::latest()->get();
+        $builds = Build::latest()->paginate(25);
 
         return view('builds.index', compact('builds'));
     }
