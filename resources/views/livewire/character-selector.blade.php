@@ -15,6 +15,10 @@
     <input type="hidden" name="character_id" value="{{ $character_id }}">
 
     @if($selected)
+        @if($build)
+        @livewire('gun-selector', ['guns' => $selected->guns, 'selected' => $build->mods->each->gun->pluck('gun.id','gun.character_slot')->all() ?? [], 'build' => $build ?? null], key($selected->id))
+        @else
         @livewire('gun-selector', ['guns' => $selected->guns], key($selected->id))
+        @endif
     @endif
 </div>

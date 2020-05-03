@@ -3,6 +3,7 @@
     <x-mod-icon name="high capacity tanks" size="10" />
     <input type="radio"
            value="{{ $mod->id }}"
+           {{ $checked ? "checked" : "" }}
            name="mods[{{ $mod->gun->character_slot }}][{{ $mod->row }}]"
            id="{{ $mod->gun->character_slot }}-mod-{{ $mod->row }}-{{ $mod->column }}"/>
     <span class="text-left">

@@ -27,7 +27,7 @@
                         <p>Tier {{ $rowNum }}</p>
                         <div class="grid grid-cols-{{ count($row) }} gap-4">
                             @foreach($row as $mod)
-                                @include('builds.partials.mod', ['mod' => $mod])
+                                @include('builds.partials.mod', ['mod' => $mod, 'checked' => $build && in_array($mod->id, $build->mods->pluck('id')->all())])
                             @endforeach
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             <p>Tier {{ $rowNum }}</p>
                             <div class="grid grid-cols-{{ count($row) }} gap-4">
                                 @foreach($row as $mod)
-                                    @include('builds.partials.mod', ['mod' => $mod])
+                                    @include('builds.partials.mod', ['mod' => $mod, 'checked' => $build && in_array($mod->id, $build->mods->pluck('id')->all())])
                                 @endforeach
                             </div>
                         </div>

@@ -98,6 +98,7 @@ class BuildController extends Controller
 
         $build->update($request->except('mods'));
         $build->mods()->sync(Arr::flatten($request->get('mods')));
+        $build->touch();
 
         return redirect('/');
     }
