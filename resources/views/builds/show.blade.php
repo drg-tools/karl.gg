@@ -19,6 +19,8 @@
                     <x-gun-icon :name="$mods[0]->gun->name" size="w-40" />
                     <br>
                     {{ $mods[0]->gun->name }}
+                    <br>
+                    <span class="text-sm text-gray-500">({{ $mods->sortBy('row')->pluck('column')->join(', ') }})</span>
                 </p>
                 <ul class="md:grid md:grid-cols-2 md:col-gap-8 md:row-gap-10">
                     @foreach($mods as $mod)
