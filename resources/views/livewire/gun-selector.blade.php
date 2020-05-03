@@ -40,7 +40,7 @@
                 @foreach ($guns->firstWhere('id', $selected2)->mods->groupBy('row')->all() as $rowNum => $row)
                         <div>
                             <p>Tier {{ $rowNum }}</p>
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-{{ count($row) }} gap-4">
                                 @foreach($row as $mod)
                                     @include('builds.partials.mod', ['mod' => $mod])
                                 @endforeach
