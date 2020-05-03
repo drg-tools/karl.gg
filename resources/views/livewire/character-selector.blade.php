@@ -5,7 +5,7 @@
         @foreach($characters as $character)
             <div wire:click="$set('character_id', {{ $character->id }})" wire:key="{{ $character->id }}"
                  class="p-4 bg-gray-200 text-center cursor-pointer hover:bg-blue-100 border-2 select-none {{ $character->id == $character_id ? "bg-blue-100 border-blue-400" : "" }}">
-                <x-character-icon name="{{ $character->name }}" size="w-10"/>
+                <x-character-icon name="{{ $character->name }}" size="10"/>
                 <br>
                 <p class="text-sm leading-5 text-gray-900 font-bold">{{ $character->name }}</p>
             </div>

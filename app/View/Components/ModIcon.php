@@ -17,7 +17,7 @@ class ModIcon extends Component
      * @param $name
      * @param string $size
      */
-    public function __construct($name, $size = "w-6")
+    public function __construct($name, $size = "6")
     {
         $this->name = strtolower(Str::slug($name, "_"));
         $this->size = $size;

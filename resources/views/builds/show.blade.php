@@ -16,7 +16,7 @@
             @foreach($build->mods->groupBy('gun_id') as $mods)
             <div>
                 <p class="text-center mt-2 mb-6 font-bold">
-                    <x-gun-icon :name="$mods[0]->gun->name" size="w-40" />
+                    <x-gun-icon :name="$mods[0]->gun->name" size="40" />
                     <br>
                     {{ $mods[0]->gun->name }}
                     <br>
@@ -27,11 +27,7 @@
                         <li>
                             <div class="flex mr-2 ml-2">
                                 <div class="flex-shrink-0">
-                                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-                                        </svg>
-                                    </div>
+                                    <x-mod-icon name="high capacity tanks" />
                                 </div>
                                 <div class="ml-4">
                                     <h5 class="text-lg leading-6 font-medium text-gray-900">{{ $mod->name }}</h5>
