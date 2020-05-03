@@ -16,7 +16,7 @@ class CharacterSelector extends Component
         $this->characters = $characters;
 
         if ($build) {
-            $this->character_id = $build->id;
+            $this->character_id = $build->character_id;
         }
     }
 
