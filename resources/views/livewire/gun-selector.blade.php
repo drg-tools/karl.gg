@@ -8,7 +8,7 @@
                     @foreach($slot as $gun)
                         <div wire:click="$set('selected{{ $gun->character_slot }}', {{ $gun->id }})"
                                 type="button"
-                                class="p-4 text-center cursor-pointer hover:bg-blue-100 border-2 select-none {{ $gun->id == $selected1 || $gun->id == $selected2 ? "bg-blue-100 border-blue-400" : "" }}">
+                                class="p-4 bg-gray-200 text-center cursor-pointer hover:bg-blue-100 border-2 select-none {{ $gun->id == $selected1 || $gun->id == $selected2 ? "bg-blue-100 border-blue-400" : "" }}">
                             <x-gun-icon :name="$gun->name" size="w-20" />
                             <br>
                             {{ $gun->name }} <br>

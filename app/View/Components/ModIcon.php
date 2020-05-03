@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
-class CharacterIcon extends Component
+class ModIcon extends Component
 {
     public $name;
 
@@ -30,6 +30,6 @@ class CharacterIcon extends Component
      */
     public function render()
     {
-        return view('components.character-icon');
+        return view('components.mod-icon');
     }
 }

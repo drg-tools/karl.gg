@@ -19299,6 +19299,13 @@ video {
   transition-delay: 1000ms;
 }
 
+input[type="radio"] { visibility:hidden;
+}
+
+:checked + span {
+  font-weight: bold;
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;

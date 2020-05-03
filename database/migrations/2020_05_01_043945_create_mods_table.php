@@ -16,6 +16,7 @@ class CreateModsTable extends Migration
         Schema::create('mods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('effect');
             $table->text('description')->nullable(); // TODO: Remove nullable
             $table->unsignedBigInteger('row');
             $table->unsignedBigInteger('column');

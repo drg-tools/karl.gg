@@ -6,7 +6,7 @@
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
-            {{ $build->character->name }} - {{ $build->name }}
+                <x-character-icon name="{{ $build->character->name }}" /> {{ $build->name }}
             </h3>
             <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                 {{ $build->description }}
@@ -15,8 +15,9 @@
         <div class="grid grid-cols-2">
             @foreach($build->mods->groupBy('gun_id') as $mods)
             <div>
-                <p class="text-center mt-2 mb-2 font-bold">
-                    <x-gun-icon :name="$mods[0]->gun->name" size="w-20" />
+                <p class="text-center mt-2 mb-6 font-bold">
+                    <x-gun-icon :name="$mods[0]->gun->name" size="w-40" />
+                    <br>
                     {{ $mods[0]->gun->name }}
                 </p>
                 <ul class="md:grid md:grid-cols-2 md:col-gap-8 md:row-gap-10">
@@ -32,6 +33,7 @@
                                 </div>
                                 <div class="ml-4">
                                     <h5 class="text-lg leading-6 font-medium text-gray-900">{{ $mod->name }}</h5>
+                                    <p class="leading-6 text-md">{{ $mod->effect }}</p>
                                     <p class="mt-2 text-base leading-6 text-gray-500">
                                         {{ $mod->description }}
                                     </p>
