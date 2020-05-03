@@ -1,44 +1,55 @@
 <div>
     @if($guns)
-        <div class="grid grid-cols-4 gap-4 mt-4">
-            @foreach($guns->groupBy('character_slot') as $slot)
-                @foreach($slot as $gun)
-                    <button wire:click="$set('selected{{ $gun->character_slot }}', {{ $gun->id }})" type="button" class="h-20 cursor-pointer bg-blue-100">
-                        {{ $gun->name }} <br>
-                        <i>{{ $gun->gun_class }}</i>
-                    </button>
-                @endforeach
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            @foreach($guns->groupBy('character_slot') as $character_slot => $slot)
+                <div>
+                    <h2 class="font-bold mb-2">Character Slot: {{ $character_slot }}</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                    @foreach($slot as $gun)
+                        <div wire:click="$set('selected{{ $gun->character_slot }}', {{ $gun->id }})"
+                                type="button"
+                                class="p-4 text-center cursor-pointer hover:bg-blue-100 border-2 select-none {{ $gun->id == $selected1 || $gun->id == $selected2 ? "bg-blue-100 border-blue-400" : "" }}">
+                            <x-gun-icon name="{{ $gun->name }}" size="w-20" />
+                            <br>
+                            {{ $gun->name }} <br>
+                            <i>{{ $gun->gun_class }}</i>
+                        </div>
+                    @endforeach
+                    </div>
+                </div>
             @endforeach
         </div>
-
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div>
             @if ($selected1)
-                @foreach ($guns->firstWhere('id', $selected1)->mods->groupBy('row')->all() as $row)
-                    <div class="grid grid-cols-2 gap-4 mt-4">
-                        @foreach($row as $mod)
-                            <label for="{{ $mod->gun->character_slot }}-mod-{{ $mod->row }}-{{ $mod->column }}"
-                                   class="cursor-pointer h-12 block bg-blue-100">
-                                <input type="radio" value="{{ $mod->id }}" name="mods[{{ $mod->gun->character_slot }}][{{ $mod->row }}]" id="{{ $mod->gun->character_slot }}-mod-{{ $mod->row }}-{{ $mod->column }}"/>
-                                {{ $mod->name }}
-                            </label>
-                        @endforeach
+                @foreach ($guns->firstWhere('id', $selected1)->mods->groupBy('row')->all() as $rowNum => $row)
+                    <div>
+                        <p>Tier {{ $rowNum }}</p>
+                        <div class="grid grid-cols-{{ count($row) }} gap-4">
+                            @foreach($row as $mod)
+                                @include('builds.partials.mod', ['mod' => $mod])
+                            @endforeach
+                        </div>
                     </div>
                 @endforeach
             @endif
+            </div>
 
+            <div>
             @if ($selected2)
-                @foreach ($guns->firstWhere('id', $selected2)->mods->groupBy('row')->all() as $row)
-                    <div class="grid grid-cols-2 gap-4 mt-4">
-                        @foreach($row as $mod)
-                            <label for="{{ $mod->gun->character_slot }}-mod-{{ $mod->row }}-{{ $mod->column }}"
-                                   class="cursor-pointer h-12 block bg-blue-100">
-                                <input type="radio" value="{{ $mod->id }}" name="mods[{{ $mod->gun->character_slot }}][{{ $mod->row }}]" id="{{ $mod->gun->character_slot }}-mod-{{ $mod->row }}-{{ $mod->column }}"/>
-                                {{ $mod->name }}
-                            </label>
-                        @endforeach
-                    </div>
+                @foreach ($guns->firstWhere('id', $selected2)->mods->groupBy('row')->all() as $rowNum => $row)
+                        <div>
+                            <p>Tier {{ $rowNum }}</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                @foreach($row as $mod)
+                                    @include('builds.partials.mod', ['mod' => $mod])
+                                @endforeach
+                            </div>
+                        </div>
                 @endforeach
             @endif
-
+            </div>
+        </div>
     @endif
 
 </div>

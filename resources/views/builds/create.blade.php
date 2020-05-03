@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create a Build')
+
 @section('content')
     {!! Form::open(['route' => 'builds.store', 'method' => 'post', 'class' => 'px-8 pt-6 pb-8 mb-4']) !!}
 
@@ -15,7 +17,9 @@
 
     @livewire('character-selector', ['characters' => $characters])
 
-    {!! Form::submit('Create', ['class' => 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline']) !!}
+    <div class="mt-4">
+    {!! Form::submit('Create', ['class' => 'bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline']) !!}
+    </div>
 
     {!! Form::close() !!}
 @endsection

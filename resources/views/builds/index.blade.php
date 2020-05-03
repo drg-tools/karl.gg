@@ -39,7 +39,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-sm leading-5 text-gray-900">
-                                    <img src="/img/{{ strtolower($build->character->name) }}_icon.png" alt="{{ $build->character->name }}" class="w-6 inline-block">
+                                    <x-character-icon name="{{ $build->character->name }}"/>
                                     {{ $build->character->name }}
                                 </div>
                             </td>
