@@ -8,14 +8,20 @@ class GunSelector extends Component
 {
 
     public $guns;
-    public $selected1;
-    public $selected2;
+    public $selected;
+    public $build;
 
-    public function mount($guns, $selected1 = null, $selected2 = null)
+    public function mount($guns, $selected = [], $build = null)
     {
         $this->guns = $guns;
-        $this->selected1 = $selected1;
-        $this->selected2 = $selected2;
+        $this->selected = $selected;
+        $this->build = $build;
+    }
+
+    public function setSelected($character_slot, $gun_id)
+    {
+        $this->selected[$character_slot] = $gun_id;
+        $this->emit('gunSelected');
     }
 
     public function render()

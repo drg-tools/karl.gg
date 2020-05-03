@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Build;
 use App\Character;
 use Livewire\Component;
 
@@ -10,10 +11,13 @@ class CharacterSelector extends Component
     public $character_id;
     public $characters;
 
-    public function mount($characters, $character_id = null)
+    public function mount($characters, Build $build = null)
     {
         $this->characters = $characters;
-        $this->character_id = $character_id;
+
+        if ($build) {
+            $this->character_id = $build->id;
+        }
     }
 
     public function render()

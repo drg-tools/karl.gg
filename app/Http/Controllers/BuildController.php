@@ -87,9 +87,10 @@ class BuildController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Build  $build
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Build $build
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Build $build)
     {

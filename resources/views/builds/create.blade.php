@@ -16,7 +16,7 @@
     </div>
 
     <div id="character-selections">
-        @livewire('character-selector', ['characters' => $characters])
+        @livewire('character-selector', ['characters' => $characters], key($character->id))
     </div>
 
     <div class="mt-4">
@@ -24,18 +24,25 @@
     </div>
 
     {!! Form::close() !!}
+@endsection
 
+@section('scripts')
     <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script>
-        $('#character-selections').on('change', 'input:radio', function() {
-
+        function applyCheckedClasses() {
             let classes = "bg-blue-100 border-blue-400"
 
             // Remove checked from all labels in row
-            $(this).closest('div').find('label').removeClass(classes);
+            $('#character-selections input[type="radio"]').closest('label').removeClass(classes);
 
             // Apply checked to radio that is selected
-            $(this).closest('label').addClass(classes);
+            $('#character-selections input[type="radio"]:checked').closest('label').addClass(classes);
+        }
+        $('#character-selections').on('change', 'input:radio', function() {
+            applyCheckedClasses();
+        });
+        window.livewire.on('gunSelected', () => {
+            applyCheckedClasses();
         });
     </script>
 @endsection

@@ -36,6 +36,7 @@
         </main>
 
         @livewireScripts
+        @yield('scripts')
     </div>
 </body>
 </html>
