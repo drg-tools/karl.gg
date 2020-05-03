@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="ml-4">
                                     <h5 class="text-lg leading-6 font-medium text-gray-900">{{ $mod->name }}</h5>
-                                    <p class="leading-6 text-md">{{ $mod->effect }}</p>
+                                    <p class="leading-6 text-sm text-green-600">{{ $mod->effect }}</p>
                                     <p class="mt-2 text-base leading-6 text-gray-500">
                                         {{ $mod->description }}
                                     </p>
