@@ -10,9 +10,10 @@ class CharacterSelector extends Component
     public $character_id;
     public $characters;
 
-    public function mount($characters)
+    public function mount($characters, $character_id = null)
     {
         $this->characters = $characters;
+        $this->character_id = $character_id;
     }
 
     public function render()

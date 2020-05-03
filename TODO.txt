@@ -6,6 +6,8 @@ Must Haves
 - Comments
 - Favorites
 - Index sorting / filtering
+- Search
+- Other SEO stuff
 - Reddit table support
 
 Maybes

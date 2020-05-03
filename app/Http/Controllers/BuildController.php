@@ -66,7 +66,9 @@ class BuildController extends Controller
      */
     public function edit(Build $build)
     {
-        //
+        $characters = Character::all();
+
+        return view('builds.edit', compact('build', 'characters'));
     }
 
     /**
@@ -78,7 +80,10 @@ class BuildController extends Controller
      */
     public function update(Request $request, Build $build)
     {
-        //
+        $build = $build->update($request->except('mods'));
+        $build->mods()->sync(Arr::flatten($request->get('mods')));
+
+        return redirect('/');
     }
 
     /**
