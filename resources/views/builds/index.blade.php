@@ -36,7 +36,7 @@
                                         <div class="text-sm leading-5 font-medium text-gray-900">
                                             <a href="{{ route('builds.show', [$build->id]) }}">{{ $build->name }}</a>
                                         </div>
-                                        <div class="text-sm leading-5 text-gray-500">{{ $build->description }}</div>
+                                        <div class="text-sm leading-5 text-gray-500">{{ \Str::limit($build->description, 55) }}</div>
                                     </div>
                                 </div>
                             </td>
