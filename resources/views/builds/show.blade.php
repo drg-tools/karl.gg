@@ -27,7 +27,7 @@
                         <li>
                             <div class="flex mr-2 ml-2">
                                 <div class="flex-shrink-0">
-                                    <x-mod-icon name="high capacity tanks" size="8" />
+                                    <x-mod-icon name="high capacity tanks" size="10" />
                                 </div>
                                 <div class="ml-4">
                                     <h5 class="text-lg leading-6 font-medium text-gray-900">{{ $mod->name }}</h5>
