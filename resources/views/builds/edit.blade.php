@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Create a Build')
+@section('title', "Update {$build->name}")
 
 @section('content')
-    {!! Form::open(['route' => 'builds.store', 'method' => 'post', 'class' => 'px-8 pt-6 pb-8 mb-4']) !!}
+    {!! Form::model($build, ['route' => ['builds.update', $build], 'method' => 'put', 'class' => 'px-8 pt-6 pb-8 mb-4']) !!}
 
     <div class="mb-4">
         {!! Form::label('name', 'Name', ['class' => 'block text-gray-700 text-sm font-bold mb-2']) !!}
-        {!! Form::text('name', $build->name, ['required', 'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) !!}
+        {!! Form::text('name', null, ['required', 'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) !!}
     </div>
 
     <div class="mb-4">
         {!! Form::label('description', 'Description', ['class' => 'block text-gray-700 text-sm font-bold mb-2']) !!}
-        {!! Form::textarea('description', $build->description, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) !!}
+        {!! Form::textarea('description', null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) !!}
     </div>
 
     @livewire('character-selector', ['characters' => $characters, 'character_id' => $build->character_id])

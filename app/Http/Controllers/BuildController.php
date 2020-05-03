@@ -80,7 +80,9 @@ class BuildController extends Controller
      */
     public function update(Request $request, Build $build)
     {
-        $build = $build->update($request->except('mods'));
+        $this->authorize($build);
+
+        $build->update($request->except('mods'));
         $build->mods()->sync(Arr::flatten($request->get('mods')));
 
         return redirect('/');
