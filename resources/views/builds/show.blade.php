@@ -15,7 +15,10 @@
         <div class="grid grid-cols-2">
             @foreach($build->mods->groupBy('gun_id') as $mods)
             <div>
-                <p class="text-center mt-2 mb-2 font-bold">{{ $mods[0]->gun->name }}</p>
+                <p class="text-center mt-2 mb-2 font-bold">
+                    <x-gun-icon :name="$mods[0]->gun->name" size="w-20" />
+                    {{ $mods[0]->gun->name }}
+                </p>
                 <ul class="md:grid md:grid-cols-2 md:col-gap-8 md:row-gap-10">
                     @foreach($mods as $mod)
                         <li>

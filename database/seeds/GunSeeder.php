@@ -21,7 +21,7 @@ class GunSeeder extends Seeder
          */
         $characterGuns = [
             1 => [
-                ['name' => '"Warthog" Auth 210', 'gun_class' => 'Shotgun', 'character_slot' => 1],
+                ['name' => '"Warthog" Auto 210', 'gun_class' => 'Shotgun', 'character_slot' => 1],
                 ['name' => '"Stubby" Voltaic SMG', 'gun_class' => 'Submachine Gun', 'character_slot' => 1],
                 ['name' => 'Deepcore 40MM PGL', 'gun_class' => 'Heavy Weapon', 'character_slot' => 2],
                 ['name' => 'Breach Cutter', 'gun_class' => 'Heavy Weapon', 'character_slot' => 2],
@@ -41,7 +41,7 @@ class GunSeeder extends Seeder
             4 => [
                 ['name' => '"Lead Storm" Powered Minigun', 'gun_class' => 'Heavy Weapon', 'character_slot' => 1],
                 ['name' => '"Thunderhead" Heavy Autocannon', 'gun_class' => 'Heavy Weapon', 'character_slot' => 1],
-                ['name' => '"Buildog" Heavy Revolver', 'gun_class' => 'Revolver', 'character_slot' => 2],
+                ['name' => '"Bulldog" Heavy Revolver', 'gun_class' => 'Revolver', 'character_slot' => 2],
                 ['name' => 'BRT7 Burst Fire Gun', 'gun_class' => 'Pistol', 'character_slot' => 2],
             ]
         ];

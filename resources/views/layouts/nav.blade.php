@@ -16,6 +16,7 @@
                 </div>
             </div>
             <div class="hidden md:block">
+                @auth
                 <div class="ml-4 flex items-center md:ml-6">
                     <button class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700" aria-label="Notifications">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -47,6 +48,10 @@
 {{--                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
+                        @endauth
+                        @guest
+                                <a href="/login" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Login</a>
+                        @endguest
                     </div>
                 </div>
             </div>
