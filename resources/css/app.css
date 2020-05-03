@@ -4,7 +4,4 @@
 
 @tailwind utilities;
 
-input[type="radio"] { visibility:hidden; }
-:checked + span {
-    font-weight: bold;
-}
+#character-selections input[type="radio"] { visibility:hidden; }
