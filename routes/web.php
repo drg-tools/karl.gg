@@ -13,9 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('builds', 'BuildController')->except(['index', 'show']);
+});
+
 Route::get('/', 'BuildController@index');
-Route::resource('builds', 'BuildController')->except(['index']);
+Route::resource('builds', 'BuildController')->only(['index', 'show']);
 Auth::routes();
+
+
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
