@@ -1,0 +1,13 @@
+
+Must Haves
+
+- Editing
+- Overclock support
+- Comments
+- Favorites
+- Index sorting / filtering
+- Reddit table support
+
+Maybes
+
+- Other types of builds (perks, other character slots)
