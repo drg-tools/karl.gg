@@ -22,11 +22,16 @@ class CharacterSelector extends Component
         }
     }
 
+    public function getSelectedCharacterProperty()
+    {
+        return Character::with('guns')
+            ->find($this->character_id);
+    }
+
     public function render()
     {
-        $selected = Character::with('guns')
-            ->find($this->character_id);
 
-        return view('livewire.character-selector', compact('selected'));
+
+        return view('livewire.character-selector');
     }
 }

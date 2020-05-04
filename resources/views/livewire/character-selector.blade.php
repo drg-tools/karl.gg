@@ -14,11 +14,11 @@
 
     <input type="hidden" name="character_id" value="{{ $character_id }}">
 
-    @if($selected)
+    @if($this->selectedCharacter)
         @if($build)
-        @livewire('gun-selector', ['guns' => $selected->guns, 'selected' => $build->mods->each->gun->pluck('gun.id','gun.character_slot')->all() ?? [], 'build' => $build ?? null], key($selected->id))
+        @livewire('gun-selector', ['guns' => $this->selectedCharacter->guns, 'selected' => $build->mods->each->gun->pluck('gun.id','gun.character_slot')->all() ?? [], 'build' => $build ?? null], key($this->selectedCharacter->id))
         @else
-        @livewire('gun-selector', ['guns' => $selected->guns], key($selected->id))
+        @livewire('gun-selector', ['guns' => $this->selectedCharacter->guns], key($this->selectedCharacter->id))
         @endif
     @endif
 </div>
