@@ -2,24 +2,24 @@
 
 namespace App\View\Components;
 
-use Illuminate\Support\Str;
+use App\Mod;
 use Illuminate\View\Component;
 
 class ModIcon extends Component
 {
-    public $name;
+    public $mod;
 
     public $size;
 
     /**
      * Create a new component instance.
      *
-     * @param $name
+     * @param Mod $mod
      * @param string $size
      */
-    public function __construct($name, $size = "6")
+    public function __construct(Mod $mod, $size = "6")
     {
-        $this->name = strtolower(Str::slug($name, "_"));
+        $this->mod = $mod;
         $this->size = $size;
     }
 
