@@ -18,8 +18,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('builds', 'BuildController')->except(['index', 'show']);
 });
 
-Route::get('/', 'BuildController@index');
 Route::resource('builds', 'BuildController')->only(['index', 'show']);
+Route::get('/', 'BuildController@index');
 Auth::routes();
 
 
