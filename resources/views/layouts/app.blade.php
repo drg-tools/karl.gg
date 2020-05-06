@@ -36,7 +36,15 @@
         </main>
 
         @livewireScripts
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
         @yield('scripts')
+        <script>
+            (function() {
+                $('#mobile-menu-button').on('click', function () {
+                    $('#mobile-menu').toggleClass('hidden md:hidden')
+                })
+            })();
+        </script>
     </div>
 </body>
 </html>
