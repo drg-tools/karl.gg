@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
 class Build extends Model
 {
+
+    use Favoriteable;
+
     protected $guarded = [];
 
     public function creator()

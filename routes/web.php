@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('my-builds', 'BuildController@myBuilds')->name('builds.my');
+    Route::get('favorites', 'BuildController@favorites')->name('builds.favorites');
     Route::resource('builds', 'BuildController')->except(['index', 'show']);
+    Route::resource('builds.favorites', 'Build\FavoriteController')->only('store');
 });
 
 Route::resource('builds', 'BuildController')->only(['index', 'show']);

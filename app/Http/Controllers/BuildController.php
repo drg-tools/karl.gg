@@ -35,6 +35,19 @@ class BuildController extends Controller
     }
 
     /**
+     * Display a listing of user's favorites.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function favorites(Request $request)
+    {
+        $favorites = $request->user()->favorites()->where('favoriteable_type', Build::class)->with('favoriteable')->paginate(10);
+
+        return view('builds.favorites', compact('favorites'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -49,7 +62,7 @@ class BuildController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -63,7 +76,7 @@ class BuildController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Build  $build
+     * @param \App\Build $build
      * @return \Illuminate\Http\Response
      */
     public function show(Build $build)
@@ -74,7 +87,7 @@ class BuildController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Build  $build
+     * @param \App\Build $build
      * @return \Illuminate\Http\Response
      */
     public function edit(Build $build)
@@ -106,7 +119,7 @@ class BuildController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Build  $build
+     * @param \App\Build $build
      * @return \Illuminate\Http\Response
      */
     public function destroy(Build $build)
