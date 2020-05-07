@@ -44,6 +44,10 @@
                 @yield('content')
             </div>
         </main>
+        <footer class='w-full text-center border-t border-grey p-4 pin-b mt-4 text-gray-500 flex flex-1 justify-center'>
+            <div class="p-2 mr-2" id="copyright">Copyright @ {{ \Carbon\Carbon::today()->year }} DRG Builds</div>
+            <div class="p-2"><a href="/privacy-policy">Privacy Policy</a></div>
+        </footer>
 
         @livewireScripts
         <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>

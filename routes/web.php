@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::resource('builds', 'BuildController')->only(['index', 'show']);
+Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('/', 'BuildController@index');
 Auth::routes();
 
