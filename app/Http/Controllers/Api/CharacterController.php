@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Character;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
@@ -14,17 +15,7 @@ class CharacterController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Character::all();
     }
 
     /**
@@ -45,17 +36,6 @@ class CharacterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Character $character)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Character  $character
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Character $character)
     {
         //
     }
