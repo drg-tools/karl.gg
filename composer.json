@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
-        "livewire/livewire": "^1.0"
+        "livewire/livewire": "^1.0",
+        "tucker-eric/eloquentfilter": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

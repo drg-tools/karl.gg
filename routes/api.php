@@ -20,4 +20,7 @@ Route::middleware('auth:api')->group(function() {
     });
 });
 
+Route::resource('builds', 'Api\BuildController')->only(['index', 'show']);
 Route::resource('characters', 'Api\CharacterController')->only(['index', 'show']);
+Route::resource('guns', 'Api\GunController')->only(['index', 'show']);
+Route::resource('mods', 'Api\ModController')->only(['index', 'show']);

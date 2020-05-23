@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Character;
 use App\Http\Controllers\Controller;
+use App\Mod;
 use Illuminate\Http\Request;
 
-class CharacterController extends Controller
+class ModController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Character[]|\Illuminate\Database\Eloquent\Collection
+     * @param Request $request
+     * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Character::all();
+        return Mod::filter($request->all())->get();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -32,22 +43,33 @@ class CharacterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Character $character
-     * @return Character
+     * @param Mod $mod
+     * @return Mod
      */
-    public function show(Character $character)
+    public function show(Mod $mod)
     {
-        return $character;
+        return $mod;
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param Character $character
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Character $character)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -55,10 +77,10 @@ class CharacterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Character $character
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Character $character)
+    public function destroy($id)
     {
         //
     }
