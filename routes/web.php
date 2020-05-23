@@ -18,6 +18,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('favorites', 'BuildController@favorites')->name('builds.favorites');
     Route::resource('builds', 'BuildController')->except(['index', 'show']);
     Route::resource('builds.favorites', 'Build\FavoriteController')->only('store');
+
+
+    Route::resource('api/builds', 'Api\BuildController')->only(['index', 'show']);
+    Route::resource('api/characters', 'Api\CharacterController')->only(['index', 'show']);
+    Route::resource('api/guns', 'Api\GunController')->only(['index', 'show']);
+    Route::resource('api/mods', 'Api\ModController')->only(['index', 'show']);
+
 });
 
 Route::resource('builds', 'BuildController')->only(['index', 'show']);
