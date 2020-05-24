@@ -4,9 +4,7 @@
 
 @section('content')
 
-    <div id="main">
-        <example-component></example-component>
-    </div>
+    <App></App>
 
 @endsection
 

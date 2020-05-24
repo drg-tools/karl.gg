@@ -16,9 +16,13 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
+const files = require.context('./', true, /\.vue$/i);
+console.log('files', files.keys());
+files.keys().map(key => {
+    let keyId = key.split('/').pop().split('.')[0];
+    console.log(keyId);
+    Vue.component(keyId, files(key).default);
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -26,6 +30,19 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import Vue from 'vue';
+import App from './App.vue';
+import store from './store';
+import Toasted from 'vue-toasted';
+import Popover from 'vue-js-popover';
+
+Vue.config.productionTip = false;
+Vue.use(Toasted);
+
+Vue.use(Popover);
+
 const app = new Vue({
     el: '#app',
+    store,
+    render: h => h(App) /* todo: remove renderer overwrite to get back to the php views and place karl components one by one, without App.vue */
 });

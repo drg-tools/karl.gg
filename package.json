@@ -25,5 +25,11 @@
         "tailwindcss": "^1.4",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "lz-string": "^1.4.4",
+        "vue-js-popover": "^1.2.1",
+        "vue-toasted": "^1.1.28",
+        "vuex": "^3.4.0"
     }
 }
