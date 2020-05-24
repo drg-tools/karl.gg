@@ -1899,6 +1899,323 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_ClassSelect_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ClassSelect.vue */ "./resources/js/components/ClassSelect.vue");
+/* harmony import */ var _components_EquipmentSelect_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/EquipmentSelect.vue */ "./resources/js/components/EquipmentSelect.vue");
+/* harmony import */ var _components_ModificationSelect_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ModificationSelect.vue */ "./resources/js/components/ModificationSelect.vue");
+/* harmony import */ var _components_StatsDisplay_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/StatsDisplay.vue */ "./resources/js/components/StatsDisplay.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var lz_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lz-string */ "./node_modules/lz-string/libs/lz-string.js");
+/* harmony import */ var lz_string__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lz_string__WEBPACK_IMPORTED_MODULE_5__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+var toastOptions = {
+  theme: 'bubble',
+  position: 'top-center',
+  duration: 3000
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'app',
+  components: {
+    ClassSelect: _components_ClassSelect_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    EquipmentSelect: _components_EquipmentSelect_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ModificationSelect: _components_ModificationSelect_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    StatsDisplay: _components_StatsDisplay_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  computed: {
+    svg: function svg() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.testJS;
+    },
+    selectedClass: function selectedClass() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.selected["class"];
+    },
+    drillerEquipment: function drillerEquipment() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.tree.D;
+    },
+    engineerEquipment: function engineerEquipment() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.tree.E;
+    },
+    gunnerEquipment: function gunnerEquipment() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.tree.G;
+    },
+    scoutEquipment: function scoutEquipment() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.tree.S;
+    },
+    robotEquipment: function robotEquipment() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.tree.R;
+    },
+    classes: function classes() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.tree;
+    },
+    getStoreState: function getStoreState() {
+      return _store__WEBPACK_IMPORTED_MODULE_4__["default"].state;
+    }
+  },
+  methods: {
+    getLink: function getLink() {
+      var dataParts = _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.dataParts;
+      var classInFocus = _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.selected["class"];
+      var equipmentInFocus = _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.selected.equipment;
+      dataParts[classInFocus][equipmentInFocus].push('focus'); // todo: this focus mechanic is not ideal, put in object instead of array: {... focus: {class: S, equipment: S2} ...}
+
+      var parts = JSON.stringify(dataParts);
+      var uri = "https://surmiran.github.io/karl/?=".concat(lz_string__WEBPACK_IMPORTED_MODULE_5___default.a.compressToEncodedURIComponent(parts));
+      var copyTextarea = document.getElementById('idCopyTextArea');
+      copyTextarea.disabled = false;
+      copyTextarea.value = uri;
+      copyTextarea.focus();
+      copyTextarea.select();
+
+      try {
+        var successful = document.execCommand('copy');
+
+        if (successful) {
+          this.$toasted.show('Loadout was sent to management for approval (copied to clipboard)', toastOptions);
+        } else {
+          this.$toasted.show('I can\'t feel my beard!', toastOptions);
+        }
+      } catch (err) {
+        this.$toasted.show('By the beard! Copying to clipboard was not successful', toastOptions);
+      }
+
+      copyTextarea.disabled = true;
+    }
+  },
+  mounted: function mounted() {
+    var dataString = window.location.search.substr(2);
+
+    if (dataString) {
+      try {
+        var parts = JSON.parse(lz_string__WEBPACK_IMPORTED_MODULE_5___default.a.decompressFromEncodedURIComponent(dataString));
+        this.$toasted.show('For Karl!', toastOptions);
+        _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('loadFromLink', parts);
+      } catch (err) {
+        this.$toasted.show('Management is unhappy about the shared link.', toastOptions);
+        console.log(err);
+      }
+    }
+
+    this.$nextTick(function () {
+      var storeState = this.getStoreState;
+
+      if (storeState.loadedFromLink && storeState.loadedOverclockFromLink) {
+        var selectedClassId = storeState.selected["class"];
+        var selectedEquipmentId = storeState.selected.equipment;
+        var overclockId = storeState.selected.overclock;
+        var selected = false;
+        this.$children[13].selectOverclock(selectedClassId, selectedEquipmentId, overclockId, selected);
+        this.$children[13].$forceUpdate(); // todo: this only works for the displayed overclocks, all other shared gear does not show the selected overclock yet..
+        // todo: the whole overclock display needs to be reworked in order for this to work as intended
+      }
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ClassSelect.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/js/store.js");
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ClassSelect",
+  props: {
+    name: String,
+    classId: String
+  },
+  computed: {
+    isSelected: function isSelected() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.selected["class"] === this.classId;
+    }
+  },
+  methods: {
+    selectClass: function selectClass() {
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("selectClass", {
+        classID: this.classId
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EquipmentSelect.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/js/store.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "EquipmentSelect",
+  props: {
+    iconPath: String,
+    name: String,
+    classId: String,
+    equipmentId: String,
+    data: Object
+  },
+  computed: {
+    getIconFromPath: function getIconFromPath() {
+      var aPath = this.iconPath.split(".");
+
+      if (aPath.length < 2) {
+        return "";
+      }
+
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.icons[aPath[0]][aPath[1]];
+    },
+    getSelected: function getSelected() {
+      return this.data.selected;
+    },
+    getModified: function getModified() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.classId][this.equipmentId].modified;
+    }
+  },
+  methods: {
+    selectEquip: function selectEquip() {
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("selectEquipment", {
+        classID: this.classId,
+        equipID: this.equipmentId
+      });
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("deSelectOtherEquipments", {
+        classID: this.classId,
+        equipID: this.equipmentId
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -1930,6 +2247,825 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (data) {
       return _this.characters = data;
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModificationSelect.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/js/store.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ModificationSelect",
+  computed: {
+    selectedClassId: function selectedClassId() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.selected["class"];
+    },
+    selectedEquipmentId: function selectedEquipmentId() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.selected.equipment;
+    },
+    availableMods: function availableMods() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.selectedClassId][this.selectedEquipmentId].mods;
+    },
+    availableOverclocks: function availableOverclocks() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
+    },
+    hoveredMod: function hoveredMod() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.hovered;
+    },
+    computedState: function computedState() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state;
+    }
+  },
+  methods: {
+    selectMod: function selectMod(classId, equipmentId, tierId, modId, selected) {
+      if (selected) {
+        _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("deSelectAllModifications", {
+          classID: classId,
+          equipID: equipmentId,
+          tierID: tierId,
+          modID: modId
+        });
+      } else {
+        _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("selectModification", {
+          classID: classId,
+          equipID: equipmentId,
+          tierID: tierId,
+          modID: modId
+        });
+        _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("deSelectOtherModifications", {
+          classID: classId,
+          equipID: equipmentId,
+          tierID: tierId,
+          modID: modId
+        });
+      }
+    },
+    hoverMod: function hoverMod(classId, equipmentId, tierId, modId) {
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("addToHovered", {
+        classID: classId,
+        equipID: equipmentId,
+        tierID: tierId,
+        modID: modId
+      });
+    },
+    selectOverclock: function selectOverclock(classId, equipmentId, overclockId, selected) {
+      var tierId = "overclock";
+
+      if (selected) {
+        _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("deSelectAllModifications", {
+          classID: classId,
+          equipID: equipmentId,
+          tierID: tierId,
+          modID: overclockId
+        });
+      } else {
+        _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("selectModification", {
+          classID: classId,
+          equipID: equipmentId,
+          tierID: tierId,
+          modID: overclockId
+        });
+        _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("deSelectOtherModifications", {
+          classID: classId,
+          equipID: equipmentId,
+          tierID: tierId,
+          modID: overclockId
+        });
+      }
+    },
+    hoverOverclock: function hoverOverclock(classId, equipmentId, overclockId) {
+      var tierId = "overclock";
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit("addToHovered", {
+        classID: classId,
+        equipID: equipmentId,
+        tierID: tierId,
+        modID: overclockId
+      });
+    },
+    getSelected: function getSelected(mod) {
+      return mod.selected;
+    },
+    getIconFromPath: function getIconFromPath(iconPath) {
+      // combine icon from path with icon border!
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.icons.mods[iconPath];
+    },
+    getSelectedOverclockIcon: function getSelectedOverclockIcon(state) {
+      var overclocks = state.tree[state.selected["class"]][state.selected.equipment].overclocks;
+      var dataParts = state.dataParts[state.selected["class"]];
+
+      if (!state || !dataParts) {
+        return "";
+      }
+
+      var dataPartsEquipment = dataParts[state.selected.equipment];
+
+      if (!dataPartsEquipment || !overclocks) {
+        return "";
+      }
+
+      var selectedOverclock = overclocks[dataPartsEquipment["overclock"]];
+      return selectedOverclock ? state.icons.mods[selectedOverclock.icon] : "";
+    },
+    getSelectedOverclockClass: function getSelectedOverclockClass(state) {
+      var overclocks = state.tree[state.selected["class"]][state.selected.equipment].overclocks;
+      var dataParts = state.dataParts[state.selected["class"]];
+
+      if (!state || !dataParts) {
+        return "clean";
+      }
+
+      var dataPartsEquipment = dataParts[state.selected.equipment];
+
+      if (!dataPartsEquipment || !overclocks) {
+        return "clean";
+      }
+
+      var selectedOverclock = overclocks[dataPartsEquipment["overclock"]];
+      return selectedOverclock ? selectedOverclock.type : "clean";
+    },
+    getOverclocksAvailable: function getOverclocksAvailable(state) {
+      var overclocks = state.tree[state.selected["class"]][state.selected.equipment].overclocks;
+      return !overclocks ? "displayNone" : "";
+    },
+    getCleanDisplay: function getCleanDisplay(state) {
+      return this.getSelectedOverclockClass(state) === "clean" ? "inherit" : "none";
+    },
+    getBalancedDisplay: function getBalancedDisplay(state) {
+      return this.getSelectedOverclockClass(state) === "balanced" ? "inherit" : "none";
+    },
+    getUnstableDisplay: function getUnstableDisplay(state) {
+      return this.getSelectedOverclockClass(state) === "unstable" ? "inherit" : "none";
+    },
+    getCleanDisplayByOverclock: function getCleanDisplayByOverclock(overclock) {
+      return overclock.type === "clean" ? "inherit" : "none";
+    },
+    getBalancedDisplayByOverclock: function getBalancedDisplayByOverclock(overclock) {
+      return overclock.type === "balanced" ? "inherit" : "none";
+    },
+    getUnstableDisplayByOverclock: function getUnstableDisplayByOverclock(overclock) {
+      return overclock.type === "unstable" ? "inherit" : "none";
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StatsDisplay.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/js/store.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+var _calculateDamage = function _calculateDamage(stats) {
+  var damageWords = ["Damage", "Area Damage", "Electric Damage", "Direct Damage"];
+  var magazineSizeWords = ["Tank Size", "Magazine Size", "Clip Size", "Combined Clip Size"];
+  var ammoWords = ["Max Ammo", "Max Fuel"];
+  var rateOfFireWords = ["Rate of Fire", "Combined Rate of Fire"];
+  var reloadTimeWords = ["Reload Time"];
+  var pelletsWords = ["Pellets"];
+  var weakPointWords = ["Weakpoint Damage Bonus"];
+  var dpsStats = {};
+
+  var _iterator = _createForOfIteratorHelper(stats),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var stat = _step.value;
+
+      if (damageWords.includes(stat.name)) {
+        if (dpsStats.damage) {
+          // there is a damage stat already, add the second one to it (probably area damage)
+          dpsStats.damage += parseFloat(stat.value);
+        } else {
+          dpsStats.damage = parseFloat(stat.value);
+        }
+      } else if (magazineSizeWords.includes(stat.name) && !dpsStats.magazineSize) {
+        dpsStats.magazineSize = parseFloat(stat.value);
+      } else if (rateOfFireWords.includes(stat.name) && !dpsStats.rateOfFire) {
+        dpsStats.rateOfFire = parseFloat(stat.value);
+      } else if (reloadTimeWords.includes(stat.name) && !dpsStats.reloadTime) {
+        dpsStats.reloadTime = parseFloat(stat.value);
+      } else if (pelletsWords.includes(stat.name)) {
+        dpsStats.damage = dpsStats.damage * parseFloat(stat.value);
+      } else if (ammoWords.includes(stat.name)) {
+        dpsStats.maxAmmo = parseFloat(stat.value);
+      } else if (weakPointWords.includes(stat.name)) {
+        dpsStats.weakPoint = parseFloat(stat.value);
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+  var timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+  var damageTime = timeToEmpty + dpsStats.reloadTime; // sequence of shooting and reloading for calculating dps
+
+  var magazineDamage = dpsStats.damage * dpsStats.magazineSize;
+  var damagePerSecond = magazineDamage / damageTime;
+  return {
+    tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
+    wpd: (dpsStats.damage * (1 + dpsStats.weakPoint / 100)).toFixed(2),
+    dps: parseFloat(damagePerSecond).toFixed(2),
+    dpm: magazineDamage,
+    dpa: dpsStats.damage * dpsStats.maxAmmo
+  };
+};
+
+var precisionCalc = function precisionCalc(a) {
+  if (!isFinite(a)) return 0;
+  var e = 1,
+      p = 0;
+
+  while (Math.round(a * e) / e !== a) {
+    e *= 10;
+    p++;
+  }
+
+  return p;
+};
+
+var calculateUpgradesForStat = function calculateUpgradesForStat(stat, upgradesForStat) {
+  // loop trough upgradesForStat and calculate
+  // if multiply is true, put in temp array and loop trough all multiplications in the end, after normal calc is done
+  var upgradesToMultiply = [];
+  var modifiedValue = stat.value;
+  var originalValue = stat.value;
+  var statsPrecision = precisionCalc(modifiedValue);
+  var basePrecision = precisionCalc(originalValue);
+  var precision;
+
+  var _iterator2 = _createForOfIteratorHelper(upgradesForStat),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var upgradeElement = _step2.value;
+      var upgradePrecision = precisionCalc(upgradeElement.value);
+      var precisionTemp = statsPrecision > upgradePrecision ? statsPrecision : upgradePrecision;
+      precision = basePrecision > precisionTemp ? basePrecision : precisionTemp;
+
+      if (upgradeElement.multiply) {
+        upgradesToMultiply.push(upgradeElement);
+      } else {
+        // calculation here
+        if (upgradeElement.subtract) {
+          modifiedValue = (parseFloat(modifiedValue) - parseFloat(upgradeElement.value)).toFixed(precision);
+        } else {
+          modifiedValue = (parseFloat(modifiedValue) + parseFloat(upgradeElement.value)).toFixed(precision);
+        }
+      }
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  if (upgradesToMultiply.length > 0) {
+    var _iterator3 = _createForOfIteratorHelper(upgradesToMultiply),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var upgradetoMultiply = _step3.value;
+        // calculation here
+        modifiedValue = (parseFloat(modifiedValue) * parseFloat(upgradetoMultiply.value)).toFixed(precision);
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+  }
+
+  modifiedValue = parseFloat(modifiedValue).toFixed(precision);
+  var difference = (parseFloat(modifiedValue) - parseFloat(originalValue)).toFixed(precision);
+  stat.modifier = "".concat(difference < 0 ? "" : "+").concat(difference).concat(stat.percent ? "%" : "");
+  stat.modified = true;
+  stat.value = modifiedValue;
+  stat.baseValue = originalValue;
+  return stat;
+};
+
+var getModifiedStats = function getModifiedStats(baseStats, selectedUpgrades) {
+  // loop trough all selected upgrades
+  var upgradesForEachStat = new Map();
+  var costs = [];
+
+  var _iterator4 = _createForOfIteratorHelper(selectedUpgrades),
+      _step4;
+
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      var upgrade = _step4.value;
+      costs.push(upgrade.cost); // loop trough stats of upgrade
+
+      for (var statKey in upgrade.stats) {
+        var statContent = upgrade.stats[statKey];
+        var tempContent = [];
+
+        if (upgradesForEachStat.has(statKey)) {
+          tempContent = upgradesForEachStat.get(statKey);
+        }
+
+        tempContent.push(statContent);
+        upgradesForEachStat.set(statKey, tempContent);
+      }
+    } // group all upgrades by stat
+    // loop trough groups and calculate new value for each stat
+    // return stats
+
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
+  }
+
+  var stats = [];
+
+  for (var stat in baseStats) {
+    var workingStat = Object.assign({}, baseStats[stat]);
+
+    if (upgradesForEachStat.has(stat)) {
+      var upgradesForStat = upgradesForEachStat.get(stat);
+      var upgradedStat = calculateUpgradesForStat(workingStat, upgradesForStat);
+      stats.push(upgradedStat);
+    } else {
+      if (workingStat.value === 0) {
+        workingStat.inactive = true;
+      }
+
+      workingStat.baseValue = workingStat.value;
+      stats.push(workingStat);
+    }
+  } // stats is array of objects:
+
+  /*
+  baseValue: 120
+  modified: true
+  modifier: "+24"
+  name: "Battery Capacity"
+  value: "144"
+  ...also
+  */
+
+
+  return {
+    stats: stats,
+    costs: costs
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "StatsDisplay",
+  computed: {
+    selectedClassId: function selectedClassId() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.selected["class"];
+    },
+    selectedEquipmentId: function selectedEquipmentId() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.selected.equipment;
+    },
+    equipment: function equipment() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.selectedClassId][this.selectedEquipmentId];
+    },
+    baseStats: function baseStats() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.selectedClassId][this.selectedEquipmentId].baseStats;
+    },
+    calcStats: function calcStats() {
+      var visible = false;
+      var aSelectedUpgrades = _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.selectedClassId][this.selectedEquipmentId].mods.reduce(function (array, tierArray) {
+        array.push.apply(array, _toConsumableArray(tierArray.filter(function (mod) {
+          return mod.selected;
+        })));
+        return array;
+      }, []);
+      var overclocks = _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
+
+      if (overclocks) {
+        var _iterator5 = _createForOfIteratorHelper(_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks),
+            _step5;
+
+        try {
+          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+            var overclock = _step5.value;
+
+            if (overclock.selected) {
+              aSelectedUpgrades.push(overclock);
+            }
+          }
+        } catch (err) {
+          _iterator5.e(err);
+        } finally {
+          _iterator5.f();
+        }
+      }
+
+      var results = getModifiedStats(this.baseStats, aSelectedUpgrades);
+      var stats = results.stats;
+      var costs = results.costs;
+      var damage = this.equipment.calculateDamage ? this.equipment.calculateDamage(stats) : _calculateDamage(stats);
+      var totalCost = {
+        credits: 0,
+        bismor: 0,
+        croppa: 0,
+        enorPearl: 0,
+        jadiz: 0,
+        magnite: 0,
+        umanite: 0,
+        err: 0
+      };
+
+      var _iterator6 = _createForOfIteratorHelper(costs),
+          _step6;
+
+      try {
+        for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+          var cost = _step6.value;
+          totalCost.credits += cost.credits;
+          totalCost.bismor += cost.bismor;
+          totalCost.croppa += cost.croppa;
+          totalCost.enorPearl += cost.enorPearl;
+          totalCost.jadiz += cost.jadiz;
+          totalCost.magnite += cost.magnite;
+          totalCost.umanite += cost.umanite;
+          totalCost.err += cost.err;
+        }
+      } catch (err) {
+        _iterator6.e(err);
+      } finally {
+        _iterator6.f();
+      }
+
+      return {
+        stats: stats,
+        cost: totalCost,
+        visible: visible,
+        tte: damage.tte ? damage.tte : undefined,
+        wpd: damage.wpd ? damage.wpd : undefined,
+        dps: damage.dps ? damage.dps : undefined,
+        dpb: damage.dpb ? damage.dpb : undefined,
+        dpm: damage.dpm ? damage.dpm : undefined,
+        dpa: damage.dpa ? damage.dpa : undefined,
+        ex1: damage.ex1 ? damage.ex1 : undefined,
+        dpsplasma: damage.dpsplasma ? damage.dpsplasma : undefined,
+        dpscharged: damage.dpscharged ? damage.dpscharged : undefined,
+        dpbplasma: damage.dpbplasma ? damage.dpbplasma : undefined,
+        dpbcharged: damage.dpbcharged ? damage.dpbcharged : undefined,
+        dpaplasma: damage.dpaplasma ? damage.dpaplasma : undefined,
+        dpacharged: damage.dpacharged ? damage.dpacharged : undefined
+      };
+    }
   }
 });
 
@@ -6462,6 +7598,188 @@ __webpack_require__.r(__webpack_exports__);
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*todo: only three different font sizes!*/\n/*todo: web fonts*/\nhtml {\n    height: 100%;\n}\nbody {\n    display: flex;\n    justify-content: center;\n    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#322c20+0,5f5137+100 */\n    background: #322c20; /* Old browsers */\n    background-repeat: no-repeat;\n    background: -moz-linear-gradient(-45deg, #322c20 0%, #5f5137 100%) fixed; /* FF3.6-15 */\n    background: -webkit-linear-gradient(-45deg, #322c20 0%, #5f5137 100%) fixed; /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(135deg, #322c20 0%, #5f5137 100%) fixed; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#322c20', endColorstr='#5f5137', GradientType=1); /* IE6-9 fallback on horizontal gradient */\n    height: 100%;\n}\nh1 {\n    display: block;\n    font-size: 2em;\n    margin-block-start: 0.67em;\n    margin-block-end: 0.67em;\n    margin-inline-start: 0px;\n    margin-inline-end: 0px;\n    font-weight: bold;\n}\nh2 {\n    display: block;\n    font-size: 1.5em;\n    margin-block-start: 0.83em;\n    margin-block-end: 0.83em;\n    margin-inline-start: 0px;\n    margin-inline-end: 0px;\n    font-weight: bold;\n    color: #fffbff;\n}\nh4 {\n    display: block;\n    margin-block-start: 1.33em;\n    margin-block-end: 1.33em;\n    margin-inline-start: 0px;\n    margin-inline-end: 0px;\n    font-weight: bold;\n}\nspan {\n    line-height: 1.2\n}\n.karlApp {\n    font-family: \"Avenir\", Helvetica, Arial, sans-serif;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    margin-top: 60px;\n    width: 1000px;\n}\n.versionNumber {\n    font-size: 0.7rem;\n    color: rgba(255, 251, 255, 0.2);\n}\n.mainContainer {\n    display: flex;\n    flex-wrap: wrap;\n    /*height: 5rem;*/\n}\n.toasted.bubble {\n    background-color: #fc9e00 !important;\n    font-family: \"Avenir\", Helvetica, Arial, sans-serif;\n    padding-top: 0.5rem !important;\n    padding-bottom: 0.5rem !important;\n    padding-left: 1rem !important;\n    padding-right: 1rem !important;\n}\n.linkArea {\n    cursor: pointer;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    width: 10rem;\n    margin-left: auto;\n}\n.linkText {\n    cursor: pointer;\n    color: #fc9e00;\n}\n.copyTextArea {\n    cursor: pointer;\n    width: 80%;\n}\n.allCaps {\n    text-transform: uppercase;\n}\n.defaultBackground {\n    background-color: rgba(0, 0, 0, 0.2);\n}\n.equipment {\n    background-color: #5b402d;\n    color: #352e1e;\n}\n.equipmentActive {\n    background-color: #fc9e00;\n    color: #352e1e;\n}\n.equipmentIcon {\n    fill: #ada195;\n}\n.equipmentIconActive {\n    fill: #fffbff;\n}\n.equipmentText {\n    padding-left: 0.5rem;\n    padding-right: 1rem;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    background-color: #352e1e;\n    color: #ada195;\n}\n.equipmentTextActive {\n    padding-left: 0.5rem;\n    padding-right: 1rem;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    background-color: #010103;\n    color: #fffbff;\n}\n.classSelectContainer {\n    display: flex;\n    flex-wrap: wrap;\n    border-top: 5px solid #fc9e00;\n    background-color: #352e1e;\n    margin-bottom: 0.5rem;\n}\n.equipmentSelectContainer {\n    display: flex;\n    flex-wrap: nowrap;\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n    border-top: 5px solid #fc9e00;\n    background-color: #352e1e;\n    margin-bottom: 0.5rem;\n}\n.equipmentText:hover {\n    color: #fffbff;\n}\n.costList {\n    display: flex;\n    flex-wrap: wrap;\n    color: #fffbff;\n}\n.costListItem {\n    display: flex;\n    align-items: center;\n}\n.costListItem > img {\n    padding-right: 0.2rem;\n}\n.costListItem > span {\n    padding-right: 0.6rem;\n}\n@media (max-width: 1024px) {\nh2 {\n        font-size: 1.2rem;\n}\n#app {\n        width: 95vw;\n}\n.linkArea {\n        width: 5rem;\n}\n}\n::-webkit-scrollbar-button {\n    display: none;\n    height: 12px;\n    border-radius: 0px;\n    background-color: #aaa;\n}\n::-webkit-scrollbar-button:hover {\n    background-color: #aaa;\n}\n::-webkit-scrollbar-thumb {\n    background-color: #fc9e00;\n    border-radius: 0px;\n}\n::-webkit-scrollbar-thumb:hover {\n    background-color: #ffffff;\n    border-radius: 0px;\n}\n::-webkit-scrollbar-track {\n    background-color: #352e1e;\n    border-radius: 0px;\n}\n::-webkit-scrollbar-track:hover {\n    background-color: #352e1e;\n    border-radius: 0px;\n}\n::-webkit-scrollbar {\n    width: 12px;\n    height: 12px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.classSelectItem[data-v-81593d0e] {\n\tdisplay: flex;\n\tcursor: pointer;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nh4[data-v-69bb0b8f] {\n\twhite-space: nowrap;\n}\n.weaponSelectContainer[data-v-69bb0b8f] {\n\tdisplay: flex;\n\tcursor: pointer;\n}\n.weaponSelectContainer:hover .equipmentText[data-v-69bb0b8f] {\n\tcolor: #fffbff;\n}\n.weaponSelectContainer:hover .equipmentIcon[data-v-69bb0b8f] {\n\tfill: #fffbff;\n}\n.flexboxWeaponSelect[data-v-69bb0b8f] {\n\tdisplay: flex;\n\talign-items: center;\n\theight: 5rem;\n}\n.flexboxWeaponSelect > svg[data-v-69bb0b8f] {\n\tmargin: 0.5rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nh2[data-v-62779b63] {\n\twidth: 11rem;\n}\n.displayNone[data-v-62779b63] {\n\tdisplay: none !important;\n}\n.levelIndicator[data-v-62779b63] {\n\tmargin: 0;\n\tfont-size: 1rem;\n\tfont-style: normal;\n\tfont-weight: normal;\n\tcolor: rgba(255, 251, 255, 0.2);\n}\n.modSelection[data-v-62779b63] {\n\tflex: 1;\n\theight: 100%;\n\twidth: 100%;\n\tpadding-left: 1rem;\n}\n.modificationName[data-v-62779b63] {\n\tfont-size: 1.2rem;\n}\n.modSelectionTitle[data-v-62779b63] {\n\twidth: 100%;\n\t/*background-color: #282117;*/\n\tcolor: #fffbff;\n\tfont-size: 1.2rem;\n\ttext-align: center;\n}\n.tierContainer[data-v-62779b63] {\n\tdisplay: flex;\n\t/*padding-top: 0.5rem;\n\tpadding-bottom: 0.5rem;*/\n\tjustify-content: start;\n\talign-items: center;\n\tcolor: #282117;\n}\n.overclockContainer[data-v-62779b63] {\n\tdisplay: flex;\n\t/*padding-top: 0.5rem;\n\tpadding-bottom: 0.5rem;*/\n\tjustify-content: start;\n\talign-items: center;\n\tcolor: #282117;\n}\n.overclockGrid[data-v-62779b63] {\n\twidth: auto !important;\n\tdisplay: grid;\n\tgrid-gap: 10px;\n\tgrid-template-columns: 6rem 6rem 6rem;\n\tgrid-template-rows: 6rem 6rem 6rem;\n\tjustify-items: center;\n\tbackground-color: rgba(91, 64, 45, 0.75);\n\tborder-color: rgb(255, 255, 255);\n\tborder-style: solid;\n\tpadding: 10px 5px 10px 5px;\n}\n.tierSubContainer[data-v-62779b63] {\n\twidth: 100%;\n\tdisplay: flex;\n\tjustify-content: space-between;\n}\n.tierBackgroundGradient[data-v-62779b63] {\n\tbackground: linear-gradient(\n\t\t\tto bottom,\n\t\t\trgba(0, 0, 0, 0) 40%,\n\t\t\trgba(40, 33, 23, 1) 40%,\n\t\t\trgba(40, 33, 23, 1) 60%,\n\t\t\trgba(0, 0, 0, 0) 60%\n\t) no-repeat;\n\tbackground-size: 100% 100%;\n}\n.tierBackgroundGradientHalf[data-v-62779b63] {\n\tbackground: linear-gradient(\n\t\t\tto bottom,\n\t\t\trgba(0, 0, 0, 0) 40%,\n\t\t\trgba(40, 33, 23, 1) 40%,\n\t\t\trgba(40, 33, 23, 1) 60%,\n\t\t\trgba(0, 0, 0, 0) 60%\n\t) no-repeat;\n\tbackground-size: 50% 100%;\n}\n.overclockBackground[data-v-62779b63] {\n\tfill: #000000;\n\tstroke: #000000;\n}\n.modBackground[data-v-62779b63] {\n\tfill: #000000;\n\tstroke: #fc9e00;\n\tstroke-width: 2px;\n}\n.modBackgroundActive[data-v-62779b63] {\n\tfill: #fc9e00;\n\tstroke: #fffbff;\n\tstroke-width: 2px;\n}\n.overclockBackground[data-v-62779b63] {\n\tfill: #000000;\n\tstroke: none;\n\tstroke-width: 2px;\n}\n.overclockBackgroundActive[data-v-62779b63] {\n\tfill: #fc9e00;\n\tstroke: #fffbff;\n\tstroke-width: 2px;\n}\n.modBackgroundActiveNoStroke[data-v-62779b63] {\n\tfill: #fc9e00;\n\tstroke-width: 0px;\n}\n.modIcon[data-v-62779b63] {\n\tfill: #5b402d;\n\tstroke: none;\n}\n.modIconActive[data-v-62779b63] {\n\tfill: #000000;\n\tstroke: none;\n}\n.overclockIconActive[data-v-62779b63] {\n\tfill: #ada195;\n\tstroke: none;\n}\n.modPadding[data-v-62779b63] {\n\tpadding-left: 0.5rem;\n\tpadding-right: 0.5rem;\n}\n.modDisplay[data-v-62779b63] {\n\tcursor: pointer;\n\theight: 4rem;\n\twidth: 6rem;\n}\n.overclockDisplay[data-v-62779b63] {\n\tcursor: pointer;\n\theight: 6rem;\n\twidth: 100%;\n}\n.hundredPercent[data-v-62779b63] {\n\twidth: 100%;\n}\n.pseudoModDisplay[data-v-62779b63] {\n\theight: 4rem;\n\twidth: 6rem;\n}\n.modDisplay:hover .modBackground[data-v-62779b63] {\n\tstroke: #fffbff;\n}\n.modDisplay:hover .overclockBackground[data-v-62779b63] {\n\tstroke: #fffbff;\n}\n.modTextBox[data-v-62779b63] {\n\tmin-height: 11rem;\n\tpadding-top: 1rem;\n\tcolor: #fffbff;\n}\n.modTextBoxIcon[data-v-62779b63] {\n\theight: 5rem;\n}\n.modTextBoxHeader[data-v-62779b63] {\n\tdisplay: flex;\n\tpadding-bottom: 1rem;\n}\n.modTextBoxTitle p[data-v-62779b63] {\n\tmargin: 0;\n}\n.increaseOverBase[data-v-62779b63] {\n\tcolor: rgba(255, 251, 255, 0.4);\n\tpadding-top: 1rem;\n}\n@media (max-width: 1024px) {\n.modSelection[data-v-62779b63] {\n\t\tflex: 0 0 100%;\n\t\torder: 1;\n\t\tpadding: 0;\n}\n.tierSubContainer[data-v-62779b63] {\n\t\tmax-width: 30rem;\n}\n}\n@media (max-width: 550px) {\n.modDisplay[data-v-62779b63] {\n\t\theight: 3rem;\n\t\twidth: 4.8rem;\n}\n.pseudoModDisplay[data-v-62779b63] {\n\t\theight: 3rem;\n\t\twidth: 4.8rem;\n}\nh2[data-v-62779b63] {\n\t\twidth: 20vw;\n}\n.modificationName[data-v-62779b63] {\n\t\tfont-size: 1.2rem;\n}\n}\n@media (max-width: 400px) {\n.overclockGrid[data-v-62779b63] {\n\t\tleft: 5% !important;\n\t\twidth: 90% !important;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nh2[data-v-5d8c758e] {\n\ttext-transform: uppercase;\n\tfont-size: 1rem;\n\tfont-weight: normal;\n\tmargin-top: 1.5rem;\n\tmargin-bottom: 0.5rem;\n}\n.statsDisplay[data-v-5d8c758e] {\n\tflex: 1;\n\theight: 100%;\n\twidth: 100%;\n\tpadding-right: 1rem;\n\n\tdisplay: flex;\n\tflex-flow: column;\n\talign-items: center;\n}\n@media (max-width: 1024px) {\n.statsDisplay[data-v-5d8c758e] {\n\t\tflex: 0 0 100%;\n\t\torder: 2;\n\t\tpadding: 0;\n}\n}\n.equipmentTitle[data-v-5d8c758e] {\n\tfont-size: 1.5rem;\n\ttext-align: center;\n\tcolor: #fc9e00;\n\tmargin-bottom: 0;\n}\n.equipmentSubTitle[data-v-5d8c758e] {\n\ttext-align: center;\n\tcolor: #fffbff;\n\tfont-size: 1rem;\n\tmargin-top: 0;\n}\n.statsBaseContainer[data-v-5d8c758e] {\n\twidth: 100%;\n}\n.statsContainer[data-v-5d8c758e] {\n\tdisplay: flex;\n\twidth: 100%;\n}\n.fixedWidth[data-v-5d8c758e] {\n\twidth: 33%;\n}\n.statsValueContainer[data-v-5d8c758e] {\n\twidth: 45%;\n\tdisplay: flex;\n\tjustify-content: end;\n}\n.statsText[data-v-5d8c758e] {\n\twidth: 55%;\n\tcolor: rgba(255, 251, 255, 1);\n}\n.statsValue[data-v-5d8c758e] {\n\tcolor: #fc9e00;\n\ttext-align: right;\n}\n.statsModifier[data-v-5d8c758e] {\n\ttext-align: right;\n\tcolor: #fccc00;\n}\n.modifiedStat[data-v-5d8c758e] {\n\tcolor: #fccc00;\n}\n.inactiveStat[data-v-5d8c758e] {\n\tcolor: rgba(255, 251, 255, 0.2);\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
 
 
 /***/ }),
@@ -34466,6 +35784,517 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./node_modules/lz-string/libs/lz-string.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lz-string/libs/lz-string.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;// Copyright (c) 2013 Pieroxy <pieroxy@pieroxy.net>
+// This work is free. You can redistribute it and/or modify it
+// under the terms of the WTFPL, Version 2
+// For more information see LICENSE.txt or http://www.wtfpl.net/
+//
+// For more information, the home page:
+// http://pieroxy.net/blog/pages/lz-string/testing.html
+//
+// LZ-based compression algorithm, version 1.4.4
+var LZString = (function() {
+
+// private property
+var f = String.fromCharCode;
+var keyStrBase64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+var keyStrUriSafe = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$";
+var baseReverseDic = {};
+
+function getBaseValue(alphabet, character) {
+  if (!baseReverseDic[alphabet]) {
+    baseReverseDic[alphabet] = {};
+    for (var i=0 ; i<alphabet.length ; i++) {
+      baseReverseDic[alphabet][alphabet.charAt(i)] = i;
+    }
+  }
+  return baseReverseDic[alphabet][character];
+}
+
+var LZString = {
+  compressToBase64 : function (input) {
+    if (input == null) return "";
+    var res = LZString._compress(input, 6, function(a){return keyStrBase64.charAt(a);});
+    switch (res.length % 4) { // To produce valid Base64
+    default: // When could this happen ?
+    case 0 : return res;
+    case 1 : return res+"===";
+    case 2 : return res+"==";
+    case 3 : return res+"=";
+    }
+  },
+
+  decompressFromBase64 : function (input) {
+    if (input == null) return "";
+    if (input == "") return null;
+    return LZString._decompress(input.length, 32, function(index) { return getBaseValue(keyStrBase64, input.charAt(index)); });
+  },
+
+  compressToUTF16 : function (input) {
+    if (input == null) return "";
+    return LZString._compress(input, 15, function(a){return f(a+32);}) + " ";
+  },
+
+  decompressFromUTF16: function (compressed) {
+    if (compressed == null) return "";
+    if (compressed == "") return null;
+    return LZString._decompress(compressed.length, 16384, function(index) { return compressed.charCodeAt(index) - 32; });
+  },
+
+  //compress into uint8array (UCS-2 big endian format)
+  compressToUint8Array: function (uncompressed) {
+    var compressed = LZString.compress(uncompressed);
+    var buf=new Uint8Array(compressed.length*2); // 2 bytes per character
+
+    for (var i=0, TotalLen=compressed.length; i<TotalLen; i++) {
+      var current_value = compressed.charCodeAt(i);
+      buf[i*2] = current_value >>> 8;
+      buf[i*2+1] = current_value % 256;
+    }
+    return buf;
+  },
+
+  //decompress from uint8array (UCS-2 big endian format)
+  decompressFromUint8Array:function (compressed) {
+    if (compressed===null || compressed===undefined){
+        return LZString.decompress(compressed);
+    } else {
+        var buf=new Array(compressed.length/2); // 2 bytes per character
+        for (var i=0, TotalLen=buf.length; i<TotalLen; i++) {
+          buf[i]=compressed[i*2]*256+compressed[i*2+1];
+        }
+
+        var result = [];
+        buf.forEach(function (c) {
+          result.push(f(c));
+        });
+        return LZString.decompress(result.join(''));
+
+    }
+
+  },
+
+
+  //compress into a string that is already URI encoded
+  compressToEncodedURIComponent: function (input) {
+    if (input == null) return "";
+    return LZString._compress(input, 6, function(a){return keyStrUriSafe.charAt(a);});
+  },
+
+  //decompress from an output of compressToEncodedURIComponent
+  decompressFromEncodedURIComponent:function (input) {
+    if (input == null) return "";
+    if (input == "") return null;
+    input = input.replace(/ /g, "+");
+    return LZString._decompress(input.length, 32, function(index) { return getBaseValue(keyStrUriSafe, input.charAt(index)); });
+  },
+
+  compress: function (uncompressed) {
+    return LZString._compress(uncompressed, 16, function(a){return f(a);});
+  },
+  _compress: function (uncompressed, bitsPerChar, getCharFromInt) {
+    if (uncompressed == null) return "";
+    var i, value,
+        context_dictionary= {},
+        context_dictionaryToCreate= {},
+        context_c="",
+        context_wc="",
+        context_w="",
+        context_enlargeIn= 2, // Compensate for the first entry which should not count
+        context_dictSize= 3,
+        context_numBits= 2,
+        context_data=[],
+        context_data_val=0,
+        context_data_position=0,
+        ii;
+
+    for (ii = 0; ii < uncompressed.length; ii += 1) {
+      context_c = uncompressed.charAt(ii);
+      if (!Object.prototype.hasOwnProperty.call(context_dictionary,context_c)) {
+        context_dictionary[context_c] = context_dictSize++;
+        context_dictionaryToCreate[context_c] = true;
+      }
+
+      context_wc = context_w + context_c;
+      if (Object.prototype.hasOwnProperty.call(context_dictionary,context_wc)) {
+        context_w = context_wc;
+      } else {
+        if (Object.prototype.hasOwnProperty.call(context_dictionaryToCreate,context_w)) {
+          if (context_w.charCodeAt(0)<256) {
+            for (i=0 ; i<context_numBits ; i++) {
+              context_data_val = (context_data_val << 1);
+              if (context_data_position == bitsPerChar-1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+            }
+            value = context_w.charCodeAt(0);
+            for (i=0 ; i<8 ; i++) {
+              context_data_val = (context_data_val << 1) | (value&1);
+              if (context_data_position == bitsPerChar-1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+              value = value >> 1;
+            }
+          } else {
+            value = 1;
+            for (i=0 ; i<context_numBits ; i++) {
+              context_data_val = (context_data_val << 1) | value;
+              if (context_data_position ==bitsPerChar-1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+              value = 0;
+            }
+            value = context_w.charCodeAt(0);
+            for (i=0 ; i<16 ; i++) {
+              context_data_val = (context_data_val << 1) | (value&1);
+              if (context_data_position == bitsPerChar-1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+              value = value >> 1;
+            }
+          }
+          context_enlargeIn--;
+          if (context_enlargeIn == 0) {
+            context_enlargeIn = Math.pow(2, context_numBits);
+            context_numBits++;
+          }
+          delete context_dictionaryToCreate[context_w];
+        } else {
+          value = context_dictionary[context_w];
+          for (i=0 ; i<context_numBits ; i++) {
+            context_data_val = (context_data_val << 1) | (value&1);
+            if (context_data_position == bitsPerChar-1) {
+              context_data_position = 0;
+              context_data.push(getCharFromInt(context_data_val));
+              context_data_val = 0;
+            } else {
+              context_data_position++;
+            }
+            value = value >> 1;
+          }
+
+
+        }
+        context_enlargeIn--;
+        if (context_enlargeIn == 0) {
+          context_enlargeIn = Math.pow(2, context_numBits);
+          context_numBits++;
+        }
+        // Add wc to the dictionary.
+        context_dictionary[context_wc] = context_dictSize++;
+        context_w = String(context_c);
+      }
+    }
+
+    // Output the code for w.
+    if (context_w !== "") {
+      if (Object.prototype.hasOwnProperty.call(context_dictionaryToCreate,context_w)) {
+        if (context_w.charCodeAt(0)<256) {
+          for (i=0 ; i<context_numBits ; i++) {
+            context_data_val = (context_data_val << 1);
+            if (context_data_position == bitsPerChar-1) {
+              context_data_position = 0;
+              context_data.push(getCharFromInt(context_data_val));
+              context_data_val = 0;
+            } else {
+              context_data_position++;
+            }
+          }
+          value = context_w.charCodeAt(0);
+          for (i=0 ; i<8 ; i++) {
+            context_data_val = (context_data_val << 1) | (value&1);
+            if (context_data_position == bitsPerChar-1) {
+              context_data_position = 0;
+              context_data.push(getCharFromInt(context_data_val));
+              context_data_val = 0;
+            } else {
+              context_data_position++;
+            }
+            value = value >> 1;
+          }
+        } else {
+          value = 1;
+          for (i=0 ; i<context_numBits ; i++) {
+            context_data_val = (context_data_val << 1) | value;
+            if (context_data_position == bitsPerChar-1) {
+              context_data_position = 0;
+              context_data.push(getCharFromInt(context_data_val));
+              context_data_val = 0;
+            } else {
+              context_data_position++;
+            }
+            value = 0;
+          }
+          value = context_w.charCodeAt(0);
+          for (i=0 ; i<16 ; i++) {
+            context_data_val = (context_data_val << 1) | (value&1);
+            if (context_data_position == bitsPerChar-1) {
+              context_data_position = 0;
+              context_data.push(getCharFromInt(context_data_val));
+              context_data_val = 0;
+            } else {
+              context_data_position++;
+            }
+            value = value >> 1;
+          }
+        }
+        context_enlargeIn--;
+        if (context_enlargeIn == 0) {
+          context_enlargeIn = Math.pow(2, context_numBits);
+          context_numBits++;
+        }
+        delete context_dictionaryToCreate[context_w];
+      } else {
+        value = context_dictionary[context_w];
+        for (i=0 ; i<context_numBits ; i++) {
+          context_data_val = (context_data_val << 1) | (value&1);
+          if (context_data_position == bitsPerChar-1) {
+            context_data_position = 0;
+            context_data.push(getCharFromInt(context_data_val));
+            context_data_val = 0;
+          } else {
+            context_data_position++;
+          }
+          value = value >> 1;
+        }
+
+
+      }
+      context_enlargeIn--;
+      if (context_enlargeIn == 0) {
+        context_enlargeIn = Math.pow(2, context_numBits);
+        context_numBits++;
+      }
+    }
+
+    // Mark the end of the stream
+    value = 2;
+    for (i=0 ; i<context_numBits ; i++) {
+      context_data_val = (context_data_val << 1) | (value&1);
+      if (context_data_position == bitsPerChar-1) {
+        context_data_position = 0;
+        context_data.push(getCharFromInt(context_data_val));
+        context_data_val = 0;
+      } else {
+        context_data_position++;
+      }
+      value = value >> 1;
+    }
+
+    // Flush the last char
+    while (true) {
+      context_data_val = (context_data_val << 1);
+      if (context_data_position == bitsPerChar-1) {
+        context_data.push(getCharFromInt(context_data_val));
+        break;
+      }
+      else context_data_position++;
+    }
+    return context_data.join('');
+  },
+
+  decompress: function (compressed) {
+    if (compressed == null) return "";
+    if (compressed == "") return null;
+    return LZString._decompress(compressed.length, 32768, function(index) { return compressed.charCodeAt(index); });
+  },
+
+  _decompress: function (length, resetValue, getNextValue) {
+    var dictionary = [],
+        next,
+        enlargeIn = 4,
+        dictSize = 4,
+        numBits = 3,
+        entry = "",
+        result = [],
+        i,
+        w,
+        bits, resb, maxpower, power,
+        c,
+        data = {val:getNextValue(0), position:resetValue, index:1};
+
+    for (i = 0; i < 3; i += 1) {
+      dictionary[i] = i;
+    }
+
+    bits = 0;
+    maxpower = Math.pow(2,2);
+    power=1;
+    while (power!=maxpower) {
+      resb = data.val & data.position;
+      data.position >>= 1;
+      if (data.position == 0) {
+        data.position = resetValue;
+        data.val = getNextValue(data.index++);
+      }
+      bits |= (resb>0 ? 1 : 0) * power;
+      power <<= 1;
+    }
+
+    switch (next = bits) {
+      case 0:
+          bits = 0;
+          maxpower = Math.pow(2,8);
+          power=1;
+          while (power!=maxpower) {
+            resb = data.val & data.position;
+            data.position >>= 1;
+            if (data.position == 0) {
+              data.position = resetValue;
+              data.val = getNextValue(data.index++);
+            }
+            bits |= (resb>0 ? 1 : 0) * power;
+            power <<= 1;
+          }
+        c = f(bits);
+        break;
+      case 1:
+          bits = 0;
+          maxpower = Math.pow(2,16);
+          power=1;
+          while (power!=maxpower) {
+            resb = data.val & data.position;
+            data.position >>= 1;
+            if (data.position == 0) {
+              data.position = resetValue;
+              data.val = getNextValue(data.index++);
+            }
+            bits |= (resb>0 ? 1 : 0) * power;
+            power <<= 1;
+          }
+        c = f(bits);
+        break;
+      case 2:
+        return "";
+    }
+    dictionary[3] = c;
+    w = c;
+    result.push(c);
+    while (true) {
+      if (data.index > length) {
+        return "";
+      }
+
+      bits = 0;
+      maxpower = Math.pow(2,numBits);
+      power=1;
+      while (power!=maxpower) {
+        resb = data.val & data.position;
+        data.position >>= 1;
+        if (data.position == 0) {
+          data.position = resetValue;
+          data.val = getNextValue(data.index++);
+        }
+        bits |= (resb>0 ? 1 : 0) * power;
+        power <<= 1;
+      }
+
+      switch (c = bits) {
+        case 0:
+          bits = 0;
+          maxpower = Math.pow(2,8);
+          power=1;
+          while (power!=maxpower) {
+            resb = data.val & data.position;
+            data.position >>= 1;
+            if (data.position == 0) {
+              data.position = resetValue;
+              data.val = getNextValue(data.index++);
+            }
+            bits |= (resb>0 ? 1 : 0) * power;
+            power <<= 1;
+          }
+
+          dictionary[dictSize++] = f(bits);
+          c = dictSize-1;
+          enlargeIn--;
+          break;
+        case 1:
+          bits = 0;
+          maxpower = Math.pow(2,16);
+          power=1;
+          while (power!=maxpower) {
+            resb = data.val & data.position;
+            data.position >>= 1;
+            if (data.position == 0) {
+              data.position = resetValue;
+              data.val = getNextValue(data.index++);
+            }
+            bits |= (resb>0 ? 1 : 0) * power;
+            power <<= 1;
+          }
+          dictionary[dictSize++] = f(bits);
+          c = dictSize-1;
+          enlargeIn--;
+          break;
+        case 2:
+          return result.join('');
+      }
+
+      if (enlargeIn == 0) {
+        enlargeIn = Math.pow(2, numBits);
+        numBits++;
+      }
+
+      if (dictionary[c]) {
+        entry = dictionary[c];
+      } else {
+        if (c === dictSize) {
+          entry = w + w.charAt(0);
+        } else {
+          return null;
+        }
+      }
+      result.push(entry);
+
+      // Add w+entry[0] to the dictionary.
+      dictionary[dictSize++] = w + entry.charAt(0);
+      enlargeIn--;
+
+      w = entry;
+
+      if (enlargeIn == 0) {
+        enlargeIn = Math.pow(2, numBits);
+        numBits++;
+      }
+
+    }
+  }
+};
+  return LZString;
+})();
+
+if (true) {
+  !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return LZString; }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+} else {}
+
+
+/***/ }),
+
 /***/ "./node_modules/popper.js/dist/esm/popper.js":
 /*!***************************************************!*\
   !*** ./node_modules/popper.js/dist/esm/popper.js ***!
@@ -37489,6 +39318,665 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader??ref--6-1!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/src??ref--6-2!../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/timers-browserify/main.js":
 /*!************************************************!*\
   !*** ./node_modules/timers-browserify/main.js ***!
@@ -37564,6 +40052,304 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-js-popover/dist/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/vue-js-popover/dist/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js")):undefined}(window,function(n){return i={},r.m=o=[function(e,t,n){var o=n(3);"string"==typeof o&&(o=[[e.i,o,""]]),o.locals&&(e.exports=o.locals);(0,n(6).default)("24dd245c",o,!0,{})},function(e,t){e.exports=n},function(e,t,n){"use strict";var o=n(0);n.n(o).a},function(e,t,n){(e.exports=n(4)(!1)).push([e.i,".vue-popover{display:block;position:absolute;background:#fff;box-shadow:0px 4px 20px 0px rgba(52,73,94,0.2);padding:5px;border-radius:5px;z-index:998}.vue-popover:before{display:block;position:absolute;width:0;height:0;content:''}.vue-popover.dropdown-position-bottom:before{border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #fff;top:-6px;left:calc(50% - 6px);filter:drop-shadow(0px -2px 2px rgba(52,73,94,0.1))}.vue-popover.dropdown-position-top:before{border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fff;bottom:-6px;left:calc(50% - 6px);filter:drop-shadow(0px 2px 2px rgba(52,73,94,0.1))}.vue-popover.dropdown-position-left:before{border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:6px solid #fff;right:-6px;top:calc(50% - 6px);filter:drop-shadow(2px 0px 2px rgba(52,73,94,0.1))}.vue-popover.dropdown-position-right:before{border-top:6px solid transparent;border-bottom:6px solid transparent;border-right:6px solid #fff;left:-6px;top:calc(50% - 6px);filter:drop-shadow(-2px 0px 2px rgba(52,73,94,0.1))}\n",""])},function(e,t,n){"use strict";e.exports=function(n){var s=[];return s.toString=function(){return this.map(function(e){var t=function(e,t){var n=e[1]||"",o=e[3];if(!o)return n;if(t&&"function"==typeof btoa){var r=function(e){return"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(e))))+" */"}(o),i=o.sources.map(function(e){return"/*# sourceURL="+o.sourceRoot+e+" */"});return[n].concat(i).concat([r]).join("\n")}return[n].join("\n")}(e,n);return e[2]?"@media "+e[2]+"{"+t+"}":t}).join("")},s.i=function(e,t){"string"==typeof e&&(e=[[null,e,""]]);for(var n={},o=0;o<this.length;o++){var r=this[o][0];null!=r&&(n[r]=!0)}for(o=0;o<e.length;o++){var i=e[o];null!=i[0]&&n[i[0]]||(t&&!i[2]?i[2]=t:t&&(i[2]="("+i[2]+") and ("+t+")"),s.push(i))}},s}},function(e,t,n){"use strict";n.r(t);var o=n(1),r=new(n.n(o).a);function y(e){return function(e){if(Array.isArray(e))return i(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||function(e,t){if(!e)return;if("string"==typeof e)return i(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(e);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return i(e,t)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function i(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,o=new Array(t);n<t;n++)o[n]=e[n];return o}function s(t,e){var n,o=Object.keys(t);return Object.getOwnPropertySymbols&&(n=Object.getOwnPropertySymbols(t),e&&(n=n.filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable})),o.push.apply(o,n)),o}function a(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var g={left:[-1,0],right:[1,0],top:[0,1],bottom:[0,-1]},u={name:"Popover",props:{name:{type:String,required:!0},delay:{type:Number,default:0},transition:{type:String},width:{type:Number,default:180},pointer:{type:Boolean,default:!0},event:{type:String,default:"click"},anchor:{type:Number,default:.5,validator:function(e){return 0<=e&&e<=1}}},data:function(){return{visible:!1,zIndex:1,positionClass:"",fixedParents:[],position:{left:0,top:0}}},mounted:function(){r.$on(this.showEventName,this.showEventListener),r.$on(this.hideEventName,this.hideEventListener)},beforeDestroy:function(){r.$off(this.showEventName,this.showEventListener),r.$off(this.hideEventName,this.hideEventListener)},computed:{showEventName:function(){return"show:".concat(this.event)},hideEventName:function(){return"hide:".concat(this.event)},className:function(){return["vue-popover",this.pointer&&this.positionClass]},style:function(){var e=this.width,t=this.zIndex,n=0<this.fixedParents.length,o=function(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?s(Object(n),!0).forEach(function(e){a(t,e,n[e])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):s(Object(n)).forEach(function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))})}return t}({width:"".concat(e,"px"),zIndex:t},this.position);return n&&(o.position="fixed"),o}},methods:{showEventListener:function(t){var e,n,o=this;this.visible?r.$emit(this.hideEventName):(e=t.name,n=t.position,e===this.name&&(this.timeout=setTimeout(function(){o.positionClass="dropdown-position-".concat(n),o.visible=!0,o.$nextTick(function(){o.$emit("show",t),o.$nextTick(function(){var e=o.getDropdownPosition(t);o.position={left:"".concat(e.left,"px"),top:"".concat(e.top,"px")}})})},Math.max(this.delay,0))))},hideEventListener:function(e){this.timeout&&clearTimeout(this.timeout),this.visible&&(this.visible=!1,this.$emit("hide",e))},getDropdownPosition:function(e){var t,n=e.target,o=e.position,r=g[o],i=this.$refs.dropdown,s=n.getBoundingClientRect(),a=i.getBoundingClientRect();this.fixedParents=(t=[],function(e,t){for(var n=e;t&&n.parentNode&&"BODY"!==n.parentNode.tagName;)t(n),n=n.parentNode}(n,function(e){"fixed"===window.getComputedStyle(e).position&&t.push(e)}),t);var u=e.zIndex?e.zIndex:function(e){return(0<arguments.length&&void 0!==e?e:[]).reduce(function(e,t){var n=parseInt(getComputedStyle(t)["z-index"])||1;return Math.max(e,n)},1)}([n].concat(y(this.fixedParents)))+1;this.zIndex=u;var p,c,d=s.left,l=s.top;0===this.fixedParents.length&&(p=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop,c=window.pageXOffset||document.documentElement.scrollLeft||document.body.scrollLeft,d=s.left+c,l=s.top+p);var f=.5*(a.height+s.height),v=d-.5*(a.width-s.width),h=l+s.height-f,m=.5*r[0]*(a.width+s.width),b=r[1]*f;return this.pointer&&(m+=6*r[0],b+=6*r[1]),{left:Math.round(v+m),top:Math.round(h-b)}}}};n(2);function p(e,t,n,o,r,i,s,a){var u,p,c,d="function"==typeof e?e.options:e;return t&&(d.render=t,d.staticRenderFns=n,d._compiled=!0),o&&(d.functional=!0),i&&(d._scopeId="data-v-"+i),s?(u=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),r&&r.call(this,e),e&&e._registeredComponents&&e._registeredComponents.add(s)},d._ssrRegister=u):r&&(u=a?function(){r.call(this,(d.functional?this.parent:this).$root.$options.shadowRoot)}:r),u&&(d.functional?(d._injectStyles=u,p=d.render,d.render=function(e,t){return u.call(t),p(e,t)}):(c=d.beforeCreate,d.beforeCreate=c?[].concat(c,u):[u])),{exports:e,options:d}}var c=p(u,function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("transition",{attrs:{name:e.transition}},[e.visible?n("div",{ref:"dropdown",class:e.className,style:e.style,attrs:{"data-popover":this.name},on:{click:function(e){e.stopPropagation()}}},[e._t("default")],2):e._e()])},[],!1,null,null,null).exports,d=p({name:"Tooltip",props:{event:{type:String,default:"hover"},pointer:{type:Boolean,default:!1},width:{type:Number,default:160}},data:function(){return{value:""}}},function(){var t=this,e=t.$createElement;return(t._self._c||e)("popover",{attrs:{name:"tooltip",pointer:t.pointer,width:t.width,event:t.event},on:{show:function(e){t.value=e.value}}},[t._v("\n  "+t._s(t.value)+"\n")])},[],!1,null,null,null).exports;function l(t,e){var n,o=Object.keys(t);return Object.getOwnPropertySymbols&&(n=Object.getOwnPropertySymbols(t),e&&(n=n.filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable})),o.push.apply(o,n)),o}function f(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?l(Object(n),!0).forEach(function(e){v(t,e,n[e])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):l(Object(n)).forEach(function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))})}return t}function v(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function h(e){return(h="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function m(e){var t,n=e.arg,o=void 0===n?"":n,r=e.modifiers,i=void 0===r?{}:r,s=e.value,a=void 0===s?{}:s,u=Object.keys(i);return{name:"object"===h(a)&&a.name?a.name:o,position:(t=u,(Array.isArray(t)&&0<t.length?t[0]:null)||a.position||"bottom"),value:a}}function b(n,o){function e(e){r.$emit("show:click",f(f({},o),{},{target:n,srcEvent:e})),document.addEventListener("click",function e(t){r.$emit("hide:click",f(f({},o),{},{target:n,srcEvent:t})),document.removeEventListener("click",e)}),e.stopPropagation()}n.addEventListener("click",e),n.$popoverRemoveClickHandlers=function(){n.removeEventListener("click",e)}}function x(t,n){function e(e){r.$emit("show:hover",f(f({},n),{},{target:t,srcEvent:e}))}function o(e){r.$emit("hide:hover",f(f({},n),{},{target:t,srcEvent:e}))}t.addEventListener("mouseenter",e),t.addEventListener("mouseleave",o),t.$popoverRemoveHoverHandlers=function(){t.removeEventListener("mouseenter",e),t.removeEventListener("mouseleave",o)}}t.default={install:function(e,t){var n=1<arguments.length&&void 0!==t?t:{};document.addEventListener("resize",function(e){r.$emit("hide",{srcEvent:e})}),e.component("Popover",c),e.directive("popover",{bind:function(e,t){var n=m(t);b(e,n),x(e,n)},unbind:function(e){e.$popoverRemoveHoverHandlers(),e.$popoverRemoveClickHandlers()}}),n.tooltip&&e.component("Tooltip",d)}}},function(e,t,n){"use strict";function u(e,t){for(var n=[],o={},r=0;r<t.length;r++){var i=t[r],s=i[0],a={id:e+":"+r,css:i[1],media:i[2],sourceMap:i[3]};o[s]?o[s].parts.push(a):n.push(o[s]={id:s,parts:[a]})}return n}n.r(t),n.d(t,"default",function(){return v});var o="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!o)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var p={},r=o&&(document.head||document.getElementsByTagName("head")[0]),i=null,s=0,c=!1,a=function(){},d=null,l="data-vue-ssr-id",f="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());function v(s,e,t,n){c=t,d=n||{};var a=u(s,e);return h(a),function(e){for(var t=[],n=0;n<a.length;n++){var o=a[n];(r=p[o.id]).refs--,t.push(r)}e?h(a=u(s,e)):a=[];for(var r,n=0;n<t.length;n++){if(0===(r=t[n]).refs){for(var i=0;i<r.parts.length;i++)r.parts[i]();delete p[r.id]}}}}function h(e){for(var t=0;t<e.length;t++){var n=e[t],o=p[n.id];if(o){o.refs++;for(var r=0;r<o.parts.length;r++)o.parts[r](n.parts[r]);for(;r<n.parts.length;r++)o.parts.push(b(n.parts[r]));o.parts.length>n.parts.length&&(o.parts.length=n.parts.length)}else{for(var i=[],r=0;r<n.parts.length;r++)i.push(b(n.parts[r]));p[n.id]={id:n.id,refs:1,parts:i}}}}function m(){var e=document.createElement("style");return e.type="text/css",r.appendChild(e),e}function b(t){var e,n,o,r=document.querySelector("style["+l+'~="'+t.id+'"]');if(r){if(c)return a;r.parentNode.removeChild(r)}return o=f?(e=s++,r=i=i||m(),n=x.bind(null,r,e,!1),x.bind(null,r,e,!0)):(r=m(),n=function(e,t){var n=t.css,o=t.media,r=t.sourceMap;o&&e.setAttribute("media",o);d.ssrId&&e.setAttribute(l,t.id);r&&(n+="\n/*# sourceURL="+r.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */");if(e.styleSheet)e.styleSheet.cssText=n;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(n))}}.bind(null,r),function(){r.parentNode.removeChild(r)}),n(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;n(t=e)}else o()}}var y,g=(y=[],function(e,t){return y[e]=t,y.filter(Boolean).join("\n")});function x(e,t,n,o){var r,i,s=n?"":o.css;e.styleSheet?e.styleSheet.cssText=g(t,s):(r=document.createTextNode(s),(i=e.childNodes)[t]&&e.removeChild(i[t]),i.length?e.insertBefore(r,i[t]):e.appendChild(r))}}],r.c=i,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(t,e){if(1&e&&(t=r(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)r.d(n,o,function(e){return t[e]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="/dist/",r(r.s=5);function r(e){if(i[e])return i[e].exports;var t=i[e]={i:e,l:!1,exports:{}};return o[e].call(t.exports,t,t.exports,r),t.l=!0,t.exports}var o,i});
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=template&id=f348271a&":
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a& ***!
+  \*******************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "karlApp", attrs: { id: "app" } }, [
+    _c(
+      "div",
+      { staticClass: "classSelectContainer" },
+      [
+        _c("ClassSelect", { attrs: { classId: "D", name: "Driller" } }),
+        _vm._v(" "),
+        _c("ClassSelect", { attrs: { classId: "E", name: "Engineer" } }),
+        _vm._v(" "),
+        _c("ClassSelect", { attrs: { classId: "G", name: "Gunner" } }),
+        _vm._v(" "),
+        _c("ClassSelect", { attrs: { classId: "S", name: "Scout" } }),
+        _vm._v(" "),
+        _c("ClassSelect", { attrs: { classId: "R", name: "Robots" } }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "linkArea",
+            on: {
+              click: function($event) {
+                return _vm.getLink()
+              }
+            }
+          },
+          [
+            _c(
+              "label",
+              { staticClass: "linkText", attrs: { for: "idCopyTextArea" } },
+              [_vm._v("Generate")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "copyTextArea",
+              attrs: { id: "idCopyTextArea", disabled: "" }
+            })
+          ]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", [
+      _vm.selectedClass === "D"
+        ? _c(
+            "div",
+            { staticClass: "equipmentSelectContainer" },
+            _vm._l(_vm.drillerEquipment, function(equipment, equipmentId) {
+              return _c("EquipmentSelect", {
+                key: equipmentId,
+                attrs: {
+                  iconPath: equipment.icon,
+                  name: equipment.name,
+                  classId: "D",
+                  equipmentId: equipmentId,
+                  data: equipment
+                }
+              })
+            }),
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selectedClass === "E"
+        ? _c(
+            "div",
+            { staticClass: "equipmentSelectContainer" },
+            _vm._l(_vm.engineerEquipment, function(equipment, equipmentId) {
+              return _c("EquipmentSelect", {
+                key: equipmentId,
+                attrs: {
+                  iconPath: equipment.icon,
+                  name: equipment.name,
+                  classId: "E",
+                  equipmentId: equipmentId,
+                  data: equipment
+                }
+              })
+            }),
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selectedClass === "G"
+        ? _c(
+            "div",
+            { staticClass: "equipmentSelectContainer" },
+            _vm._l(_vm.gunnerEquipment, function(equipment, equipmentId) {
+              return _c("EquipmentSelect", {
+                key: equipmentId,
+                attrs: {
+                  iconPath: equipment.icon,
+                  name: equipment.name,
+                  classId: "G",
+                  equipmentId: equipmentId,
+                  data: equipment
+                }
+              })
+            }),
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selectedClass === "S"
+        ? _c(
+            "div",
+            { staticClass: "equipmentSelectContainer" },
+            _vm._l(_vm.scoutEquipment, function(equipment, equipmentId) {
+              return _c("EquipmentSelect", {
+                key: equipmentId,
+                attrs: {
+                  iconPath: equipment.icon,
+                  name: equipment.name,
+                  classId: "S",
+                  equipmentId: equipmentId,
+                  data: equipment
+                }
+              })
+            }),
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selectedClass === "R"
+        ? _c(
+            "div",
+            { staticClass: "equipmentSelectContainer" },
+            _vm._l(_vm.robotEquipment, function(equipment, equipmentId) {
+              return _c("EquipmentSelect", {
+                key: equipmentId,
+                attrs: {
+                  iconPath: equipment.icon,
+                  name: equipment.name,
+                  classId: "R",
+                  equipmentId: equipmentId,
+                  data: equipment
+                }
+              })
+            }),
+            1
+          )
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "mainContainer" },
+      [_c("StatsDisplay"), _vm._v(" "), _c("ModificationSelect")],
+      1
+    ),
+    _vm._v(" "),
+    _c("p", { staticClass: "versionNumber" }, [
+      _vm._v("KARL v1.6.8 Based on DRG v0.29.39685.0")
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "classSelectItem",
+      on: {
+        click: function($event) {
+          return _vm.selectClass()
+        }
+      }
+    },
+    [
+      _c(
+        "div",
+        { class: [_vm.isSelected ? "equipmentTextActive" : "equipmentText"] },
+        [_c("h4", [_vm._v(_vm._s(_vm.name))])]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "weaponSelectContainer",
+      attrs: { title: [_vm.getModified ? "Equipment is modified" : ""] },
+      on: {
+        click: function($event) {
+          return _vm.selectEquip()
+        }
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "flexboxWeaponSelect",
+          class: [_vm.getSelected ? "equipmentActive" : "equipment"]
+        },
+        [
+          _c("svg", {
+            class: [_vm.getSelected ? "equipmentIconActive" : "equipmentIcon"],
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              viewBox: "0 0 180 90",
+              height: "70%",
+              preserveAspectRatio: "xMidYMid meet"
+            },
+            domProps: { innerHTML: _vm._s(_vm.getIconFromPath) }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { class: [_vm.getSelected ? "equipmentTextActive" : "equipmentText"] },
+        [
+          _c("h4", [
+            _vm._v(_vm._s(_vm.name)),
+            _vm.getModified ? _c("span", [_vm._v(" *")]) : _vm._e()
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -37586,6 +40372,1040 @@ var render = function() {
         return _c("li", [_vm._v(_vm._s(character.name))])
       }),
       0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "modSelection" },
+    [
+      _c("h1", { staticClass: "modSelectionTitle allCaps" }, [
+        _vm._v("Gear modifications")
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.availableMods, function(tier, tierId) {
+        return _c("div", { key: tierId, staticClass: "tierContainer" }, [
+          _vm.selectedClassId !== "R"
+            ? _c("h2", [
+                _vm._v("Tier " + _vm._s(tierId + 1)),
+                tierId > 0
+                  ? _c("p", { staticClass: "levelIndicator" }, [
+                      _vm._v("Level\n\t\t\t" + _vm._s(tierId * 4))
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selectedClassId === "R"
+            ? _c("h2", [
+                _vm._v("Tier " + _vm._s(tierId + 1)),
+                tierId > 0
+                  ? _c("p", { staticClass: "levelIndicator" }, [
+                      _vm._v("Rank\n\t\t\t" + _vm._s(tierId + 1))
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "tierSubContainer",
+              class: [
+                tier.length === 1
+                  ? ""
+                  : tier.length === 2
+                  ? "tierBackgroundGradientHalf"
+                  : "tierBackgroundGradient"
+              ]
+            },
+            [
+              _vm._l(tier, function(mod, modId) {
+                return _c(
+                  "div",
+                  {
+                    key: modId,
+                    staticClass: "tooltip-target modDisplay",
+                    class: [mod.selected ? "selectedTemp" : ""],
+                    on: {
+                      click: function($event) {
+                        return _vm.selectMod(
+                          _vm.selectedClassId,
+                          _vm.selectedEquipmentId,
+                          tierId,
+                          modId,
+                          mod.selected
+                        )
+                      },
+                      mouseover: function($event) {
+                        return _vm.hoverMod(
+                          _vm.selectedClassId,
+                          _vm.selectedEquipmentId,
+                          tierId,
+                          modId
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "mod",
+                        class: [
+                          mod.selected ? "modBackgroundActive" : "modBackground"
+                        ],
+                        attrs: { viewBox: "0 0 80 50", height: "100%" }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826 L 0.3679663,25"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("g", [
+                          _c("svg", {
+                            class: [mod.selected ? "modIconActive" : "modIcon"],
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              y: "10%",
+                              viewBox: "0 0 80 50",
+                              height: "80%",
+                              preserveAspectRatio: "xMidYMid meet"
+                            },
+                            domProps: {
+                              innerHTML: _vm._s(_vm.getIconFromPath(mod.icon))
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              tier.length === 2
+                ? _c("div", { staticClass: "pseudoModDisplay" })
+                : _vm._e()
+            ],
+            2
+          )
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "overclockContainer",
+          class: _vm.getOverclocksAvailable(_vm.computedState)
+        },
+        [
+          _c("h2", [_vm._v("Overclock")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "overclockDisplay" }, [
+            _c(
+              "svg",
+              {
+                directives: [
+                  {
+                    name: "popover",
+                    rawName: "v-popover:overclocks.top",
+                    arg: "overclocks",
+                    modifiers: { top: true }
+                  }
+                ],
+                staticClass: "mod overclockBackground hundredPercent",
+                attrs: { viewBox: "0 0 80 80", height: "100%" }
+              },
+              [
+                _c(
+                  "g",
+                  {
+                    attrs: { display: _vm.getCleanDisplay(_vm.computedState) }
+                  },
+                  [
+                    _c("g", [
+                      _c("path", {
+                        staticStyle: {
+                          fill: "#379c5d",
+                          stroke: "#000000",
+                          "stroke-width": "0.26458332px",
+                          "stroke-linecap": "butt",
+                          "stroke-linejoin": "miter",
+                          "stroke-opacity": "1",
+                          "fill-opacity": "1"
+                        },
+                        attrs: {
+                          d:
+                            "M 16.645549,6.8857899 63.523153,6.92059 79.999998,30.39618 52.538582,73.114198 26.69254,73.0896 2.5e-7,30.232339 Z",
+                          id: "path817"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("g", { attrs: { transform: "translate(0,-217)" } }, [
+                      _c("path", {
+                        staticStyle: {
+                          fill: "#000000",
+                          "stroke-width": "0.32307553"
+                        },
+                        attrs: {
+                          d:
+                            "M 14.900282,271.17622 3.1080334,252.26279 1.5540136,249.74756 2.5e-7,247.23234 8.3227717,235.55906 l 8.3227773,-11.67327 23.438794,0.0174 23.438811,0.0174 8.238423,11.6389 L 80,247.19838 v 0.0989 0.0989 l -13.730705,21.35901 -13.730713,21.35901 -12.923021,-0.0123 -12.92302,-0.0123 z m 40.513633,11.25399 3.844557,-6.04021 -1.016278,-1.83457 -1.016287,-1.83457 3.937786,-6.63632 3.937787,-6.6363 2.57636,-0.0928 2.57636,-0.0928 3.822907,-5.9508 3.822909,-5.95081 v -0.24646 -0.24647 l -7.533474,-10.60265 -7.533473,-10.60266 -6.15636,-0.0876 -6.156359,-0.0876 -1.347607,2.26837 -1.347615,2.26836 h -7.69994 -7.699939 l -1.255394,-2.18076 -1.255403,-2.18076 -6.189658,-0.0877 -6.189668,-0.0876 -7.6350455,10.71246 -7.6350361,10.71247 0.1854321,0.48323 0.1854322,0.48323 3.6035723,5.77266 3.6035723,5.77266 2.6093837,0.013 2.609385,0.013 3.715374,6.33241 3.715364,6.33242 0.128735,0.34077 0.128734,0.34076 -1.060593,1.96527 -1.060593,1.9653 3.677999,5.88452 3.678009,5.88452 11.792249,-0.0128 11.792258,-0.0128 3.844558,-6.0402 z m -30.453253,-0.32014 -3.347257,-5.40143 1.08499,-2.01551 1.084991,-2.0155 -0.339123,-0.56909 -0.339122,-0.56909 -3.85954,-6.54229 -3.859539,-6.54228 h -2.591517 -2.591516 l -3.3691817,-5.41152 -3.3691721,-5.41151 -0.00183,-0.48462 -0.00183,-0.48461 7.2025468,-10.0961 7.202557,-10.09611 h 5.778086 5.778095 l 1.207809,2.09998 1.207809,2.09999 h 8.322916 8.322915 l 1.207809,-2.09999 1.207809,-2.09998 h 5.730281 5.730273 l 6.367763,8.96535 6.367765,8.96534 0.964653,1.36218 0.964654,1.36218 -3.579725,5.58394 -3.579725,5.58394 -2.578649,0.0934 -2.57864,0.0934 -4.214726,7.10173 -4.214726,7.10174 1.002092,1.85099 1.002092,1.85097 -3.550592,5.49229 -3.550585,5.49228 -11.436788,0.0707 -11.436788,0.0707 z m 28.198477,-0.0313 2.70689,-4.16064 0.402047,-0.75124 0.402057,-0.75123 -1.096548,-2.03382 -1.096548,-2.03382 -0.161539,0.0143 -0.161538,0.0143 -2.90768,4.65716 -2.90768,4.65716 -8.29643,0.0127 -8.29643,0.0127 -2.997356,-4.6846 -2.997355,-4.68459 H 25.564205 25.37739 l -1.035904,2.10069 -1.035903,2.1007 2.98578,4.83323 2.985789,4.83326 10.587544,0.0122 10.587545,0.0122 z m -36.943038,-25.84143 -0.32229,-0.60221 -2.374636,-3.84006 -2.374635,-3.84008 -0.21309,-0.35839 -0.21308,-0.35838 5.249017,-7.39544 5.249026,-7.39542 4.569719,-0.16154 4.569728,-0.16155 0.222467,-0.22336 0.222458,-0.22337 -1.1942,-1.96585 -1.1942,-1.96588 -4.702474,0.0893 -4.702465,0.0892 -5.936823,8.39996 -5.9368314,8.39996 -0.840379,1.20445 -0.840379,1.20445 3.0241336,4.85322 3.0241338,4.85322 h 2.518545 2.518554 z m 55.709708,-4.24808 3.138728,-4.8503 -0.3088,-0.39967 -0.308791,-0.39969 -6.542801,-9.29688 -6.542802,-9.29688 -4.712145,0.0892 -4.712145,0.0892 -1.059733,1.7769 -1.059723,1.77692 -0.01255,0.40384 -0.01255,0.40386 h 4.670686 4.670687 l 5.236964,7.33508 5.236965,7.33508 -0.0109,0.33796 -0.0109,0.33796 -2.789138,4.3557 -2.789147,4.35568 v 0.24815 0.24813 h 2.389664 2.389655 l 3.138728,-4.85031 z m -51.381551,22.44558 0.859245,-1.46619 -0.101618,-0.57766 -0.101627,-0.57768 -3.392296,-5.7018 -3.392287,-5.7018 -2.375103,-0.008 -2.3751025,-0.008 0.7597245,1.25046 0.759724,1.25046 4.038442,6.49148 4.038442,6.49148 0.211615,0.0119 0.211606,0.0119 0.859235,-1.46619 z m 44.909678,-6.20734 4.692263,-7.51197 v -0.17522 -0.17523 l -2.333287,0.0949 -2.333297,0.0949 -3.53202,5.95933 -3.53203,5.95931 0.903368,1.72541 0.903369,1.72542 0.269685,-0.0925 0.269687,-0.0925 z m -17.263046,-41.3532 0.968473,-1.69615 h -8.891118 -8.891108 v 0.16136 0.16137 l 0.888459,1.61573 0.888459,1.6157 7.034177,-0.081 7.034194,-0.081 z",
+                          id: "path838"
+                        }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "g",
+                  {
+                    attrs: {
+                      display: _vm.getBalancedDisplay(_vm.computedState)
+                    }
+                  },
+                  [
+                    _c("g", [
+                      _c("path", {
+                        staticStyle: {
+                          fill: "#e9ca37",
+                          stroke: "#000000",
+                          "stroke-width": "0.26458332px",
+                          "stroke-linecap": "butt",
+                          "stroke-linejoin": "miter",
+                          "stroke-opacity": "1",
+                          "fill-opacity": "1"
+                        },
+                        attrs: {
+                          d:
+                            "M 0.676502,26.11698 5.2900339,23.37613 V 19.90961 L 39.830893,0 74.387947,19.8847 v 3.47593 l 4.935551,2.80812 V 53.989009 L 74.419528,56.68047 74.223427,60.412899 40.283264,79.999998 5.4545499,60.39224 5.125512,56.603608 0.84802198,54.13516 Z"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("g", { attrs: { transform: "translate(0,-217)" } }, [
+                      _c("path", {
+                        staticStyle: {
+                          fill: "#000000",
+                          "stroke-width": "0.32903767"
+                        },
+                        attrs: {
+                          d:
+                            "m 22.39999,287.18321 -16.94544,-9.79097 -0.164519,-1.89431 -0.164519,-1.89432 -2.138745,-1.23423 -2.138745,-1.23422 -0.08576,-14.00909 -0.08576,-14.00909 2.306765,-1.37043 2.306767,-1.37042 v -1.73327 -1.73325 L 22.560466,226.9548 39.830893,217 l 0.250823,0.13716 0.250832,0.13716 17.0277,9.80518 17.0277,9.8052 v 1.73796 1.73797 l 2.46778,1.40405 2.46777,1.40407 v 13.91014 13.91012 l -2.45198,1.34573 -2.45199,1.34573 -0.0981,1.86622 -0.098,1.86621 -7.07431,4.07885 -7.07432,4.07886 -9.895762,5.7147 -9.895772,5.71469 -0.468917,-0.0129 -0.468919,-0.0129 z m 35.124778,-2.01028 15.54703,-8.99489 v -2.44763 -2.44764 l 0.97011,0.21308 0.97013,0.21308 1.0041,-0.74237 1.00411,-0.74237 v -13.04966 -13.04965 l -1.27722,-0.57595 -1.27721,-0.57594 -0.69701,0.37303 -0.69701,0.37303 -0.0156,-2.89066 -0.0156,-2.89065 -15.95838,-9.21306 -15.958379,-9.21305 -0.627196,-0.29025 -0.62721,-0.29025 -16.459727,9.5033 -16.459739,9.50331 -0.0075,2.71455 -0.0075,2.71457 -0.246779,-0.0231 -0.246778,-0.0231 -0.658075,-0.26783 -0.658075,-0.26782 -1.233892,0.68057 -1.23389,0.68059 v 13.10623 13.10624 l 1.164736,0.55543 1.164736,0.55542 0.961682,-0.36299 0.961684,-0.36299 0.09458,2.78453 0.09459,2.78455 16.432691,9.51642 16.432689,9.51643 1.006315,-0.58878 1.006305,-0.58877 15.547032,-8.9949 z m -33.658043,-0.1579 -16.108912,-9.32809 -0.09439,-2.59703 -0.0944,-2.59705 3.220254,-1.32396 3.220249,-1.32396 0.08674,-10.7064 0.08665,-10.7064 -1.238316,-0.53506 -1.238323,-0.53506 -1.974227,-0.77012 -1.974226,-0.77011 -0.08889,-2.61299 -0.08889,-2.61299 9.960016,-5.74311 9.960014,-5.74312 6.170171,-3.58713 6.170152,-3.58713 0.410588,0.16544 0.410594,0.16544 15.629289,9.06129 15.62929,9.06129 0.0945,2.77654 0.0945,2.77655 -3.30701,1.41208 -3.30701,1.41209 0.0867,10.70119 0.0867,10.70118 3.2081,1.29127 3.20812,1.29127 -0.005,2.51306 -0.005,2.51306 -14.51964,8.39046 -14.519642,8.39046 -1.530447,0.89256 -1.53045,0.89257 z m 20.578789,4.63388 4.11297,-2.39803 0.09752,-2.01803 0.09751,-2.01803 4.956504,-2.80667 4.95651,-2.80669 1.39112,0.81526 1.39113,0.81525 h 0.42182 0.42181 l 3.90902,-2.31318 3.90903,-2.31316 v -1.63087 -1.63087 l -1.2147,-0.50753 -1.21468,-0.50753 -0.75954,-0.19064 -0.75954,-0.19062 -0.01,0.94052 -0.01,0.94053 -11.42425,6.49409 -11.424236,6.49409 -1.684001,0.97336 -1.684,0.97335 -13.122721,-7.46938 -13.122687,-7.46937 -0.10311,-1.06745 -0.103102,-1.06744 h -0.103503 -0.103913 l -1.86557,0.85409 -1.865572,0.85409 0.09836,1.64739 0.09836,1.6474 3.908917,2.26956 3.90892,2.26957 0.368568,-0.004 0.368577,-0.004 1.416416,-0.80979 1.416415,-0.80977 4.835302,2.74065 4.835294,2.74067 0.16452,1.99938 0.164519,1.9994 1.156694,0.76248 1.156704,0.76247 1.475605,0.7995 1.475596,0.79949 1.480669,0.9217 1.48067,0.92171 0.493559,-0.003 0.493559,-0.003 4.112969,-2.39803 z m -14.007918,-5.0167 -0.213179,-1.28727 -4.581039,-2.57024 -4.581036,-2.57024 -1.167868,0.72178 -1.167878,0.7218 0.438288,0.41821 0.438287,0.41822 5.251737,2.98957 5.251746,2.98957 0.272061,-0.27206 0.272061,-0.27207 z m 25.035812,-1.50093 5.83518,-3.3395 -1.27497,-0.77178 -1.27497,-0.77178 -0.16452,0.0187 -0.16452,0.0188 -4.44201,2.5503 -4.442004,2.5503 -0.100284,1.54221 -0.100285,1.54222 h 0.146603 0.146602 z M 13.515974,242.49085 c 0,0 17.948486,-9.49795 26.534363,-14.94305 l 26.111661,14.86916 v 1.00371 1.00371 l 0.57581,-0.23453 0.57582,-0.23453 1.39841,-0.48968 1.39842,-0.48968 v -1.70291 -1.70292 l -4.18776,-2.43342 -4.18775,-2.43342 -1.54889,0.86478 -1.54888,0.86478 -4.95709,-2.82491 -4.957084,-2.82491 v -1.8616 -1.86162 l -4.439288,-2.56876 -4.439277,-2.56876 -4.42574,2.5786 -4.425744,2.5786 -0.101252,1.94357 -0.101256,1.94357 -1.536705,0.85325 -1.536716,0.85325 -3.325384,1.89055 -3.325374,1.89054 -1.331641,-0.84062 c -0.554732,-0.33615 -0.985435,-0.72748 -1.596506,-0.94968 -2.883479,1.77657 -6.038739,3.46689 -8.563331,4.919 -0.0024,1.09831 -0.0049,2.19663 -0.0073,3.29494 1.314898,0.42789 2.703866,1.2935 3.948449,1.47617 1.1e-5,-0.62106 1e-5,-1.24212 1e-5,-1.86318 z m 12.063943,-9.19615 4.436609,-2.50428 0.162103,-0.42245 0.162114,-0.42245 -0.104183,-1.17525 -0.104182,-1.17525 -5.53,3.24767 -5.529991,3.24767 -0.0084,0.23765 -0.0084,0.23765 0.932015,0.6145 0.932024,0.61449 0.11199,0.002 0.11199,0.002 z m 34.233361,1.80449 1.13229,-0.6998 -0.27086,-0.26201 -0.27087,-0.26203 -4.84083,-2.80386 -4.840844,-2.80387 -0.689455,-0.36899 -0.689456,-0.36898 0.101171,1.54299 0.10117,1.54299 4.442004,2.57514 4.44201,2.57514 0.12569,0.0165 0.12568,0.0165 1.1323,-0.69979 z m 10.7037,33.7164 -3.70644,-1.50118 0.087,-9.91729 0.087,-9.91729 3.90041,-1.58296 3.9004,-1.58297 0.62386,0.56459 0.62387,0.56459 v 11.94022 11.94021 l -0.7313,0.51223 -0.73128,0.51221 -0.17357,-0.0156 -0.17356,-0.0156 -3.70645,-1.50118 z m 4.2,-11.43721 V 246.054 l -0.40825,-0.13609 -0.40825,-0.13608 -2.96439,1.20138 -2.96438,1.20138 v 9.14069 9.14069 l 2.6323,1.0891 2.6323,1.0891 0.74033,0.0293 0.74034,0.0293 v -11.32438 z m -70.520319,12.22924 -0.561075,-0.41131 0.08689,-12.16655 0.08689,-12.16655 0.846659,-0.29767 0.846661,-0.29767 1.127566,0.49793 1.127566,0.49793 2.545943,0.94353 2.545953,0.94353 0.0037,9.91641 0.0037,9.9164 -2.714563,1.05143 -2.714561,1.05143 -0.873362,0.46622 -0.873361,0.46623 H 5.219106 4.756947 Z m 4.630526,-2.20608 2.714561,-1.04988 -0.0032,-9.27139 -0.0032,-9.2714 -2.953685,-1.1063 -2.953685,-1.1063 -0.498047,0.19112 -0.498047,0.19112 v 10.96728 10.96728 l 0.402037,0.40204 0.402036,0.40203 0.338299,-0.13285 0.338299,-0.13286 z"
+                        }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "g",
+                  {
+                    attrs: {
+                      display: _vm.getUnstableDisplay(_vm.computedState)
+                    }
+                  },
+                  [
+                    _c("g", [
+                      _c("path", {
+                        staticStyle: {
+                          fill: "#d13500",
+                          stroke: "#000000",
+                          "stroke-width": "0.26458332px",
+                          "stroke-linecap": "butt",
+                          "stroke-linejoin": "miter",
+                          "stroke-opacity": "1",
+                          "fill-opacity": "1"
+                        },
+                        attrs: {
+                          d:
+                            "M 8.4999998e-5,40.126319 8.4302848,33.505759 V 13.11006 l 4.6897602,-4.6584702 20.295218,-0.006 6.685852,-8.4074599 6.696559,8.41266 h 20.13055 l 4.689771,4.6584701 v 20.151169 l 8.381918,7.054062 -8.37692,6.661528 -0.006,20.327659 -4.368421,4.334931 H 46.596244 L 39.857415,79.961869 33.539996,71.9618 H 13.120045 L 8.4302848,67.303329 v -20.47685 z"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("g", { attrs: { transform: "translate(0,-217)" } }, [
+                      _c("path", {
+                        staticStyle: {
+                          fill: "#000000",
+                          "stroke-width": "0.32238683"
+                        },
+                        attrs: {
+                          d:
+                            "m 36.699255,292.96222 -3.15926,-4.00042 h -10.20998 -10.20997 l -2.34488,-2.32924 -2.34488,-2.32923 V 274.0649 263.82648 l -3.94923,-3.1136 -3.94925,-3.1136 -0.26586,-0.23648 -0.26586,-0.23648 4.2151,-3.31028 4.2151,-3.31028 V 240.3079 230.11006 l 2.34488,-2.32924 2.34488,-2.32923 10.14761,-0.003 10.14761,-0.003 3.34292,-4.20373 3.34293,-4.20373 0.0812,0.0959 0.0812,0.0959 3.26708,4.11044 3.26708,4.11042 h 10.06527 10.06528 l 2.34488,2.32924 2.34489,2.32923 v 10.07559 10.07558 l 4.17345,3.31154 4.17347,3.31154 0.0175,0.21549 0.0175,0.21549 -4.18846,3.33077 -4.18846,3.33076 -0.003,10.16383 -0.003,10.16383 -2.18422,2.16747 -2.1842,2.16746 h -10.32616 -10.32617 l -3.18093,4.04514 -3.18094,4.04514 -0.18848,0.11649 -0.18848,0.11649 -3.15926,-4.00044 z m 6.2672,-2.04947 2.6995,-3.52963 10.30771,-0.0166 10.3077,-0.0166 2.02359,-2.0056 2.02359,-2.0056 0.0166,-10.3257 0.0166,-10.32569 3.52963,-2.69951 3.52961,-2.69949 -0.01,-0.20198 -0.0101,-0.20197 -3.53623,-2.69568 -3.53621,-2.69568 v -10.19111 -10.19112 l -2.0056,-2.0236 -2.00561,-2.02359 h -10.22048 -10.22055 l -2.6507,-3.46565 -2.65071,-3.46566 -0.23472,-0.26566 -0.23473,-0.26566 -2.86149,3.71997 -2.86149,3.71996 -10.15518,0.0175 -10.1552,0.0174 -2.01491,1.95925 -2.01492,1.95925 -0.0113,10.20476 -0.0113,10.20475 -3.71996,2.8615 -3.71998,2.86149 0.26568,0.23054 0.26564,0.23055 3.46567,2.67712 3.46565,2.67712 v 10.36862 10.36861 l 1.89737,1.83529 1.89737,1.8353 h 10.31735 10.31733 l 2.69568,3.53622 2.69568,3.53622 0.20197,0.01 0.20198,0.0101 2.69951,-3.52963 z m -6.59649,-2.69727 -3.49303,-4.57307 3.75301,-0.091 3.753,-0.091 3.48976,0.091 3.48974,0.091 -3.50141,4.51124 -3.5014,4.51124 -0.24832,0.0619 -0.24832,0.0619 z m 6.48009,-0.42853 2.29309,-2.94797 -0.19531,-0.1953 -0.19531,-0.1953 h -4.78206 -4.78208 l 9.1e-4,0.24179 9.2e-4,0.24179 2.44972,3.17487 2.44975,3.17485 0.2335,-0.27337 0.2335,-0.27339 2.29309,-2.94797 z m -30.32426,-2.94982 -1.84846,-1.86795 0.0855,-9.7238 0.0854,-9.7238 1.69821,1.32342 1.69822,1.32342 0.1607,-0.16069 0.16069,-0.16069 -0.0858,-8.95521 -0.0858,-8.95521 -1.68305,1.33057 -1.68305,1.33057 h -0.17068 -0.17067 v -9.60202 -9.60202 l 1.70266,-1.68151 1.70268,-1.68152 h 9.76364 9.76366 l -1.09995,1.37014 -1.09995,1.37015 -0.2302,0.40298 -0.23022,0.40298 h 9.23318 9.23316 l -1.47074,-1.85372 -1.47073,-1.85372 9.57675,-0.0855 9.57676,-0.0855 1.86675,1.86677 1.86677,1.86677 -0.0855,9.56946 -0.0855,9.56947 -1.71469,-1.30772 -1.71469,-1.3077 -0.14413,0.14414 -0.14414,0.14413 0.0857,9.1063 0.0857,9.1063 1.65809,-1.32039 1.65807,-1.32038 h 0.19564 0.19565 v 9.6011 9.60109 l -1.86802,1.84854 -1.86803,1.84853 -9.60935,-0.0854 -9.60934,-0.0855 1.50239,-1.93432 1.50241,-1.93432 -9.09448,-0.0857 -9.09448,-0.0857 -0.14657,0.14658 -0.14659,0.14658 1.5036,1.95404 1.50359,1.95403 h -9.78113 -9.78114 z m 13.55595,0.17543 -0.48086,-0.72537 -3.58832,-0.0912 -3.5883,-0.0911 v 0.22697 0.22696 l 0.53355,0.58957 0.53354,0.58956 h 3.53562 3.53562 z m 35.41597,0.16119 0.42827,-0.56417 0.0102,-0.2418 0.0102,-0.24179 h -3.43013 -3.4301 l -0.42828,0.56418 -0.42827,0.56417 -0.0102,0.24179 -0.0102,0.2418 h 3.43013 3.43011 z m -43.58667,-0.56417 -0.52809,-0.80598 h 4.22067 4.22068 l 0.52809,0.80598 0.52808,0.80596 h 1.89725 1.89724 l -0.003,-0.24179 -0.003,-0.24179 -1.47446,-1.85373 -1.47449,-1.85372 h -4.71376 -4.71374 l -1.0631,-1.0304 -1.06311,-1.0304 -0.018,-4.85316 -0.018,-4.85316 -1.73633,-1.37015 -1.73632,-1.37013 h -0.18 -0.18 v 7.5976 7.59761 l 1.51222,1.75161 1.51223,1.75161 h 1.55788 1.55788 z m 36.13697,-0.1612 0.58352,-0.64478 h 4.20553 4.20554 l -0.38685,0.38687 -0.38687,0.38687 v 0.2579 0.25791 h 1.35907 1.35907 l 1.54241,-1.51922 1.54241,-1.51921 v -7.66881 -7.6688 h -0.18842 -0.18843 l -1.90709,1.49829 -1.90709,1.4983 v 4.6923 4.69231 l -1.03041,1.0631 -1.0304,1.0631 h -4.73373 -4.73372 l -1.22486,1.53134 -1.22487,1.53134 -0.30418,0.40298 -0.30418,0.40298 h 2.08502 2.08502 z m -37.88046,-44.44693 v -4.68988 l 1.19379,-1.22254 1.19378,-1.22254 h 4.73117 4.73118 l 1.32875,-1.72231 1.32874,-1.72231 v -0.21201 -0.21201 h -1.91092 -1.91092 l -0.63398,0.80596 -0.63397,0.80597 h -4.28971 -4.2897 l -0.32744,0.0221 1.04643,-0.74114 3.87591,0.0535 3.87592,0.0535 0.34249,-0.63993 0.34248,-0.63993 v -0.1824 -0.18239 h -3.28369 -3.28369 l -0.74615,0.70097 -0.74614,0.70097 -1.42356,0.87693 1.42356,-1.63409 h -1.35907 -1.35908 l -1.54241,1.51922 -1.5424,1.51921 v 7.82967 7.82966 l 1.93431,-1.50214 1.93432,-1.50213 z m 50.37883,-9.24262 -1.53722,-1.75285 -1.5813,-0.004 -1.5813,-0.004 0.53354,0.58956 0.53354,0.58957 v 0.2164 0.21641 h -4.09831 -4.09833 l -0.65689,-0.82355 -0.65687,-0.82355 -2.01055,0.0982 -2.01057,0.0982 1.4725,1.85373 1.4725,1.85372 h 4.71374 4.71375 l 1.0631,1.0304 1.0631,1.03041 v 4.7608 4.76081 l 2.01492,1.6771 2.01491,1.67711 0.0864,-7.64572 0.0865,-7.64572 z m -5.08348,-1.43859 -0.5835,-0.64478 h -3.49902 -3.49902 l 0.40266,0.64478 0.40267,0.64476 h 3.67986 3.67988 z m 4.997,27.8972 v -7.29648 l 0.43893,0.2578 0.43891,0.25781 4.21663,3.22387 4.21661,3.22387 0.019,0.19005 0.019,0.19007 -2.01492,1.55633 -2.01492,1.55633 -2.65969,2.06841 -2.65968,2.06842 v -7.29648 z m 7.52709,0.12734 0.27338,-0.23351 -3.17487,-2.44973 -3.17486,-2.44973 -0.24179,-9.1e-4 -0.24179,-9.2e-4 v 4.78207 4.78208 l 0.19531,0.19529 0.1953,0.19531 2.94796,-2.29308 2.94798,-2.29308 z m -65.30069,3.30019 -4.41858,-3.43828 0.87232,-0.73228 0.87233,-0.73228 3.78805,-2.91212 3.78804,-2.91212 v 7.11006 7.11006 l -0.24179,-0.0274 -0.24179,-0.0274 z m 3.8147,-8.34065 -0.13759,-0.13759 -3.08308,2.35879 -3.08307,2.35879 -0.0119,0.22234 -0.0119,0.22235 3.14327,2.4298 3.14327,2.42981 0.0893,-4.87336 0.0892,-4.87335 -0.13758,-0.13758 z m 23.3077,-25.48258 2.91211,-3.78805 0.73228,-0.87598 0.73229,-0.87598 3.38506,4.40725 3.38506,4.40726 0.10747,0.25677 0.10745,0.25677 h -7.13692 -7.13693 z m 9.13403,2.41789 -0.31859,-0.40298 -2.16247,-2.82089 -2.16245,-2.82088 -0.21812,0.009 -0.21811,0.009 -2.25671,2.95851 -2.25671,2.9585 -0.10745,0.25658 -0.10747,0.25657 h 5.06333 5.06334 z"
+                        }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("g", [
+                  _c("svg", {
+                    staticClass: "modIcon",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      y: "24%",
+                      x: "15%",
+                      viewBox: "0 0 120 75",
+                      height: "70%",
+                      preserveAspectRatio: "xMidYMid meet"
+                    },
+                    domProps: {
+                      innerHTML: _vm._s(
+                        _vm.getSelectedOverclockIcon(_vm.computedState)
+                      )
+                    }
+                  })
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "popover",
+            { staticClass: "overclockGrid", attrs: { name: "overclocks" } },
+            _vm._l(_vm.availableOverclocks, function(overclock, overclockId) {
+              return _c(
+                "div",
+                {
+                  key: overclockId,
+                  staticClass: "tooltip-target modDisplay",
+                  class: [overclock.selected ? "selectedTemp" : ""],
+                  on: {
+                    click: function($event) {
+                      return _vm.selectOverclock(
+                        _vm.selectedClassId,
+                        _vm.selectedEquipmentId,
+                        overclockId,
+                        overclock.selected
+                      )
+                    },
+                    mouseover: function($event) {
+                      return _vm.hoverOverclock(
+                        _vm.selectedClassId,
+                        _vm.selectedEquipmentId,
+                        overclockId
+                      )
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "mod",
+                      class: [
+                        overclock.selected
+                          ? "overclockBackgroundActive"
+                          : "overclockBackground"
+                      ],
+                      attrs: { viewBox: "0 0 80 80", height: "6rem" }
+                    },
+                    [
+                      _c(
+                        "g",
+                        {
+                          attrs: {
+                            display: _vm.getCleanDisplayByOverclock(overclock)
+                          }
+                        },
+                        [
+                          _c("g", [
+                            _c("path", {
+                              staticStyle: {
+                                fill: "#379c5d",
+                                stroke: "#000000",
+                                "stroke-width": "0.26458332px",
+                                "stroke-linecap": "butt",
+                                "stroke-linejoin": "miter",
+                                "stroke-opacity": "1",
+                                "fill-opacity": "1"
+                              },
+                              attrs: {
+                                d:
+                                  "M 16.645549,6.8857899 63.523153,6.92059 79.999998,30.39618 52.538582,73.114198 26.69254,73.0896 2.5e-7,30.232339 Z",
+                                id: "path817"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "g",
+                            { attrs: { transform: "translate(0,-217)" } },
+                            [
+                              _c("path", {
+                                staticStyle: {
+                                  fill: "#000000",
+                                  "stroke-width": "0.32307553"
+                                },
+                                attrs: {
+                                  d:
+                                    "M 14.900282,271.17622 3.1080334,252.26279 1.5540136,249.74756 2.5e-7,247.23234 8.3227717,235.55906 l 8.3227773,-11.67327 23.438794,0.0174 23.438811,0.0174 8.238423,11.6389 L 80,247.19838 v 0.0989 0.0989 l -13.730705,21.35901 -13.730713,21.35901 -12.923021,-0.0123 -12.92302,-0.0123 z m 40.513633,11.25399 3.844557,-6.04021 -1.016278,-1.83457 -1.016287,-1.83457 3.937786,-6.63632 3.937787,-6.6363 2.57636,-0.0928 2.57636,-0.0928 3.822907,-5.9508 3.822909,-5.95081 v -0.24646 -0.24647 l -7.533474,-10.60265 -7.533473,-10.60266 -6.15636,-0.0876 -6.156359,-0.0876 -1.347607,2.26837 -1.347615,2.26836 h -7.69994 -7.699939 l -1.255394,-2.18076 -1.255403,-2.18076 -6.189658,-0.0877 -6.189668,-0.0876 -7.6350455,10.71246 -7.6350361,10.71247 0.1854321,0.48323 0.1854322,0.48323 3.6035723,5.77266 3.6035723,5.77266 2.6093837,0.013 2.609385,0.013 3.715374,6.33241 3.715364,6.33242 0.128735,0.34077 0.128734,0.34076 -1.060593,1.96527 -1.060593,1.9653 3.677999,5.88452 3.678009,5.88452 11.792249,-0.0128 11.792258,-0.0128 3.844558,-6.0402 z m -30.453253,-0.32014 -3.347257,-5.40143 1.08499,-2.01551 1.084991,-2.0155 -0.339123,-0.56909 -0.339122,-0.56909 -3.85954,-6.54229 -3.859539,-6.54228 h -2.591517 -2.591516 l -3.3691817,-5.41152 -3.3691721,-5.41151 -0.00183,-0.48462 -0.00183,-0.48461 7.2025468,-10.0961 7.202557,-10.09611 h 5.778086 5.778095 l 1.207809,2.09998 1.207809,2.09999 h 8.322916 8.322915 l 1.207809,-2.09999 1.207809,-2.09998 h 5.730281 5.730273 l 6.367763,8.96535 6.367765,8.96534 0.964653,1.36218 0.964654,1.36218 -3.579725,5.58394 -3.579725,5.58394 -2.578649,0.0934 -2.57864,0.0934 -4.214726,7.10173 -4.214726,7.10174 1.002092,1.85099 1.002092,1.85097 -3.550592,5.49229 -3.550585,5.49228 -11.436788,0.0707 -11.436788,0.0707 z m 28.198477,-0.0313 2.70689,-4.16064 0.402047,-0.75124 0.402057,-0.75123 -1.096548,-2.03382 -1.096548,-2.03382 -0.161539,0.0143 -0.161538,0.0143 -2.90768,4.65716 -2.90768,4.65716 -8.29643,0.0127 -8.29643,0.0127 -2.997356,-4.6846 -2.997355,-4.68459 H 25.564205 25.37739 l -1.035904,2.10069 -1.035903,2.1007 2.98578,4.83323 2.985789,4.83326 10.587544,0.0122 10.587545,0.0122 z m -36.943038,-25.84143 -0.32229,-0.60221 -2.374636,-3.84006 -2.374635,-3.84008 -0.21309,-0.35839 -0.21308,-0.35838 5.249017,-7.39544 5.249026,-7.39542 4.569719,-0.16154 4.569728,-0.16155 0.222467,-0.22336 0.222458,-0.22337 -1.1942,-1.96585 -1.1942,-1.96588 -4.702474,0.0893 -4.702465,0.0892 -5.936823,8.39996 -5.9368314,8.39996 -0.840379,1.20445 -0.840379,1.20445 3.0241336,4.85322 3.0241338,4.85322 h 2.518545 2.518554 z m 55.709708,-4.24808 3.138728,-4.8503 -0.3088,-0.39967 -0.308791,-0.39969 -6.542801,-9.29688 -6.542802,-9.29688 -4.712145,0.0892 -4.712145,0.0892 -1.059733,1.7769 -1.059723,1.77692 -0.01255,0.40384 -0.01255,0.40386 h 4.670686 4.670687 l 5.236964,7.33508 5.236965,7.33508 -0.0109,0.33796 -0.0109,0.33796 -2.789138,4.3557 -2.789147,4.35568 v 0.24815 0.24813 h 2.389664 2.389655 l 3.138728,-4.85031 z m -51.381551,22.44558 0.859245,-1.46619 -0.101618,-0.57766 -0.101627,-0.57768 -3.392296,-5.7018 -3.392287,-5.7018 -2.375103,-0.008 -2.3751025,-0.008 0.7597245,1.25046 0.759724,1.25046 4.038442,6.49148 4.038442,6.49148 0.211615,0.0119 0.211606,0.0119 0.859235,-1.46619 z m 44.909678,-6.20734 4.692263,-7.51197 v -0.17522 -0.17523 l -2.333287,0.0949 -2.333297,0.0949 -3.53202,5.95933 -3.53203,5.95931 0.903368,1.72541 0.903369,1.72542 0.269685,-0.0925 0.269687,-0.0925 z m -17.263046,-41.3532 0.968473,-1.69615 h -8.891118 -8.891108 v 0.16136 0.16137 l 0.888459,1.61573 0.888459,1.6157 7.034177,-0.081 7.034194,-0.081 z",
+                                  id: "path838"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "g",
+                        {
+                          attrs: {
+                            display: _vm.getBalancedDisplayByOverclock(
+                              overclock
+                            )
+                          }
+                        },
+                        [
+                          _c("g", [
+                            _c("path", {
+                              staticStyle: {
+                                fill: "#e9ca37",
+                                stroke: "#000000",
+                                "stroke-width": "0.26458332px",
+                                "stroke-linecap": "butt",
+                                "stroke-linejoin": "miter",
+                                "stroke-opacity": "1",
+                                "fill-opacity": "1"
+                              },
+                              attrs: {
+                                d:
+                                  "M 0.676502,26.11698 5.2900339,23.37613 V 19.90961 L 39.830893,0 74.387947,19.8847 v 3.47593 l 4.935551,2.80812 V 53.989009 L 74.419528,56.68047 74.223427,60.412899 40.283264,79.999998 5.4545499,60.39224 5.125512,56.603608 0.84802198,54.13516 Z"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "g",
+                            { attrs: { transform: "translate(0,-217)" } },
+                            [
+                              _c("path", {
+                                staticStyle: {
+                                  fill: "#000000",
+                                  "stroke-width": "0.32903767"
+                                },
+                                attrs: {
+                                  d:
+                                    "m 22.39999,287.18321 -16.94544,-9.79097 -0.164519,-1.89431 -0.164519,-1.89432 -2.138745,-1.23423 -2.138745,-1.23422 -0.08576,-14.00909 -0.08576,-14.00909 2.306765,-1.37043 2.306767,-1.37042 v -1.73327 -1.73325 L 22.560466,226.9548 39.830893,217 l 0.250823,0.13716 0.250832,0.13716 17.0277,9.80518 17.0277,9.8052 v 1.73796 1.73797 l 2.46778,1.40405 2.46777,1.40407 v 13.91014 13.91012 l -2.45198,1.34573 -2.45199,1.34573 -0.0981,1.86622 -0.098,1.86621 -7.07431,4.07885 -7.07432,4.07886 -9.895762,5.7147 -9.895772,5.71469 -0.468917,-0.0129 -0.468919,-0.0129 z m 35.124778,-2.01028 15.54703,-8.99489 v -2.44763 -2.44764 l 0.97011,0.21308 0.97013,0.21308 1.0041,-0.74237 1.00411,-0.74237 v -13.04966 -13.04965 l -1.27722,-0.57595 -1.27721,-0.57594 -0.69701,0.37303 -0.69701,0.37303 -0.0156,-2.89066 -0.0156,-2.89065 -15.95838,-9.21306 -15.958379,-9.21305 -0.627196,-0.29025 -0.62721,-0.29025 -16.459727,9.5033 -16.459739,9.50331 -0.0075,2.71455 -0.0075,2.71457 -0.246779,-0.0231 -0.246778,-0.0231 -0.658075,-0.26783 -0.658075,-0.26782 -1.233892,0.68057 -1.23389,0.68059 v 13.10623 13.10624 l 1.164736,0.55543 1.164736,0.55542 0.961682,-0.36299 0.961684,-0.36299 0.09458,2.78453 0.09459,2.78455 16.432691,9.51642 16.432689,9.51643 1.006315,-0.58878 1.006305,-0.58877 15.547032,-8.9949 z m -33.658043,-0.1579 -16.108912,-9.32809 -0.09439,-2.59703 -0.0944,-2.59705 3.220254,-1.32396 3.220249,-1.32396 0.08674,-10.7064 0.08665,-10.7064 -1.238316,-0.53506 -1.238323,-0.53506 -1.974227,-0.77012 -1.974226,-0.77011 -0.08889,-2.61299 -0.08889,-2.61299 9.960016,-5.74311 9.960014,-5.74312 6.170171,-3.58713 6.170152,-3.58713 0.410588,0.16544 0.410594,0.16544 15.629289,9.06129 15.62929,9.06129 0.0945,2.77654 0.0945,2.77655 -3.30701,1.41208 -3.30701,1.41209 0.0867,10.70119 0.0867,10.70118 3.2081,1.29127 3.20812,1.29127 -0.005,2.51306 -0.005,2.51306 -14.51964,8.39046 -14.519642,8.39046 -1.530447,0.89256 -1.53045,0.89257 z m 20.578789,4.63388 4.11297,-2.39803 0.09752,-2.01803 0.09751,-2.01803 4.956504,-2.80667 4.95651,-2.80669 1.39112,0.81526 1.39113,0.81525 h 0.42182 0.42181 l 3.90902,-2.31318 3.90903,-2.31316 v -1.63087 -1.63087 l -1.2147,-0.50753 -1.21468,-0.50753 -0.75954,-0.19064 -0.75954,-0.19062 -0.01,0.94052 -0.01,0.94053 -11.42425,6.49409 -11.424236,6.49409 -1.684001,0.97336 -1.684,0.97335 -13.122721,-7.46938 -13.122687,-7.46937 -0.10311,-1.06745 -0.103102,-1.06744 h -0.103503 -0.103913 l -1.86557,0.85409 -1.865572,0.85409 0.09836,1.64739 0.09836,1.6474 3.908917,2.26956 3.90892,2.26957 0.368568,-0.004 0.368577,-0.004 1.416416,-0.80979 1.416415,-0.80977 4.835302,2.74065 4.835294,2.74067 0.16452,1.99938 0.164519,1.9994 1.156694,0.76248 1.156704,0.76247 1.475605,0.7995 1.475596,0.79949 1.480669,0.9217 1.48067,0.92171 0.493559,-0.003 0.493559,-0.003 4.112969,-2.39803 z m -14.007918,-5.0167 -0.213179,-1.28727 -4.581039,-2.57024 -4.581036,-2.57024 -1.167868,0.72178 -1.167878,0.7218 0.438288,0.41821 0.438287,0.41822 5.251737,2.98957 5.251746,2.98957 0.272061,-0.27206 0.272061,-0.27207 z m 25.035812,-1.50093 5.83518,-3.3395 -1.27497,-0.77178 -1.27497,-0.77178 -0.16452,0.0187 -0.16452,0.0188 -4.44201,2.5503 -4.442004,2.5503 -0.100284,1.54221 -0.100285,1.54222 h 0.146603 0.146602 z M 13.515974,242.49085 c 0,0 17.948486,-9.49795 26.534363,-14.94305 l 26.111661,14.86916 v 1.00371 1.00371 l 0.57581,-0.23453 0.57582,-0.23453 1.39841,-0.48968 1.39842,-0.48968 v -1.70291 -1.70292 l -4.18776,-2.43342 -4.18775,-2.43342 -1.54889,0.86478 -1.54888,0.86478 -4.95709,-2.82491 -4.957084,-2.82491 v -1.8616 -1.86162 l -4.439288,-2.56876 -4.439277,-2.56876 -4.42574,2.5786 -4.425744,2.5786 -0.101252,1.94357 -0.101256,1.94357 -1.536705,0.85325 -1.536716,0.85325 -3.325384,1.89055 -3.325374,1.89054 -1.331641,-0.84062 c -0.554732,-0.33615 -0.985435,-0.72748 -1.596506,-0.94968 -2.883479,1.77657 -6.038739,3.46689 -8.563331,4.919 -0.0024,1.09831 -0.0049,2.19663 -0.0073,3.29494 1.314898,0.42789 2.703866,1.2935 3.948449,1.47617 1.1e-5,-0.62106 1e-5,-1.24212 1e-5,-1.86318 z m 12.063943,-9.19615 4.436609,-2.50428 0.162103,-0.42245 0.162114,-0.42245 -0.104183,-1.17525 -0.104182,-1.17525 -5.53,3.24767 -5.529991,3.24767 -0.0084,0.23765 -0.0084,0.23765 0.932015,0.6145 0.932024,0.61449 0.11199,0.002 0.11199,0.002 z m 34.233361,1.80449 1.13229,-0.6998 -0.27086,-0.26201 -0.27087,-0.26203 -4.84083,-2.80386 -4.840844,-2.80387 -0.689455,-0.36899 -0.689456,-0.36898 0.101171,1.54299 0.10117,1.54299 4.442004,2.57514 4.44201,2.57514 0.12569,0.0165 0.12568,0.0165 1.1323,-0.69979 z m 10.7037,33.7164 -3.70644,-1.50118 0.087,-9.91729 0.087,-9.91729 3.90041,-1.58296 3.9004,-1.58297 0.62386,0.56459 0.62387,0.56459 v 11.94022 11.94021 l -0.7313,0.51223 -0.73128,0.51221 -0.17357,-0.0156 -0.17356,-0.0156 -3.70645,-1.50118 z m 4.2,-11.43721 V 246.054 l -0.40825,-0.13609 -0.40825,-0.13608 -2.96439,1.20138 -2.96438,1.20138 v 9.14069 9.14069 l 2.6323,1.0891 2.6323,1.0891 0.74033,0.0293 0.74034,0.0293 v -11.32438 z m -70.520319,12.22924 -0.561075,-0.41131 0.08689,-12.16655 0.08689,-12.16655 0.846659,-0.29767 0.846661,-0.29767 1.127566,0.49793 1.127566,0.49793 2.545943,0.94353 2.545953,0.94353 0.0037,9.91641 0.0037,9.9164 -2.714563,1.05143 -2.714561,1.05143 -0.873362,0.46622 -0.873361,0.46623 H 5.219106 4.756947 Z m 4.630526,-2.20608 2.714561,-1.04988 -0.0032,-9.27139 -0.0032,-9.2714 -2.953685,-1.1063 -2.953685,-1.1063 -0.498047,0.19112 -0.498047,0.19112 v 10.96728 10.96728 l 0.402037,0.40204 0.402036,0.40203 0.338299,-0.13285 0.338299,-0.13286 z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "g",
+                        {
+                          attrs: {
+                            display: _vm.getUnstableDisplayByOverclock(
+                              overclock
+                            )
+                          }
+                        },
+                        [
+                          _c("g", [
+                            _c("path", {
+                              staticStyle: {
+                                fill: "#d13500",
+                                stroke: "#000000",
+                                "stroke-width": "0.26458332px",
+                                "stroke-linecap": "butt",
+                                "stroke-linejoin": "miter",
+                                "stroke-opacity": "1",
+                                "fill-opacity": "1"
+                              },
+                              attrs: {
+                                d:
+                                  "M 8.4999998e-5,40.126319 8.4302848,33.505759 V 13.11006 l 4.6897602,-4.6584702 20.295218,-0.006 6.685852,-8.4074599 6.696559,8.41266 h 20.13055 l 4.689771,4.6584701 v 20.151169 l 8.381918,7.054062 -8.37692,6.661528 -0.006,20.327659 -4.368421,4.334931 H 46.596244 L 39.857415,79.961869 33.539996,71.9618 H 13.120045 L 8.4302848,67.303329 v -20.47685 z"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "g",
+                            { attrs: { transform: "translate(0,-217)" } },
+                            [
+                              _c("path", {
+                                staticStyle: {
+                                  fill: "#000000",
+                                  "stroke-width": "0.32238683"
+                                },
+                                attrs: {
+                                  d:
+                                    "m 36.699255,292.96222 -3.15926,-4.00042 h -10.20998 -10.20997 l -2.34488,-2.32924 -2.34488,-2.32923 V 274.0649 263.82648 l -3.94923,-3.1136 -3.94925,-3.1136 -0.26586,-0.23648 -0.26586,-0.23648 4.2151,-3.31028 4.2151,-3.31028 V 240.3079 230.11006 l 2.34488,-2.32924 2.34488,-2.32923 10.14761,-0.003 10.14761,-0.003 3.34292,-4.20373 3.34293,-4.20373 0.0812,0.0959 0.0812,0.0959 3.26708,4.11044 3.26708,4.11042 h 10.06527 10.06528 l 2.34488,2.32924 2.34489,2.32923 v 10.07559 10.07558 l 4.17345,3.31154 4.17347,3.31154 0.0175,0.21549 0.0175,0.21549 -4.18846,3.33077 -4.18846,3.33076 -0.003,10.16383 -0.003,10.16383 -2.18422,2.16747 -2.1842,2.16746 h -10.32616 -10.32617 l -3.18093,4.04514 -3.18094,4.04514 -0.18848,0.11649 -0.18848,0.11649 -3.15926,-4.00044 z m 6.2672,-2.04947 2.6995,-3.52963 10.30771,-0.0166 10.3077,-0.0166 2.02359,-2.0056 2.02359,-2.0056 0.0166,-10.3257 0.0166,-10.32569 3.52963,-2.69951 3.52961,-2.69949 -0.01,-0.20198 -0.0101,-0.20197 -3.53623,-2.69568 -3.53621,-2.69568 v -10.19111 -10.19112 l -2.0056,-2.0236 -2.00561,-2.02359 h -10.22048 -10.22055 l -2.6507,-3.46565 -2.65071,-3.46566 -0.23472,-0.26566 -0.23473,-0.26566 -2.86149,3.71997 -2.86149,3.71996 -10.15518,0.0175 -10.1552,0.0174 -2.01491,1.95925 -2.01492,1.95925 -0.0113,10.20476 -0.0113,10.20475 -3.71996,2.8615 -3.71998,2.86149 0.26568,0.23054 0.26564,0.23055 3.46567,2.67712 3.46565,2.67712 v 10.36862 10.36861 l 1.89737,1.83529 1.89737,1.8353 h 10.31735 10.31733 l 2.69568,3.53622 2.69568,3.53622 0.20197,0.01 0.20198,0.0101 2.69951,-3.52963 z m -6.59649,-2.69727 -3.49303,-4.57307 3.75301,-0.091 3.753,-0.091 3.48976,0.091 3.48974,0.091 -3.50141,4.51124 -3.5014,4.51124 -0.24832,0.0619 -0.24832,0.0619 z m 6.48009,-0.42853 2.29309,-2.94797 -0.19531,-0.1953 -0.19531,-0.1953 h -4.78206 -4.78208 l 9.1e-4,0.24179 9.2e-4,0.24179 2.44972,3.17487 2.44975,3.17485 0.2335,-0.27337 0.2335,-0.27339 2.29309,-2.94797 z m -30.32426,-2.94982 -1.84846,-1.86795 0.0855,-9.7238 0.0854,-9.7238 1.69821,1.32342 1.69822,1.32342 0.1607,-0.16069 0.16069,-0.16069 -0.0858,-8.95521 -0.0858,-8.95521 -1.68305,1.33057 -1.68305,1.33057 h -0.17068 -0.17067 v -9.60202 -9.60202 l 1.70266,-1.68151 1.70268,-1.68152 h 9.76364 9.76366 l -1.09995,1.37014 -1.09995,1.37015 -0.2302,0.40298 -0.23022,0.40298 h 9.23318 9.23316 l -1.47074,-1.85372 -1.47073,-1.85372 9.57675,-0.0855 9.57676,-0.0855 1.86675,1.86677 1.86677,1.86677 -0.0855,9.56946 -0.0855,9.56947 -1.71469,-1.30772 -1.71469,-1.3077 -0.14413,0.14414 -0.14414,0.14413 0.0857,9.1063 0.0857,9.1063 1.65809,-1.32039 1.65807,-1.32038 h 0.19564 0.19565 v 9.6011 9.60109 l -1.86802,1.84854 -1.86803,1.84853 -9.60935,-0.0854 -9.60934,-0.0855 1.50239,-1.93432 1.50241,-1.93432 -9.09448,-0.0857 -9.09448,-0.0857 -0.14657,0.14658 -0.14659,0.14658 1.5036,1.95404 1.50359,1.95403 h -9.78113 -9.78114 z m 13.55595,0.17543 -0.48086,-0.72537 -3.58832,-0.0912 -3.5883,-0.0911 v 0.22697 0.22696 l 0.53355,0.58957 0.53354,0.58956 h 3.53562 3.53562 z m 35.41597,0.16119 0.42827,-0.56417 0.0102,-0.2418 0.0102,-0.24179 h -3.43013 -3.4301 l -0.42828,0.56418 -0.42827,0.56417 -0.0102,0.24179 -0.0102,0.2418 h 3.43013 3.43011 z m -43.58667,-0.56417 -0.52809,-0.80598 h 4.22067 4.22068 l 0.52809,0.80598 0.52808,0.80596 h 1.89725 1.89724 l -0.003,-0.24179 -0.003,-0.24179 -1.47446,-1.85373 -1.47449,-1.85372 h -4.71376 -4.71374 l -1.0631,-1.0304 -1.06311,-1.0304 -0.018,-4.85316 -0.018,-4.85316 -1.73633,-1.37015 -1.73632,-1.37013 h -0.18 -0.18 v 7.5976 7.59761 l 1.51222,1.75161 1.51223,1.75161 h 1.55788 1.55788 z m 36.13697,-0.1612 0.58352,-0.64478 h 4.20553 4.20554 l -0.38685,0.38687 -0.38687,0.38687 v 0.2579 0.25791 h 1.35907 1.35907 l 1.54241,-1.51922 1.54241,-1.51921 v -7.66881 -7.6688 h -0.18842 -0.18843 l -1.90709,1.49829 -1.90709,1.4983 v 4.6923 4.69231 l -1.03041,1.0631 -1.0304,1.0631 h -4.73373 -4.73372 l -1.22486,1.53134 -1.22487,1.53134 -0.30418,0.40298 -0.30418,0.40298 h 2.08502 2.08502 z m -37.88046,-44.44693 v -4.68988 l 1.19379,-1.22254 1.19378,-1.22254 h 4.73117 4.73118 l 1.32875,-1.72231 1.32874,-1.72231 v -0.21201 -0.21201 h -1.91092 -1.91092 l -0.63398,0.80596 -0.63397,0.80597 h -4.28971 -4.2897 l -0.32744,0.0221 1.04643,-0.74114 3.87591,0.0535 3.87592,0.0535 0.34249,-0.63993 0.34248,-0.63993 v -0.1824 -0.18239 h -3.28369 -3.28369 l -0.74615,0.70097 -0.74614,0.70097 -1.42356,0.87693 1.42356,-1.63409 h -1.35907 -1.35908 l -1.54241,1.51922 -1.5424,1.51921 v 7.82967 7.82966 l 1.93431,-1.50214 1.93432,-1.50213 z m 50.37883,-9.24262 -1.53722,-1.75285 -1.5813,-0.004 -1.5813,-0.004 0.53354,0.58956 0.53354,0.58957 v 0.2164 0.21641 h -4.09831 -4.09833 l -0.65689,-0.82355 -0.65687,-0.82355 -2.01055,0.0982 -2.01057,0.0982 1.4725,1.85373 1.4725,1.85372 h 4.71374 4.71375 l 1.0631,1.0304 1.0631,1.03041 v 4.7608 4.76081 l 2.01492,1.6771 2.01491,1.67711 0.0864,-7.64572 0.0865,-7.64572 z m -5.08348,-1.43859 -0.5835,-0.64478 h -3.49902 -3.49902 l 0.40266,0.64478 0.40267,0.64476 h 3.67986 3.67988 z m 4.997,27.8972 v -7.29648 l 0.43893,0.2578 0.43891,0.25781 4.21663,3.22387 4.21661,3.22387 0.019,0.19005 0.019,0.19007 -2.01492,1.55633 -2.01492,1.55633 -2.65969,2.06841 -2.65968,2.06842 v -7.29648 z m 7.52709,0.12734 0.27338,-0.23351 -3.17487,-2.44973 -3.17486,-2.44973 -0.24179,-9.1e-4 -0.24179,-9.2e-4 v 4.78207 4.78208 l 0.19531,0.19529 0.1953,0.19531 2.94796,-2.29308 2.94798,-2.29308 z m -65.30069,3.30019 -4.41858,-3.43828 0.87232,-0.73228 0.87233,-0.73228 3.78805,-2.91212 3.78804,-2.91212 v 7.11006 7.11006 l -0.24179,-0.0274 -0.24179,-0.0274 z m 3.8147,-8.34065 -0.13759,-0.13759 -3.08308,2.35879 -3.08307,2.35879 -0.0119,0.22234 -0.0119,0.22235 3.14327,2.4298 3.14327,2.42981 0.0893,-4.87336 0.0892,-4.87335 -0.13758,-0.13758 z m 23.3077,-25.48258 2.91211,-3.78805 0.73228,-0.87598 0.73229,-0.87598 3.38506,4.40725 3.38506,4.40726 0.10747,0.25677 0.10745,0.25677 h -7.13692 -7.13693 z m 9.13403,2.41789 -0.31859,-0.40298 -2.16247,-2.82089 -2.16245,-2.82088 -0.21812,0.009 -0.21811,0.009 -2.25671,2.95851 -2.25671,2.9585 -0.10745,0.25658 -0.10747,0.25657 h 5.06333 5.06334 z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("g", [
+                        _c("svg", {
+                          class: [
+                            overclock.selected
+                              ? "overclockIconActive"
+                              : "modIcon"
+                          ],
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            y: "24%",
+                            x: "15%",
+                            viewBox: "0 0 120 75",
+                            height: "70%",
+                            preserveAspectRatio: "xMidYMid meet"
+                          },
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.getIconFromPath(overclock.icon)
+                            )
+                          }
+                        })
+                      ])
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      !!_vm.hoveredMod.name
+        ? _c("div", { staticClass: "modTextBox" }, [
+            _c("div", { staticClass: "modTextBoxHeader" }, [
+              _c("div", { staticClass: "modTextBoxIcon" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "modPadding modBackgroundActiveNoStroke",
+                    attrs: { viewBox: "0 0 80 50", height: "100%" }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826 L 0.3679663,25"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("g", [
+                      _c("svg", {
+                        staticClass: "modIconActive",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          y: "10%",
+                          viewBox: "0 0 80 50",
+                          height: "80%",
+                          preserveAspectRatio: "xMidYMid meet"
+                        },
+                        domProps: {
+                          innerHTML: _vm._s(
+                            _vm.getIconFromPath(_vm.hoveredMod.icon)
+                          )
+                        }
+                      })
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modTextBoxTitle" }, [
+                _c("p", { staticClass: "allCaps" }, [
+                  _vm._v(_vm._s(_vm.hoveredMod.type))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "allCaps modificationName" }, [
+                  _vm._v(_vm._s(_vm.hoveredMod.name))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "costList" }, [
+                  _vm.hoveredMod.cost.credits > 0
+                    ? _c("span", { staticClass: "costListItem" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/20px-Credit.png */ "./resources/js/assets/img/20px-Credit.png"),
+                            alt: "Credits",
+                            title: "Credits"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.hoveredMod.cost.credits))
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hoveredMod.cost.bismor > 0
+                    ? _c("span", { staticClass: "costListItem" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/Bismor_icon.png */ "./resources/js/assets/img/Bismor_icon.png"),
+                            alt: "Bismor",
+                            title: "Bismor"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.hoveredMod.cost.bismor))])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hoveredMod.cost.croppa > 0
+                    ? _c("span", { staticClass: "costListItem" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/Croppa_icon.png */ "./resources/js/assets/img/Croppa_icon.png"),
+                            alt: "Croppa",
+                            title: "Croppa"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.hoveredMod.cost.croppa))])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hoveredMod.cost.enorPearl > 0
+                    ? _c("span", { staticClass: "costListItem" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/Enor_pearl_icon.png */ "./resources/js/assets/img/Enor_pearl_icon.png"),
+                            alt: "Enor Pearl",
+                            title: "Enor Pearl"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.hoveredMod.cost.enorPearl))
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hoveredMod.cost.jadiz > 0
+                    ? _c("span", { staticClass: "costListItem" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/Jadiz_icon.png */ "./resources/js/assets/img/Jadiz_icon.png"),
+                            alt: "Jadiz",
+                            title: "Jadiz"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.hoveredMod.cost.jadiz))])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hoveredMod.cost.magnite > 0
+                    ? _c("span", { staticClass: "costListItem" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/Magnite_icon.png */ "./resources/js/assets/img/Magnite_icon.png"),
+                            alt: "Magnite",
+                            title: "Magnite"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.hoveredMod.cost.magnite))
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hoveredMod.cost.umanite > 0
+                    ? _c("span", { staticClass: "costListItem" }, [
+                        _c("img", {
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/Umanite_icon.png */ "./resources/js/assets/img/Umanite_icon.png"),
+                            alt: "Umanite",
+                            title: "Umanite"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.hoveredMod.cost.umanite))
+                        ])
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _vm._v("\n\t\t\t" + _vm._s(_vm.hoveredMod.text) + "\n\t\t")
+            ])
+          ])
+        : _vm._e()
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "statsDisplay" }, [
+    _c("h1", { staticClass: "equipmentTitle allCaps" }, [
+      _vm._v(_vm._s(_vm.equipment.name))
+    ]),
+    _vm._v(" "),
+    _c("h2", { staticClass: "equipmentSubTitle allCaps" }, [
+      _vm._v(_vm._s(_vm.equipment.class))
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "statsBaseContainer" },
+      [
+        _vm._l(_vm.calcStats.stats, function(stat, statId) {
+          return _c("div", { key: statId, staticClass: "statsContainer" }, [
+            _c(
+              "span",
+              {
+                staticClass: "statsText",
+                class: [stat.inactive ? "inactiveStat" : ""]
+              },
+              [_vm._v(_vm._s(stat.name) + ":")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "statsValueContainer" }, [
+              _c(
+                "span",
+                {
+                  staticClass: "statsValue fixedWidth",
+                  class: [stat.inactive ? "inactiveStat" : ""]
+                },
+                [
+                  _vm._v("\n\t\t\t\t\t" + _vm._s(stat.baseValue)),
+                  stat.percent ? _c("span", [_vm._v("%")]) : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c("span", { staticClass: "statsModifier fixedWidth" }, [
+                _vm._v(_vm._s(stat.modifier))
+              ]),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "statsValue fixedWidth",
+                  class: [
+                    stat.modified
+                      ? "modifiedStat"
+                      : stat.inactive
+                      ? "inactiveStat"
+                      : ""
+                  ]
+                },
+                [
+                  _vm._v("\n\t\t\t\t\t" + _vm._s(stat.value)),
+                  stat.percent ? _c("span", [_vm._v("%")]) : _vm._e()
+                ]
+              )
+            ])
+          ])
+        }),
+        _vm._v(" "),
+        _vm.calcStats.dps && _vm.calcStats.dps !== "NaN"
+          ? _c("h2", [_vm._v("DPS: " + _vm._s(_vm.calcStats.dps))])
+          : _vm._e(),
+        _vm._v(" "),
+        !!_vm.calcStats.dps && _vm.calcStats.dps !== "NaN"
+          ? _c("span", { staticClass: "inactiveStat" }, [
+              _c("i", [_vm._v("Theoretical")]),
+              _vm._v(
+                " damage per second, ignoring armor break and weakspot bonuses.\n\t\t"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpb
+          ? _c("h2", [_vm._v("Damage per shot: " + _vm._s(_vm.calcStats.dpb))])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.wpd
+          ? _c("h2", [
+              _vm._v(
+                "Weakpoint Damage: " +
+                  _vm._s(
+                    "(1x: " +
+                      _vm.calcStats.wpd +
+                      " / 2x: " +
+                      (_vm.calcStats.wpd * 2).toFixed(2) +
+                      "\n\t\t\t/ 3x: " +
+                      (_vm.calcStats.wpd * 3).toFixed(2) +
+                      ")"
+                  )
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.wpd
+          ? _c("span", { staticClass: "inactiveStat" }, [
+              _c("i", [_vm._v("Important,")]),
+              _vm._v(
+                " 1x damage is applied to praetorians and oppressors. 2x damage is applied to all grunts and most enemies. 3x is applied to bulks, breeders, mactera, etc.\n\t\t"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpm
+          ? _c("h2", [
+              _vm._v("Magazine damage: " + _vm._s(_vm.calcStats.dpm)),
+              _vm.calcStats.tte
+                ? _c("span", [
+                    _vm._v(
+                      " / Time to empty mag: " + _vm._s(_vm.calcStats.tte) + "S"
+                    )
+                  ])
+                : _vm._e()
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpm
+          ? _c("span", { staticClass: "inactiveStat" }, [
+              _c("i", [_vm._v("Theoretical")]),
+              _vm._v(
+                " damage per magazine and how long it takes to empty it.\n\t\t"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpa
+          ? _c("h2", [_vm._v("Total damage: " + _vm._s(_vm.calcStats.dpa))])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpa
+          ? _c("span", { staticClass: "inactiveStat" }, [
+              _c("i", [_vm._v("Theoretical")]),
+              _vm._v(" total damage available with initial ammunition.\n\t\t")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.ex1
+          ? _c("h2", [
+              _vm._v(
+                "Total lighting time: " + _vm._s(_vm.calcStats.ex1) + " minutes"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.ex1
+          ? _c("span", { staticClass: "inactiveStat" }, [
+              _c("i", [_vm._v("Theoretical")]),
+              _vm._v(
+                " total lighting time available with initial ammunition.\n\t\t"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpsplasma && _vm.calcStats.dpsplasma !== "NaN"
+          ? _c("h2", [
+              _vm._v(
+                "Normal shot DPS: " +
+                  _vm._s(_vm.calcStats.dpsplasma) +
+                  "\n\t\t\t"
+              ),
+              _c("br"),
+              _vm._v("Charged shot DPS: " + _vm._s(_vm.calcStats.dpscharged))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        !!_vm.calcStats.dpsplasma && _vm.calcStats.dpsplasma !== "NaN"
+          ? _c("span", { staticClass: "inactiveStat" }, [
+              _c("i", [_vm._v("Theoretical")]),
+              _vm._v(
+                " damage per second without taking overheat into account, ignoring armor break and weakspot bonuses.\n\t\t"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpbplasma
+          ? _c("h2", [
+              _vm._v(
+                "Damage per normal shot: " +
+                  _vm._s(_vm.calcStats.dpbplasma) +
+                  "\n\t\t\t"
+              ),
+              _c("br"),
+              _vm._v(
+                "Damage per charged shot: " + _vm._s(_vm.calcStats.dpbcharged)
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpaplasma
+          ? _c("h2", [
+              _vm._v(
+                "Total damage for normal shots: " +
+                  _vm._s(_vm.calcStats.dpaplasma) +
+                  "\n\t\t\t"
+              ),
+              _c("br"),
+              _vm._v(
+                "Total damage for charged shots: " +
+                  _vm._s(_vm.calcStats.dpacharged)
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.dpaplasma
+          ? _c("span", { staticClass: "inactiveStat" }, [
+              _c("i", [_vm._v("Theoretical")]),
+              _vm._v(" total damage available with initial ammunition.\n\t\t")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.calcStats.visible ? _c("h2", [_vm._v("Total Costs:")]) : _vm._e(),
+        _vm._v(" "),
+        _c("p", { staticClass: "costList" }, [
+          _vm.calcStats.cost.credits > 0
+            ? _c("span", { staticClass: "costListItem" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__(/*! ../assets/img/20px-Credit.png */ "./resources/js/assets/img/20px-Credit.png"),
+                    alt: "Credits",
+                    title: "Credits"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.calcStats.cost.credits))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.calcStats.cost.bismor > 0
+            ? _c("span", { staticClass: "costListItem" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__(/*! ../assets/img/Bismor_icon.png */ "./resources/js/assets/img/Bismor_icon.png"),
+                    alt: "Bismor",
+                    title: "Bismor"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.calcStats.cost.bismor))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.calcStats.cost.croppa > 0
+            ? _c("span", { staticClass: "costListItem" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__(/*! ../assets/img/Croppa_icon.png */ "./resources/js/assets/img/Croppa_icon.png"),
+                    alt: "Croppa",
+                    title: "Croppa"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.calcStats.cost.croppa))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.calcStats.cost.enorPearl > 0
+            ? _c("span", { staticClass: "costListItem" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__(/*! ../assets/img/Enor_pearl_icon.png */ "./resources/js/assets/img/Enor_pearl_icon.png"),
+                    alt: "Enor Pearl",
+                    title: "Enor Pearl"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.calcStats.cost.enorPearl))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.calcStats.cost.jadiz > 0
+            ? _c("span", { staticClass: "costListItem" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__(/*! ../assets/img/Jadiz_icon.png */ "./resources/js/assets/img/Jadiz_icon.png"),
+                    alt: "Jadiz",
+                    title: "Jadiz"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.calcStats.cost.jadiz))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.calcStats.cost.magnite > 0
+            ? _c("span", { staticClass: "costListItem" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__(/*! ../assets/img/Magnite_icon.png */ "./resources/js/assets/img/Magnite_icon.png"),
+                    alt: "Magnite",
+                    title: "Magnite"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.calcStats.cost.magnite))])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.calcStats.cost.umanite > 0
+            ? _c("span", { staticClass: "costListItem" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__(/*! ../assets/img/Umanite_icon.png */ "./resources/js/assets/img/Umanite_icon.png"),
+                    alt: "Umanite",
+                    title: "Umanite"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.calcStats.cost.umanite))])
+              ])
+            : _vm._e()
+        ])
+      ],
+      2
     )
   ])
 }
@@ -37700,6 +41520,17 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-toasted/dist/vue-toasted.min.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vue-toasted/dist/vue-toasted.min.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){if(true)module.exports=e();else { var r, n; }}(this,function(){return function(t){function e(r){if(n[r])return n[r].exports;var i=n[r]={i:r,l:!1,exports:{}};return t[r].call(i.exports,i,i.exports,e),i.l=!0,i.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,r){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:r})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="/dist/",e(e.s=6)}([function(t,e,n){"use strict";function r(){d=!1}function i(t){if(!t)return void(f!==m&&(f=m,r()));if(t!==f){if(t.length!==m.length)throw new Error("Custom alphabet for shortid must be "+m.length+" unique characters. You submitted "+t.length+" characters: "+t);var e=t.split("").filter(function(t,e,n){return e!==n.lastIndexOf(t)});if(e.length)throw new Error("Custom alphabet for shortid must be "+m.length+" unique characters. These characters were not unique: "+e.join(", "));f=t,r()}}function o(t){return i(t),f}function a(t){h.seed(t),p!==t&&(r(),p=t)}function s(){f||i(m);for(var t,e=f.split(""),n=[],r=h.nextValue();e.length>0;)r=h.nextValue(),t=Math.floor(r*e.length),n.push(e.splice(t,1)[0]);return n.join("")}function c(){return d||(d=s())}function u(t){return c()[t]}function l(){return f||m}var f,p,d,h=n(19),m="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-";t.exports={get:l,characters:o,seed:a,lookup:u,shuffled:c}},function(t,e,n){"use strict";var r=n(5),i=n.n(r);e.a={animateIn:function(t){i()({targets:t,translateY:"-35px",opacity:1,duration:300,easing:"easeOutCubic"})},animateOut:function(t,e){i()({targets:t,opacity:0,marginTop:"-40px",duration:300,easing:"easeOutExpo",complete:e})},animateOutBottom:function(t,e){i()({targets:t,opacity:0,marginBottom:"-40px",duration:300,easing:"easeOutExpo",complete:e})},animateReset:function(t){i()({targets:t,left:0,opacity:1,duration:300,easing:"easeOutExpo"})},animatePanning:function(t,e,n){i()({targets:t,duration:10,easing:"easeOutQuad",left:e,opacity:n})},animatePanEnd:function(t,e){i()({targets:t,opacity:0,duration:300,easing:"easeOutExpo",complete:e})},clearAnimation:function(t){var e=i.a.timeline();t.forEach(function(t){e.add({targets:t.el,opacity:0,right:"-40px",duration:300,offset:"-=150",easing:"easeOutExpo",complete:function(){t.remove()}})})}}},function(t,e,n){"use strict";t.exports=n(16)},function(t,e,n){"use strict";n.d(e,"a",function(){return s});var r=n(8),i=n(1),o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},a=n(2);n(11).polyfill();var s=function t(e){var n=this;return this.id=a.generate(),this.options=e,this.cached_options={},this.global={},this.groups=[],this.toasts=[],this.container=null,l(this),u(this),this.group=function(e){e||(e={}),e.globalToasts||(e.globalToasts={}),Object.assign(e.globalToasts,n.global);var r=new t(e);return n.groups.push(r),r},this.register=function(t,e,r){return r=r||{},f(n,t,e,r)},this.show=function(t,e){return c(n,t,e)},this.success=function(t,e){return e=e||{},e.type="success",c(n,t,e)},this.info=function(t,e){return e=e||{},e.type="info",c(n,t,e)},this.error=function(t,e){return e=e||{},e.type="error",c(n,t,e)},this.remove=function(t){n.toasts=n.toasts.filter(function(e){return e.el.hash!==t.hash}),t.parentNode&&t.parentNode.removeChild(t)},this.clear=function(t){return i.a.clearAnimation(n.toasts,function(){t&&t()}),n.toasts=[],!0},this},c=function(t,e,i){i=i||{};var a=null;if("object"!==(void 0===i?"undefined":o(i)))return console.error("Options should be a type of object. given : "+i),null;t.options.singleton&&t.toasts.length>0&&(t.cached_options=i,t.toasts[t.toasts.length-1].goAway(0));var s=Object.assign({},t.options);return Object.assign(s,i),a=n.i(r.a)(t,e,s),t.toasts.push(a),a},u=function(t){var e=t.options.globalToasts,n=function(e,n){return"string"==typeof n&&t[n]?t[n].apply(t,[e,{}]):c(t,e,n)};e&&(t.global={},Object.keys(e).forEach(function(r){t.global[r]=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return e[r].apply(null,[t,n])}}))},l=function(t){var e=document.createElement("div");e.id=t.id,e.setAttribute("role","status"),e.setAttribute("aria-live","polite"),e.setAttribute("aria-atomic","false"),document.body.appendChild(e),t.container=e},f=function(t,e,n,r){t.options.globalToasts||(t.options.globalToasts={}),t.options.globalToasts[e]=function(t,e){var i=null;return"string"==typeof n&&(i=n),"function"==typeof n&&(i=n(t)),e(i,r)},u(t)}},function(t,e,n){n(22);var r=n(21)(null,null,null,null);t.exports=r.exports},function(t,e,n){(function(n){var r,i,o,a={scope:{}};a.defineProperty="function"==typeof Object.defineProperties?Object.defineProperty:function(t,e,n){if(n.get||n.set)throw new TypeError("ES3 does not support getters and setters.");t!=Array.prototype&&t!=Object.prototype&&(t[e]=n.value)},a.getGlobal=function(t){return"undefined"!=typeof window&&window===t?t:void 0!==n&&null!=n?n:t},a.global=a.getGlobal(this),a.SYMBOL_PREFIX="jscomp_symbol_",a.initSymbol=function(){a.initSymbol=function(){},a.global.Symbol||(a.global.Symbol=a.Symbol)},a.symbolCounter_=0,a.Symbol=function(t){return a.SYMBOL_PREFIX+(t||"")+a.symbolCounter_++},a.initSymbolIterator=function(){a.initSymbol();var t=a.global.Symbol.iterator;t||(t=a.global.Symbol.iterator=a.global.Symbol("iterator")),"function"!=typeof Array.prototype[t]&&a.defineProperty(Array.prototype,t,{configurable:!0,writable:!0,value:function(){return a.arrayIterator(this)}}),a.initSymbolIterator=function(){}},a.arrayIterator=function(t){var e=0;return a.iteratorPrototype(function(){return e<t.length?{done:!1,value:t[e++]}:{done:!0}})},a.iteratorPrototype=function(t){return a.initSymbolIterator(),t={next:t},t[a.global.Symbol.iterator]=function(){return this},t},a.array=a.array||{},a.iteratorFromArray=function(t,e){a.initSymbolIterator(),t instanceof String&&(t+="");var n=0,r={next:function(){if(n<t.length){var i=n++;return{value:e(i,t[i]),done:!1}}return r.next=function(){return{done:!0,value:void 0}},r.next()}};return r[Symbol.iterator]=function(){return r},r},a.polyfill=function(t,e,n,r){if(e){for(n=a.global,t=t.split("."),r=0;r<t.length-1;r++){var i=t[r];i in n||(n[i]={}),n=n[i]}t=t[t.length-1],r=n[t],e=e(r),e!=r&&null!=e&&a.defineProperty(n,t,{configurable:!0,writable:!0,value:e})}},a.polyfill("Array.prototype.keys",function(t){return t||function(){return a.iteratorFromArray(this,function(t){return t})}},"es6-impl","es3");var s=this;!function(n,a){i=[],r=a,void 0!==(o="function"==typeof r?r.apply(e,i):r)&&(t.exports=o)}(0,function(){function t(t){if(!R.col(t))try{return document.querySelectorAll(t)}catch(t){}}function e(t,e){for(var n=t.length,r=2<=arguments.length?arguments[1]:void 0,i=[],o=0;o<n;o++)if(o in t){var a=t[o];e.call(r,a,o,t)&&i.push(a)}return i}function n(t){return t.reduce(function(t,e){return t.concat(R.arr(e)?n(e):e)},[])}function r(e){return R.arr(e)?e:(R.str(e)&&(e=t(e)||e),e instanceof NodeList||e instanceof HTMLCollection?[].slice.call(e):[e])}function i(t,e){return t.some(function(t){return t===e})}function o(t){var e,n={};for(e in t)n[e]=t[e];return n}function a(t,e){var n,r=o(t);for(n in t)r[n]=e.hasOwnProperty(n)?e[n]:t[n];return r}function c(t,e){var n,r=o(t);for(n in e)r[n]=R.und(t[n])?e[n]:t[n];return r}function u(t){t=t.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,function(t,e,n,r){return e+e+n+n+r+r});var e=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(t);t=parseInt(e[1],16);var n=parseInt(e[2],16),e=parseInt(e[3],16);return"rgba("+t+","+n+","+e+",1)"}function l(t){function e(t,e,n){return 0>n&&(n+=1),1<n&&--n,n<1/6?t+6*(e-t)*n:.5>n?e:n<2/3?t+(e-t)*(2/3-n)*6:t}var n=/hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(t)||/hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(t);t=parseInt(n[1])/360;var r=parseInt(n[2])/100,i=parseInt(n[3])/100,n=n[4]||1;if(0==r)i=r=t=i;else{var o=.5>i?i*(1+r):i+r-i*r,a=2*i-o,i=e(a,o,t+1/3),r=e(a,o,t);t=e(a,o,t-1/3)}return"rgba("+255*i+","+255*r+","+255*t+","+n+")"}function f(t){if(t=/([\+\-]?[0-9#\.]+)(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(t))return t[2]}function p(t){return-1<t.indexOf("translate")||"perspective"===t?"px":-1<t.indexOf("rotate")||-1<t.indexOf("skew")?"deg":void 0}function d(t,e){return R.fnc(t)?t(e.target,e.id,e.total):t}function h(t,e){if(e in t.style)return getComputedStyle(t).getPropertyValue(e.replace(/([a-z])([A-Z])/g,"$1-$2").toLowerCase())||"0"}function m(t,e){return R.dom(t)&&i(D,e)?"transform":R.dom(t)&&(t.getAttribute(e)||R.svg(t)&&t[e])?"attribute":R.dom(t)&&"transform"!==e&&h(t,e)?"css":null!=t[e]?"object":void 0}function v(t,n){var r=p(n),r=-1<n.indexOf("scale")?1:0+r;if(!(t=t.style.transform))return r;for(var i=[],o=[],a=[],s=/(\w+)\((.+?)\)/g;i=s.exec(t);)o.push(i[1]),a.push(i[2]);return t=e(a,function(t,e){return o[e]===n}),t.length?t[0]:r}function g(t,e){switch(m(t,e)){case"transform":return v(t,e);case"css":return h(t,e);case"attribute":return t.getAttribute(e)}return t[e]||0}function y(t,e){var n=/^(\*=|\+=|-=)/.exec(t);if(!n)return t;var r=f(t)||0;switch(e=parseFloat(e),t=parseFloat(t.replace(n[0],"")),n[0][0]){case"+":return e+t+r;case"-":return e-t+r;case"*":return e*t+r}}function b(t,e){return Math.sqrt(Math.pow(e.x-t.x,2)+Math.pow(e.y-t.y,2))}function x(t){t=t.points;for(var e,n=0,r=0;r<t.numberOfItems;r++){var i=t.getItem(r);0<r&&(n+=b(e,i)),e=i}return n}function T(t){if(t.getTotalLength)return t.getTotalLength();switch(t.tagName.toLowerCase()){case"circle":return 2*Math.PI*t.getAttribute("r");case"rect":return 2*t.getAttribute("width")+2*t.getAttribute("height");case"line":return b({x:t.getAttribute("x1"),y:t.getAttribute("y1")},{x:t.getAttribute("x2"),y:t.getAttribute("y2")});case"polyline":return x(t);case"polygon":var e=t.points;return x(t)+b(e.getItem(e.numberOfItems-1),e.getItem(0))}}function w(t,e){function n(n){return n=void 0===n?0:n,t.el.getPointAtLength(1<=e+n?e+n:0)}var r=n(),i=n(-1),o=n(1);switch(t.property){case"x":return r.x;case"y":return r.y;case"angle":return 180*Math.atan2(o.y-i.y,o.x-i.x)/Math.PI}}function E(t,e){var n,r=/-?\d*\.?\d+/g;if(n=R.pth(t)?t.totalLength:t,R.col(n))if(R.rgb(n)){var i=/rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(n);n=i?"rgba("+i[1]+",1)":n}else n=R.hex(n)?u(n):R.hsl(n)?l(n):void 0;else i=(i=f(n))?n.substr(0,n.length-i.length):n,n=e&&!/\s/g.test(n)?i+e:i;return n+="",{original:n,numbers:n.match(r)?n.match(r).map(Number):[0],strings:R.str(t)||e?n.split(r):[]}}function C(t){return t=t?n(R.arr(t)?t.map(r):r(t)):[],e(t,function(t,e,n){return n.indexOf(t)===e})}function S(t){var e=C(t);return e.map(function(t,n){return{target:t,id:n,total:e.length}})}function O(t,e){var n=o(e);if(R.arr(t)){var i=t.length;2!==i||R.obj(t[0])?R.fnc(e.duration)||(n.duration=e.duration/i):t={value:t}}return r(t).map(function(t,n){return n=n?0:e.delay,t=R.obj(t)&&!R.pth(t)?t:{value:t},R.und(t.delay)&&(t.delay=n),t}).map(function(t){return c(t,n)})}function A(t,e){var n,r={};for(n in t){var i=d(t[n],e);R.arr(i)&&(i=i.map(function(t){return d(t,e)}),1===i.length&&(i=i[0])),r[n]=i}return r.duration=parseFloat(r.duration),r.delay=parseFloat(r.delay),r}function I(t){return R.arr(t)?F.apply(this,t):z[t]}function M(t,e){var n;return t.tweens.map(function(r){r=A(r,e);var i=r.value,o=g(e.target,t.name),a=n?n.to.original:o,a=R.arr(i)?i[0]:a,s=y(R.arr(i)?i[1]:i,a),o=f(s)||f(a)||f(o);return r.from=E(a,o),r.to=E(s,o),r.start=n?n.end:t.offset,r.end=r.start+r.delay+r.duration,r.easing=I(r.easing),r.elasticity=(1e3-Math.min(Math.max(r.elasticity,1),999))/1e3,r.isPath=R.pth(i),r.isColor=R.col(r.from.original),r.isColor&&(r.round=1),n=r})}function k(t,r){return e(n(t.map(function(t){return r.map(function(e){var n=m(t.target,e.name);if(n){var r=M(e,t);e={type:n,property:e.name,animatable:t,tweens:r,duration:r[r.length-1].end,delay:r[0].delay}}else e=void 0;return e})})),function(t){return!R.und(t)})}function P(t,e,n,r){var i="delay"===t;return e.length?(i?Math.min:Math.max).apply(Math,e.map(function(e){return e[t]})):i?r.delay:n.offset+r.delay+r.duration}function L(t){var e,n=a(_,t),r=a(X,t),i=S(t.targets),o=[],s=c(n,r);for(e in t)s.hasOwnProperty(e)||"targets"===e||o.push({name:e,offset:s.offset,tweens:O(t[e],r)});return t=k(i,o),c(n,{children:[],animatables:i,animations:t,duration:P("duration",t,n,r),delay:P("delay",t,n,r)})}function j(t){function n(){return window.Promise&&new Promise(function(t){return f=t})}function r(t){return d.reversed?d.duration-t:t}function i(t){for(var n=0,r={},i=d.animations,o=i.length;n<o;){var a=i[n],s=a.animatable,c=a.tweens,u=c.length-1,l=c[u];u&&(l=e(c,function(e){return t<e.end})[0]||l);for(var c=Math.min(Math.max(t-l.start-l.delay,0),l.duration)/l.duration,f=isNaN(c)?1:l.easing(c,l.elasticity),c=l.to.strings,p=l.round,u=[],m=void 0,m=l.to.numbers.length,v=0;v<m;v++){var g=void 0,g=l.to.numbers[v],y=l.from.numbers[v],g=l.isPath?w(l.value,f*g):y+f*(g-y);p&&(l.isColor&&2<v||(g=Math.round(g*p)/p)),u.push(g)}if(l=c.length)for(m=c[0],f=0;f<l;f++)p=c[f+1],v=u[f],isNaN(v)||(m=p?m+(v+p):m+(v+" "));else m=u[0];Y[a.type](s.target,a.property,m,r,s.id),a.currentValue=m,n++}if(n=Object.keys(r).length)for(i=0;i<n;i++)N||(N=h(document.body,"transform")?"transform":"-webkit-transform"),d.animatables[i].target.style[N]=r[i].join(" ");d.currentTime=t,d.progress=t/d.duration*100}function o(t){d[t]&&d[t](d)}function a(){d.remaining&&!0!==d.remaining&&d.remaining--}function s(t){var e=d.duration,s=d.offset,h=s+d.delay,m=d.currentTime,v=d.reversed,g=r(t);if(d.children.length){var y=d.children,b=y.length;if(g>=d.currentTime)for(var x=0;x<b;x++)y[x].seek(g);else for(;b--;)y[b].seek(g)}(g>=h||!e)&&(d.began||(d.began=!0,o("begin")),o("run")),g>s&&g<e?i(g):(g<=s&&0!==m&&(i(0),v&&a()),(g>=e&&m!==e||!e)&&(i(e),v||a())),o("update"),t>=e&&(d.remaining?(u=c,"alternate"===d.direction&&(d.reversed=!d.reversed)):(d.pause(),d.completed||(d.completed=!0,o("complete"),"Promise"in window&&(f(),p=n()))),l=0)}t=void 0===t?{}:t;var c,u,l=0,f=null,p=n(),d=L(t);return d.reset=function(){var t=d.direction,e=d.loop;for(d.currentTime=0,d.progress=0,d.paused=!0,d.began=!1,d.completed=!1,d.reversed="reverse"===t,d.remaining="alternate"===t&&1===e?2:e,i(0),t=d.children.length;t--;)d.children[t].reset()},d.tick=function(t){c=t,u||(u=c),s((l+c-u)*j.speed)},d.seek=function(t){s(r(t))},d.pause=function(){var t=H.indexOf(d);-1<t&&H.splice(t,1),d.paused=!0},d.play=function(){d.paused&&(d.paused=!1,u=0,l=r(d.currentTime),H.push(d),q||V())},d.reverse=function(){d.reversed=!d.reversed,u=0,l=r(d.currentTime)},d.restart=function(){d.pause(),d.reset(),d.play()},d.finished=p,d.reset(),d.autoplay&&d.play(),d}var N,_={update:void 0,begin:void 0,run:void 0,complete:void 0,loop:1,direction:"normal",autoplay:!0,offset:0},X={duration:1e3,delay:0,easing:"easeOutElastic",elasticity:500,round:0},D="translateX translateY translateZ rotate rotateX rotateY rotateZ scale scaleX scaleY scaleZ skewX skewY perspective".split(" "),R={arr:function(t){return Array.isArray(t)},obj:function(t){return-1<Object.prototype.toString.call(t).indexOf("Object")},pth:function(t){return R.obj(t)&&t.hasOwnProperty("totalLength")},svg:function(t){return t instanceof SVGElement},dom:function(t){return t.nodeType||R.svg(t)},str:function(t){return"string"==typeof t},fnc:function(t){return"function"==typeof t},und:function(t){return void 0===t},hex:function(t){return/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(t)},rgb:function(t){return/^rgb/.test(t)},hsl:function(t){return/^hsl/.test(t)},col:function(t){return R.hex(t)||R.rgb(t)||R.hsl(t)}},F=function(){function t(t,e,n){return(((1-3*n+3*e)*t+(3*n-6*e))*t+3*e)*t}return function(e,n,r,i){if(0<=e&&1>=e&&0<=r&&1>=r){var o=new Float32Array(11);if(e!==n||r!==i)for(var a=0;11>a;++a)o[a]=t(.1*a,e,r);return function(a){if(e===n&&r===i)return a;if(0===a)return 0;if(1===a)return 1;for(var s=0,c=1;10!==c&&o[c]<=a;++c)s+=.1;--c;var c=s+(a-o[c])/(o[c+1]-o[c])*.1,u=3*(1-3*r+3*e)*c*c+2*(3*r-6*e)*c+3*e;if(.001<=u){for(s=0;4>s&&0!==(u=3*(1-3*r+3*e)*c*c+2*(3*r-6*e)*c+3*e);++s)var l=t(c,e,r)-a,c=c-l/u;a=c}else if(0===u)a=c;else{var c=s,s=s+.1,f=0;do{l=c+(s-c)/2,u=t(l,e,r)-a,0<u?s=l:c=l}while(1e-7<Math.abs(u)&&10>++f);a=l}return t(a,n,i)}}}}(),z=function(){function t(t,e){return 0===t||1===t?t:-Math.pow(2,10*(t-1))*Math.sin(2*(t-1-e/(2*Math.PI)*Math.asin(1))*Math.PI/e)}var e,n="Quad Cubic Quart Quint Sine Expo Circ Back Elastic".split(" "),r={In:[[.55,.085,.68,.53],[.55,.055,.675,.19],[.895,.03,.685,.22],[.755,.05,.855,.06],[.47,0,.745,.715],[.95,.05,.795,.035],[.6,.04,.98,.335],[.6,-.28,.735,.045],t],Out:[[.25,.46,.45,.94],[.215,.61,.355,1],[.165,.84,.44,1],[.23,1,.32,1],[.39,.575,.565,1],[.19,1,.22,1],[.075,.82,.165,1],[.175,.885,.32,1.275],function(e,n){return 1-t(1-e,n)}],InOut:[[.455,.03,.515,.955],[.645,.045,.355,1],[.77,0,.175,1],[.86,0,.07,1],[.445,.05,.55,.95],[1,0,0,1],[.785,.135,.15,.86],[.68,-.55,.265,1.55],function(e,n){return.5>e?t(2*e,n)/2:1-t(-2*e+2,n)/2}]},i={linear:F(.25,.25,.75,.75)},o={};for(e in r)o.type=e,r[o.type].forEach(function(t){return function(e,r){i["ease"+t.type+n[r]]=R.fnc(e)?e:F.apply(s,e)}}(o)),o={type:o.type};return i}(),Y={css:function(t,e,n){return t.style[e]=n},attribute:function(t,e,n){return t.setAttribute(e,n)},object:function(t,e,n){return t[e]=n},transform:function(t,e,n,r,i){r[i]||(r[i]=[]),r[i].push(e+"("+n+")")}},H=[],q=0,V=function(){function t(){q=requestAnimationFrame(e)}function e(e){var n=H.length;if(n){for(var r=0;r<n;)H[r]&&H[r].tick(e),r++;t()}else cancelAnimationFrame(q),q=0}return t}();return j.version="2.2.0",j.speed=1,j.running=H,j.remove=function(t){t=C(t);for(var e=H.length;e--;)for(var n=H[e],r=n.animations,o=r.length;o--;)i(t,r[o].animatable.target)&&(r.splice(o,1),r.length||n.pause())},j.getValue=g,j.path=function(e,n){var r=R.str(e)?t(e)[0]:e,i=n||100;return function(t){return{el:r,property:t,totalLength:T(r)*(i/100)}}},j.setDashoffset=function(t){var e=T(t);return t.setAttribute("stroke-dasharray",e),e},j.bezier=F,j.easings=z,j.timeline=function(t){var e=j(t);return e.pause(),e.duration=0,e.add=function(n){return e.children.forEach(function(t){t.began=!0,t.completed=!0}),r(n).forEach(function(n){var r=c(n,a(X,t||{}));r.targets=r.targets||t.targets,n=e.duration;var i=r.offset;r.autoplay=!1,r.direction=e.direction,r.offset=R.und(i)?n:y(i,n),e.began=!0,e.completed=!0,e.seek(r.offset),r=j(r),r.began=!0,r.completed=!0,r.duration>n&&(e.duration=r.duration),e.children.push(r)}),e.seek(0),e.reset(),e.autoplay&&e.restart(),e},e},j.random=function(t,e){return Math.floor(Math.random()*(e-t+1))+t},j})}).call(e,n(25))},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var r=n(3),i=n(4),o=n.n(i),a={install:function(t,e){e||(e={});var n=new r.a(e);t.component("toasted",o.a),t.toasted=t.prototype.$toasted=n}};"undefined"!=typeof window&&window.Vue&&(window.Toasted=a),e.default=a},function(t,e,n){"use strict";n.d(e,"a",function(){return c});var r=n(1),i=this,o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},a=function(t,e,n){return setTimeout(function(){if(n.cached_options.position&&n.cached_options.position.includes("bottom"))return void r.a.animateOutBottom(t,function(){n.remove(t)});r.a.animateOut(t,function(){n.remove(t)})},e),!0},s=function(t,e){return("object"===("undefined"==typeof HTMLElement?"undefined":o(HTMLElement))?e instanceof HTMLElement:e&&"object"===(void 0===e?"undefined":o(e))&&null!==e&&1===e.nodeType&&"string"==typeof e.nodeName)?t.appendChild(e):t.innerHTML=e,i},c=function(t,e){var n=!1;return{el:t,text:function(e){return s(t,e),this},goAway:function(){var r=arguments.length>0&&void 0!==arguments[0]?arguments[0]:800;return n=!0,a(t,r,e)},remove:function(){e.remove(t)},disposed:function(){return n}}}},function(t,e,n){"use strict";var r=n(12),i=n.n(r),o=n(1),a=n(7),s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},c=n(2);String.prototype.includes||Object.defineProperty(String.prototype,"includes",{value:function(t,e){return"number"!=typeof e&&(e=0),!(e+t.length>this.length)&&-1!==this.indexOf(t,e)}});var u={},l=null,f=function(t){return t.className=t.className||null,t.onComplete=t.onComplete||null,t.position=t.position||"top-right",t.duration=t.duration||null,t.keepOnHover=t.keepOnHover||!1,t.theme=t.theme||"toasted-primary",t.type=t.type||"default",t.containerClass=t.containerClass||null,t.fullWidth=t.fullWidth||!1,t.icon=t.icon||null,t.action=t.action||null,t.fitToScreen=t.fitToScreen||null,t.closeOnSwipe=void 0===t.closeOnSwipe||t.closeOnSwipe,t.iconPack=t.iconPack||"material",t.className&&"string"==typeof t.className&&(t.className=t.className.split(" ")),t.className||(t.className=[]),t.theme&&t.className.push(t.theme.trim()),t.type&&t.className.push(t.type),t.containerClass&&"string"==typeof t.containerClass&&(t.containerClass=t.containerClass.split(" ")),t.containerClass||(t.containerClass=[]),t.position&&t.containerClass.push(t.position.trim()),t.fullWidth&&t.containerClass.push("full-width"),t.fitToScreen&&t.containerClass.push("fit-to-screen"),u=t,t},p=function(t,e){var r=document.createElement("div");if(r.classList.add("toasted"),r.hash=c.generate(),e.className&&e.className.forEach(function(t){r.classList.add(t)}),("object"===("undefined"==typeof HTMLElement?"undefined":s(HTMLElement))?t instanceof HTMLElement:t&&"object"===(void 0===t?"undefined":s(t))&&null!==t&&1===t.nodeType&&"string"==typeof t.nodeName)?r.appendChild(t):r.innerHTML=t,d(e,r),e.closeOnSwipe){var u=new i.a(r,{prevent_default:!1});u.on("pan",function(t){var e=t.deltaX;r.classList.contains("panning")||r.classList.add("panning");var n=1-Math.abs(e/80);n<0&&(n=0),o.a.animatePanning(r,e,n)}),u.on("panend",function(t){var n=t.deltaX;Math.abs(n)>80?o.a.animatePanEnd(r,function(){"function"==typeof e.onComplete&&e.onComplete(),r.parentNode&&l.remove(r)}):(r.classList.remove("panning"),o.a.animateReset(r))})}if(Array.isArray(e.action))e.action.forEach(function(t){var e=m(t,n.i(a.a)(r,l));e&&r.appendChild(e)});else if("object"===s(e.action)){var f=m(e.action,n.i(a.a)(r,l));f&&r.appendChild(f)}return r},d=function(t,e){if(t.icon){var n=document.createElement("i");switch(n.setAttribute("aria-hidden","true"),t.iconPack){case"fontawesome":n.classList.add("fa");var r=t.icon.name?t.icon.name:t.icon;r.includes("fa-")?n.classList.add(r.trim()):n.classList.add("fa-"+r.trim());break;case"mdi":n.classList.add("mdi");var i=t.icon.name?t.icon.name:t.icon;i.includes("mdi-")?n.classList.add(i.trim()):n.classList.add("mdi-"+i.trim());break;case"custom-class":var o=t.icon.name?t.icon.name:t.icon;"string"==typeof o?o.split(" ").forEach(function(t){n.classList.add(t)}):Array.isArray(o)&&o.forEach(function(t){n.classList.add(t.trim())});break;case"callback":var a=t.icon&&t.icon instanceof Function?t.icon:null;a&&(n=a(n));break;default:n.classList.add("material-icons"),n.textContent=t.icon.name?t.icon.name:t.icon}t.icon.after&&n.classList.add("after"),h(t,n,e)}},h=function(t,e,n){t.icon&&(t.icon.after&&t.icon.name?n.appendChild(e):(t.icon.name,n.insertBefore(e,n.firstChild)))},m=function(t,e){if(!t)return null;var n=document.createElement("a");if(n.classList.add("action"),n.classList.add("ripple"),t.text&&(n.text=t.text),t.href&&(n.href=t.href),t.target&&(n.target=t.target),t.icon){n.classList.add("icon");var r=document.createElement("i");switch(u.iconPack){case"fontawesome":r.classList.add("fa"),t.icon.includes("fa-")?r.classList.add(t.icon.trim()):r.classList.add("fa-"+t.icon.trim());break;case"mdi":r.classList.add("mdi"),t.icon.includes("mdi-")?r.classList.add(t.icon.trim()):r.classList.add("mdi-"+t.icon.trim());break;case"custom-class":"string"==typeof t.icon?t.icon.split(" ").forEach(function(t){n.classList.add(t)}):Array.isArray(t.icon)&&t.icon.forEach(function(t){n.classList.add(t.trim())});break;default:r.classList.add("material-icons"),r.textContent=t.icon}n.appendChild(r)}return t.class&&("string"==typeof t.class?t.class.split(" ").forEach(function(t){n.classList.add(t)}):Array.isArray(t.class)&&t.class.forEach(function(t){n.classList.add(t.trim())})),t.push&&n.addEventListener("click",function(n){if(n.preventDefault(),!u.router)return void console.warn("[vue-toasted] : Vue Router instance is not attached. please check the docs");u.router.push(t.push),t.push.dontClose||e.goAway(0)}),t.onClick&&"function"==typeof t.onClick&&n.addEventListener("click",function(n){t.onClick&&(n.preventDefault(),t.onClick(n,e))}),n};e.a=function(t,e,r){l=t,r=f(r);var i=l.container;r.containerClass.unshift("toasted-container"),i.className!==r.containerClass.join(" ")&&(i.className="",r.containerClass.forEach(function(t){i.classList.add(t)}));var s=p(e,r);e&&i.appendChild(s),s.style.opacity=0,o.a.animateIn(s);var c=r.duration,u=void 0;if(null!==c){var d=function(){return setInterval(function(){null===s.parentNode&&window.clearInterval(u),s.classList.contains("panning")||(c-=20),c<=0&&(o.a.animateOut(s,function(){"function"==typeof r.onComplete&&r.onComplete(),s.parentNode&&l.remove(s)}),window.clearInterval(u))},20)};u=d(),r.keepOnHover&&(s.addEventListener("mouseover",function(){window.clearInterval(u)}),s.addEventListener("mouseout",function(){u=d()}))}return n.i(a.a)(s,l)}},function(t,e,n){e=t.exports=n(10)(),e.push([t.i,".toasted{padding:0 20px}.toasted.rounded{border-radius:24px}.toasted .primary,.toasted.toasted-primary{border-radius:2px;min-height:38px;line-height:1.1em;background-color:#353535;padding:6px 20px;font-size:15px;font-weight:300;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)}.toasted .primary.success,.toasted.toasted-primary.success{background:#4caf50}.toasted .primary.error,.toasted.toasted-primary.error{background:#f44336}.toasted .primary.info,.toasted.toasted-primary.info{background:#3f51b5}.toasted .primary .action,.toasted.toasted-primary .action{color:#a1c2fa}.toasted.bubble{border-radius:30px;min-height:38px;line-height:1.1em;background-color:#ff7043;padding:0 20px;font-size:15px;font-weight:300;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)}.toasted.bubble.success{background:#4caf50}.toasted.bubble.error{background:#f44336}.toasted.bubble.info{background:#3f51b5}.toasted.bubble .action{color:#8e2b0c}.toasted.outline{border-radius:30px;min-height:38px;line-height:1.1em;background-color:#fff;border:1px solid #676767;padding:0 20px;font-size:15px;color:#676767;box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);font-weight:700}.toasted.outline.success{color:#4caf50;border-color:#4caf50}.toasted.outline.error{color:#f44336;border-color:#f44336}.toasted.outline.info{color:#3f51b5;border-color:#3f51b5}.toasted.outline .action{color:#607d8b}.toasted-container{position:fixed;z-index:10000}.toasted-container,.toasted-container.full-width{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column}.toasted-container.full-width{max-width:86%;width:100%}.toasted-container.full-width.fit-to-screen{min-width:100%}.toasted-container.full-width.fit-to-screen .toasted:first-child{margin-top:0}.toasted-container.full-width.fit-to-screen.top-right{top:0;right:0}.toasted-container.full-width.fit-to-screen.top-left{top:0;left:0}.toasted-container.full-width.fit-to-screen.top-center{top:0;left:0;-webkit-transform:translateX(0);transform:translateX(0)}.toasted-container.full-width.fit-to-screen.bottom-right{right:0;bottom:0}.toasted-container.full-width.fit-to-screen.bottom-left{left:0;bottom:0}.toasted-container.full-width.fit-to-screen.bottom-center{left:0;bottom:0;-webkit-transform:translateX(0);transform:translateX(0)}.toasted-container.top-right{top:10%;right:7%}.toasted-container.top-left{top:10%;left:7%}.toasted-container.top-center{top:10%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}.toasted-container.bottom-right{right:5%;bottom:7%}.toasted-container.bottom-left{left:5%;bottom:7%}.toasted-container.bottom-center{left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);bottom:7%}.toasted-container.bottom-left .toasted,.toasted-container.top-left .toasted{float:left}.toasted-container.bottom-right .toasted,.toasted-container.top-right .toasted{float:right}.toasted-container .toasted{top:35px;width:auto;clear:both;margin-top:10px;position:relative;max-width:100%;height:auto;word-break:normal;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:justify;justify-content:space-between;box-sizing:inherit}.toasted-container .toasted .fa,.toasted-container .toasted .fab,.toasted-container .toasted .far,.toasted-container .toasted .fas,.toasted-container .toasted .material-icons,.toasted-container .toasted .mdi{margin-right:.5rem;margin-left:-.4rem}.toasted-container .toasted .fa.after,.toasted-container .toasted .fab.after,.toasted-container .toasted .far.after,.toasted-container .toasted .fas.after,.toasted-container .toasted .material-icons.after,.toasted-container .toasted .mdi.after{margin-left:.5rem;margin-right:-.4rem}.toasted-container .toasted .action{text-decoration:none;font-size:.8rem;padding:8px;margin:5px -7px 5px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;cursor:pointer}.toasted-container .toasted .action.icon{padding:4px;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center}.toasted-container .toasted .action.icon .fa,.toasted-container .toasted .action.icon .material-icons,.toasted-container .toasted .action.icon .mdi{margin-right:0;margin-left:4px}.toasted-container .toasted .action.icon:hover{text-decoration:none}.toasted-container .toasted .action:hover{text-decoration:underline}@media only screen and (max-width:600px){.toasted-container{min-width:100%}.toasted-container .toasted:first-child{margin-top:0}.toasted-container.top-right{top:0;right:0}.toasted-container.top-left{top:0;left:0}.toasted-container.top-center{top:0;left:0;-webkit-transform:translateX(0);transform:translateX(0)}.toasted-container.bottom-right{right:0;bottom:0}.toasted-container.bottom-left{left:0;bottom:0}.toasted-container.bottom-center{left:0;bottom:0;-webkit-transform:translateX(0);transform:translateX(0)}.toasted-container.bottom-center,.toasted-container.top-center{-ms-flex-align:stretch!important;align-items:stretch!important}.toasted-container.bottom-left .toasted,.toasted-container.bottom-right .toasted,.toasted-container.top-left .toasted,.toasted-container.top-right .toasted{float:none}.toasted-container .toasted{border-radius:0}}",""])},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var n=this[e];n[2]?t.push("@media "+n[2]+"{"+n[1]+"}"):t.push(n[1])}return t.join("")},t.i=function(e,n){"string"==typeof e&&(e=[[null,e,""]]);for(var r={},i=0;i<this.length;i++){var o=this[i][0];"number"==typeof o&&(r[o]=!0)}for(i=0;i<e.length;i++){var a=e[i];"number"==typeof a[0]&&r[a[0]]||(n&&!a[2]?a[2]=n:n&&(a[2]="("+a[2]+") and ("+n+")"),t.push(a))}},t}},function(t,e,n){"use strict";function r(t,e){if(void 0===t||null===t)throw new TypeError("Cannot convert first argument to object");for(var n=Object(t),r=1;r<arguments.length;r++){var i=arguments[r];if(void 0!==i&&null!==i)for(var o=Object.keys(Object(i)),a=0,s=o.length;a<s;a++){var c=o[a],u=Object.getOwnPropertyDescriptor(i,c);void 0!==u&&u.enumerable&&(n[c]=i[c])}}return n}function i(){Object.assign||Object.defineProperty(Object,"assign",{enumerable:!1,configurable:!0,writable:!0,value:r})}t.exports={assign:r,polyfill:i}},function(t,e,n){var r;!function(i,o,a,s){"use strict";function c(t,e,n){return setTimeout(d(t,n),e)}function u(t,e,n){return!!Array.isArray(t)&&(l(t,n[e],n),!0)}function l(t,e,n){var r;if(t)if(t.forEach)t.forEach(e,n);else if(t.length!==s)for(r=0;r<t.length;)e.call(n,t[r],r,t),r++;else for(r in t)t.hasOwnProperty(r)&&e.call(n,t[r],r,t)}function f(t,e,n){var r="DEPRECATED METHOD: "+e+"\n"+n+" AT \n";return function(){var e=new Error("get-stack-trace"),n=e&&e.stack?e.stack.replace(/^[^\(]+?[\n$]/gm,"").replace(/^\s+at\s+/gm,"").replace(/^Object.<anonymous>\s*\(/gm,"{anonymous}()@"):"Unknown Stack Trace",o=i.console&&(i.console.warn||i.console.log);return o&&o.call(i.console,r,n),t.apply(this,arguments)}}function p(t,e,n){var r,i=e.prototype;r=t.prototype=Object.create(i),r.constructor=t,r._super=i,n&&ht(r,n)}function d(t,e){return function(){return t.apply(e,arguments)}}function h(t,e){return typeof t==gt?t.apply(e?e[0]||s:s,e):t}function m(t,e){return t===s?e:t}function v(t,e,n){l(x(e),function(e){t.addEventListener(e,n,!1)})}function g(t,e,n){l(x(e),function(e){t.removeEventListener(e,n,!1)})}function y(t,e){for(;t;){if(t==e)return!0;t=t.parentNode}return!1}function b(t,e){return t.indexOf(e)>-1}function x(t){return t.trim().split(/\s+/g)}function T(t,e,n){if(t.indexOf&&!n)return t.indexOf(e);for(var r=0;r<t.length;){if(n&&t[r][n]==e||!n&&t[r]===e)return r;r++}return-1}function w(t){return Array.prototype.slice.call(t,0)}function E(t,e,n){for(var r=[],i=[],o=0;o<t.length;){var a=e?t[o][e]:t[o];T(i,a)<0&&r.push(t[o]),i[o]=a,o++}return n&&(r=e?r.sort(function(t,n){return t[e]>n[e]}):r.sort()),r}function C(t,e){for(var n,r,i=e[0].toUpperCase()+e.slice(1),o=0;o<mt.length;){if(n=mt[o],(r=n?n+i:e)in t)return r;o++}return s}function S(){return Et++}function O(t){var e=t.ownerDocument||t;return e.defaultView||e.parentWindow||i}function A(t,e){var n=this;this.manager=t,this.callback=e,this.element=t.element,this.target=t.options.inputTarget,this.domHandler=function(e){h(t.options.enable,[t])&&n.handler(e)},this.init()}function I(t){var e=t.options.inputClass;return new(e||(Ot?H:At?W:St?B:Y))(t,M)}function M(t,e,n){var r=n.pointers.length,i=n.changedPointers.length,o=e&Mt&&r-i==0,a=e&(Pt|Lt)&&r-i==0;n.isFirst=!!o,n.isFinal=!!a,o&&(t.session={}),n.eventType=e,k(t,n),t.emit("hammer.input",n),t.recognize(n),t.session.prevInput=n}function k(t,e){var n=t.session,r=e.pointers,i=r.length;n.firstInput||(n.firstInput=j(e)),i>1&&!n.firstMultiple?n.firstMultiple=j(e):1===i&&(n.firstMultiple=!1);var o=n.firstInput,a=n.firstMultiple,s=a?a.center:o.center,c=e.center=N(r);e.timeStamp=xt(),e.deltaTime=e.timeStamp-o.timeStamp,e.angle=R(s,c),e.distance=D(s,c),P(n,e),e.offsetDirection=X(e.deltaX,e.deltaY);var u=_(e.deltaTime,e.deltaX,e.deltaY);e.overallVelocityX=u.x,e.overallVelocityY=u.y,e.overallVelocity=bt(u.x)>bt(u.y)?u.x:u.y,e.scale=a?z(a.pointers,r):1,e.rotation=a?F(a.pointers,r):0,e.maxPointers=n.prevInput?e.pointers.length>n.prevInput.maxPointers?e.pointers.length:n.prevInput.maxPointers:e.pointers.length,L(n,e);var l=t.element;y(e.srcEvent.target,l)&&(l=e.srcEvent.target),e.target=l}function P(t,e){var n=e.center,r=t.offsetDelta||{},i=t.prevDelta||{},o=t.prevInput||{};e.eventType!==Mt&&o.eventType!==Pt||(i=t.prevDelta={x:o.deltaX||0,y:o.deltaY||0},r=t.offsetDelta={x:n.x,y:n.y}),e.deltaX=i.x+(n.x-r.x),e.deltaY=i.y+(n.y-r.y)}function L(t,e){var n,r,i,o,a=t.lastInterval||e,c=e.timeStamp-a.timeStamp;if(e.eventType!=Lt&&(c>It||a.velocity===s)){var u=e.deltaX-a.deltaX,l=e.deltaY-a.deltaY,f=_(c,u,l);r=f.x,i=f.y,n=bt(f.x)>bt(f.y)?f.x:f.y,o=X(u,l),t.lastInterval=e}else n=a.velocity,r=a.velocityX,i=a.velocityY,o=a.direction;e.velocity=n,e.velocityX=r,e.velocityY=i,e.direction=o}function j(t){for(var e=[],n=0;n<t.pointers.length;)e[n]={clientX:yt(t.pointers[n].clientX),clientY:yt(t.pointers[n].clientY)},n++;return{timeStamp:xt(),pointers:e,center:N(e),deltaX:t.deltaX,deltaY:t.deltaY}}function N(t){var e=t.length;if(1===e)return{x:yt(t[0].clientX),y:yt(t[0].clientY)};for(var n=0,r=0,i=0;i<e;)n+=t[i].clientX,r+=t[i].clientY,i++;return{x:yt(n/e),y:yt(r/e)}}function _(t,e,n){return{x:e/t||0,y:n/t||0}}function X(t,e){return t===e?jt:bt(t)>=bt(e)?t<0?Nt:_t:e<0?Xt:Dt}function D(t,e,n){n||(n=Yt);var r=e[n[0]]-t[n[0]],i=e[n[1]]-t[n[1]];return Math.sqrt(r*r+i*i)}function R(t,e,n){n||(n=Yt);var r=e[n[0]]-t[n[0]],i=e[n[1]]-t[n[1]];return 180*Math.atan2(i,r)/Math.PI}function F(t,e){return R(e[1],e[0],Ht)+R(t[1],t[0],Ht)}function z(t,e){return D(e[0],e[1],Ht)/D(t[0],t[1],Ht)}function Y(){this.evEl=Vt,this.evWin=Wt,this.pressed=!1,A.apply(this,arguments)}function H(){this.evEl=$t,this.evWin=Gt,A.apply(this,arguments),this.store=this.manager.session.pointerEvents=[]}function q(){this.evTarget=Qt,this.evWin=Jt,this.started=!1,A.apply(this,arguments)}function V(t,e){var n=w(t.touches),r=w(t.changedTouches);return e&(Pt|Lt)&&(n=E(n.concat(r),"identifier",!0)),[n,r]}function W(){this.evTarget=te,this.targetIds={},A.apply(this,arguments)}function U(t,e){var n=w(t.touches),r=this.targetIds;if(e&(Mt|kt)&&1===n.length)return r[n[0].identifier]=!0,[n,n];var i,o,a=w(t.changedTouches),s=[],c=this.target;if(o=n.filter(function(t){return y(t.target,c)}),e===Mt)for(i=0;i<o.length;)r[o[i].identifier]=!0,i++;for(i=0;i<a.length;)r[a[i].identifier]&&s.push(a[i]),e&(Pt|Lt)&&delete r[a[i].identifier],i++;return s.length?[E(o.concat(s),"identifier",!0),s]:void 0}function B(){A.apply(this,arguments);var t=d(this.handler,this);this.touch=new W(this.manager,t),this.mouse=new Y(this.manager,t),this.primaryTouch=null,this.lastTouches=[]}function $(t,e){t&Mt?(this.primaryTouch=e.changedPointers[0].identifier,G.call(this,e)):t&(Pt|Lt)&&G.call(this,e)}function G(t){var e=t.changedPointers[0];if(e.identifier===this.primaryTouch){var n={x:e.clientX,y:e.clientY};this.lastTouches.push(n);var r=this.lastTouches,i=function(){var t=r.indexOf(n);t>-1&&r.splice(t,1)};setTimeout(i,ee)}}function Z(t){for(var e=t.srcEvent.clientX,n=t.srcEvent.clientY,r=0;r<this.lastTouches.length;r++){var i=this.lastTouches[r],o=Math.abs(e-i.x),a=Math.abs(n-i.y);if(o<=ne&&a<=ne)return!0}return!1}function Q(t,e){this.manager=t,this.set(e)}function J(t){if(b(t,se))return se;var e=b(t,ce),n=b(t,ue);return e&&n?se:e||n?e?ce:ue:b(t,ae)?ae:oe}function K(t){this.options=ht({},this.defaults,t||{}),this.id=S(),this.manager=null,this.options.enable=m(this.options.enable,!0),this.state=fe,this.simultaneous={},this.requireFail=[]}function tt(t){return t&ve?"cancel":t&he?"end":t&de?"move":t&pe?"start":""}function et(t){return t==Dt?"down":t==Xt?"up":t==Nt?"left":t==_t?"right":""}function nt(t,e){var n=e.manager;return n?n.get(t):t}function rt(){K.apply(this,arguments)}function it(){rt.apply(this,arguments),this.pX=null,this.pY=null}function ot(){rt.apply(this,arguments)}function at(){K.apply(this,arguments),this._timer=null,this._input=null}function st(){rt.apply(this,arguments)}function ct(){rt.apply(this,arguments)}function ut(){K.apply(this,arguments),this.pTime=!1,this.pCenter=!1,this._timer=null,this._input=null,this.count=0}function lt(t,e){return e=e||{},e.recognizers=m(e.recognizers,lt.defaults.preset),new ft(t,e)}function ft(t,e){this.options=ht({},lt.defaults,e||{}),this.options.inputTarget=this.options.inputTarget||t,this.handlers={},this.session={},this.recognizers=[],this.oldCssProps={},this.element=t,this.input=I(this),this.touchAction=new Q(this,this.options.touchAction),pt(this,!0),l(this.options.recognizers,function(t){var e=this.add(new t[0](t[1]));t[2]&&e.recognizeWith(t[2]),t[3]&&e.requireFailure(t[3])},this)}function pt(t,e){var n=t.element;if(n.style){var r;l(t.options.cssProps,function(i,o){r=C(n.style,o),e?(t.oldCssProps[r]=n.style[r],n.style[r]=i):n.style[r]=t.oldCssProps[r]||""}),e||(t.oldCssProps={})}}function dt(t,e){var n=o.createEvent("Event");n.initEvent(t,!0,!0),n.gesture=e,e.target.dispatchEvent(n)}var ht,mt=["","webkit","Moz","MS","ms","o"],vt=o.createElement("div"),gt="function",yt=Math.round,bt=Math.abs,xt=Date.now;ht="function"!=typeof Object.assign?function(t){if(t===s||null===t)throw new TypeError("Cannot convert undefined or null to object");for(var e=Object(t),n=1;n<arguments.length;n++){var r=arguments[n];if(r!==s&&null!==r)for(var i in r)r.hasOwnProperty(i)&&(e[i]=r[i])}return e}:Object.assign;var Tt=f(function(t,e,n){for(var r=Object.keys(e),i=0;i<r.length;)(!n||n&&t[r[i]]===s)&&(t[r[i]]=e[r[i]]),i++;return t},"extend","Use `assign`."),wt=f(function(t,e){return Tt(t,e,!0)},"merge","Use `assign`."),Et=1,Ct=/mobile|tablet|ip(ad|hone|od)|android/i,St="ontouchstart"in i,Ot=C(i,"PointerEvent")!==s,At=St&&Ct.test(navigator.userAgent),It=25,Mt=1,kt=2,Pt=4,Lt=8,jt=1,Nt=2,_t=4,Xt=8,Dt=16,Rt=Nt|_t,Ft=Xt|Dt,zt=Rt|Ft,Yt=["x","y"],Ht=["clientX","clientY"];A.prototype={handler:function(){},init:function(){this.evEl&&v(this.element,this.evEl,this.domHandler),this.evTarget&&v(this.target,this.evTarget,this.domHandler),this.evWin&&v(O(this.element),this.evWin,this.domHandler)},destroy:function(){this.evEl&&g(this.element,this.evEl,this.domHandler),this.evTarget&&g(this.target,this.evTarget,this.domHandler),this.evWin&&g(O(this.element),this.evWin,this.domHandler)}};var qt={mousedown:Mt,mousemove:kt,mouseup:Pt},Vt="mousedown",Wt="mousemove mouseup";p(Y,A,{handler:function(t){var e=qt[t.type];e&Mt&&0===t.button&&(this.pressed=!0),e&kt&&1!==t.which&&(e=Pt),this.pressed&&(e&Pt&&(this.pressed=!1),this.callback(this.manager,e,{pointers:[t],changedPointers:[t],pointerType:"mouse",srcEvent:t}))}});var Ut={pointerdown:Mt,pointermove:kt,pointerup:Pt,pointercancel:Lt,pointerout:Lt},Bt={2:"touch",3:"pen",4:"mouse",5:"kinect"},$t="pointerdown",Gt="pointermove pointerup pointercancel";i.MSPointerEvent&&!i.PointerEvent&&($t="MSPointerDown",Gt="MSPointerMove MSPointerUp MSPointerCancel"),p(H,A,{handler:function(t){var e=this.store,n=!1,r=t.type.toLowerCase().replace("ms",""),i=Ut[r],o=Bt[t.pointerType]||t.pointerType,a="touch"==o,s=T(e,t.pointerId,"pointerId");i&Mt&&(0===t.button||a)?s<0&&(e.push(t),s=e.length-1):i&(Pt|Lt)&&(n=!0),s<0||(e[s]=t,this.callback(this.manager,i,{pointers:e,changedPointers:[t],pointerType:o,srcEvent:t}),n&&e.splice(s,1))}});var Zt={touchstart:Mt,touchmove:kt,touchend:Pt,touchcancel:Lt},Qt="touchstart",Jt="touchstart touchmove touchend touchcancel";p(q,A,{handler:function(t){var e=Zt[t.type];if(e===Mt&&(this.started=!0),this.started){var n=V.call(this,t,e);e&(Pt|Lt)&&n[0].length-n[1].length==0&&(this.started=!1),this.callback(this.manager,e,{pointers:n[0],changedPointers:n[1],pointerType:"touch",srcEvent:t})}}});var Kt={touchstart:Mt,touchmove:kt,touchend:Pt,touchcancel:Lt},te="touchstart touchmove touchend touchcancel";p(W,A,{handler:function(t){var e=Kt[t.type],n=U.call(this,t,e);n&&this.callback(this.manager,e,{pointers:n[0],changedPointers:n[1],pointerType:"touch",srcEvent:t})}});var ee=2500,ne=25;p(B,A,{handler:function(t,e,n){var r="touch"==n.pointerType,i="mouse"==n.pointerType;if(!(i&&n.sourceCapabilities&&n.sourceCapabilities.firesTouchEvents)){if(r)$.call(this,e,n);else if(i&&Z.call(this,n))return;this.callback(t,e,n)}},destroy:function(){this.touch.destroy(),this.mouse.destroy()}});var re=C(vt.style,"touchAction"),ie=re!==s,oe="auto",ae="manipulation",se="none",ce="pan-x",ue="pan-y",le=function(){if(!ie)return!1;var t={},e=i.CSS&&i.CSS.supports;return["auto","manipulation","pan-y","pan-x","pan-x pan-y","none"].forEach(function(n){t[n]=!e||i.CSS.supports("touch-action",n)}),t}();Q.prototype={set:function(t){"compute"==t&&(t=this.compute()),ie&&this.manager.element.style&&le[t]&&(this.manager.element.style[re]=t),this.actions=t.toLowerCase().trim()},update:function(){this.set(this.manager.options.touchAction)},compute:function(){var t=[];return l(this.manager.recognizers,function(e){h(e.options.enable,[e])&&(t=t.concat(e.getTouchAction()))}),J(t.join(" "))},preventDefaults:function(t){var e=t.srcEvent,n=t.offsetDirection;if(this.manager.session.prevented)return void e.preventDefault();var r=this.actions,i=b(r,se)&&!le[se],o=b(r,ue)&&!le[ue],a=b(r,ce)&&!le[ce];if(i){var s=1===t.pointers.length,c=t.distance<2,u=t.deltaTime<250;if(s&&c&&u)return}return a&&o?void 0:i||o&&n&Rt||a&&n&Ft?this.preventSrc(e):void 0},preventSrc:function(t){this.manager.session.prevented=!0,t.preventDefault()}};var fe=1,pe=2,de=4,he=8,me=he,ve=16;K.prototype={defaults:{},set:function(t){return ht(this.options,t),this.manager&&this.manager.touchAction.update(),this},recognizeWith:function(t){if(u(t,"recognizeWith",this))return this;var e=this.simultaneous;return t=nt(t,this),e[t.id]||(e[t.id]=t,t.recognizeWith(this)),this},dropRecognizeWith:function(t){return u(t,"dropRecognizeWith",this)?this:(t=nt(t,this),delete this.simultaneous[t.id],this)},requireFailure:function(t){if(u(t,"requireFailure",this))return this;var e=this.requireFail;return t=nt(t,this),-1===T(e,t)&&(e.push(t),t.requireFailure(this)),this},dropRequireFailure:function(t){if(u(t,"dropRequireFailure",this))return this;t=nt(t,this);var e=T(this.requireFail,t);return e>-1&&this.requireFail.splice(e,1),this},hasRequireFailures:function(){return this.requireFail.length>0},canRecognizeWith:function(t){return!!this.simultaneous[t.id]},emit:function(t){function e(e){n.manager.emit(e,t)}var n=this,r=this.state;r<he&&e(n.options.event+tt(r)),e(n.options.event),t.additionalEvent&&e(t.additionalEvent),r>=he&&e(n.options.event+tt(r))},tryEmit:function(t){if(this.canEmit())return this.emit(t);this.state=32},canEmit:function(){for(var t=0;t<this.requireFail.length;){if(!(this.requireFail[t].state&(32|fe)))return!1;t++}return!0},recognize:function(t){var e=ht({},t);if(!h(this.options.enable,[this,e]))return this.reset(),void(this.state=32);this.state&(me|ve|32)&&(this.state=fe),this.state=this.process(e),this.state&(pe|de|he|ve)&&this.tryEmit(e)},process:function(t){},getTouchAction:function(){},reset:function(){}},p(rt,K,{defaults:{pointers:1},attrTest:function(t){var e=this.options.pointers;return 0===e||t.pointers.length===e},process:function(t){var e=this.state,n=t.eventType,r=e&(pe|de),i=this.attrTest(t);return r&&(n&Lt||!i)?e|ve:r||i?n&Pt?e|he:e&pe?e|de:pe:32}}),p(it,rt,{defaults:{event:"pan",threshold:10,pointers:1,direction:zt},getTouchAction:function(){var t=this.options.direction,e=[];return t&Rt&&e.push(ue),t&Ft&&e.push(ce),e},directionTest:function(t){var e=this.options,n=!0,r=t.distance,i=t.direction,o=t.deltaX,a=t.deltaY;return i&e.direction||(e.direction&Rt?(i=0===o?jt:o<0?Nt:_t,n=o!=this.pX,r=Math.abs(t.deltaX)):(i=0===a?jt:a<0?Xt:Dt,n=a!=this.pY,r=Math.abs(t.deltaY))),t.direction=i,n&&r>e.threshold&&i&e.direction},attrTest:function(t){return rt.prototype.attrTest.call(this,t)&&(this.state&pe||!(this.state&pe)&&this.directionTest(t))},emit:function(t){this.pX=t.deltaX,this.pY=t.deltaY;var e=et(t.direction);e&&(t.additionalEvent=this.options.event+e),this._super.emit.call(this,t)}}),p(ot,rt,{defaults:{event:"pinch",threshold:0,pointers:2},getTouchAction:function(){return[se]},attrTest:function(t){return this._super.attrTest.call(this,t)&&(Math.abs(t.scale-1)>this.options.threshold||this.state&pe)},emit:function(t){if(1!==t.scale){var e=t.scale<1?"in":"out";t.additionalEvent=this.options.event+e}this._super.emit.call(this,t)}}),p(at,K,{defaults:{event:"press",pointers:1,time:251,threshold:9},getTouchAction:function(){return[oe]},process:function(t){var e=this.options,n=t.pointers.length===e.pointers,r=t.distance<e.threshold,i=t.deltaTime>e.time;if(this._input=t,!r||!n||t.eventType&(Pt|Lt)&&!i)this.reset();else if(t.eventType&Mt)this.reset(),this._timer=c(function(){this.state=me,this.tryEmit()},e.time,this);else if(t.eventType&Pt)return me;return 32},reset:function(){clearTimeout(this._timer)},emit:function(t){this.state===me&&(t&&t.eventType&Pt?this.manager.emit(this.options.event+"up",t):(this._input.timeStamp=xt(),this.manager.emit(this.options.event,this._input)))}}),p(st,rt,{defaults:{event:"rotate",threshold:0,pointers:2},getTouchAction:function(){return[se]},attrTest:function(t){return this._super.attrTest.call(this,t)&&(Math.abs(t.rotation)>this.options.threshold||this.state&pe)}}),p(ct,rt,{defaults:{event:"swipe",threshold:10,velocity:.3,direction:Rt|Ft,pointers:1},getTouchAction:function(){return it.prototype.getTouchAction.call(this)},attrTest:function(t){var e,n=this.options.direction;return n&(Rt|Ft)?e=t.overallVelocity:n&Rt?e=t.overallVelocityX:n&Ft&&(e=t.overallVelocityY),this._super.attrTest.call(this,t)&&n&t.offsetDirection&&t.distance>this.options.threshold&&t.maxPointers==this.options.pointers&&bt(e)>this.options.velocity&&t.eventType&Pt},emit:function(t){var e=et(t.offsetDirection);e&&this.manager.emit(this.options.event+e,t),this.manager.emit(this.options.event,t)}}),p(ut,K,{defaults:{event:"tap",pointers:1,taps:1,interval:300,time:250,threshold:9,posThreshold:10},getTouchAction:function(){return[ae]},process:function(t){var e=this.options,n=t.pointers.length===e.pointers,r=t.distance<e.threshold,i=t.deltaTime<e.time;if(this.reset(),t.eventType&Mt&&0===this.count)return this.failTimeout();if(r&&i&&n){if(t.eventType!=Pt)return this.failTimeout();var o=!this.pTime||t.timeStamp-this.pTime<e.interval,a=!this.pCenter||D(this.pCenter,t.center)<e.posThreshold;this.pTime=t.timeStamp,this.pCenter=t.center,a&&o?this.count+=1:this.count=1,this._input=t;if(0===this.count%e.taps)return this.hasRequireFailures()?(this._timer=c(function(){this.state=me,this.tryEmit()},e.interval,this),pe):me}return 32},failTimeout:function(){return this._timer=c(function(){this.state=32},this.options.interval,this),32},reset:function(){clearTimeout(this._timer)},emit:function(){this.state==me&&(this._input.tapCount=this.count,this.manager.emit(this.options.event,this._input))}}),lt.VERSION="2.0.7",lt.defaults={domEvents:!1,touchAction:"compute",enable:!0,inputTarget:null,inputClass:null,preset:[[st,{enable:!1}],[ot,{enable:!1},["rotate"]],[ct,{direction:Rt}],[it,{direction:Rt},["swipe"]],[ut],[ut,{event:"doubletap",taps:2},["tap"]],[at]],cssProps:{userSelect:"none",touchSelect:"none",touchCallout:"none",contentZooming:"none",userDrag:"none",tapHighlightColor:"rgba(0,0,0,0)"}};ft.prototype={set:function(t){return ht(this.options,t),t.touchAction&&this.touchAction.update(),t.inputTarget&&(this.input.destroy(),this.input.target=t.inputTarget,this.input.init()),this},stop:function(t){this.session.stopped=t?2:1},recognize:function(t){var e=this.session;if(!e.stopped){this.touchAction.preventDefaults(t);var n,r=this.recognizers,i=e.curRecognizer;(!i||i&&i.state&me)&&(i=e.curRecognizer=null);for(var o=0;o<r.length;)n=r[o],2===e.stopped||i&&n!=i&&!n.canRecognizeWith(i)?n.reset():n.recognize(t),!i&&n.state&(pe|de|he)&&(i=e.curRecognizer=n),o++}},get:function(t){if(t instanceof K)return t;for(var e=this.recognizers,n=0;n<e.length;n++)if(e[n].options.event==t)return e[n];return null},add:function(t){if(u(t,"add",this))return this;var e=this.get(t.options.event);return e&&this.remove(e),this.recognizers.push(t),t.manager=this,this.touchAction.update(),t},remove:function(t){if(u(t,"remove",this))return this;if(t=this.get(t)){var e=this.recognizers,n=T(e,t);-1!==n&&(e.splice(n,1),this.touchAction.update())}return this},on:function(t,e){if(t!==s&&e!==s){var n=this.handlers;return l(x(t),function(t){n[t]=n[t]||[],n[t].push(e)}),this}},off:function(t,e){if(t!==s){var n=this.handlers;return l(x(t),function(t){e?n[t]&&n[t].splice(T(n[t],e),1):delete n[t]}),this}},emit:function(t,e){this.options.domEvents&&dt(t,e);var n=this.handlers[t]&&this.handlers[t].slice();if(n&&n.length){e.type=t,e.preventDefault=function(){e.srcEvent.preventDefault()};for(var r=0;r<n.length;)n[r](e),r++}},destroy:function(){this.element&&pt(this,!1),this.handlers={},this.session={},this.input.destroy(),this.element=null}},ht(lt,{INPUT_START:Mt,INPUT_MOVE:kt,INPUT_END:Pt,INPUT_CANCEL:Lt,STATE_POSSIBLE:fe,STATE_BEGAN:pe,STATE_CHANGED:de,STATE_ENDED:he,STATE_RECOGNIZED:me,STATE_CANCELLED:ve,STATE_FAILED:32,DIRECTION_NONE:jt,DIRECTION_LEFT:Nt,DIRECTION_RIGHT:_t,DIRECTION_UP:Xt,DIRECTION_DOWN:Dt,DIRECTION_HORIZONTAL:Rt,DIRECTION_VERTICAL:Ft,DIRECTION_ALL:zt,Manager:ft,Input:A,TouchAction:Q,TouchInput:W,MouseInput:Y,PointerEventInput:H,TouchMouseInput:B,SingleTouchInput:q,Recognizer:K,AttrRecognizer:rt,Tap:ut,Pan:it,Swipe:ct,Pinch:ot,Rotate:st,Press:at,on:v,off:g,each:l,merge:wt,extend:Tt,assign:ht,inherit:p,bindFn:d,prefixed:C}),(void 0!==i?i:"undefined"!=typeof self?self:{}).Hammer=lt,(r=function(){return lt}.call(e,n,e,t))!==s&&(t.exports=r)}(window,document)},function(t,e){t.exports=function(t,e,n){for(var r=(2<<Math.log(e.length-1)/Math.LN2)-1,i=-~(1.6*r*n/e.length),o="";;)for(var a=t(i),s=i;s--;)if(o+=e[a[s]&r]||"",o.length===+n)return o}},function(t,e,n){"use strict";function r(t){var e="",n=Math.floor(.001*(Date.now()-s));return n===o?i++:(i=0,o=n),e+=a(c),e+=a(t),i>0&&(e+=a(i)),e+=a(n)}var i,o,a=n(15),s=(n(0),1567752802062),c=7;t.exports=r},function(t,e,n){"use strict";function r(t){for(var e,n=0,r="";!e;)r+=a(o,i.get(),1),e=t<Math.pow(16,n+1),n++;return r}var i=n(0),o=n(18),a=n(13);t.exports=r},function(t,e,n){"use strict";function r(e){return s.seed(e),t.exports}function i(e){return l=e,t.exports}function o(t){return void 0!==t&&s.characters(t),s.shuffled()}function a(){return c(l)}var s=n(0),c=n(14),u=n(17),l=n(20)||0;t.exports=a,t.exports.generate=a,t.exports.seed=r,t.exports.worker=i,t.exports.characters=o,t.exports.isValid=u},function(t,e,n){"use strict";function r(t){return!(!t||"string"!=typeof t||t.length<6)&&!new RegExp("[^"+i.get().replace(/[|\\{}()[\]^$+*?.-]/g,"\\$&")+"]").test(t)}var i=n(0);t.exports=r},function(t,e,n){"use strict";var r,i="object"==typeof window&&(window.crypto||window.msCrypto);r=i&&i.getRandomValues?function(t){return i.getRandomValues(new Uint8Array(t))}:function(t){for(var e=[],n=0;n<t;n++)e.push(Math.floor(256*Math.random()));return e},t.exports=r},function(t,e,n){"use strict";function r(){return(o=(9301*o+49297)%233280)/233280}function i(t){o=t}var o=1;t.exports={nextValue:r,seed:i}},function(t,e,n){"use strict";t.exports=0},function(t,e){t.exports=function(t,e,n,r){var i,o=t=t||{},a=typeof t.default;"object"!==a&&"function"!==a||(i=t,o=t.default);var s="function"==typeof o?o.options:o;if(e&&(s.render=e.render,s.staticRenderFns=e.staticRenderFns),n&&(s._scopeId=n),r){var c=Object.create(s.computed||null);Object.keys(r).forEach(function(t){var e=r[t];c[t]=function(){return e}}),s.computed=c}return{esModule:i,exports:o,options:s}}},function(t,e,n){var r=n(9);"string"==typeof r&&(r=[[t.i,r,""]]),r.locals&&(t.exports=r.locals);n(23)("df0682cc",r,!0,{})},function(t,e,n){function r(t){for(var e=0;e<t.length;e++){var n=t[e],r=l[n.id];if(r){r.refs++;for(var i=0;i<r.parts.length;i++)r.parts[i](n.parts[i]);for(;i<n.parts.length;i++)r.parts.push(o(n.parts[i]));r.parts.length>n.parts.length&&(r.parts.length=n.parts.length)}else{for(var a=[],i=0;i<n.parts.length;i++)a.push(o(n.parts[i]));l[n.id]={id:n.id,refs:1,parts:a}}}}function i(){var t=document.createElement("style");return t.type="text/css",f.appendChild(t),t}function o(t){var e,n,r=document.querySelector("style["+g+'~="'+t.id+'"]');if(r){if(h)return m;r.parentNode.removeChild(r)}if(y){var o=d++;r=p||(p=i()),e=a.bind(null,r,o,!1),n=a.bind(null,r,o,!0)}else r=i(),e=s.bind(null,r),n=function(){r.parentNode.removeChild(r)};return e(t),function(r){if(r){if(r.css===t.css&&r.media===t.media&&r.sourceMap===t.sourceMap)return;e(t=r)}else n()}}function a(t,e,n,r){var i=n?"":r.css;if(t.styleSheet)t.styleSheet.cssText=b(e,i);else{var o=document.createTextNode(i),a=t.childNodes;a[e]&&t.removeChild(a[e]),a.length?t.insertBefore(o,a[e]):t.appendChild(o)}}function s(t,e){var n=e.css,r=e.media,i=e.sourceMap;if(r&&t.setAttribute("media",r),v.ssrId&&t.setAttribute(g,e.id),i&&(n+="\n/*# sourceURL="+i.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(i))))+" */"),t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}var c="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!c)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var u=n(24),l={},f=c&&(document.head||document.getElementsByTagName("head")[0]),p=null,d=0,h=!1,m=function(){},v=null,g="data-vue-ssr-id",y="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());t.exports=function(t,e,n,i){h=n,v=i||{};var o=u(t,e);return r(o),function(e){for(var n=[],i=0;i<o.length;i++){var a=o[i],s=l[a.id];s.refs--,n.push(s)}e?(o=u(t,e),r(o)):o=[];for(var i=0;i<n.length;i++){var s=n[i];if(0===s.refs){for(var c=0;c<s.parts.length;c++)s.parts[c]();delete l[s.id]}}}};var b=function(){var t=[];return function(e,n){return t[e]=n,t.filter(Boolean).join("\n")}}()},function(t,e){t.exports=function(t,e){for(var n=[],r={},i=0;i<e.length;i++){var o=e[i],a=o[0],s=o[1],c=o[2],u=o[3],l={id:t+":"+i,css:s,media:c,sourceMap:u};r[a]?r[a].parts.push(l):n.push(r[a]={id:a,parts:[l]})}return n}},function(t,e){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(n=window)}t.exports=n}])});
 
 /***/ }),
 
@@ -49689,6 +53520,1119 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/vuex/dist/vuex.esm.js":
+/*!********************************************!*\
+  !*** ./node_modules/vuex/dist/vuex.esm.js ***!
+  \********************************************/
+/*! exports provided: default, Store, createNamespacedHelpers, install, mapActions, mapGetters, mapMutations, mapState */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapGetters", function() { return mapGetters; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
+/*!
+ * vuex v3.4.0
+ * (c) 2020 Evan You
+ * @license MIT
+ */
+function applyMixin (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var target = typeof window !== 'undefined'
+  ? window
+  : typeof global !== 'undefined'
+    ? global
+    : {};
+var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  }, { prepend: true });
+
+  store.subscribeAction(function (action, state) {
+    devtoolHook.emit('vuex:action', action, state);
+  }, { prepend: true });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+// Base data struct for store's module, package with some attribute and method
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  // Store some children item
+  this._children = Object.create(null);
+  // Store the origin module object which passed by programmer
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+
+  // Store the origin module's state
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors = { namespaced: { configurable: true } };
+
+prototypeAccessors.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if ((true)) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  if (!parent.getChild(key).runtime) { return }
+
+  parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  return parent.hasChild(key)
+};
+
+function update (path, targetModule, newModule) {
+  if ((true)) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if ((true)) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if ((true)) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+  this._makeLocalGettersCache = Object.create(null);
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  var state = this._modules.root.state;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+  if (useDevtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors$1 = { state: { configurable: true } };
+
+prototypeAccessors$1.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors$1.state.set = function (v) {
+  if ((true)) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    ( true) &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  try {
+    this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .filter(function (sub) { return sub.before; })
+      .forEach(function (sub) { return sub.before(action, this$1.state); });
+  } catch (e) {
+    if ((true)) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload);
+
+  return new Promise(function (resolve, reject) {
+    result.then(function (res) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.after; })
+          .forEach(function (sub) { return sub.after(action, this$1.state); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in after action subscribers: ");
+          console.error(e);
+        }
+      }
+      resolve(res);
+    }, function (error) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.error; })
+          .forEach(function (sub) { return sub.error(action, this$1.state, error); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in error action subscribers: ");
+          console.error(e);
+        }
+      }
+      reject(error);
+    });
+  })
+};
+
+Store.prototype.subscribe = function subscribe (fn, options) {
+  return genericSubscribe(fn, this._subscribers, options)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn, options) {
+  var subs = typeof fn === 'function' ? { before: fn } : fn;
+  return genericSubscribe(subs, this._actionSubscribers, options)
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if ((true)) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
+};
+
+Store.prototype.hotUpdate = function hotUpdate (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors$1 );
+
+function genericSubscribe (fn, subs, options) {
+  if (subs.indexOf(fn) < 0) {
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      if ((true)) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
+
+      // extract local getter type
+      var localType = type.slice(splitPos);
+
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
+    });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
+
+  return store._makeLocalGettersCache[namespace]
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if ((true)) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if ((true)) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.reduce(function (state, key) { return state[key]; }, state)
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if ((true)) {
+    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if ((true)) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  if (( true) && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  if (( true) && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // Get the commit method from store
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  if (( true) && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    // The namespace has been mutated by normalizeNamespace
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if (( true) && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  if (( true) && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // get dispatch function from store
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
+}
+
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if (( true) && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+var index = {
+  Store: Store,
+  install: install,
+  version: '3.4.0',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -49772,7 +54716,12 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./components/ExampleComponent.vue": "./resources/js/components/ExampleComponent.vue"
+	"./App.vue": "./resources/js/App.vue",
+	"./components/ClassSelect.vue": "./resources/js/components/ClassSelect.vue",
+	"./components/EquipmentSelect.vue": "./resources/js/components/EquipmentSelect.vue",
+	"./components/ExampleComponent.vue": "./resources/js/components/ExampleComponent.vue",
+	"./components/ModificationSelect.vue": "./resources/js/components/ModificationSelect.vue",
+	"./components/StatsDisplay.vue": "./resources/js/components/StatsDisplay.vue"
 };
 
 
@@ -49797,13 +54746,110 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 
 /***/ }),
 
+/***/ "./resources/js/App.vue":
+/*!******************************!*\
+  !*** ./resources/js/App.vue ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=f348271a& */ "./resources/js/App.vue?vue&type=template&id=f348271a&");
+/* harmony import */ var _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js& */ "./resources/js/App.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&lang=css& */ "./resources/js/App.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/App.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/App.vue?vue&type=script&lang=js&":
+/*!*******************************************************!*\
+  !*** ./resources/js/App.vue?vue&type=script&lang=js& ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/App.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************!*\
+  !*** ./resources/js/App.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader!../../node_modules/css-loader??ref--6-1!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/src??ref--6-2!../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/App.vue?vue&type=template&id=f348271a&":
+/*!*************************************************************!*\
+  !*** ./resources/js/App.vue?vue&type=template&id=f348271a& ***!
+  \*************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=template&id=f348271a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=template&id=f348271a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-toasted */ "./node_modules/vue-toasted/dist/vue-toasted.min.js");
+/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_toasted__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_js_popover__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-popover */ "./node_modules/vue-js-popover/dist/index.js");
+/* harmony import */ var vue_js_popover__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_popover__WEBPACK_IMPORTED_MODULE_4__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -49822,8 +54868,11 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 
+console.log('files', files.keys());
 files.keys().map(function (key) {
-  return Vue.component(key.split('/').pop().split('.')[0], files(key)["default"]);
+  var keyId = key.split('/').pop().split('.')[0];
+  console.log(keyId);
+  vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(keyId, files(key)["default"]);
 });
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -49831,9 +54880,1231 @@ files.keys().map(function (key) {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
+
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_toasted__WEBPACK_IMPORTED_MODULE_3___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_popover__WEBPACK_IMPORTED_MODULE_4___default.a);
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#app',
+  store: _store__WEBPACK_IMPORTED_MODULE_2__["default"],
+  render: function render(h) {
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+  }
+  /* todo: remove renderer overwrite to get back to the php views and place karl components one by one, without App.vue */
+
 });
+
+/***/ }),
+
+/***/ "./resources/js/assets/D_E_Drill.js":
+/*!******************************************!*\
+  !*** ./resources/js/assets/D_E_Drill.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M89.23 89.817c-1.497-.12-2.15-.492-4.898-2.79-1.744-1.459-3.51-2.8-3.925-2.98-.414-.181-2.943-.76-5.62-1.287-2.677-.527-4.891-1-4.92-1.051-.032-.052-.836-1.206-1.79-2.566l-1.734-2.473.542-2.587c.746-3.557.45-3.934-.591-.756-.476 1.45-1.097 2.905-1.381 3.232-.284.327-.517.864-.517 1.192 0 .581-3.324 3.3-4.034 3.3-.195 0-.716-.385-1.157-.854l-.801-.853.881-3.912.882-3.912-1.088-3.217c-.921-2.727-1.097-3.88-1.156-7.573l-.069-4.356-.214 3.956c-.117 2.176-.35 4.168-.518 4.427-.168.259-.756.47-1.308.47-.987 0-.99.01-.218.55.447.314.883 1.153 1.012 1.946.19 1.177-.036 1.878-1.461 4.49l-1.687 3.095-4.044 1.744c-4.734 2.042-5.955 2.158-7.331.702-.948-1.003-.97-1.131-.68-4.023.25-2.489.182-3.332-.41-5.055-.664-1.928-.67-2.114-.087-2.758.563-.622.568-.756.047-1.35-1.287-1.467-1.8-3.117-1.872-6.009l-.073-2.938-.135 2.422c-.163 2.908-.705 3.505-2.922 3.219l-1.507-.195 1.007.813 1.007.813-.97 1.979c-.897 1.828-1.192 2.081-3.873 3.336l-2.902 1.359-4.48-.988c-5.01-1.104-6.176-1.804-6.176-3.706 0-.876.385-1.552 1.507-2.648 1.418-1.385 1.867-2.129 1.224-2.027-.79.124-1.157-.172-1.937-1.559l-.85-1.514 1.158-1.882c.637-1.035 1.158-1.941 1.158-2.013 0-.073-1.568-.687-3.485-1.365-1.916-.678-3.696-1.4-3.955-1.605-.32-.251-.471-1.557-.471-4.054v-3.683l1.883-.678c1.036-.372 1.884-.792 1.884-.933 0-.14-.854-.623-1.897-1.072l-1.897-.816.108-3.617.107-3.617 3.272-1.17c1.8-.644 3.389-1.29 3.53-1.436.143-.146-.272-1.206-.92-2.355l-1.18-2.09.95-1.506c.59-.934 1.235-1.506 1.7-1.506.7 0 .678-.115-.333-1.739-1.077-1.73-1.08-1.749-.492-3.584.652-2.039.088-1.744 6.371-3.327l3.103-.782 3.038 1.528c2.753 1.384 3.109 1.69 3.784 3.266.41.956.788 2.01.84 2.34.052.331.555 1.061 1.119 1.621.92.916 1.024.944 1.024.283 0-.405.17-.736.377-.736s.377-.405.377-.899c0-.54.372-1.142.934-1.51.824-.54.908-.801.715-2.214-.12-.88-.018-2.345.225-3.255.347-1.288.342-2.177-.026-4.023-.46-2.313-.447-2.408.54-3.9.68-1.026 1.289-1.53 1.854-1.532.464-.001 2.912.804 5.441 1.79l4.599 1.792 1.34 3.202c.813 1.943 1.339 3.815 1.335 4.76-.003.857.248 2.044.557 2.638.31.593.564 1.535.566 2.092 0 .558.171 1.119.379 1.247.207.128.377 1.24.377 2.471 0 1.241.167 2.238.376 2.238.59 0 .453-5.378-.175-6.881-.52-1.243-.484-1.528.588-4.724l1.141-3.402-1.198-4.03-1.198-4.029 1.115-1.114L59.755 0l2.303 1.44c1.69 1.055 2.309 1.665 2.321 2.286.01.467.166.848.35.848.182 0 .53.805.773 1.79 1.094 4.435 1.169 4.614 1.918 4.614 1.606 0 2.282 4.16 1.269 7.813-.207.747-.077.7 1.127-.403.749-.686 1.361-1.498 1.361-1.805 0-.306.212-1.013.471-1.57.437-.94.641-1.015 2.796-1.018 2.25-.003 2.332.031 2.56 1.069l.235 1.072 3.091-.536c2.26-.392 3.268-.426 3.75-.127.581.36.66.25.66-.929 0-1.066.134-1.316.659-1.228.429.072.699-.166.772-.681.09-.625.95-1.123 4.05-2.348l3.938-1.555 4.05.626c3.006.465 4.459.887 5.643 1.638.996.63 1.931.946 2.491.84.493-.095 1.592.182 2.44.615.85.433 2.237.788 3.085.788.847 0 2.011.243 2.587.54.648.336 2.395.572 4.596.622 3.333.075 3.557.03 3.666-.701.065-.43.526-1.049 1.026-1.376.55-.36 1.113-1.3 1.427-2.383.433-1.492.684-1.808 1.518-1.907 1.088-.13 1.24-.431.559-1.112-.336-.336-.323-.928.052-2.492.453-1.888.592-2.07 1.742-2.287 1.745-.327 5.816.457 6.878 1.324.847.693.866.812.429 2.705-.252 1.09-.734 2.2-1.073 2.467-.54.426-.546.529-.052.842.31.195.767.358 1.016.361.248.003.587.235.753.514.166.28.76.62 1.322.757.784.191 1.112.08 1.41-.478.277-.518.265-.767-.044-.87-.313-.104-.248-.898.231-2.856.638-2.602.71-2.712 1.776-2.712 2.176 0 6.186.846 6.953 1.467.72.583.754.841.452 3.373-.292 2.444-.246 2.855.421 3.792.638.896 1.182 1.123 3.682 1.535 2.609.429 3.109.65 4.516 1.998.895.858 1.63 1.94 1.695 2.491.084.717.38 1.025 1.122 1.165 1.387.262 3.692 3.221 3.697 4.747.002.683.315 1.448.757 1.848 1.069.967 1.066 6.055-.004 8.414l-.741 1.633 1.691 17.098c.93 9.404 1.691 17.174 1.691 17.267 0 .093-1.453.96-3.229 1.929-2.223 1.212-3.494 1.693-4.081 1.546-.626-.157-1.14.085-1.93.91-.92.959-1.277 1.094-2.418.912-2.625-.418-2.916-.54-3.297-1.386-.378-.84-.389-.836-.65.275-.227.97-.713 1.338-3.436 2.602l-3.172 1.472-2.55-.53c-1.402-.292-3.345-.48-4.317-.417-1.666.108-1.773.18-1.883 1.27-.107 1.056-.395 1.281-3.351 2.61-3.154 1.417-3.292 1.443-5.506 1.053-1.72-.303-4.133-.256-9.924.192-4.21.325-7.679.551-7.71.502-1.523-2.376-3.079-3.905-4.355-4.282l-1.481-.438v1.225c0 1.125-.43 1.563-5.322 5.422-5.763 4.547-5.141 4.297-9.778 3.925z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/D_E_Satchel.js":
+/*!********************************************!*\
+  !*** ./resources/js/assets/D_E_Satchel.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M69.832 88.037c-2.302-2.87-2.322-2.949-1.27-5.011.927-1.817.932-1.947.137-3.345-.455-.8-1.195-1.455-1.644-1.457-.449 0-1.045-.43-1.325-.954-.282-.527-.997-.952-1.6-.952-.599 0-1.555-.496-2.124-1.102l-1.035-1.1V15.57l1.101-1.035c.606-.57 1.677-1.035 2.38-1.035.819 0 1.278-.256 1.278-.714 0-.444.45-.713 1.19-.713.713 0 1.19-.272 1.19-.68 0-.374.332-1.013.739-1.42.669-.669.646-.95-.237-2.946l-.976-2.207 1.705-2.322c.938-1.278 1.923-2.323 2.19-2.323 1.32 0 6.393 1.563 6.81 2.098.262.335 1.479 1.053 2.704 1.595 2.882 1.273 4.672 3.958 4.672 7.005 0 1.183.198 2.151.44 2.151.241 0 1.098.555 1.903 1.232 1.378 1.16 1.464 1.428 1.464 4.56 0 2.453.157 3.277.595 3.13.384-.13.614-1.268.648-3.219.05-2.834.158-3.115 1.784-4.605 1.386-1.269 1.732-1.934 1.732-3.323 0-2.694 2.372-6.027 5.005-7.032 1.171-.448 2.29-1.084 2.488-1.414.197-.33 1.834-.995 3.636-1.477L108.69 0l1.825 2.11c1.003 1.162 1.83 2.388 1.838 2.725.008.338-.44 1.507-.997 2.598-.71 1.392-.843 2.04-.446 2.172.312.104.762.702 1 1.329.25.655.822 1.14 1.347 1.14.502 0 1.035.32 1.186.713.15.393.779.714 1.396.714.617 0 1.587.496 2.156 1.102l1.035 1.101v29.134c0 32.197.066 31.48-2.893 31.48-.87 0-1.54.342-1.866.952-.28.523-.907.951-1.393.951-.545 0-.997.456-1.182 1.19-.164.654-.513 1.19-.775 1.19s-.044.848.485 1.884c.529 1.037.961 2.113.961 2.392 0 .28-.774 1.545-1.72 2.813l-1.722 2.305-3.349-.861c-1.841-.474-3.514-1.13-3.716-1.456-.202-.327-1.293-.95-2.425-1.383-2.799-1.071-5.151-4.457-5.151-7.414 0-1.416-.203-2.087-.631-2.087-.347 0-1.13-.532-1.74-1.182-.957-1.018-1.097-1.61-1.01-4.283.081-2.53-.036-3.101-.639-3.101-.59 0-.739.606-.739 3.004 0 2.67-.148 3.146-1.335 4.283-.734.703-1.59 1.279-1.903 1.279-.36 0-.569.813-.569 2.21 0 2.876-1.97 6.143-4.134 6.86-.835.276-2.062.93-2.728 1.454-.666.524-2.614 1.342-4.33 1.817L71.408 90zm5.392-4.084c.59-.512 1.783-1.165 2.65-1.452 1.608-.53 3.084-2.23 3.084-3.549 0-.814-1.641-2.634-2.375-2.634-.26 0-.74.428-1.066.952-.327.523-.865.951-1.194.951-.33 0-.6.536-.6 1.19 0 .704-.272 1.19-.667 1.19-.367 0-.88.589-1.14 1.309a76.55 76.55 0 0 1-.812 2.141c-.465 1.147.749 1.09 2.12-.098zm31.33-1.21c-.571-1.178-1.211-2.142-1.42-2.142-.21 0-.382-.536-.382-1.19 0-.72-.271-1.19-.686-1.19-.378 0-1.023-.479-1.433-1.065-.599-.854-.91-.962-1.574-.548-.455.285-1.082 1.02-1.394 1.635-.822 1.622.49 3.653 2.811 4.349.982.294 2.143.93 2.58 1.413.438.483 1.188.879 1.667.879.82 0 .81-.127-.168-2.142zM80.089 13.188c1.785-1.615.582-4.254-2.461-5.396-.916-.344-1.88-.882-2.143-1.196-.697-.833-2.616-1.363-2.616-.723 0 .89 1.894 4.296 2.39 4.296.256 0 .465.228.465.506 0 .62 2.449 3.246 3.056 3.278.241.012.83-.331 1.309-.765zm23.759-1.64c2.166-2.51 3.955-5.627 3.494-6.087-.145-.145-.84.1-1.545.545-.705.444-2.178 1.228-3.273 1.742-3.297 1.545-4.196 3.97-2.083 5.618 1.087.848 1.123.828 3.407-1.818z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/D_P1_CRSPR.js":
+/*!*******************************************!*\
+  !*** ./resources/js/assets/D_P1_CRSPR.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M94.46 76.84l-3.594-1.837-.522-2.394c-.613-2.773-.703-5.653-.27-7.237.288-1.08.155-1.26-1.153-1.818-1.35-.72-1.53-.72-2.212-.02-1.062.9-11.709 1.08-12.495.052-.703-.9-1.387-.72-2.281.18-.684.72-1.279.9-6.425.9-5.149 0-5.745-.077-6.425-.9-.414-.54-.973-.9-1.243-.9-.27 0-.828.36-1.242.9-.684.72-1.278.9-6.981.9-5.802 0-6.297-.061-7.18-.9l-.953-.9-.738.9-.739.9-9.95-1.44c-11.465-1.62-12.347-1.836-12.691-2.376-.45-.72-9.907.54-11.502 1.44l-1.386.9-1.746-.9C1.166 61.57.95 61.21.496 59.3c-.792-3.402-.648-4.788.522-5.562.558-.36 1.26-.72 1.548-.72 1.026.057 5.513 3.132 5.923 4.068.396.9.54.9 4.146.72 2.052-.156 3.87-.36 4.041-.54.829-.54.13-.9-1.458-.9-2.468-.007-3.56-.36-3.849-1.26-.176-.54-.63-.72-1.602-.72-1.134 0-1.494-.18-2.252-1.62-1.134-2.017-1.134-2.125.131-2.125 1.008 0 1.044-.095 1.044-2.7v-2.7H6.242l.63-1.873c.612-1.8.702-1.872 2.283-1.872.9 0 2.009-.18 2.45-.36.45-.18 5.467-1.08 11.168-1.62l10.364-1.26 1.747 1.26c2.392 1.8 4.558 1.8 6.37.005l1.315-1.26 23.356.029 23.356.028-1.692-1.8c-2.25-2.34-2.866-4.824-2.19-8.839.523-3.096 1.963-6.049 3.421-6.985.504-.36 2.152-.9 3.664-1.08l2.749-.54 3.35 1.62 3.35 1.62.118 3.979.118 3.978 1.188.18c.828.146 1.404.72 1.925 1.62l.738 1.44.648-1.62c.36-.9.828-1.62 1.044-1.62.216 0 1.062-.9 1.888-2.016 1.26-1.8 1.979-2.232 4.699-3.33 2.801-1.08 3.39-1.62 4.61-3.367 1.008-1.44 1.675-2.052 2.36-2.052 1.135 0 1.477-.54 1.603-2.106.166-2.413.774-2.43 5.031-.173 2.153 1.08 3.916 2.106 3.916 2.16.007.54-1.098 2.196-1.494 2.196-.757 0-1.423 1.44-.99 2.07.233.36-.082 1.44-.883 3.007-.774 1.44-1.134 2.754-.972 3.259.252.72.306.72 2.063-.18 1.134-.72 2.429-1.08 3.49-1.08h1.691v4.824l6.287 1.44c7.01 1.44 8.15 1.44 13.404-.72 1.368-.54 2.794-1.08 3.169-1.08.378 0 .792-.36.918-.54.342-.9 4.232-.9 4.723.012.307.54.613.36 2.09-.54.955-.72 2.017-1.26 2.36-1.26 1.153 0 .649-.72-.72-1.08-1.044-.18-1.746-.9-3.112-3.006-.972-1.44-2.162-2.827-2.645-2.989-1.332-.54-4.916-3.618-4.916-4.302 0-1.08-1.17-1.08-2.724-.18l-1.494.9-1.906-.9c-1.044-.54-1.729-.9-1.53-1.08.215-.177 1.996-1.873 3.967-3.745l3.583-3.438 3.258 1.08c4.663 1.62 6.07 2.718 10.285 7.92 3.253 4.015 3.919 4.645 5.01 4.663.936.022 1.764.54 3.264 2.07L180 28.745l-3 3.564c-1.655 1.963-3.304 3.565-3.679 3.583-.378.009-1.94.9-3.48 2.088-2.106 1.62-2.797 2.304-2.797 3.06 0 1.26-1.894 3.547-2.938 3.547-.486 0-.792.36-.792.72s-.828 1.26-1.88 1.908c-1.026.72-2.147 1.8-2.479 2.34-.684 1.26-6.376 4.97-7.782 4.97-2.267.01-4.013.54-4.252 1.26-.145.54.288 1.908 1.026 3.474.702 1.44 1.278 3.258 1.278 3.942 0 1.08-.27 1.44-2.26 2.359-1.91.9-2.42 1.08-3.3.72-1.027-.54-3.146-4.015-3.146-5.257 0-.36-.288-.72-.63-.72s-.63-.18-.63-.36-.504-.36-1.134-.36c-.81.093-1.17.36-1.278 1.08-.11.72-.396.9-1.656.9-2.658.01-3.327.36-4.663 2.736-.702 1.26-1.53 2.233-1.854 2.233-.792 0-1.566 1.62-1.278 2.61.288 1.08-.937 3.204-1.855 3.204-.756 0-1.206.9-1.206 2.215 0 .54-.414 1.62-.936 2.664l-.936 1.8-3.11-.032c-4.273-.043-5.877-.72-6.33-2.484-.757-3.025-2.951-3.277-5.678-.72-1.921 1.854-2.038 1.89-8.307 2.952-.666.115-2.304-.54-4.632-1.62zm26.525-3.871c1.746-3.295 2.32-5.203 1.062-3.583-.648.9-3.476 6.23-3.476 6.625 0 .9.936-.36 2.407-3.042zm1.062-7.075c-.156-.72-.006-1.62.432-2.16.36-.54.666-1.08.666-1.26 0-.36-4.659.07-5.572.54-.792.36-.774.36.104 1.08.504.36.9 1.08.9 1.44 0 .54.216.54.648.54.36-.139 1.062.027 1.548.36 1.279.9 1.549.72 1.26-.54zM81.268 44.098c.342-.36 1.279-.54 2.746-.54 1.224 0 2.228-.18 2.228-.36s.649-.36 1.423-.36c.792 0 1.548.18 1.674.36.396.72 1.458.54 1.458-.18 0-.54-1.206-.54-8.292-.54h-8.292v2.52h3.266c2.398 0 3.402-.163 3.782-.54zm-13.762-.36c1.278-1.26.558-1.62-3.648-1.62-3.407 0-4.145.11-4.145.54 0 .36.432.54 1.422.54.792 0 1.548.18 1.674.36.36.54 4.085.54 4.684-.082zm-11.111-.9c0-.54-.99-.54-6.425-.54-5.87 0-6.947.17-6.15.9.152.152 3.044.36 6.425.36 5.19 0 6.15-.097 6.15-.54zm44.923 0c.198-.54-.138-.54-1.62-.54-1.369 0-1.853.162-1.853.54 0 .36.45.54 1.62.54 1.044 0 1.692-.18 1.853-.54z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/D_P2_Cryo.js":
+/*!******************************************!*\
+  !*** ./resources/js/assets/D_P2_Cryo.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M91.172 87.828c-3.069-1.209-5.79-2.387-6.045-2.619-.286-.259-6.416-.532-15.915-.708l-15.451-.287-1.77 1.3-1.771 1.301-11.665-.187c-6.856-.11-12.601-.392-13.938-.686-2.054-.451-2.483-.752-4.444-3.104-2.375-2.85-2.75-4.476-1.561-6.774.559-1.081.526-1.379-.408-3.677-.985-2.423-.994-2.538-.298-3.76.613-1.079.959-1.261 2.391-1.263.921-.001 1.898.22 2.17.493.386.386.498.087.502-1.343.007-2.41.375-3.7 1.052-3.7.68 0 1.063-9.968.39-10.126-3.797-.89-6.328-1.978-6.748-2.899-.79-1.735.097-2.979 2.714-3.803 2.391-.754 2.143-1.273-.638-1.332-1.147-.025-1.458-.252-1.946-1.42-.747-1.788-.18-4.046 1.251-4.984 1.577-1.033 1.375-2.54-.421-3.133-1.252-.413-1.446-.655-1.44-1.79.003-.72.178-1.583.39-1.917.24-.38.227-.793-.033-1.107-.535-.644.558-2.92 1.976-4.114l1.03-.867-1.272-.527c-1.176-.487-1.271-.68-1.271-2.56 0-2.34 1.3-5.27 2.385-5.378.394-.039 1.037-.09 1.43-.115.393-.025.95-.368 1.24-.763.47-.64 6.312-2.358 8.023-2.358.344 0 .937.742 1.318 1.649.69 1.644.7 1.65 3.005 1.654 2.426.005 3.682.757 3.682 2.207 0 .543.397.69 1.86.69 1.625 0 1.86-.111 1.86-.884 0-1.176 1.135-1.98 2.818-1.996 2.028-.02 2.97.636 2.97 2.068 0 .674.186 1.226.413 1.226.227 0 .413-.3.413-.668 0-.614.081-.614 1.02 0 .56.367 1.592.668 2.293.668.862 0 1.576.35 2.206 1.083l.932 1.084 1.719-.877c.945-.482 2.284-.877 2.975-.877.833 0 1.257-.206 1.257-.61 0-.336.465-.916 1.033-1.288.569-.372 1.034-.998 1.034-1.39 0-1.497 4.38-2.286 6.018-1.084.49.359 1.27.495 2.002.349.868-.173 1.347-.036 1.736.497.516.705.65.705 3.262-.002 1.788-.484 2.864-.598 3.131-.33.267.266 1.198.263 2.707-.01 1.57-.284 2.812-.28 3.916.015 1.278.341 1.618.318 1.618-.11 0-.882 2.751-2.751 3.636-2.47.47.149 1.203-.084 1.841-.586 1.96-1.542 2.738-1.164 6.311 3.062 2.918 3.45 3.42 3.872 4.384 3.68 1.425-.286 2.72.4 4.497 2.38l1.447 1.612 11.368-7.83c8.942-6.158 11.412-8.053 11.575-8.879.285-1.45 7.677-7.67 9.094-7.654 1.354.015 3.78 3.177 3.439 4.482-.174.665-.079.825.385.648.43-.166.81.252 1.265 1.387.436 1.09 2.084 2.958 5.006 5.675 2.85 2.65 4.514 4.527 4.81 5.427.408 1.235.614 1.376 2.01 1.376 1.32 0 1.72.23 2.632 1.513 1 1.405 1.034 1.594.48 2.666-.329.635-.61 1.396-.625 1.692-.016.295-2.294 2.397-5.064 4.67-3.688 3.027-5.288 4.633-5.975 5.995-.918 1.818-.92 1.865-.13 2.067.446.113 2.02 1.23 3.5 2.48 3.148 2.662 3.32 3.391 1.426 6.03-.72 1.002-1.232 1.883-1.137 1.957.096.074 1.01.446 2.034.827 1.361.507 2.099 1.113 2.753 2.261l.893 1.568-.842 1.946c-.782 1.807-.95 1.947-2.34 1.946-.824 0-2.466-.368-3.65-.818-1.263-.48-2.25-.655-2.393-.425-.222.36 1.24 1.143 3.434 1.839.485.154 1.249.794 1.696 1.422.782 1.099.787 1.214.114 3.093-.829 2.314-1.794 2.72-4.602 1.93-4.522-1.272-5.06-.821-.853.716 1.249.457 2.601 1.273 3.005 1.814.688.922.692 1.106.066 2.943-.83 2.436-1.811 2.766-5.387 1.813-2.988-.796-3.056-.803-3.056-.317 0 .203 1.233.804 2.74 1.335 3.453 1.22 3.886 1.976 2.906 5.082-.962 3.053-2.063 3.507-5.792 2.388l-2.711-.814-.656 1.973c-.984 2.962-1.71 3.426-5.478 3.504-2.155.045-3.937-.18-5.443-.685-1.892-.635-2.341-.665-2.894-.194-1.973 1.683-9.145 2.315-12.489 1.1-1.43-.52-1.748-.445-6.854 1.604-4.58 1.838-5.517 2.086-6.484 1.718-1.612-.612-1.677-.585-2.44 1.017-.931 1.951-1.702 1.877-8.559-.823zm51.137-56.95c2.76-2.178 4.547-3.87 4.425-4.188-.116-.303.517-1.011 1.467-1.64.92-.608 1.672-1.193 1.672-1.299 0-.106-.702-.55-1.56-.988-1.136-.58-2.008-1.567-3.204-3.626-1.994-3.434-4.573-6.343-5.623-6.343-.453 0-.774-.292-.774-.703 0-.546-.11-.592-.496-.207-.273.273-.913.496-1.422.496-.51 0-3.753 1.964-7.209 4.363-9.214 6.4-9.062 6.268-9.062 7.831 0 .939-.282 1.535-.93 1.966-.93.617-.928.619.72 1.395 1.052.496 1.886 1.276 2.299 2.15.898 1.903 1.407 2.125 4.906 2.132 3.077.006 4.58.62 4.58 1.87 0 .343.617.436 2.013.302 1.25-.12 2.123-.017 2.302.274.363.587.33.608 5.896-3.784z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/D_S1_Subata.js":
+/*!********************************************!*\
+  !*** ./resources/js/assets/D_S1_Subata.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M119.4 89.467c-1.023-.495-1.212-1.222-1.54-5.905-.275-3.905-.968-7.225-2.579-12.351-3.016-9.6-2.472-9.297-16.687-9.297-8.913 0-10.905-.145-11.474-.83-.378-.456-.906-.829-1.173-.829s-.485 4.23-.485 9.398v9.398H53.299l-2.15-1.52L49 76.01l-.013-8.431-.013-8.43h-9.08l-2.37-2.327c-1.413-1.387-2.37-2.833-2.37-3.582 0-.78-.943-2.124-2.488-3.548L30.178 47.4v-7.686c0-6.323.147-7.743.83-8.005 1.066-.41 1.076-1.305.013-1.305-3.17 0-3.34-13.969-.18-14.795.802-.21.995-.837.995-3.236 0-2.597.139-2.976 1.094-2.976.72 0 1.48-.756 2.223-2.211l1.128-2.212h8.165l.823 2.35c.453 1.292.994 2.768 1.203 3.28.31.76-.013.972-1.738 1.152-1.165.12.144.26 2.91.312 4.253.079 5.181.263 6.028 1.199.708.782 1.702 1.105 3.402 1.105 1.767 0 2.402.22 2.402.83 0 .686 1.044.829 6.081.829 4.95 0 6.081-.15 6.081-.803 0-.442.289-1.437.641-2.212.637-1.398.688-1.408 7.489-1.408h6.847l.942-1.655.941-1.655 5.63-.003c5.141-.003 5.659-.099 5.98-1.109.298-.942.836-1.105 3.639-1.105 3.214 0 3.31.045 4.21 1.935.859 1.798 1.103 1.934 3.475 1.934 2.357 0 3.878-.693 3.878-1.769 0-.243-.465-.442-1.032-.442-1.577 0-6.708-2.277-6.705-2.976.005-.895 1.116-4.763 1.37-4.763.117 0 .914.286 1.77.636.856.35 4.293.785 7.637.967l6.08.332.014 3.317.013 3.317 3.875.16 3.874.16 1.579 4.649c1.409 4.149 1.75 4.687 3.164 4.997.872.192 1.585.702 1.585 1.134 0 .626 1.12.785 5.528.785h5.528l-.007 2.903c-.013 5.251-.128 5.39-4.479 5.39h-3.805v2.115c0 1.945-.262 2.305-3.252 4.471-2.353 1.704-3.5 2.988-4.149 4.638-.87 2.214-.853 2.39.577 6.035.966 2.462 2.47 4.857 4.367 6.952 5.237 5.788 7.534 10.38 10.428 20.856 3.31 11.984 3.384 11.713-3.624 13.447-2.86.708-9.26 1.624-14.298 2.048-10.646.894-10.435.892-11.945.16zm-8.017-33.837c.79-.953-.535-7.817-1.743-9.024-.706-.706-.851-.52-1.176 1.509-.204 1.273-1.111 3.392-2.017 4.71-1.573 2.285-1.724 2.367-3.333 1.806l-1.685-.587.362-4.22.363-4.218-1.66-.968c-1.193-.696-2.864-.967-5.953-.967-5.407 0-6.315.66-6.315 4.591 0 2.47.25 3.04 2.35 5.386l2.349 2.625 8.915.059c6.92.045 9.056-.113 9.543-.7z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/D_S2_Plasma.js":
+/*!********************************************!*\
+  !*** ./resources/js/assets/D_S2_Plasma.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M76.735 89.289c-.862-.566-2.298-1.186-3.192-1.38-2.336-.505-4.72-2.32-4.341-3.306.382-.996-3.119-5.414-4.794-6.051-1.605-.61-3.523-5.733-3.523-9.41 0-1.921-.273-3.072-.84-3.543-1.237-1.027-.49-4.63 1.304-6.277.96-.882 1.202-1.394.747-1.581-.37-.153-.673-.863-.673-1.578 0-1.157-.236-1.301-2.134-1.301-1.583 0-2.282.278-2.71 1.076-.501.938-1.126 1.077-4.844 1.077-2.792 0-4.89.296-6.064.856-1.732.826-2.027.784-8.226-1.152-3.536-1.104-6.497-2.061-6.579-2.127-.239-.19 2.632-9.103 3.088-9.586.227-.241.58 1.041.785 2.85.322 2.85.551 3.356 1.723 3.801 1.66.632 3.972.672 3.972.07 0-.245-.606-1.013-1.346-1.709-1.504-1.413-1.712-2.152-.604-2.152.565 0 .674-.609.46-2.557-.154-1.406-.519-2.71-.81-2.9-.29-.189-1.672-.495-3.069-.68-1.397-.185-2.662-.46-2.812-.609-.417-.417.728-5.633 1.237-5.633.246 0 .707.485 1.024 1.077 1.125 2.102 1.614 1.046 1.614-3.485 0-4.523.014-4.568 1.615-5.396 1.872-.968 2.13-2.646.538-3.498-.792-.424-1.076-1.127-1.076-2.66 0-1.81-.14-2.046-1.064-1.805-.69.181-1.182.915-1.404 2.098-.188 1-.515 1.712-.728 1.58-.477-.294-2.443-6.682-2.138-6.944.618-.532 12.001-4.043 12.37-3.816.235.146.505-.526.598-1.494l.17-1.759 4.126-.156 4.127-.157 1.454 1.906c1.412 1.852 1.555 1.905 5.11 1.905 5.248 0 29.668-4.054 30.206-5.014.233-.417 1.47-1.05 2.747-1.408 1.507-.422 2.688-1.193 3.36-2.194.944-1.404 2.853-2.686 4-2.686.248 0 .611.848.806 1.884.477 2.545 2.002 2.49 4.537-.163 3.505-3.668 3.54-3.674 5.148-.93 1.676 2.862 3.16 3.18 4.438.954.802-1.397 3.322-3.687 3.607-3.278.072.103 1.175 2.61 2.451 5.57 2.655 6.155 3.028 6.727 4.383 6.727.705 0 1.09-.549 1.347-1.922.48-2.561 2.033-3.158 5.312-2.04 2.432.828 2.45.852 2.466 3.34.01 1.378.373 2.976.807 3.55.574.759.79 2.529.788 6.459-.002 4.89-.127 5.568-1.282 7.012l-1.279 1.598 1.378 2.81c1.364 2.78 1.368 2.83.426 4.921l-.953 2.113 3.863 6.665c2.124 3.666 5.416 8.7 7.314 11.185 3.245 4.25 3.452 4.692 3.452 7.384v2.864l-3.918 2.644c-3.585 2.42-4.593 2.796-11.87 4.439-6.266 1.414-8.044 1.649-8.379 1.106-.234-.378-1.128-.613-1.987-.52-1.337.143-1.586-.036-1.726-1.241-.124-1.072.219-1.652 1.433-2.422 2.04-1.294 4.92-4.906 4.92-6.17 0-.535-1.384-3.795-3.075-7.244-2.576-5.256-3.448-6.53-5.382-7.86l-2.307-1.588-.01 1.506c-.004.829-.565 2.475-1.245 3.659-.965 1.678-1.52 2.12-2.515 2.007-1.747-.2-1.773-.269-1.047-2.693.495-1.654.494-2.577-.005-4.089-.77-2.33-1.81-2.49-3.092-.472-.518.814-1.25 1.673-1.627 1.91-.377.237-.686 1.008-.686 1.713 0 1-.327 1.321-1.476 1.454-1.415.163-1.36.245 1.287 1.938 2.772 1.773 3.948 3.734 2.726 4.548-.621.413-3.346.149-4.997-.485-.5-.192-.769.063-.769.731 0 .684-.809 1.42-2.422 2.204-1.332.647-2.421 1.491-2.421 1.877 0 .385-.706 1.538-1.568 2.563-1.18 1.402-1.495 2.229-1.278 3.342.159.813.07 1.782-.199 2.153-.268.37-.4 2.4-.295 4.508.175 3.473.32 3.892 1.531 4.444 1.088.496 1.306.934 1.17 2.343-.251 2.583-1.823 3.151-8.242 2.978-4.534-.122-5.53.003-6.323.797-.518.518-1.442.942-2.054.942-.611 0-1.536.227-2.055.505-.676.362-1.39.213-2.511-.522z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/E_E_Platform.js":
+/*!*********************************************!*\
+  !*** ./resources/js/assets/E_E_Platform.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M77.468 77.824c-1.539-.322-1.735-.485-2.115-1.752-.385-1.286-.55-1.417-2.07-1.645-1.206-.18-1.65-.414-1.65-.868 0-.522-.318-.6-2.02-.494-1.962.122-2.02.098-2.02-.827 0-.92-.075-.952-2.244-.952-1.91 0-2.21.088-2.017.59.5 1.305-.45 3.236-2.108 4.278-1.373.863-1.855.976-3.302.778-1.659-.228-1.716-.28-2.788-2.572-1.087-2.322-1.107-2.34-2.618-2.34-.966 0-1.864.27-2.456.735-.872.686-1.49.735-9.306.735h-8.371l-1.13-.95c-.786-.662-1.13-1.278-1.13-2.021 0-.896-.15-1.07-.919-1.07-.715 0-.918.189-.918.85 0 .467-.464 1.294-1.03 1.837-1.445 1.384-4.313 1.42-5.582.068-.704-.748-1.212-.918-2.75-.918-1.619 0-2.04-.158-2.944-1.102-.929-.969-1.306-1.102-3.123-1.102-1.802 0-2.197.137-3.09 1.069-.871.908-1.254 1.05-2.549.937-.838-.073-1.648-.14-1.8-.15-.151-.011-.275-.267-.275-.57 0-.438-.53-.551-2.572-.551H0v-2.731c0-2.706.01-2.732 1.01-2.847l1.01-.116.1-6.888.1-6.888h-.926c-.908 0-.927-.055-.927-2.755v-2.755H4.776v-2.939H6.98c1.827 0 2.204.107 2.204.623 0 .342.444 1.086.987 1.653.83.866 1.287 1.03 2.864 1.03 1.706 0 2.008-.134 3.312-1.47 1.267-1.296 1.635-1.469 3.14-1.469 1.239 0 1.887-.2 2.37-.734.945-1.044 4.12-1.028 5.461.026.785.618.968 1.069.968 2.388 0 1.556.047 1.627 1.084 1.627 1.061 0 1.086-.043 1.193-2.113.107-2.05.143-2.115 1.213-2.217.606-.057 1.435-.271 1.843-.476.668-.334 4.883-.306 16.874.112l2.92.102.284-1.286c.155-.707.84-2.773 1.522-4.592 1.569-4.186 2.136-4.496 5.385-2.943 2.738 1.309 3.057 2.283 1.884 5.756-.426 1.259-.773 2.422-.773 2.585 0 .163 1.911.296 4.248.296s4.57.172 4.964.383c.437.233.944.255 1.302.055.536-.3.536-.348-.005-.555-.49-.189-.59-.87-.589-4.004l.003-3.777 1.622-2.04 1.622-2.039 4.537-.86 4.537-.858 3.297.97c1.814.534 3.504.97 3.757.97.29 0 .459-.534.459-1.443 0-1.398.086-1.497 2.745-3.154 2.269-1.415 2.937-1.669 3.857-1.467l1.112.245v-2.923c0-1.894.162-3.055.46-3.298.267-.218 2.413-.35 5.142-.316l4.684.059V15.27c0-1.24.201-1.635 1.266-2.484 1.06-.846 1.62-1.01 3.445-1.01 1.388 0 2.33.18 2.593.499.228.275 1.86.878 3.627 1.34 1.767.463 3.428 1.038 3.692 1.28.264.24.577 1.414.697 2.608.123 1.229.433 2.298.714 2.464.779.46.586 1.995-.48 3.815-.867 1.479-.93 1.801-.552 2.846.235.649.427 1.54.427 1.98 0 .962.31.99 1.998.186 1.223-.584 1.547-.572 6.35.221 3.15.521 5.423 1.09 6.022 1.508.946.662.983.657 2.347-.27l1.386-.941 2.912.665c2.586.59 2.976.79 3.485 1.793.75 1.477.671 1.428 1.48.922.575-.359 1.797-.183 6.644.958l5.938 1.398.235 1.25c.306 1.635.89 1.805 2.696.79 1.705-.958 1.853-1.482.607-2.149-.484-.259-1.738-1.699-2.786-3.2-1.804-2.584-3.664-4.326-7.264-6.803-1.464-1.007-1.68-1.055-2.91-.65-1.043.345-1.75.338-3.295-.033-1.082-.26-1.968-.593-1.968-.74 0-.147 1.889-1.86 4.197-3.808l4.197-3.541 3.426 1.352c1.884.743 3.715 1.6 4.068 1.903.354.304 2.503 2.84 4.776 5.636 3.46 4.255 4.294 5.084 5.126 5.086.745.002 1.311.418 2.266 1.669l1.272 1.666-1.44 3.118-1.44 3.119 1.51 1.919c.83 1.055 1.906 2.057 2.389 2.225.771.27.878.534.878 2.18 0 1.333-.202 2.094-.7 2.633-.41.446-.956 2.047-1.324 3.881-.75 3.745-2.075 7.16-3.271 8.435-.51.542-1.073 1.833-1.347 3.083-.406 1.853-.634 2.227-1.648 2.711-1.049.5-1.442.502-3.607.016l-2.43-.545v2.222c0 1.91-.138 2.366-.987 3.252-.623.65-1.367 1.03-2.02 1.03-.789 0-1.033.174-1.033.735 0 .706-.245.735-6.245.735s-6.245-.03-6.245-.735c0-.612-.245-.735-1.47-.735h-1.47v-2.698c0-2.257-.123-2.81-.755-3.382-.527-.477-.911-.578-1.267-.333-.28.194-1.14.8-1.907 1.349l-1.397.996-2.256-.605c-1.644-.44-2.415-.86-2.839-1.547-1.569-2.541-1.547-2.531-7.73-3.658-5.697-1.038-5.877-1.1-7.113-2.409-1.161-1.231-1.32-1.296-1.897-.773-.8.724-2.928.736-3.946.023-.691-.484-.93-.484-2.09 0-.72.301-1.625.547-2.01.547-.387 0-.922.266-1.192.59-.269.324-2.38 1.482-4.69 2.572-3.895 1.836-4.4 1.981-6.903 1.981H95.51v1.614c0 1.706-.35 2.06-2.035 2.06-.643 0-1.122.424-1.816 1.609-.71 1.212-1.703 2.075-4.022 3.497-3.013 1.848-7.627 4.12-8.19 4.034a84.605 84.605 0 0 1-1.98-.398z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/E_E_Sentry.js":
+/*!*******************************************!*\
+  !*** ./resources/js/assets/E_E_Sentry.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M71.076 89.058c0-.508-.262-1.141-.582-1.407-.605-.502-.79-2.956-.283-3.754.531-.834 5.548-2.459 7.61-2.464 1.844-.005 2.15-.15 4.128-1.947 1.174-1.068 2.513-2.042 2.975-2.164.493-.13.943-.65 1.09-1.257.938-3.892.945-3.903 2.548-4.384 1.326-.397 1.541-.616 1.541-1.565 0-1.098-.012-1.103-2.497-1.103-2.339 0-2.552-.076-3.337-1.18-.522-.732-.737-1.43-.569-1.844.149-.366.325-1.317.392-2.114.29-3.467.462-3.74 2.446-3.897 1.268-.101.92-.166-1.15-.215-2.233-.052-3.023-.214-3.191-.652-.181-.471-1.078-.583-4.685-.583h-4.46l-1.968-3.009c-1.082-1.655-2.072-3.49-2.2-4.077-.13-.587-.467-1.068-.75-1.068-.284 0-.958-.201-1.499-.448-1.354-.616-1.613-2.403-.844-5.81.344-1.522.625-2.922.625-3.109 0-.187-.852-.34-1.894-.34-1.21 0-2.068-.211-2.377-.583-.544-.656-2.545-.789-2.912-.194-.312.505-3.183.505-3.495 0-.132-.214-1.344-.389-2.693-.389-1.708 0-2.601-.177-2.937-.582-.544-.656-2.545-.789-2.913-.194-.132.214-1.106.388-2.164.388-1.754 0-1.992-.111-2.694-1.261-.639-1.048-.77-1.96-.77-5.377-.002-3.493.105-4.21.708-4.756.838-.759 4.327-.887 5.029-.185.35.35.666.352 1.34.004.484-.249 2.265-.499 3.956-.555 2.04-.067 3.13-.264 3.236-.586.12-.36-.592-.486-2.736-.486-2.102 0-3.03-.16-3.38-.582-.55-.663-1.778-.774-2.136-.194-.132.214-1.274.388-2.537.388-2.151 0-2.335-.073-2.89-1.145-.82-1.586-.82-8.161 0-9.747.533-1.03.783-1.145 2.477-1.145 1.2 0 2.059.211 2.367.582.616.742 1.326.742 1.942 0 .354-.427 1.294-.582 3.52-.582 1.669 0 3.143-.175 3.275-.389.32-.517 1.897-.49 3.746.063 1.356.407 1.595.368 2.4-.388.828-.778 1.292-.84 6.33-.84h5.435l1.116-1.165 1.116-1.165H105.559l.38-1.089c.314-.9.801-1.217 2.803-1.823 2.35-.712 2.44-.712 2.945-.018.287.392.584.9.66 1.128.238.715 3.485-.498 4.624-1.727.823-.887 1.382-1.128 2.616-1.128 1.414 0 1.624-.13 2.113-1.3.541-1.295.731-1.404 6.325-3.625.247-.099.565.183.705.625.19.599.582.805 1.527.805 1.152 0 1.317.15 1.748 1.591.263.875.421 1.632.353 1.682-.068.05-.495.34-.948.644l-.824.552 1.097 2.857c.705 1.837 1.02 3.243.88 3.94-.144.72.203 2.133 1.035 4.219 1.242 3.112 1.353 4.697.53 7.522-.257.878-2.783.957-3.113.097-.489-1.275-.917-.46-.917 1.748 0 1.79.133 2.33.571 2.33.314 0 2.039.867 3.833 1.927 3.088 1.823 3.287 2.023 3.713 3.716.437 1.732.402 1.877-1.108 4.611-1.253 2.272-1.855 2.958-3.08 3.51l-1.52.685-3.728-2.224c-2.598-1.55-3.729-2.446-3.729-2.954 0-.548-.283-.729-1.142-.729-.628 0-1.234.15-1.347.333-.113.183-.643 2.397-1.178 4.921-.534 2.524-1.156 4.704-1.382 4.843-.226.14-2.502.563-5.058.94l-4.648.686v3.245c0 1.784-.19 4.127-.42 5.205l-.421 1.96h-2.469c-2.673 0-3.82.653-1.495.85 1.317.112 1.463.252 1.953 1.869.292.96.452 2.073.356 2.471-.095.399.014 1.024.243 1.39.315.505.25.918-.264 1.703-.627.957-.884 1.037-3.352 1.037h-2.674v1.369c0 1.223.13 1.394 1.217 1.612.722.144 1.293.535 1.404.96.12.46.541.719 1.166.719.67 0 1.973.897 4.129 2.842 3.234 2.918 5.518 4.145 7.721 4.15.69.002 1.779.35 2.42.774 1.04.69 1.83.771 7.456.774 7.891.003 8.27.14 8.27 2.992 0 1.333-.286 2.648-.789 3.635L133.957 90l-7.63-.105-7.632-.106-.803-1.632c-.44-.898-1.053-1.64-1.36-1.65-.306-.01-.961-.399-1.455-.863l-.9-.844-.878.826-.88.826-3.604-2.117c-1.982-1.165-3.683-2.118-3.78-2.118-.097 0-.176.282-.176.627 0 .345-.743 1.306-1.65 2.136l-1.65 1.508h-8.35v1.165c0 .884-.177 1.165-.735 1.165-.404 0-.835.263-.958.583-.191.497-1.705.582-10.332.582H71.076zM60.98 26.25c0-.685-.097-.743-.578-.344-.584.485-.46 1.168.213 1.168.2 0 .365-.37.365-.824zm63.78-16.518a.843.843 0 0 1-.486-.723c0-1.162-.97-1.048-3.495.409-.911.525-.805.558 1.747.535 1.495-.014 2.5-.114 2.233-.22z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/E_P1_Warthog.js":
+/*!*********************************************!*\
+  !*** ./resources/js/assets/E_P1_Warthog.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M127.306 69.876c-.612-1.183-.58-1.334.64-3.017l1.283-1.772-1.474-2.905c-.81-1.598-1.879-3.15-2.374-3.447-.494-.299-.899-.954-.899-1.457 0-1.207-1.683-3.9-2.309-3.695-.27.09-.55.563-.623 1.054-.156 1.056-1.62 1.37-7.836 1.685l-4.092.207-1.771-1.516c-.974-.834-2.016-2.106-2.314-2.826-.45-1.087-.785-1.31-1.972-1.31-.787 0-1.55.194-1.696.431-.154.249-2.465.431-5.468.431-5.474 0-10.685.708-10.685 1.45 0 .243-.52.985-1.157 1.65-1.063 1.108-1.417 1.207-4.321 1.207-2.355 0-3.224.159-3.401.62-.239.62-5.178 1.965-7.22 1.965-.643 0-1.426.456-1.97 1.146-.874 1.112-.92 1.122-1.525.323-.343-.452-.63-.968-.637-1.146-.005-.178-.927-.323-2.043-.323-1.687 0-2.186.196-2.953 1.157l-.922 1.157-.759-1.157c-.628-.96-1.075-1.157-2.615-1.157-1.499 0-2.032.222-2.76 1.146-.874 1.112-.921 1.122-1.525.323-.343-.452-.63-.968-.637-1.146-.005-.178-.798-.323-1.757-.323-1.367 0-1.963.255-2.761 1.182l-1.017 1.183-.54-1.183c-.736-1.617-3.084-1.66-4.728-.085l-1.145 1.097-.72-1.097c-.632-.966-1.016-1.097-3.202-1.097-2.238 0-2.727-.179-4.943-1.806-1.353-.993-2.46-2.06-2.46-2.37 0-.398-.727-.562-2.493-.562-2.14 0-2.705-.182-3.985-1.275-1.275-1.09-1.856-1.277-4.008-1.292-2.147-.016-2.55-.145-2.742-.88-.149-.568-.588-.86-1.292-.86-.705 0-1.144-.293-1.293-.862-.206-.787-.587-.862-4.428-.862H3.554l-.259-1.292c-.228-1.142-.434-1.292-1.777-1.292H0v-8.184h3.446v-5.169c0-4.881.046-5.169.861-5.169.667 0 .862-.287.862-1.267 0-1.798 1.36-2.61 4.374-2.61 2.364 0 2.466-.045 2.597-1.184.13-1.132.24-1.184 2.505-1.184 2.237 0 2.376.063 2.5 1.132.109.936.407 1.177 1.723 1.395.876.144 18.467.265 39.091.268 32.31.004 37.615-.083 38.336-.628.46-.348 1.665-.638 2.68-.646 1.187-.01 1.928-.232 2.079-.626.414-1.08 3.477-1.972 6.768-1.972 1.724 0 3.335-.2 3.579-.444.304-.304 1.634.01 4.233 1 2.88 1.096 3.935 1.72 4.394 2.597l.605 1.154h7.115c7.3 0 8.699-.265 10.063-1.91.75-.902 4.144-.923 4.487-.03.299.779 1.282.832 2.406.13 1.18-.737 7.174.682 7.796 1.846.243.453.725.824 1.072.824.787 0 .792.62.025 3.162-.332 1.104-.477 2.076-.323 2.16.155.083 3.189-.021 6.742-.235 15.475-.926 15.601-.925 17.274.109.84.518 1.723 1.451 1.965 2.073.24.621.546 4.66.678 8.975.274 8.98-.29 13.877-1.76 15.247-.926.862-3.492 1.111-3.942.383-.442-.715-4.77-.525-5.403.237-.724.873-3.4.658-4.014-.323-.343-.548-.218-1.478.495-3.692.76-2.361.953-3.977.953-7.99v-5.031h-3.876c-3.006 0-3.877.133-3.877.593 0 1.878-4.38 1.872-4.652-.005-.108-.746-.714-1.014-3.717-1.644-3.28-.689-3.677-.695-4.624-.074-.887.58-1.345.603-3.168.151-1.827-.452-2.132-.678-2.138-1.583-.005-.755-.313-1.141-1.084-1.357-2.223-.622-2.472-.484-2.774 1.53-.199 1.326-.533 1.994-1.086 2.17-1.376.436-4.324 3.976-4.324 5.192 0 .781 1.039 2.29 3.477 5.049 1.912 2.164 4.431 5.487 5.6 7.384 1.741 2.831 2.122 3.808 2.122 5.447v1.997l-6.863 3.298c-3.775 1.813-6.968 3.297-7.096 3.297-.128 0-.523-.56-.877-1.246z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/E_P2_Stubby.js":
+/*!********************************************!*\
+  !*** ./resources/js/assets/E_P2_Stubby.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M80.59 89.047c-3.52-.55-6.76-1.015-7.2-1.034-.44-.019-1.245-.37-1.787-.781-.803-.608-.918-1.154-.618-2.928.202-1.199.766-2.577 1.253-3.062.645-.644 1.564-5.214 3.397-16.907 2.144-13.675 2.405-16.145 1.78-16.843-.505-.564-.643-1.607-.443-3.352.281-2.46.249-2.534-1.13-2.534-.78 0-1.558-.36-1.727-.8-.239-.623-1.296-.8-4.784-.8-3.89 0-4.482-.122-4.522-.934-.024-.513-.626 1.707-1.337 4.934-3.618 16.428-3.299 15.473-5.61 16.772l-2.093 1.176-8.312-.893c-5.325-.573-8.496-.71-8.825-.38-.282.282-1.27.359-2.194.17-2.093-.429-2.403-1.412-2.451-7.777-.034-4.394.227-5.658 3.079-14.935l3.115-10.135 1.88-.48c1.458-.373 3.126-.164 7.42.933 6.362 1.624 12.402 1.911 12.9.614.257-.672-.411-.8-4.18-.8-4.033 0-4.572-.12-5.318-1.186-1.313-1.874-1.075-4.082.503-4.682 1.881-.715 1.874-3.316-.012-4.175-1.113-.508-1.289-.867-1.017-2.086.71-3.19.816-3.34 2.346-3.34 1.206 0 1.627-.33 2.08-1.626.559-1.606.607-1.624 3.918-1.467 3.014.143 3.37.28 3.523 1.36.337 2.37 1.164 1.139 1.164-1.734 0-2.236.188-2.934.79-2.934.434 0 .94-.6 1.124-1.334.287-1.143.638-1.333 2.46-1.333 1.678 0 2.185.225 2.405 1.067.358 1.366 1.055 1.366 1.488 0 .497-1.564 3.21-1.467 3.74.133l.396 1.2.237-1.2c.23-1.17.406-1.2 7.133-1.2h6.897v1.333c0 1.312.071 1.334 4.267 1.334h4.268v1.632c0 .952.222 1.494.533 1.302.293-.182.534-.796.534-1.365 0-.57.252-1.036.56-1.036.31 0 .813-.72 1.12-1.6.404-1.159.9-1.6 1.798-1.6.944 0 1.386-.446 1.856-1.867C107.51.303 107.862 0 109.158 0c1.208 0 1.623.294 1.884 1.334.32 1.278.504 1.333 4.461 1.333 3.32 0 4.3.19 5.01.976.485.536.883 1.256.883 1.6 0 .343.36.625.8.625.44 0 .8-.35.8-.779 0-.712 2.558-3.499 3.195-3.481.15.005 2.552 2.788 5.34 6.187 2.787 3.4 5.573 6.377 6.192 6.619 1.592.62 2.116 3.564.88 4.933-.516.57-.862 1.499-.769 2.063.094.563-.1 1.842-.43 2.84-.455 1.38-.986 1.9-2.213 2.17l-1.615.355 1.04 1.148c.57.631 3.37 6.004 6.22 11.94l5.18 10.791-2.309 4.275c-2.287 4.234-2.345 4.29-6.176 5.973-2.127.935-3.867 1.97-3.867 2.298 0 .684-4.48 2.416-6.237 2.412-.644-.002-1.508-.485-1.921-1.075-.749-1.068-.766-1.067-4.31.267-4.341 1.634-6.767 1.73-7.657.305-.816-1.307.045-4.078 1.512-4.864 1.484-.794 1.233-2.518-.59-4.052-1.297-1.092-1.603-1.766-1.617-3.566-.009-1.22-.37-2.686-.8-3.255-.464-.614-.783-2.21-.783-3.917 0-2.433-.166-2.925-1.067-3.16-.716-.188-1.075-.741-1.092-1.685-.019-1.093-.292-.754-1.233 1.53-.664 1.613-1.493 2.91-1.842 2.88-.348-.03-.994-.09-1.434-.133-.579-.058-.8-.734-.8-2.446 0-1.301-.234-2.981-.52-3.734-.437-1.148-.857-1.368-2.614-1.368-2.069 0-2.101.031-2.727 2.64-.348 1.453-.966 2.917-1.373 3.255-.406.337-.865 1.369-1.02 2.293-.155.924-1.49 9.601-2.966 19.283-2.158 14.15-2.563 17.829-2.066 18.76.382.714.481 2.07.26 3.544-.513 3.421-.575 3.433-10.177 1.933zm55.76-36.305c.576-2.14.472-2.46-3.798-11.706-3.89-8.421-4.643-9.687-6.605-11.096-1.218-.875-2.473-1.428-2.788-1.23-.315.199-.694 1.441-.842 2.761-.149 1.32-.507 3.284-.798 4.364-.463 1.724-.324 2.376 1.142 5.336.918 1.854 3.337 5.485 5.375 8.069 3.08 3.904 3.903 4.648 4.873 4.404.694-.174 1.434.03 1.827.502.913 1.1.947 1.071 1.613-1.404zM49.16 50.02c.803-2.414 1.543-5.114 1.643-6.001.1-.887.33-1.973.511-2.413.601-1.466 1.163-4.262.815-4.06-.189.11-2.405.824-4.925 1.588l-4.582 1.388-2.007 5.41c-2.796 7.538-2.465 8.11 4.86 8.39l2.223.086z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/E_S1_PGL.js":
+/*!*****************************************!*\
+  !*** ./resources/js/assets/E_S1_PGL.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M133.49 87.025c-.968-.264-2.081-2.02-5.757-9.084-4.016-7.72-4.67-8.719-5.515-8.434-.528.178-2.105.423-3.505.545-2.177.189-2.828.034-4.507-1.078-2.499-1.654-5.364-1.46-6.76.456-1.036 1.422-2.937 1.63-4.227.463-1.188-1.075-14.827-1.012-15.433.071-.457.817-6.331 1.003-6.817.217-.181-.293-3.892-.48-9.53-.48-7.375 0-9.42-.141-10.163-.704-1.287-.973-2.308-.904-3.33.225-.673.744-1.477.959-3.588.959-2.28 0-2.901-.194-3.846-1.2-1.357-1.444-2.398-1.548-2.398-.239 0 .817-.32.96-2.159.96-2.078 0-2.158.05-2.158 1.438 0 1.402-.06 1.44-2.34 1.44-1.494 0-2.555.26-2.936.719-.457.55-1.705.72-5.306.72-2.623 0-4.841-.213-5.006-.48-.163-.265-.931-.48-1.707-.48-1.18 0-1.41-.194-1.41-1.186v-1.185l-6.356-.134-6.355-.133-.147-1.51c-.098-1.017-.451-1.59-1.079-1.754-.67-.175-.933-.661-.933-1.728 0-1.379-.12-1.483-1.699-1.483h-1.7l.066 7.707c.057 6.752-.04 7.822-.782 8.643-.837.924-.865.92-2.203-.363l-1.356-1.298v-6.96c0-6.877-.017-6.973-1.274-8.287L0 62.058l1.153-2.174c.635-1.196 1.424-2.174 1.754-2.174.468 0 .6-3.283.6-14.869 0-13.331.08-14.868.77-14.868 1.764 0 6.737 1.583 7.655 2.437.908.844 1.79.92 10.672.92 5.325 0 9.681-.109 9.681-.241 0-.133-.431-1.047-.959-2.032-1.151-2.147-1.288-6.222-.255-7.587.476-.63.71-2.146.72-4.675l.017-3.743 2.278.146 2.278.146.139 3.914c.096 2.71.354 4.092.84 4.495.463.384.7 1.5.7 3.29 0 2.108.27 3.103 1.217 4.497l1.216 1.79h5.203c5.022 0 5.232-.04 5.99-1.199.58-.884 1.207-1.199 2.394-1.199.885 0 1.878-.324 2.206-.72.778-.937 4.019-.937 4.797 0 .877 1.057 14.471 1.057 15.348 0 .329-.395 1.068-.719 1.643-.719.576 0 1.779-.755 2.674-1.679.895-.923 1.908-1.678 2.252-1.678.496 0 .626-2.24.626-10.792V2.552H89.844v2.13c0 1.172-.216 2.264-.48 2.427-.284.175-.48 3.111-.48 7.19 0 6.782.017 6.895 1.08 7.045 1.01.144 1.072.362.974 3.391l-.105 3.238h2.834c1.56 0 2.968.216 3.131.48.183.294 4.129.48 10.241.48h9.944l1.236-2.521c1.105-2.252 1.511-2.623 3.804-3.478 1.412-.526 2.71-1.02 2.886-1.098.175-.077.974 1.433 1.777 3.358l1.46 3.499 5.401.136c3.024.077 5.682.37 6.039.666.476.395.857.33 1.506-.257.652-.59 1.825-.785 4.728-.785 2.847 0 4.018-.19 4.458-.72.787-.948 1.37-.91 4.585.292 2.261.846 2.835 1.307 3.515 2.826.503 1.122 2.954 3.782 6.429 6.975 3.088 2.838 5.616 5.326 5.616 5.528 0 .408-3.554 3.325-4.051 3.325-.174 0-1.912-1.511-3.863-3.358-2.022-1.913-3.97-3.357-4.532-3.357-.87 0-.984.298-.984 2.554 0 2.546.011 2.56 2.627 4.437l2.628 1.882.011 5.356.012 5.355 1.798 1.395c.99.767 4.185 3.054 7.102 5.082 5.212 3.625 5.334 3.753 7.165 7.508 1.025 2.102 1.768 3.897 1.652 3.99-.116.093-3.66 2.364-7.876 5.047l-7.666 4.878-14.877-.045c-8.183-.029-15.417-.195-16.076-.375zm27.366-4.425c.391-.731.396-1.156.017-1.535-.288-.288-.524-1.36-.524-2.383 0-1.58-.551-2.578-3.667-6.642l-3.666-4.784-1.276 1.223c-1.242 1.19-1.453 1.222-7.915 1.222h-6.64l-2.088-1.71-2.087-1.711v-6.651h-2.159c-2.109 0-2.158.034-2.158 1.536 0 1.036-.451 2.012-1.385 2.998l-1.384 1.461 4.456 8.394c2.451 4.616 4.702 8.663 5.001 8.993.408.45 3.593.6 12.74.6 11.91 0 12.207-.023 12.735-1.011zm-10.607-17.427l1.1-1.17-1.136-1.828-1.136-1.827-.157 1.44c-.231 2.122-2.293 4.076-4.3 4.076-1.387 0-1.582-.13-1.261-.84.208-.461.467-1.972.575-3.357l.196-2.518h-7.763v2.681c0 4.024.753 4.478 7.47 4.498 5.023.017 5.373-.046 6.413-1.155zM25.091 56.751v-1.439h-6.424c-4.973 0-6.48.147-6.674.652-.137.359-1.24.902-2.45 1.206-1.209.305-2.198.659-2.198.787s3.993.233 8.873.233h8.873z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/E_S2_Breach.js":
+/*!********************************************!*\
+  !*** ./resources/js/assets/E_S2_Breach.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M107.7 86.758l-3.298-.924-.315-2.1c-.487-3.247-.514-3.276-2.677-2.88-2.683.49-7.948-.569-9.343-1.88-.74-.694-1.437-.943-2.157-.77-.834.2-1.341-.107-2.347-1.421-.706-.922-1.185-1.93-1.066-2.242.12-.312-.082-.815-.448-1.118-.471-.392-.664-.402-.664-.034 0 .648-5.856.715-6.077.07-.095-.278-1.24-.196-2.987.213-1.911.446-3.298.528-4.263.252-.91-.262-1.535-.242-1.718.054-.158.256-.77.344-1.359.196-.806-.202-1.145-.04-1.365.655-.27.85-.697.924-5.36.924h-5.068l-.786-1.382c-.939-1.649-.933-1.648-5.861-.412-2.881.722-4.067 1.249-4.58 2.033-.382.581-2.225 2.012-4.097 3.178-3.192 1.99-3.6 2.121-6.595 2.118-1.756 0-4.521-.219-6.145-.483-1.962-.318-3.392-.326-4.26-.024-1.673.584-6.378-1.203-7.033-2.671-.246-.552-.862-.972-1.425-.972-1.405 0-2.098-.87-2.098-2.631 0-1.215-.187-1.523-.923-1.523-.786 0-.923-.308-.923-2.06 0-2.467.185-2.351-7.039-4.414L0 64.962V60.29l5.423-1.51c3.884-1.082 6.373-1.508 8.77-1.5 2.671.01 3.345-.127 3.345-.68 0-.564-.769-.692-4.153-.692H9.23V34.276l1.269-.192 1.27-.193-1.27-.069c-1.141-.062-1.27-.24-1.27-1.76 0-1.103.498-2.465 1.434-3.922 1.357-2.116 1.539-2.233 3.47-2.233 1.121 0 3.316-.52 4.878-1.154 3.355-1.363 8.219-1.636 8.219-.461 0 .593 1.407.692 9.896.692 5.442 0 10.004-.175 10.136-.389.132-.214 4.24-.516 9.128-.672 10.874-.348 10.532-.507 10.532 4.904 0 2.795-.187 3.906-.764 4.544-.727.803-.68.844.977.844 1.583 0 1.722-.1 1.532-1.095-.133-.691.327-2.011 1.246-3.577l1.455-2.482 3.43-.138c3.042-.123 3.523-.026 4.231.848.785.968 1.042.986 13.783.926 13.21-.06 14.264-.197 14.264-1.834 0-.3 1.174-.495 3-.495 2.359 0 3 .148 3 .693 0 .483.487.692 1.615.692 1.416 0 1.616.143 1.616 1.154v1.154h21.581l1.902 2.518c1.046 1.386 1.901 2.736 1.901 3 0 .61 4.463.64 4.838.035.152-.246-.125-1.23-.616-2.187-.888-1.73-.888-1.748.068-3.408l.96-1.669-1.957-3.763c-1.077-2.07-1.83-3.97-1.675-4.222.156-.252-.145-.458-.667-.458-.693 0-.95-.297-.95-1.097 0-.604-.312-1.356-.693-1.672-.38-.316-.699-1.12-.707-1.788-.008-.667-.32-1.615-.692-2.108-.373-.493-.678-1.236-.678-1.65 0-.942 1.888-2.762 2.865-2.762.4 0 .836-.28.967-.622.15-.392 1.392-.73 3.36-.913 2.399-.224 3.397-.548 4.31-1.399.73-.68 3.05-1.655 6.005-2.525 4.57-1.345 4.88-1.379 6.084-.667l1.269.749-.896 1.756c-1.422 2.787-.698 4.93 2.887 8.556 1.756 1.776 3.209 2.877 3.647 2.764.998-.256 2.04.645 2.04 1.763 0 .638.308.923.997.923 1.348 0 1.672.41 1.727 2.184.04 1.315.193 1.496 1.2 1.414.95-.077 1.458.395 2.884 2.677.952 1.524 1.731 3.304 1.731 3.957 0 .754-1.164 2.723-3.192 5.4-3.023 3.99-3.221 4.404-3.723 7.782-.523 3.52-.514 3.59.689 5.166 1.78 2.333 2.56 5.806 2.218 9.857-.282 3.341-.308 3.396-2.007 4.263-1.307.666-1.79 1.243-2.01 2.396-.486 2.57-1.751 4.163-3.757 4.732l-1.833.52v6.51l-2.876 2.41c-2.503 2.1-3.205 2.446-5.42 2.674-1.4.145-2.779.546-3.065.891-.741.893-6.232.863-6.735-.037-.296-.529-1.11-.61-3.97-.393-3.369.255-3.64.355-4.277 1.588-.375.724-.893 1.316-1.151 1.316-.259 0-4.313.728-9.01 1.617l-8.538 1.617-1.09-1.266c-1.017-1.183-1.145-1.217-1.94-.518-.662.582-6.144 1.926-7.12 1.745-.106-.02-1.678-.451-3.492-.96zm-8.947-11.813c-.009-.19-.891-2.007-1.961-4.038l-1.946-3.692-4.615-.056c-2.539-.03-4.04.036-3.337.147.715.113 1.717.795 2.271 1.545.699.945 1.276 1.277 1.952 1.124 1.197-.272 3.498 1.676 3.498 2.96 0 .506.462 1.243 1.026 1.638 1.055.74 3.14.989 3.112.372zm-46.936-5.053c1.628-.329 1.856-.724 1.22-2.117-.403-.886-.352-1.432.238-2.573.412-.797.572-1.449.356-1.449-.702 0-2.27 2.02-3.544 4.565-1.085 2.168-1.136 2.446-.397 2.16.467-.18 1.424-.444 2.127-.586zm23.59-2.323c-1.885-.134-2.462-.373-2.854-1.184-.481-.997-.491-.998-.522-.055-.046 1.413.32 1.586 3.161 1.492l2.577-.086zm-32.073-.637c1.092-.38 1.778-1.125 2.657-2.884.652-1.305 1.72-2.943 2.376-3.641l1.19-1.27-3.894.011c-3.153.008-4.113.182-5.048.913-.926.725-1.893.905-4.908.913-3.49.01-3.808.091-4.51 1.164-.417.635-1.13 1.154-1.584 1.154-.7 0-2.844 2.918-2.844 3.87 0 .512 15.037.303 16.565-.23zm124.25-2.717c1.134-1.576.709-3.52-.856-3.912-1.845-.463-2.56.585-2.17 3.183.273 1.828.468 2.141 1.26 2.023.514-.077 1.31-.66 1.766-1.294zm-51.582-4.27l.63-1.5 8.667-1.528 8.668-1.529 1.302 1.248c.716.686 1.432 1.843 1.592 2.57.337 1.536 1.139 1.32 1.139-.305 0-1.583.926-3.394 1.893-3.701.505-.16.725-.535.563-.957-.226-.588-.416-.556-1.246.207-.913.84-1.769.905-12.72.964-7.183.039-11.96.245-12.307.532-.31.259-1.362.52-2.336.581l-1.77.111-.143 2.23-.143 2.229 2.064-.31c1.274-.19 2.177-.124 2.362.175.533.862 1.142.515 1.785-1.017zm-56.925-19.5c0-5.23.111-6.23.692-6.23.381 0 .693-.156.693-.347 0-.19-2.769-.283-6.154-.206-5.118.116-6.255.018-6.75-.577-.495-.597-1.929-.717-8.615-.717-5.574 0-8.02.157-8.02.513 0 .34.566.407 1.674.2 2.313-.435 4.326.449 4.326 1.898 0 .88.434 1.3 2.057 1.996 1.63.699 2.144 1.2 2.47 2.407.25.92.244 1.744-.015 2.076-.286.369-.111.823.53 1.372 1.333 1.142 1.285 3.257-.08 3.52-.572.11 3.063.229 8.077.263l9.115.063zm104.453-8.757c3.375.506 3.415-1.183.082-3.476-1.333-.917-2.654-2.521-4.083-4.96-1.286-2.193-3.067-4.425-4.552-5.702l-2.439-2.1-1.681 2.636-1.682 2.636 1.786 2.823c1.502 2.376 1.993 2.823 3.096 2.823 1.15 0 1.477.346 2.651 2.803 1.564 3.272 2.29 3.833 3.734 2.886.736-.482 1.628-.588 3.088-.37z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/G_E_Shield.js":
+/*!*******************************************!*\
+  !*** ./resources/js/assets/G_E_Shield.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M83.51 89.521a10.084 10.084 0 0 1-.28-1.244c-.1-.628-.502-.803-2.224-.97-1.832-.176-3.287-.885-11.294-5.502-5.055-2.915-9.477-5.581-9.827-5.925-.35-.343-3.064-4.838-6.032-9.988-5.236-9.088-5.395-9.43-5.395-11.578 0-2.36.043-2.314-2.49-2.696-.725-.11-.771-.45-.87-6.477l-.105-6.362 1.732-.437c1.726-.434 1.733-.442 1.733-2.12 0-1.472.709-2.914 5.62-11.421l5.62-9.736 9.723-5.616c8.902-5.142 9.88-5.616 11.595-5.616 1.867 0 1.874-.004 2.112-1.436.131-.79.306-1.651.389-1.914.111-.358 1.745-.48 6.454-.48 6.95 0 6.37-.215 6.933 2.586.244 1.212.303 1.244 2.238 1.244 1.857 0 2.603.355 11.363 5.396 5.156 2.968 9.582 5.567 9.836 5.776.253.21 2.967 4.735 6.031 10.058 4.741 8.235 5.571 9.915 5.571 11.277 0 1.633.064 1.7 2.011 2.127l1.053.23v13.007h-.926c-1.858 0-2.138.334-2.138 2.556 0 1.988-.259 2.542-5.221 11.161-2.872 4.988-5.434 9.414-5.694 9.835-.259.421-4.877 3.308-10.262 6.415-9.408 5.427-9.875 5.648-11.923 5.648-1.847 0-2.132.099-2.132.735 0 1.932-.049 1.946-6.755 1.946-4.693 0-6.33-.122-6.447-.479z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/G_E_Zipline.js":
+/*!********************************************!*\
+  !*** ./resources/js/assets/G_E_Zipline.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M79.379 81.766c-6.565-4.524-12.137-8.423-12.383-8.665-.762-.751 1.13-3.11 2.258-2.815.808.211.876.13.387-.46-.471-.568-.409-.921.297-1.702 1.063-1.174 2.13-1.248 3.56-.247 1.017.713 1.061.665 1.278-1.368.168-1.574-.006-2.364-.694-3.132-2.051-2.29-1.45-3.693 6.786-15.823 4.239-6.242 7.583-11.55 7.43-11.796-.151-.246-.933-.446-1.738-.446-1.332 0-1.462.15-1.462 1.69 0 1.544-.163 1.73-1.862 2.132-1.258.297-1.918.757-2.036 1.417-.31 1.729-3.13 4.13-6.378 5.43-3.142 1.258-3.258 1.266-18.05 1.266h-14.89l-1.327-1.74-1.328-1.741h-5.626c-5.19 0-5.651.077-5.942.994-.265.834-.753.995-3.018.995-2.55 0-2.701-.07-2.701-1.243 0-1.043-.235-1.244-1.457-1.244-1.49 0-2.5-.734-3.856-2.805-.565-.861-1.23-1.173-2.502-1.173-1.284 0-2.093-.387-3.126-1.492-1.295-1.387-1.643-1.492-4.924-1.492h-3.53V6.504l3.357.012c5.084.024 6.092.308 6.092 1.73 0 1.09.205 1.203 2.178 1.203 1.978 0 2.346-.206 4.011-2.238 1.755-2.141 1.948-2.238 4.475-2.238 1.801 0 2.849-.25 3.294-.786.517-.623 1.227-.72 3.418-.47 1.52.175 7.352.483 12.96.685l10.194.367 8.65 3.595c7.84 3.259 8.73 3.525 9.488 2.838.6-.543 1.938-.758 4.706-.758 3.517 0 3.955-.111 4.83-1.225.53-.674 1.588-1.67 2.351-2.213l1.388-.987 6.308 2.464c6.165 2.408 6.348 2.447 8.1 1.715 1.078-.45 3.342-.749 5.674-.749 2.809 0 3.926-.182 4.043-.659.088-.362 1.634-2.031 3.435-3.71l3.275-3.052 1.897 1.943c1.862 1.906 1.882 1.967 1.065 3.213-.82 1.254-.814 1.27.508 1.27.737 0 1.754-.375 2.261-.833.682-.617 1.066-.689 1.48-.275.414.413.814.235 1.54-.689.54-.686 1.267-1.138 1.615-1.004.358.138 1.632-1.042 2.924-2.705L130.352 0h2.77c3.93 0 6.759 1.967 7.94 5.522l.845 2.547-2.071 2.937c-1.14 1.615-1.936 3.157-1.77 3.425.166.269 1.811.488 3.656.488 3.173 0 3.444-.093 5.023-1.721.917-.947 1.89-1.584 2.162-1.416.271.168 1.075-.4 1.786-1.262l1.292-1.566 2.61 1.83c1.437 1.005 2.612 2.103 2.612 2.438 0 .343.393.507.899.374.727-.19 1.388.794 3.46 5.144l2.56 5.38-1.808 1.091c-2.295 1.385-2.756 2.227-2.127 3.881.309.812.327 1.635.047 2.132-.345.614.536 2.25 3.657 6.798 6.26 9.122 8.725 13.663 8.725 16.075 0 1.53.224 2.103.91 2.32.77.244 1.755 2.153 3.91 7.578.13.324-.617 1.026-1.658 1.56-1.631.837-1.965 1.306-2.405 3.38-.48 2.263-.675 2.49-3.244 3.754-3.223 1.587-3.862 1.668-5.005.633-.786-.71-1.318-.545-6.372 1.99l-5.514 2.765h-37.776l-1.202-1.77-1.203-1.77-1.094 1.77c-.746 1.208-1.461 1.77-2.25 1.77-.833 0-1.555.631-2.57 2.248-1.61 2.56-4.27 3.725-6.178 2.704-.817-.438-1.222-.389-1.906.23-.478.433-1.41.796-2.072.808-.922.018-1.638.718-3.053 2.984C92.92 88.68 91.914 90.007 91.7 90c-.214-.006-5.76-3.714-12.324-8.237zm72.345-8.941a23.967 23.967 0 0 0-1.028-2.29c-.967-1.807-.146-4.115 1.792-5.039.955-.455 1.735-1.034 1.735-1.286 0-.253-.671-1.956-1.492-3.784-1.253-2.793-1.492-3.958-1.492-7.27 0-3.532-.185-4.313-1.772-7.463-1.539-3.057-1.914-3.48-2.86-3.227-.597.16-1.773.295-2.61.298-1.25.006-1.675.321-2.355 1.748-.852 1.787-1.173 1.965-2.565 1.431-.698-.268-.76-.95-.472-5.134l.332-4.826-1.681-.685c-.925-.377-1.916-.995-2.204-1.373-.296-.39-1.14-.616-1.95-.52-1.17.136-2.132 1.13-5.294 5.463l-3.866 5.296 1.45 5.147c.798 2.83 1.457 5.535 1.465 6.01.006.474-2.324 4.262-5.183 8.419l-5.197 7.556.829 1.403.828 1.403h34.075zm-28.352-17.459c.036-1.212-1.163-5.632-1.53-5.632-.768 0-1.105 1.23-.996 3.634.094 2.048-.017 2.411-.66 2.164-.489-.187-.774-.024-.774.45 0 .41.336.874.746 1.031.41.158.747.654.748 1.104.001.576.363.377 1.225-.675.673-.82 1.231-1.755 1.241-2.076zM93.267 16.97c.15-.241 1.483-.59 2.963-.775 2.02-.253 2.751-.564 2.93-1.25.211-.806.06-.86-1.314-.468-.854.245-4.45.446-7.991.446-5.766 0-6.338.076-5.474.729.6.453 1.543.627 2.491.459.86-.152 2.27.053 3.232.473 2.03.885 2.797.978 3.163.386zm21.651-1.517c.78-1.456.696-1.525-1.847-1.517-4.816.018-4.61 2.168.23 2.421.625.036 1.326-.36 1.617-.904z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/G_P1_Lead.js":
+/*!******************************************!*\
+  !*** ./resources/js/assets/G_P1_Lead.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M153.422 80.244l-5.96-4.064-3.664-.087c-3.908-.092-9.203-1.517-10.084-2.715-.418-.567-.567-.54-1.106.2-.707.972-9.529 5.02-10.94 5.02-.51 0-1.14.398-1.4.885-.382.715-.926.884-2.836.884-2.177 0-2.403-.098-2.881-1.252-.67-1.617-7.795-6.861-8.922-6.566-.903.236-1.008-.004-1.698-3.879-.257-1.448-.617-2.758-.798-2.912-.182-.154-2.718-.52-5.636-.815-8.01-.81-8.087-.83-8.403-2.272-.262-1.192-.413-1.259-3.452-1.52-1.748-.152-5.583-.377-8.52-.502-4.484-.191-5.435-.117-5.914.46-.427.515-1.442.687-4.053.687H63.67v-1.978c0-3.05.833-3.313 10.7-3.394 4.451-.037 7.545-.15 6.876-.25-.668-.102-1.216-.37-1.216-.598 0-.249-7.513-.412-18.958-.412-16.313 0-19.036.092-19.51.663-.448.54-1.885.663-7.709.663h-7.159l-1.27 1.327-1.271 1.326h-5.84c-4.782 0-5.885-.12-6.093-.663-.287-.746-1.854-.899-2.272-.221-.696 1.126-7.296-.054-7.296-1.304 0-.256-.597-.465-1.327-.465H0V45.495l1.216-.184 1.216-.185-1.216-.066L0 44.994V31.328l1.933-.855c1.063-.47 2.07-1.076 2.237-1.347.39-.63 6.29-.654 6.678-.026.191.31.64.236 1.337-.221.8-.524 2.294-.687 6.288-.687h5.238l1.271 1.326 1.271 1.327h6.923c6.362 0 6.989.071 7.724.884.775.856 1.362.884 18.266.884 17.437 0 17.464 0 16.665-.884-.7-.774-1.362-.884-5.288-.884h-4.487l-1.413-1.458c-.82-.846-1.414-1.92-1.414-2.557 0-1.013.246-1.145 3.141-1.68 2.279-.422 3.274-.448 3.626-.096.267.266 1.34.485 2.386.485h1.901v-7.395l2.682-.432c2.436-.392 6.962-.068 8 .574.205.127.372 1.611.372 3.3v3.068h3.08c2.627 0 3.15-.13 3.553-.884.26-.486.886-.884 1.391-.884.793 0 .883-.196.663-1.437-.928-5.236-.89-5.872.411-6.725 1.166-.764 5.55-1.214 6.135-.63.134.134.47 1.42.745 2.86.277 1.438.724 2.84.995 3.116.271.276 1.451.601 2.623.723l2.13.222-.291-2.719-.291-2.719 1.834-1.03c1.345-.757 2.352-.99 3.776-.877 2.183.173 2.727-.554 1.948-2.604-.334-.878-.258-1.242.36-1.728 1.744-1.371 2.48-1.57 4.767-1.284 2.265.283 2.348.345 3.081 2.263.747 1.957.745 1.979-.281 2.81-.767.62-1.16 1.597-1.518 3.775l-.484 2.938 1.258.252c.845.169 1.257.523 1.257 1.08 0 .77.426.83 5.915.83 4.719 0 6.027.133 6.466.663.302.364 1.21.663 2.015.663 1.31 0 1.758.378 4.202 3.537l2.736 3.537h2.156c1.966 0 2.156-.09 2.156-1.035 0-.73.456-1.282 1.547-1.87 1.76-.947 1.916-1.34.69-1.729-.473-.15-1.713-1.738-2.757-3.529-1.045-1.791-2.063-3.155-2.263-3.032-.2.124-1.856-.918-3.68-2.316l-3.317-2.54-1.632.91c-1.532.853-1.736.866-3.326.225l-1.694-.682 2.578-2.626c1.418-1.444 3.498-3.403 4.621-4.353l2.043-1.728 2.327.691c3.267.97 7.073 3.569 7.073 4.829 0 1.069 3.52 4.636 4.574 4.636.338 0 1.152.812 1.808 1.804.657.992 1.85 2.077 2.65 2.412.89.371 1.673 1.13 2.013 1.951.502 1.213.414 1.668-.902 4.663-1.07 2.435-1.68 3.32-2.29 3.32-1.357 0-.475.765 1.77 1.535 2.017.693 2.25.965 6.295 7.344 3.333 5.256 4.724 7.036 6.733 8.62 3.56 2.81 3.88 3.187 3.88 4.598 0 .788.581 1.95 1.567 3.13L180 57.505l-1.18 1.231c-1.005 1.049-1.135 1.472-.877 2.845.218 1.165.098 1.926-.435 2.739-.405.618-.893 1.668-1.083 2.332-.49 1.711-8.707 12.726-9.737 13.053-.47.149-1.27.856-1.78 1.571-.686.963-1.283 1.3-2.304 1.3-.76 0-1.792.389-2.3.866-.92.865-.924.864-6.882-3.199z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/G_P2_Thunder.js":
+/*!*********************************************!*\
+  !*** ./resources/js/assets/G_P2_Thunder.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M104.22 82.55c-1.809-.518-2.28-.826-2.737-1.793-.66-1.392-.355-1.292-14.442-4.712-5.578-1.355-10.433-2.717-10.788-3.028-.604-.529-.646-.445-.646 1.305v1.87l-2.758.258c-1.517.142-3.003.165-3.302.05-.299-.115-.971-.854-1.493-1.643-.858-1.297-.963-1.853-1.085-5.77-.132-4.248-.157-4.357-1.257-5.499-1.098-1.14-1.132-1.29-1.678-7.325l-.557-6.16.962-2.23c.937-2.173.998-2.23 2.377-2.23.778 0 1.415.165 1.415.368 0 .203.83.369 1.844.369 1.407 0 1.844-.133 1.844-.562 0-.31.415-.72.922-.913.767-.292.918-.586.897-1.743-.021-1.205-.075-1.29-.397-.625-.204.422-.872 1.062-1.484 1.424-1.067.63-1.171.63-2.59-.01-.813-.366-1.624-1.048-1.801-1.516-.43-1.13-1.376-1.08-1.669.086-.129.514-.72 1.186-1.314 1.493-1.41.73-3.278.11-4.157-1.38-.756-1.278-1.594-1.353-1.891-.168-.122.484-.757 1.168-1.412 1.521-1.118.602-1.264.603-2.384.025-.656-.34-1.378-1.024-1.605-1.522-.318-.697-.694-.904-1.644-.904-1.19 0-1.231.049-1.231 1.475v1.476h-7.97l-1.251-1.291c-1.084-1.118-1.485-1.291-3.001-1.291-.963 0-1.853-.166-1.978-.369-.14-.227-3.2-.369-7.952-.369-7.477 0-7.723.024-7.723.738 0 .575-.246.738-1.118.738-.691 0-1.206-.229-1.348-.599-.202-.526-.3-.508-.818.148-.521.66-1.431.819-7.9 1.375l-7.312.628-.895-.84C.006 42.572-.002 42.5 0 35.528c.002-6.793.031-7.072.853-8.099l.85-1.063 7.483.483c6.783.438 7.506.55 7.742 1.188.236.637.308.648.747.12.342-.413 1.121-.586 2.629-.586 1.819 0 2.178.111 2.377.737.222.7.558.738 6.458.738 3.75 0 6.314-.147 6.45-.369.126-.203 1.182-.369 2.348-.369 1.937 0 2.226-.11 3.37-1.29l1.25-1.291h3.986c3.336 0 3.984.092 3.984.566 0 .455.147.487.753.163.599-.32 1.009-.244 2.01.374.69.428 1.36 1.101 1.485 1.497.284.894 1.53.945 1.815.074.116-.355.812-1.035 1.547-1.51l1.337-.864 1.151.84c.633.464 1.368 1.143 1.633 1.51.728 1.01 1.435.818 2.98-.806.772-.812 1.595-1.476 1.83-1.476.234 0 1.09.664 1.9 1.476.812.811 1.638 1.475 1.835 1.475.198 0 .615-.493.926-1.096.312-.602.897-1.272 1.3-1.488.466-.249.734-.772.734-1.429 0-1.491 1.035-2.257 3.05-2.257.936 0 1.804-.166 1.93-.369.14-.228 3.43-.369 8.644-.369 7.03 0 8.491-.09 8.875-.553.595-.717 2.44-.717 2.715 0 .164.428.883.553 3.183.553h2.972l1.005-1.746c1.388-2.412 3.379-4.265 4.015-3.737.83.69 1.6.074 1.6-1.279 0-1.206.103-1.297 2.777-2.463 2.32-1.011 2.924-1.144 3.669-.804 1.466.668 2.157 2.072 1.945 3.95l-.186 1.653h1.205c1.11 0 1.303.19 2.445 2.396 1.169 2.261 1.792 2.945 1.792 1.967 0-.237.274-.735.61-1.105.568-.629.544-.825-.37-2.98-1.728-4.068-1.255-4.965 2.797-5.307l2.77-.235 1.736 3.183c1.802 3.307 2.428 3.95 3.56 3.654.882-.231 3.177 1.207 3.488 2.186.223.703.373.62 1.707-.94 1.337-1.565 1.605-1.712 3.118-1.712.91 0 2.018-.193 2.461-.43.443-.235 3.865-2.914 7.604-5.953 3.74-3.038 6.976-5.527 7.192-5.53 2.016-.03 2.458.18 3.409 1.617.77 1.163.908 1.647.61 2.125-.68 1.088.103 2.122 3.818 5.05 1.992 1.57 4.154 3.356 4.805 3.968.952.894 1.288 1.026 1.713.673.43-.357.81-.112 2.05 1.326L180 23.329l-1.353 1.153c-.744.634-1.536 1.577-1.76 2.097-.223.52-2.438 2.542-4.923 4.493l-4.517 3.549.9 1.323.898 1.322-1.278 2.539-1.279 2.538 1.084 1.374c.896 1.134 1.106 1.786 1.209 3.743l.124 2.37-4.724 1.001c-2.597.55-4.791 1.069-4.874 1.152-.084.083-.024.63.133 1.215.25.934.64 1.182 3.215 2.037 2.676.89 2.992 1.1 3.643 2.422.784 1.591.914 3.4.453 6.295-.29 1.828-.267 1.907.656 2.215l.958.32-1.599 1.817-1.599 1.817-4.271-.492-4.272-.492-1.236 1.398c-.68.768-1.345 1.567-1.479 1.774-.291.452-2.49-.328-3.134-1.112-.249-.303-.516-.37-.645-.162-.317.512-2.802-.316-2.802-.934 0-.343-.278-.428-.89-.275-.49.123-1.445-.017-2.121-.311-.677-.294-2.51-.917-4.073-1.383-2.426-.724-2.896-.998-3.198-1.866-.196-.56-.69-1.197-1.097-1.415-.629-.337-.862-.229-1.53.709-.433.608-1.087 1.106-1.454 1.106-.445 0-.74.367-.887 1.107l-.222 1.106h-9.172l-2.649-2.213c-2.96-2.473-3.937-2.749-4.243-1.199-.567 2.872-1.898 7.084-3.73 11.803l-2.041 5.256h-1.241c-.683 0-1.344.166-1.47.368-.284.462-.589.43-3.29-.343zm61.104-53.67c3.686-2.938 4.267-3.876 2.863-4.627-.403-.216-.833-.789-.954-1.273-.123-.49-.675-1.068-1.248-1.305-.564-.234-1.214-.838-1.444-1.342-.23-.504-.923-1.093-1.54-1.308-.81-.282-1.184-.693-1.34-1.469-.118-.592-.536-1.249-.928-1.459-.587-.314-1.075-.103-2.758 1.196-1.125.868-2.122 1.834-2.216 2.147a8.084 8.084 0 0 1-.518 1.219c-.191.357-.244 1.063-.118 1.567.127.505.088.923-.086.93-.174.006-.793.43-1.375.942l-1.06.932.783.832c.53.564.782 1.313.782 2.318 0 1.404.08 1.511 1.47 1.97.809.267 1.742.786 2.075 1.153.421.466.789.57 1.21.346.391-.21.85-.143 1.306.19.395.288.877.38 1.101.21.22-.168 2.017-1.594 3.995-3.17zm-48.04-6.83c0-.992-1.303-2.963-1.96-2.963-.645 0-3.575 2.281-3.879 3.02-.068.165 1.219.3 2.858.3 1.672 0 2.982-.157 2.982-.357z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/G_S1_Bulldog.js":
+/*!*********************************************!*\
+  !*** ./resources/js/assets/G_S1_Bulldog.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M128.404 89.684c-1.067-.285-2.013-2.118-2.539-4.922-.272-1.451-.078-2.308.766-3.38.622-.79 1.382-2.35 1.69-3.466.476-1.721.363-2.317-.74-3.928-.996-1.452-1.232-2.425-1.003-4.132.227-1.693.014-2.596-.885-3.739-.888-1.128-1.103-2.014-.858-3.524.252-1.555.047-2.313-.886-3.308-.666-.71-1.762-3.103-2.434-5.317-1.11-3.656-2.287-5.47-3.55-5.47-.257 0-.467.66-.467 1.469 0 .808-.638 2.107-1.417 2.887l-1.417 1.417h1.872c1.47 0 2.454.59 4.592 2.762 1.496 1.52 2.72 2.926 2.72 3.127 0 .2-1.015 1.169-2.256 2.152l-2.257 1.787-1.724-1.45c-1.628-1.37-2.1-1.45-8.576-1.45h-6.852l-3-2.02c-1.651-1.112-3.206-2.024-3.457-2.027-.251-.003-1.107.787-1.904 1.756l-1.447 1.76-3.604-2.678c-1.983-1.473-3.605-2.774-3.605-2.89 0-.117.448-1.153.997-2.302.946-1.985.945-2.117-.02-2.658-.963-.538-.954-.675.158-2.473 1.062-1.718 1.75-5.504.735-4.044-.234.335-1.269.951-2.3 1.369-1.655.669-1.877 1.018-1.877 2.949 0 1.954-.304 2.413-2.82 4.26l-2.82 2.07H62.47c-14.244 0-14.763.04-15.117 1.154-.313.987-.874 1.155-3.846 1.155-2.994 0-3.521-.16-3.781-1.155-.166-.634-.556-1.154-.866-1.154-.31 0-.7.52-.866 1.154-.259.989-.788 1.155-3.678 1.155-2.75 0-3.488-.208-3.975-1.118-.358-.668-1.343-1.191-2.446-1.3-1.73-.168-1.989-.507-4.073-5.343-2.468-5.725-2.544-8.6-.287-10.856l1.174-1.174-1.524-3.108c-1.075-2.192-1.524-4.025-1.524-6.224 0-3.049-.04-3.125-1.876-3.518-3.23-.69-3.32-.933-3.32-8.971 0-8.95.462-10.35 3.418-10.35 1.452 0 2.295-.347 2.799-1.154.397-.635 1.238-1.155 1.87-1.155.766 0 1.15-.386 1.15-1.154 0-.99.385-1.155 2.706-1.155 1.907 0 3.066.34 3.93 1.15 1.202 1.13 2.088 1.151 48.101 1.17 40.016.013 46.877.138 46.877.835 0 .523.762.881 2.12.996 1.941.164 2.192.393 2.964 2.72.827 2.492.86 2.516 1.776 1.326.718-.933 2.243-1.434 6.597-2.17 3.115-.525 5.77-.85 5.9-.72.13.131.639 1.202 1.132 2.382.871 2.086.86 2.16-.415 2.64-.72.273-2.434.685-3.808.915-1.95.327-2.741.817-3.61 2.237-.611 1-.963 2.208-.78 2.685.181.476.478 2.105.66 3.619.295 2.465.616 2.964 3.074 4.768 1.51 1.109 2.902 2.424 3.094 2.924.609 1.586.377 3.148-.518 3.491-.476.183-.866.648-.866 1.034s-.772 1.722-1.716 2.969c-1.204 1.592-1.72 2.935-1.732 4.505-.014 1.996.497 2.81 4.747 7.56 4.47 4.996 5.064 5.983 9.67 16.079 2.829 6.198 5.31 10.892 5.856 11.078.603.205 1.092 1.288 1.345 2.976.22 1.459.523 2.978.675 3.376.62 1.616-3.83 3.136-18.442 6.298-8.193 1.773-15.078 3.193-15.3 3.156a18.217 18.217 0 0 1-1.333-.315zm-17.112-35.89c-.567-.36-.54-.698.126-1.578 1.106-1.463 1.101-3.152-.014-4.745-.747-1.067-1.445-1.283-4.14-1.283-3.954 0-5.353 1.03-5.353 3.941 0 3.286 1.245 4.143 6.007 4.133 2.253-.005 3.771-.215 3.375-.467z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/G_S2_Burst.js":
+/*!*******************************************!*\
+  !*** ./resources/js/assets/G_S2_Burst.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M135.313 88.542c-1.575-2.13-1.652-2.712-.486-3.68.473-.393 1.625-1.817 2.559-3.165l1.698-2.45-1.33-1.869-1.331-1.868 1.797-1.329c1.627-1.203 1.756-1.56 1.353-3.763-.245-1.34-.723-2.79-1.063-3.226-.339-.435-2.229-4.299-4.199-8.587-3.416-7.434-4.947-9.978-6.006-9.978-.263 0-.803.982-1.199 2.182-.396 1.201-.98 2.183-1.296 2.183-.316 0-.575.421-.575.936 0 .62-.62.935-1.835.935-1.695 0-1.85-.191-2.027-2.507l-.192-2.507-2.236 1.524c-1.23.839-3.195 1.617-4.366 1.73l-2.13.204 2.028 1.106c1.427.779 2.027 1.554 2.027 2.62 0 1.224-.39 1.582-2.027 1.858-2.008.34-18.224 2.209-19.16 2.209-.816 0-1.315-3.867-.608-4.718.507-.611.378-.723-.556-.478-.804.21-1.485 1.271-2.002 3.12-1.275 4.554-1.63 4.682-7.726 2.789l-5.307-1.648.139-3.43.138-3.43-16.994-.1c-9.62-.055-17.145.148-17.344.469-.477.772-8.214.72-8.695-.058-.212-.343-2.367-.624-4.788-.624-4.003 0-4.596-.17-6.534-1.87-1.651-1.45-2.726-1.872-4.777-1.872-3.87 0-5.418-1.325-5.418-4.636 0-1.635.368-3 .936-3.471.567-.471.935-1.837.935-3.47 0-1.482.274-2.863.609-3.07.335-.207 2.019-.543 3.742-.747 3.903-.462 4.112-1.445.307-1.445-1.937 0-2.94-.294-3.185-.935-.263-.685-1.343-.936-4.034-.936h-3.676v-7.796c0-6.514.154-7.796.936-7.796.623 0 .935-.623.935-1.87 0-1.248.312-1.872.936-1.872.515 0 1.707-1.399 2.65-3.11 2.025-3.67 1.014-3.538 16.684-2.186 5.831.503 10.919.918 11.306.922.387.005 1.053.85 1.479 1.88.77 1.858.81 1.87 5.755 1.87 5.312 0 5.075.18 3.811-2.894-.16-.391.597-1.724 1.684-2.962 1.908-2.173 2.124-2.251 6.239-2.251h4.262l2.008 2.797c1.518 2.113 2.549 2.898 4.219 3.211 2.07.388 2.398.21 5.22-2.859 3.39-3.688 2.637-3.805 8.504 1.319 1.84 1.607 3.84 3.734 4.444 4.727l1.098 1.805 7.25-.277c7.064-.27 7.25-.244 7.25 1.048 0 .73.28 1.326.623 1.326.343 0 .624-.574.624-1.276 0-.701.633-1.909 1.408-2.683 1.26-1.261 2.817-1.563 14.968-2.9 12.109-1.331 13.56-1.611 13.56-2.617 0-1.438.763-1.416 7.228.206l5.312 1.332 1.716-1.644c.944-.904 1.981-1.646 2.306-1.648.324-.002 1.254-.98 2.066-2.173L158.437 0l1.953 1.357c1.075.746 3.568 2.583 5.542 4.082l3.589 2.726-1.574 2.062c-.865 1.135-1.413 2.482-1.216 2.993.196.512-.359 1.78-1.236 2.822-1.874 2.228-1.914 2.506-.575 3.987 1.137 1.256.802 2.036-2.505 5.834-1.858 2.133-1.83 2.027-1.654 6.334l.131 3.217-3.016 1.761c-4.158 2.428-7.28 5.629-6.79 6.963.213.582 1.391 3.45 2.618 6.372 2.4 5.717 3.789 6.923 8.992 7.811 2.722.465 3.094.71 4.82 3.183 1.016 1.456 1.27 2.467.98 3.914-.335 1.677-2.495 3.502-15.433 13.039-8.273 6.099-15.349 11.273-15.723 11.498-.374.225-1.287-.41-2.027-1.413zm-73.518-77.45c-1.84-1.84-2.112-1.927-3.728-1.19l-1.744.794 1.47 1.19c.843.682 2.436 1.191 3.729 1.191h2.257z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/R_P1_Bosco.js":
+/*!*******************************************!*\
+  !*** ./resources/js/assets/R_P1_Bosco.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M66.702 89.649c-.227-.19-.413-.484-.413-.654 0-.17-.153-.35-.34-.398-.187-.05-.47-.361-.628-.693-.159-.333-1.25-4.165-2.427-8.516l-2.138-7.911.128-6.395.129-6.394 1.185-1.332c.903-1.015 1.301-1.333 1.674-1.337.532-.005 2.054-1.19 3.236-2.52.478-.54.843-.783 1.177-.787.357-.004 1.046-.528 2.626-1.993 2.421-2.246 2.356-2.221 5.768-2.224 1.61-.001 1.681.016 2.192.55.29.302.595.55.678.55.082 0 .149-.463.149-1.029v-1.029l-3.169-3.425c-1.742-1.884-3.292-3.583-3.444-3.775-.23-.292-.298-1.652-.41-8.266-.075-4.354-.128-11.925-.118-16.825l.018-8.909 1.274-2.422c1.162-2.208 1.335-2.444 1.954-2.664 1.047-.37 4.682-.281 7.68.188 2.403.376 3.195.386 3.195.037 0-.076.64-.245 1.423-.376 1.79-.299 2.25-.467 2.25-.82 0-.242.533-.28 3.948-.28h3.948l4.823 1.012c2.653.556 5.211 1.1 5.685 1.21.828.19.897.258 1.722 1.697.851 1.484.864 1.531 1.206 4.439.19 1.616.508 4.013.706 5.327.198 1.313.544 4.371.769 6.796.225 2.425.486 4.46.58 4.525.152.104.577 5.169.715 8.517.03.707.112 1.33.185 1.384.072.055.229 1.267.349 2.694l.217 2.596-.579.73c-.318.402-.578.776-.578.831 0 .056.558.056 1.24.001 1.51-.12 2.913.372 3.064 1.077.25 1.165.662 5.326.77 7.788l.123 2.775-1.052 3.287c-1.042 3.254-1.063 3.298-2.088 4.343l-1.035 1.057h-1.786c-.982 0-1.824.062-1.872.138-.11.177.325 5.489.631 7.713.234 1.698.234 1.698 1.094 2.423l.86.726.132 2.315.132 2.316-.841.984-.842.985v2.024c0 1.965-.022 2.076-.757 3.782-.637 1.48-.823 1.758-1.173 1.758-.317 0-.595.298-1.177 1.261l-.762 1.262-1.71.125c-1.495.11-1.834.077-2.703-.265-.546-.215-1.257-.591-1.578-.836-.322-.244-.659-.445-.75-.445-.09 0-.672.207-1.294.46-.897.364-1.443.458-2.649.453-1.379-.006-1.548-.045-1.832-.436-.174-.24-1.21-4.175-2.342-8.89l-2.029-8.46v-6.805l-.907.108c-.498.059-1.056.043-1.24-.036-.183-.079-.885-.124-1.56-.1l-1.226.043-.497-.75-.497-.751H83.036l-.796-1.56c-1.06-2.075-1.312-2.112-.812-.12.143.57.315 1.74.383 2.598.067.859.324 2.801.57 4.317.439 2.695.794 8.003.803 11.981l.004 1.879-1.132 2.116-1.13 2.117h-.798c-.783 0-.798.01-.798.618 0 .579-.093.672-1.465 1.47-1.236.717-1.616.85-2.428.85-.911 0-1.013-.05-1.912-.937-.746-.736-1.032-.91-1.337-.814-.295.093-.389.273-.389.746 0 .54-.105.684-.796 1.09-.686.402-1.012.466-2.342.46-1.237-.004-1.628-.075-1.959-.35zm18.326-54.881l1.25-.683.502-1.64c.552-1.798.555-1.769-.377-3.891-.387-.881-.478-.958-1.808-1.516l-1.4-.588-1.349.668-1.349.667-.608 1.73-.608 1.73.67 1.506.672 1.507 1.237.579c.68.319 1.39.587 1.577.597.188.01.904-.29 1.59-.666zm-.046-12.061l2.339-1.173.906-2.64.907-2.642-.998-2.552-.999-2.552-2.19-.982c-1.205-.54-2.268-.982-2.362-.982-.094 0-1.193.558-2.443 1.24l-2.27 1.24-.892 2.664-.891 2.663.988 2.388c.543 1.313 1.063 2.464 1.156 2.557.092.093 1.1.558 2.24 1.035 1.14.476 2.094.875 2.12.887.027.012 1.102-.506 2.389-1.151z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/S_E_Flare.js":
+/*!******************************************!*\
+  !*** ./resources/js/assets/S_E_Flare.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M123.938 83.342c-1.692-.254-2.512-1.781-2.457-4.575.019-1.094-1.802-5.925-4.852-12.858-3.393-7.714-4.885-11.74-4.885-13.18 0-1.827-.207-2.16-1.746-2.82-.96-.411-1.927-.847-2.149-.968-.221-.122-.403.616-.403 1.638 0 1.023-.302 2.1-.671 2.393-.37.293-2.968.5-5.776.459-4.337-.063-5.284.082-6.307.965-1.005.867-1.425.936-2.552.423-1.073-.489-1.348-1.005-1.348-2.532 0-1.056.366-2.626.813-3.49.737-1.426.727-1.67-.106-2.644-.895-1.044-.959-.98-2.416 2.436-1.414 3.315-1.449 3.582-.627 4.836.84 1.283.74 1.606-3.058 9.83l-3.928 8.502-3.624 2.494c-1.994 1.372-3.793 2.495-4 2.495-.205 0-4.817-2.091-10.248-4.647l-9.875-4.647v-3.67c0-2.133.365-4.582.873-5.85.48-1.201.722-2.334.537-2.519-.184-.184-.335.091-.335.613 0 .521-.751 1.65-1.669 2.507-1.479 1.381-2.056 1.558-5.085 1.558-2.917 0-3.504-.164-4.018-1.125l-.602-1.125-1.198 1.125c-1.442 1.355-2.85 1.435-4.175.236-.914-.827-1.05-.827-1.964 0-1.326 1.2-2.734 1.12-4.182-.241l-1.203-1.131-.707 1.13c-.846 1.356-3.92 1.583-4.402.326-.17-.444-.77-.806-1.335-.806-.564 0-1.326.363-1.694.806-.54.649-2.203.805-8.578.805-9.687 0-9.688 0-9.688-6.02 0-2.95-.22-4.238-.806-4.724-.443-.368-.806-1.244-.806-1.946 0-.703-.242-1.278-.537-1.278-.296 0-.537-1.303-.537-2.897 0-2.08-.228-2.984-.806-3.207C.12 39.757 0 37.78 0 26.8c0-12.304.048-12.91 1.016-12.91.684 0 1.297-.702 1.876-2.148.473-1.182 1.225-2.15 1.67-2.15.452 0 .81-.474.81-1.074 0-.93.358-1.074 2.65-1.074 2.178 0 2.71.191 2.991 1.074.324 1.02.813 1.075 9.733 1.075h9.39l.685 1.626c.68 1.62.687 1.622 1.669.537 1.434-1.585 7.493-1.595 8.34-.013.68 1.27 2.281 1.404 3.223.269.472-.57 1.723-.806 4.256-.806 3.709 0 4.877.54 4.877 2.256 0 .898.744.967 10.41.967 8.598 0 10.527-.14 11.08-.806.533-.643 2.141-.806 7.99-.81l7.32-.005 2.074-3.219c1.82-2.823 2.28-3.216 3.76-3.2.928.012 2.257.492 2.953 1.072 1.018.848 1.226 1.462 1.066 3.139l-.198 2.085 8.603.26 8.604.26 20.255 5.544c19.753 5.406 20.272 5.583 20.902 7.103.783 1.89 6.106 4.701 8.159 4.309.923-.177 3.183.768 7.55 3.155 7.055 3.859 7.159 4.039 5.184 9.049-.59 1.499-1.074 3.917-1.074 5.374 0 3.634-1.32 6.252-3.358 6.66-.878.175-3.01 1.544-4.738 3.04l-3.14 2.721-.158 3.82-.157 3.82-10.389 4.708c-7.026 3.184-11.025 4.707-12.356 4.705-2.614-.005-10.516 2.944-10.73 4.004-.091.453-1.282 1.204-2.647 1.669-2.456.837-3.288.898-6.213.458zm12.751-7.659c5.81-1.963 6.348-2.354 5.58-4.04-.407-.894-.407-1.739 0-2.906.54-1.55.305-2.053-4.028-8.638-2.53-3.845-4.924-6.992-5.317-6.992-.41 0-.86-.863-1.053-2.014-.51-3.05-.614-3.2-1.206-1.746-.805 1.977-3.605 4.433-4.765 4.181-.547-.119-.916-.557-.82-.973.498-2.174.731-5.964.438-7.13l-.332-1.324-3.76 1.414-3.759 1.414-.007 3.218c-.006 2.78.596 4.734 4.425 14.365l4.433 11.148 2.3.006c1.545.004 2.401.27 2.609.811.17.444.36.806.42.806.063 0 2.24-.72 4.842-1.6zm25.039-22.168c2.42-2.618 3.74-5.522 3.74-8.23 0-.493-.847-2.05-1.881-3.46-1.034-1.408-1.88-3.034-1.88-3.612 0-.615-.612-1.344-1.478-1.76-1.704-.819-10.341-1.229-10.341-.49 0 .271-.967 1.367-2.15 2.435-1.753 1.584-2.148 2.299-2.148 3.885 0 1.759.573 2.519 6.035 7.996 3.32 3.328 6.365 6.052 6.768 6.052.403 0 1.904-1.267 3.335-2.816zM63.299 42.363c.622 0 1.39-.484 1.706-1.075.53-.99.409-1.074-1.568-1.074-1.549 0-2.503.359-3.438 1.294l-1.293 1.294 1.135.533c.836.392 1.292.335 1.731-.22.328-.414 1.105-.752 1.727-.752z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/S_E_Grapling.js":
+/*!*********************************************!*\
+  !*** ./resources/js/assets/S_E_Grapling.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M19.266 87.924c-4.666-2.235-4.931-2.476-7.166-6.51l-2.321-4.19 1.346-5.753c.74-3.165 2.363-7.798 3.607-10.297 1.516-3.045 2.887-7.319 4.158-12.964 1.044-4.632 2.171-8.752 2.506-9.155.413-.498.363-1.198-.155-2.178-.663-1.255-1.201-1.444-4.094-1.444h-3.332l-.162-14.385-.163-14.385h3.583c3.336 0 3.71.145 5.443 2.12 2.332 2.655 4.974 2.92 6.028.605.603-1.321 1.076-1.514 3.72-1.514 2.74 0 3.067.147 3.417 1.54.453 1.809 1.671 1.668 1.95-.225.171-1.165.569-1.315 3.497-1.315 3.028 0 3.364.14 4.018 1.666l.714 1.665.224-2.12c.128-1.223.892-2.824 1.807-3.785l1.584-1.666h40.732l1.343-1.817C92.703.257 93.287 0 95.672 0c2.21 0 3.194.363 4.802 1.776 2.508 2.202 6.616 2.958 10.002 1.84 1.822-.6 3.96-.642 9.382-.18 3.862.329 7.203.88 7.424 1.223.236.366 7.819 1.05 18.27 1.651 20.982 1.206 19.988.822 19.988 7.703 0 3.91-.101 4.226-1.515 4.763-1.354.515-1.514.918-1.514 3.811 0 5.762 1.138 10.067 3.622 13.702 2.154 3.152 2.377 3.904 3.28 11.018.857 6.765.866 7.97.08 10.583-.79 2.622-.784 3.106.05 4.375.661 1.009.824 2.168.554 3.954-.82 5.444-.952 5.75-2.774 6.385-.978.34-2.095 1.316-2.482 2.166-.84 1.842.036 1.715-10.807 1.56-6.66-.095-9.02-.337-9.763-1-.856-.763-3.15-.682-18.135.644l-17.155 1.518-3.366 3.279c-3.357 3.268-3.392 3.284-11.569 5.263l-8.202 1.986-8.178-1.931-8.178-1.932-6.626-6.646-6.625-6.646h-11.1l-1.88-2.14-1.88-2.142.006 5.927c.006 5.525-.148 6.28-2.272 11.167l-2.277 5.24-2.726.339c-9.364 1.163-9.689 1.134-14.84-1.333zm10.6-17.059c.276-6.355.455-7.207 2.043-9.723 1.899-3.008 7.398-7.236 9.413-7.236 1.031 0 1.263-.376 1.263-2.05 0-2.96 1.89-4.007 7.231-4.007 4.105 0 4.277-.057 5.185-1.817l.94-1.817h-10.58c-6.892 0-10.719-.227-10.981-.651-.257-.416-.925-.16-1.853.711-1.166 1.095-1.45 1.974-1.45 4.482 0 3.564-1.807 9.212-5.33 16.657-1.34 2.832-2.595 6.28-2.79 7.664-.33 2.339-.217 2.606 1.61 3.79 1.082.702 2.649 1.204 3.482 1.119 1.498-.155 1.517-.23 1.817-7.122zm100.392-7.344c7.862-.666 8.63-.835 8.63-1.897 0-.64.957-2.283 2.125-3.648 1.169-1.365 2-2.907 1.848-3.427-.153-.52-.462-2.99-.69-5.489-.309-3.414-.88-5.403-2.3-8.007l-1.89-3.465-3.53-.404c-2.881-.33-3.859-.751-5.314-2.29l-1.783-1.884.918 2.638c.505 1.452.774 2.872.598 3.157-.176.284-2.49 3.05-5.141 6.144-4.396 5.129-4.822 5.855-4.825 8.22-.002 1.562-.606 3.784-1.517 5.582-.833 1.644-1.514 3.714-1.514 4.6 0 1.57.076 1.604 2.877 1.257 1.582-.196 6.76-.685 11.508-1.087zm-.454-37.363c0-1.776-.42-2.712-1.817-4.05-1.176-1.127-1.817-2.343-1.817-3.445 0-1.49-.23-1.704-1.818-1.704-1.105 0-1.817.315-1.817.803 0 .441-.681 1.443-1.514 2.226-.889.835-1.514 2.096-1.514 3.055 0 1.474.454 1.81 4.694 3.468 2.582 1.01 4.898 1.863 5.148 1.896.25.036.455-.98.455-2.25z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/S_P1_GK2.js":
+/*!*****************************************!*\
+  !*** ./resources/js/assets/S_P1_GK2.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M81.496 86.3c-5.43-1.266-5.59-1.343-4.75-2.272.725-.8.617-1.274-1.653-7.236-2.09-5.49-2.554-6.348-3.328-6.145-.561.146-.899.65-.899 1.343 0 .846-.475 1.324-2.008 2.02l-2.008.91-.962-1.129c-.53-.621-1.29-1.13-1.692-1.13-.46 0-1.353-1.433-2.426-3.897-1.611-3.701-1.652-3.922-.812-4.374.838-.452.811-.585-.51-2.552-.766-1.141-1.392-2.627-1.392-3.303.001-.675-.562-2.557-1.252-4.18-1.174-2.768-2.083-3.584-2.765-2.481-.48.776-4.346.58-4.659-.236-.15-.39-.784-.709-1.41-.709-.626 0-1.402.319-1.726.709-.323.39-1.313.708-2.199.708-.995 0-1.714-.27-1.882-.708-.15-.39-.787-.709-1.417-.709s-1.268.319-1.418.709c-.295.77-3.95 1.038-3.95.29 0-.72-2.896-.917-3.165-.215-.293.764-3.05.844-3.783.11-.338-.337-2.781-.496-6.916-.45l-6.393.073-6.407-3.666-6.407-3.667v-2.528c0-3.115.61-4.357 2.143-4.357 1.043 0 1.164-.196 1.164-1.89 0-1.844-.04-1.89-1.653-1.89-1.45 0-1.654-.146-1.654-1.18 0-.666-.273-1.182-.626-1.182C1.37 31.086 0 28.958 0 26.922c0-1.794.11-1.977 1.181-1.977.997 0 1.181-.22 1.181-1.418 0-1.196-.184-1.417-1.18-1.417C.127 22.11 0 21.915 0 20.313c0-1.413.333-2.12 1.558-3.307 1.382-1.34 1.862-1.51 4.252-1.51 2.08 0 2.694.162 2.694.709 0 .39.213.708.472.708.26 0 .473-.319.473-.708 0-.543.6-.71 2.565-.71 2.284 0 2.589.118 2.775 1.064l.21 1.063.35-1.063c.314-.95.663-1.063 3.275-1.063 2.72 0 3.034-.115 4.526-1.654 1.278-1.319 1.966-1.653 3.4-1.653 1.177 0 1.796-.216 1.796-.626 0-.345.532-1.126 1.182-1.736.997-.938 1.18-1.537 1.18-3.862V3.212l3.898.03c2.982.023 4.73.328 7.441 1.3 3.346 1.198 3.557 1.358 3.78 2.873.295 2.007 1.5 2.882 2.826 2.054 1.226-.766 7.194-.772 7.957-.008.457.456.774.456 1.506 0 1.115-.697 8.315-.784 8.734-.106.437.705 1.93.57 2.599-.237.43-.518 1.57-.708 4.236-.708 3.049 0 3.79.155 4.504.945 1.02 1.126 1.8 1.197 2.598.236.454-.547 1.709-.709 5.482-.709 6.194 0 8.692-.83 8.692-2.886 0-1.245.146-1.366 1.644-1.366 1.418 0 1.772.243 2.58 1.772 1.704 3.225 1.379 3.11 5.68 2.012 2.148-.548 3.96-.933 4.028-.855.067.078.668 1.736 1.337 3.685l1.214 3.544 7.23.28c3.978.154 7.657.427 8.176.607.731.252 1.123.01 1.728-1.07l.783-1.394 2.674.985c2.392.881 2.645 1.1 2.397 2.087-.27 1.076-.198 1.103 3.011 1.103 1.809 0 3.42.213 3.58.472.165.266 2.427.473 5.168.473 3.756 0 5.01-.163 5.463-.709.477-.575 1.998-.708 8.089-.708 7.186 0 7.501-.04 7.501-.945 0-.88.315-.945 4.629-.945h4.628l1.75 1.791L180 18.607v25.236h-6.03c-5.64 0-6.06-.064-6.496-.982-.288-.605-4.355-3.037-10.624-6.351-6.915-3.657-10.136-5.605-10.091-6.106.105-1.184-1.32-.853-3.951.919-1.35.91-2.677 1.654-2.947 1.654s-.49.637-.49 1.417c0 1.102-.21 1.417-.946 1.417-.84 0-.945.315-.945 2.837 0 2.815.042 2.902 5.433 11.256 4.346 6.734 5.433 8.757 5.433 10.108 0 1.675-.047 1.714-6.087 5.043-3.349 1.845-6.33 3.355-6.624 3.355-.708 0-4.297-2.276-4.293-2.723 0-.191.425-.986.941-1.766 1.165-1.759 1.17-1.99.042-2.349-.662-.21-.989-.91-1.224-2.625-.271-1.968-.61-2.566-2.143-3.78-1.576-1.248-1.84-1.736-1.964-3.619-.184-2.792-1.184-3.547-3.158-2.38-.987.582-2.42.816-5.003.816-3.153 0-3.824.156-5.2 1.205l-1.58 1.205-2.42-2.15c-1.482-1.316-2.872-2.15-3.586-2.15-.64 0-1.165-.212-1.165-.472s-.532-.472-1.181-.472c-.945 0-1.181.236-1.181 1.18 0 .998-.22 1.182-1.418 1.182-1.166 0-1.417.194-1.417 1.093 0 1.238-2.255 3.631-3.422 3.631-.63 0-.38.935 1.359 5.08 1.171 2.792 2.78 6.636 3.573 8.54.903 2.166 1.797 3.593 2.385 3.811.555.205 1.39 1.45 2.034 3.034 1.005 2.47 1.029 2.72.299 3.098-2.35 1.22-21.387 9.029-21.91 8.988-.34-.026-1.468-.245-2.507-.487zm-12.6-14.753c.137-.712-.03-.806-.94-.526-1.42.437-1.503.525-1.109 1.163.486.786 1.857.36 2.05-.637zm-1.177-9.08c.589-.225.405-1.002-1.08-4.572-1.123-2.697-2.126-4.425-2.688-4.633-.934-.345-1.91-1.919-2.155-3.475-.078-.498-.388-.987-.689-1.088-.948-.315-.056 2.673 2.384 7.987.678 1.478 1.233 2.92 1.233 3.206 0 .705 1.434 2.848 1.906 2.848.209 0 .699-.122 1.089-.272z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/S_P2_M1000.js":
+/*!*******************************************!*\
+  !*** ./resources/js/assets/S_P2_M1000.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M133.697 62.163c-.447-.682-.503-1.092-.221-1.62.208-.387.378-1.561.378-2.608 0-1.839-.091-2.008-2.66-4.948-1.461-1.674-2.839-3.056-3.06-3.071-.22-.015-.7.303-1.065.706-.564.623-1.13.733-3.767.733-2.926 0-3.176-.063-4.357-1.1-1.312-1.152-1.78-1.321-2.123-.767-.199.322.959 1.454 2.658 2.6l.815.551-.83 1.009-.83 1.009-1.738-1.142c-.956-.627-1.967-1.053-2.246-.946-.28.107-.619.786-.754 1.508-.296 1.579.254 1.536-9.748.76-12.061-.936-11.735-.891-11.735-1.63 0-.484-.388-.72-1.467-.892-1.255-.201-1.467-.366-1.467-1.147 0-1.299-.598-1.131-.873.244l-.231 1.157-5.957-.242c-3.277-.133-14.209-.57-24.294-.97-10.084-.4-22.58-.902-27.768-1.116l-9.432-.39-2.737-1.265c-1.84-.85-3.28-1.265-4.39-1.265-.91 0-1.755-.165-1.88-.366-.124-.202-1.755-.367-3.624-.367-3.079 0-3.474-.08-4.196-.849-.585-.622-.797-1.307-.797-2.567 0-1.432-.114-1.718-.684-1.718-.377 0-1.12-.342-1.65-.76C.08 39.998 0 39.71 0 37.274c0-2.306.113-2.766.849-3.457.504-.474 1.322-.798 2.017-.798 1.118 0 1.168-.062 1.168-1.467v-1.466h1.841c1.765 0 1.89.068 3.004 1.65 1.203 1.705 1.756 2.052 1.756 1.1 0-.437.53-.55 2.567-.55s2.567.113 2.567.55c0 .828 22.416.828 23.104 0 .556-.67 3.292-.733 5.003-.115 1.021.37 1.308.342 1.888-.183.848-.767 2.401-.802 3.01-.069.585.705 1.33.705 1.6 0 .13-.34.688-.55 1.466-.55s1.337.21 1.467.55c.116.303.526.55.911.55s.906-.247 1.157-.55c.251-.302.996-.55 1.656-.55.728 0 1.282.216 1.41.55.117.303.552.55.968.55.416 0 .851-.247.968-.55.273-.713 2.108-.713 2.7 0 .619.747 1.225.692 2.016-.183.613-.678 1.13-.734 6.785-.734 5.654 0 6.17.056 6.784.734.522.577 1.13.733 2.841.733 1.884 0 2.205-.1 2.374-.748.108-.411.752-.98 1.432-1.264.68-.285 1.237-.773 1.237-1.086 0-.474.581-.569 3.484-.569 3.472 0 3.484.003 3.484.917 0 .797.162.917 1.239.917.681 0 1.444.247 1.695.55.29.35 1.1.55 2.224.55.971 0 1.869.165 1.993.367.125.201 1.54.366 3.147.366 2.759 0 2.943-.05 3.338-.916.38-.835.621-.917 2.698-.917 2.259 0 2.293.015 3.636 1.654.746.91 1.509 1.56 1.695 1.446.186-.116.338-1.26.338-2.542 0-2.374.825-4.585 1.712-4.59.236 0 .679-.098.985-.215.637-.245 3.904 2.58 3.904 3.377 0 .39.769.503 3.44.503 2.609 0 3.549.133 3.895.55.342.412 1.258.55 3.648.55 2.104 0 5.085.382 8.746 1.121l5.553 1.12 2.987-1.294c2.075-.899 3.172-1.195 3.59-.971.333.177 1.025.242 1.54.144 1.28-.245 12.443.906 13.378 1.38.558.282 1.174.223 2.383-.226 1.86-.69 1.89-.694 5.14-.606 2.366.064 2.417.087 3.018 1.349.58 1.217.572 1.457-.171 4.675-.776 3.359-.777 3.441-.143 8.16.353 2.623.726 5.208.83 5.747.16.836-.033 1.118-1.336 1.94l-1.525.963-3.558-.957c-3.623-.975-4.474-1.534-4.474-2.937 0-.634-.489-.98-2.485-1.764-2.006-.787-3.091-.975-5.639-.975-2.357 0-3.27-.139-3.611-.55-.343-.413-1.266-.55-3.712-.55-1.926 0-3.256.15-3.256.367 0 .202-.542.367-1.204.367-.968 0-1.58.38-3.12 1.94l-1.916 1.94 1.47 1.434c.808.79 1.47 1.62 1.47 1.847 0 .815-1.742 1.95-7.206 4.699l-5.555 2.794zm7.776-13.212c.448-.314.815-.454.815-.31 0 .144.295-.006.656-.332.468-.424.68-1.23.743-2.819.076-1.917-.046-2.4-.882-3.497-.877-1.15-1.145-1.273-2.785-1.273-2.624 0-4.333 1.343-4.333 3.403 0 1.254.268 1.777 1.742 3.4 1.85 2.038 2.73 2.349 4.044 1.428zm-15.406-.53c.252-.403.787-.733 1.189-.733.62 0 .73-.247.73-1.65 0-.908-.165-1.65-.367-1.65-.201 0-.366.444-.366.988 0 1.238-1.674 3.046-2.82 3.046-1.04 0-1.049-.155-.089-1.503.418-.586.706-1.437.642-1.89-.097-.684-.38-.844-1.658-.937-2.178-.158-3.41.715-3.41 2.418 0 2.02.816 2.645 3.453 2.645 1.841 0 2.32-.13 2.696-.733z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/S_S1_Jury.js":
+/*!******************************************!*\
+  !*** ./resources/js/assets/S_S1_Jury.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M164.153 84.844c-1.34-1-1.493-1.45-1.508-4.456-.026-4.961-.392-5.241-6.861-5.241-4.947 0-5.503-.106-6.583-1.255-1.039-1.106-1.178-1.864-1.178-6.386 0-3.499.239-5.472.752-6.205.68-.972.397-1.694-2.976-7.576-2.05-3.576-3.802-6.712-3.89-6.97-.09-.257-1.617.897-3.395 2.564l-3.233 3.032-6.973.012-6.973.013-3.49-2.44c-1.92-1.342-3.601-2.44-3.736-2.44-.135 0-.246.384-.246.853 0 .705-.491.8-2.846.55-1.566-.167-9.19-.702-16.944-1.189-7.754-.487-14.402-1.13-14.775-1.43-.373-.298-.678-.88-.678-1.29 0-1.148-.308-.95-3 1.926-3.896 4.166-4.756 4.325-19.65 3.618-12.532-.594-12.627-.59-13.826.556l-1.207 1.153-14.64-.961c-12.082-.794-15.08-1.154-17.165-2.062-2.727-1.188-3.167-1.089-3.167.712 0 .644-.608 1.741-1.35 2.439-1.31 1.231-1.382 1.24-2.44.282-.853-.772-1.09-1.67-1.09-4.124 0-1.726-.244-3.288-.543-3.472C.244 44.872 0 43.806 0 42.687c0-1.523.384-2.404 1.52-3.493.837-.802 1.813-1.457 2.17-1.457.443 0 .648-1.254.648-3.976 0-2.187.143-4.12.318-4.295.175-.175.287-4.638.248-9.918-.08-11.12.1-11.632 4.094-11.632 1.278 0 2.475.244 2.66.542C11.874 8.81 23.472 9 44.68 9c30.978 0 32.734-.05 33.584-.991.494-.546.898-1.643.898-2.44 0-1.377.133-1.448 2.722-1.448 2.33 0 2.806.183 3.302 1.27.572 1.256.713 1.276 11.727 1.618 8.6.268 11.435.535 12.404 1.17.882.578 2.677.821 6.045.821 2.762 0 5.043.253 5.387.597.348.349 3.834.718 8.377.888l7.78.29 2.682-1.7c1.711-1.086 3.379-1.7 4.609-1.7 1.69 0 2.114.297 3.447 2.407l1.52 2.407-1.43 2.16c-.786 1.189-1.82 2.31-2.298 2.494-.674.259-.013 1.209 2.962 4.243 2.106 2.15 4.7 5.298 5.765 6.994 1.065 1.697 4.227 5.6 7.027 8.675 2.8 3.075 7.589 9.075 10.642 13.333 4.994 6.966 5.68 8.215 6.858 12.47 1.997 7.217 1.895 7.846-1.59 9.84-1.96 1.122-3.646 1.667-5.152 1.667-2.012 0-2.238.134-2.238 1.323 0 .728-.244 1.475-.543 1.66-.298.184-.542 1.741-.542 3.46 0 2.568-.225 3.339-1.255 4.307-1.506 1.415-1.366 1.413-3.218.032zm-31.087-39.699c-.134-4.156-1.819-7.952-3.528-7.952-1.03 0-1.086.217-.747 2.929.352 2.816.292 3.01-1.553 5.015-1.466 1.594-2.07 1.937-2.558 1.454-.492-.484-.436-.923.236-1.882 1.233-1.761 1.095-3.075-.576-5.487l-1.453-2.095-2.873 2.88c-3.41 3.415-3.406 4.512.02 6.938 2.106 1.494 2.552 1.587 7.69 1.61l5.456.025-.111-3.433zm4.057-2.19l-.058-1.696-.4 1.674c-.22.92-.608 2.019-.862 2.44-.394.653-.326.656.456.02.537-.437.894-1.447.861-2.44z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/S_S2_Zhuk.js":
+/*!******************************************!*\
+  !*** ./resources/js/assets/S_S2_Zhuk.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M103.118 88.093a160.688 160.688 0 0 1-2.629-3.77c-.687-1.024-2.665-2.763-4.395-3.864-1.99-1.265-3.32-2.5-3.618-3.356-1.046-3.004-1.77-3.72-5.238-5.18-2.796-1.177-4.327-2.293-7.61-5.547l-4.109-4.074-11.892-.205-11.893-.204-1.375-1.291c-1.089-1.024-1.375-1.742-1.375-3.456 0-1.19.225-2.61.5-3.156.275-.547.74-1.466 1.035-2.043.294-.576.463-1.112.375-1.19-.088-.079-1.735-.268-3.66-.42-1.925-.153-4.239-.435-5.142-.625l-1.641-.348.141-5.304.141-5.304 4.729-.759c3.973-.637 4.545-.84 3.583-1.269-1.064-.474-1.162-.886-1.397-5.872l-.253-5.363h2.947c2.711 0 3.082.14 4.643 1.75 1.686 1.74 1.722 1.75 6.109 1.75h4.413l1.57-2.227c2.032-2.882 5.41-3.788 5.41-1.451 0 .419.188.687.417.595 1.07-.427 6.75-7.678 6.87-8.77.152-1.394 1.548-3.148 2.504-3.148.35 0 2.806-2.531 5.457-5.625s5.03-5.654 5.287-5.688c.257-.035.692-.091.967-.125.275-.035.5-.625.5-1.313 0-1.113.206-1.25 1.875-1.24 1.583.008 2.539.56 6.126 3.543 9.748 8.104 10.5 8.873 10.5 10.73 0 1.353-.2 1.718-.946 1.718-.883 0-1.823 1.244-1.625 2.15.048.22-.96 1.682-2.24 3.25-2.248 2.754-2.287 2.856-1.133 2.999.711.087 1.651.846 2.324 1.875.766 1.171 1.514 1.728 2.322 1.728.655 0 1.33.362 1.5.804.284.739.409.739 1.536 0 1.386-.908 3.051-1.052 3.513-.304.17.275 2.1.5 4.287.5h3.977l1.061 2.375a104.504 104.504 0 0 0 1.697 3.625 367.688 367.688 0 0 1 2.814 5.62c.229.477.416 1.841.416 3.032 0 1.995-.142 2.232-1.812 3.028-1.666.794-1.79 1.001-1.54 2.548.151.926 1.33 4.573 2.619 8.105l3.789 10.373c.794 2.173 1.444 4.245 1.444 4.603 0 .358.575 1.498 1.278 2.534l1.278 1.883-1.278.931c-.703.512-1.278 1.306-1.28 1.765 0 1.085-12.28 8.584-14.054 8.584-.71 0-1.698.45-2.195 1-.83.917-1.54 1-8.576 1h-7.67zm18.265-5.469c-.323-.756-.752-1.604-.954-1.884-.202-.28-.645-2.489-.983-4.908-.6-4.29-.729-4.578-5.12-11.493-4.828-7.603-7.336-11.01-7.78-10.566-.152.152-.208 1.068-.125 2.036.208 2.407-.875 6.688-1.69 6.688-1.85 0-2.241-.601-2.241-3.438 0-2.156-.284-3.247-1.19-4.58-1.112-1.637-1.336-1.738-3.487-1.567l-2.299.183.3 2.872c.34 3.255-.582 5.345-2.488 5.637-1.796.276 3.97 3.383 6.289 3.389l1.876.004 4.577 9.5L110.645 84h11.325l-.587-1.375zM52.222 36.02c.889-1.719.96-2.206.259-1.772-.787.486-2.081 3.248-1.522 3.248.275 0 .843-.664 1.263-1.476z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/X_E_Armor.js":
+/*!******************************************!*\
+  !*** ./resources/js/assets/X_E_Armor.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M87.427 89.056l-2.47-1.05-3.588-.114-3.588-.114-1.606-6.258c-.883-3.442-1.634-6.286-1.669-6.32-.349-.35-1.217.68-3.543 4.204l-2.676 4.052-4.63.544c-2.548.3-4.7.502-4.786.45-.085-.05-.154-.21-.154-.354s-.23-.714-.51-1.268c-.485-.96-.496-1.055-.225-2.093.27-1.03.264-1.087-.108-1.087-.215 0-.392-.049-.392-.109s.242-1.074.537-2.252c.527-2.103.55-2.145 1.165-2.207.614-.061.647-.12 1.424-2.626.438-1.41.758-2.662.712-2.783-.047-.121-.973-.434-2.057-.696l-1.973-.476-.597-1.034-.597-1.034 1.002-2.239c1.087-2.43 1.122-2.582.715-3.118-.236-.31-.103-.822.97-3.717l1.242-3.356 1.491-1.069c.978-.7 1.698-1.068 2.09-1.068h.598l.524-3.447.523-3.448-.415-.456c-.389-.427-.406-.625-.27-3.138l.146-2.683h-6.771l-4.552-4.257-4.55-4.257.001-3.204.003-3.203.902-1.427.903-1.427 4.955-2.095 4.955-2.094.744.505.745.506 1.268-.563c.697-.31 2.263-1.061 3.48-1.669l2.212-1.104v-1.219c0-1.307-.01-1.294 1.338-1.53.34-.06 1.15-.212 1.801-.339l1.183-.23V1.732l.883-.866.882-.866h2.988c2.887 0 3.012.018 3.697.528.39.291.82.594.957.673.137.079.534 1.48.883 3.114.348 1.635.655 2.993.682 3.02.026.027 1.32-.054 2.874-.18 2.07-.167 3.58-.167 5.65 0 1.554.126 2.85.204 2.881.173.03-.03.339-1.39.684-3.02.346-1.631.74-3.03.875-3.108.136-.079.566-.38.956-.672.685-.51.81-.528 3.697-.528h2.988l.882.866.883.866v9.374l.463.102c.254.056 1.065.202 1.8.323 2.158.357 2.059.277 2.059 1.653v1.219l2.006.999c1.104.55 2.67 1.3 3.479 1.67l1.472.67.746-.507.746-.507 4.953 2.093 4.952 2.093.907 1.41.908 1.411V30.204l-4.55 4.244-4.552 4.244h-6.772l.145 2.683c.138 2.523.121 2.71-.274 3.138l-.42.456.53 3.448.53 3.447h.596c.39 0 1.115.37 2.095 1.073l1.498 1.073 1.226 3.32c1.145 3.103 1.208 3.36.943 3.919-.265.56-.219.74.736 2.883l1.019 2.286-.601 1.04-.601 1.041-1.973.476c-1.084.262-2.011.577-2.059.702-.048.124.278 1.377.723 2.783.786 2.479.83 2.56 1.427 2.62.6.062.63.117 1.153 2.207.632 2.523.617 2.361.228 2.361-.358 0-.39.437-.108 1.423.173.601.11.893-.44 2.057-.352.746-.65 1.37-.663 1.387-.013.017-2.107-.215-4.654-.515l-4.631-.544-2.676-4.052c-2.326-3.523-3.194-4.553-3.543-4.204-.035.034-.786 2.878-1.669 6.32l-1.606 6.258-3.588.112-3.589.112-2.16.938c-1.19.517-2.347.99-2.573 1.052-.246.068-1.407-.31-2.882-.936zM79.54 6.477c-.363-1.54-.425-1.648-1.043-1.825-.393-.113-.724-.114-.823-.002-.09.102-.122 1.424-.069 2.937l.097 2.752 1.112-1.113 1.113-1.112-.387-1.637zm22.732-1.792c-.365-.238-1.09-.182-1.3.1-.106.142-.352.946-.546 1.788l-.354 1.53 1.087 1.102 1.087 1.102.128-2.735c.091-1.93.061-2.78-.102-2.887z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/20px-Credit.png":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/img/20px-Credit.png ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/20px-Credit.png?a9d53072a8278ee7d8190272a8ecb1ec";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/Bismor_icon.png":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/img/Bismor_icon.png ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/Bismor_icon.png?ae9293f78cc72999f326e084741965a0";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/Croppa_icon.png":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/img/Croppa_icon.png ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/Croppa_icon.png?6784874231efdf3aceb1dda841b0d5e2";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/Enor_pearl_icon.png":
+/*!*****************************************************!*\
+  !*** ./resources/js/assets/img/Enor_pearl_icon.png ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/Enor_pearl_icon.png?d0a8f68b51427e522e2ad712a7a00612";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/Jadiz_icon.png":
+/*!************************************************!*\
+  !*** ./resources/js/assets/img/Jadiz_icon.png ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/Jadiz_icon.png?efaa5489d9aff2d755de1a43c1dcbf69";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/Magnite_icon.png":
+/*!**************************************************!*\
+  !*** ./resources/js/assets/img/Magnite_icon.png ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/Magnite_icon.png?9d03e2e3988e268d968b41618c9c468e";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/Umanite_icon.png":
+/*!**************************************************!*\
+  !*** ./resources/js/assets/img/Umanite_icon.png ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/Umanite_icon.png?85059f61622a143858b71082ebd375a2";
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Class_level_icon.js":
+/*!******************************************************!*\
+  !*** ./resources/js/assets/mods/Class_level_icon.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M21.452 44.208c-1.052-1.701 2.732-6.527 8.409-10.724l10.32-7.63 10.316 7.345c12.038 8.571 10.372 16.24-1.797 8.267-7.462-4.89-9-4.869-16.776.226-4.708 3.085-9.42 4.218-10.472 2.516zM8.902 33.521c0-1.671 6.997-8.772 15.55-15.78L40 5l15.549 12.741C64.1 24.75 71.097 31.85 71.097 33.521c0 5.833-9.916 2.972-20.466-5.906L40 18.669l-10.63 8.946C18.818 36.493 8.902 39.355 8.902 33.52z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_ChangeOfHigherDamage.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_ChangeOfHigherDamage.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M26.04 44.817c-.696-.29-1.412-1.21-5.342-6.867-3.971-5.718-3.894-5.388-2.483-10.53 1.738-6.335 1.914-6.84 2.679-7.692.652-.727 1.1-.93 6.401-2.9 3.136-1.165 6.135-2.176 6.667-2.247 1.813-.243 1.904-.16 6.753 6.178 4.062 5.311 4.372 5.773 4.383 6.526.014.912-1.99 9.081-2.523 10.288-.844 1.912-2.391 2.892-8.227 5.209-5.2 2.065-7.112 2.533-8.308 2.035zm3.045-6.278c.937-2.777 1.865-5.196 2.079-5.424.25-.267 2.618-1.184 6.761-2.619 4.782-1.655 6.404-2.296 6.49-2.56.062-.194.06-.405-.005-.47-.065-.064-3.007.857-6.54 2.046-3.531 1.19-6.639 2.159-6.904 2.154-.266-.005-.662-.158-.88-.34-.218-.183-2.073-2.767-4.123-5.742-2.05-2.976-3.845-5.533-3.99-5.684-.224-.233-.294-.201-.487.22-.257.565-.64-.059 4.687 7.652 2.451 3.548 3.247 4.844 3.247 5.286 0 .322-.696 2.719-1.546 5.327-1.21 3.708-1.497 4.8-1.322 5.011.567.684.832.176 2.532-4.857zm2.435 4.136c1.197-.674 2.013-2.346 1.282-2.627-1.09-.418-3.15 1.642-2.732 2.732.153.398.617.364 1.45-.105zm7.777-3.272c.32-.385.558-.9.558-1.207 0-.446-.083-.536-.493-.536-.75 0-1.568.505-2.11 1.303-1.316 1.937.48 2.324 2.045.44zm-6.473-.21c.863-.534 1.428-1.362 1.428-2.094 0-.734-.465-.796-1.522-.202-.817.459-1.377 1.326-1.377 2.131 0 .7.513.756 1.471.164zm7.949-3.464c.239-.35.435-.843.435-1.092 0-.374-.101-.455-.564-.455-1.143 0-2.528 1.314-2.528 2.4 0 1.03 1.76.465 2.657-.853zm-6.635-.21c1.288-.76 1.913-2.366.989-2.542-1.007-.193-2.61 1.288-2.613 2.413-.001.435.084.531.47.531.26 0 .78-.18 1.154-.402zm-10.134-.938c.328-.613.23-1.407-.3-2.43-.595-1.148-1.117-1.64-1.74-1.64-.983 0-.796 1.95.341 3.564.68.963 1.348 1.162 1.699.506zm16.95-1.45c.864-.586 1.41-1.395 1.412-2.089 0-.435-.085-.531-.471-.531-.703 0-1.77.707-2.221 1.472-.885 1.5-.175 2.138 1.28 1.149zm-8.94-3.828c.139-.395.105-.697-.137-1.204-.238-.499-.274-.803-.138-1.16.106-.28.11-.486.011-.486-.095 0-.423-.21-.728-.467-.578-.486-.798-.481-2.76.054-1.113.303-.522 1.871.785 2.08.59.094.846.255 1.058.666.33.639 1.034 1.177 1.438 1.1.157-.03.37-.293.471-.583zm9.353-3.005c.034-.242-.105-.725-.31-1.073-.365-.618-.365-.644-.014-1.076.463-.573.454-1-.035-1.524-.497-.533-1.463-.55-2.118-.036-.266.208-.635.38-.821.382-.27.005-.339.175-.339.855 0 .767.056.87.568 1.048.32.112.704.463.882.806.313.607 1.284 1.19 1.835 1.104.16-.025.318-.243.353-.486zm-6.4.058c1.169-.347 1.573-.73 1.219-1.156-.32-.385-.108-.872.378-.872.483 0 .546-.792.094-1.167-.165-.137-.52-.713-.788-1.281-.843-1.782-2.482-2.578-4.373-2.123-.78.187-1.884 1.257-1.882 1.824.003.715.408 1.734.858 2.157.26.245.532.717.603 1.049.201.943.438 1.126 1.273.985.661-.112.76-.074.964.375.266.583.356.594 1.653.209zm-.909-.967c-.229-.601-.25-1.064-.048-1.055.312.014 1.223.972 1.105 1.163-.084.136-.227.12-.435-.049-.198-.16-.26-.168-.172-.023.075.126.048.283-.06.35s-.284-.107-.39-.386zm-2.31-.711c-.474-.508-.496-.801-.091-1.206.467-.467 1.006-.366 1.324.247.251.487.25.6-.007.966-.37.529-.73.526-1.228-.007zm2.591-1.018c-.537-.537-.613-1.03-.184-1.195.846-.324 2.148.77 1.642 1.38-.353.425-.92.353-1.458-.185zm-6.973-.009c.304-.159.814-.288 1.133-.288h.58l-.135-.918c-.1-.692-.273-1.03-.702-1.37-.312-.248-.7-.709-.863-1.023-.349-.674-1.107-1.027-1.62-.753-.602.323-.63.785-.089 1.494l.507.665-.407.434c-.628.669-.525 1.369.27 1.82.51.289.67.281 1.326-.06zm10.011-3.38c.507 0 1.283-.402 1.41-.73.16-.42-.403-1.18-.963-1.296l-.949-.196c-.327-.068-.537-.304-.695-.786-.281-.85-.941-1.21-1.639-.892-.589.269-.603.566-.076 1.577.224.429.353.919.288 1.089-.08.208.15.546.704 1.039.742.658.86.704 1.204.462.21-.147.532-.267.716-.267zM48.84 31.812c-1.382-.542-2.535-1-2.564-1.017-.028-.019.13-.795.352-1.727.52-2.193.4-2.89-.808-4.68-.517-.767-.941-1.493-.941-1.614s.725-1.495 1.612-3.052a673.13 673.13 0 0 0 2.657-4.712c1.524-2.743 1.14-2.784 7.359.79 2.787 1.6 5.097 2.882 5.132 2.846.036-.035-.038-.289-.163-.563-.338-.742-10.23-6.402-10.897-6.234-.384.096-.496.034-.586-.327-.17-.673-7.64-5.414-8.689-5.515-.497-.048-.704-.009-.58.111.107.102 1.802 1.214 3.768 2.47 1.966 1.257 3.72 2.406 3.896 2.554.8.672.678 1.019-2.081 5.853-1.453 2.546-2.695 4.625-2.76 4.621-.064-.005-.465-.501-.89-1.106a649.322 649.322 0 0 0-1.416-2.003c-.624-.88-.634-.92-.338-1.493.457-.883.387-1.778-.186-2.397-.563-.607-1.328-.692-1.865-.206-.335.304-.387.293-.884-.181-.646-.616-2.323-1.357-2.793-1.234-.19.05-.344.053-.344.009 0-.367 3.388-6.684 3.834-7.148.52-.54.726-.612 2.122-.728L42.334 5l3.157 1.373c5.066 2.203 10.202 5.235 14.091 8.317 1.534 1.216 1.715 1.435 2.373 2.874l.712 1.557-.66 1.315c-.746 1.485-2.825 5.236-4.704 8.485-.907 1.567-1.543 2.419-2.273 3.043-.996.85-1.04.866-2.346.85-1.123-.013-1.727-.17-3.844-1.002zm5.635-1.326c.904-.75 1.324-2.752.693-3.298-.89-.77-2.145-.389-2.937.893-.608.983-.411 2.472.355 2.698.48.141 1.57-.028 1.889-.293zm-1.716-12.06c1.354-1.159 1.3-2.721-.116-3.313-.578-.242-.7-.23-1.255.115-1.983 1.236-1.71 3.523.46 3.866.061.01.47-.29.911-.668zm-6.198-3.146c.814-1.069.847-1.89.105-2.58-.818-.76-1.625-.831-2.231-.196-.97 1.015-1.177 2.35-.5 3.21.343.437.534.51 1.2.46.675-.049.883-.18 1.426-.894zm7.264-3.4c-.442-.786-3.67-2.643-4.546-2.615-.505.016 1.167 1.221 2.832 2.041.948.467 1.757.85 1.797.85.04 0 .002-.124-.083-.275zm-13.198-1.3c.713-.984.773-1.962.16-2.615-.793-.844-2.278-.41-2.65.777-.324 1.032-.31 1.555.058 2.11.283.427.498.53 1.101.53.657 0 .822-.099 1.33-.801z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_ExplosionJump.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_ExplosionJump.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M41.436 40.941l.113-4.392-1.003.641c-.551.353-1.89 1.235-2.976 1.96-1.085.725-2.003 1.288-2.041 1.25-.038-.038.41-1.068.994-2.29.584-1.22 1.008-2.219.941-2.217-.066.002-2.181.594-4.701 1.317-2.52.723-4.607 1.29-4.637 1.258-.031-.03 1.862-1.457 4.207-3.17 2.346-1.713 4.185-3.115 4.088-3.115-.097 0-1.061.232-2.142.516-1.081.284-1.965.488-1.965.453 0-.034.949-.643 2.11-1.353 1.16-.71 2.054-1.341 1.985-1.402-.068-.061-1.752-.49-3.742-.951-1.99-.462-3.77-.895-3.956-.963-.212-.078.895-.368 3.003-.787l3.339-.663 1.386.286c.762.157 1.54.237 1.728.178.187-.06.889-.01 1.557.109l1.217.217.114.675c.169 1 .622 1.446 2.032 1.999 1.311.514 1.572.472 1.58-.255.002-.146.27-1.139.596-2.207.326-1.068.693-2.596.815-3.396.195-1.269.188-1.508-.05-1.872-.273-.416-.998-.634-2.153-.647-1.056-.012-1.284-.41-1.42-2.47-.138-2.116-.094-2.125.95-.192l.706 1.308.178-.69c.098-.38.598-2.498 1.112-4.709.55-2.366.982-3.89 1.05-3.707.062.172.452 2.18.867 4.46.414 2.282.77 4.17.79 4.195.02.025.897-.828 1.95-1.896 1.051-1.067 1.935-1.918 1.962-1.89.028.027-.222.956-.555 2.063-.333 1.107-.574 2.044-.537 2.081.038.038 1.405-.787 3.039-1.833a8418.41 8418.41 0 0 1 4.47-2.86l1.501-.96-.719.771c-.395.424-2.325 2.429-4.289 4.455-1.963 2.026-3.537 3.716-3.498 3.755.038.038 1.203-.055 2.587-.207 1.384-.153 2.629-.254 2.766-.225.141.03-.562.773-1.63 1.723-1.581 1.404-1.827 1.69-1.549 1.802.182.074 1.997.5 4.035.947 2.037.447 3.737.846 3.776.885.093.093.273.036-4.745 1.508-2.378.698-4.386 1.324-4.462 1.391-.075.067.346.502.937.966.59.464 1.049.869 1.018.9-.03.03-.81-.05-1.73-.177-.922-.128-1.696-.215-1.721-.192-.025.022.516 1.81 1.202 3.971.685 2.162 1.222 3.955 1.192 3.984-.03.029-1.388-1.142-3.018-2.601-1.63-1.46-3.003-2.614-3.051-2.566-.048.048-.177.813-.286 1.699-.11.886-.25 1.612-.312 1.612s-.292-.554-.51-1.23c-.218-.678-.453-1.267-.523-1.31-.07-.044-.906 1.642-1.858 3.746-.952 2.103-1.842 4.023-1.98 4.265-.217.386-.234-.117-.135-3.95zM23.84 30.86c-.243-.132-1.514-.54-2.824-.904-1.31-.365-2.413-.685-2.45-.71-.035-.026-.003-.19.072-.364s.159-.426.186-.56c.1-.493.467-.638 1.54-.61 1.06.03 1.105.013 1.477-.565.41-.636.931-2.918.915-4.005-.013-.784.594-2.112 1.239-2.714.255-.238 1.028-.702 1.718-1.03 1.204-.574 1.26-.628 1.372-1.333.072-.45.388-1.093.82-1.664.782-1.036.863-1.261.36-.992-.188.1-.381.183-.43.183-.117 0 .152-.914.413-1.403.116-.216.177-.426.135-.467-.04-.041-.583.154-1.205.433-1.077.484-1.223.504-3.026.42-1.188-.055-1.963-.17-2.076-.306-.126-.152-.405-.177-.928-.081-.41.075-.827.086-.925.025a1.024 1.024 0 0 0-.443-.117c-.156-.002-.26-.16-.252-.386.008-.281-.118-.407-.485-.48-.66-.133-.63-.405.075-.704l.574-.243-.485-.13c-.848-.227-.596-.62.397-.62.824 0 .882-.03.882-.442 0-.673.464-.54.922.265.286.501.479.67.667.583.146-.068.543-.131.883-.141.34-.01.776-.105.97-.21.195-.105.62-.248.946-.318.67-.144 2.02-.76 3.2-1.46.75-.444.77-.475.361-.571l-.431-.102.549-.391c.375-.268.82-.395 1.404-.404.601-.008.75-.053.504-.15-.32-.124-.297-.165.245-.445.37-.191.788-.27 1.1-.208.345.068.49.032.461-.116-.027-.137.134-.197.443-.165.39.041.485-.02.485-.317 0-.202.35-.722.775-1.154.708-.717.85-.786 1.638-.786 1.045 0 1.48.279 1.904 1.218.177.393.39.672.474.62.2-.124.193.325-.015.871-.125.331-.105.462.086.535a.269.269 0 0 1 .156.345.272.272 0 0 0 .162.347c.141.055.35.379.462.72.113.343.36.672.55.732.189.06.459.332.6.604.273.53 1.082.814 1.45.511.114-.095.26-.405.322-.69.062-.283.243-.588.401-.677.238-.133.144-.249-.537-.663-.89-.54-1.036-.766-.497-.766.515 0 .895-.486.895-1.146 0-1.233.383-1.512.71-.517l.21.631.39-.367c.523-.491.632-.463.632.163 0 .397.081.53.325.53.252 0 .32.126.303.573-.01.316-.085.677-.164.803-.078.127-.18.92-.227 1.766a44.998 44.998 0 0 1-.205 2.489c-.116.917-.147.963-.826 1.202-.562.198-.966.21-1.98.063-.922-.134-1.515-.13-2.141.015-.86.198-.868.207-.972 1.013-.058.447-.156.992-.219 1.21-.085.299-.04.397.181.397.44 0 .854 1.138.714 1.964-.07.417-.213.684-.365.684-.282 0-.339.453-.078.615.095.058.224.5.288.983.096.726.16.843.363.673.397-.329 3.03-.064 3.488.351.245.223.74.366 1.485.43.614.052 1.15.127 1.189.166.14.141-.46 3.067-.915 4.456-.5 1.523-.666 1.821-.852 1.52-.066-.105-.263-.192-.44-.192-.53 0-.795-.5-.755-1.428.033-.766-.006-.868-.36-.933-1.948-.36-3.776-.58-3.894-.47-.223.21-1.718-.17-2.426-.617-.706-.446-1.498-1.315-1.658-1.821-.09-.28-.364-.347-1.854-.45-1.624-.112-1.826-.088-2.815.328-.586.247-1.217.449-1.402.449-.491 0-.694.344-.703 1.189-.01.925-.814 2.768-1.414 3.24-.244.191-.588.758-.765 1.26-.404 1.148-.488 1.225-1.029.93zm16.725-9.573c-.914-.058-1.014-.103-1.002-.452.008-.214.107-.644.22-.955l.208-.567 1.147 1.045c.808.735 1.043 1.036.795 1.018-.194-.015-.81-.054-1.368-.09z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_ForthAndBack_Linecutter.js":
+/*!****************************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_ForthAndBack_Linecutter.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M53.808 44.659c.601-.636 17.334-14.011 17.42-13.926.042.041-.115.55-.348 1.132-.362.906-1.483 1.906-7.81 6.965-6.46 5.166-7.53 5.93-8.524 6.078-1.045.157-1.104.137-.738-.25zM52.253 43.4c0-.04.694-2.148 1.543-4.685.848-2.537 1.543-4.703 1.543-4.813 0-.11-4.918-.201-10.93-.201H33.482V23.158H44.41c6.01 0 10.929-.056 10.929-.124s-.69-2.233-1.532-4.812c-.842-2.578-1.504-4.715-1.471-4.748.078-.078 18.897 14.902 18.998 15.122.07.152-18.704 14.877-18.968 14.877-.062 0-.113-.033-.113-.073zM18.695 29.917c-5.516-4.595-10.03-8.447-10.03-8.56 0-.24 19.984-16.49 20.117-16.356.05.05-.666 2.403-1.591 5.23-.925 2.826-1.682 5.213-1.682 5.304 0 .09 4.86.165 10.8.165h10.8v2.315c0 2.297-.006 2.314-.642 2.314-.625 0-.643-.051-.643-1.8v-1.8H34.895c-6.01 0-10.929-.091-10.929-.203 0-.111.58-1.931 1.288-4.045.708-2.114 1.256-3.935 1.219-4.048-.082-.245-16.007 12.64-16.007 12.952 0 .256 15.82 13.424 15.96 13.284.054-.053-.478-1.884-1.18-4.068-.702-2.185-1.278-4.059-1.278-4.165-.001-.106 1.51-.193 3.36-.193 3.337 0 3.36.004 3.278.579-.078.549-.21.582-2.604.652-2.469.073-2.518.086-2.348.643.095.313.863 2.692 1.705 5.286.842 2.594 1.494 4.75 1.448 4.793-.046.042-4.596-3.684-10.112-8.279zm16.09 6.637c-.293-.41-.533-.816-.533-.9 0-.084 4.166-.153 9.258-.153 9.833 0 9.437-.053 9.095 1.221l-.155.579H35.316z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_Neuro.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_Neuro.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M31.283 40.098l-8.487-4.975.041-10.205.04-10.206 8.482-4.856L39.839 5l8.649 4.87 8.648 4.87.055.617c.03.34.004 4.952-.06 10.249l-.115 9.63-8.386 4.845c-4.612 2.665-8.493 4.878-8.623 4.918-.13.04-4.056-2.165-8.724-4.901zm3.651-3.276a11.144 11.144 0 0 0 1.737-.67c.942-.47 2.91-2.294 3.092-2.866.137-.434.35-.434.488 0 .182.572 2.15 2.397 3.092 2.867 2.98 1.486 6.406 1.112 8.83-.963 1.059-.906.58-1.759-.52-.927-.897.68-2.074.973-3.91.973-1.535 0-1.737-.037-2.716-.501-1.298-.615-2.382-1.67-2.941-2.862-.364-.778-.421-1.103-.42-2.4 0-1.386.04-1.575.517-2.49.69-1.322 1.417-2.098 2.518-2.682 1.31-.695 2.647-.925 3.965-.682 2.052.378 3.725 1.643 4.577 3.459.377.804.419 1.073.413 2.632-.006 1.32-.072 1.858-.276 2.24-.321.603-.204 1.032.263.965.641-.09 1.355-2.192 1.36-4 .005-2.102-.825-4.08-2.355-5.611-1.233-1.235-2.638-1.981-4.211-2.238a21.94 21.94 0 0 1-1.129-.2c-.022-.014.096-.418.262-.9 1.249-3.631-.284-7.419-3.651-9.02-1.53-.728-2.908-1.015-3.246-.677-.334.333-.07.626.792.88 1.806.534 3.122 1.681 3.962 3.456.446.94.5 1.208.5 2.475 0 1.201-.063 1.556-.41 2.29-.518 1.099-1.497 2.076-2.643 2.639-.833.41-1.028.44-2.867.44-1.802 0-2.05-.037-2.86-.417-1.232-.577-2.107-1.42-2.657-2.561-.587-1.218-.723-2.175-.479-3.358a6.598 6.598 0 0 1 1.922-3.473c.968-.915 1.498-1.225 2.545-1.49.924-.232 1.21-.535.847-.897-.242-.242-.34-.241-1.379.009-1.592.382-2.708.957-3.776 1.946-2.285 2.116-2.815 4.77-1.667 8.352.093.291.004.339-.963.504-3.708.635-6.531 4.031-6.531 7.857 0 1.758.689 3.868 1.262 3.868.47 0 .543-.363.233-1.174-.207-.542-.255-1.042-.204-2.106.057-1.197.147-1.564.63-2.57.647-1.352 1.685-2.479 2.779-3.018.63-.31.991-.367 2.325-.367 1.442 0 1.67.043 2.625.495 1.454.69 2.242 1.456 2.933 2.853.506 1.024.59 1.36.645 2.547.08 1.705-.288 2.803-1.32 3.95-1.245 1.385-2.867 2.074-4.883 2.074-1.471 0-2.542-.332-3.576-1.108-.888-.668-1.037-.696-1.307-.252-.341.564 1.933 2.21 3.716 2.69 1.103.296 2.994.305 4.067.02zm1.827-4.467c.157-.326.342-.787.412-1.024.117-.4.076-.455-.56-.736-1.963-.868-3.22-3.1-2.966-5.262.08-.685.056-.757-.303-.894-.215-.082-.7-.172-1.077-.201-.618-.048-.698-.013-.8.341-.174.615-.16 1.954.03 2.874.42 2.019 1.898 3.997 3.729 4.99.502.272.989.497 1.081.5.092.001.297-.263.454-.588zm8.674-.343c2.205-1.517 3.625-4.684 3.166-7.062l-.148-.765-.76.048c-1.38.088-1.386.095-1.42 1.695-.024 1.124-.107 1.569-.401 2.167-.488.99-1.574 2.06-2.465 2.426-.393.162-.714.365-.712.452.004.213.597 1.51.807 1.763.207.25.889-.006 1.933-.724zm-8.516-12.39c1.88-1.435 4.64-1.352 6.284.188l.433.406.405-.381c.223-.21.555-.623.738-.919l.333-.538-.54-.444c-2.248-1.853-5.356-2.22-7.881-.932-.748.381-1.738 1.225-1.732 1.476.004.191 1.05 1.68 1.18 1.68.042 0 .393-.24.78-.536z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_ShotgunJump.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_ShotgunJump.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M49.026 44.977c-.004-.138.074-.539.172-.891.098-.353.144-.674.104-.715-.04-.04-.553.322-1.138.806-1.109.916-1.113.891-.073-.41.348-.435.586-.791.527-.791-.058 0-.83.338-1.714.751-.884.414-1.634.726-1.666.694-.032-.032.474-.564 1.124-1.183.65-.619 1.15-1.156 1.113-1.193-.038-.038-.55.127-1.139.367-1.892.77-3.742 1.423-3.57 1.26.091-.087 1.026-.692 2.078-1.344l1.911-1.186-.994-.014-.995-.014 2.084-.712 2.084-.713-.708-.123c-.39-.067-.709-.182-.709-.255 0-.257.879-.296 1.727-.077l.857.22-.881-.819c-1.1-1.023-3.231-2.087-4.87-2.433-1.442-.304-3.85-.224-5.328.178-.5.135-.932.224-.96.197-.174-.175 3.374-1.606 3.98-1.606.168 0 .306-.084.306-.186 0-.253-2.465-.043-4.112.35-1.148.273-1.256.275-1.344.025-.37-1.057-.56-1.353-.93-1.446-.55-.138-.69-1.172-.376-2.787.223-1.148.673-2.458.844-2.458.044 0 .771.563 1.616 1.25l1.537 1.25 1.007-.005c.943-.006 1.08-.06 2.13-.835.68-.502 1.251-1.079 1.447-1.464.179-.35.439-.73.578-.846.14-.115.346-.625.46-1.132l.206-.923 1.095.105c1.677.16 2.153-.144 2.647-1.694.212-.665.447-1.208.522-1.208.21 0 .904.97 1.49 2.084l.528 1-.102-.75c-.101-.752-.522-2.937-.667-3.468-.271-.995 1.533 3.048 1.995 4.468 1.019 3.137 1.183 4.227 1.183 7.856l.001 3.271.36-.603c.197-.332.572-1.126.833-1.764.473-1.159.474-1.16.526-.542.029.34.093.619.143.619.05 0 .402-.244.782-.542l.69-.542-.318.5-.584.91c-.308.479-.493.57 1.923-.94.928-.58 1.752-1.053 1.831-1.053.08 0-.641.787-1.6 1.75-.96.963-1.663 1.75-1.561 1.75.101 0 .506-.112.898-.251.393-.139.744-.222.781-.185.037.037-.405.355-.983.706l-1.05.638.748.145c.918.177 1.158.376.65.537-.21.066-.866.338-1.457.603-1.052.472-1.068.489-.775.812.293.324.286.33-.394.33-.445 0-.691.075-.69.209.002.115.189.921.414 1.792.226.871.412 1.638.414 1.705.001.066-.739-.328-1.645-.876-.907-.547-1.689-.995-1.738-.995-.049 0-.22.393-.381.875l-.293.875-.152-.578-.152-.579-1.145 1.246c-.63.685-1.149 1.132-1.152.995zM28.01 36.272c0-1.01-.066-1.293-.423-1.807-.365-.528-.427-.809-.456-2.093-.025-1.128.03-1.575.231-1.861.562-.8-.22-3.541-1.011-3.541-.447 0-1.768-2.25-1.914-3.259-.218-1.51-.237-1.543-.957-1.665-.591-.1-.701-.195-.986-.86-.386-.902-.392-1.083-.063-2.189.197-.666.332-.864.588-.864.37 0 .427-.115.54-1.106l.079-.69-1.607-.917c-1.76-1.006-2.15-1.4-2.3-2.334-.16-.981.424-1.697 1.743-2.138.856-.286 1.123-.466 1.446-.978.306-.484.562-.67 1.119-.81.987-.248 1.684-1.03 2.025-2.274.451-1.642 1.553-2.247 3.05-1.675.835.318 1.395 1.035 1.396 1.785 0 .827.324 1.269 1.012 1.385.456.077.61.175.544.345-.065.171.043.237.392.237.294 0 .709.193 1.06.493.57.488.572.494.16.514-.261.012-.05.124.564.298.743.211 1.087.417 1.418.849l.436.57-.5-.116-.5-.115.623.588c.55.519 1.127 1.515 1.127 1.946 0 .082-.223.035-.497-.107-.496-.257-.497-.256-.749.347-.139.332-.212.669-.163.748.049.08.48-.012.958-.202 1.13-.451 2.8-.663 3.498-.444 1.026.321 2.256.992 2.33 1.27.112.424 2.808 2.199 3.614 2.38.706.159.71.157 1.494-.679.76-.81 1.364-1.057 1.61-.66.06.097.295.247.522.334l.412.157-.495.875c-1.85 3.267-2.363 4.24-2.363 4.49 0 .498-.297.493-1.325-.027-.703-.354-1.22-.5-1.716-.482-1.028.035-2.656-.767-4.134-2.038-.684-.588-2.481-2.215-3.995-3.615-1.514-1.401-2.94-2.587-3.169-2.636a3.202 3.202 0 0 1-.75-.278c-1.022-.577-1.643-.792-2.285-.791-.983.002-1.958.296-2.506.757-.253.212-.62.437-.814.499-.365.116-1.24 1.013-1.6 1.641-.112.194-.206.672-.209 1.061-.004.587.1.826.61 1.39.339.375.945.908 1.348 1.185.706.486.76.497 1.51.296.428-.114.862-.31.964-.436.157-.192.22-.189.396.023.115.139.331.254.48.255.432.004 1.335 1.224 1.452 1.962.087.543.343.899 1.414 1.963.719.715 1.27 1.362 1.222 1.437-.046.075-.307.137-.58.137-.634 0-.73.272-.388 1.092.164.39.278 1.132.281 1.825.006.944-.079 1.336-.439 2.044-.245.481-.555.875-.689.875-.352 0-.491.762-.272 1.493.103.346.188.85.188 1.12 0 .77.306 1.012 1.382 1.094 1.008.076 1.324.25 1.365.747.014.164.112.458.219.654.169.311.146.367-.177.44-.204.044-1.234.306-2.289.58-1.054.275-2.498.545-3.21.601l-1.291.103zm11.713-7.419c-.342-.066-1.774-1.365-6.23-5.654-1.352-1.301-1.619-1.644-1.707-2.196-.08-.498-.3-.837-.933-1.428-.455-.426-.921-.775-1.035-.775-.113 0-.417-.202-.674-.448-.442-.424-.467-.43-.467-.1 0 .241-.162.405-.525.532-.865.301-1.078.225-2.151-.768-.978-.906-1.023-.982-.942-1.59.112-.83 1.105-2.062 1.784-2.211.275-.06.593-.24.708-.399.3-.416.498-.506 1.532-.697.812-.15 1.023-.127 1.718.183l.793.353-.454.241c-.25.133-.662.227-.917.21-1.2-.085-2.205 1.26-1.685 2.252.288.549 10.889 10.717 11.517 11.046.582.306 1.2.165 1.992-.454.338-.264.659-.48.712-.48.053 0-.058.303-.247.673-.314.615-1.9 1.87-2.281 1.805a27.352 27.352 0 0 1-.508-.095zm.526-2.099c-.493-.283-11.026-10.428-11.142-10.73-.102-.267.167-.896.47-1.098.439-.293 1.122-.108 1.809.49 1.37 1.194 1.534 1.284.655.362-.824-.864-.868-.951-.614-1.206.698-.697.933-.53 6.515 4.603 2.916 2.682 5.329 4.961 5.361 5.064.036.114-.091.157-.327.112-.462-.088-1.018.447-.932.897.091.471.833.394 1.09-.112.115-.23.209-.305.207-.167-.004.403-.393.802-.908.932-.263.066-.633.29-.823.497-.443.485-.92.61-1.361.356zm1.128-.394c.372-.337.395-.941.047-1.23-.214-.178-.335-.157-.709.122-.47.35-.627.734-.47 1.144.124.324.756.304 1.132-.036z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_Slowdown.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_Slowdown.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M40.386 43.304l-4.02-1.7-2.644-2.81-2.645-2.81-.128-1.78c-.071-.98-.183-2.33-.249-3.001-.173-1.772.221-1.544.508.293.432 2.768.368 2.66 3.378 5.65l2.787 2.767 3.81 1.498 3.808 1.497 4.436-.137 4.435-.138 3.76-2.272 3.762-2.273.872-2c.48-1.1.895-1.977.923-1.949.029.029-.35 1.42-.84 3.091l-.892 3.04-3.735 2.152-3.736 2.151-3.713.225c-5.886.356-5.294.445-9.877-1.494zm1.578-3.947c-1.773-.743-3.501-1.481-3.84-1.64-.34-.16-1.808-1.624-3.264-3.256-2.471-2.771-2.66-3.038-2.863-4.064a30.297 30.297 0 0 0-.303-1.405c-.05-.18.364-.804.998-1.505l1.085-1.2 1.408-.056 1.407-.058-.061-.636c-.036-.364.257-1.609.683-2.907l.745-2.27 2.051-1.433c1.792-1.25 2.162-1.433 2.93-1.442 1.291-.013 1.432-.159 1.17-1.2l-.218-.866-1.404.075c-1.355.072-1.504.133-4.318 1.762l-2.914 1.687-.975 2.101-.976 2.102h-2.059l1.322-2.783 1.322-2.784 3.393-2.002c3.222-1.902 3.448-2.002 4.495-2.002.606 0 2.016-.056 3.134-.124l2.032-.125-.067 1.004c-.068.997-.072 1.003-.733 1.003-.759 0-.734-.06-.446 1.085.193.766.282.868.76.868.43 0 .568.111.67.537.07.296.174.691.23.88.078.262-.015.341-.4.341-.582 0-.597.117-.21 1.563.383 1.422.401 1.367-.46 1.367h-.753l-.37-1.408-.37-1.408-1.074.049c-.951.043-1.263.178-2.728 1.182l-1.653 1.134-.574 1.754c-.382 1.166-.53 1.928-.442 2.276l.131.523h3.888l.167.635c.111.423.097.647-.043.672-.116.02-.97.094-1.9.162l-1.689.125.197.717c.133.484.743 1.286 1.884 2.474 1.632 1.7 1.762 1.79 3.912 2.686 1.35.563 2.52.928 2.978.928.416 0 .754-.023.752-.05a68.718 68.718 0 0 0-.387-1.513c-.211-.806-.386-1.53-.388-1.611-.001-.08.338-.147.755-.147.742 0 .763.02.987.928.126.51.312 1.242.412 1.625l.183.698.938-.12c.697-.09 1.335-.393 2.492-1.187l1.555-1.067.62-1.79c.543-1.563.595-1.881.408-2.49l-.215-.699h-3.439l-.165-.634-.166-.635 1.283-.122c.706-.068 2.338-.135 3.627-.15 1.29-.013 2.673-.08 3.074-.146.62-.102.715-.183.632-.535-.073-.31.101-.578.688-1.061.54-.446.81-.567.866-.391.044.14.348 1.684.674 3.43l.594 3.173-1.568 3.283-1.568 3.284-3.148 1.844c-1.73 1.015-3.285 1.9-3.453 1.965-.169.067-2.196.173-4.506.237l-4.2.115zm7.614-.83c-.002-.134-.118-.683-.257-1.22l-.252-.977-1.16-.055c-.85-.041-1.814-.32-3.602-1.04l-2.441-.985-2.008-2.085c-1.772-1.84-2.048-2.222-2.357-3.257l-.35-1.172-1.805.027c-.992.017-1.84.065-1.885.11-.045.045.02.648.144 1.34.208 1.161.338 1.385 1.687 2.918 3.552 4.037 3.01 3.624 6.835 5.206l3.45 1.426 2.002.005c1.476.002 2.001-.06 1.998-.24zm6.62-1.66l2.932-1.709 1.29-2.734 1.292-2.735-.234-1.416-.234-1.416h-1.62c-.892 0-1.674.087-1.74.193-.065.106-.04.48.058.832.145.528.037 1.045-.625 2.977l-.802 2.34-2.044 1.419c-1.73 1.201-2.169 1.42-2.849 1.42-.442 0-.851.047-.91.105-.058.059.026.63.187 1.27l.293 1.163h1.037c.949 0 1.283-.143 3.969-1.709zm-37.45 1.982c-.11-.418-.692-3.037-1.294-5.82a741.086 741.086 0 0 0-1.372-6.241c-.152-.651-.245-1.215-.206-1.254.038-.038 1.051-.121 2.252-.184l2.182-.115 1.253-2.502 1.253-2.5L26.92 16.8l4.103-3.431 4.347-.98c2.391-.54 4.523-1.023 4.738-1.074.215-.052-1.212.721-3.17 1.717l-3.561 1.812-2.496 3.26c-2.051 2.68-2.605 3.55-3.112 4.883-.34.893-.68 1.782-.757 1.976-.13.332.014.35 2.328.293 1.357-.033 2.467-.002 2.467.07 0 .101-10.93 12.257-12.508 13.913-.345.36-.359.35-.552-.391zm27.134-11.318c-.45-.489-.775-.994-.721-1.123.054-.13.203-.557.332-.951.232-.709.246-.717 1.418-.781 1.154-.064 1.2-.047 1.878.684.984 1.062 1.003 1.125.636 2.144l-.329.916h-1.197c-1.171 0-1.216-.021-2.017-.89zm8.923-4.207c-3.615-.852-6.591-4.811-6.591-8.769 0-.727.132-1.695.293-2.152.355-1.005.354-.977.036-.977-.37 0-1.306-1.034-1.306-1.443 0-.286.142-.235.804.289.718.569.823.601.988.305.294-.526.563-.177.321.417-.398.979-.292 3.714.2 5.157 1.428 4.186 4.668 6.445 8.834 6.161 1.482-.101 3.265-.696 3.716-1.238.124-.15.319-.272.433-.272.303 0-.822 1.14-1.642 1.666-1.488.953-4.111 1.322-6.086.856zm1.538-2.337c-1.34-.335-3.036-1.386-4.115-2.552-2.254-2.435-3.01-5.7-1.94-8.376.313-.782.31-.828-.067-1.205l-.393-.393-.44.618-.44.618-.562-.54c-.31-.296-.563-.613-.563-.704 0-.091.558-.905 1.24-1.81L50.303 5l.652.544.652.544-.43.605-.43.604.417.293c.387.271.495.242 1.448-.391 3.507-2.329 8.7-.448 10.851 3.93.64 1.303.67 1.46.67 3.516 0 1.957-.047 2.242-.52 3.13-1.09 2.046-2.95 3.233-5.239 3.341-.7.033-1.614-.025-2.03-.129zm4.116-1.464c2.109-1.032 3.23-3.53 2.76-6.143-.42-2.327-2.205-4.6-4.415-5.623-.9-.416-1.4-.515-2.582-.51-.894.005-1.741.127-2.176.316-.714.311-2.316 1.631-2.316 1.909 0 .082.486.564 1.08 1.071.909.777 1.126.883 1.378.674.26-.216.19-.342-.539-.97-.98-.845-.91-1.057.581-1.758 2.707-1.273 6.192.224 7.683 3.301.53 1.095.715 3.36.361 4.431-.316.96-1.467 2.212-2.438 2.654-.5.228-1.248.357-2.076.36-1.084.005-1.506-.102-2.59-.648-.972-.488-1.344-.594-1.489-.42-.237.286.167.669 1.318 1.247 1.858.935 3.697.971 5.46.109zm-1.499-4.337c.864-1.098-.124-2.978-1.564-2.978-.656 0-5.37 1.599-5.728 1.943-.206.198 4.983 1.53 6.054 1.554.67.016.892-.078 1.238-.519z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_SmallBullets.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_SmallBullets.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M40.5 44.812c-1.884-.529-4.023-4.434-3.46-6.314.25-.838 1.37-1.554 2.232-1.427.476.07.54.03.541-.327.001-.357.555-.695 4.567-2.784 4.12-2.147 4.624-2.367 5.176-2.263l.612.114-.563.343c-.557.339-.562.353-.477 1.408.19 2.369 2.438 5.164 3.693 4.592.214-.097.389-.116.389-.04 0 .384-1.328 1.221-5.067 3.193-4.8 2.531-4.702 2.515-6.225 1.074-1.305-1.234-2.264-3.185-2.274-4.626-.004-.523-.052-.55-.523-.298-.505.27-.689 1.215-.44 2.27.278 1.184.659 1.889 1.532 2.84.868.944 1.68 1.337 2.194 1.061.453-.242.577-.116.333.338-.154.288-1.394 1.092-1.59 1.03l-.65-.184zm12.572-7.877c-1.222-.547-2.757-3.34-2.512-4.57.086-.43.29-.612 1.166-1.043 2.058-1.016 3.76-1.105 5.691-.298.536.224.602.322.602.894 0 1.478-1.843 4.128-3.428 4.932-.801.406-.803.406-1.519.085zm-29.062-.741a18.434 18.434 0 0 1-1.52-.688c-.534-.289-.566-.355-.46-.941.195-1.084 1.12-2.406 2.368-3.387 1.538-1.208 2.173-1.418 3.072-1.012.571.257.772.5 1.272 1.541.754 1.566.986 2.722.689 3.426-.257.61-1.235 1.012-3.115 1.284-1.43.207-1.167.232-2.306-.223zm6.441-.236c-.598-.144-.652-.354-.121-.47 1.073-.237 1.036-2.334-.081-4.542-.753-1.488-1.362-1.973-2.288-1.82l-.601.1.593-.48c.374-.304 2.263-1.095 5.128-2.15l4.536-1.668.649.331c1.345.687 2.749 3.379 2.749 5.274 0 1.267-.293 2.051-.848 2.273-1.01.403-9.19 3.273-9.277 3.255-.053-.01-.25-.058-.439-.103zm11.036-3.947c-.402-.104-.381-.335.04-.446 1.179-.308.789-3.818-.61-5.497-.637-.765-1.527-1.214-1.954-.985-.483.258-.538.222-.335-.224.114-.25.49-.511 1.002-.696.758-.272.87-.274 1.489-.02 1.819.747 3.4 4.917 2.566 6.767-.287.635-.4.71-1.726 1.124-.094.03-.307.018-.472-.024zm8.574-3.567c-.456-.13-.974-.367-1.151-.528-.464-.42-.62-1.669-.27-2.168l.276-.393v.456c0 .763.833 1.212 2.422 1.304 1.97.114 3.59-.63 3.59-1.649 0-.678.451-.157.584.675.093.584.042.796-.298 1.243-.755.989-3.45 1.544-5.153 1.06zm-.224-2.661c-.8-.19-1.609-.828-1.605-1.265.001-.206-.09-2.13-.203-4.276-.169-3.214-.165-3.986.023-4.38l.229-.479.106.414c.277 1.075 2.371 1.551 4.3.979 1.15-.342 1.55-.695 1.56-1.376l.006-.532.289.515c.223.4.347 1.472.552 4.775l.263 4.26-.446.427c-.97.929-3.304 1.36-5.075.938zm-15.049-2.26c-.691-.517-.618-.826.172-.723.522.069.764-.008 1.274-.402 1.427-1.105 2.246-3.349 1.438-3.94-.314-.229-.308-.24.123-.24.249 0 .667.184.93.41.957.823.406 2.71-1.272 4.356-.78.765-1.016.9-1.556.896-.366-.004-.837-.155-1.109-.358zm-4.18-3.11c-3.31-2.53-3.254-2.479-3.425-3.054-.124-.421-.12-.423.221-.12.315.281.405.288.93.068 1.643-.686 3.222-3.66 2.246-4.229-.276-.16-.272-.175.043-.174.47 0 .652.122 3.848 2.541l2.804 2.123-.075.883c-.04.485-.217 1.18-.391 1.545-.462.966-1.856 2.27-2.64 2.47l-.656.166zm-4.243-4.251c-1.415-1.055-2.183-2.482-2.183-4.055 0-1.131 3.32-.986 4.938.217.985.731.688 1.985-.85 3.6-.698.734-1.162.792-1.905.238zm12.674-.331c-1.586-.728-2.617-2.375-2.01-3.213.161-.222.428-.45.593-.505.166-.056.3-.22.3-.363 0-.34 3.896-4.643 4.301-4.749.27-.07.288-.028.13.318-.516 1.134 2.226 3.283 3.112 2.44.185-.176.202-.139.098.206-.07.232-.978 1.372-2.017 2.534-1.758 1.965-1.932 2.111-2.51 2.11-.343 0-.856-.142-1.14-.316-.697-.424-1.583-1.326-1.716-1.746-.214-.675-.706-.267-.528.438.134.537 1.044 1.572 1.662 1.892.585.302 1.386.323 1.666.043.16-.16.206-.148.206.056 0 .316-.641.93-1.116 1.07-.189.055-.653-.042-1.03-.215zm10.925-.323c-.322-.035-.766-.183-.988-.329-.358-.234-.403-.395-.4-1.404.003-.627.08-1.47.174-1.874.188-.817.962-1.985 1.7-2.569l.485-.382.686.496c.824.597 1.288 1.223 1.852 2.499.855 1.932.372 3.216-1.294 3.438-1.314.175-1.612.191-2.215.125zM44.07 8.525c-.425-.325-.876-.84-1.002-1.145-.228-.55-.22-.565.586-1.295.45-.407 1.102-.819 1.45-.915.833-.232 1.7-.226 1.847.014.207.334.092 1.785-.196 2.484-.644 1.562-1.433 1.814-2.685.858z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_Special_Magazine.js":
+/*!*********************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_Special_Magazine.js ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M38.534 42.41l-3.615-2.581-.098-1a18.274 18.274 0 0 1-.084-1.017c.008-.01.29-.061.627-.113l.615-.095.114.914.114.913 3.484 2.437c3.024 2.114 3.574 2.438 4.159 2.45l.674.014-.59.323c-1.225.67-1.45.577-5.4-2.245zm2.03-1.2l-3.455-2.419-.109-.733c-.105-.706-.083-.754.59-1.304 1.727-1.412 4.408-4.382 5.643-6.254 1.81-2.741 3.057-6.209 3.487-9.69.057-.463.129-.925.16-1.026.04-.128.656-.095 2.052.11l1.995.293.72-.458.719-.459 2.314.328c1.272.18 2.336.347 2.364.37.027.025-.253 1.74-.624 3.813-.923 5.164-2.011 8.434-3.708 11.14-2.498 3.983-6.96 8.734-8.186 8.714-.373-.006-1.424-.65-3.962-2.426zm6.18-2.34c2.7-2.762 3.182-3.346 4.56-5.52 1.366-2.153 1.628-2.699 2.304-4.789.65-2.013 1.28-5.025 1.28-6.129 0-.213-.153-.348-.464-.407-.255-.05-.487-.066-.516-.038-.028.028-.164.912-.302 1.965-.158 1.208-.525 2.774-.994 4.245-.66 2.069-.914 2.6-2.265 4.731-1.378 2.174-1.807 2.688-4.548 5.448-2.974 2.995-3.02 3.052-2.656 3.306.203.143.417.263.476.268.058.004 1.464-1.381 3.125-3.08zm-4.548-2.248c3.178-3.246 4.73-5.626 5.959-9.144.733-2.098 1.338-4.67 1.34-5.695 0-.263-.13-.409-.43-.484-.235-.06-.458-.078-.495-.04-.037.036-.193.86-.348 1.831-.434 2.733-1.64 5.974-3.083 8.282-1.22 1.952-3.333 4.399-5.334 6.177-1.063.945-1.07.958-.729 1.25.19.162.425.295.522.295.097 0 1.267-1.113 2.598-2.473zm3.255.212c0-.335-.424-.626-.737-.505-.322.123-.37.849-.064.959.294.105.8-.182.8-.454zm1.202-1.194c.284-.325 1.167-1.595 1.96-2.823 1.288-1.991 1.53-2.497 2.236-4.676.695-2.144 1.501-6.132 1.283-6.35-.037-.038-.28-.084-.54-.103l-.472-.035-.283 2.033c-.18 1.299-.541 2.82-1 4.213-.604 1.833-.947 2.542-2.159 4.455-.792 1.251-1.66 2.51-1.926 2.796l-.486.522.387.27c.213.148.409.274.435.279.026.004.28-.257.565-.581zm-8.819-1.39c2.317-2.306 2.823-2.91 3.853-4.602 1.296-2.128 2.4-5.064 2.776-7.38.16-.989.314-1.374.762-1.912.653-.78.655-.769.294 1.671-.34 2.289-1.486 5.365-2.949 7.91-.781 1.36-1.44 2.23-2.58 3.404-1.964 2.022-3.87 3.562-4.41 3.562-.342 0 .043-.453 2.254-2.654zm-6.826.421c-.44-.962-3.086-3.381-3.379-3.088-.057.057-.137.558-.177 1.114-.04.555-.128 1.044-.195 1.086-.068.041-.219-.358-.336-.888-.117-.53-.248-1.021-.291-1.093-.043-.072-.682.373-1.42.99-.74.616-1.372 1.091-1.407 1.056-.035-.035.34-.745.834-1.58.714-1.205.84-1.522.619-1.548-.154-.018-.734-.085-1.29-.147l-1.012-.115 1.176-.326c.646-.179 1.21-.361 1.254-.405.044-.043-.485-.659-1.175-1.367-1.278-1.313-1.197-1.307.852.065.911.61 1.1.683 1.128.435l.15-1.309.119-1.01.297 1.15c.164.632.326 1.178.36 1.212.034.035.653-.434 1.374-1.04.722-.608 1.34-1.076 1.375-1.042.034.035-.31.706-.766 1.492-.455.786-.83 1.486-.832 1.555-.001.07.447.127.998.127 1.075 0 1.48.23.725.412a70.42 70.42 0 0 0-1.1.279l-.636.167.908.83c.817.747 2.303 3.086 2.094 3.296-.04.04-.151-.098-.246-.307zm1.214-5.69c-.172-3.15-.363-5.727-.425-5.727-.061 0-.924.569-1.917 1.264-.993.695-1.838 1.264-1.878 1.264-.04 0 .53-.812 1.267-1.805.736-.992 1.308-1.835 1.27-1.873-.038-.038-1.444-.32-3.125-.625-1.68-.306-3.083-.583-3.116-.617-.034-.034 1.354-.31 3.084-.613 1.73-.304 3.174-.58 3.21-.615.034-.035-.385-.657-.932-1.382a85.897 85.897 0 0 1-1.404-1.907l-.41-.59.84.605c1.806 1.298 3.077 2.176 3.151 2.176.043 0 .219-1.4.392-3.112.173-1.711.34-3.085.372-3.053.032.031.205 1.443.385 3.137.18 1.693.361 3.113.404 3.156.042.042.707-.375 1.477-.927a68.536 68.536 0 0 1 1.899-1.324c.614-.394.572-.32-.977 1.748-.644.86-1.132 1.602-1.084 1.649.047.047 1.48.338 3.183.647 1.703.308 2.983.604 2.844.657-.139.053-1.527.32-3.084.594-1.558.273-2.871.537-2.92.585-.048.048.434.796 1.072 1.662.637.866 1.222 1.678 1.3 1.806.18.297.082.237-1.989-1.22-.903-.636-1.676-1.123-1.717-1.082-.041.041-.217 2.555-.392 5.587-.174 3.032-.35 5.546-.391 5.587-.041.041-.216-2.502-.389-5.652zm16.936-9.507c-1.248-.19-1.259-.195-.843-.464.357-.23.601-.245 1.601-.1.649.096 1.212.203 1.252.238.08.073-.53.568-.662.537-.046-.01-.653-.106-1.348-.211zm-9.422-3.312c-.948-1.215-1.686-2.246-1.64-2.291.073-.074 6.057-1.402 6.314-1.402.056 0-.298.405-.787.9l-.889.9 1.317.285c.944.204 1.673.254 2.58.176 1.387-.12 1.633-.211 3.116-1.167l1.01-.652-1.296 1.425-1.297 1.425-1.92.631-1.918.632-1.334-.255c-1.827-.35-1.725-.39-1.565.62.076.482.114.9.085.929-.03.03-.828-.94-1.776-2.156zm-1.418-6.319c1.477-1.597 1.615-1.7 3.118-2.323 1.516-.629 1.619-.648 2.92-.54.74.062 1.508.152 1.705.202.329.082.37-.004.506-1.046L46.714 5 48.8 7.31c1.146 1.271 2.056 2.337 2.022 2.368-.082.076-5.743 1.275-6.017 1.275-.125 0 0-.307.302-.748.283-.411.455-.785.382-.83-.373-.23-3.465-.304-4.53-.107-1.353.25-1.44.29-2.995 1.398l-1.19.848z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Overclock_Spinning_Linecutter.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Overclock_Spinning_Linecutter.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M43.98 42.081l-.02-3.004-.455 1.794c-.25.987-.463 1.722-.471 1.632-.01-.09-.124-1.301-.255-2.692-.132-1.391-.345-3.116-.475-3.834s-.188-1.355-.128-1.416c.458-.466 3.782-1.213 3.778-.849C45.94 35.1 44.342 44.742 44.085 45c-.048.048-.095-1.265-.106-2.918zm-5.022-3.716c-.892-1.13-1.605-2.248-2.045-3.204-.658-1.428-.675-1.508-.613-2.89l.064-1.423 1.34-1.217 1.34-1.216 2.762-.573c1.52-.316 3.681-.755 4.803-.977 1.441-.284 2.518-.617 3.671-1.134L51.912 25l.103.43c.056.238.11.945.12 1.573.018 1.06-.027 1.214-.61 2.131-.615.97-.66 1.003-2.404 1.746-1.308.557-2.428.885-4.242 1.244-1.847.365-2.767.637-3.677 1.087-2.125 1.052-2.395 2.068-1.365 5.128.313.93.552 1.708.53 1.727-.021.02-.655-.746-1.409-1.7zM31.535 25.59c-2.554-1.628-3.806-2.514-3.662-2.594.12-.066 2.054-.832 4.297-1.702s4.177-1.622 4.297-1.67c.126-.052.005.33-.286.907-.772 1.53-.804 1.496 1.373 1.496h1.876v3.549l-.51.102c-.28.056-1.273.102-2.205.102-1.676 0-1.695.004-1.609.367.128.54.371 1.917.338 1.917-.015 0-1.774-1.113-3.909-2.474zm9.792.883c-.046-.157-.132-.652-.19-1.101a42.181 42.181 0 0 0-.41-2.284c-.166-.808-.42-2.13-.565-2.937a40.891 40.891 0 0 0-.705-3.064l-.442-1.596-1.546 1.131c-.85.622-1.558 1.12-1.572 1.107-.013-.014.398-2.191.916-4.838.518-2.647 1.078-5.523 1.245-6.39.167-.869.362-1.543.433-1.499.259.16 8.789 10.046 8.724 10.11-.037.038-.923-.03-1.968-.149-1.389-.158-1.9-.167-1.9-.033 0 .101.218.832.486 1.624.68 2.01 1.663 7.29 1.601 8.59l-.049 1.027-1.713.282c-2.191.36-2.246.36-2.345.02zm5.306-1.795a25.708 25.708 0 0 1-.281-1.65l-.116-.874.472.091c.26.05.802.14 1.206.2.43.064 1.259.422 1.998.864l1.265.754-1.754.686c-.964.378-1.95.69-2.189.695-.389.008-.452-.072-.6-.766z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Accuracy.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Accuracy.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M39.962 40.523c-.298-1.642-1.019-2.116-4.261-2.802-2.147-.454-4.066-1.314-4.265-1.91-.252-.753.056-.925 1.003-.562.75.288 2.725.742 4.387 1.008 2.52.403 3.086.238 3.402-.992.37-1.437.382-1.437.472 0 .074 1.268.505 1.393 3.06.903 1.633-.314 3.504-.659 4.157-.767.654-.109 2.207.653 3.454 1.693 1.788 1.491 2.501 1.694 3.384.962 1.833-1.522 2.023-.293.207 1.348-1.66 1.501-1.69 1.493-3.877-1.125-1.212-1.45-2.416-2.294-2.676-1.873-.26.42-2.058 1.003-3.997 1.293-3.066.46-3.56.806-3.808 2.665L40.32 42.5zm-15.387-1.57c-.796-.88-1.057-1.6-.58-1.6s1.105.383 1.394.85c.337.546 1.208.212 2.42-.926 1.04-.978 2.068-1.602 2.283-1.387.215.215-.613 1.352-1.84 2.527-2.227 2.134-2.23 2.134-3.676.535zm.116-2.247c-1.249-1.38-1.245-1.543.056-2.63 3.111-2.592 8.225-5.462 8.941-5.02 1.213.75.889 3.252-.576 4.44-1.155.936-1.243.922-.64-.102.617-1.046.517-1.05-.837-.037-.846.63-2.456 1.975-3.578 2.985-1.98 1.785-2.078 1.795-3.37.367zm27.045.056c-.15-.327-1.502-1.663-3.005-2.97-1.503-1.306-2.251-1.743-1.662-.97.925 1.21.902 1.338-.167.928-1.73-.664-2.216-2.344-1.109-3.832.828-1.113 1.511-.892 5.958 1.93 4.193 2.66 4.864 3.378 4.06 4.347-1.012 1.22-3.612 1.581-4.076.567zM24.71 31.22c-.186-.327-.77-1.93-1.296-3.563-.827-2.565-1.299-2.983-3.469-3.073l-2.512-.105 2.724-.49c2.233-.4 2.841-.945 3.377-3.023.636-2.463 1.917-3.964 2.708-3.173.214.214-.139 1.654-.785 3.2-1.166 2.79-1.16 2.812.943 3.133l2.118.324-2.178.119c-2.541.138-2.533.108-.99 3.803.653 1.564 1.188 2.977 1.188 3.142 0 .548-1.484.308-1.828-.295zm29.184-2.152c1.46-3.495 1.473-3.416-.634-3.821-1.764-.34-1.763-.345.093-.451 1.96-.113 1.988-.48.429-5.65-.538-1.783-.466-1.872.731-.89.73.599 1.615 2.202 1.966 3.562.52 2.013 1.146 2.565 3.362 2.964l2.724.49-2.97.103c-2.278.085-2.968.432-2.968 1.512 0 1.623-2.127 4.927-3.172 4.927-.388 0-.19-1.236.44-2.746zm-16.202-3.109c-.707-.853-.62-1.4.391-2.41 1.503-1.503 2.63-1.322 3.838.615 1.45 2.327-2.422 3.972-4.228 1.796zm-6.02-5.21c.59-.955-5.1-4.318-7.055-4.17-1.163.084-1.32-.066-.557-.537.778-.48.818-.81.15-1.223-.69-.426-.688-.84.01-1.682 1.384-1.67 2.13-1.42 6.363 2.123 4.074 3.411 4.986 5.84 2.27 6.044-.88.066-1.413-.184-1.183-.555zm13.4-.136c-.288-.467 1.255-2.631 3.432-4.808 3.2-3.199 4.294-3.85 5.715-3.399 1.216.387 1.64 1.012 1.374 2.028-.21.808-.155 1.606.126 1.773.28.167.047.187-.529.047-.57-.143-2.962.972-5.315 2.476-2.73 1.747-4.467 2.429-4.803 1.886zm2.118.62c.181-.16 1.22-.713 2.309-1.232 1.866-.89 1.892-.872.442.289-1.26 1.01-3.838 1.893-2.751.943zm-18.719-1.735c-1.476-1.182-1.466-1.197.244-.369.98.476 1.782 1.03 1.782 1.232 0 .606-.41.43-2.026-.863zm10.827-5.4c-.095-1.54-.768-1.54-6.927-.006-1.991.497-2.145.415-1.255-.667.559-.678 2.608-1.472 4.553-1.764 3.141-.47 3.55-.768 3.645-2.659.098-1.935.14-1.963.457-.3.375 1.958.435 1.994 5.595 3.315 4.141 1.06 3.751 2.49-.415 1.522-4.21-.977-4.79-.904-5.199.658-.323 1.239-.372 1.228-.453-.1z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Aim.js":
+/*!******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Aim.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M38.416 43.24v-1.76h-4.179l-4.53-3.807-4.53-3.808-.536-3.085c-.788-4.54-.563-4.195-2.744-4.195H20l.096-1.664.096-1.664 1.506-.097c1.08-.07 1.505-.23 1.505-.57 0-.26 1.302-2.735 2.893-5.499l2.893-5.025 4.713-1.691 4.714-1.69V5l1.664.096 1.664.096.094 1.805.095 1.805 1.648.612c.907.337 2.94 1.077 4.518 1.646l2.868 1.033 2.836 4.948c1.56 2.722 2.881 5.19 2.936 5.486.073.398.485.563 1.584.634l1.486.096.095 1.648.096 1.649-1.984.094-1.984.095-.647 3.57-.647 3.572-4.506 3.798-4.506 3.798h-3.791l-.095 1.664-.096 1.663-1.664.096-1.664.096zm0-6.989v-1.743h3.486v3.486h1.44c1.355 0 1.645-.173 4.906-2.93 3.767-3.184 3.51-2.747 4.295-7.29l.205-1.19h-3.24V23.099h1.902c1.046 0 1.898-.107 1.893-.237-.005-.131-1.038-2.003-2.297-4.16l-2.29-3.92-3.328-1.226c-1.83-.673-3.363-1.227-3.407-1.229-.043-.001-.079.71-.079 1.581v1.585h-3.486v-1.585c0-.871-.121-1.584-.27-1.584-.147 0-1.752.545-3.565 1.212l-3.296 1.213-2.298 3.922c-1.264 2.157-2.298 4.036-2.298 4.175 0 .14.856.253 1.902.253h1.901v3.487h-1.584c-1.81 0-1.762-.137-1.17 3.282l.377 2.173 3.487 2.967c3.427 2.918 3.514 2.968 5.15 2.978l1.664.01zm.475-8.067c-.835-.346-1.932-1.578-2.205-2.476-.12-.395-.054-1.213.145-1.817 1.213-3.675 6.656-2.935 6.656.904 0 1.61-.675 2.657-2.092 3.25-1.185.495-1.589.517-2.504.139z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Ammo.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Ammo.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M33.444 43.985c-2.013-1.767-3.465-5.576-2.612-6.852.352-.527 1.6-1.135 2.306-1.123.57.01.572.03.022.35-.811.473-.756 2.49.115 4.145 1.104 2.1 2.94 3.36 4.051 2.777.605-.317.754-.052.329.585-.362.54-1.604 1.133-2.378 1.133-.373 0-1.198-.457-1.833-1.015zm3.985-1.62c-.103-.166 2.364-1.854 5.481-3.75 3.117-1.897 5.679-3.598 5.693-3.782.014-.183-.192-.47-.457-.637-.349-.22-2.112.683-6.372 3.262-3.24 1.96-6.05 3.467-6.245 3.346-.616-.38-1.604-2.922-1.609-4.137-.004-1.165.01-1.175 7.31-5.584 4.023-2.429 7.65-4.416 8.061-4.416.705 0 .713.024.135.446-.83.607-.485 2.37.814 4.164 1.268 1.75 2.094 2.204 3.086 1.698.703-.359.697-.328-.099.496-1.078 1.116-14.293 9.189-15.048 9.193-.31 0-.647-.133-.75-.3zm-3.212-11.123c-2.32-1.563-3.317-4.193-2.031-5.357.834-.755.961-.699.82.365-.255 1.903 2.417 4.575 4.32 4.321 1.07-.142 1.157.109.308.877-.845.765-2.088.69-3.417-.206zm18.28.1c-1.007-.791-1.92-2.613-1.92-3.828 0-.75.283-1.014 1.87-1.74 2.008-.92 5.62-1.375 6.448-.813.776.527-1.43 4.547-3.261 5.94-1.68 1.28-2.012 1.327-3.137.441zm-26.923-.32c-1.545-.47-2.912-1.325-3.791-2.369-1.003-1.192-1.086-1.868-.354-2.912.645-.922 1.143-.962.91-.075-.25.96.702 2.217 2.294 3.03 1.474.752 3.675.943 3.877.337.184-.551.733-.44.733.149 0 .72-1.513 2.157-2.235 2.123-.329-.016-.974-.143-1.434-.283zm15.924-5.444c2.243-2.248 4.078-4.182 4.078-4.297 0-.115-.254-.307-.564-.426-.418-.16-1.655.871-4.765 3.975l-4.201 4.191-.763-.812c-.42-.447-.966-1.39-1.214-2.094l-.45-1.282 5.033-5.058c2.769-2.783 5.318-5.133 5.665-5.224.504-.132.554-.073.25.293-1.175 1.417 2.759 5.332 4.176 4.156.275-.228.5-.295.5-.148s-2.356 2.64-5.236 5.541c-3.327 3.35-5.483 5.274-5.912 5.274-.493 0 .425-1.103 3.403-4.089zm-13.251 2.196c.002-.15 1.269-2.599 2.815-5.44 2.392-4.398 2.726-5.199 2.246-5.38-.31-.116-.693-.094-.848.05-.156.145-1.522 2.566-3.034 5.38-1.513 2.814-2.968 5.159-3.233 5.211-.72.142-2.721-1.324-3.219-2.358-.41-.854-.259-1.235 2.645-6.655 3.66-6.83 4.517-8.249 4.981-8.249.192 0 .256.152.141.337-.656 1.06 1.59 3.066 3.925 3.504.94.177 1.248.097 1.533-.393.34-.584.357-.582.363.052.01 1.075-7.066 13.977-7.736 14.104-.32.062-.581-.012-.579-.163zM46.71 16.867c-1.502-1.502-1.493-2.559.032-3.722 1.277-.974 3.244-1.774 4.418-1.797.6-.011.75.169.748.902-.005 2.403-1.978 5.75-3.39 5.75-.37 0-1.185-.51-1.808-1.133zM33.148 11.92c-1.703-.987-1.888-1.928-.711-3.625C33.489 6.775 35.863 5 36.84 5c.53 0 .68.315.852 1.769.2 1.701-.019 3.026-.821 4.981-.477 1.16-1.902 1.226-3.724.17z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Angle.js":
+/*!********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Angle.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M57.076 41.066a58.062 58.062 0 0 0-.903-2.38c-.2-.477.191-.19.868.636.678.826 1.506 1.227 1.842.891.335-.335.352.062.04.88-.723 1.884-1.167 1.878-1.845-.031zm-41.825-1.6c0-.843 23.556-25.453 24.364-25.453 1.73 0 .477 2.374-3.26 6.167l-4 4.062 2.184 2.893c1.202 1.592 2.674 4.55 3.272 6.573l1.087 3.68h7.222c5.841 0 7.221.248 7.221 1.298 0 1.115-2.693 1.298-19.045 1.298-10.475 0-19.045-.233-19.045-.518zm20.824-4.51c-.942-3.282-3.281-7.713-4.456-8.44-.92-.568-11.174 8.787-11.174 10.195 0 .372 3.673.677 8.163.677h8.164zm19.979-1.147c-2.332-5.61-2.314-5.944.316-5.944 2.437 0 2.675-1.157 1.277-6.192-.517-1.864-2.322-4.465-4.399-6.342-3.246-2.932-3.639-3.074-5.029-1.816-2.061 1.865-2.158 1.827-5.267-2.099L40.21 7.954h6.738c5.045 0 6.49.248 5.752.986-.738.74-.313 1.446 1.695 2.814 4.088 2.784 5.863 5.738 6.98 11.616.808 4.247 1.348 5.36 2.604 5.36 1.328 0 1.05.77-1.713 4.751-1.814 2.613-3.539 4.756-3.832 4.761-.294.006-1.365-1.99-2.38-4.433zM39.494 10.12c-1.117-1.188-1.84-2.352-1.605-2.586.234-.234 1.286.738 2.338 2.16 2.33 3.151 2.004 3.34-.734.426z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Area.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Area.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M37.372 41.775l-2.594-3.224.95.23a19.32 19.32 0 0 1 1.768.532l.817.302.277-.436c.152-.24.28-1.654.286-3.142.005-1.488.104-3.056.219-3.485l.208-.78.886.104.886.102.279 3.717c.153 2.045.335 3.774.404 3.844.07.069.845-.12 1.724-.419.879-.3 1.645-.496 1.704-.438.111.112-4.904 6.318-5.105 6.318-.064 0-1.283-1.451-2.71-3.225zm5.733-4.806c.186-.201 2.164-1.428 4.396-2.728l4.06-2.362.198-1.81.198-1.811.055 1.868.055 1.867L48.601 34c-5.197 3.007-5.866 3.369-5.496 2.97zm-10.57-2.485l-4.143-2.397.064-1.914.064-1.915.126 1.86.126 1.86 4.038 2.31c3.442 1.97 4.402 2.6 3.953 2.593-.047 0-1.95-1.08-4.228-2.397zm1.015-1.333l-3.467-2.034V28.09h.338c.186 0 .338.528.338 1.173v1.172l3.214 1.891 3.213 1.891v.488c0 .268-.038.486-.085.484-.046 0-1.644-.918-3.551-2.037zm9.13 1.618c.077-.233 1.61-1.26 3.408-2.283l3.268-1.86.003-1.269.003-1.268h1.014v2.97l-3.542 2.066c-1.948 1.137-3.71 2.067-3.917 2.067-.207 0-.313-.19-.237-.423zm-19.293-6.672c-1.544-1.25-2.954-2.42-3.132-2.598l-.325-.325 3.216-2.62c1.77-1.44 3.215-2.497 3.213-2.347-.003.15-.22.988-.486 1.862l-.483 1.59.57.16c.315.087 2.208.262 4.208.387l3.635.227V26.294l-4.1.207c-2.255.113-4.157.263-4.227.332-.07.07.119.845.418 1.724.3.879.49 1.646.422 1.706-.067.059-1.386-.916-2.93-2.166zm30.797 1.634l.42-1.86.24-1.065-3.671-.223c-2.02-.123-3.9-.254-4.179-.292l-.507-.068-.102-.876-.102-.876 2.808-.218c1.544-.12 3.454-.22 4.245-.22l1.437-.004v-.453c0-.25-.213-1.163-.474-2.029l-.474-1.575.39.239c1.075.66 5.814 4.708 5.855 5.002.025.186-1.329 1.458-3.01 2.826l-3.055 2.487zm-16.435-.588c-1.256-.828-2.254-2.505-2.254-3.785 0-1.365.783-2.809 1.991-3.669l.988-.703h3.173l.988.703c1.208.86 1.992 2.304 1.992 3.67 0 1.28-1 2.956-2.254 3.784l-.96.632h-2.705zm-7.412-6.66c-.14-.14-.253-.954-.251-1.807l.003-1.55 1.265-.692c.696-.38 2.309-1.277 3.583-1.993l2.317-1.3-.119.567-.118.568-3.044 1.77-3.044 1.772-.17 1.462c-.092.804-.283 1.345-.422 1.204zm19.025-1.261v-1.435l-3.383-1.964-3.382-1.964v-1.025l1.438.828 3.89 2.245 2.451 1.418v2.942l-.507.194-.507.195zM28.537 20.19l.024-1.979 4.017-2.347c2.21-1.29 4.083-2.28 4.164-2.2.082.082-1.682 1.191-3.918 2.466l-4.066 2.319-.122 1.86-.123 1.86zm23.125.204l-.102-1.944-4.328-2.494c-2.38-1.371-4.268-2.553-4.196-2.625.073-.073 2.134 1.033 4.582 2.457l4.45 2.59v1.98c0 1.089-.07 1.98-.153 1.98-.084 0-.198-.875-.253-1.944zm-12.465-1.523c-.01-.046-.15-1.886-.312-4.088-.161-2.202-.36-4.07-.442-4.153-.082-.082-.512-.015-.957.15-.444.163-1.235.401-1.758.528l-.95.23 2.63-3.27L40.038 5l1.049 1.214c.577.667 1.777 2.14 2.667 3.273l1.618 2.059-.965-.234a19.438 19.438 0 0 1-1.772-.532c-.444-.163-.901-.205-1.015-.092-.114.114-.25 1.678-.302 3.477-.052 1.798-.17 3.612-.26 4.03l-.165.762h-.839c-.461 0-.847-.038-.857-.085z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_AreaDamage.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_AreaDamage.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M35.566 43.033c-2.056-1.082-5.915-3.232-8.576-4.776l-4.837-2.81.13-4.676.13-4.676.45 4.574.451 4.574 7.31 4.111c4.02 2.262 7.44 3.981 7.6 3.822.16-.16-.129-2.418-.64-5.019-.758-3.858-1.125-4.567-1.988-3.85-.823.683-1.059.594-1.059-.398 0-1.163-.2-1.172-2.283-.095-2.978 1.54-3.355 1.49-2.388-.316 1.214-2.27.973-3.147-.867-3.147-1.576 0-1.596-.083-.366-1.438 1.25-1.38 1.107-1.478-3.557-2.432-2.671-.546-5.13-1.235-5.464-1.53-.334-.294 1.865-.977 4.886-1.516 5.463-.977 5.485-.99 4.09-2.582-1.335-1.523-1.336-1.576-.019-1.095 1.771.646 2.507-1.13 1.358-3.279-1.028-1.92-.681-1.983 2.328-.427 2.203 1.139 2.285 1.118 2.344-.58.037-.97.237-1.327.452-.794.789 1.955 1.702.868 2.535-3.016.47-2.19.72-4.118.554-4.283-.164-.164-3.568 1.587-7.562 3.893l-7.263 4.192-.454 4.154-.454 4.154-.127-4.301-.126-4.301 8.848-5.085L39.849 5l.952 5.323c.99 5.541 1.273 5.958 2.957 4.355.83-.79.916-.638.472.83-.541 1.79-.534 1.792 1.92.524 2.875-1.487 3.563-1.161 2.347 1.111-1.101 2.057-.478 3.12 1.522 2.597 1.545-.404 2.216-2.546.797-2.546-.413 0-.552-.517-.31-1.147.333-.869.797-.956 1.91-.36 1.86.995 2.12 6.15.31 6.15-.639 0-1.16-.337-1.16-.75 0-.412-.524-.549-1.162-.304-2.41.925-.976 1.745 4.626 2.649 5.387.87 7.309 2.275 3.11 2.275-1.775 0-1.836.182-1.546 4.614l.303 4.614-4.407 2.616a382.501 382.501 0 0 1-8.796 5.032L39.306 45zm14.644-5.13l5.225-3.084v-8.51l-2.903.542c-3.5.654-3.99 1.04-2.493 1.97.702.436 1.238.42 1.397-.046.141-.412.751-.75 1.354-.75 1.35 0 1.475 2.299.13 2.383-.775.046-.775.14 0 .452 1.423.574 1.177 2.08-.513 3.135-1.19.743-1.563.705-1.91-.201-.238-.62-.095-1.125.318-1.125.412 0 .75-.523.75-1.16 0-.736-.741-1.162-2.019-1.162-1.309 0-1.879.34-1.622.968 1.688 4.128 1.75 3.94-.853 2.593-2.975-1.538-3.533-1.553-2.967-.082.245.639.108 1.161-.305 1.161-.412 0-.75-.368-.75-.82 0-.45-.307-.629-.684-.397-.376.233-.927 2.04-1.223 4.015-.296 1.975-.735 4.104-.976 4.732-.513 1.337 1.566.38 10.043-4.624zm-8.707 1.515c0-1.541 4.918-4.436 6.195-3.646.71.439.47.875-.866 1.583a56.999 56.999 0 0 0-3.588 2.107c-1.537.997-1.741.992-1.741-.046zm.84-10.373c.942.246 1.5-.21 1.821-1.491.294-1.169 1.027-1.846 1.997-1.846.843 0 1.533-.349 1.533-.775 0-.426-.69-.774-1.533-.774-.979 0-1.704-.681-2.006-1.883-.302-1.206-.866-1.733-1.565-1.465-.705.27-1.463-.462-2.138-2.068l-1.046-2.487-.499 2.494c-.403 2.016-.795 2.417-2.048 2.089-1.43-.374-1.986.552-1.64 2.74.054.319-.8.58-1.89.58-1.123 0-1.773.335-1.502.774.263.426 1.155.775 1.98.775.827 0 1.462.261 1.411.58-.345 2.187.21 3.114 1.641 2.74 1.26-.33 1.65.082 2.085 2.2l.536 2.606.752-2.572c.557-1.902 1.106-2.48 2.11-2.217zm-9.218 9.253c-2.245-1.328-3.033-2.174-2.393-2.57 1.107-.683 3.03-.114 3.03.898 0 .38.486.691 1.079.691.943 0 2.411 2.193 1.842 2.752-.116.114-1.718-.683-3.558-1.771zm-7.305-4.174c-1.815-1.016-1.893-6.094-.094-6.094.874 0 1.128.47.843 1.561-.225.86.055 2.022.613 2.584 1.423 1.422.376 2.92-1.362 1.949zm29.614-14.9v-3.388l-7.353-4.387c-4.044-2.414-7.353-4.575-7.353-4.803 0-.227 1.132.255 2.516 1.074 1.383.82 4.84 2.82 7.683 4.448 3.046 1.744 5.345 3.621 5.6 4.573.698 2.597.52 5.87-.32 5.87-.425 0-.774-1.524-.774-3.387zm-30.96-.064c0-1.95.453-2.924 1.662-3.57 1.527-.818 1.615-.742 1.093.94-.313 1.006-.541 2.612-.51 3.57.037 1.053-.396 1.742-1.092 1.742-.8 0-1.153-.823-1.153-2.682zm6.198-5.639c.003-.319 1.397-1.374 3.096-2.345 2.643-1.509 3.09-1.582 3.09-.508 0 .691-.696 1.439-1.548 1.661-.85.223-1.548.712-1.548 1.089 0 .376-.696.684-1.548.684-.85 0-1.545-.262-1.542-.58zm12.959-.704c-1.17-.618-2.129-1.635-2.129-2.263 0-.903.648-.772 3.09.622 4.635 2.647 3.766 4.13-.961 1.64z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_ArmorBreaking.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_ArmorBreaking.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M34.977 42.964c-4.325-2.896-5.124-3.551-5.124-4.201 0-.604.516-.718.843-.187.119.191 1.883 1.462 3.92 2.824l3.705 2.475 1.188-.728c2.692-1.651 6.954-4.742 8.327-6.038 1.803-1.703 1.48-1.037-.773 1.597l-1.694 1.98-3.17 2.048a290.718 290.718 0 0 1-3.527 2.256c-.197.115-1.86-.796-3.695-2.026zm.986-2.464l-2.354-1.696.16-.607.158-.607 1.884 1.379c1.036.758 2.002 1.574 2.146 1.813l.263.435 1.819-1.481c1-.815 2.12-1.643 2.49-1.84l.67-.36v1.23l-2.085 1.512c-1.147.831-2.245 1.603-2.441 1.714-.196.112-1.416-.56-2.71-1.492zm.28-3.15l-2.05-1.522.216-.886.215-.886-.634.56-.634.56-.612-.342-.611-.342.22-.876.22-.876-.644.582-.643.582-1.412-1.532c-.777-.843-1.872-2.514-2.433-3.712l-1.02-2.18-.036-3.352-.035-3.35 1.06-.369c.583-.202 1.184-.498 1.335-.656l.274-.289-1.418.235-1.418.234v-1.471l.667.174c.367.096.667.056.667-.089s-.3-.342-.667-.438l-.667-.174v-5.038l1.251-.196c.688-.109 1.616-.25 2.063-.315l.811-.117 2.275 1.838c1.251 1.011 2.275 1.95 2.275 2.084 0 .136-.904 1.033-2.01 1.995l-2.01 1.748.092.526.09.526-1.167.304c-.642.168-1.31.443-1.485.612l-.317.308h4.991l2.993 2.517c1.647 1.385 3.041 2.653 3.1 2.819.057.166-.63 1.398-1.527 2.738-.897 1.34-1.761 2.662-1.92 2.937-.295.51 1.904-1.26 5.888-4.74l2.214-1.933h4.454l-.188-.305c-.104-.168-.789-.406-1.523-.53-.734-.124-1.257-.35-1.162-.504.094-.152-.956-1.21-2.335-2.35-1.378-1.14-2.506-2.182-2.506-2.314 0-.133 1.427-1.328 3.17-2.655 1.744-1.328 3.17-2.542 3.17-2.698 0-.156-.17-.389-.379-.517l-.378-.235.795-.44.796-.442-1.128-.012c-.62-.006-1.642-.329-2.27-.717-.628-.388-1.093-.753-1.035-.812.059-.059 1.681.104 3.605.361 1.924.258 3.61.473 3.748.479.137.005.25 1.578.25 3.493v3.483l-1.535.23-1.535.23.45.286c.248.157.94.288 1.536.291l1.084.005v1.79c0 2.55-.546 5.116-1.51 7.093-.917 1.882-2.99 4.393-4.536 5.494l-.997.71-.69-.62-.692-.62.219 1.012.219 1.011-1.93 1.348c-1.06.741-2.094 1.445-2.297 1.564l-.368.216zm-7.558-.283c.734-.633 1.449-1.156 1.588-1.163.14-.007-.086.51-.5 1.151l-.754 1.164-.834-.001h-.834l1.334-1.151zm2.63.007c-.12-.308-.07-.707.11-.886l.325-.325.39.47.39.47-.5.416-.5.416zm13.752-.463c-.095-.154.649-.99 1.654-1.858 2.106-1.819 3.969-4.562 4.864-7.164l.624-1.812v-5.568h1.424l-.183 3.253-.182 3.253-.713 1.799c-.927 2.34-3.244 5.551-5.14 7.127-1.527 1.268-2.034 1.478-2.348.97zm-18.316-.897c-.78-1.072-.243-1.065.766.01l.784.835-.475-.01c-.262-.007-.745-.382-1.075-.835zm1.163-1.601c-.746-.766-1.866-2.24-2.488-3.279l-1.13-1.887-.58-2.46c-.318-1.351-.532-3.203-.474-4.115l.105-1.657.583-.11.584-.111v1.582c0 2.524.686 5.837 1.583 7.642.455.918 1.559 2.517 2.453 3.554l1.625 1.885-.452.173-.451.174zM55.142 19.9c-1.721-.24-2.519-.69-1.237-.697a7.275 7.275 0 0 0 1.528-.198l.723-.194.374.7c.205.383.33.678.278.653-.052-.024-.802-.143-1.666-.264zM23.18 18.207v-.667h1.334v1.334H23.18zm28.956-3.753l-.094-4.086-2.002-.238a189.32 189.32 0 0 1-3.504-.451l-1.501-.214 1.25-.642 1.252-.642 3.003.385 3.003.386V18.54H52.23zm-28.54 1.53l-.416-.168V8.94l1.862-.233 1.862-.232.642.581c.354.32.56.664.46.765-.1.1-.89.264-1.754.363l-1.57.18-.097 2.92c-.053 1.606-.203 2.908-.334 2.894a3.285 3.285 0 0 1-.654-.195zm9.427-5.295l-1.001-.842.796.093c.438.05 1.019.43 1.292.843.656.993.155.95-1.087-.094zM27.856 6.82c-1.19-.92-2.225-1.733-2.301-1.81-.076-.075 1.048.255 2.497.735 1.45.48 2.975 1.18 3.39 1.557l.754.684-.42.267c-.859.545-1.81.197-3.92-1.433zm16.257.96c.287-1.171.757-1.585 1.798-1.585h.961l-1.293 1.168c-.71.642-1.373 1.168-1.47 1.168-.1 0-.097-.338.004-.751z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Bosco_Rocket_Upgrade.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Bosco_Rocket_Upgrade.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M57.378 42.375c-2.74-.374-6.05-.812-7.36-.972-2.163-.266-2.86-.647-7.677-4.2-2.914-2.15-5.452-3.911-5.64-3.914-.188-.004.14.601.73 1.343l1.07 1.349-4.05 1.94-4.049 1.94-1.592-1.525c-.876-.839-3.646-3.714-6.157-6.389l-4.564-4.864 2.686 1.4c3.668 1.912 6.832 2.595 9.004 1.944.913-.273 1.66-.646 1.66-.828 0-.182-1.32-1.24-2.934-2.354-2.886-1.99-2.93-2.048-2.66-3.491.15-.808.34-1.536.421-1.618.081-.083 1.792.736 3.802 1.819 4.393 2.367 4.265 2.217-2.363-2.773-6.145-4.626-10.353-7.98-10.201-8.132.06-.06 2.504 1.022 5.43 2.405l5.322 2.515 1.764-1.266c.97-.696 1.997-1.266 2.284-1.266.287 0 1.514.56 2.727 1.245 1.214.685 2.298 1.245 2.41 1.245.38 0-.307-2.69-1.083-4.24-.424-.85-1.917-2.658-3.316-4.019l-2.545-2.474 7.18 2.668c3.95 1.468 7.228 2.716 7.285 2.773.057.057.24 2.142.407 4.633.282 4.203.251 4.51-.419 4.253-3.186-1.223-1.891-.174 4.087 3.313l7.014 4.09 3.292 6.743c1.811 3.708 3.23 6.887 3.154 7.065-.076.177-2.38.016-5.119-.358z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_BulletPenetration.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_BulletPenetration.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M20.413 43.729c-.12-.7-.333-2.265-.474-3.48l-.257-2.208 1.507-.225a134.54 134.54 0 0 1 3.845-.488l2.339-.264-.808-.299c-.445-.164-1.805-.423-3.023-.575-1.218-.152-2.215-.445-2.215-.65v-.373l3.227.273c3.548.3 4.002-.03.697-.505-1.149-.166-2.09-.47-2.09-.677 0-.207.423-.693.943-1.08l.944-.706 13.851.103 13.852.103-10.233 1.548c-5.628.851-10.103 1.659-9.943 1.795.16.137 2.72 1.266 5.688 2.51 2.969 1.243 5.337 2.32 5.265 2.393-.073.073-3.887-.045-8.475-.262-4.589-.216-8.418-.318-8.51-.225-.093.092.726.49 1.819.883l1.988.715.23.914c.126.503.16.983.075 1.068-.17.17-7.719.983-9.13.983h-.893zm25.557-5.942l-4.498-.798 3.325-.251c6.152-.464 12.718-.722 12.126-.476-.323.134-1.907.711-3.52 1.283l-2.934 1.04zm-19.302-8.095c-.397-.23-1.053-1.15-1.458-2.041l-.737-1.623-.009-2.287-.009-2.288.627-1.32.626-1.32 1.359-.255 1.359-.255.44.44.44.44h-.656c-.36 0-.949.447-1.307.993l-.65.994.032 2.315c.034 2.409.422 3.52 1.733 4.96l.775.852.643-.2.643-.199-.76.619c-.874.712-2.053.779-3.091.175zm4.088-1.267l-.501-.604.914-.195c.503-.107 4.247-.557 8.32-1 4.072-.442 7.475-.874 7.561-.96.087-.087-.04-.524-.28-.973l-.436-.816-1.062.017c-.584.009-4.433.413-8.554.899l-7.493.882-.223-1.395c-.279-1.743.056-3.906.752-4.858l.53-.726 10.268-1.15 10.268-1.151.802.39.803.39-.85.026-.85.026-.445 1.349-.445 1.349.414 2.237c.431 2.335 1.273 3.663 2.334 3.683l.624.012-.592.346c-.325.191-4.55.803-9.388 1.36-4.838.558-9.51 1.116-10.383 1.24l-1.587.225zm22.88-4.114c-1.367-1.512-1.847-4.768-.894-6.07l.513-.702 1.83-.206 1.83-.207 2.732.879c1.503.483 2.916 1.1 3.14 1.37.616.741.137 1.536-1.736 2.88-1.918 1.378-3.282 1.985-5.388 2.4l-1.456.286zm-29.772-8.267c-.103-.166 1.136-.786 2.754-1.376 1.618-.59 2.876-1.139 2.796-1.22-.08-.08-1.854.31-3.941.865-2.088.555-4.001.941-4.253.858-.251-.084.641-.738 1.983-1.454 1.343-.715 2.377-1.364 2.3-1.441-.078-.078-1.869.214-3.98.648-2.112.435-3.879.745-3.927.689-.048-.056-.21-1.794-.362-3.861l-.275-3.76 1.89-.232c1.04-.128 3.343-.351 5.118-.496L27.194 5v2.046l-1.466 1.4-1.467 1.398.782-.21c1.816-.488 14.386-2.99 14.492-2.885.063.064-1.544.98-3.573 2.034-2.029 1.056-3.612 1.995-3.518 2.09.094.093 3.553-.027 7.688-.267 4.134-.24 7.57-.384 7.634-.32.064.065-5.246 1.455-11.8 3.09-6.553 1.634-11.999 2.835-12.102 2.669zm24.062-9.202c2.044-.508 3.892-.923 4.108-.923.215 0-.401.424-1.37.942l-1.76.943-2.347-.02-2.347-.02z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Capacity.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Capacity.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M34.114 44.406c-6.423-1.96-10.204-5.721-10.204-10.147 0-3.299 1.204-5.3 4.794-7.963 1.773-1.315 3.222-2.791 3.22-3.28-.002-.488-.674-1.99-1.497-3.338-.822-1.348-1.362-2.583-1.2-2.744.16-.161 1.76.527 3.552 1.53 4.436 2.478 13.018 3.778 18.184 2.753 4.283-.85 4.67-.771 4.056.829-.511 1.331-5.897 2.201-10.742 1.736-1.982-.19-3.604-.213-3.604-.052 0 .657 5.195 2.407 7.143 2.407 3.21 0 6.885 4.953 7.254 9.78.244 3.193.025 3.976-1.588 5.673-1.028 1.083-3.101 2.311-4.606 2.73-3.117.865-12.038.917-14.762.085zM56.81 39.72c.515-1.148 1.068-1.69 1.23-1.204.162.485-.26 1.425-.936 2.087-1.15 1.127-1.17 1.07-.294-.883zM22.07 30.51c.2-1.003.366-2.508.372-3.346.006-.918.747-1.858 1.867-2.368 2.792-1.273 2.974-1.045.922 1.158-1.027 1.102-2.24 2.988-2.696 4.19-.637 1.685-.744 1.768-.465.365zm18.916-11.899c-.204-.53.323-2.58 1.17-4.555l1.539-3.59 1.77 2.915c.972 1.604 1.605 3.353 1.404 3.886-.2.534-.365 1.272-.365 1.64 0 1.06-5.103.787-5.518-.296zm6.712-.128c.288-.748 1.458-1.093 3.711-1.093 2.843 0 3.167.149 2.384 1.093-.52.625-2.108 1.093-3.71 1.093-2.193 0-2.713-.238-2.385-1.093zm-10.912-.85c-1.218-1.22-.411-4.498 1.4-5.684 1.037-.68 2.035-1.085 2.219-.902.183.184-.052 1.85-.514 3.703-.779 3.094-1.875 4.112-3.105 2.882zm-3.948-.726c-.566-.228-.91-1.814-.91-4.189 0-3.133.327-4.129 1.821-5.532l1.822-1.712v3.068c0 2.931-.068 3.033-1.64 2.272l-1.64-.795 1.64 1.433c1.038.907 1.64 2.261 1.64 3.686 0 2.182-.655 2.607-2.733 1.769zm16.59-1.522c.006-.3 1.105-2.469 2.443-4.818 2.72-4.775 3.38-4.428 3.38 1.78v3.585h-2.916c-1.603 0-2.911-.246-2.906-.547zm-3.523-3.541c-.93-1.436-1.586-2.704-1.457-2.818C45.188 8.371 52.417 5 53.082 5c.835 0-3.903 8.955-4.906 9.272-.318.101-1.34-.991-2.27-2.427zM36.3 8.28c0-3.885.773-4.137 2.81-.919l1.495 2.362-1.606.892C36.524 11.991 36.3 11.797 36.3 8.28z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_ChargeUp.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_ChargeUp.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M47.117 44.9c0-.094.902-.719 2.005-1.389l2.006-1.218 2.025 1.23c1.113.676 1.966 1.288 1.895 1.36-.072.071-.975-.328-2.007-.887l-1.876-1.016-1.773.932c-2.245 1.18-2.275 1.193-2.275.988zm.008-1.962c.004-.236.522-2.456 1.151-4.932.63-2.476 1.102-4.545 1.05-4.596-.052-.052-.97.207-2.042.576-1.07.369-2 .618-2.063.555-.063-.064 1.25-1.795 2.918-3.847l3.032-3.732 2.986 3.654c1.643 2.01 2.987 3.727 2.987 3.816 0 .088-.932-.121-2.072-.466-1.14-.345-2.118-.58-2.175-.524-.057.057.474 2.309 1.18 5.003.707 2.694 1.197 4.898 1.09 4.898-.108 0-1.066-.525-2.129-1.167l-1.933-1.165-1.242.78c-.683.428-1.58.958-1.994 1.178l-.752.398zm-7.997-10.874c4.79-6.02 8.83-10.99 8.976-11.043.147-.054.36.143.473.438l.206.535L40.2 32.502 31.617 43.01H30.42zM28.735 42.125c0-.18.752-3.527 1.671-7.438.92-3.91 1.671-7.393 1.671-7.74v-.63l-4.61-.092-4.61-.093 8.827-10.627C36.54 9.66 40.567 4.933 40.635 5c.068.068-.4 3.12-1.04 6.784-.64 3.663-1.165 6.998-1.166 7.412l-.003.752h4.178c2.298 0 4.178.07 4.178.155 0 .108-16.263 20.254-17.93 22.21-.064.076-.118-.008-.118-.189zM42.438 23.96v-.335H26.101l-.207.335-.206.334h16.75zm1.474-1.755l.954-1.086-3.912-.095-3.912-.094.182-.908c.635-3.182 1.904-11.17 1.814-11.422-.06-.167-2.816 2.945-6.125 6.916-3.309 3.97-6.066 7.344-6.127 7.497l-.112.278h16.284zm1.2 13.633c0-.194.757-.528 2.256-.994l.752-.235v.35c0 .193-.414.443-.92.556a42.73 42.73 0 0 0-1.503.363c-.322.087-.585.07-.585-.04zm10.387-.141c-.629-.114-1.21-.41-1.293-.66l-.15-.453.792.247c1.494.466 2.295.81 2.295.985 0 .096-.113.155-.25.131l-1.394-.25zm-7.212-7.393c.113-.184.281-.334.373-.334.092 0 .075.15-.04.334-.113.184-.28.335-.373.335-.092 0-.074-.15.04-.335zm-24.398-.334l-.206-.334h7.058v.668h-6.645zm28.457-1.416l-1.177-1.417-1.216 1.333-1.216 1.333 1.085-1.588c.596-.873 1.195-1.587 1.33-1.587.136 0 .787.752 1.448 1.671.66.92 1.138 1.671 1.061 1.671-.076 0-.668-.637-1.315-1.416zM40.107 18.36c.031-.922 1.982-12.546 2.13-12.694.583-.583.545 1.61-.11 6.378-.408 2.968-.816 5.66-.906 5.982-.158.56-1.132.853-1.114.334z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_ClipSize.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_ClipSize.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M46.414 40.964v-4.037H38.34v-8.072h8.073v-8.073h8.072v8.046l3.94.11 3.94.11V36.734l-3.94.11-3.94.11V45h-8.072zm-22.961-.904c-2.798-1.433-5.16-2.68-5.252-2.773-.09-.092-.286-.816-.434-1.609-.253-1.351-.21-1.441.686-1.441.735 0 1.006.244 1.17 1.057.182.9.952 1.442 5.182 3.652 3.24 1.692 5.414 2.594 6.25 2.594 1.21 0 1.24.032.536.565-1.348 1.02-2.928.623-8.138-2.045zm2.69-2.115c-6.484-3.233-6.73-3.587-4.425-6.351 2.53-3.032 4.919-6.664 6.162-9.367 1.523-3.31 2.773-9.072 2.773-12.778V6.56h3.016c2.527 0 3.128-.124 3.711-.768.598-.66 1.184-.77 4.153-.77h3.457l-.272 5.863c-.28 6.03-1.236 12.069-2.315 14.607-.562 1.323-.74 1.442-2.145 1.442-.843 0-1.532-.063-1.532-.14 0-.076.53-1.31 1.18-2.74 1.65-3.64 2.452-8.622 2.31-14.35-.024-1.002-.176-1.25-.704-1.148-.567.11-.651.48-.54 2.353.074 1.223-.17 3.988-.542 6.145-.897 5.214-3.075 9.822-7.515 15.9-1.878 2.571-3.415 4.758-3.415 4.86 0 .102.244.28.542.394.49.188 3.647-3.516 5.267-6.18.864-1.42 1.11-1.011 1.11 1.842 0 2.681-.016 2.725-1.744 4.571-.959 1.026-2.047 1.944-2.417 2.041-.37.097-3.122-1.045-6.115-2.536zm2.037-7.642c4.131-5.76 6.172-11.723 6.411-18.733.085-2.471.005-2.889-.574-3.007-.581-.12-.673.175-.673 2.143 0 3.345-1.432 9.801-2.876 12.97-1.102 2.42-3.757 6.498-6.447 9.906-.723.916-.765 1.128-.282 1.427.652.403 1.173-.149 4.441-4.706zm3.626.666a.578.578 0 0 0-.576-.576.578.578 0 0 0-.577.576c0 .317.26.577.577.577.317 0 .576-.26.576-.577zm3.8-6.183c1.87-4.2 2.735-8.301 2.735-12.97 0-3.022-.073-3.377-.673-3.263-.554.106-.687.601-.755 2.815-.115 3.765-.875 8.927-1.55 10.544-.314.75-1.247 2.736-2.075 4.412-1.149 2.326-1.389 3.12-1.013 3.356.69.432 1.465-.707 3.33-4.894zm-16.383 6.28c3.191-3.792 4.8-6.279 6.168-9.53 1.494-3.557 1.987-5.6 2.404-9.98.15-1.585.51-3.224.797-3.64.46-.667.523-.363.518 2.498-.013 7.586-3.19 15.1-8.974 21.228-2.172 2.302-2.932 1.822-.913-.577zM32.556 5.62c.623-.75 4.012-.857 3.769-.119-.093.283-1.002.53-2.212.6-1.823.105-1.998.05-1.557-.481z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Cold.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Cold.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M35.652 43.408c-.771-.876-1.402-1.695-1.402-1.82s1.058-1.374 2.35-2.777l2.35-2.55-.997-.736-.997-.737V32.6c0-1.204-.078-2.189-.174-2.189-.096 0-1 .466-2.008 1.035l-1.833 1.035-1.017-.526c-.56-.29-1.078-.413-1.152-.274-.074.139-.486 1.622-.916 3.296-.43 1.675-.891 3.169-1.024 3.32l-.241.277-1.99-.572c-1.094-.314-2.022-.597-2.062-.63-.04-.032.15-.799.423-1.703.272-.905.495-1.768.495-1.92 0-.151-.837-.518-1.86-.815-1.024-.298-1.86-.635-1.86-.749 0-.573 1.131-4.14 1.312-4.137.115.003 1.578.383 3.25.846 1.674.462 3.158.841 3.298.841.141 0 .257-.463.257-1.03v-1.029l2.025-1.253c1.114-.69 2.026-1.33 2.026-1.423 0-.093-.912-.733-2.026-1.423l-2.025-1.254v-1.029c0-.566-.16-1.029-.357-1.029-.196 0-1.736.388-3.422.862-1.686.474-3.108.816-3.16.76-.132-.14-1.179-3.717-1.179-4.027 0-.139.837-.496 1.86-.794 1.024-.297 1.86-.664 1.86-.815 0-.152-.222-1.015-.494-1.92-.272-.904-.463-1.67-.423-1.703.04-.033.968-.316 2.062-.63l1.99-.572.241.276c.133.152.593 1.646 1.024 3.32.43 1.675.842 3.158.916 3.297.074.139.592.016 1.152-.274l1.017-.526 1.833 1.035c1.009.569 1.912 1.035 2.008 1.035.096 0 .174-.985.174-2.189v-2.188l.997-.737.996-.737-2.35-2.55c-1.291-1.402-2.349-2.651-2.349-2.776s.631-.944 1.402-1.82L37.053 5l1.474 1.446L40 7.892l1.473-1.446L42.947 5l1.401 1.592c.771.876 1.402 1.695 1.402 1.82s-1.058 1.374-2.35 2.777l-2.35 2.55.997.736.997.737V17.4c0 1.204.078 2.189.174 2.189.096 0 1-.466 2.008-1.035l1.833-1.035 1.017.526c.56.29 1.078.413 1.152.274.074-.139.486-1.622.916-3.296.43-1.675.891-3.169 1.024-3.32l.241-.277 1.99.572c1.094.314 2.022.597 2.062.63.04.032-.15.799-.423 1.703-.272.905-.495 1.768-.495 1.92 0 .151.837.518 1.86.815 1.024.298 1.86.655 1.86.794 0 .296-1.043 3.884-1.168 4.018-.047.05-1.515-.292-3.263-.76s-3.292-.852-3.432-.852c-.14 0-.254.462-.254 1.028v1.03l-2.025 1.253c-1.114.69-2.026 1.33-2.026 1.423 0 .093.912.733 2.026 1.423l2.025 1.253v1.03c0 .566.115 1.029.254 1.028.14 0 1.684-.384 3.432-.852 1.748-.468 3.216-.81 3.263-.76.125.134 1.169 3.722 1.169 4.018 0 .139-.837.496-1.86.794-1.024.297-1.86.664-1.86.815 0 .152.222 1.015.494 1.92.272.904.463 1.67.423 1.703-.04.033-.968.316-2.062.63l-1.99.572-.241-.277c-.133-.151-.593-1.645-1.024-3.32-.43-1.674-.842-3.157-.916-3.296-.074-.139-.592-.016-1.152.274l-1.017.526-1.833-1.035c-1.009-.569-1.912-1.035-2.008-1.035-.096 0-.174.985-.174 2.189v2.188l-.997.737-.996.737 2.35 2.55c1.291 1.402 2.349 2.651 2.349 2.776s-.631.944-1.402 1.82L42.947 45l-1.474-1.446L40 42.108l-1.473 1.446L37.053 45zm3.065-1.397L40 40.76l1.357 1.325 1.357 1.325.92-.92.921-.921-2.277-2.278L40 37.013l-2.268 2.268-2.268 2.268.805.858c.443.47.886.857.985.857.1 0 .758-.564 1.463-1.253zm-1.705-.402c.146-.388 3.032-3.508 3.103-3.353.03.064.73.833 1.555 1.71.825.875 1.393 1.7 1.262 1.831s-.845-.353-1.585-1.076L40 39.406l-1.283 1.252c-1.224 1.196-1.947 1.6-1.705.951zm-7.845-7.776c.397-1.553.675-2.865.62-2.915-.199-.178-5.36-1.521-5.846-1.521h-.494l-.296 1.099-.295 1.1.54.24c.296.133 1.177.403 1.958.6l1.418.359-.485 1.599c-.266.879-.486 1.766-.488 1.972-.002.205.49.52 1.095.699l1.1.325.226-.367c.124-.201.55-1.637.947-3.19zm-2.154 1.431c.129-.53.364-1.315.523-1.746.158-.43.288-.921.288-1.09 0-.169-.837-.55-1.86-.847-1.023-.298-1.86-.7-1.86-.895v-.353l.76.216c.42.12 1.463.386 2.32.594l1.557.377-.559 2.213c-.307 1.217-.748 2.276-.98 2.354l-.422.14zm27.188 1.094c-.003-.201-.222-1.085-.488-1.964l-.485-1.599 1.418-.359c.78-.197 1.662-.467 1.959-.6l.54-.24-.296-1.1-.296-1.1h-.494c-.49 0-5.648 1.344-5.847 1.524-.11.098.752 3.666 1.318 5.459l.336 1.063 1.17-.36c.643-.196 1.167-.523 1.165-.724zm-1.852-.62c-.079-.232-.358-1.276-.62-2.32l-.479-1.896 1.562-.378c.86-.208 1.905-.476 2.323-.595l.761-.216v.353c0 .195-.837.597-1.86.895-1.023.297-1.86.678-1.86.847 0 .169.13.66.288 1.09.16.43.39 1.201.514 1.713l.225.93h-.355c-.195 0-.42-.19-.499-.423zm-11.153-.8l.833-.546v-5.995l2.522 1.53 2.522 1.532 1.03-.533 1.029-.532v-2.291l-2.533-1.467c-1.393-.807-2.532-1.543-2.532-1.636 0-.093 1.14-.83 2.532-1.636l2.533-1.467v-2.291l-1.03-.532-1.03-.533-2.508 1.524-2.51 1.523-.097-3.051-.097-3.052-.93-.563-.93-.563-.93.563-.93.563-.097 3.052-.097 3.051-2.51-1.523-2.509-1.524-1.03.533-1.029.532v2.291l2.533 1.467c1.393.807 2.532 1.543 2.532 1.636 0 .093-1.14.83-2.532 1.636l-2.533 1.467v2.291l1.03.532 1.03.533 2.521-1.531 2.522-1.531v5.991l.76.53c.983.685 1.444.69 2.465.02zm-1.64-1.025c-.128-.128-.232-1.88-.232-3.896 0-2.015-.06-3.664-.131-3.664-.073 0-1.548.828-3.278 1.84-1.731 1.012-3.27 1.764-3.42 1.671-.747-.461-.007-1.228 2.77-2.872 1.674-.991 3.044-1.887 3.044-1.992 0-.105-1.37-1.001-3.044-1.992-2.776-1.644-3.517-2.411-2.77-2.872.15-.093 1.689.659 3.42 1.671 1.73 1.012 3.2 1.84 3.266 1.84.066 0 .163-1.712.216-3.805l.096-3.805h1.014l.096 3.805c.053 2.093.15 3.805.215 3.805.066 0 1.536-.828 3.267-1.84 1.731-1.012 3.27-1.764 3.42-1.671.747.461.007 1.228-2.77 2.872-1.674.991-3.044 1.887-3.044 1.992 0 .105 1.37 1.001 3.044 1.992 2.776 1.644 3.517 2.411 2.77 2.872-.15.093-1.689-.659-3.42-1.671-1.73-1.012-3.2-1.84-3.267-1.84-.066 0-.162 1.7-.215 3.777l-.096 3.778-.359.119c-.198.065-.464.014-.592-.114zM27.06 19.888c1.444-.393 2.672-.756 2.729-.808.11-.098-.752-3.666-1.318-5.459l-.336-1.063-1.17.359c-.643.197-1.167.524-1.165.725.002.201.222 1.085.488 1.964l.485 1.599-1.418.359c-.78.197-1.662.467-1.959.6l-.54.24.296 1.1.296 1.1h.494c.271 0 1.675-.322 3.118-.716zm-2.955-.574c0-.195.837-.597 1.86-.895 1.023-.297 1.859-.65 1.857-.785-.002-.134-.231-.992-.508-1.906-.494-1.626-.439-2.328.132-1.697.157.173.512 1.245.79 2.382l.505 2.068-1.557.376c-.857.208-1.9.475-2.318.594l-.761.216zm32.745.19l.295-1.1-.54-.24c-.296-.133-1.177-.403-1.958-.6l-1.418-.359.485-1.599c.266-.879.486-1.763.488-1.964.003-.201-.522-.528-1.165-.725l-1.17-.359-.336 1.063c-.568 1.8-1.427 5.36-1.318 5.463.223.21 4.882 1.443 5.59 1.48l.751.04zm-3.679-.547l-1.88-.552.539-2.174c.296-1.196.73-2.238.965-2.316l.426-.142-.233.963c-.129.53-.364 1.315-.523 1.746-.158.43-.288.921-.288 1.09 0 .169.837.55 1.86.847 1.023.298 1.86.683 1.86.855 0 .406-.435.355-2.726-.317zM42.37 10.625l2.18-2.2-.918-.917-.917-.917-1.357 1.325L40 9.241l-1.357-1.325-1.357-1.325-.917.917-.917.917 2.18 2.2c1.198 1.21 2.264 2.2 2.368 2.2.104 0 1.17-.99 2.369-2.2zm-4.027-.545c-.82-.914-1.388-1.764-1.263-1.889s.834.365 1.574 1.088L40 10.594l1.347-1.315c.74-.723 1.449-1.213 1.574-1.088.21.21-2.54 3.55-2.921 3.55-.093 0-.84-.748-1.658-1.661z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_DamageGeneral.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_DamageGeneral.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M39.316 44.85c-1.15-.138-2.422-.43-2.827-.648l-.738-.396.154-.97.155-.97-.636.774-.636.775-.511-.32-.511-.32.08-1.911.08-1.913-.427-.264-.427-.264 1.013-.414 1.012-.414-1.737-.238-1.737-.24-2.34.408c-1.288.224-2.736.309-3.218.188l-.876-.22-.57-1.195-.57-1.195.841-.7.841-.7-.767-.012-.767-.011.502-1.655c.276-.91.504-2.206.506-2.88l.004-1.225-.87-1.282-.872-1.281v-2.091c0-1.15.177-2.922.392-3.938.436-2.052 1.7-4.782 2.538-5.477l.546-.453 1.248.234c.686.129 1.51.318 1.832.42l.585.186-.87-.744-.871-.744 1.219.497c.67.273 2.238.946 3.483 1.495l2.264.999-2.395.174-2.395.174 5.443 2.25c2.994 1.239 5.441 2.414 5.439 2.613-.003.2-.232 1.217-.51 2.262s-.468 1.937-.422 1.983c.155.155 7.206-5.488 7.206-5.766 0-.152-.666-.549-1.48-.882l-1.481-.608 5.042-1.71c2.773-.94 5.241-1.71 5.486-1.71.575 0 .584.694.009.707-.24.005-1.063.306-1.829.67l-1.393.66 2.612-.179 2.613-.179.792 1.87c.89 2.099 1.447 5.051 1.222 6.477-.082.52-.56 2.17-1.062 3.666l-.912 2.72.415 1.552c.229.854.416 2.112.416 2.794v1.241l-1.053 1.053-1.053 1.052-.602-.236c-.33-.13-1.456-.377-2.5-.55-2.002-.33-4.546-.1-4.546.414 0 .167.188.303.418.303h.418l-.418.418-.418.418v3.613l-.783.512c-.431.282-1.11.616-1.51.742l-.725.229-.482-.963-.483-.963-.12 1.132-.12 1.132h-.632c-.347 0-1.082.063-1.633.139-.55.076-1.941.024-3.091-.114zm.55-4.552c.321 0 .775-.23 1.009-.512l.425-.512 1.272.868 1.273.868.11-1.077c.062-.592-.213-2.036-.61-3.21-.395-1.173-.723-2.534-.727-3.024-.004-.49-.336-1.595-.736-2.457l-.73-1.568-.455 1.22-.457 1.218-.061-.696-.061-.697-.28.87c-.153.48-.294 1.753-.313 2.83-.019 1.078-.27 2.626-.557 3.44-.287.815-.522 1.885-.522 2.378v.897l.418-.418c.23-.23.68-.418 1.002-.418zm11.745-6.424l-.941-.829.534-.205c.294-.113.965-.205 1.49-.205h.956l.76-.808.76-.809-.227-1.717c-.124-.944-.525-2.317-.893-3.05l-.667-1.332-1.46-.663c-.803-.364-2.107-.666-2.898-.67-1.495-.008-4.459 1.023-3.705 1.289l.43.151-.517 1-.518 1.001v3.745l.784.728c.431.4 2.116 1.275 3.745 1.945 1.628.67 3.039 1.227 3.135 1.238.095.01-.25-.353-.768-.81zm-18.007-.557c1.413-.583 3.002-1.474 3.531-1.981l.962-.921-.012-1.59c-.007-.874-.236-1.981-.51-2.46-.657-1.15-.642-1.388.087-1.422l.61-.028-1.394-.66-1.393-.658-1.647-.01c-.907-.005-2.297.25-3.09.568l-1.441.577-.826 1.774c-.963 2.069-1.066 4.057-.27 5.27l.562.859h1.333c.733 0 1.422.146 1.533.324.11.179-.15.57-.58.871-1.196.838-.286.655 2.546-.513zm14.814-18.355c.408-.338 1.486-1.237 2.395-1.999l1.654-1.384 2.481-.109 2.481-.108-4.18 1.863c-2.299 1.024-4.493 1.973-4.876 2.107l-.697.244zm-16.311-4.014c-2.816-1.759-5.073-3.244-5.016-3.3.057-.058 1.17.12 2.473.393l2.37.496 2.817 2.818c1.55 1.55 2.741 2.812 2.647 2.804-.095-.008-2.475-1.453-5.291-3.211zm11.019 2.529c.937-3.981 1.747-6.864 2.031-7.228.187-.24.653-.435 1.035-.435h.695l-.18.687-.18.688 1.152-.879c.633-.483 1.754-.975 2.49-1.094L51.508 5l-2.613 2.908a278.443 278.443 0 0 1-4.293 4.674l-1.68 1.766zm-20.53-1.742l-2.438-.619 1.82-.039 1.82-.039 1.141.696c1.357.827.912.827-2.343.001z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_DefenseOne.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_DefenseOne.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M32.659 37.82l-7.175-7.18V9.839l2.016-.012c2.944-.016 6.65-.76 8.527-1.711.902-.458 2.186-1.346 2.852-1.974L40.089 5l1.375 1.267c.757.697 1.997 1.585 2.758 1.973 1.642.838 5.469 1.571 8.278 1.587l2.016.011V30.65l-7.18 7.175C43.387 41.771 40.083 45 39.995 45c-.089 0-3.39-3.231-7.336-7.18zm14.032-1.285l6.535-6.53V11.492l-1.371-.166c-.754-.091-2.262-.242-3.352-.334-1.09-.092-2.82-.482-3.845-.865l-1.864-.697L41.4 8.142l-1.396-1.286-1.05 1.036c-1.961 1.936-5.484 3.237-8.767 3.237-.768 0-1.85.09-2.404.201l-1.008.202v18.462l6.53 6.535c3.59 3.595 6.601 6.535 6.69 6.535.089 0 3.102-2.938 6.697-6.529zm-12.098-1.62l-5.56-5.567V13.476l2.836-.162 2.838-.161 1.598-.705c.879-.387 2.126-1.126 2.771-1.642l1.173-.939.578.639c.318.351 1.492 1.088 2.609 1.638l2.03 1 2.913.166 2.911.166v15.886l-5.568 5.56-5.568 5.562zm9.419-7.012l3.693-3.387.019-2.857.018-2.857-2.5 2.264c-1.375 1.245-3 2.784-3.612 3.421-.611.637-1.266 1.158-1.454 1.158-.189 0-1.962-1.524-3.941-3.387-1.98-1.863-3.684-3.387-3.788-3.387-.104 0-.19 1.197-.192 2.661l-.003 2.661 3.793 3.612c2.086 1.987 3.901 3.584 4.033 3.549.132-.035 1.902-1.588 3.933-3.451z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Digging.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Digging.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M36.975 44.613c-.893-.186-3.998-.231-6.9-.1l-5.277.239-3.653-.51c-2.01-.281-3.9-.644-4.202-.807l-.55-.296 1.112-.874c1.3-1.023 2.152-1.115 2.477-.267.386 1.006.85.326 1.152-1.69l.286-1.906 1.027-1.347 1.027-1.346h2.693l.912 1.623c.502.893 1.022 1.624 1.157 1.624.134 0 .778-.988 1.431-2.195l1.188-2.196 2.711-1.312 2.712-1.311 2.626.71 2.627.712.97 2.277a378.08 378.08 0 0 0 1.083 2.53c.063.14-.485.434-1.218.653l-1.332.399 2.367.763 2.368.763.61 1.18.61 1.18-.34.315c-.45.42-5.932 1.633-7.116 1.574-.514-.026-1.665-.2-2.558-.385zm13.84-13.019l-9.61-9.39 1.242-.756c.683-.416 1.45-1.212 1.704-1.77l.462-1.014 9.373 9.232 9.373 9.233.124 1.281.123 1.28-.924.648c-.509.356-1.224.647-1.59.647-.366 0-4.99-4.226-10.277-9.39zm-7 2.753l-1.066-2.174-1.06-.421-1.06-.422 1.038-.043c.571-.024 1.333.185 1.694.464.597.463 2.138 4.77 1.706 4.77-.102 0-.665-.979-1.252-2.174zM28.794 32.46c.133-1.227.362-4.294.51-6.814l.268-4.581 1.81-2.013 1.81-2.013 1.08.253 1.08.253-1.764-1.831-1.764-1.832.194-.757.195-.757.047.71.047.71h.65c.731 0 3.41-2.518 3.41-3.206 0-.848-1.787-.443-2.947.67l-1.165 1.115.263-.685c.31-.809 1.756-1.822 2.869-2.01.433-.074 1.343.262 2.022.745l1.234.879 2.286-1.95 2.286-1.952 1.345-.229c1.891-.321 11.696-.82 11.696-.594 0 .103-2.355 1.241-5.232 2.53l-5.232 2.343-2.582 2.619-2.582 2.619 1.175-.288 1.175-.287-.293 1.175c-.376 1.506-1.24 2.455-2.531 2.78l-1.024.256-.596-.494-.596-.495-2.142 2.202-2.141 2.203-2.359 5.276c-1.297 2.903-2.445 5.368-2.55 5.48-.107.112-.085-.802.048-2.03zm-6.19-.332c-.244-.458-.444-1.403-.444-2.102v-1.27l1.242.127 1.243.127.862 1.515c.474.833.76 1.617.634 1.742-.125.125-.872.333-1.66.46l-1.431.233zm10.745-2.204c.157-.503.489-1.048.738-1.212.648-.427 2.28-.38 2.28.066 0 .53-2.021 2.059-2.721 2.059h-.582zM40.9 6.484l1.047-1.421 3.197-.032L48.34 5l-2.841.153-2.841.153-1.403 1.3-1.402 1.298z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Distance.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Distance.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M26.767 44.611c.485-.198 4.35-1.691 8.59-3.318l7.708-2.957 2.416-.288 2.417-.288-2.994-1.579-2.994-1.578 10.929-.878c6.01-.483 10.969-.855 11.019-.827.13.073-11.817 11.004-12.187 11.15-.17.068-.572-.676-.894-1.651l-.585-1.774h-.726c-.399 0-5.658.991-11.687 2.202-6.029 1.212-11.171 2.19-11.427 2.175-.256-.015-.069-.19.415-.389zm-2.563-5.992a401.83 401.83 0 0 1 9.91-10.157l4.987-4.893 3.744-1.01c2.059-.557 3.9-1.148 4.093-1.315.192-.167-3.03-.662-7.158-1.1-4.129-.44-7.507-.928-7.507-1.087 0-.333 34.766-14.297 34.99-14.054.245.266-9.17 25.49-9.514 25.49-.174 0-1.342-1.485-2.596-3.299l-2.28-3.298-.5.29c-.274.16-6.534 4.369-13.91 9.354-7.376 4.986-13.718 9.251-14.095 9.479-.376.228.505-.732 1.959-2.132l2.643-2.547-1.762.99a354.695 354.695 0 0 0-6.277 3.584l-1.652.97zm-6.764 2.885c.123-.606.68-3.707 1.235-6.892l1.01-5.79 1.119-.727 1.118-.727-4.595.294-4.595.294 6.308-5.67c3.47-3.118 6.429-5.717 6.577-5.777.148-.06 1.179 2.914 2.29 6.607 1.112 3.694 1.896 6.768 1.743 6.832-.153.064-1.245-.175-2.426-.53-1.182-.356-2.32-.541-2.528-.412-.208.129-1.557 2.584-2.997 5.456-1.44 2.872-3.038 5.88-3.55 6.683l-.933 1.46z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Duration.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Duration.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M27.754 39.476l-3.384-.902-3.293-2.734-3.293-2.734-1.957-4.063-1.958-4.063-.16 1.396-.161 1.397h-1.744c-.96 0-1.744-.194-1.744-.432s.217-1.095.483-1.905c.265-.81 1.088-3.502 1.828-5.982l1.346-4.51 4.52 4.5 4.52 4.499v3.322h-1.015c-.559 0-1.016.204-1.016.453 0 1.16 2 4.702 4.013 7.106l2.223 2.654 2.85 1.472c1.568.81 2.507 1.463 2.088 1.45-.419-.011-2.284-.427-4.146-.924zm6.94-.548L30.63 37.37l-2.667-2.622-2.667-2.623.036-1.541.036-1.541.345.867c.19.476 1.628 2.01 3.195 3.406l2.85 2.54 3.5 1.349 3.498 1.349 4.825-.084 4.826-.085 3.301-1.781c1.816-.98 3.701-2.25 4.19-2.823 1.03-1.207 1.075-1.102.373.9l-.516 1.472-3.53 1.925-3.53 1.925-4.97.242-4.969.24zm.92-3.508l-3.65-1.436-2.791-2.979-2.792-2.978-.604-3.32-.604-3.32 1.564-3.097 1.563-3.097 3.276-1.8 3.276-1.801 4.492-.103 4.492-.103 3.601 1.366 3.602 1.365 2.73 2.765 2.73 2.765h-2.044l-1.989-2.037-1.988-2.036-3.829-1.456-3.829-1.456-4.063.328-4.063.329-2.67 1.513-2.668 1.513L28 18.93l-1.354 2.583.653 3.079.654 3.078 2.614 2.582 2.615 2.582 3.264 1.28 3.265 1.279h8.09l3.121-1.746 3.122-1.745 1.245-2.663c.684-1.465 1.174-2.98 1.087-3.368l-.157-.704 1.046.56c.575.307 1.04.723 1.032.922-.007.2-.751 1.727-1.651 3.395l-1.637 3.03-3.301 1.894-3.301 1.893-4.572-.002h-4.57l-3.652-1.437zm9.027-2.695c-.238-.628-.36-1.223-.271-1.32.335-.37 1.132.456 1.39 1.44.365 1.4-.582 1.3-1.119-.12zm17.861-1.45c-1.466-.855-2.666-1.894-2.666-2.309v-.754l1.396 1.044c2.16 1.615 4.473 3.592 4.19 3.583-.14-.004-1.453-.709-2.92-1.564zm-1.07-3.838c-3.392-2.978-6.168-5.606-6.168-5.84 0-.235 1.029-.427 2.286-.427 1.257 0 2.286-.194 2.286-.431 0-.758-2.849-4.317-5.401-6.748l-2.472-2.354-2.794-1.061-2.793-1.062 2.286.303c1.257.167 3.224.469 4.371.67l2.087.367 3.778 2.706 3.779 2.706 2.001 3.34 2.002 3.342.168-1.143.17-1.143h2.976l.006.635c.013 1.607-1.764 11.555-2.063 11.555-.186 0-3.113-2.436-6.505-5.415zm-25.104 4.086c-.358-.357.718-2.226 1.282-2.226.212 0 .385.315.385.7 0 .832-1.233 1.96-1.667 1.526zm14.365-1.718c-.698-.547-1.109-.999-.913-1.005.722-.023 2.945 1.18 2.945 1.594 0 .675-.66.483-2.032-.59zm-40.38 0L10 29.297l1.935.036 1.934.035-1.016.437c-1.396.6-2.168.6-2.54 0zm14.517-2.328l.04-.974.266.667c.147.367.13.805-.04.973-.168.17-.288-.13-.266-.666zm19.768-1.058c-2.864-.451-3.555-.733-3.555-1.45v-.751l1.143.02c.628.012 2.4.574 3.936 1.25l2.793 1.228-1.523-.048a27.506 27.506 0 0 1-2.794-.25zm-14.221-1.693c0-.28.742-.492 1.65-.473l1.651.036-1.016.437c-1.403.603-2.285.603-2.285 0zm19.85-1.199c.117-.1.84-.333 1.609-.517l1.397-.335v.517c0 .285-.724.518-1.609.518-.884 0-1.513-.082-1.396-.183zm-9.865-1.214A56.306 56.306 0 0 1 39.8 19.9l-.322-1.523 1.247 2.022c1.19 1.93 1.29 2.803.322 2.803-.244 0-.552-.4-.685-.889zm-8.462-4.19c-.698-.547-1.01-.999-.69-1.005.317-.006 1.117.438 1.777.988 1.56 1.3.573 1.315-1.087.017zm13.73.127c.01-.21.33-.795.713-1.3l.697-.92.347.56c.19.31.07.894-.268 1.3-.652.787-1.516.995-1.489.36zm-7.301-2.772c-.162-.616-.176-1.238-.032-1.382.329-.328 1.204 1.018 1.214 1.868.014 1.068-.87.705-1.182-.486z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Electricity.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Electricity.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M26.729 44.461c.294-1.066 1.078-8.298.917-8.455-.077-.075-1.487.08-3.132.344-1.645.264-3.04.43-3.102.368-.161-.16.954-16.214 1.14-16.4.29-.29 6.955-1.537 7.154-1.34.108.11-.303 2.81-.913 6.003-.611 3.192-1.111 5.92-1.111 6.061 0 .25 1.85.033 3.448-.405l.797-.219-2.488 7.181c-1.369 3.95-2.582 7.268-2.697 7.375-.114.107-.12-.124-.013-.513zm2.73-3.887c0-.195.155-.592.343-.884.189-.291.343-.37.343-.176s-.154.591-.343.883c-.188.292-.342.371-.342.177zm5.492-3.18c.905-1.945 2.16-4.655 2.789-6.025l1.145-2.49 1.866-1.485c1.026-.818 1.646-1.48 1.378-1.474-.268.007-2.233.396-4.366.864-2.133.468-3.92.809-3.97.758-.103-.103 5.185-18.703 5.37-18.888.146-.146 14.81-3.574 14.901-3.484.037.037-2.137 3.562-4.83 7.834s-4.845 7.818-4.782 7.881c.063.063 1.574-.228 3.358-.647 1.784-.419 3.293-.706 3.354-.638.06.068-3.466 4.338-7.835 9.488a7232.71 7232.71 0 0 0-8.983 10.602l-1.039 1.237zm-4.795 1.484c0-.123.654-1.976 1.454-4.119.8-2.142 1.589-3.812 1.753-3.71l.3.185-.307.782c-.67 1.714-2.898 6.783-3.044 6.93-.086.085-.156.055-.156-.068zm12.908-6.61a4752.08 4752.08 0 0 1 9.146-10.601 732.804 732.804 0 0 0 3.545-4.106c.012-.022.658-.156 1.436-.296l1.413-.255-2.65 2.77c-1.457 1.524-6.219 6.428-10.582 10.899l-7.932 8.128zM30.747 23.7c.65-2.964 1.221-5.503 1.268-5.643.046-.14.273-.137.503.007l.418.26-1.209 5.118c-.664 2.815-1.21 5.237-1.213 5.383-.003.146-.218.265-.477.265h-.473zm17.619-5.6c.163-.272 2.186-3.332 4.496-6.798L57.062 5l.535.205c.294.113.601.206.683.206.512 0-.303 1.335-3.928 6.438l-4.076 5.737.63.248.63.25-.574.024c-.316.014-1.096.13-1.734.257l-1.159.232z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Explosion.js":
+/*!************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Explosion.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M46.647 44.921c0-.1.514-.477 1.143-.837l1.142-.656-1.558.246c-.857.135-1.558.128-1.558-.014 0-.144.655-1.377 1.454-2.742.8-1.364 1.455-2.57 1.455-2.68 0-.109-.982.521-2.182 1.4-1.2.88-2.422 1.742-2.717 1.918l-.536.319.254-1.177.253-1.178-.826.94-.826.938-.221-1.146c-.945-4.898-1.17-5.925-1.302-5.925-.082 0-.467 1.45-.855 3.22-.388 1.77-.789 3.364-.89 3.54-.1.177-.547-.104-.99-.623l-.808-.944.273 1.198.273 1.198-2.529-1.717c-1.39-.944-2.63-1.717-2.755-1.717-.124 0 .524 1.224 1.44 2.72l1.665 2.721-1.566-.274-1.566-.275.831.692.83.692-3.115-.26c-1.714-.142-5.733-.584-8.932-.98l-5.817-.723 6.855-.392 6.855-.392-2.202-1.398c-1.21-.768-2.117-1.482-2.014-1.585.104-.103 1.266.01 2.584.255 1.318.244 2.446.393 2.507.332.06-.06-1.203-2.257-2.808-4.88-1.605-2.624-3.107-5.12-3.338-5.547l-.42-.777.56.332c.309.184 2.645 1.795 5.192 3.582s4.732 3.249 4.857 3.249c.124 0-.233-1.349-.793-2.997s-.857-2.817-.658-2.597c.198.22 1.17 1.513 2.158 2.874.988 1.36 1.853 2.295 1.92 2.077.069-.218.867-7.009 1.776-15.091.908-8.082 1.716-14.76 1.795-14.84.079-.079.664 5.88 1.3 13.242.636 7.361 1.261 14.188 1.389 15.17l.231 1.785 1.363-1.917c.75-1.054 1.645-2.325 1.99-2.824l.627-.907-.833 2.843c-.46 1.563-.757 2.92-.662 3.015.155.155 2.784-1.64 8.815-6.017l2.07-1.502-.883 1.454c-3.503 5.77-5.951 10.116-5.79 10.277.105.105 1.147-.014 2.317-.266 1.17-.25 2.444-.45 2.833-.445l.707.011-2.493 1.547-2.493 1.547 6.232.416 6.232.415-8.102.96c-4.455.529-8.335 1.037-8.62 1.13-.286.093-.52.087-.52-.013zm-23.473-9.573l-4.985-2.682 1.454.28c.8.153 2.627.575 4.061.937l2.608.657 1.051 1.763c.578.97.994 1.755.924 1.745-.07-.009-2.37-1.225-5.113-2.7zm30.903.919l1.254-1.823 3.826-.892c2.104-.491 3.882-.837 3.95-.77.067.068-2.219 1.29-5.08 2.716l-5.204 2.592zm-18.906-6.51l-.882-1.454-.232-3.116-.232-3.116 1.239 2.416 1.238 2.417-.124 2.153-.125 2.154zm9.67.35c-.478-1.788-.241-3.033 1.014-5.336l1.245-2.285-.237 3.093-.237 3.093-.762 1.204-.762 1.203z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Explosive.js":
+/*!************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Explosive.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M35.161 44.484c-2.568-.685-5.555-2.155-7.61-3.744-3.221-2.492-5.948-6.762-7.055-11.05L20 27.768v-5.536l.496-1.922c1.107-4.288 3.834-8.558 7.055-11.05 2.11-1.632 5.079-3.072 7.759-3.764L37.232 5h5.536l1.922.496c2.68.692 5.648 2.132 7.759 3.764 3.221 2.492 5.948 6.762 7.055 11.05L60 22.232v5.536l-.496 1.922c-1.107 4.288-3.834 8.558-7.055 11.05-2.11 1.632-5.08 3.072-7.759 3.764L42.768 45l-2.916-.021-2.917-.021zm9.53-.941c1.057-.27 2.865-.954 4.019-1.522l2.096-1.032 2.592-2.591 2.591-2.592 1.032-2.096c.568-1.154 1.252-2.962 1.522-4.02l.49-1.922v-5.536l-.49-1.922c-.27-1.058-.954-2.866-1.522-4.02l-1.032-2.096-2.591-2.592-2.592-2.591-2.096-1.032c-1.154-.568-2.962-1.252-4.02-1.522l-1.922-.49h-5.536l-1.922.49c-1.058.27-2.866.954-4.02 1.522L29.194 9.01l-2.592 2.591-2.591 2.592-1.032 2.096c-.568 1.154-1.252 2.962-1.522 4.02l-.49 1.922v5.536l.49 1.922c.27 1.058.954 2.866 1.522 4.02l1.032 2.096 2.591 2.592 2.592 2.591 2.096 1.034c2.925 1.441 5.173 1.963 8.562 1.988l2.916.021zm-5.634-5.32c-.424-2.284-.856-4.285-.962-4.446-.105-.161-.41-.37-.676-.464l-.484-.171-1.37 1.319-1.371 1.318.007-.631c.005-.348.132-1.169.285-1.826l.277-1.193-.585-.53-.584-.528-.744.236c-.41.13-2.126.87-3.814 1.644l-3.069 1.408 1.452-1.351c.798-.744 2.136-1.98 2.974-2.749l1.523-1.396-.29-.764-.29-.763-3.88-1.062c-2.133-.584-3.815-1.164-3.738-1.29.078-.125.833-.398 1.679-.607.846-.21 2.525-.671 3.733-1.026l2.194-.647.285-.707.284-.707-2.801-2.66-2.802-2.662 1.451.61c.799.336 2.42 1.05 3.602 1.588l2.15.976.565-.623.564-.623-.324-1.787-.324-1.786 1.39 1.363 1.388 1.363.737-.337.736-.337.783-4.255.783-4.255.219.422c.12.233.39 1.73.6 3.326.584 4.446.704 4.94 1.252 5.15l.509.196 1.436-1.383 1.436-1.382-.18.806c-.1.444-.274 1.32-.388 1.95l-.206 1.142.831.445.831.444 3.277-1.508c1.802-.83 3.326-1.459 3.387-1.398.06.06-1.118 1.186-2.62 2.501l-2.729 2.392.174.806c.096.443.212.844.26.892.047.047 1.741.54 3.764 1.094 2.023.554 3.786 1.103 3.918 1.219.132.115-1.564.697-3.768 1.293l-4.007 1.083-.203.81-.204.809 2.036 1.833a589.87 589.87 0 0 0 3.003 2.69l.967.855-3.79-1.661-3.791-1.661-.657.594-.657.595.202.987c.112.543.28 1.35.376 1.794l.174.806-1.412-1.316-1.412-1.317-.565.13c-.31.072-.568.23-.572.35-.021.637-1.255 8.524-1.347 8.616-.06.06-.456-1.76-.88-4.045zm3.201-8.995c.444-.318 1.133-1.058 1.532-1.644l.726-1.067v-1.484l-.002-1.485-.64-1.051c-.353-.578-1.115-1.34-1.693-1.692l-1.051-.641-1.387-.001c-2.405-.002-4.41 1.53-4.918 3.758l-.283 1.24.318 1.193c.385 1.447 1.912 3.045 3.307 3.462 1.322.396 3.068.145 4.092-.588zm-7.527 10.587c-1.035-.356-2.44-1-3.122-1.43-1.477-.933-3.544-2.71-3.544-3.047 0-.131.326-.385.725-.563l.725-.324 1.452 1.208c1.716 1.426 3.722 2.479 5.378 2.823l1.195.248.234.877.235.877-.698-.01c-.384-.006-1.545-.303-2.58-.66zm7.204.211c0-.92.409-1.478 1.083-1.478 1.019 0 4.433-1.7 5.765-2.869l1.157-1.015.844.384.844.385-.887.926c-.488.509-1.555 1.354-2.372 1.879-1.545.99-4.807 2.246-5.839 2.246h-.595zm-16.09-8.456c-.215-.473-.59-1.715-.835-2.76l-.443-1.902.7.211c.386.117.799.304.918.417.12.113.502.959.849 1.88l.63 1.673-.713.67-.714.671zm26.655.446l-.526-.403.68-2.045.68-2.045.798-.303c.438-.166.858-.24.934-.165.348.348-1.36 5.364-1.828 5.364-.116 0-.448-.181-.738-.403zM24.867 21.952c.14-.744.5-1.97.803-2.727l.55-1.374.673.673.673.673-.638 1.834-.638 1.835-.837.22-.838.219zm29.203 1.151l-.607-.238-.757-2.078-.757-2.077.539-.404c.296-.221.634-.403.75-.403.276 0 1.16 2.067 1.585 3.71.504 1.942.486 1.977-.753 1.49zm-25.29-7.56c-.403-.18-.682-.485-.62-.677.063-.192.968-1.04 2.012-1.884 1.938-1.567 4.534-2.757 6.666-3.056l1.192-.168-.245.917-.245.918-1.195.248c-1.656.344-3.662 1.397-5.378 2.823l-1.452 1.207zm20.242-.715c-.844-.898-4.92-3.054-5.775-3.054-.718 0-1.312-.632-1.312-1.396v-.622l1.355.217c1.942.31 5.055 1.883 6.843 3.456l1.54 1.355-.756.42c-.416.23-.84.423-.941.43-.103.006-.532-.357-.954-.806z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Explosive_Resistance.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Explosive_Resistance.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M33.585 38.874l-6.326-6.127.116-.537.115-.537 6.224 6 6.223 6 6.365-6.047 6.365-6.047.116.591.117.592-.788.743-6.495 6.12L39.91 45zm-.388-3.807L26.819 29.1l-.553-7.696c-.305-4.233-.636-8.716-.736-9.962l-.183-2.266h2.014c4.68 0 9.44-1.365 11.47-3.29L39.768 5l.453.326c.25.18 1.004.764 1.677 1.298l1.224.97 2.255.65c1.24.356 3.811.77 5.713.92 1.902.148 3.503.326 3.558.394.056.067-.327 4.499-.85 9.847l-.953 9.725-1.096 1.06c-3.123 3.024-11.766 10.875-11.955 10.86-.12-.01-3.088-2.702-6.596-5.983zm12.685-1.04l5.825-5.363.756-7.813c.416-4.297.836-8.356.934-9.02l.178-1.206-3.308-.22c-3.917-.263-6.864-1.092-8.93-2.513l-1.503-1.034-1.305.938c-.717.516-1.92 1.177-2.673 1.47-1.478.573-5.756 1.254-7.887 1.254-.725 0-1.318.072-1.318.16 0 .087.309 4.183.686 9.101l.686 8.942 1.896 1.725c1.042.948 3.641 3.34 5.775 5.314 2.135 1.975 3.99 3.599 4.122 3.609.133.01 2.862-2.395 6.066-5.345zm-1.272-2.005l1.679-1.765-2.144 1.069-2.143 1.069 1.22-1.49c.671-.818 1.22-1.582 1.22-1.697 0-.115-.377-.065-.839.11-.461.176-.84.233-.84.128 0-.106.313-.63.695-1.167.382-.536.63-.975.55-.975-.08 0-.717.455-1.417 1.012-.7.556-1.322.962-1.382.902-.06-.06-.283-1.308-.495-2.774-.213-1.465-.5-2.878-.639-3.139l-.252-.474-.244 3.076-.243 3.076h-.416c-.229 0-.69-.302-1.024-.672-.334-.369-.74-.671-.903-.671h-.295l.347.65c.192.356.348.813.348 1.015v.366l-1.058-.547-1.059-.547 1.31 1.624 1.31 1.625-.91-.583c-1.121-.715-1.49-.747-.936-.078.522.628.092.628-1.007 0-1.38-.79-1.405-.573-.079.691l1.254 1.195-3.427-2.44c-1.885-1.342-3.394-2.472-3.354-2.512.04-.04.978.14 2.084.4s2.238.475 2.515.476l.504.003-1.007-.677-1.008-.677 1.47.225 1.468.225-1.166-1.822c-.641-1.003-1.359-2.183-1.594-2.622l-.427-.8 2.139 1.495c1.176.822 2.334 1.614 2.572 1.761l.433.267-.205-.951-.205-.952.66.75.66.75.174-.75c.096-.412.444-3.804.773-7.536.33-3.733.634-6.753.675-6.712.041.042.315 2.718.607 5.948.293 3.23.62 6.589.729 7.465l.196 1.593.663-.754.664-.754-.205.952-.205.95.433-.253c.239-.14 1.412-.945 2.608-1.79l2.174-1.537-1.444 2.632c-.795 1.448-1.372 2.705-1.283 2.794.09.09.667-.082 1.284-.381l1.123-.544-1.007.853-1.007.853.67-.003c.37-.001 1.492-.22 2.495-.487l1.822-.485-.647.6c-.357.331-2.007 1.632-3.67 2.892l-3.02 2.29zm-12.6-5.937c-.824-.468-1.574-.932-1.666-1.03-.093-.098.36-.071 1.007.06 1.126.23 2.655 1.325 2.319 1.66-.089.089-.836-.222-1.66-.69zm14.424.255l.336-.629 1.503-.378c.826-.208 1.624-.371 1.773-.363.315.019-3.292 1.96-3.685 1.983-.145.009-.112-.267.073-.613zm-2.965-3.4c-.01-.461.28-1.217.647-1.678l.666-.84-.462 1.176c-.254.646-.545 1.401-.647 1.678l-.185.504zm-8.032-1.124c-.21-.558-.345-1.05-.3-1.095.045-.046.405.41.8 1.013l.717 1.094h-.417c-.23 0-.59-.455-.8-1.012z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_FallDamageResistance.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_FallDamageResistance.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M33.283 38.678c-3.46-3.478-6.293-6.636-6.293-7.019s2.861 2.152 6.358 5.632l6.357 6.328 6.52-6.083c3.585-3.346 6.663-5.947 6.84-5.78.397.375-7.372 8.337-10.895 11.163L39.577 45zm-.618-3.972l-6.295-5.95-.71-9.428c-.391-5.185-.559-9.674-.373-9.974.186-.301 1.38-.555 2.652-.564 3.597-.026 7.801-1.194 9.905-2.75 1.843-1.362 1.982-1.367 3.691-.129 2.215 1.604 6.749 2.886 10.223 2.892 1.454.002 2.792.412 2.974.91.181.5-.086 4.988-.592 9.975l-.923 9.068-6.312 5.985c-3.47 3.292-6.678 5.969-7.128 5.95-.45-.018-3.65-2.714-7.112-5.986zm13.408-.896l5.514-5.103.765-6.867c.421-3.776.898-7.885 1.061-9.129.294-2.248.272-2.265-3.578-2.662-2.13-.22-5.286-1.007-7.012-1.75-2.972-1.278-3.265-1.284-5.55-.122-1.326.674-4.357 1.452-6.735 1.728-3.535.41-4.263.72-3.992 1.697.183.657.552 4.708.821 9l.49 7.805 5.908 5.436c3.25 2.99 6.108 5.355 6.351 5.254.243-.101 2.924-2.48 5.957-5.287zm-6.924-1.65c-.293-1.12-.971-1.59-2.298-1.59-1.034 0-1.881-.326-1.881-.725 0-.4-.48-.726-1.066-.726-.648 0-.902-.425-.647-1.088.23-.6 1.233-1.088 2.23-1.088 1.177 0 1.69.326 1.458.929-.196.51.43 1.3 1.39 1.753 1.49.703 2.057.562 3.877-.97 1.866-1.57 2.34-1.68 3.793-.878 1.426.786 1.481.953.39 1.182-.698.147-1.27.569-1.27.938 0 .37-.775.673-1.724.673-.971 0-2.187.696-2.781 1.59l-1.056 1.59zm-1.95-6.24c-1.205-1.453.254-2.152 2.094-1.003.814.508 1.48 1.172 1.48 1.475 0 .953-2.685.598-3.573-.473zm-1.355-4.643c-2.339-2.161-3.776-4.094-3.776-5.078 0-.873-.009-1.815-.017-2.093-.009-.278.79-.614 1.777-.745 1.225-.164 2.047.227 2.584 1.23.433.809 1.265 1.47 1.85 1.47.584 0 1.085.572 1.113 1.27.043 1.04.14 1.072.544.182 1.274-2.81 3.33-5.078 4.602-5.078 1.674 0 4.96 3.342 4.96 5.045 0 .663-1.328 2.166-2.95 3.34-1.623 1.173-3.395 2.542-3.938 3.04-1.643 1.507-2.801 1.064-6.747-2.582zm12.75-3.845c.112-.577-.5-1.804-1.359-2.726-1.42-1.525-1.667-1.574-2.702-.539-1.035 1.036-.981 1.308.592 2.982 1.82 1.936 3.128 2.043 3.47.283zm-15.913 3.677c-1.683-1.77-2.79-3.639-2.79-4.715 0-2.511 1.183-2.222 1.71.418.246 1.226 1.652 3.314 3.174 4.712 1.504 1.38 2.275 2.512 1.715 2.514-.56.002-2.275-1.316-3.809-2.929zm17.58-2.569c.035-.845.207-1.017.438-.438.21.523.184 1.149-.06 1.39-.24.24-.413-.188-.381-.952z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_FireRate.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_FireRate.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M43.941 38.974l-.273-.442h.677c.94 0 2.026-2.278 2.026-4.25v-1.645l-.734-.81c-.403-.447-.63-.915-.503-1.042s.745-.035 1.373.204l1.142.434.297 1.584.298 1.584-.557 1.989-.557 1.988-.792.424c-1.025.548-2.052.54-2.397-.018zm5.311-1.367c.165-.751.3-2.044.3-2.872 0-.827.13-1.508.288-1.511.158-.003 3.633.635 7.723 1.418L65 36.066l-.809.318c-.445.176-2.3.35-4.123.387l-3.313.068 2.209 1.04 2.21 1.041-6.111.027-6.11.027zm-15.694.02a899.861 899.861 0 0 1-6.628-.847c-.122-.023.121-.241.54-.485.417-.243.977-1.25 1.243-2.238l.483-1.795-.472-1.355c-.26-.745-.422-1.395-.36-1.444.062-.048 3.492.295 7.624.763 4.131.468 7.7 1.038 7.93 1.265l.42.414h-1.381c-1.196 0-4.25-.338-9.73-1.077l-1.437-.193v1.613l1.436.245c.79.135 3.673.49 6.407.788l4.97.544v1.05c0 .578-.303 1.637-.673 2.354l-.674 1.304-1.646-.05c-.905-.028-4.529-.413-8.052-.856zm-9.46-2.266c-2.18-.478-4.68-2.001-4.68-2.85v-.65l1.878-.852c1.033-.468 2.617-.856 3.52-.862l1.641-.01.498.93.498.93-.273 1.456c-.15.8-.517 1.643-.814 1.872l-.54.415zm13.968-8.638l-1.456-.18.337-.964c.186-.53.325-1.484.308-2.12l-.03-1.154 6.1 2.022c3.354 1.112 6.04 2.081 5.967 2.154-.073.072-1.704-.042-3.625-.255-1.921-.212-3.572-.318-3.668-.235-.096.083.302.341.884.574l1.058.424-2.21-.043c-1.214-.024-2.864-.124-3.665-.223zm-5.22-.95c.412-.455.866-1.547 1.009-2.426l.259-1.597-.61-.75-.61-.749.81.304c.445.167.893.304.994.304.102 0 .185.85.185 1.89v1.89l-.688.982c-.378.54-1.005.982-1.394.982h-.706zm-8.032-1.095l-4.546-.947.74-.74.74-.738v-1.802c0-.99.045-1.802.1-1.802.323 0 9.388 1.855 9.895 2.024.339.114.52.303.402.42-.118.118-2.036-.159-4.261-.615l-4.047-.83v.597c0 .633.147.681 5.277 1.732 1.81.37 3.377.76 3.484.868.107.107-.055.798-.36 1.534l-.555 1.34-1.161-.047c-.64-.026-3.208-.473-5.708-.994zm-7.163-2.414C16.257 21.632 15 20.626 15 20.142c0-.608 3.643-1.593 4.573-1.236.94.36 1.213 1.343.728 2.62l-.419 1.1-.784-.03c-.431-.018-1.082-.167-1.447-.332zm39.987-.746c-.243-.085-2.375-.49-4.738-.899l-4.297-.744.473-.884c.26-.486.397-1.536.304-2.333l-.17-1.45 4.877 1.767c2.682.97 5.871 2.128 7.086 2.571 2.678.977 1.886 1.06-1.988.208-1.58-.347-3.27-.63-3.756-.626l-.884.005 2.43 1.284c1.337.706 2.132 1.277 1.768 1.27-.365-.01-.862-.084-1.105-.17zm-13.323-1.38l-.51-.208 1.105-1.105 1.105-1.104-.158-1.978-.157-1.978.667.127.667.126.12 1.763.12 1.764-.886 1.436c-.884 1.43-1.105 1.554-2.073 1.158zm-2.141-.865c-.243-.072-2.884-.766-5.869-1.542l-5.426-1.412.776-.857.777-.858.01-1.953c.007-1.073.13-1.953.277-1.953.653-.003 10.848 2.779 11.442 3.123l.663.383-.663.012c-.364.007-2.516-.484-4.781-1.091-2.266-.607-4.204-1.104-4.308-1.104-.104 0-.19.29-.19.646v.646l1.878.496c1.033.274 3.071.812 4.53 1.197 1.457.385 2.828.854 3.046 1.042l.395.342-.546 1.319c-.546 1.317-1.179 1.809-2.012 1.563zM27.593 14.31c-.73-.45-1.606-1.158-1.948-1.573l-.622-.753.486-.485c.267-.267 1.449-.578 2.627-.691l2.142-.206.597.719.596.718-.407 1.428-.408 1.427-.869.118c-.478.065-1.465-.25-2.194-.702z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Fire_Resistance.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Fire_Resistance.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M33.235 38.949l-6.196-6.035.115-.534.115-.534 6.267 6.042 6.267 6.041 6.403-6.103 6.402-6.103.11.565.109.565L49 36.483a2115.145 2115.145 0 0 0-6.384 6.082c-1.407 1.349-2.7 2.444-2.872 2.435-.172-.01-3.102-2.733-6.51-6.051zm.452-3.256a1161.093 1161.093 0 0 1-6.544-6.04l-.463-.452-.623-8.394c-.342-4.616-.628-9.115-.635-9.998l-.011-1.605h1.665c4.687 0 9.59-1.398 11.608-3.312L39.625 5l.457.328c.25.181 1.017.774 1.702 1.318l1.247.988 2.93.784 2.931.784 2.365.006c1.3.004 2.583.144 2.849.313l.483.306-.938 9.74c-.516 5.357-.962 9.75-.99 9.762-.092.038-9.79 8.994-11.372 10.502l-1.522 1.45zm13.009-2.51c2.508-2.306 4.664-4.501 4.79-4.879.127-.377.547-4.031.934-8.12.387-4.087.78-7.903.874-8.48l.17-1.046-3.3-.22c-3.915-.263-6.884-1.1-8.959-2.527L39.692 6.87l-1.313.944c-2.042 1.469-3.875 2.03-8.084 2.477l-3.89.413.175 1.362c.097.749.418 4.782.714 8.963l.538 7.602.9.9c.496.495 3.177 2.965 5.957 5.489l5.055 4.588 1.196-1.116c.657-.614 3.247-3.003 5.756-5.309zm-12.128-.633c-.577-.54-1.049-1.178-1.049-1.42v-.438l.256.321c.141.177.702.815 1.246 1.419 1.228 1.363.956 1.434-.453.118zm1.59-.625c-.667-.697-1.476-1.79-1.798-2.428l-.585-1.16.18-1.88c.192-1.98 1.495-5.527 1.933-5.257.14.088.365.882.497 1.766l.241 1.608.81-1.012c1.347-1.682 1.907-3.21 2.126-5.798l.208-2.464 2.41 3.144 2.41 3.145.226 1.832c.124 1.007.308 2.258.408 2.78l.182.947.814-.533.813-.533v1.183c0 1.749-.907 3.581-2.42 4.887l-1.338 1.157.262-.988c.336-1.26.26-2.437-.238-3.702l-.394-1.001-.48 1.351c-.265.743-.768 1.639-1.118 1.99l-.637.638-.196-1.483a55.957 55.957 0 0 1-.28-2.665l-.087-1.183-.929 1.647c-.51.907-.929 1.92-.929 2.253 0 .333-.094.85-.208 1.149l-.209.543-.452-.375-.452-.375.3 1.042c.164.573.264 1.042.221 1.042-.042 0-.623-.57-1.29-1.267zm.627-2.674c-.124-.124-.225-.023-.225.225s.101.349.225.225a.32.32 0 0 0 0-.45zm8.109-1.014a.32.32 0 0 0-.45 0c-.125.124-.023.225.224.225.248 0 .35-.101.226-.225zm-2.027-3.379c-.124-.124-.226-.022-.226.226 0 .247.102.349.226.225a.32.32 0 0 0 0-.45zm-2.253-2.795c0-.175-.152-.412-.338-.527l-.338-.209v.527c0 .29.152.527.338.527.186 0 .338-.143.338-.318zm-7.863 1.692c-.257-.986.148-2.038 1.116-2.895l.764-.675-.446.844c-.245.465-.623 1.442-.839 2.17l-.393 1.326zm13.274-.88c-.003-.38-.301-1.27-.663-1.98l-.657-1.29.636.576c.35.317.782.996.96 1.508l.326.932-.299.471-.298.471zm-8.964-6.914l.206-1.182-.519-1.69c-.285-.928-.52-1.871-.522-2.094l-.004-.405 2.409 1.423c1.325.782 2.789 1.915 3.253 2.517.464.601.753 1.094.643 1.094-.11 0-.7-.439-1.31-.974-.61-.536-1.66-1.204-2.331-1.485l-1.222-.51.164 1.454.164 1.454-.568.79-.569.79z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Flare_01.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Flare_01.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M38.828 42.503c-.307-1.373-.923-4.182-1.367-6.241-.445-2.06-.916-3.87-1.047-4.024-.131-.153-1.936.515-4.011 1.484l-3.773 1.762 1.758-3.765c.967-2.071 1.674-3.848 1.573-3.95-.102-.102-3.086-.785-6.63-1.518-3.545-.733-6.508-1.396-6.585-1.473-.077-.077 2.903-.76 6.623-1.519 3.72-.758 6.762-1.451 6.762-1.54 0-.088-.747-1.75-1.66-3.691-.913-1.942-1.596-3.59-1.516-3.663.08-.073 1.783.638 3.786 1.579l3.642 1.71.178-.593c.099-.327.747-3.149 1.441-6.271.695-3.122 1.313-5.727 1.375-5.789.062-.062.727 2.694 1.48 6.123l1.366 6.235h.438c.241 0 1.939-.713 3.773-1.585 1.834-.871 3.38-1.539 3.435-1.484.055.056-.623 1.649-1.507 3.54-.884 1.892-1.607 3.581-1.607 3.753 0 .267 8.134 1.98 13.119 2.764.84.132 1.458.31 1.374.394-.085.085-3.331.758-7.214 1.496-3.883.738-7.113 1.502-7.179 1.698-.065.195.599 1.863 1.475 3.707.877 1.844 1.531 3.415 1.455 3.492-.076.076-1.76-.62-3.744-1.547-1.983-.927-3.656-1.627-3.718-1.556-.062.071-.748 3.018-1.524 6.549L39.388 45zm-5.547-3.715c-1.624-.942-3.043-1.805-3.154-1.915-.111-.111.292-.457.896-.77l1.097-.567 1.951 1.101c1.074.606 2.026 1.37 2.118 1.7.091.33.27.96.397 1.402.126.442.099.794-.061.783-.16-.01-1.62-.791-3.244-1.734zm8.916.338l.359-1.415 1.927-1.088 1.926-1.087 1.065.55c.585.303 1.064.609 1.064.68 0 .138-6.318 3.776-6.558 3.776-.078 0 .019-.637.217-1.416zm-16.931-4.918l-.981-.608v-5.775l1.07.157 1.07.157v4.174l.702.376.703.376-.403.885c-.222.487-.578.88-.792.876-.214-.005-.83-.284-1.37-.618zm25.97-.302l-.234-.93.537-.408.537-.408.103-1.962.104-1.961.98-.113.982-.113v5.6l-1.036.612c-.57.337-1.195.612-1.388.612-.194 0-.457-.418-.586-.93zM24.284 18.82v-2.818l1.246-.735 1.246-.735.51.987.511.988-.686.429-.687.429v3.834l-.803.215c-.441.118-.923.217-1.07.22-.147.003-.267-1.264-.267-2.814zm28.622 2.567l-.802-.155V17.593l-.592-.654-.592-.653.403-.885.403-.884 1.259.743 1.259.742v2.818c0 1.55-.12 2.797-.268 2.77-.147-.027-.628-.118-1.07-.203zm-22.019-8.081l-1.065-.454 2.492-1.443c3.352-1.941 4.133-2.336 4.296-2.173.076.076-.016.69-.203 1.366l-.342 1.228-1.752.981c-.964.54-1.89.974-2.057.965-.167-.01-.783-.22-1.369-.47zm13.304-.496l-1.671-.962-.342-1.346c-.188-.74-.268-1.347-.178-1.347.235 0 1.373.609 4.184 2.236l2.462 1.426-.857.475c-.471.261-1.098.476-1.392.477-.294.001-1.287-.43-2.206-.96z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Fuel.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Fuel.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M20.821 44.275c-2.114-1.29-2.776-3.808-1.75-6.662.273-.76 1.26-2.952 2.193-4.869l1.695-3.486 1.764 2.935c2.409 4.006 3.352 5.953 3.599 7.428l.21 1.249-.608 1.236c-.333.68-1.152 1.604-1.82 2.053l-1.212.816-1.464-.001-1.464-.001zm6.229-2.608c.84-.657.445-2.298-1.492-6.186l-1.939-3.89-.009 1.248c-.02 2.794.625 8.613 1.006 9.072l.408.491.79-.193c.434-.106.99-.35 1.236-.542zm12.692 2.339l-1.137-.995-3.803-8.565c-2.091-4.712-3.882-8.76-3.98-8.997l-.178-.43 1.19.34c.654.189 1.767.342 2.473.342h1.283l1.294-.981 1.294-.982.013-2.522.014-2.522-1.388-.78c-.762-.428-1.79-.779-2.283-.779h-.896l-.394-2.26c-.455-2.616-.489-3.831-.12-4.367.144-.21 1.732-1.535 3.529-2.945L39.92 5h2.425L44.4 6.832l2.055 1.831 2.21-.218 2.21-.218.789.617.789.617 4.475 10.086 4.476 10.086v2.382l-5.413 5.855c-2.977 3.22-5.828 6.09-6.335 6.377l-.923.522-3.926.116-3.926.115zm9.307-.194l1.03-.392-.842-.311c-.462-.171-2.923-.28-5.467-.24l-4.626.07 1.047.838 1.046.838 3.391-.206c1.865-.113 3.854-.382 4.42-.597zm-2.558-2.014l.613-.036-.197-.513-.197-.514-3.807.202c-3.68.195-4.627.432-4.239 1.062l.185.299 3.514-.232c1.933-.128 3.79-.248 4.128-.268zm-1.595-1.673c.638-.099 1.16-.357 1.16-.575v-.395l-3.98.228c-2.19.125-4.053.3-4.14.387-.089.088-.07.308.042.488l.202.328 2.778-.141c1.528-.078 3.3-.222 3.938-.32zm-.714-1.573l1.16-.003v-.975l-2.588.144c-4.016.225-5.621.484-5.621.906v.388l2.944-.23c1.62-.125 3.467-.23 4.105-.23zm7.941-5.368V27.46l3.334 1.797c1.833.988 3.45 1.797 3.594 1.797.143 0 .209-.341.146-.758l-.114-.759-3.472-1.83-3.473-1.828-.007-5.788-.007-5.787-.69-.37c-.38-.203-.782-.369-.893-.369-.11 0-.202 2.49-.202 5.532 0 3.043-.09 5.532-.201 5.532-.111 0-1.713-.815-3.561-1.81-1.847-.996-3.523-1.71-3.724-1.586-.201.125-.366.448-.366.718v.492l3.926 2.04 3.926 2.04v12.383H52.124zm-8.717-3.404l-2.996-7.83.175-1.069.175-1.069 4.522-4.4 4.521-4.4-4.997 3.998-4.996 3.999-.3 1.524-.3 1.525 3.491 7.88c1.92 4.335 3.538 7.834 3.595 7.777.058-.058-1.243-3.628-2.89-7.935zm-.295 6.771c.834-.102 1.517-.335 1.517-.517v-.331l-3.301.197c-3.849.23-4.908.408-4.908.825 0 .295 3.65.2 6.692-.174zm.417-2.155c.081-.07.05-.227-.07-.348-.34-.34-8.11.256-8.11.621v.325l4.016-.234c2.208-.13 4.082-.293 4.164-.364zm-.063-23.685c.443 0 .806-.113.806-.251s-.513-.78-1.14-1.428L41.99 7.855h-1.722l-2.324 1.85-2.323 1.848.205 1.729c.112.95.297 1.878.41 2.06.112.183 1.603-.785 3.313-2.15l3.11-2.481zm-21.68 17.217c-.294-.098-.8-.408-1.123-.69l-.588-.51.255-.96.254-.96.989-.115.988-.116.494.651c.271.358.498.908.505 1.22.015.766-1.108 1.702-1.774 1.48zm2.32-3.034l-.713-1.112-1.05-.277-1.05-.277-.51.424c-.282.234.229-1.05 1.134-2.853.906-1.803 1.93-3.427 2.275-3.61l.628-.332 5.16.832c2.837.457 5.527 1.029 5.978 1.27l.819.438v3.391l-1.29.797-1.291.798-3.486-.823c-1.917-.453-3.735-.727-4.04-.61-.306.117-.847.853-1.203 1.634l-.647 1.421z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Heat.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Heat.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M40.698 44.517c0-.265.133-.564.296-.665.368-.228 1.117.624.815.926-.398.398-1.111.23-1.111-.261zm-8.646-2.472l-1.793-1.25-.63-1.658c-.346-.913-.63-1.732-.63-1.82 0-.09.396.437.88 1.17.483.732 1.644 2.12 2.578 3.085.935.965 1.63 1.748 1.544 1.739-.086-.01-.962-.579-1.949-1.266zm2.249-1.308c-1.21-1.241-2.693-3.138-3.295-4.215l-1.095-1.958.228-3.025.229-3.026 1.443-3.497c.793-1.924 1.52-3.367 1.615-3.206.095.16.438 1.533.762 3.05.324 1.516.692 2.757.817 2.757.126 0 .939-1.122 1.808-2.494l1.58-2.495.625-2.252.625-2.253-.189-3.024-.188-3.024 4.29 5.515 4.291 5.515.57 4.45c.312 2.447.66 4.543.774 4.657.114.113.7-.272 1.304-.857.604-.585 1.207-1.064 1.342-1.064.416 0-.141 4.422-.782 6.205l-.608 1.691-2.284 2.223c-1.257 1.223-2.321 2.041-2.366 1.818-.045-.223.117-1.157.36-2.076l.44-1.672-.678-2.59c-.373-1.425-.778-2.59-.9-2.59s-.467.872-.766 1.938l-.544 1.939-1.167 1.13c-.641.622-1.265 1.032-1.386.91-.12-.12-.294-2.036-.386-4.258l-.166-4.04-.268.271c-.148.15-.888 1.4-1.645 2.778l-1.377 2.506-.2 2.145-.2 2.144-.823-.957-.824-.957.249 1.153c.136.634.46 1.566.718 2.072.258.505.424.919.369.919-.056 0-1.092-1.015-2.302-2.256zm1.049-4.373c0-.436-.398-.725-.721-.525-.346.213-.048.803.406.803.173 0 .315-.125.315-.278zm12.255-.279c-.122-.123-.222-.022-.222.223s.1.345.222.223a.316.316 0 0 0 0-.446zm.697-1.978c-.319-.318-.957.198-.72.582l.21.34.358-.358c.197-.197.265-.45.152-.564zm-3.009-5.348c-.318-.318-.957.198-.72.582l.211.34.358-.358c.197-.197.265-.45.151-.564zm-4.325-5.07c-.135-.704-.729-.66-.88.067l-.108.519h1.1zm1.4-5.598c0-.276-.15-.501-.333-.501-.184 0-.335.225-.335.501s.15.502.335.502c.183 0 .334-.226.334-.502zm-.166 23.23c-.114-.183-.048-.334.147-.334s.354.15.354.335c0 .183-.066.334-.147.334-.081 0-.24-.15-.354-.334zm-2.73-2.896a.316.316 0 0 1 .446 0c.122.122.022.223-.223.223s-.346-.1-.223-.223zm5.57-1.114c0-.246.101-.346.224-.223a.316.316 0 0 1 0 .445c-.123.123-.223.023-.223-.222zm-16.825-9.402c-.625-2.338.273-4.994 2.14-6.323l1.04-.74-.761 1.464c-.419.805-1.086 2.572-1.484 3.928l-.722 2.464zm21.868-2.992c-.228-1.18-.629-2.485-.89-2.898a83.874 83.874 0 0 1-1.02-1.672l-.545-.919 1.52 1.539 1.52 1.539.217 1.47c.12.807.082 1.833-.084 2.278l-.303.81zm-15.068-9.339c.001-.272.159-1.06.35-1.75l.349-1.253-1.009-3.742c-.555-2.058-.968-3.782-.92-3.831.05-.05 1.931.975 4.182 2.275l4.091 2.365 1.324 1.95c.729 1.073 1.325 2.05 1.325 2.172 0 .121-.905-.616-2.01-1.64-1.86-1.722-3.986-2.955-5.942-3.446l-.802-.201.564 1.09.565 1.092-.229 1.521c-.216 1.442-1.842 4.448-1.838 3.398z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Light_ExtraLife.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Light_ExtraLife.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M31.66 40.054l-4.656-1.513-4.752-4.315L17.5 29.91l.046-5.1c.047-5.214.276-4.957.904 1.013l.276 2.62 4.721 4.3c4.13 3.761 5.267 4.565 9.086 6.42 3.913 1.903 4.964 2.531 4.073 2.435-.16-.018-2.386-.713-4.946-1.545zm16.099-2.885v-3.685h-7.4l.111-3.589.112-3.588 3.588-.111 3.588-.112V18.743h7.371v7.37H62.5v7.371h-7.371v7.371h-7.371zm-13.696.463c-4.365-2.286-6.058-3.442-9.366-6.393-4.445-3.965-4.188-3.448-4.904-9.866l-.463-4.157 2.48-3.076c2.726-3.382 3.046-3.532 7.534-3.54 2.336-.004 2.343-.002 4.542 2.226 1.55 1.57 2.66 3.206 3.748 5.528l1.546 3.298.023-3.814.023-3.814 1.843-2.672 1.843-2.671 2.327-.019c1.28-.009 2.701-.118 3.157-.24.645-.173 1.446.358 3.589 2.38 2.687 2.535 2.759 2.652 2.759 4.495v1.893h-8.535v7.371h-7.371v10.474h3.298c1.813 0 3.297.131 3.297.29 0 .16-.654.805-1.455 1.433-.8.627-2.158 1.708-3.019 2.402l-1.565 1.262zm2.303-24.204c-.617-.822-.652-1.103-.236-1.88.46-.861 3.36-2.368 3.77-1.958.104.104-.355.85-1.02 1.656-.664.806-1.208 1.765-1.208 2.13 0 1.07-.527 1.091-1.306.052z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Light_Intensity.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Light_Intensity.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M38.92 41.842c-.503-.202-.88-.69-.88-1.138 0-.676.137-.733.978-.414a2.797 2.797 0 0 0 1.954 0c.88-.334.977-.274.977.596 0 .575-.225.968-.554.968-.305 0-.789.077-1.075.17-.286.095-.916.015-1.4-.182zm-.195-2.603c-.377-.098-.684-.36-.684-.582 0-.222-.44-.926-.978-1.565-2.216-2.634-.418-6.573 3-6.573 1.267 0 1.801.244 2.748 1.258 1.06 1.134 1.157 1.452.988 3.21-.136 1.42-.412 2.1-1.018 2.502-.457.303-.832.773-.832 1.045 0 .753-1.655 1.115-3.224.705zm-5.554-2.564c-1.346-4.269 1.652-8.917 6.042-9.366 2.492-.254 5.352 1.047 6.697 3.047 1.737 2.582 1.792 6.808.088 6.808-.44 0-.529-.196-.315-.685.166-.376.263-1.471.216-2.434-.223-4.622-5.525-7.086-9.325-4.334-1.856 1.345-2.624 3.228-2.34 5.74.146 1.304.06 1.713-.358 1.713-.303 0-.62-.22-.705-.49zm-9.511-.686c-3.288-.375-6.055-.76-6.15-.854-.377-.378 9.283-1.586 11.037-1.38 1.72.202 1.428.003-3.6-2.458-3.01-1.473-5.297-2.689-5.082-2.702.215-.014 2.495.238 5.067.559 2.571.32 4.84.583 5.04.583.201 0-1.716-1.627-4.26-3.616-7.254-5.667-7.257-5.629.182-2.438 3.745 1.607 6.884 2.847 6.976 2.756.091-.092-.833-1.864-2.054-3.94-1.221-2.075-2.149-3.844-2.062-3.931.088-.088 1.762 1.475 3.72 3.472 2.822 2.877 3.524 3.424 3.383 2.635-.34-1.892-2.05-16.631-1.944-16.738.105-.105 3.8 12.212 4.37 14.569l.285 1.172.278-1.032c.152-.567.404-2.81.56-4.983.155-2.174.42-3.952.59-3.952.168 0 .433 1.778.589 3.952.155 2.173.407 4.416.56 4.983l.277 1.032.285-1.172c.571-2.356 4.266-14.674 4.37-14.57.06.06-.315 3.538-.831 7.73-1.312 10.65-1.464 10.064 1.785 6.84 1.505-1.494 2.736-2.61 2.736-2.482 0 .13-.797 1.953-1.772 4.053l-1.773 3.819 1.284-.978c1.76-1.34 13.731-6.44 12.4-5.282-.55.478-3.082 2.497-5.627 4.485-2.545 1.989-4.462 3.616-4.261 3.616.2 0 2.47-.262 5.04-.583 2.572-.321 4.852-.572 5.067-.559.215.014-2.071 1.23-5.081 2.702-5.028 2.46-5.32 2.66-3.6 2.458 1.725-.203 11.416 1 11.046 1.37-.151.15-12.61 1.618-13.896 1.637-.455.005-.6-.554-.646-2.504-.05-2.135-.249-2.786-1.318-4.341-2.566-3.728-7.613-4.62-11.247-1.985-2.255 1.635-3.673 4.654-3.337 7.106l.238 1.735-1.323-.051c-.728-.028-4.014-.358-7.301-.733z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_MovementSpeed.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_MovementSpeed.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M25.913 41.084c-1.157-.872-2.112-1.885-2.122-2.252-.015-.545.314-.433 1.794.613 2.379 1.679 3.362 1.412 6.437-1.745 2.072-2.128 2.666-3.126 5.277-8.876 2.259-4.976 2.89-6.732 2.722-7.571l-.218-1.094 1.237.78c1.579.995 1.735 2.19.64 4.89-.754 1.857-.948 2.063-1.747 1.862-.494-.124-.9-.093-.901.068-.02 2.096-1.01 5.564-2.094 7.338-1.79 2.929-5.753 6.723-7.514 7.194-1.317.353-1.542.276-3.51-1.207zm13.576-5.686c2.337-3.62 4.931-7.66 5.764-8.98.833-1.318 1.585-2.326 1.672-2.24.086.087-.366 2.229-1.005 4.76-.64 2.532-1.16 4.741-1.157 4.911.002.17 1.049-1.322 2.326-3.316 2.33-3.637 3.32-4.932 2.916-3.816-.113.315-.57 1.486-1.014 2.601-.955 2.397-.87 2.365 3.207-1.217a355.333 355.333 0 0 1 3.738-3.253c.501-.417.312.296-.703 2.653-2.124 4.933-2.854 6.847-2.611 6.847.122 0 .713-.35 1.313-.777.95-.677 1.573-.763 4.828-.667l3.737.109-13.354 4.483c-7.345 2.466-13.479 4.483-13.63 4.483-.153 0 1.635-2.961 3.973-6.581zm-14.761 2.55c-2.002-1.385-2.67-2.68-2.118-4.113.498-1.295 2.486-2.536 4.105-2.563l1.446-.025-1.24-.617c-1.229-.611-1.3-.812-1.233-3.436.004-.157.313-.286.687-.286.374 0 1.358-.556 2.187-1.237l1.506-1.236-1.922.777-1.922.777-3.955-1.448c-3.791-1.389-3.975-1.508-4.453-2.892-1.27-3.677 1.454-9.142 5.17-10.377 1.053-.35 2.133-.501 2.4-.338 1.99 1.22 8.212 5.697 8.611 6.197.272.341.679 1.35.904 2.242.473 1.876 1.081 2.144 1.081.477 0-1.352.313-1.419 1.666-.354.69.542 1.005 1.152 1.005 1.942 0 .636-1.308 3.959-2.916 7.41-2.513 5.392-3.195 6.52-4.937 8.167-1.112 1.052-2.275 1.912-2.585 1.912-.31 0-.793.077-1.072.17-.28.094-1.367-.423-2.415-1.149zm-1.991-17.166c1.529-1.273 3.283-4.54 3.307-6.157.012-.742-.318-1.599-.84-2.19l-.859-.97-1.576.72c-1.988.907-3.758 3.42-4.115 5.84-.257 1.743-.232 1.807.805 2.055 1.744.418 1.826.611.657 1.547l-1.112.89 1.253-.357c.689-.196 1.805-.817 2.48-1.378zm4.47-10.491c-1.728-1.17-2.196-1.22-4.96-.537-.542.133-.071-.296 1.087-.993l2.04-1.227 1.961 1.96c1.079 1.08 1.878 1.96 1.775 1.96-.102-.001-.959-.524-1.903-1.163z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_PlusOne.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_PlusOne.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M46.071 39.107v-2.679h5.358v-9.686c0-10.657.167-9.974-1.983-8.103-.715.622-.773.596-2.466-1.123l-1.734-1.761 3.538-3.751 3.537-3.75 2.411-.02 2.41-.02V36.43H62.5V41.786H46.071zM25.357 32.5V28.57H17.5V21.428H25.357V13.571H32.5V21.428H40.357V28.571H32.5V36.428H25.357z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_PoisonResistance.js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_PoisonResistance.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M35.565 44.545c-1.739-.43-5.194-1.808-7.678-3.064s-5.228-2.494-6.098-2.751c-.87-.258-1.58-1.144-1.58-1.97 0-2.17 5.09-1.164 10.065 1.988 6.312 4 11.684 4.003 19.788.01 8-3.941 11.59-4.323 9.202-.978-1.15 1.61-13.15 6.648-16.924 7.106-1.987.241-5.036.086-6.775-.341zm-.214-10.464c-2.932-1.59-5.217-5.63-5.178-9.155.032-2.855 8.063-19.378 9.682-19.918 1.34-.447 10.164 17.025 10.164 20.128 0 5.295-5.016 10.412-10.118 10.323-1.143-.021-3.19-.64-4.55-1.378zm6.538-3.208c0-.438-.854-.798-1.896-.798-1.043 0-3.076-1.262-4.517-2.805-2.303-2.465-2.62-2.585-2.62-.984 0 2.506 4.872 6.473 7.202 5.864 1.007-.264 1.83-.838 1.83-1.277zm8.13 2.845c0-1.917 6.202-7.147 9.728-8.204 4.177-1.25 5.329-.875 4.09 1.339-.929 1.66-13.818 8.063-13.818 6.865zm-25.21-2.41c-2.19-1.175-4.716-2.136-5.614-2.136-1.401 0-3.503-2.403-3.503-4.005 0-.978 3.599-.503 7.243.956 2.283.913 4.19 2.478 5.053 4.148.763 1.476 1.255 2.793 1.095 2.927-.161.135-2.084-.715-4.274-1.89zm24.588-15.366c-1.515-2.314-1.492-2.52.728-6.497 1.261-2.26 2.696-4.242 3.188-4.406.492-.164 1.849 1.74 3.015 4.23 1.766 3.77 1.948 4.905 1.087 6.795-1.467 3.217-5.873 3.15-8.017-.122zm3.332.68c0-.444-.59-1.033-1.31-1.31-.874-.335-1.142-.063-.806.807.548 1.43 2.116 1.801 2.116.503z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Poison_Resistance.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Poison_Resistance.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M33.248 39.02l-6.22-6.052.117-.524.117-.524 6.287 6.046 6.288 6.047 6.512-6.27 6.512-6.269v1.35l-6.305 6.051c-3.468 3.329-6.48 6.085-6.696 6.125-.216.04-3.191-2.651-6.612-5.98zm.77-2.956c-3.157-2.897-6.1-5.62-6.542-6.05l-.804-.78-.626-8.428c-.344-4.635-.63-9.152-.637-10.038l-.012-1.61h1.671c4.673 0 9.623-1.404 11.617-3.293L39.598 5l1.291 1.012c1.808 1.418 2.318 1.647 5.433 2.442l2.752.703 2.317.005c1.275.003 2.518.133 2.764.29l.448.283-.896 9.628-.897 9.629-2.445 2.373a537.31 537.31 0 0 1-6.527 6.17l-4.082 3.798zm14.542-4.573l2.99-2.838.816-7.798c.45-4.29.82-8.348.825-9.02l.01-1.221-3.204-.226c-3.837-.27-7.022-1.191-8.956-2.592l-1.421-1.03-1.262.972c-1.876 1.443-3.886 2.065-8.123 2.516l-3.809.405.17 1.707c.25 2.519 1.175 14.847 1.175 15.662v.7l5.98 5.466 5.98 5.466 2.92-2.666a502.166 502.166 0 0 0 5.91-5.503zm-10.75-.656c-.725-.18-2.022-.709-2.882-1.177-.86-.467-2.02-.972-2.58-1.121l-1.017-.272-.11-.569-.11-.569h.845c.464 0 1.877.548 3.14 1.218l2.295 1.218 1.75.18 1.75.18 2.722-1.228c1.497-.676 3.189-1.322 3.759-1.437l1.037-.207-.187.716c-.103.394-.383.716-.621.716-.239 0-1.556.533-2.927 1.183-2.753 1.306-4.862 1.665-6.864 1.17zm.603-3.931c-.394-.083-1.136-.59-1.65-1.125l-.933-.974-.179-1.59-.179-1.59 1.591-3.097c.876-1.704 1.855-3.446 2.177-3.871l.585-.773 1.9 3.655c1.045 2.01 1.997 4.073 2.116 4.584l.216.93-.471 1.105c-.259.607-.834 1.435-1.277 1.84-.828.755-2.627 1.173-3.896.906zm2.482-1.593l.41-.388-1.165-.025-1.165-.025-.725-.653c-.398-.36-.89-1.034-1.09-1.5l-.366-.848-.129.954-.128.954.553.844c.929 1.418 2.694 1.737 3.805.687zm3.765.42c.944-1.442 2.46-2.412 4.437-2.839l1.153-.249-.22.575c-.122.316-.22.714-.22.885 0 .172-.255.312-.565.312-.31 0-1.674.608-3.03 1.352L43.75 27.12zm-11.402-.19c-.804-.485-1.932-.978-2.506-1.095l-1.044-.214-.296-.8-.296-.801 1.397.223c2.006.321 3.178 1.026 3.986 2.396.39.66.599 1.193.465 1.186-.134-.008-.901-.41-1.706-.895zm12.482-5.297c-.466-.235-1.05-.85-1.3-1.369l-.451-.942 1.198-2.523c.659-1.388 1.366-2.523 1.57-2.523.205 0 .905 1.12 1.555 2.489l1.182 2.489-.316.83c-.589 1.55-2.09 2.226-3.438 1.549zm1.638-.533l.451-.286-1.027-.206-1.027-.205-.513-.945-.512-.944-.013.763c-.015.82 1.073 2.122 1.766 2.114.233-.003.627-.134.875-.291z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_ProjectileSpeed.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_ProjectileSpeed.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M38.91 38.986c1.192-.676 3.923-1.467 6.068-1.759l3.902-.531-3.066 1.187c-1.686.654-4.417 1.445-6.068 1.76-2.947.56-2.963.547-.836-.657zm-18.03-5.167c7.398-4.702 7.927-5.267 3.456-3.69-1.998.705-3.63 1.007-3.63.67.003-.336 4.469-3.927 9.927-7.98 9.188-6.822 9.75-7.404 7.583-7.834-2.937-.584 10.466-3.438 16.14-3.437 7.9.002 12.283 6.92 8.788 13.872-3.093 6.152-7.554 8.629-19.614 10.889-7.708 1.444-10.146 1.268-5.39-.39 5.223-1.82 1.914-1.857-9.982-.108-6.536.96-12.155 1.736-12.486 1.724-.332-.01 2.012-1.685 5.207-3.715zm16.779-5.168c-.81-1.237-1.14-2.772-.789-3.685.413-1.077.284-1.37-.413-.938-1.47.908-1.244 4.036.425 5.88 1.968 2.175 2.482 1.345.777-1.257zm9.27.617c2.184-.522 3.407-2.115 1.622-2.115-1.14 0-2.979-4.974-2.398-6.486.689-1.797-.506-1.652-4.16.503-2.558 1.51-3.083 2.315-3.083 4.725 0 3.052 1.928 4.964 4.334 4.3a142.9 142.9 0 0 1 3.685-.927zm7.044-3.23c1.44-1.051 1.424-1.203-.268-2.734-.985-.892-1.792-2.536-1.792-3.654 0-2.556-2.994-2.804-4.304-.357-1.332 2.489-1.1 4.19.837 6.126 2.014 2.015 3.406 2.17 5.527.62zm4.436-4.243c2.95-2.564 2.784-4.178-.427-4.178-1.876 0-2.618.423-2.661 1.517-.052 1.291-.167 1.259-.775-.217-.632-1.539-.78-1.571-1.306-.285-.649 1.585.838 5.053 2.165 5.053.457 0 1.808-.851 3.004-1.89zm-1.944-7.353c-.596-.24-1.571-.24-2.167 0-.596.24-.109.437 1.084.437 1.192 0 1.68-.197 1.083-.437zm-34.027 9.677c2.622-1.648 5.09-3.004 5.485-3.015 1.167-.03-3.978 3.86-6.61 4.999-4.207 1.822-3.805 1.112 1.125-1.984zM39.777 10.68c-1.441-.462.302-.69 5.201-.68 6.126.01 6.784.133 3.902.73-4.213.87-6.263.86-9.103-.052z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Recoil.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Recoil.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M23.987 39.416c.123-.795.416-2.726.652-4.29.236-1.563.703-3.499 1.038-4.3.335-.803.524-1.545.42-1.65-.105-.104-1.268.47-2.585 1.275-1.317.806-2.466 1.394-2.552 1.307-.087-.087.528-1.093 1.368-2.237.839-1.143 1.43-2.232 1.315-2.42-.116-.187-2.108-.788-4.427-1.335L15 24.77l4.591-1.462 4.591-1.463-1.424-2.274c-.784-1.25-1.43-2.423-1.435-2.605-.004-.182 1.2.532 2.678 1.587 2.662 1.899 3.245 1.997 2.092.352-.327-.468-.888-2.602-1.246-4.743-.358-2.141-.75-4.358-.87-4.927-.12-.568 1.177 1.379 2.884 4.327l3.103 5.361.652-1.64c.36-.902.804-2.01.988-2.465l.335-.825.294 1.962c.162 1.08.384 1.962.493 1.962.108 0 .98-.375 1.938-.834l1.74-.834-1.033.82c-.568.45-3.133 2.292-5.7 4.093l-4.665 3.272 6.305 5.32c3.468 2.927 6.684 5.653 7.146 6.059.463.406-.763-.278-2.724-1.52l-3.565-2.256-.364 1.724-.364 1.725-.807-2.376c-.444-1.307-.909-2.374-1.032-2.372-.124.002-1.487 2.281-3.03 5.065l-2.806 5.06zm4.595-1.517l-.3-1.723.612-1.17.613-1.17.277 1.475.276 1.474-.589 1.42-.59 1.418zm19.439-2.912c-.818-2.454-1.487-4.613-1.487-4.798 0-.185.497-.278 1.105-.206l1.105.131 1.419 4.264c.78 2.345 1.353 4.322 1.272 4.393-.08.071-.547.252-1.037.403l-.891.273zm-9.707-3.06c-4.815-3.903-8.68-7.17-8.59-7.26.434-.434 17.443-12.032 17.528-11.952.054.05-.664 2.37-1.595 5.152-.93 2.783-1.563 5.19-1.405 5.346.158.157 2.085.258 4.282.223l3.995-.062 2.255-.798 2.255-.797 1.226-1.514 1.226-1.515.033-2.173c.019-1.196-.115-2.825-.296-3.621l-.33-1.447.673.827c.37.455 1.123 1.704 1.673 2.777l1.001 1.95v2.067c0 1.137-.292 2.678-.65 3.425-.819 1.712-3.186 3.421-6.263 4.523l-2.39.855-4.444.214c-2.444.117-4.444.337-4.444.489 0 .152.742 2.486 1.65 5.188.907 2.7 1.585 4.975 1.507 5.054-.079.078-4.083-3.05-8.897-6.952zM18.007 29.07c1.77-1.563 3.016-2.036 3.462-1.315.416.674-.47 1.334-2.863 2.134l-2.46.823zm40.724-.993c1.705-.765 4.162-3.42 4.979-5.38l.678-1.628-.284-2.27c-.155-1.25-.578-2.75-.938-3.334l-.654-1.063.753.694.752.695.492 2.614L65 21.02l-.606 2.179-.606 2.178-2.066 1.645-2.066 1.645-1.083-.016-1.083-.017 1.24-.556zm-12.197-6.435c0-.63 2.527-8.441 2.84-8.777.151-.163.669-.193 1.15-.068l.875.23-1.49 4.512-1.491 4.512h-.942c-.518 0-.942-.184-.942-.409zM18.172 19.91l-1.976-1.633 1.215.28c1.723.395 4.039 1.551 4.208 2.1.078.255-.22.559-.664.675l-.807.21zm18.646-4.059c.14-.227.349-.413.462-.413.114 0 .092.186-.048.413-.14.228-.349.414-.462.414-.114 0-.092-.186.048-.414z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Resistance.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Resistance.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M32.772 39.01c-3.665-3.606-6.487-6.734-6.27-6.952.217-.217 3.295 2.3 6.84 5.595 3.544 3.294 6.5 5.989 6.568 5.989.069 0 3.018-2.697 6.556-5.993 3.538-3.296 6.602-5.824 6.808-5.617.446.446-10.602 11.75-12.514 12.805-1.111.613-2.399-.327-7.988-5.827zm.138-3.951l-6.265-5.971-.48-5.82a709.809 709.809 0 0 0-.89-9.914l-.41-4.093 4.631-.496c2.645-.283 5.872-1.198 7.52-2.13L39.903 5l3.334 1.715c1.834.944 5.2 1.908 7.48 2.144 2.28.235 4.255.626 4.388.87.133.242-.177 4.668-.69 9.835l-.932 9.393-6.426 6.033c-3.535 3.319-6.754 6.035-7.154 6.037-.4 0-3.547-2.684-6.992-5.968zm3.049-1.13c-.432-.809-.786-2.228-.786-3.155 0-1.612.237-1.685 5.457-1.685 4.64 0 5.457.184 5.457 1.23 0 2.21 1.57 2.267 3.671.133 1.822-1.849 2.15-2.91 2.834-9.157 1.227-11.229 1.417-10.577-3.244-11.159-2.21-.276-5.176-1.093-6.594-1.816-2.496-1.272-2.673-1.27-5.625.069-1.676.76-3.866 1.395-4.867 1.41-1 .017-2.602.235-3.56.491l-1.74.466.468 8.802.468 8.802 4.177 3.766c4.323 3.897 5.23 4.319 3.884 1.802zm-.114-6.818c-.77-.287-1.4-1.188-1.4-2 0-1.495 1.222-1.883 4.924-1.563 1.308.113 1.742-.323 2.1-2.109.4-2.005.697-2.227 2.716-2.03 2.182.212 2.274.359 2.484 3.977l.217 3.756-4.82.246c-2.652.135-5.451.008-6.222-.277zm-2.052-4.873c-2.06-1.304-.279-2.973 3.176-2.973 2.739 0 3.297.232 3.297 1.365 0 .946-.697 1.504-2.274 1.819-2.863.572-2.97.567-4.2-.21zm-.077-6.568c0-3.147 1.32-4.718 1.948-2.317.394 1.506.398 1.506 1.755-.11 1.16-1.38 1.466-1.458 2.073-.533.56.853.902.896 1.598.2.676-.676 1.129-.686 1.905-.044.786.653 1.172.607 1.69-.199.988-1.534 2.2.508 1.954 3.291-.17 1.931-.47 2.17-2.901 2.323-1.492.092-2.925-.174-3.184-.594-.308-.499-.685-.42-1.086.224-.5.804-.89.817-2.092.069-.873-.542-1.477-.615-1.477-.182 0 .404-.492.734-1.092.734-.785 0-1.091-.804-1.091-2.868z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Revive.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Revive.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M41.853 39.232l-1.81-3.227 2.607 2.472c1.433 1.36 3.188 2.473 3.9 2.473.713 0 1.296.342 1.296.761s-.942.759-2.092.755c-1.667-.004-2.46-.662-3.901-3.233zm-12.488.482c-.297-.296-.54-1.295-.54-2.22 0-1.266-.575-1.794-2.333-2.146-2.012-.403-2.3-.757-2.093-2.568.191-1.653.689-2.152 2.334-2.342 1.628-.187 2.093-.641 2.093-2.047 0-2.173 1.006-2.923 3.05-2.275.95.301 1.515 1.152 1.515 2.279 0 1.285.487 1.867 1.711 2.04 2.454.35 2.494 4.698.045 5.046-1.166.166-1.736.85-1.902 2.282-.232 2.007-2.623 3.21-3.881 1.951zm16.838-.15C44.19 38.742 34.15 25.71 34.154 23.927c.002-.89.652-2.68 1.445-3.982 1.439-2.36 1.438-2.371-.355-4.565-2.218-2.712-2.306-4.41-.332-6.384 2.197-2.196 4.889-1.906 7.418.8 1.966 2.104 2.377 2.243 4.384 1.48 1.217-.463 2.912-.65 3.765-.416.853.235 4.003 3.763 7 7.841 6.955 9.464 6.912 9.923-1.556 16.603-6.076 4.794-7.209 5.29-9.72 4.262zm8.461-7.328c.728-.877.637-1.58-.44-3.403-1.326-2.246-1.318-2.338.317-4.08 1.958-2.083 2.086-3.056.569-4.315-.863-.716-1.688-.705-3.774.045-2.521.912-2.757.853-4.266-1.066-1.524-1.936-1.685-1.975-3.448-.82l-1.85 1.212 1.515 2.127c1.944 2.73 1.914 3.038-.485 4.95-1.81 1.444-1.9 1.754-.958 3.263 1.257 2.013 2.72 2.119 4.686.339 1.408-1.274 1.536-1.245 3.104.713 1.84 2.298 3.667 2.672 5.03 1.031zm-15.356-19.1c2-1.4 2.18-3.03.44-4.003-2.863-1.603-6.075 1.638-4.045 4.083 1.152 1.39 1.519 1.381 3.604-.08zm-16.062 12.09c-.279-.278-.507-1.477-.507-2.663 0-1.762-.33-2.155-1.809-2.155-2.274 0-3.708-1.674-3.385-3.953.193-1.358.806-1.807 2.722-1.992 2.147-.206 2.472-.52 2.472-2.38 0-4.462 4.765-5.331 5.187-.945.245 2.548.428 2.703 4.133 3.515 1.562.342 2.093.913 2.093 2.252 0 2.124-1.193 3.259-3.805 3.62-1.522.21-1.95.757-2.14 2.736-.206 2.137-.524 2.473-2.346 2.473-1.159 0-2.336-.229-2.615-.507zm29.868-13.629C51.676 10.066 50.71 9.7 48.72 9.932c-2.26.263-2.395.184-1.187-.7 2.536-1.854 5.193-1.022 6.828 2.138 1.397 2.703 1.125 2.752-1.247.227z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Ricoshet.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Ricoshet.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M50.552 38.874c-5.388-1.61-6.757-1.89-7.466-1.527-.634.325-1.208.326-2.134.003-1.146-.4-1.55-.286-4.263 1.204l-2.997 1.645.287-1.914.287-1.914-2.454.222c-1.585.144-2.453.074-2.453-.196 0-.392-4.26-.271-11.197.317-1.53.13-.437-.242 3.599-1.222 3.189-.775 5.978-1.47 6.198-1.546.22-.076-1.31-.318-3.399-.538l-3.799-.4 3.6-.02c1.979-.008 4.588.112 5.797.27 2.333.304 2.345.263-.4 1.357-.33.132.84.13 2.6-.005 2.948-.225 3.156-.193 2.65.418-.65.786-.657.785 1.943.228 1.724-.37 2.19-.335 3.053.231.956.626 1.067.624 1.798-.038.747-.675.902-.666 3.665.222a357.65 357.65 0 0 0 3.486 1.106c.33.1.104-.21-.5-.686-1.241-.977-1.454-1.753-.4-1.455.385.109 1.51.308 2.499.442 1.736.235 1.764.222.8-.357-.55-.33-.792-.606-.538-.614 1.025-.033 11.504 1.222 11.68 1.397.103.103-1.012.188-2.478.188-1.466 0-2.666.165-2.666.367 0 .202.814.678 1.808 1.058.995.38 1.747.752 1.672.827-.075.075-1.535-.13-3.243-.458-1.709-.326-3.309-.594-3.556-.594-.248 0 .436.9 1.52 2 1.083 1.1 1.886 1.989 1.784 1.976-.102-.014-3.154-.91-6.783-1.993zm-11.197-5.939c0-.256-.801-.46-1.9-.483-1.5-.033-1.688-.102-.899-.338.809-.242.542-.356-1.4-.597-4.438-.552-5.132-.945-1.799-1.018 2.968-.066 2.985-.073 1.6-.606-1.229-.473-1.278-.54-.4-.552.55-.005 1.714.242 2.588.553 1.46.52 1.217.21-3-3.838-4.329-4.155-4.452-4.316-2.188-2.852 3.588 2.32 3.74 2.357 2 .5-.88-.94-1.4-1.641-1.158-1.559.243.083 2.188.946 4.322 1.919l3.88 1.768 3.763-3.747c2.07-2.061 3.678-3.832 3.574-3.936-.104-.104-1.576-.485-3.27-.846l-3.082-.657 9.581-3.836c5.27-2.11 9.656-3.763 9.746-3.675.091.088-1.799 4.765-4.198 10.392L52.75 29.76l-.253-2.532a84.275 84.275 0 0 1-.32-5.132l-.068-2.599-.809 2c-.652 1.615-1.665 2.764-5.268 5.975-2.453 2.187-4.104 3.827-3.67 3.644.435-.183 1.87-.392 3.19-.464l2.4-.131-1.6.555c-.88.306-2.05.576-2.599.6-.966.042-.974.063-.223.63.718.544.64.587-1.067.587-1.014 0-2.128.11-2.476.243-.348.134-.633.042-.633-.2zM27.93 19.459c-3.105-2.407-3.158-2.498-.656-1.124 1.162.639 2.381 1.566 2.708 2.061.328.495.533.9.456.9-.076 0-1.205-.827-2.508-1.837z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_ScareEnemies.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_ScareEnemies.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M51.767 44.35l-1.064-.65-.103-1.6-.102-1.599-1.75-.814-1.75-.813v-.687l-.001-.686 1.794.112 1.794.112 2.143-1.423 2.142-1.422 1.374-2.023 1.374-2.023-.321-1.96c-.177-1.079-.274-2.01-.215-2.069.06-.059.542.438 1.074 1.104l.966 1.211.242 1.524.243 1.524-.93 1.178c-.51.648-1.323 1.957-1.806 2.91l-.878 1.732.216 2.804.215 2.804-1.588.702c-.874.387-1.683.703-1.797.702-.114 0-.687-.293-1.272-.65zm-6.852-8.997c-1.788-.315-3.343-.667-3.457-.78-.113-.114.6-.606 1.584-1.094l1.79-.886 1.593-2.095c.877-1.153 2.115-3.296 2.75-4.763l1.156-2.668v-1.889c0-1.038-.16-2.216-.355-2.616l-.356-.728.606.719c.333.396 1.693 1.99 3.023 3.542l2.417 2.822.214 2.525.213 2.525-1.281 1.98-1.282 1.979-1.734 1.037-1.735 1.038-.948-.037c-.522-.02-2.41-.295-4.198-.61zm8.083-2.146c0-.254-.896-.996-1.992-1.648l-1.992-1.187-.208.337c-.114.185-.156.385-.091.446.17.16 4.102 2.51 4.2 2.512.046 0 .083-.207.083-.46zm1-1.529c0-.178-.84-.943-1.865-1.701l-1.866-1.378-.325.324-.324.325 1.94 1.376c1.067.757 2.053 1.377 2.19 1.377.138 0 .25-.145.25-.323zm.988-1.76c-.008-.23-.846-.996-1.865-1.703l-1.851-1.286-.312.312-.312.312 1.926 1.377c1.06.758 2.039 1.384 2.176 1.391.138.008.245-.174.238-.404zM36.2 33.044c-1.281-.28-2.245-1.64-2.554-3.607l-.253-1.604.465-2.254c.256-1.239.832-2.964 1.28-3.833 1.261-2.443 3.579-5.015 5.632-6.252l1.866-1.124 2.076.231 2.077.232.902 1.5.902 1.5-.182 2.666-.183 2.667-1.074 2.334c-1.295 2.81-3.688 5.67-5.784 6.91l-1.539.912-1.333-.034c-.734-.018-1.768-.128-2.298-.244zm4.229-2.261l1.064-.55-.664-.288-.665-.288.915.125.915.125.333-.402.333-.401-3.427-1.052C37.348 27.474 35.65 27 35.46 27h-.347l.134 1.083c.073.596.381 1.571.684 2.167l.552 1.083h1.44c.793 0 1.92-.248 2.506-.55zm-1.181-.337c.229-.093.604-.093.833 0 .23.092.042.168-.417.168-.458 0-.645-.076-.416-.168zm-2.494-.344c.324-.084.774-.079 1 .013.226.091-.04.16-.59.153l-1-.012.59-.154zm2.16-.656c.23-.093.605-.093.834 0 .229.092.041.168-.417.168-.458 0-.646-.076-.417-.168zm-1.312-.34c.24-.097.528-.085.639.026.11.11-.086.19-.438.175l-.639-.027zm-1.688-.327c.23-.093.605-.093.834 0 .229.092.041.168-.417.168-.458 0-.646-.076-.417-.168zm8.192-1.292c1.32-1.656 2.237-3.878 2.57-6.236l.285-2.017-.632-1.239-.632-1.239-1.587-.179-1.588-.178-1.399.962c-2.67 1.837-5.007 5.236-5.607 8.154l-.208 1.016 3.428 1.034c1.886.568 3.654 1.049 3.929 1.067.275.02.923-.496 1.44-1.145zm-17.59 1.43c-.07-.23-.29-.927-.49-1.55-.199-.624-.362-1.247-.362-1.386 0-.259 2.814-1.315 3.505-1.315.212 0 .61.806.884 1.79l.498 1.791-1.723.543c-.947.299-1.827.543-1.954.543s-.288-.187-.358-.417zm4.47-2.3c-.214-.798-.458-1.563-.542-1.7-.084-.138-.019-.25.144-.25.292 0 1.133 3.053.904 3.283-.064.064-.292-.536-.506-1.333zm-6.014-3.83c-1.557-4.007-2.547-6.761-3.487-9.7l-1.092-3.414 2.17-.67c1.194-.369 2.224-.67 2.29-.67.24 0 1.505 4.528 2.498 8.946.563 2.504 1.093 4.797 1.177 5.094l.153.54-.925.202a33.58 33.58 0 0 0-1.67.414l-.743.212zm4.585-.454c-.101-.275-.663-2.673-1.248-5.329-.585-2.656-1.27-5.412-1.52-6.125-.578-1.637-.575-1.904.02-1.675l.479.183.825 3.556c1.3 5.61 1.946 9.044 1.78 9.484l-.151.406zm1.774-3.648v-1.352h3.04l-.103 1.25-.104 1.25-1.416.102-1.417.103zm1.25-2.924l-.915-.14-.147-.727c-.274-1.354-.466-7.167-.283-8.536L31.42 5h3.346l-.226 3.75c-.287 4.766-.578 7.264-.837 7.2a23.792 23.792 0 0 0-1.12-.188zm2.083-.095c0-.244.1-.344.223-.222a.315.315 0 0 1 0 .444c-.123.122-.223.022-.223-.222zm.567-4.167c.096-2.017.3-4.192.456-4.833l.281-1.167-.186 2.833c-.102 1.559-.307 3.734-.455 4.834l-.27 2z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Shot.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Shot.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M32.977 44.676c-2.14-.51-6.7-4.364-9.515-8.04l-1.926-2.514-.453-2.137-.452-2.137 3.472-3.497 3.472-3.497.21 1.018c.116.56.627 1.869 1.136 2.91l.925 1.89 2.744 2.9 2.744 2.898 2.574 1.69 2.574 1.69h2.403l-3.563 3.575L35.759 45l-.858-.035c-.471-.02-1.337-.15-1.924-.29zm7.877-9.977l-2.043-1.09-3.405-3.413-3.405-3.412-1.16-1.98-1.162-1.978.046-1.223.046-1.222.675-.63c.82-.763 1.089-.8.825-.111-.254.662.406 2.305 1.709 4.25 3.424 5.114 9.589 10.214 12.346 10.214h.924l-.8.852-.8.85-.876-.008c-.483-.005-1.797-.5-2.92-1.1zm3.747-2.548c-2.029-.513-7.753-5.628-10.067-8.995l-1.323-1.926-.215-1.345-.215-1.345.766-.2.765-.2 1.739.875c3.504 1.763 8.425 6.684 10.189 10.188l.875 1.74-.191.729-.19.73-.727-.04a8.903 8.903 0 0 1-1.406-.21zm-.178-3.758c-1.07-2.031-5.527-6.476-7.591-7.571l-1.575-.835-.345.345-.345.345.746 1.521.746 1.521 2.738 2.738 2.738 2.738 1.521.746 1.521.746.346-.345.345-.345zm6.688 2.166l-2-.774-.452-1.075-.452-1.075h1.094l-.629-.695-.63-.696 1.514.232 1.513.232-.259-.277c-.142-.153-1.128-.77-2.19-1.372l-1.931-1.095 1.85-.974 1.849-.973-1.788-.103c-.983-.057-1.787-.193-1.787-.303 0-.11.468-.961 1.04-1.892.573-.93.968-1.765.879-1.855-.09-.09-.865.248-1.723.75-.857.503-1.558.816-1.558.696s.833-1.318 1.85-2.664c1.019-1.345 1.792-2.507 1.718-2.58-.073-.073-1.327.956-2.787 2.288l-2.654 2.422-.34-1.572-.341-1.571-.789 1.63-.789 1.631-.997-1.503-.997-1.503-.001.83-.001.83-1.074-1-1.074-1 .222.596c.123.327.315.823.428 1.1l.204.505-1.14-.39c-1.255-.427-1.182-.346-2.696-3.003l-1.067-1.873 1.14 1.34c.628.737 1.328 1.58 1.556 1.873.228.293.42.43.425.305.006-.126-.82-1.998-1.836-4.16L32.564 7.91l2.855 2.967 2.856 2.968.013-1.574c.008-.867.111-2.065.23-2.664l.219-1.088 1.49 2.323 1.491 2.322-.188 1.532-.188 1.533 2.218-3.916c1.22-2.154 2.25-4.069 2.288-4.256.04-.187.157.943.263 2.512l.192 2.852 3.234-2.521a857.311 857.311 0 0 1 5.448-4.21L57.198 5l-1.212 1.699c-3.134 4.391-5.087 7.255-5.087 7.46 0 .125 1.083-.638 2.407-1.694 1.324-1.057 2.468-1.86 2.542-1.786.114.114-2.02 3.82-5.023 8.724l-.693 1.132 3.108-.11c1.71-.06 3.108-.074 3.108-.029 0 .046-1.55.86-3.441 1.81-1.893.949-3.357 1.81-3.255 1.912.103.102 2.298 1.175 4.88 2.383 2.58 1.207 4.757 2.26 4.835 2.338.078.078-2.14.057-4.929-.048l-5.07-.19 1.106.71c.608.389 1.604 1.011 2.213 1.383 1.432.873.92.83-1.575-.135z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Shotgun_Pellet.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Shotgun_Pellet.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M21.648 42.6l-2.194-1.279-1.599-2.125-1.598-2.125-.629-2.482L15 32.107l.49-2.343.492-2.344 1.568-1.69c.862-.93 1.886-1.698 2.275-1.708.389-.01 1.426-.274 2.304-.588l1.597-.569-1.025 1.105c-.564.607-1.306 1.956-1.65 2.996l-.625 1.891.35 2.218.35 2.218 1.31 1.92 1.31 1.918 1.97 1.108 1.97 1.108H32.294l.462-.863c.254-.475.548-.777.654-.67.106.105-.21 1.02-.702 2.031l-.894 1.84-1.83 1.106-1.831 1.106-2.155-.009-2.155-.009zm7.977-.168c1.667-.977 2.58-2.1 2.1-2.58-.113-.112-.669.1-1.237.473L29.456 41h-4.194l-2.031-1.03-2.032-1.029-1.271-1.848-1.272-1.848-.412-2.17-.411-2.172.675-2.087c.372-1.148 1.259-2.706 1.97-3.463l1.295-1.374-1.24.275-1.242.275-1.448 1.668-1.448 1.668-.442 2.12-.442 2.121.672 2.497.672 2.496 1.425 1.928 1.425 1.928 2.275 1.253 2.275 1.252 1.788.011 1.788.011zm-1.754-5.91c-.97-.608-2.325-1.882-3.012-2.832l-1.25-1.727-.229-2.617-.229-2.617.63-1.735.628-1.736 1.598-1.443c.879-.794 3.914-3.213 6.746-5.375l5.15-3.932.35.625.349.624-.658.727c-.362.4-.657.974-.657 1.276v.548l.92-.788.92-.788-1.205 1.626-1.205 1.626.03 2.02.031 2.018 1.373 2.012 1.373 2.012 1.94.91 1.94.908 1.389-.194c.763-.107 1.744-.347 2.18-.534l.791-.34-.337.545-.337.545 1.725-.97 1.725-.969 1.027-1.75 1.026-1.752v-4.47l-1.032-2.035c-.568-1.12-1.034-2.29-1.035-2.603l-.002-.568.688.568c.378.312 1.122 1.55 1.654 2.751l.968 2.184v4.198l-1.138 2.047-1.137 2.046-3.635 2.302-3.635 2.3-2.674-.285-2.674-.287v.894h1.837c1.01 0 1.966.208 2.124.463l.286.463-2.95-.166c-1.624-.092-2.952-.033-2.952.131 0 .165.847.426 1.881.58 1.034.156 1.768.395 1.63.533-.137.137-1.448.196-2.914.13l-2.665-.12v.881h3.309v.946l-2.932-.272-2.932-.273.172.524c.094.288.995.635 2.001.771 2.128.289 1.448.476-1.376.379l-1.965-.068v1.302l-.931-.032c-.512-.018-1.724-.53-2.693-1.137zm30.182-7.368c-.751-.378-1.656-1.248-2.01-1.934l-.645-1.246.221-1.65.222-1.651 1.002-1.002 1.002-1.002 1.65-.222 1.65-.22 1.342.693 1.34.693.589 1.407c.743 1.78.738 2.44-.033 4.064-.729 1.536-1.653 2.188-3.569 2.518l-1.395.24zm-9.395-3.865l1.04-1.646V19.87l-.837-1.638c-.46-.901-.67-1.638-.47-1.638.61 0 1.72 3.427 1.72 5.305v1.76l-.836 1.639c-.46.9-1.02 1.638-1.246 1.638-.226 0 .057-.741.629-1.647zm9.358-9.686c-1.352-.75-2.081-2.206-2.099-4.192l-.014-1.666.675-.963c.37-.53 1.267-1.21 1.992-1.514l1.317-.55 1.628.366 1.627.367.93 1.158L65 9.768l-.008 1.862-.008 1.861-.715.883c-.393.485-1.121 1.09-1.618 1.344-1.205.616-3.415.561-4.636-.115zm-16.6-1.388l-1.262-1.138-.238-1.496-.238-1.497.685-1.443c.376-.793 1.162-1.698 1.747-2.011.584-.313 1.806-.55 2.714-.525l1.65.043 1.229 1.228 1.228 1.228.198 1.616.198 1.616-.85 1.355c-.945 1.509-2.27 2.162-4.385 2.162h-1.415z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Special.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Special.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M43.49 40.061c-.546-2.762-.969-5.05-.939-5.082.097-.107 4.662 8.447 4.662 8.735 0 .154-.538.487-1.196.74-.657.253-1.27.499-1.363.545-.093.047-.617-2.175-1.163-4.938zm2.961-1.228c-1.534-2.208-2.744-4.056-2.687-4.108.056-.051 1.78 1.36 3.832 3.136l3.73 3.229-.842.878c-.463.483-.931.879-1.042.879-.11 0-1.456-1.807-2.99-4.014zm-21.626.973c-.658-.61-1.195-1.149-1.195-1.195 0-.046 1.656-1.64 3.681-3.54 2.56-2.402 3.555-3.176 3.267-2.54-1.007 2.218-4.242 8.403-4.392 8.395-.092-.004-.704-.509-1.361-1.12zm8.86-1.123c-.11-.778-.447-3.134-.75-5.238l-.55-3.824-4.406-2.254c-2.424-1.24-4.407-2.376-4.407-2.526 0-.15 1.985-1.287 4.411-2.527l4.41-2.254.536-3.824c.294-2.103.634-4.47.754-5.258l.218-1.434 3.61 3.805 3.61 3.806 5.01-.859c2.755-.472 5.06-.81 5.12-.749.06.06-.954 2.165-2.255 4.677l-2.365 4.568 2.362 4.512c1.3 2.482 2.363 4.59 2.363 4.683 0 .093-2.26-.236-5.02-.732l-5.02-.902-3.715 3.871-3.717 3.872zm7.794-6.672c.326 0 2.287.286 4.358.636 2.071.35 3.953.636 4.182.637.256.001-.394-1.574-1.673-4.061-1.15-2.235-2.09-4.265-2.09-4.511 0-.246.936-2.24 2.078-4.429 1.143-2.19 2.03-4.03 1.97-4.09-.06-.06-1.533.16-3.273.486-1.74.327-3.815.688-4.609.802l-1.444.208-3.306-3.36c-1.818-1.847-3.342-3.321-3.387-3.275-.045.046-.381 2.141-.748 4.656-.367 2.516-.726 4.667-.798 4.78-.071.115-2.01 1.137-4.309 2.273l-4.178 2.066 4.294 2.151c4.018 2.014 4.306 2.22 4.47 3.193.346 2.053 1.13 7.697 1.138 8.188.004.278 1.512-1.031 3.37-2.924 1.884-1.919 3.624-3.426 3.955-3.426zm-6.967 2.068c-.201-1.4-.459-3.236-.572-4.08l-.205-1.534-3.622-1.817-3.623-1.816 3.61-1.797 3.61-1.797.395-2.979c.217-1.638.496-3.455.618-4.036l.222-1.057 2.809 2.87 2.808 2.87 3.657-.658c2.01-.362 3.737-.578 3.836-.479.099.1-.623 1.719-1.605 3.599l-1.785 3.418 1.91 3.638c1.906 3.63 1.909 3.637 1.035 3.46a190.74 190.74 0 0 0-4.031-.702l-3.155-.524-2.773 2.983-2.772 2.983zM42.53 21.06c1.543-.852 2.762-1.592 2.708-1.643-.053-.052-1.244.107-2.646.353l-2.55.446-1.997-2.15-1.997-2.15 1.672 3.429c.92 1.885 1.747 3.39 1.838 3.346.091-.045 1.428-.78 2.972-1.631zM20.78 34.999c-.375-.636-.64-1.193-.59-1.239.192-.17 9.286-3.338 9.363-3.261.098.097-7.691 5.655-7.925 5.655-.092 0-.473-.52-.848-1.155zm33.155-8.274c-2.875-.594-5.301-1.154-5.39-1.243-.09-.09 2.441-.163 5.626-.163h5.79v1.275c0 .824-.142 1.263-.4 1.243-.218-.02-2.75-.518-5.626-1.112zm-4.947-2.952c.478-.416 9.773-4.221 9.93-4.065.187.188.706 2.44.716 3.11.007.447-.517.557-3.419.72-1.884.106-4.347.26-5.474.342-1.127.083-1.916.034-1.753-.107zm-24.243-5.437c-4.598-1.133-4.777-1.207-4.691-1.95.049-.426.192-.876.318-1.002.182-.18 5.585 2.018 9.472 3.854 1.15.543-.199.305-5.099-.902zm1.429-2.05c-2.37-1.254-4.482-2.395-4.695-2.535-.286-.188-.17-.584.446-1.514.458-.692.922-1.255 1.03-1.25.108.004 1.99 1.72 4.18 3.81 2.191 2.091 3.84 3.795 3.665 3.786-.175-.007-2.257-1.042-4.626-2.297zm16.637-.713c.243-.843 5.232-8.735 5.517-8.727.175.004.59.214.92.465.569.43.445.634-2.23 3.69l-3.57 4.075c-.404.463-.691.687-.637.497zm-.996-.48c-.034-.302 2.147-9.894 2.278-10.025.256-.256 1.526.269 1.526.63 0 .211-.728 2.166-1.618 4.345-2.041 5-2.161 5.277-2.186 5.05z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Speed.js":
+/*!********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Speed.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M32.066 43.478l-4.306-1.499-3.134-3.064-3.135-3.065.223 1.212.223 1.212-1.02.519c-.56.285-1.372.627-1.804.76l-.785.242-.47-6.77c-.258-3.725-.385-6.855-.283-6.957.102-.102 2.856 1.084 6.121 2.635l5.936 2.82.821 1.227c.451.675.83 1.34.842 1.479.012.138-.482.361-1.097.496-.615.136-1.225.418-1.354.628-.13.21.584 1.217 1.586 2.238l1.823 1.857 3.38 1.831 3.378 1.832 3.462.26c1.903.145 3.4.322 3.327.396-.146.146-8.381 1.27-9.03 1.232-.22-.013-2.336-.697-4.704-1.521zm-12.73-2.405c0-.3 3.084-1.652 3.745-1.642.308.005-.197.415-1.124.911-1.636.876-2.62 1.15-2.62.73zm20.217-2.041l-.561-.363.435-.006c.409-.005 7.444-4.329 8.586-5.276.289-.24.526-.85.526-1.353v-.916l.842.12.842.119.112 1.142.112 1.141-4.46 2.883c-2.454 1.586-4.778 2.88-5.166 2.878-.389-.003-.959-.17-1.268-.37zm-3.062-2.649c-1.593-1.302-5.67-6.685-7.384-9.751-1.543-2.76-2.838-7.361-3.566-12.669-.324-2.36-.589-4.399-.589-4.532s1.22-.343 2.709-.468l2.708-.227.876.574.876.574 2.349-.252 2.348-.251.24 2.578c.304 3.278 1.722 7.454 3.592 10.587.804 1.345 2.654 3.737 4.113 5.314l2.652 2.868v1.438L43.16 34.85c-2.34 1.476-4.488 2.679-4.773 2.672-.285-.007-1.138-.52-1.896-1.139zm3.573-.94l.571-.22-3.552-3.975-3.552-3.975-1.508-2.732a26.705 26.705 0 0 1-3.197-10.312l-.237-2.527H27.112l.264 2.468c.626 5.843 3.008 11.352 6.866 15.877 2.007 2.354 5.01 5.615 5.172 5.615.043 0 .335-.098.65-.219zm4.91-3.138c.123-.199-1.053-1.841-2.613-3.65-1.56-1.808-3.407-4.325-4.106-5.593-1.455-2.64-2.72-6.607-3.114-9.755l-.27-2.167h-1.12l.084 2.005c.121 2.84 1.441 7.314 3 10.163 1.305 2.386 3.416 5.165 6.042 7.955.726.773 1.445 1.404 1.597 1.404.152 0 .377-.163.5-.362zm-6.17-2.842a.552.552 0 0 0-.56-.54c-.565 0-.77.79-.323 1.238.35.35.884-.073.884-.698zm-1.308-.916c.128-.208-.633-1.81-1.69-3.561-2.142-3.546-3.287-6.928-3.67-10.846l-.257-2.617-.656-.125-.655-.125V13.1c0 2.275 1.235 7.16 2.437 9.645 1.245 2.571 3.542 6.178 3.934 6.178.178 0 .429-.17.557-.377zm8.222-1.285l-2.704-2.784-1.307-2.364c-1.559-2.819-3.13-7.581-3.417-10.353l-.207-2 .53.44c.291.241.639 1.225.773 2.187.407 2.924 1.72 6.854 3.085 9.229.712 1.239 2.659 3.642 4.328 5.341l3.033 3.089h-1.41zm7.246-3.938c-3.64-3.264-6.518-6.035-6.395-6.158.122-.123 1.29-.223 2.594-.223 1.304 0 2.365-.126 2.359-.28-.03-.71-1.984-3.358-4.593-6.225l-2.856-3.137-2.99-1.063c-1.645-.584-2.929-1.124-2.853-1.2.246-.246 7.48.76 8.22 1.144.396.206 2.417 1.603 4.493 3.106l3.773 2.733.72 1.244c.395.685 1.266 2.247 1.935 3.471l1.216 2.227.333-1.29.332-1.291 1.604-.117 1.605-.117-.215 1.053c-.117.579-.556 3.158-.975 5.732-.938 5.775-1.071 6.37-1.414 6.346-.15-.01-3.252-2.69-6.893-5.955zm-1.243 2.01c-2.677-1.957-5.092-3.692-5.366-3.854l-.499-.296.125-.966.124-.967 4.867 4.289c5.135 4.524 6.072 5.393 5.79 5.369-.096-.009-2.364-1.617-5.041-3.574zM33.313 8.25l1.434-.38.42.419.418.419-1.853-.04-1.853-.038z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_SpeedUp.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_SpeedUp.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M18.392 41.413v-3.564l7.478-6.287c4.113-3.457 7.478-6.337 7.478-6.4 0-.062-3.365-2.936-7.478-6.385l-7.478-6.27V5l1.336 1.06c4.747 3.766 22.718 18.664 22.8 18.902.057.16-5.14 4.6-11.547 9.867-6.407 5.268-11.86 9.706-12.119 9.862l-.47.285zm18.872.05v-3.536l7.455-6.196c4.1-3.408 7.455-6.357 7.456-6.553.001-.196-3.353-3.149-7.454-6.562l-7.457-6.207V5.018l.445.273c.688.422 23.735 19.365 23.898 19.642.13.222-23.295 19.667-24.032 19.948l-.31.119z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Sticky.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Sticky.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M35.52 43.633c.78-.849 2.069-2.455 2.865-3.569l1.447-2.026 2.677.183 2.678.183 1.088-.424 1.089-.423v-2.355l-1.287-.951c-.707-.523-1.594-1.06-1.97-1.192l-.682-.24 2.044-4.074c1.124-2.241 2.144-4.653 2.266-5.361l.223-1.287 7.819 6.953c4.3 3.824 7.819 7.082 7.819 7.24 0 .158-1.103.583-2.45.944l-2.45.656-3.295-1.364c-1.813-.75-3.567-1.364-3.899-1.364H50.9l.43.803c.237.443 1.24 1.309 2.231 1.925l1.802 1.121-2.713.748c-1.491.41-2.89.716-3.108.677l-3.365-.603c-1.633-.293-3.59-.44-4.35-.326l-1.381.208-.123.645-.124.645 2.253.55 2.254.55-4.708 1.348a570.27 570.27 0 0 0-5.301 1.536c-.327.103.044-.508.824-1.356zm23.189-9.087c-.526-.774-2.215-2.466-3.753-3.76l-2.796-2.354h-.98c-.539 0-1.262.108-1.606.24l-.626.24v1.466c0 .806.227 1.776.504 2.156.646.883 7.202 3.39 8.912 3.406l1.301.014zm-32.723 8.301c-1.198-.956-2.241-2.038-2.319-2.404l-.14-.665 1.99 1.43 1.99 1.43 1.32-.365 1.321-.365 2.69-2.71 2.689-2.71 3.345-7.26 3.345-7.261v-1.123c0-.617.096-1.122.212-1.122.117 0 .651.288 1.188.64l.976.639v1.287c0 .708-.384 2.21-.852 3.338l-.853 2.05-1.044-.23-1.045-.229-.455 3.122-.455 3.122-1.322 2.195c-1.567 2.6-6.276 7.704-7.537 8.169-.488.18-1.333.424-1.877.544l-.99.217zM24.6 39.244c-1.089-.792-2.11-1.634-2.27-1.87-.16-.237-.294-.989-.297-1.671l-.006-1.24 1.585-1.433 1.584-1.431 1.682-.02 1.681-.018-1.385-.675-1.386-.676-.122-1.68-.122-1.682h1.923l1.734-1.579 1.733-1.578-2.227.958-2.228.959-4.48-1.558c-2.463-.856-4.617-1.78-4.787-2.052-.17-.272-.42-1.237-.558-2.144l-.25-1.649.45-2.093.448-2.093 1.53-2.026 1.53-2.026 2.216-.817 2.217-.816 5.243 3.645 5.243 3.646.819 2.73.82 2.729.273-.713c.15-.393.274-1.145.274-1.671 0-.527.184-.957.41-.957.225 0 .848.287 1.385.639l.976.64V22l-3.194 6.877-3.193 6.878-2.045 2.085-2.046 2.085-1.392.387c-.766.213-1.482.383-1.59.38-.11-.005-1.09-.656-2.178-1.449zM20.32 21.281c.613-.23 1.71-.988 2.437-1.682 1.567-1.496 3.626-5.368 3.626-6.82 0-.565-.46-1.63-1.022-2.368l-1.022-1.34-1.817.714-1.816.713-1.482 2.138-1.483 2.137-.26 2.008-.259 2.007 1.65.495 1.651.494-1.304.962-1.304.962h.645c.355 0 1.147-.189 1.76-.42zm6.453-13.865l-1.787-1.153-1.354.389c-.744.213-1.427.314-1.517.224-.09-.09.592-.549 1.515-1.02L25.308 5l1.818 1.819c1 1 1.732 1.803 1.626 1.784-.106-.02-.997-.553-1.98-1.187z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_StrongerTurret.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_StrongerTurret.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M37.979 44.277c-1.499-.869-1.81-1.516-1.106-2.295.482-.533.448-.609-.413-.935a16.305 16.305 0 0 0-1.889-.563c-.523-.115-1.28-.544-1.684-.954l-.733-.746-1.27.674c-1.108.589-1.31.61-1.594.169-.27-.418-.536-.28-1.536.804l-1.209 1.309-2.376-.22c-2.775-.259-2.966-.344-2.96-1.324.013-1.438.51-1.74 2.978-1.808 3.436-.094 4.866-.576 5.961-2.013.839-1.099.976-1.166 1.348-.659.377.516.498.483 1.378-.373.846-.824 1.204-.933 2.919-.893 1.075.024 2.048.139 2.162.253.113.114.466.207.784.207.323 0 .76.444.995 1.01.463 1.117.394 1.092 3.104 1.143 3.584.068 4.003 1.928.652 2.896-1.745.504-2.292 1.015-1.085 1.015.357 0 .877.227 1.155.505.278.279.658.506.844.506.529 0 .794 1.254.415 1.962-.659 1.23-4.93 1.437-6.84.33zM33.5 33.61c-1.874-.333-2.043-.496-2.031-1.957l.012-1.287 1.347.167c.741.091 2.76.151 4.485.133l3.137-.031-.157 1.162c-.087.64-.285 1.288-.442 1.44-.411.4-4.764.657-6.349.375zm18.05-2.273c-1.189-.26-2.25-.565-2.357-.678-.238-.25 1.842.081 4.353.693 2.465.6.763.588-1.995-.016zm1.827-.643c-.185-.067-1.208-.293-2.274-.503-1.365-.27-1.937-.537-1.937-.907 0-.423.26-.482 1.355-.308 3.288.526 4.71.953 4.71 1.414 0 .44-1.009.606-1.854.303zm-17.855-.837c.114-.186.407-.337.65-.337.6 0 .858-1.828.862-6.096.004-3.889.158-4.248 2.152-5.006.779-.296 1.207-.252 2.19.23l1.22.596.017 4.439c.008 2.44-.092 4.731-.224 5.09-.197.532-.79.721-3.24 1.036-3.66.469-3.89.472-3.628.048zm-4.211-.712c-.649-.169-1.888-.314-2.754-.322-1.281-.012-1.673-.167-2.105-.827-.292-.446-.532-.915-.532-1.042s1.637-.131 3.638-.012l3.638.221 1.026-1.097c.935-.998 1.079-1.473 1.614-5.308.87-6.24.565-5.681 3.168-5.796 1.84-.082 2.259-.207 2.354-.705.234-1.227-.548-1.584-3.467-1.584-2.215 0-2.874.118-3.29.59-.31.35-.817 2.436-1.249 5.137-1.048 6.555-.796 6.205-4.29 5.958-1.59-.112-2.972-.285-3.072-.386-.419-.419.386-.629 2.137-.558 3.313.134 3.184.339 3.184-5.053 0-3.525.127-4.956.504-5.686.474-.917.46-1.008-.243-1.5-.424-.296-1.447-.523-2.358-.523-.885 0-1.61-.152-1.61-.337 0-.197 1.117-.337 2.676-.337 1.471 0 2.759-.135 2.86-.3.102-.165 1.846-.409 3.875-.541 2.994-.196 3.797-.362 4.266-.88.805-.889 2.1-.826 2.472.12.164.417.615 1.022 1.003 1.344.387.323.704.84.704 1.15 0 .31-.834 1.67-1.853 3.024-1.019 1.354-1.853 2.594-1.853 2.755 0 .161.872.431 1.937.6 2.104.334 2.011.175 1.652 2.834-.167 1.234-.151 1.208-1.034 1.61-.961.439-1.206.055-1.208-1.89-.002-1.137-.117-1.283-1.436-1.825-1.806-.743-2.005-.738-3.63.09l-1.334.681-.044 2.436a91.585 91.585 0 0 1-.253 4.934c-.207 2.485-.215 2.5-1.388 2.922-1.383.497-2.101.517-3.706.1zm20.887-.683a308.53 308.53 0 0 1-2.274-.476c-.54-.117-.758-.406-.758-1.006 0-.702.127-.812.758-.663.417.098 1.744.373 2.948.61 1.841.362 2.207.55 2.297 1.175.122.841-.352.899-2.97.36zm-25.056-2.297c-2.915-.243-3.58-.696-3.58-2.437 0-1.333 1.256-1.35 1.41-.02l.106.927 3.68.261c2.33.166 3.802.14 4.013-.07.182-.183.678-2.625 1.1-5.426.423-2.801.931-5.288 1.129-5.526.402-.485 4.35-.988 5.197-.663.3.115.547.42.547.679 0 .356-.567.47-2.359.47-1.297 0-2.362.113-2.367.252-.004.139-.372 2.576-.814 5.417-.553 3.55-.988 5.366-1.39 5.811-.635.701-1.596.748-6.672.324zm24.72-.31l-2.528-.547-.093-4.263-.094-4.264-2.096-.242c-3.632-.421-3.68-.066.807-6.054 2.221-2.964 4.158-5.432 4.303-5.484.337-.12 8.25 13.387 7.993 13.643-.105.105-1.054.016-2.108-.193-3.026-.608-2.816-.894-2.816 3.826 0 3.167-.104 4.2-.42 4.169-.232-.024-1.559-.289-2.949-.59zm-30.781-4.108c-.688-.542-.888-.994-.888-2.014 0-1.517.887-2.328 2.54-2.323.549.002 2.482-.086 4.297-.196l3.3-.2-.1 2.463-.099 2.463-1.516.168c-.834.093-2.398.086-3.476-.016-1.078-.1-2.035-.063-2.125.084-.283.458-1.01.296-1.933-.43zm1.807-1.73c0-.396-.252-.998-.56-1.338-.523-.579-.6-.583-1.179-.059-.78.706-.8 2.005-.04 2.432.794.444 1.778-.128 1.778-1.035zm-2.105-4.404c-1.21-1.01-1.266-2.622-.124-3.52.701-.552 1.36-.625 5.23-.578 2.436.028 4.481.114 4.546.186.064.072.043.99-.048 2.04l-.166 1.91-2.066.204c-5.997.591-6.39.578-7.372-.242zm1.364-.647c.837-.838.259-2.628-.85-2.628-.731 0-1.237 1.48-.79 2.316.43.802 1.035.917 1.64.312z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Stun.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Stun.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M38.82 38.107c-.114-.397-.317-1.587-.451-2.645l-.244-1.923-2.374-1.197-2.375-1.197 2.384-1.236 2.384-1.237.25-2.192c.137-1.206.332-2.331.433-2.5.101-.17.969.465 1.928 1.41 1.72 1.694 1.77 1.714 3.504 1.464.968-.14 2.141-.345 2.607-.456.83-.199.821-.153-.415 2.301l-1.26 2.505 1.075 2.126c.591 1.17 1 2.203.907 2.295-.093.093-1.187-.017-2.43-.242l-2.262-.41-1.727 1.928c-1.503 1.678-1.753 1.834-1.934 1.206zm4.834-9.662l1.274-.724-1.219.23c-1.046.198-1.395.059-2.479-.99l-1.26-1.218.963 1.728c.53.95 1.073 1.721 1.206 1.713.133-.01.815-.341 1.515-.739zm-1.73 8.524c.858-.924 1.191-1.048 2.365-.883l1.366.193-1.273.127c-.7.07-1.52.335-1.82.589-1.187 1.005-1.581.99-.638-.026zm-16.92-2.45c-1.807-.352-2.29-.634-3.506-2.046l-1.409-1.637 1.381-2.729c.76-1.5 1.747-2.95 2.194-3.22.733-.442.788-.426.562.162-.24.628-.222.628.47 0 .397-.358.895-.544 1.107-.412.617.381.448 1.593-.275 1.98-1.003.537-2.114 3.228-1.643 3.978.405.644 2.467 1.08 5.316 1.124 1.248.021 2.476.405 4.366 1.37 2.565 1.313 2.602 1.351 1.537 1.595-1.692.388-7.771.288-10.1-.165zm-5.798-1.803L17.5 31.503l1.244-1.75c1.667-2.345 1.86-2.48.942-.66-1.008 2-.985 2.217.39 3.636 1.469 1.515 1.275 1.512-.87-.013zm28.12-1.437a3342.4 3342.4 0 0 1 3.178-2.42c1.429-1.087 2.54-2.034 2.47-2.104-.07-.07-.845.038-1.722.24-2.773.639-2.761.405.057-1.172 5.812-3.253 6.989-4.948 4.538-6.535-1.328-.86-1.85-2.412-.641-1.907.35.146 1.046.3 1.546.34 1.532.126 2.474.979 2.886 2.615.214.85.389 1.776.389 2.06 0 .926-3.009 3.96-5.527 5.574-3.187 2.043-9.06 4.752-7.174 3.31zm11.79-5.173c.574-.8 1.35-1.857 1.725-2.347.516-.678.624-1.226.447-2.274-.313-1.848 0-1.749.669.212l.543 1.594-2.214 2.136c-1.952 1.881-2.09 1.962-1.17.68zm-32.061-1.108c-.26-1.12-.595-1.554-1.51-1.959-1.455-.645-1.47-.945-.083-1.662.935-.484 1.092-.772 1.092-2.01 0-.796.114-1.447.253-1.447.14 0 .678.408 1.198.906.83.794 1.097.862 2.18.552.678-.195 1.294-.292 1.37-.218.074.076-.103.708-.395 1.406-.484 1.159-.47 1.36.158 2.313.963 1.46.877 1.657-.607 1.38-1.165-.22-1.404-.12-2.31.967l-1.012 1.21zm4.858-2.953c-.099-.168-.048-.653.113-1.079.346-.915 4.886-2.676 9.197-3.567 3.242-.67 3.946-.715 3.159-.207-.423.273-.3.363.546.395.6.021 1.5.161 2 .307.69.201.137.378-2.282.73-1.756.256-5.03 1.112-7.277 1.901-5.489 1.93-5.252 1.864-5.456 1.52zm-6.184-1.971c.128-.492.293-.657.384-.385.087.263-.013.65-.225.862-.27.27-.318.128-.16-.477zm23.018-1.132c-.001-1.336-.162-1.675-1.09-2.295-.6-.4-1.09-.826-1.091-.946 0-.12.631-.466 1.405-.77 1.2-.47 1.444-.759 1.673-1.965l.268-1.413.97 1.157c.762.91 1.302 1.183 2.518 1.274l1.548.116-.91 1.335c-.865 1.269-.884 1.4-.372 2.626.297.71.54 1.37.54 1.469 0 .097-.683-.064-1.517-.358-1.403-.495-1.574-.484-2.274.144-1.487 1.334-1.667 1.294-1.668-.373zm7.096-1.75c-.124-.2-.061-.364.138-.364.2 0 .465.164.59.364.123.2.06.364-.14.364s-.465-.163-.588-.364z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_TemperatureCoolDown.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_TemperatureCoolDown.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M30.03 43.985l-1.902-.982-1.126-1.756-1.127-1.755-.261-1.907-.261-1.907.695-1.914.695-1.915 1.154-1.118 1.154-1.118V7.853l1.453-1.426L31.958 5h3.731l1.436 1.463 1.435 1.462-.027 10.793-.027 10.792 1.214 1.244c.668.684 1.516 2.037 1.885 3.008l.67 1.764-.206 1.94-.206 1.94-1.21 1.805-1.21 1.804-1.966.993L35.51 45l-1.79-.016-1.789-.017zm6.848-1.713l1.36-.693 1-1.576 1-1.576v-1.409c0-1.924-.584-3.516-1.741-4.746l-.972-1.033V8.592l-1.083-1.118-1.083-1.118h-3.056l-1.117 1.083-1.118 1.084v22.8l-.84.788c-.46.433-1.091 1.451-1.401 2.262l-.563 1.475.21 1.536c.262 1.906 1.513 3.795 3.184 4.807l1.274.772h1.793l1.794.002 1.36-.694zm-5.341-1.776c-.404-.226-1.07-.84-1.481-1.363l-.747-.953.159-1.909.158-1.91 1.14-.951c.627-.524.956-.952.73-.952h-.411v-3.99l.835-.548c1.016-.665 2.84-.694 3.68-.057l.618.468-.082 2.272-.082 2.273.696.553c.995.792 1.454 1.843 1.451 3.328l-.002 1.294-.655.994c-.36.547-1.008 1.19-1.439 1.429-.99.55-3.605.562-4.568.022zm4.32-13.604l-.823-.875h-2.593l-.678.678c-.373.373-.755.678-.848.678-.093 0-.17-4.166-.17-9.259V8.856l.952-.911.95-.911h2.726l.743.79.742.79-.09 9.577-.09 9.576zm.312-1.696c0-.172-.252-.591-.56-.932l-.562-.62H33.99c-1.146 0-2.565.808-2.565 1.46v.404h4.745zm-1.863-1.82c1.025.085 1.863.078 1.863-.016s-.252-.45-.56-.79l-.562-.62h-2.383l-.62.56c-.341.309-.62.785-.62 1.059v.497l.509-.422.509-.423zm-2.035-1.427c.274-.444 2.406-.436 3.243.012l.655.35V9.282l-.737-.785-.737-.785h-.85c-.47 0-1.205.332-1.637.737l-.784.738v13.102h.319c.175 0 .413-.153.528-.34zM47.93 32.166c-2.22-3.141-2.015-3.063.986.374l1.39 1.592 1.83-2.25a587.068 587.068 0 0 1 2.277-2.787l.446-.536-.277.52c-.33.621-3.837 5.827-4.136 6.138-.114.12-1.247-1.254-2.516-3.05zm-1.61-5.203c-2.133-2.64-4.073-5.071-4.312-5.402l-.434-.602 1.62.5c2.57.792 4.519 1.266 4.637 1.127.06-.07-.702-3.173-1.693-6.895-.991-3.721-1.77-6.798-1.731-6.837.038-.038 1.341.68 2.895 1.597 1.554.917 2.927 1.663 3.05 1.658.124-.005 1.444-.757 2.934-1.67 1.49-.913 2.756-1.613 2.814-1.554.059.058-.665 3.07-1.607 6.692-.942 3.622-1.712 6.757-1.712 6.966v.38l2.94-.994c1.616-.546 2.978-.954 3.025-.907.063.062-7.85 10.021-8.474 10.665-.041.043-1.82-2.083-3.953-4.724zM21.253 28.22v-.508h5.424v1.017h-5.424zm0-5.084v-.509h5.424v1.017h-5.424zm22.544-2.674l-2.371-.743.384-.237c.21-.13 1.254-.063 2.317.151l1.934.388.18.47c.1.259.124.525.054.592-.07.067-1.194-.212-2.498-.621zm10.343.578c.013-.712.65-1.09 2.367-1.402 1.024-.186 2.005-.25 2.181-.14.277.17-.893.658-3.79 1.577-.42.133-.761.117-.758-.035zm-32.887-2.82v-.339h5.424v.678h-5.424zm0-5.084v-.34h5.424v.679h-5.424zm26.102-4.293C45.958 8 44.75 7.248 44.672 7.173c-.077-.077-.053-.227.054-.334.108-.108 1.378.454 2.824 1.247l2.628 1.442 2.555-1.332c3.176-1.655 3.098-1.624 3.098-1.236 0 .33-5.199 3.483-5.67 3.44-.145-.014-1.407-.714-2.805-1.557zM21.254 8.22v-.508h5.424v1.017h-5.424z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_TwoTurrets.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_TwoTurrets.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M52.253 44.318c-1.574-.962-1.825-1.514-1.153-2.54.505-.77.48-.794-1.292-1.203-2.103-.485-3.366-1.192-3.366-1.882 0-.363-.391-.27-1.534.37-1.327.741-1.574.785-1.83.328-.253-.451-.43-.405-1.204.312-.499.463-.964 1.01-1.032 1.217-.143.426-.938.51-3.994.419-1.802-.054-2.178-.173-2.361-.751-.12-.379-.013-1.119.24-1.646.43-.896.61-.96 2.802-1.012 3.752-.088 5.488-.642 6.403-2.042.86-1.316 1.358-1.513 1.533-.607.095.493.29.42 1.162-.433.943-.922 1.281-1.027 3.377-1.05 1.281-.012 2.33.104 2.33.26 0 .157.315.286.7.286.432 0 .861.366 1.12.953.596 1.358.925 1.512 2.735 1.279 1.138-.147 1.926-.045 2.686.349 1.854.959 1.32 2.082-1.285 2.701-.989.235-1.798.531-1.798.658s.43.385.953.573c1.135.409 2.513 1.654 2.513 2.272 0 1.192-.868 1.622-3.64 1.8-2.458.159-2.918.09-4.065-.61zm-18.461-8.825c-1.377-.737-1.628-1.192-1.025-1.858.447-.495.3-.615-1.424-1.159-1.058-.333-2.008-.825-2.11-1.093-.16-.416-.331-.413-1.172.02-.54.28-1.217.42-1.503.31-.306-.118-.838.167-1.297.695-.81.93-1.904 1.113-4.076.679-.828-.166-1.083-.4-1.083-.998 0-1.08.592-1.428 2.539-1.491 2.632-.086 4.226-.64 4.675-1.625.428-.938.953-1.129 1.2-.435.108.3.415.195 1.005-.347 1.437-1.319 5.169-.931 5.65.587.191.6.515.713 2.044.713 3.29 0 3.958 1.62 1.008 2.447-1.379.386-1.49.482-.84.722 1.287.476 2.214 1.557 1.977 2.305-.373 1.173-3.76 1.494-5.568.527zm14.158-2.537c-2.12-.31-2.504-.51-2.504-1.305 0-.33-.049-.911-.109-1.292-.094-.604.07-.686 1.278-.634 4.793.206 6.01.202 7.018-.028 1.106-.254 1.126-.237 1.126.957 0 1.638-.751 2.305-2.596 2.305-.828 0-1.714.058-1.968.129-.253.07-1.264.012-2.246-.131zm2.007-4.22c1.129-.482 1.328-1.472 1.333-6.643.004-3.757.004-3.76 1.08-4.765 1.217-1.137 1.793-1.22 3.508-.503 1.179.493 1.207.552 1.364 2.86.088 1.295.073 3.754-.036 5.462l-.196 3.107-1.213.251c-.667.139-2.46.335-3.985.437-2.253.15-2.601.112-1.856-.206zm-5.075-.69c-.953-.178-2.3-.318-2.995-.31-.967.013-1.393-.183-1.82-.835-.89-1.357-.714-1.63.916-1.428 5.537.687 6.02.662 7.17-.376 1.03-.928 1.126-1.242 1.903-6.237.45-2.893.922-5.427 1.049-5.632.126-.204 1.234-.372 2.462-.372 2.23 0 2.232 0 2.232-1.002 0-1.264-.424-1.424-3.787-1.424-2.196 0-2.8.12-3.282.654-.395.436-.88 2.422-1.46 5.978-.477 2.929-1.054 5.5-1.281 5.716-.623.588-6.479.195-6.479-.434 0-.361.615-.477 2.53-.477 1.506 0 2.699-.168 2.946-.416.285-.284.416-1.975.416-5.355 0-3.03.157-5.284.405-5.829.568-1.247-.37-1.89-2.773-1.905-1.32-.008-1.808-.135-1.705-.444.099-.3 1.58-.516 4.794-.7 2.558-.146 5.009-.42 5.447-.606.438-.187 1.419-.34 2.18-.34.87 0 1.756-.276 2.385-.74 1.156-.855 1.963-.68 2.423.53.177.465.542.976.81 1.135.27.158.77.884 1.112 1.613.634 1.354.618 1.924-.278 9.678-.111.963-1.166 2.055-1.803 1.867-.191-.056-.395-.831-.453-1.723-.097-1.497-.21-1.676-1.459-2.313-1.715-.875-2.909-.873-4.33.004l-1.126.696-.249 4.97c-.136 2.733-.353 5.14-.482 5.347-.314.51-1.992 1.125-2.928 1.074-.416-.02-1.537-.187-2.49-.365zm-14.21-1.207l-1.472-.313c-.631-.134-.78-.4-.78-1.396 0-1.12.07-1.207.78-.974.429.141 2.063.245 3.632.233 2.824-.025 2.851-.017 2.782.829-.037.469-.231.978-.427 1.13-.443.348-3.58.689-4.514.491zm10.571-1.89c-2.73-.24-3.396-.415-3.897-1.028-.408-.498-.532-1.036-.384-1.656.28-1.165.262-1.148.95-.884.367.14.507.45.381.845-.109.343-.032.724.168.848.2.125 2.101.336 4.223.47l3.859.246.42-1.048c.23-.576.69-3.075 1.022-5.553.331-2.478.83-4.863 1.106-5.3.468-.736.707-.786 3.346-.692 2.25.079 2.842.208 2.842.62 0 .404-.552.542-2.488.621-2.891.118-2.472-.66-3.589 6.652-1.017 6.663-.78 6.489-7.959 5.859zm-9.01-1.695c.38-.381.692-.996.692-1.366 0-.627.095-.61 1.387.235.762.5 1.386 1.015 1.386 1.145 0 .131-.724.337-1.608.459-2.495.341-2.637.305-1.858-.473zm-3.17-.165c-.09-.09-1.012-.189-2.05-.22-1.801-.052-3.099-.66-3.099-1.45 0-.213 1.11-.273 2.92-.16 2.813.175 2.95.149 3.785-.731.477-.502.933-1.381 1.015-1.953.12-.84.158-.76.2.413.028.799.181 1.533.34 1.63.587.363.008 2.222-.756 2.426-.912.245-2.131.268-2.354.045zm-4.905-2.517c-1.347-.105-1.734-.287-2.038-.955-.46-1.008-.151-1.968.546-1.7.282.108.433.401.336.652-.254.664.073.763 3.404 1.033l3.011.245.338-1.33c.186-.73.53-2.732.764-4.447.485-3.551 1.368-5.223 1.365-2.587-.001 1.987-.946 7.833-1.404 8.688-.363.678-1.708.763-6.322.401zm9.936-.534c-.614-.483-.822-.989-.822-2 0-1.555.954-2.43 2.639-2.422.55.003 2.676-.089 4.726-.203l3.725-.209-.004 2.205c-.003 1.213-.144 2.426-.315 2.694-.237.374-1.34.5-4.717.535-3.823.041-4.518-.04-5.23-.6zm1.535-.666c.583-.583.518-2.187-.11-2.708-.432-.358-.652-.324-1.214.184-.827.748-.88 1.657-.142 2.396.654.653.917.676 1.466.128zm-9.375-.206c-2.677-.117-3.214-.764-.635-.764 2.861 0 2.8.095 2.8-4.392 0-2.184.159-4.266.352-4.627.444-.83-.446-1.378-2.235-1.378-.68 0-1.235-.133-1.235-.296 0-.162 1.676-.404 3.724-.536 2.049-.133 3.874-.39 4.055-.571.182-.182.962-.335 1.734-.34.772-.005 1.706-.24 2.076-.52.93-.705 1.2-.644 1.58.357.182.477.49.866.685.866.195 0 .355.156.355.347 0 .2-1.11.347-2.64.347-2.44 0-2.73.079-3.824 1.04-.652.571-1.407 1.04-1.679 1.04-.596 0-1.035 1.55-1.597 5.638-.23 1.672-.588 3.231-.797 3.466-.249.279-1.187.39-2.72.324zm-6.464-2.254c-.576-.577-.457-1.084.139-.59.415.345.625.345 1.04 0 .286-.237.52-.627.52-.866s-.235-.629-.52-.866c-.415-.345-.625-.345-1.04 0-.423.35-.52.333-.52-.094 0-.757.698-.932 4.686-1.176l3.558-.217-.164 1.696c-.09.933-.225 1.895-.301 2.137-.177.565-6.831.543-7.398-.024zm14.252-3.208c-1.168-.818-1.1-3.388.11-4.18.681-.447 1.062-.495 1.679-.214.48.219.991.24 1.285.054.68-.43 6.106-.398 6.927.042.532.285.6.5.324 1.017-.193.36-.351 1.266-.351 2.013v1.357l-3.172.225c-4.736.336-5.953.28-6.802-.314zm1.24-.57c.58-.58.52-2.186-.104-2.703-1.135-.942-2.221 1.625-1.144 2.703.522.521.727.521 1.248 0zm-15.613-1.216c-.717-.799-.795-2.286-.148-2.823.252-.21.993-.387 1.646-.395a44.357 44.357 0 0 0 2.054-.075c.477-.033 1.682-.029 2.68.008l1.812.067-.215 1.646c-.119.905-.236 1.676-.26 1.711-.025.037-1.602.172-3.504.302-3.159.215-3.51.177-4.065-.44zm1.07-.405c.715-.454.363-1.949-.459-1.949-.712 0-1.078.868-.738 1.753.218.568.53.619 1.197.196z\"/>");
+
+/***/ }),
+
+/***/ "./resources/js/assets/mods/Icon_Upgrade_Weakspot.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/mods/Icon_Upgrade_Weakspot.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<path d=\"M37.537 41.261c.738-2.056 1.562-4.276 1.831-4.933l.49-1.194 1.761 4.933C42.588 42.78 43.24 45 43.068 45c-.173 0-.95-.325-1.729-.722l-1.415-.722-1.679.722c-.923.397-1.762.722-1.864.722-.102 0 .418-1.682 1.156-3.739zm-5.4-4.275l-2.82-1.704-1.811-3.137c-.996-1.726-1.713-3.295-1.594-3.488.499-.807 1.135-.17 2.707 2.707l1.66 3.042 3.115 1.732c1.713.953 3.066 1.889 3.007 2.08-.24.775-1.588.386-4.264-1.232zm10.999 1.319c.003-.24 1.371-1.22 3.04-2.177l3.034-1.743 1.742-3.034c1.653-2.877 2.621-3.783 2.605-2.437-.004.335-.768 1.92-1.696 3.521l-1.689 2.912-2.912 1.689c-2.933 1.7-4.135 2.07-4.124 1.269zm-5.529-5.739c-.187-.335-.469-.57-.626-.522-.157.048-.285-.343-.285-.869s-.157-1.069-.348-1.206c-.191-.138-.934-.157-1.65-.043l-1.302.207-.52-.432c-.286-.237-.417-.597-.292-.8.407-.659.365-2.476-.09-3.929l-.446-1.42.27-1.197c.148-.658.456-1.545.685-1.973l.416-.776 1.41.177c.776.097 1.67.328 1.986.513l.576.337-1.043.024-1.043.023 2.26.985 2.261.985-.065.915c-.036.503.045.915.181.915s.85-.497 1.586-1.104l1.34-1.104-.587-.429-.586-.429 1.152-.278c.634-.154 1.815-.286 2.624-.294l1.471-.014.39.938c.493 1.189.49 2.947-.005 4.235l-.386 1 .221 1.177.221 1.178-.387.467-.388.467-1.715-.165-1.715-.165-.11 1.347-.111 1.346-.783-.028c-.43-.015-.782.103-.782.261 0 .159-.775.289-1.722.289h-1.722zm1.882-1.495l.225-.365.5.415c.274.228.59.323.701.211.212-.211-.544-3.712-.894-4.142-.468-.576-.975.382-1.189 2.246l-.23 2h.331c.182 0 .432-.164.556-.365zm-1.924-3.447l.87-.624-.083-1c-.045-.549-.11-1.184-.145-1.41-.096-.637-1.684-.89-2.767-.442l-.974.404-.395 1.195-.394 1.194.422.509c.232.28.754.51 1.161.513l.74.005-.521.365-.522.366.87-.226c.478-.124 1.26-.506 1.738-.85zm6.807.721c-.105-.17.12-.39.5-.489.94-.246 1.202-1.103.703-2.31l-.418-1.007-.988-.409c-1.856-.768-3.029.305-2.72 2.488l.116.818 1.217.608c1.342.67 1.881.773 1.59.301zm-23.989-1.648l.837-1.891-.891-1.758-.891-1.759.803.251c.442.138 2.75.961 5.127 1.83l4.324 1.578-1.193.425c-.657.233-2.94 1.052-5.073 1.82l-3.879 1.395zm35.426.248a554.466 554.466 0 0 0-5.028-1.828c-.396-.132 5.623-2.53 8.978-3.577l.803-.25-.89 1.758-.892 1.758.851 1.924c.468 1.058.82 1.914.783 1.901-.037-.011-2.11-.77-4.605-1.686zm-29.46-5.521c-.335-.07-.609-.26-.609-.424 0-.165.818-1.701 1.818-3.415l1.817-3.116 3.083-1.802 3.082-1.802.491.188c.59.226.66 1.254.087 1.254-.223 0-1.623.714-3.113 1.588l-2.71 1.588-1.531 2.672c-.843 1.47-1.594 2.835-1.67 3.033-.075.198-.41.304-.745.236zm24.653-2.878l-1.692-3.062-2.734-1.589c-1.504-.873-2.894-1.588-3.09-1.588-.462 0-.462-.937 0-1.222.338-.21 3.968 1.628 5.963 3.017.959.668 4.115 5.786 4.115 6.673 0 .275-.196.575-.435.667l-.435.167zm-6.017 1.876a.329.329 0 0 1 .464 0c.127.128.023.232-.232.232s-.36-.104-.232-.232zm-1.333-.749c.382-.37 1.232-.77 1.887-.892.656-.122 1.122-.151 1.037-.065-.086.085-.935.487-1.888.892l-1.732.737zm-2.426-.758c.558-1.879.873-2.463 1.293-2.396.24.04.718-.051 1.06-.2 1.186-.517.92.036-.842 1.747l-1.77 1.719zm-5.747-.696l-1.565-1.04.603-.001c.331-.001 1.114.463 1.739 1.031.624.569 1.057 1.038.962 1.042-.096.005-.879-.46-1.74-1.031zm-3.71.464a.329.329 0 0 1 .463 0c.128.128.024.232-.231.232s-.36-.104-.232-.232zm6.326-8.159l-1.84-5.088L36.1 5l1.824.845 1.825.846 1.84-.814 1.839-.813-1.51 4.23a517.883 517.883 0 0 1-1.824 5.056l-.314.826z\"/>");
 
 /***/ }),
 
@@ -49882,19 +56153,192 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/ClassSelect.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/ClassSelect.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ClassSelect_vue_vue_type_template_id_81593d0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true& */ "./resources/js/components/ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true&");
+/* harmony import */ var _ClassSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ClassSelect.vue?vue&type=script&lang=js& */ "./resources/js/components/ClassSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ClassSelect_vue_vue_type_style_index_0_id_81593d0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css& */ "./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ClassSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ClassSelect_vue_vue_type_template_id_81593d0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ClassSelect_vue_vue_type_template_id_81593d0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "81593d0e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ClassSelect.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ClassSelect.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/ClassSelect.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ClassSelect.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css& ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_style_index_0_id_81593d0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=style&index=0&id=81593d0e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_style_index_0_id_81593d0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_style_index_0_id_81593d0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_style_index_0_id_81593d0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_style_index_0_id_81593d0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_style_index_0_id_81593d0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_template_id_81593d0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ClassSelect.vue?vue&type=template&id=81593d0e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_template_id_81593d0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClassSelect_vue_vue_type_template_id_81593d0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EquipmentSelect.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/EquipmentSelect.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EquipmentSelect_vue_vue_type_template_id_69bb0b8f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true& */ "./resources/js/components/EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true&");
+/* harmony import */ var _EquipmentSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquipmentSelect.vue?vue&type=script&lang=js& */ "./resources/js/components/EquipmentSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _EquipmentSelect_vue_vue_type_style_index_0_id_69bb0b8f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css& */ "./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _EquipmentSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EquipmentSelect_vue_vue_type_template_id_69bb0b8f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EquipmentSelect_vue_vue_type_template_id_69bb0b8f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "69bb0b8f",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EquipmentSelect.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/EquipmentSelect.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/EquipmentSelect.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./EquipmentSelect.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_style_index_0_id_69bb0b8f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=style&index=0&id=69bb0b8f&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_style_index_0_id_69bb0b8f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_style_index_0_id_69bb0b8f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_style_index_0_id_69bb0b8f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_style_index_0_id_69bb0b8f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_style_index_0_id_69bb0b8f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_template_id_69bb0b8f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EquipmentSelect.vue?vue&type=template&id=69bb0b8f&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_template_id_69bb0b8f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipmentSelect_vue_vue_type_template_id_69bb0b8f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue ***!
   \******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
 /* harmony import */ var _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -49924,7 +56368,7 @@ component.options.__file = "resources/js/components/ExampleComponent.vue"
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49952,6 +56396,14054 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ModificationSelect.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/ModificationSelect.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ModificationSelect_vue_vue_type_template_id_62779b63_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true& */ "./resources/js/components/ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true&");
+/* harmony import */ var _ModificationSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModificationSelect.vue?vue&type=script&lang=js& */ "./resources/js/components/ModificationSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ModificationSelect_vue_vue_type_style_index_0_id_62779b63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css& */ "./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ModificationSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ModificationSelect_vue_vue_type_template_id_62779b63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ModificationSelect_vue_vue_type_template_id_62779b63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "62779b63",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ModificationSelect.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ModificationSelect.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/ModificationSelect.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModificationSelect.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_style_index_0_id_62779b63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=style&index=0&id=62779b63&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_style_index_0_id_62779b63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_style_index_0_id_62779b63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_style_index_0_id_62779b63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_style_index_0_id_62779b63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_style_index_0_id_62779b63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_template_id_62779b63_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModificationSelect.vue?vue&type=template&id=62779b63&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_template_id_62779b63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModificationSelect_vue_vue_type_template_id_62779b63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/StatsDisplay.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/StatsDisplay.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StatsDisplay_vue_vue_type_template_id_5d8c758e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true& */ "./resources/js/components/StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true&");
+/* harmony import */ var _StatsDisplay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StatsDisplay.vue?vue&type=script&lang=js& */ "./resources/js/components/StatsDisplay.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _StatsDisplay_vue_vue_type_style_index_0_id_5d8c758e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css& */ "./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _StatsDisplay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StatsDisplay_vue_vue_type_template_id_5d8c758e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StatsDisplay_vue_vue_type_template_id_5d8c758e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5d8c758e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/StatsDisplay.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/StatsDisplay.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/StatsDisplay.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./StatsDisplay.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css& ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_style_index_0_id_5d8c758e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=style&index=0&id=5d8c758e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_style_index_0_id_5d8c758e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_style_index_0_id_5d8c758e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_style_index_0_id_5d8c758e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_style_index_0_id_5d8c758e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_style_index_0_id_5d8c758e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_template_id_5d8c758e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StatsDisplay.vue?vue&type=template&id=5d8c758e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_template_id_5d8c758e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StatsDisplay_vue_vue_type_template_id_5d8c758e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/equipment/D_E_Armor.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/D_E_Armor.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Heavy Drill Suit",
+  "class": "Armor",
+  icon: "equipment.X_E_Armor",
+  baseStats: {
+    shield: {
+      name: "Shield",
+      value: 25
+    },
+    health: {
+      name: "Health",
+      value: 110
+    },
+    fire: {
+      name: "Fire Resistance",
+      value: 0,
+      percent: true
+    },
+    delay: {
+      name: "Regeneration Delay",
+      value: 7
+    },
+    rate: {
+      name: "Regeneration Rate",
+      value: 100,
+      percent: true
+    },
+    revive: {
+      name: "Revive Invulnerability",
+      value: 3
+    },
+    carry: {
+      name: "Carry Capacity",
+      value: 40
+    },
+    ex1: {
+      name: "AoE Damage On Shield Break",
+      value: 0,
+      "boolean": true
+    },
+    ex2: {
+      name: "AoE Stun On Shield Break",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Improved Generator",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "Shield begins to regenerate sooner.",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 1,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Boosted Converter",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Shield regenerates at a much faster rate but after a longer initial delay",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 2
+      },
+      rate: {
+        name: "Regeneration Rate",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bigger Mineral Bag",
+    icon: "Icon_Upgrade_Capacity",
+    type: "Capacity",
+    text: "You can collect more of each mineral before needing to deposit.",
+    stats: {
+      carry: {
+        name: "Carry Capacity",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 10,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Overcharger",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Your shield can absorb more damage before breaking",
+    stats: {
+      shield: {
+        name: "Shield",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Healthy",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Max health increased",
+    stats: {
+      health: {
+        name: "Health",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 15,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Temperature Insulation",
+    icon: "Icon_Upgrade_Fire_Resistance",
+    type: "Fire Resistance",
+    text: "For those who prefer it medium rare. Flames will inflict half as much damage.",
+    stats: {
+      fire: {
+        name: "Fire Resistance",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2060,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 10,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Shockwave",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "Your shield breaks violently, damaging all enemies around you in the process.",
+    stats: {
+      ex1: {
+        name: "AoE Damage On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 14,
+      jadiz: 0,
+      magnite: 22,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Static Discharge",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "Whenever your shield breaks it releases a static discharge that has a chance to stun nearby enemies.",
+    stats: {
+      ex2: {
+        name: "AoE Stun On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 22,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 14,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Breathing Room",
+    icon: "Icon_Upgrade_Revive",
+    type: "Resistance",
+    text: "Temporary invulnerability after being revived.",
+    stats: {
+      revive: {
+        name: "Revive Invulnerability",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 14,
+      croppa: 0,
+      enorPearl: 22,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/D_E_Drill.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/D_E_Drill.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Reinforced power drills",
+  "class": "support tool",
+  icon: "equipment.D_E_Drill",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var totalDamage;
+    var rof;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Mining Rate") {
+          dpsStats.miningRate = parseFloat(stat.value);
+        } else if (stat.name === "Max Fuel") {
+          dpsStats.maxFuel = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    rof = dpsStats.miningRate / 100 * 1.5;
+    totalDamage = parseFloat(dpsStats.damage * (dpsStats.maxFuel * 3)).toFixed(0);
+    damagePerSecond = parseFloat(dpsStats.damage * rof).toFixed(2);
+    return {
+      dpa: totalDamage,
+      // total damage available
+      dps: damagePerSecond // damage per second
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 5
+    },
+    ammo: {
+      name: "Max Fuel",
+      value: 38
+    },
+    rate: {
+      name: "Mining Rate",
+      value: 100,
+      percent: true
+    },
+    ex1: {
+      name: "Overheat Duration",
+      value: 8
+    },
+    ex2: {
+      name: "Cooling Rate",
+      value: 2
+    },
+    ex3: {
+      name: "Movement speed while drilling",
+      value: 0,
+      percent: true
+    },
+    ex4: {
+      name: "Heat removal on Damage",
+      value: 0
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Barbed Drills",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "More damage inflicted on enemies",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Hardened Drill Tips",
+    icon: "Icon_Upgrade_Digging",
+    type: "Digging",
+    text: "Drill faster",
+    stats: {
+      rate: {
+        name: "Mining rate",
+        value: 50,
+        percent: true
+      },
+      ex3: {
+        name: "Movement speed while drilling",
+        value: 10,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 10,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded fuel tanks",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Carries more fuel",
+    stats: {
+      ammo: {
+        name: "Max Fuel",
+        value: 6
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Magnetic Refrigeration",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Cooling",
+    text: "Faster cooling for the drills when not in action",
+    stats: {
+      ex2: {
+        name: "Cooling Rate",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 780,
+      bismor: 0,
+      croppa: 22,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Streamlined Integrity Check",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Overheat",
+    text: "Can use drills sooner after an overheat",
+    stats: {
+      ex1: {
+        name: "Overheat Duration",
+        value: 3,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 720,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 22,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Supercharged Motor",
+    icon: "Icon_Upgrade_Digging",
+    type: "Digging",
+    text: "Drill faster.",
+    stats: {
+      rate: {
+        name: "Mining rate",
+        value: 50,
+        percent: true
+      },
+      ex3: {
+        name: "Movement speed while drilling",
+        value: 10,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 960,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 16,
+      magnite: 12,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Increased Tank Pressure",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Carries more fuel",
+    stats: {
+      ammo: {
+        name: "Max Fuel",
+        value: 6
+      }
+    },
+    cost: {
+      credits: 1100,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 18,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bloody Cold Drills",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Cooling",
+    text: "Your drills cool when drilling enemies!",
+    stats: {
+      ex4: {
+        name: "Heat removal on Damage",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1100,
+      bismor: 24,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 18,
+      umanite: 0,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/D_E_Satchel.js":
+/*!***********************************************!*\
+  !*** ./resources/js/equipment/D_E_Satchel.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Satchel Charge",
+  "class": "High Explosive",
+  icon: "equipment.D_E_Satchel",
+  baseStats: {
+    dmg: {
+      name: "Area Damage",
+      value: 375
+    },
+    radius: {
+      name: "Damage Radius",
+      value: 4.5
+    },
+    ammo: {
+      name: "Carried Amount",
+      value: 2
+    },
+    diameter: {
+      name: "Carve Diameter",
+      value: 6.2
+    },
+    ex1: {
+      name: "Extra Fear Radius",
+      value: 0
+    },
+    ex2: {
+      name: "Extra Stagger Radius",
+      value: 0
+    },
+    ex3: {
+      name: "Can be picked up",
+      value: 0,
+      "boolean": true
+    },
+    ex4: {
+      name: "Unstable explosives",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Fragmentary Shell",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of Effect",
+    text: "Larger damage radius.",
+    stats: {
+      radius: {
+        name: "Damage Radius",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Extra Satchel Charge",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Can carry one more explosive pack.",
+    stats: {
+      ammo: {
+        name: "Carried Amount",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bigger Charge",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "More Damage.",
+    stats: {
+      dmg: {
+        name: "Area Damage",
+        value: 250
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 12,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Kill Switch",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "Disarm and pick up an unused charge.",
+    stats: {
+      ex3: {
+        name: "Can be picked up",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 26,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Extra Satchel Charge",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Can carry one more explosive pack.",
+    stats: {
+      ammo: {
+        name: "Carried Amount",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 14,
+      umanite: 20,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Volatile compound",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "New more powerful experimental explosives but can detonate if damaged.",
+    stats: {
+      dmg: {
+        name: "Area Damage",
+        value: 250
+      },
+      ex4: {
+        name: "Unstable explosives",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 14,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Big Bang",
+    icon: "Icon_Upgrade_ScareEnemies",
+    type: "Fear",
+    text: "Chance to scare enemies far from the blast.",
+    stats: {
+      ex1: {
+        name: "Extra Fear Radius",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 32,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Concussive Blast",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Staggers creatures far from the blast.",
+    stats: {
+      ex2: {
+        name: "Extra Stagger Radius",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 32,
+      enorPearl: 0,
+      jadiz: 20,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Rock Mover",
+    icon: "Icon_Upgrade_Digging",
+    type: "Digging",
+    text: "Blast carves a much larger area.",
+    stats: {
+      diameter: {
+        name: "Carve Diameter",
+        value: 9
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 32,
+      umanite: 20,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/D_P1_CRSPR.js":
+/*!**********************************************!*\
+  !*** ./resources/js/equipment/D_P1_CRSPR.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: true,
+  modified: false,
+  name: "CRSPR Flamethrower",
+  "class": "Heavy Weapon",
+  icon: "equipment.D_P1_CRSPR",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var totalDamage;
+    var rof;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Fuel Flow Rate") {
+          dpsStats.flowRate = parseFloat(stat.value);
+        } else if (stat.name === "Max Fuel") {
+          dpsStats.maxFuel = parseFloat(stat.value);
+        } else if (stat.name === "Tank Size") {
+          dpsStats.tankSize = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.maxFuel = dpsStats.maxFuel + dpsStats.tankSize;
+    rof = dpsStats.flowRate / 100 * 6;
+    damagePerSecond = parseFloat(dpsStats.damage * rof).toFixed(2);
+    totalDamage = parseFloat(dpsStats.damage * dpsStats.maxFuel).toFixed(0);
+    return {
+      tte: (dpsStats.tankSize / rof).toFixed(2),
+      dpm: dpsStats.tankSize * dpsStats.damage,
+      dps: damagePerSecond,
+      // damage per second
+      dpa: totalDamage // total damage available
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 10
+    },
+    ex11: {
+      name: "Heat",
+      value: 10
+    },
+    ammo: {
+      name: "Max Fuel",
+      value: 300
+    },
+    clip: {
+      name: "Tank Size",
+      value: 50
+    },
+    rate: {
+      name: "Fuel Flow Rate",
+      value: 100,
+      percent: true
+    },
+    reload: {
+      name: "Reload Time",
+      value: 3
+    },
+    ex1: {
+      name: "Increased Sticky Flame Damage",
+      value: 0,
+      "boolean": true
+    },
+    ex2: {
+      name: "Sticky Flame Burn",
+      value: 0
+    },
+    ex3: {
+      name: "Sticky Flame Slowdown",
+      value: 0
+    },
+    ex4: {
+      name: "Sticky Flame Duration",
+      value: 2
+    },
+    ex5: {
+      name: "Fear Factor",
+      value: 0,
+      percent: true
+    },
+    ex6: {
+      name: "Flame Reach",
+      value: 10
+    },
+    ex7: {
+      name: "Area Heat",
+      value: 0
+    },
+    ex9: {
+      name: "Killed Targets Explode %",
+      value: 0,
+      percent: true
+    },
+    ex10: {
+      name: "Movement Speed While Using",
+      value: 100,
+      percent: true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "High Capacity Tanks",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... you can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Tank Size",
+        value: 25
+      }
+    }
+  }, {
+    selected: false,
+    name: "High Pressure Ejector",
+    icon: "Icon_Upgrade_Distance",
+    type: "Reach",
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Increases the range of the flame for long distance incineration.",
+    stats: {
+      ex6: {
+        name: "Flame Reach",
+        value: 5
+      }
+    }
+  }], [// 1/0
+  {
+    selected: false,
+    name: "Unfiltered Fuel",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 5
+      }
+    }
+  }, // 1/1
+  {
+    selected: false,
+    name: "Triple Filtered Fuel",
+    icon: "Icon_Upgrade_Heat",
+    type: "Heat",
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 24,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Fire it up! You set things ablaze much faster. Time to watch the world burn...!",
+    stats: {
+      ex11: {
+        name: "Heat",
+        value: 10
+      }
+    }
+  }, // 1/2
+  {
+    selected: false,
+    name: "Sticky flame duration",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    cost: {
+      credits: 2000,
+      bismor: 15,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 24,
+      umanite: 0,
+      err: 0
+    },
+    text: "Sticky flames duration increase.",
+    stats: {
+      ex4: {
+        name: "Sticky Flame Duration",
+        value: 3
+      }
+    }
+  }], [// 2/0
+  {
+    selected: false,
+    name: "Oversized Valves",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Increased fuel consumption rate for more damage.",
+    stats: {
+      rate: {
+        name: "Fuel Flow Rate",
+        value: 30,
+        percent: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Sticky Flame Slowdown",
+    icon: "Icon_Upgrade_Sticky",
+    type: "Slowdown",
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 50,
+      magnite: 0,
+      umanite: 35,
+      err: 0
+    },
+    text: "Creatures moving through sticky flames are slowed.",
+    stats: {
+      ex3: {
+        name: "Sticky Flame Slowdown",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, // 2/2
+  {
+    selected: false,
+    name: "More Fuel",
+    icon: "Icon_Upgrade_Ammo",
+    type: "total ammo",
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 35,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 50,
+      err: 0
+    },
+    text: "Max Ammo +75",
+    stats: {
+      ammo: {
+        name: "Max Fuel",
+        value: 75
+      }
+    }
+  }], [// 3/0
+  {
+    selected: false,
+    name: "It Burns!",
+    icon: "Icon_Upgrade_ScareEnemies",
+    type: "Fear",
+    cost: {
+      credits: 5600,
+      bismor: 64,
+      croppa: 0,
+      enorPearl: 70,
+      jadiz: 0,
+      magnite: 140,
+      umanite: 0,
+      err: 0
+    },
+    text: "A chance that your target will flee in terror for every second that it is in your flame.",
+    stats: {
+      ex5: {
+        name: "Fear Factor",
+        value: 13,
+        percent: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Sticky flame duration",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 48,
+      umanite: 0,
+      err: 0
+    },
+    text: "Sticky flames duration increase.",
+    stats: {
+      ex4: {
+        name: "Sticky Flame Duration",
+        value: 3
+      }
+    }
+  }, {
+    selected: false,
+    name: "More Fuel",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    cost: {
+      credits: 4800,
+      bismor: 72,
+      croppa: 48,
+      enorPearl: 50,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Max Ammo +75",
+    stats: {
+      ammo: {
+        name: "Max Fuel",
+        value: 75
+      }
+    }
+  }], [{
+    selected: false,
+    name: "Heat Radiance",
+    icon: "Icon_Upgrade_Heat",
+    type: "Heat",
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 140,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 0,
+      err: 0
+    },
+    text: "Heat things up in a 5m radius around you.",
+    stats: {
+      ex7: {
+        name: "Area Heat",
+        value: 10
+      }
+    }
+  }, {
+    selected: false,
+    name: "Targets Explode",
+    icon: "Icon_Upgrade_Explosion",
+    type: "explosion",
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 64,
+      enorPearl: 70,
+      jadiz: 140,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Targets killed from direct damage have a chance to explode.",
+    stats: {
+      ex9: {
+        name: "Killed Targets Explode %",
+        value: 50,
+        percent: true
+      }
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Lighter Tanks",
+    icon: "Icon_Upgrade_Ammo",
+    type: "clean",
+    cost: {
+      credits: 7500,
+      bismor: 125,
+      croppa: 75,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 90,
+      err: 0
+    },
+    text: "Lighter weight gear means more fuel and sandwiches.",
+    stats: {
+      ammo: {
+        name: "Max Fuel",
+        value: 75
+      }
+    }
+  }, {
+    selected: false,
+    name: "Sticky Additive",
+    icon: "Icon_Upgrade_Duration",
+    type: "clean",
+    cost: {
+      credits: 0,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Special additive compound extends the Sticky Flame duration.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      },
+      ex4: {
+        name: "Sticky Flame Duration",
+        value: 1
+      }
+    }
+  }, {
+    selected: false,
+    name: "Compact Feed Valves",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "balanced",
+    cost: {
+      credits: 0,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "The smaller mechanism leaves room to increase tank capacity at the cost of operational range.",
+    stats: {
+      clip: {
+        name: "Tank Size",
+        value: 25
+      },
+      ex6: {
+        name: "Flame Reach",
+        value: 2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Fuel Stream Diffuser",
+    icon: "Icon_Upgrade_Distance",
+    type: "balanced",
+    cost: {
+      credits: 0,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Increases operational range but decreases the fuel flow rate.",
+    stats: {
+      ex6: {
+        name: "Flame Reach",
+        value: 5
+      },
+      rate: {
+        name: "Fuel Flow Rate",
+        value: 20,
+        percent: true,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Face Melter",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 0,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "This crazy bit of tweaking will give a boost in damage but at the cost of both mobility and fuel.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      },
+      rate: {
+        name: "Fuel Flow Rate",
+        value: 30,
+        percent: true
+      },
+      ammo: {
+        name: "Max Fuel",
+        value: 75,
+        subtract: true
+      },
+      ex10: {
+        name: "Movement Speed While Using",
+        value: 50,
+        percent: true,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Sticky Fuel",
+    icon: "Icon_Upgrade_Duration",
+    type: "unstable",
+    cost: {
+      credits: 0,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Special fues mixture extends the duration and damage of Sticky Flames but at the cost of tank capacity and total fuel.",
+    stats: {
+      ex1: {
+        name: "Increased Sticky Flame Damage",
+        value: 1,
+        "boolean": true
+      },
+      ex4: {
+        name: "Sticky Flame Duration",
+        value: 6
+      },
+      clip: {
+        name: "Tank Size",
+        value: 25,
+        subtract: true
+      },
+      ammo: {
+        name: "Max Fuel",
+        value: 75,
+        subtract: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/D_P2_Cryo.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/D_P2_Cryo.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Cryo Cannon",
+  "class": "Heavy Weapon",
+  icon: "equipment.D_P2_Cryo",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var totalDamage;
+    var rof;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Flow Rate") {
+          dpsStats.flowRate = parseFloat(stat.value);
+        } else if (stat.name === "Tank Capacity") {
+          dpsStats.tankCapacity = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    rof = dpsStats.flowRate / 100 * 8;
+    damagePerSecond = parseFloat(dpsStats.damage * rof).toFixed(2);
+    totalDamage = parseFloat(dpsStats.damage * dpsStats.tankCapacity).toFixed(0);
+    return {
+      dps: damagePerSecond,
+      // damage per second
+      dpa: totalDamage // total damage available
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 6
+    },
+    clip: {
+      name: "Tank Capacity",
+      value: 400
+    },
+    rate: {
+      name: "Chargeup Time",
+      value: 0.5
+    },
+    reload: {
+      name: "Repressurization Delay",
+      value: 1
+    },
+    ex1: {
+      name: "Cold Stream Reach",
+      value: 10
+    },
+    ex2: {
+      name: "Freezing Power",
+      value: 8
+    },
+    ex3: {
+      name: "Pressure Drop Rate",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Pressure Gain Rate",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "Frozen Targets can Shatter",
+      value: 0,
+      "boolean": true
+    },
+    ex6: {
+      name: "Area Cold Damage",
+      value: 0,
+      "boolean": true
+    },
+    ex7: {
+      name: "Flow Rate",
+      value: 100,
+      percent: true
+    },
+    ex8: {
+      name: "Ice Spear",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Snowball",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Larger Pressure Chamber",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Lets you shoot for a longer time before needing to refill the preassure chamber.",
+    stats: {
+      ex3: {
+        name: "Pressure Drop Rate",
+        value: 0.5,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Faster Turbine Spinup",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Start freezing things as soon as you pull the trigger with a near-instant turbine response",
+    stats: {
+      rate: {
+        name: "Chargeup Time",
+        value: 0.4,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Stronger Cooling Unit",
+    icon: "Icon_Upgrade_Cold",
+    type: "Cold",
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Freeze things at a faster rate.",
+    stats: {
+      ex2: {
+        name: "Freezing Power",
+        value: 1
+      }
+    }
+  }], [{
+    selected: false,
+    name: "Larger Reserve Tank",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 24,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      clip: {
+        name: "Tank Capacity",
+        value: 50
+      }
+    }
+  }, {
+    selected: false,
+    name: "Overclocked Ejection Turbine",
+    icon: "Icon_Upgrade_Distance",
+    type: "Reach",
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 35,
+      jadiz: 0,
+      magnite: 50,
+      umanite: 0,
+      err: 0
+    },
+    text: "Longer reach",
+    stats: {
+      ex1: {
+        name: "Cold Stream Reach",
+        value: 5
+      }
+    }
+  }, {
+    selected: false,
+    name: "Bypassed Integrity Check",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Overheat",
+    cost: {
+      credits: 2000,
+      bismor: 15,
+      croppa: 24,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "If you completely empty the pressure chamber, the weapon will immediately start repressurizing, safety be banned",
+    stats: {
+      reload: {
+        name: "Repressurization Delay",
+        value: 0,
+        multiply: true
+      }
+    }
+  }], [{
+    selected: false,
+    name: "Improved Pump",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 50,
+      enorPearl: 0,
+      jadiz: 35,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Refill the pressure chamber faster.",
+    stats: {
+      ex4: {
+        name: "Pressure Gain Rate",
+        value: 1.7,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Increased Flow Volume",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    cost: {
+      credits: 2800,
+      bismor: 50,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 35,
+      err: 0
+    },
+    text: "We overclocked your gun. It fires faster. Don't ask, just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      ex7: {
+        name: "Flow Rate",
+        value: 20,
+        percent: true
+      }
+    }
+  }], [{
+    selected: false,
+    name: "Hard Mixture",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    cost: {
+      credits: 4800,
+      bismor: 72,
+      croppa: 48,
+      enorPearl: 50,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Promotes ice-crystal formation in the stream resulting in more direct damage.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 3
+      }
+    }
+  }, {
+    selected: false,
+    name: "Supercooling Mixture",
+    icon: "Icon_Upgrade_Cold",
+    type: "Cold",
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 48,
+      umanite: 0,
+      err: 0
+    },
+    text: "Improves the heat capacity of the stream so you can freeze things at a faster rate.",
+    stats: {
+      ex2: {
+        name: "Freezing Power",
+        value: 1
+      }
+    }
+  }, {
+    selected: false,
+    name: "Larger Reserve Tank",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 72,
+      magnite: 50,
+      umanite: 48,
+      err: 0
+    },
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      clip: {
+        name: "Tank Capacity",
+        value: 150
+      }
+    }
+  }], [{
+    selected: false,
+    name: "Fragile",
+    icon: "Icon_Upgrade_Explosion",
+    type: "Special",
+    text: "There is a chance that frozen targets will spontaneously shatter!",
+    stats: {
+      ex5: {
+        name: "Frozen Targets can Shatter",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 64,
+      croppa: 70,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 140,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Cold Radiance",
+    icon: "Icon_Upgrade_Cold",
+    type: "Cold",
+    text: "Any enemy that strays within 5m of you while you are firing the Cryo Cannon will start to freeze.",
+    stats: {
+      ex6: {
+        name: "Area Cold Damage",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 140,
+      jadiz: 70,
+      magnite: 0,
+      umanite: 64,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Improved Thermal Efficiency",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "clean",
+    cost: {
+      credits: 8350,
+      bismor: 0,
+      croppa: 125,
+      enorPearl: 70,
+      jadiz: 0,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    },
+    text: "Get all you can from your fuel and lose pressure slower from the main chamber.",
+    stats: {
+      clip: {
+        name: "Tank Capacity",
+        value: 25
+      },
+      ex3: {
+        name: "Pressure Drop Rate",
+        value: 0.75,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Perfectly Tuned Cooler",
+    icon: "Icon_Upgrade_Cold",
+    type: "clean",
+    cost: {
+      credits: 8750,
+      bismor: 110,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 65,
+      umanite: 130,
+      err: 0
+    },
+    text: "Freeze things faster, no strings attached.",
+    stats: {
+      ex2: {
+        name: "Freezing Power",
+        value: 1
+      }
+    }
+  }, {
+    selected: false,
+    name: "Flow Rate Expansion",
+    icon: "Icon_Upgrade_Duration",
+    type: "balanced",
+    cost: {
+      credits: 8900,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 70,
+      jadiz: 100,
+      magnite: 125,
+      umanite: 0,
+      err: 0
+    },
+    text: "A low volume high pressure chamber paired with a high power pump improve the overall function rate of the weapon but lower the max duration of sustained flow.",
+    stats: {
+      ex3: {
+        name: "Pressure Drop Rate",
+        value: 2.25,
+        multiply: true
+      },
+      ex4: {
+        name: "Pressure Gain Rate",
+        value: 2.7,
+        multiply: true
+      },
+      ex7: {
+        name: "Flow Rate",
+        value: 10,
+        percent: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Ice Spear",
+    icon: "Icon_Upgrade_ProjectileSpeed",
+    type: "balanced",
+    cost: {
+      credits: 8950,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 60,
+      jadiz: 130,
+      magnite: 0,
+      umanite: 110,
+      err: 0
+    },
+    text: "Pressing the reload button dumps all the fluid in the chamber directly into the turbine, flash freezing it and launching an ice projectile. Side effects include an increased recharge delay and of course the large amount of fuel used.",
+    stats: {
+      reload: {
+        name: "Repressurization Delay",
+        value: 1
+      },
+      ex8: {
+        name: "Ice Spear",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Ice Storm",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 7200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 130,
+      jadiz: 0,
+      magnite: 105,
+      umanite: 75,
+      err: 0
+    },
+    text: "A change in the fuel mixture along with some heavy cooler unit tweaks means that you'll be doing less freezing and more killing with razor-sharp ice shards. However, the capacity of the pressure chamber suffers.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2,
+        multiply: true
+      },
+      ex2: {
+        name: "Freezing Power",
+        value: 3,
+        subtract: true
+      },
+      clip: {
+        name: "Tank Capacity",
+        value: 50,
+        subtract: true
+      },
+      ex3: {
+        name: "Pressure Drop Rate",
+        value: 1.5,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Snowball",
+    icon: "Icon_Upgrade_Area",
+    type: "unstable",
+    cost: {
+      credits: 8400,
+      bismor: 0,
+      croppa: 70,
+      enorPearl: 0,
+      jadiz: 90,
+      magnite: 0,
+      umanite: 130,
+      err: 0
+    },
+    text: "Pressing the reload button shoots all the cryofuel in the chamber at once as an AoE cryo-projectile. Besides the very large amount of fuel consumed the operation overloads the whole system resulting in a much longer delay before regaining pressure and the modifications restrict the total amount of fuel you can carry.",
+    stats: {
+      clip: {
+        name: "Tank Capacity",
+        value: 100,
+        subtract: true
+      },
+      reload: {
+        name: "Repressurization Delay",
+        value: 1
+      },
+      ex9: {
+        name: "Snowball",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/D_S1_Subata.js":
+/*!***********************************************!*\
+  !*** ./resources/js/equipment/D_S1_Subata.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Subata 120",
+  "class": "Pistol",
+  icon: "equipment.D_S1_Subata",
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 12
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 160
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 12
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 8.0
+    },
+    reload: {
+      name: "Reload Time",
+      value: 1.9
+    },
+    recoil: {
+      name: "Recoil",
+      value: 100,
+      percent: true
+    },
+    ex1: {
+      name: "Weakpoint Damage Bonus",
+      value: 20,
+      percent: true
+    },
+    ex2: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex3: {
+      name: "Spread Per Shot",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Bonus Fire Damage to Burning Targets",
+      value: 0,
+      percent: true
+    },
+    ex5: {
+      name: "Damage Vs Mactera",
+      value: 0,
+      percent: true
+    },
+    ex6: {
+      name: "Weakpoint Chain Hit Chance",
+      value: 0,
+      percent: true
+    },
+    ex7: {
+      name: "Randomized Damage",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Automatic Fire",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Explosive Reload",
+      value: 0,
+      "boolean": true
+    },
+    ex10: {
+      name: "Stun Chance",
+      value: 0,
+      percent: true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Improved Alignment",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Pin-point accuracy on first shot",
+    stats: {
+      ex2: {
+        name: "Base Spread",
+        value: 0,
+        percent: true,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... you can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Quickfire Ejector Ejector",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Experience, training, and a couple of under-the-table design \"adjustments\" means your gun can be reloaded significantly faster.",
+    stats: {
+      reload: {
+        name: "Reload Time",
+        value: 0.6,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 30,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Extra Ammo",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Expanded Ammo Bags",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 40
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Improved Propellant",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 30,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Recoil Compensator",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "This little tweak reduces weapon recoil and spread per shot helping you hit consecutive shots.",
+    stats: {
+      ex3: {
+        name: "Spread Per Shot",
+        value: 20,
+        percent: true,
+        subtract: true
+      },
+      recoil: {
+        name: "Recoil",
+        value: 0.5,
+        percent: true,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Expanded Ammo Bags",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 40
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 20,
+      umanite: 30,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Hollow-Point Bullets",
+    icon: "Icon_Upgrade_Weakspot",
+    type: "Weak Spot Bonus",
+    text: "Hit 'em where it hurts! Literally! We've upped the damage you'll be able to do to any creature's fleshy bits. You're welcome.",
+    stats: {
+      ex1: {
+        name: "Weakpoint Damage Bonus",
+        value: 60,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 15,
+      magnite: 0,
+      umanite: 36,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The Good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 36,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Volatile Bullets",
+    icon: "Icon_Upgrade_Heat",
+    type: "Heat",
+    text: "Bonus fire damage to burning targets.",
+    stats: {
+      ex4: {
+        name: "Bonus Fire Damage to Burning Targets",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 40,
+      enorPearl: 0,
+      jadiz: 60,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Mactera Toxin-Coating",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "Bonus damage against Mactera aliens",
+    stats: {
+      ex5: {
+        name: "Damage Vs Mactera",
+        value: 20,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 40,
+      croppa: 0,
+      enorPearl: 60,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 110,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Chain Hit",
+    icon: "Icon_Upgrade_Ricoshet",
+    type: "clean",
+    cost: {
+      credits: 7600,
+      bismor: 65,
+      croppa: 120,
+      enorPearl: 0,
+      jadiz: 100,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Any shot that hits a weakspot has a chance to ricochet into a nearby enemy.",
+    stats: {
+      ex6: {
+        name: "Weakpoint Chain Hit Chance",
+        value: 50,
+        percent: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Homebrew Powder",
+    icon: "Icon_Overclock_ChangeOfHigherDamage",
+    type: "clean",
+    cost: {
+      credits: 7150,
+      bismor: 135,
+      croppa: 100,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 70,
+      umanite: 0,
+      err: 0
+    },
+    text: "More damage on average but it's a bit inconsistent.",
+    stats: {
+      ex7: {
+        name: "Randomized Damage",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Oversized Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "balanced",
+    cost: {
+      credits: 9000,
+      bismor: 70,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 110,
+      magnite: 0,
+      umanite: 130,
+      err: 0
+    },
+    text: "Custom magazine that can fit a lot more ammo but it's a bit unwieldy and takes longer to reload.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 10
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.5
+      }
+    }
+  }, {
+    selected: false,
+    name: "Automatic Fire",
+    icon: "Icon_Upgrade_FireRate",
+    type: "unstable",
+    cost: {
+      credits: 7400,
+      bismor: 95,
+      croppa: 65,
+      enorPearl: 120,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Fully automatic action, watch out for the recoil.",
+    stats: {
+      ex8: {
+        name: "Automatic Fire",
+        value: 1,
+        "boolean": true
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 2
+      },
+      ex2: {
+        name: "Base Spread",
+        value: 100,
+        percent: true
+      },
+      recoil: {
+        name: "Recoil",
+        value: 2.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Explosive Reload",
+    icon: "Icon_Overclock_Special_Magazine",
+    type: "unstable",
+    cost: {
+      credits: 8100,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 95,
+      jadiz: 0,
+      magnite: 65,
+      umanite: 125,
+      err: 0
+    },
+    text: "Micro-explosives that explode inside hit targets when you reload. However these fancy bullets come at the cost of raw damage, total ammo, and magazine capacity.",
+    stats: {
+      ex9: {
+        name: "Explosive Reload",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Damage",
+        value: 3,
+        subtract: true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 40,
+        subtract: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 3,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Tranquilizer Rounds",
+    icon: "Icon_Upgrade_Stun",
+    type: "unstable",
+    cost: {
+      credits: 7150,
+      bismor: 0,
+      croppa: 75,
+      enorPearl: 0,
+      jadiz: 135,
+      magnite: 0,
+      umanite: 75,
+      err: 0
+    },
+    text: "Part bullet, part syringe these rounds are very effective at stunning most enemies.",
+    stats: {
+      ex10: {
+        name: "Stun Chance",
+        value: 50,
+        percent: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 4,
+        subtract: true
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 4.0,
+        subtract: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/D_S2_Plasma.js":
+/*!***********************************************!*\
+  !*** ./resources/js/equipment/D_S2_Plasma.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Experimental Plasma Charger",
+  "class": "Pistol",
+  icon: "equipment.D_S2_Plasma",
+  calculateDamage: function calculateDamage(stats) {
+    var directDamagePerSecond;
+    var chargeDirectDamagePerSecond;
+    var chargeAreaDamagePerSecond;
+    var chargeDamagePerSecond;
+    var directDamagePerBullet;
+    var chargeDirectDamagePerBullet;
+    var chargeAreaDamagePerBullet;
+    var chargeDamagePerBullet;
+    var totalDirectDamage;
+    var totalChargeDirectDamage;
+    var totalChargeAreaDamage;
+    var totalChargeDamage;
+    var dpsStats = {};
+    /*
+    Maximum heat is how much you can fire your weapon before it overheat and you need it to cooldown before using it again.
+    By default charged shot reach 100% heat directly. The maximum heat value is 1 or 100% and cannot be changed.
+    	Cooling Rate is how fast your weapon cool down the accumulated heat (be it overheated or not).
+    The base value is 0.4 heat per second so you’ll recover from overheating (100% heat) in 100% / 0.4 = 2.5 seconds
+    	Charge Speed is how long in second it take you to prepare a charged shot. No heat is generated while charging a projectile.
+    	Heat Buildup When Charged is, just as the name implies, how much heat is generated per second while holding the charge
+    (i.e. when the projectile is fully charged). The base value is 2, which means that if you hold a charged projectile
+    starting from 0 heat you will overheat after 0.5 seconds.
+    */
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.directDamage = parseFloat(stat.value);
+        } else if (stat.name === "Charged Damage") {
+          dpsStats.chargeDamage = parseFloat(stat.value);
+        } else if (stat.name === "Charged Area Damage") {
+          dpsStats.chargeAreaDamage = parseFloat(stat.value);
+        } else if (stat.name === "Charged Shot Ammo Use") {
+          dpsStats.chargeAmmoUse = parseFloat(stat.value);
+        } else if (stat.name === "Charge Speed") {
+          dpsStats.chargeSpeed = parseFloat(stat.value);
+        } else if (stat.name === "Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Reload Time") {
+          dpsStats.reloadTime = parseFloat(stat.value);
+        } else if (stat.name === "Battery Capacity") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        } else if (stat.name === "Cooling Rate") {
+          dpsStats.coolingRate = parseFloat(stat.value);
+          dpsStats.cooldownTime = 2.5 * dpsStats.coolingRate / 100;
+        }
+      } // get damage time for single and charge shots
+      // todo: all calculations without taking overheating into account at the moment (dpsStats.cooldownTime ignored)
+      // todo: check with overcharger overclock
+
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var timePerChargedShot = dpsStats.chargeSpeed;
+    var chargedRateOfFire = 1 / timePerChargedShot; // get single and charge shot damage
+
+    directDamagePerBullet = parseFloat(dpsStats.directDamage).toFixed(0);
+    chargeDirectDamagePerBullet = parseFloat(dpsStats.chargeDamage).toFixed(0);
+    chargeAreaDamagePerBullet = parseFloat(dpsStats.chargeAreaDamage).toFixed(0);
+    chargeDamagePerBullet = parseFloat(dpsStats.chargeDamage + dpsStats.chargeAreaDamage).toFixed(0);
+    directDamagePerSecond = parseFloat(directDamagePerBullet * dpsStats.rateOfFire).toFixed(2); // direct dps burst until overheated.
+
+    chargeDirectDamagePerSecond = parseFloat(chargeDirectDamagePerBullet * chargedRateOfFire).toFixed(2);
+    chargeAreaDamagePerSecond = parseFloat(chargeAreaDamagePerBullet * chargedRateOfFire).toFixed(2);
+    chargeDamagePerSecond = parseFloat(chargeDamagePerBullet * chargedRateOfFire).toFixed(2);
+    var chargedShotCapacity = dpsStats.maxAmmo / dpsStats.chargeAmmoUse;
+    totalDirectDamage = parseFloat(directDamagePerBullet * dpsStats.maxAmmo).toFixed(0);
+    totalChargeDirectDamage = parseFloat(chargeDirectDamagePerBullet * chargedShotCapacity).toFixed(0);
+    totalChargeAreaDamage = parseFloat(chargeAreaDamagePerBullet * chargedShotCapacity).toFixed(0);
+    totalChargeDamage = parseFloat(chargeDamagePerBullet * chargedShotCapacity).toFixed(0);
+    return {
+      dpsplasma: "".concat(directDamagePerSecond),
+      // damage per second for normal shot
+      dpscharged: "".concat(chargeDamagePerSecond, " (Direct: ").concat(chargeDirectDamagePerSecond, " / Area: ").concat(chargeAreaDamagePerSecond, ")"),
+      // damage per second for charged shot
+      dpbplasma: "".concat(directDamagePerBullet),
+      // damage per shot
+      dpbcharged: "".concat(chargeDamagePerBullet, " (Direct: ").concat(chargeDirectDamagePerBullet, " / Area: ").concat(chargeAreaDamagePerBullet, ")"),
+      // damage per charged shot
+      dpaplasma: "".concat(totalDirectDamage),
+      // total damage available for normal shots
+      dpacharged: "".concat(totalChargeDamage, " (Direct: ").concat(totalChargeDirectDamage, " / Area: ").concat(totalChargeAreaDamage, ")") // total damage available for charged shots
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 20
+    },
+    clip: {
+      name: "Battery Capacity",
+      value: 120
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 7.0
+    },
+    reload: {
+      name: "Cooling Rate",
+      value: 100,
+      percent: true
+    },
+    ex1: {
+      name: "Charged Damage",
+      value: 60
+    },
+    ex2: {
+      name: "Charged Area Damage",
+      value: 60
+    },
+    ex3: {
+      name: "Charged Effect Radius",
+      value: 2
+    },
+    ex4: {
+      name: "Charged Shot Ammo Use",
+      value: 8
+    },
+    ex5: {
+      name: "Charge Speed",
+      value: 0.8
+    },
+    ex6: {
+      name: "Heat Buildup When Charged",
+      value: 100,
+      percent: true
+    },
+    ex7: {
+      name: "Normal Projectile Velocity",
+      value: 100,
+      percent: true
+    },
+    ex8: {
+      name: "Thin Containment Field",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Flying Nightmare",
+      value: 0,
+      "boolean": true
+    },
+    ex10: {
+      name: "No Charged Shot Insta-Overheat",
+      value: 0,
+      "boolean": true
+    },
+    ex11: {
+      name: "Plasma Burn",
+      value: 0,
+      "boolean": true
+    },
+    ex12: {
+      name: "Normal Shot Heat Generation",
+      value: 100,
+      percent: true
+    },
+    ex13: {
+      name: "Persistent Plasma",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Increased Particle Density",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "Improves the damage caused by the normal shots.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Larger Battery",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Battery Capacity",
+        value: 24
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Higher Charged Plasma Energy",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Damage",
+    text: "Increases the direct damage for the charged projectile.",
+    stats: {
+      ex1: {
+        name: "Charged Damage",
+        value: 15
+      },
+      ex2: {
+        name: "Charged Area Damage",
+        value: 15
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Expanded Plasma Splash",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Greater damage radius for the charged projectile explosion",
+    stats: {
+      ex3: {
+        name: "Charged Effect Radius",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Charged Plasma Accelerator",
+    icon: "Icon_Upgrade_ProjectileSpeed",
+    type: "Projectile Speed",
+    text: "Significantly increases the movement speed of both of the EPCs projectiles.",
+    stats: {
+      ex7: {
+        name: "Normal Projectile Velocity",
+        value: 25,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Reactive Shockwave",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "More bang for the buck! Increases the damage done within the Area of Effect!",
+    stats: {
+      ex1: {
+        name: "Charged Damage",
+        value: 15
+      },
+      ex2: {
+        name: "Charged Area Damage",
+        value: 15
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Improved Charge Efficiency",
+    icon: "Icon_Upgrade_Fuel",
+    type: "Energy Consumption",
+    text: "A charged shot uses less energy",
+    stats: {
+      ex4: {
+        name: "Charged Shot Ammo Use",
+        value: 2,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 30,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Crystal Capacitors",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Prepare a charged shot much faster.",
+    stats: {
+      ex5: {
+        name: "Charge Speed",
+        value: 2.5,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 30,
+      enorPearl: 0,
+      jadiz: 20,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Tweaked Radiator",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Cooling",
+    text: "Increases the rate at which the weapon sheds heat, letting you shoot more rounds before overheating and also recovering faster from an overheat.",
+    stats: {
+      reload: {
+        name: "Cooling Rate",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 36,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Heat Shield",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Cooling",
+    text: "Reduces how fast the weapon overheats when holding a charged shot.",
+    stats: {
+      ex6: {
+        name: "Heat Buildup When Charged",
+        value: 60,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 36,
+      jadiz: 25,
+      magnite: 0,
+      umanite: 15,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Density Battery",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Battery Capacity",
+        value: 24
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 15,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Flying Nightmare",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "The charged projectile deals damage to nearby enemies while it flies but takes longer to charge up.",
+    stats: {
+      ex9: {
+        name: "Flying Nightmare",
+        value: 1,
+        "boolean": true
+      },
+      ex5: {
+        name: "Charge Speed",
+        value: 0.7,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 40,
+      enorPearl: 0,
+      jadiz: 110,
+      magnite: 60,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Thin Containment Field",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "A weaker containment field takes less energy to create thus producing less heat for Charged Shots. Be aware that any high-energy impact will destabilize the Charged Projectile causing a large area implosion.",
+    stats: {
+      ex10: {
+        name: "No Charged Shot Insta-Overheat",
+        value: 1,
+        "boolean": true
+      },
+      ex12: {
+        name: "Normal Shot Heat Generation",
+        value: 0.8,
+        percent: true,
+        multiply: true
+      },
+      ex8: {
+        name: "Thin Containment Field",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 40,
+      croppa: 60,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Plasma Burn",
+    icon: "Icon_Upgrade_Heat",
+    type: "Heat",
+    text: "A modified containment field causes regular shots to heat up the target proportionally to the amount of damage dealt.",
+    stats: {
+      ex11: {
+        name: "Plasma Burn",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 110,
+      jadiz: 60,
+      magnite: 40,
+      umanite: 0,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Energy Rerouting",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "clean",
+    cost: {
+      credits: 7300,
+      bismor: 130,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 100,
+      magnite: 0,
+      umanite: 65,
+      err: 0
+    },
+    text: "A masterwork of engineering that improves charge speed and energy efficiency without affecting overall performance!",
+    stats: {
+      clip: {
+        name: "Battery Capacity",
+        value: 16
+      },
+      ex5: {
+        name: "Charge Speed",
+        value: 1.5,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Magnetic Cooling Unit",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "clean",
+    cost: {
+      credits: 8900,
+      bismor: 0,
+      croppa: 95,
+      enorPearl: 0,
+      jadiz: 80,
+      magnite: 0,
+      umanite: 125,
+      err: 0
+    },
+    text: "A high-tech solution to Cleanly improve the cooling rate increasing the number of slots that can be fired before overheating and also the speed of recovery from an overheat as well as how long a charge can be held.",
+    stats: {
+      reload: {
+        name: "Cooling Rate",
+        value: 25,
+        percent: true
+      },
+      ex6: {
+        name: "Heat Buildup When Charged",
+        value: 30,
+        percent: true,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Heat Pipe",
+    icon: "Icon_Upgrade_Fuel",
+    type: "balanced",
+    cost: {
+      credits: 7450,
+      bismor: 60,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 95,
+      magnite: 0,
+      umanite: 125,
+      err: 0
+    },
+    text: "By channeling exhaust heat back into the charge chamber a shot can be charged using less energy. This does however make the weapon less efficient at dissipating heat from normal shots.",
+    stats: {
+      ex4: {
+        name: "Charged Shot Ammo Use",
+        value: 2,
+        subtract: true
+      },
+      ex5: {
+        name: "Charge Speed",
+        value: 1.3,
+        multiply: true
+      },
+      ex12: {
+        name: "Normal Shot Heat Generation",
+        value: 1.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Heavy Hitter",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "balanced",
+    cost: {
+      credits: 8100,
+      bismor: 140,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 60,
+      umanite: 105,
+      err: 0
+    },
+    text: "Some extensive tweaking to how the shots are prepared can increase the pure damage of the weapon but at the cost of a lower projectile velocity and a reduced battery size.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1.6,
+        multiply: true
+      },
+      clip: {
+        name: "Battery Capacity",
+        value: 32,
+        subtract: true
+      },
+      ex12: {
+        name: "Normal Shot Heat Generation",
+        value: 1.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Overcharger",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 7050,
+      bismor: 120,
+      croppa: 95,
+      enorPearl: 60,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Pushing the EPC to the limit will give you a significant increase in charge shot damage and a boost in the size of the explosion but at the cost of thermal efficiency and energy consumption.",
+    stats: {
+      ex1: {
+        name: "Charged Damage",
+        value: 1.5,
+        multiply: true
+      },
+      ex2: {
+        name: "Charged Area Damage",
+        value: 1.5,
+        multiply: true
+      },
+      ex3: {
+        name: "Charged Effect Radius",
+        value: 0.6
+      },
+      ex4: {
+        name: "Charged Shot Ammo Use",
+        value: 1.5,
+        multiply: true
+      },
+      reload: {
+        name: "Cooling Rate",
+        value: 25,
+        percent: true,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Persistent Plasma",
+    icon: "Icon_Upgrade_Duration",
+    type: "unstable",
+    cost: {
+      credits: 8150,
+      bismor: 0,
+      croppa: 75,
+      enorPearl: 0,
+      jadiz: 130,
+      magnite: 95,
+      umanite: 0,
+      err: 0
+    },
+    text: "By changing how the plasma is layered within the charged projectile a slow and persistent discharge can be achieved upon impact. However this does reduce the instance damage done.",
+    stats: {
+      ex13: {
+        name: "Persistent Plasma",
+        value: 1,
+        "boolean": true
+      },
+      ex1: {
+        name: "Charged Damage",
+        value: 20,
+        subtract: true
+      },
+      ex2: {
+        name: "Charged Area Damage",
+        value: 20,
+        subtract: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/E_E_Armor.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/E_E_Armor.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Engineering Suit",
+  "class": "Armor",
+  icon: "equipment.X_E_Armor",
+  baseStats: {
+    shield: {
+      name: "Shield",
+      value: 25
+    },
+    health: {
+      name: "Health",
+      value: 110
+    },
+    poison: {
+      name: "Poison Resistance",
+      value: 0,
+      percent: true
+    },
+    delay: {
+      name: "Regeneration Delay",
+      value: 7
+    },
+    rate: {
+      name: "Regeneration Rate",
+      value: 100,
+      percent: true
+    },
+    revive: {
+      name: "Revive Invulnerability",
+      value: 3
+    },
+    carry: {
+      name: "Carry Capacity",
+      value: 40
+    },
+    ex1: {
+      name: "AoE Damage On Shield Break",
+      value: 0,
+      "boolean": true
+    },
+    ex2: {
+      name: "AoE Stun On Shield Break",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Improved Generator",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "Shield begins to regenerate sooner.",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 1,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Boosted Converter",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Shield regenerates at a much faster rate but after a longer initial delay",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 2
+      },
+      rate: {
+        name: "Regeneration Rate",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bigger Mineral Bag",
+    icon: "Icon_Upgrade_Capacity",
+    type: "Capacity",
+    text: "You can collect more of each mineral before needing to deposit.",
+    stats: {
+      carry: {
+        name: "Carry Capacity",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 10,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Overcharger",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Your shield can absorb more damage before breaking",
+    stats: {
+      shield: {
+        name: "Shield",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Healthy",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Max health increased",
+    stats: {
+      health: {
+        name: "Health",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 15,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Hazmat System",
+    icon: "Icon_Upgrade_Poison_Resistance",
+    type: "Poison Resistance",
+    text: "Reduces the damage taken from poison.",
+    stats: {
+      poison: {
+        name: "Poison Resistance",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2060,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 10,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Shockwave",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "Your shield breaks violently, damaging all enemies around you in the process.",
+    stats: {
+      ex1: {
+        name: "AoE Damage On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 14,
+      jadiz: 0,
+      magnite: 22,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Static Discharge",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "Whenever your shield breaks it releases a static discharge that has a chance to stun nearby enemies.",
+    stats: {
+      ex2: {
+        name: "AoE Stun On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 22,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 14,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Breathing Room",
+    icon: "Icon_Upgrade_Revive",
+    type: "Resistance",
+    text: "Temporary invulnerability after being revived.",
+    stats: {
+      revive: {
+        name: "Revive Invulnerability",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 14,
+      croppa: 0,
+      enorPearl: 22,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/E_E_Platform.js":
+/*!************************************************!*\
+  !*** ./resources/js/equipment/E_E_Platform.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Platform Gun",
+  "class": "support Tool",
+  icon: "equipment.E_E_Platform",
+  baseStats: {
+    clip: {
+      name: "Clip Size",
+      value: 4
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 16
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 1
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2
+    },
+    ex1: {
+      name: "Less fall damage",
+      value: 0,
+      "boolean": true
+    },
+    ex2: {
+      name: "Bug repellent",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Supercharged Feed Mechanism",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask. Just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 8
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... you can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Clip Size",
+        value: 4
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 10,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Plastcrete MKII",
+    icon: "Icon_Upgrade_FallDamageResistance",
+    type: "Fall Damage Resistance",
+    text: "Shock-absorbing compound reduces fall damage",
+    stats: {
+      ex1: {
+        name: "Less fall damage",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 780,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 22,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 8
+      }
+    },
+    cost: {
+      credits: 960,
+      bismor: 0,
+      croppa: 16,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 12,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Repellant Additive",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "Enemies will avoid waling on the Plastcrete Foam whenever possible.",
+    stats: {
+      ex2: {
+        name: "Bug repellent",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 960,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 16,
+      magnite: 12,
+      umanite: 0,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/E_E_Sentry.js":
+/*!**********************************************!*\
+  !*** ./resources/js/equipment/E_E_Sentry.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "LMG Gun Platform",
+  "class": "Sentry Gun",
+  icon: "equipment.E_E_Sentry",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var totalDamage;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Carried Amount") {
+          dpsStats.carriedAmount = parseFloat(stat.value);
+        } else if (stat.name === "Sentry Ammo Capacity") {
+          dpsStats.sentryAmmoCapacity = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.carriedAmount = dpsStats.carriedAmount + dpsStats.sentryAmmoCapacity;
+    damagePerSecond = parseFloat(dpsStats.damage * dpsStats.rateOfFire).toFixed(2);
+    totalDamage = parseFloat(dpsStats.damage * dpsStats.carriedAmount).toFixed(0);
+    return {
+      dps: damagePerSecond,
+      // damage per second
+      dpa: totalDamage //total damage available
+
+    };
+  },
+  baseStats: {
+    ammo: {
+      name: "Carried Amount",
+      value: 425
+    },
+    rate: {
+      name: "Construction Time",
+      value: 4
+    },
+    clip: {
+      name: "Sentry Ammo Capacity",
+      value: 90
+    },
+    reload: {
+      name: "Reload Ammo Per Second",
+      value: 45
+    },
+    dmg: {
+      name: "Damage",
+      value: 5
+    },
+    rof: {
+      name: "Rate of Fire",
+      value: 7.5
+    },
+    range: {
+      name: "Max Targeting Range",
+      value: 20
+    },
+    amount: {
+      name: "Number of Sentries",
+      value: 1
+    },
+    ex1: {
+      name: "Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex2: {
+      name: "Stun Chance",
+      value: 0,
+      percent: true
+    },
+    ex3: {
+      name: "Defender System",
+      value: 0,
+      "boolean": true
+    },
+    ex4: {
+      name: "Hawkeye System",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Gemini System",
+    icon: "Icon_Upgrade_TwoTurrets",
+    type: "Special",
+    text: "Can deploy two separate sentries at once.",
+    stats: {
+      rof: {
+        name: "Rate of Fire",
+        value: 2,
+        multiply: true
+      },
+      amount: {
+        name: "Number of Sentries",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 12,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "LMG MKII",
+    icon: "Icon_Upgrade_StrongerTurret",
+    type: "Special",
+    text: "An upgraded model with more punch, longer range and greater ammo capacity.",
+    stats: {
+      clip: {
+        name: "Sentry Ammo Capacity",
+        value: 15
+      },
+      dmg: {
+        name: "Damage",
+        value: 2
+      },
+      range: {
+        name: "Max Targeting Range",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Carried Amount",
+        value: 90
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 26,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Quick Deploy",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Takes less time to build a sentry.",
+    stats: {
+      rate: {
+        name: "Construction Time",
+        value: 2,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 0,
+      croppa: 26,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Widemouth Refill Port",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Refill a turret's ammo faster.",
+    stats: {
+      reload: {
+        name: "Reload Ammo Per Second",
+        value: 45
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 26,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Penetrating Rounds",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those big buggers like butter. What could be finer?",
+    stats: {
+      ex1: {
+        name: "Armor Breaking",
+        value: 300,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 14,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Stun",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Hit 'em so hard they can't recover. Every shot has a chance to stop the target in it's tracks.",
+    stats: {
+      ex2: {
+        name: "Stun Chance",
+        value: 20,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 20,
+      magnite: 14,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Capacity",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The sentry can fire more shots before refilling.",
+    stats: {
+      clip: {
+        name: "Sentry Ammo Capacity",
+        value: 30
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 14,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Defender System",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Special",
+    text: "A design variation with greatly increased shot power and a focused scan angle.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2,
+        multiply: true
+      },
+      ex3: {
+        name: "Defender System",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 20,
+      umanite: 32,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Hawkeye System",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Special",
+    text: "Upgraded sensors increase the effective range and target acquisition speed of the LMG and are synchronised with your laser pointer, prioritizing the target you highlight.",
+    stats: {
+      range: {
+        name: "Max Targeting Range",
+        value: 15
+      },
+      ex4: {
+        name: "Hawkeye System",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 32,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 20,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/E_P1_Warthog.js":
+/*!************************************************!*\
+  !*** ./resources/js/equipment/E_P1_Warthog.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: true,
+  modified: false,
+  name: "\"Warthog\" Auto 210",
+  "class": "Shotgun",
+  icon: "equipment.E_P1_Warthog",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var damagePerBullet;
+    var totalDamage;
+    var magazineDamage;
+    var timeToEmpty;
+    var damageTime;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Reload Time") {
+          dpsStats.reloadTime = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        } else if (stat.name === "Magazine Size") {
+          dpsStats.magazineSize = parseFloat(stat.value);
+        } else if (stat.name === "Pellets") {
+          dpsStats.pellets = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+    timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+    damageTime = timeToEmpty + dpsStats.reloadTime;
+    damagePerBullet = parseFloat(dpsStats.damage * dpsStats.pellets).toFixed(0);
+    magazineDamage = parseFloat(damagePerBullet * dpsStats.magazineSize).toFixed(0);
+    damagePerSecond = parseFloat(magazineDamage / damageTime).toFixed(2);
+    totalDamage = parseFloat(damagePerBullet * dpsStats.maxAmmo).toFixed(0);
+    return {
+      tte: parseFloat(timeToEmpty).toFixed(2),
+      dps: damagePerSecond,
+      dpb: damagePerBullet,
+      dpm: magazineDamage,
+      dpa: totalDamage
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 7
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 90
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 6
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 2
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2
+    },
+    ex1: {
+      name: "Pellets",
+      value: 8
+    },
+    ex2: {
+      name: "Weakpoint Stun Duration",
+      value: 3.0
+    },
+    ex3: {
+      name: "Weakpoint Stun Chance Per Pellet",
+      value: 10,
+      percent: true
+    },
+    ex9: {
+      name: "Weakpoint Damage Bonus",
+      value: 0,
+      percent: true
+    },
+    ex4: {
+      name: "Recoil",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex6: {
+      name: "Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex7: {
+      name: "Turret Whip",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Miner Adjustments",
+      value: 0,
+      "boolean": true
+    },
+    ex10: {
+      name: "Stun Chance on all body parts",
+      value: 0,
+      "boolean": true
+    },
+    ex11: {
+      name: "Bonus Damage Vs Stunned",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Supercharged Feed Mechanism",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask, just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Overstuffed Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "CLip size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 40
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Loaded Shells",
+    icon: "Icon_Upgrade_Shotgun_Pellet",
+    type: "Pellet Count",
+    text: "More pellets in each shell",
+    stats: {
+      ex1: {
+        name: "Pellets",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 24,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Choke",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Decreased shot spread",
+    stats: {
+      ex5: {
+        name: "Base Spread",
+        value: 0.5,
+        percent: true,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 50,
+      umanite: 35,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Recoil Dampener",
+    icon: "Icon_Upgrade_Recoil",
+    type: "Recoil",
+    text: "Quality engineering, the best lasercut parts, the tender loving care of a dedicated R&D Department, The recoil of your gun is drastically reduced.",
+    stats: {
+      ex4: {
+        name: "Recoil",
+        value: 60,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 35,
+      enorPearl: 0,
+      jadiz: 50,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Quickfire Ejector",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Experience, training, and a couple of under-the-table \"adjustments\" means your gun can be reloaded significantly faster.",
+    stats: {
+      reload: {
+        name: "Reload Time",
+        value: 0.5,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 50,
+      jadiz: 0,
+      magnite: 35,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 24,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Tungsten Coated Buckshot",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those big buggers like butter. What could be finer?",
+    stats: {
+      ex6: {
+        name: "Armor Breaking",
+        value: 400,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 48,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bigger Pellets",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 72,
+      croppa: 48,
+      enorPearl: 50,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Turret Whip",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "Shoot your turrets to make them create an overcharged shot",
+    stats: {
+      ex7: {
+        name: "Turret Whip",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 64,
+      enorPearl: 70,
+      jadiz: 140,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Miner Adjustments",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "Fully automatic with an increased rate of fire",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 0.5
+      },
+      ex8: {
+        name: "Miner Adjustments",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 140,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 0,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Stunner",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "clean",
+    cost: {
+      credits: 7350,
+      bismor: 100,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 135,
+      magnite: 60,
+      umanite: 0,
+      err: 0
+    },
+    text: "Heavier rounds allow for stun chance on all body parts, not just weakpoints. Shooting already stunned enemies with this overclock will deal extra damage.",
+    stats: {
+      ex10: {
+        name: "Stun Chance on all body parts",
+        value: 1,
+        "boolean": true
+      },
+      ex11: {
+        name: "Bonus Damage Vs Stunned",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Light-Weight Magazines",
+    icon: "Icon_Upgrade_Ammo",
+    type: "clean",
+    cost: {
+      credits: 7250,
+      bismor: 0,
+      croppa: 125,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 105,
+      umanite: 60,
+      err: 0
+    },
+    text: "It's amazing how much material can be removed without affecting anything and lighter magazines means more magazines and faster reloading.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 20
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.4,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Magnetic Pellet Alignment",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "balanced",
+    cost: {
+      credits: 7900,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 120,
+      jadiz: 105,
+      magnite: 0,
+      umanite: 75,
+      err: 0
+    },
+    text: "Electromagnets in the chamber help reduce shot spread at the cost of a reduced rate of fire and magazine capacity.",
+    stats: {
+      ex5: {
+        name: "Base Spread",
+        value: 0.5,
+        percent: true,
+        multiply: true
+      },
+      ex9: {
+        name: "Weakpoint Damage Bonus",
+        value: 30,
+        percent: true
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 0.75,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Cycle Overload",
+    icon: "Icon_Upgrade_FireRate",
+    type: "unstable",
+    cost: {
+      credits: 8050,
+      bismor: 125,
+      croppa: 100,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 80,
+      err: 0
+    },
+    text: "Heavy modification to the chamber greatly increases the maximum rate of fire but reduces the weapon's accuracy and reload speed as a consequence.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 2
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.5
+      },
+      ex5: {
+        name: "Base Spread",
+        value: 1.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Mini Shells",
+    icon: "Icon_Overclock_SmallBullets",
+    type: "unstable",
+    cost: {
+      credits: 7700,
+      bismor: 0,
+      croppa: 125,
+      enorPearl: 65,
+      jadiz: 0,
+      magnite: 90,
+      umanite: 0,
+      err: 0
+    },
+    text: "Smaller shells designed around a new charge type reduce recoil and increase overall ammo and magazine capacity at the cost of raw damage.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 90
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 6
+      },
+      ex4: {
+        name: "Recoil",
+        value: 0.5,
+        percent: true,
+        multiply: true
+      },
+      dmg: {
+        name: "Damage",
+        value: 2,
+        subtract: true
+      },
+      ex2: {
+        name: "Weakpoint Stun Duration",
+        value: 0,
+        multiply: true
+      },
+      ex3: {
+        name: "Weakpoint Stun Chance Per Pellet",
+        value: 0,
+        percent: true,
+        multiply: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/E_P2_Stubby.js":
+/*!***********************************************!*\
+  !*** ./resources/js/equipment/E_P2_Stubby.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "\"Stubby\" Voltaic SMG",
+  "class": "Submachine Gun",
+  icon: "equipment.E_P2_Stubby",
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 9
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 420
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 30
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 11
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2
+    },
+    spread: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex1: {
+      name: "Electric Damage",
+      value: 0
+    },
+    ex2: {
+      name: "Electrocution %",
+      value: 20,
+      percent: true
+    },
+    ex3: {
+      name: "Recoil",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Weakpoint Damage Bonus",
+      value: 0,
+      percent: true
+    },
+    ex5: {
+      name: "Damage vs Electrically Affected",
+      value: 0,
+      percent: true
+    },
+    ex6: {
+      name: "Electrocution AoE",
+      value: 0,
+      percent: true
+    },
+    ex7: {
+      name: "Turret Arc (10m range)",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Turret EM Discharge (5m range)",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Upgraded Capacitors",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "Better chance to electrocute target",
+    stats: {
+      ex2: {
+        name: "Electrocution %",
+        value: 30,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 120
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Recoil Dampener",
+    icon: "Icon_Upgrade_Recoil",
+    type: "Recoil",
+    text: "Qaulity engineering, the best lasercut parts, the tender loving care of a dedicated R&D Department. The recoil of your gun is drastically reduced.",
+    stats: {
+      ex3: {
+        name: "Recoil",
+        value: 50,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 24,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 15,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Gas System",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask. Just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 35,
+      umanite: 50,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 35,
+      jadiz: 50,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 120
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Hollow-Point Bullets",
+    icon: "Icon_Upgrade_Weakspot",
+    type: "Weak Spot Damage",
+    text: "Hit 'em where it hurts! Literally! We've updated the damage you'll be able to do to any creatures fleshy bits. You're welcome.",
+    stats: {
+      ex4: {
+        name: "Weakpoint Damage Bonus",
+        value: 30,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 48,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Conductive Bullets",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "More damage to targets that are in an electric field",
+    stats: {
+      ex5: {
+        name: "Damage vs Electrically Affected",
+        value: 30,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 140,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Magazine Capacity Tweak",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "ClipSize",
+    text: "Greatly increased magazine capacity",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 64,
+      croppa: 70,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 140,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Electric Arc",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "Chance for electrocution to arc from one target to others",
+    stats: {
+      ex6: {
+        name: "Electrocution AoE",
+        value: 25,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 64,
+      croppa: 140,
+      enorPearl: 0,
+      jadiz: 70,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Super-Slim Rounds",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "clean",
+    cost: {
+      credits: 8550,
+      bismor: 90,
+      croppa: 130,
+      enorPearl: 75,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Same power but in a smaller package giving slightly better accuracy and letting you fit a few more rounds in each magazine.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 5
+      },
+      spread: {
+        name: "Base Spread",
+        value: 0.8,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Well Oiled Machine",
+    icon: "Icon_Upgrade_FireRate",
+    type: "clean",
+    cost: {
+      credits: 8400,
+      bismor: 0,
+      croppa: 65,
+      enorPearl: 0,
+      jadiz: 95,
+      magnite: 140,
+      umanite: 0,
+      err: 0
+    },
+    text: "When you need a little more sustained damage.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 2
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "EM Refire Booster",
+    icon: "Icon_Upgrade_FireRate",
+    type: "balanced",
+    cost: {
+      credits: 8300,
+      bismor: 60,
+      croppa: 0,
+      enorPearl: 90,
+      jadiz: 135,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Use the electron circuit of the SMG to boost its fire rate and damage but the accuracy suffers as a result.",
+    stats: {
+      ex1: {
+        name: "Electric Damage",
+        value: 2
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 4
+      },
+      spead: {
+        name: "Base Spread",
+        value: 1.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Light-Weight Rounds",
+    icon: "Icon_Upgrade_Ammo",
+    type: "balanced",
+    cost: {
+      credits: 8700,
+      bismor: 90,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 65,
+      magnite: 0,
+      umanite: 135,
+      err: 0
+    },
+    text: "They don't hit quite as hard, and can't handle fast fire rates but you sure can carry a lot more of them!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 180
+      },
+      dmg: {
+        name: "Damage",
+        value: 1,
+        subtract: true
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Turret Arc",
+    icon: "Icon_Upgrade_Electricity",
+    type: "unstable",
+    cost: {
+      credits: 8350,
+      bismor: 100,
+      croppa: 135,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 60,
+      err: 0
+    },
+    text: "Use the gemini turrests as nodes in an electric arc. Zap! The downside is less ammo and a slower rate of fire.",
+    stats: {
+      ex7: {
+        name: "Turret Arc (10m range)",
+        value: 1,
+        "boolean": true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 120,
+        subtract: true
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Turret EM Discharge",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "unstable",
+    cost: {
+      credits: 8450,
+      bismor: 80,
+      croppa: 0,
+      enorPearl: 105,
+      jadiz: 125,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Use a turret as the epicenter of an electric explosion! The bullet modifications unfortunately also lower the direct damage and electrocution chance.",
+    stats: {
+      ex8: {
+        name: "Turret EM Discharge (5m range)",
+        value: 1,
+        "boolean": true
+      },
+      ex2: {
+        name: "Electrocution %",
+        value: 5,
+        percent: true,
+        subtract: true
+      },
+      dmg: {
+        name: "Damage",
+        value: 3,
+        subtract: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/E_S1_PGL.js":
+/*!********************************************!*\
+  !*** ./resources/js/equipment/E_S1_PGL.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Deepcore 40mm PGL",
+  "class": "Heavy Weapon",
+  icon: "equipment.E_S1_PGL",
+  calculateDamage: function calculateDamage(stats) {
+    var directDamagePerSecond;
+    var areaDamagePerSecond;
+    var damagePerSecond;
+    var directDamagePerBullet;
+    var areaDamagePerBullet;
+    var damagePerBullet;
+    var directDamagePerMagazine;
+    var areaDamagePerMagazine;
+    var damagePerMagazine;
+    var totalDirectDamage;
+    var totalAreaDamage;
+    var totalDamage;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Direct Damage") {
+          dpsStats.directDamage = parseFloat(stat.value);
+        } else if (stat.name === "Area Damage") {
+          dpsStats.areaDamage = parseFloat(stat.value);
+        } else if (stat.name === "Clip Size") {
+          dpsStats.magazineSize = parseFloat(stat.value);
+        } else if (stat.name === "Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Reload Time") {
+          dpsStats.reloadTime = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.damage = dpsStats.directDamage + dpsStats.areaDamage;
+    var timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+    var damageTime = timeToEmpty + dpsStats.reloadTime;
+    directDamagePerMagazine = dpsStats.directDamage * dpsStats.magazineSize;
+    areaDamagePerMagazine = dpsStats.areaDamage * dpsStats.magazineSize;
+    damagePerMagazine = dpsStats.damage * dpsStats.magazineSize;
+    directDamagePerSecond = parseFloat(directDamagePerMagazine / damageTime).toFixed(2);
+    areaDamagePerSecond = parseFloat(areaDamagePerMagazine / damageTime).toFixed(2);
+    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+    directDamagePerBullet = dpsStats.directDamage;
+    areaDamagePerBullet = dpsStats.areaDamage;
+    damagePerBullet = dpsStats.damage;
+    totalDirectDamage = dpsStats.directDamage * dpsStats.maxAmmo;
+    totalAreaDamage = dpsStats.areaDamage * dpsStats.maxAmmo;
+    totalDamage = dpsStats.damage * dpsStats.maxAmmo;
+    return {
+      dps: "".concat(damagePerSecond, " (Direct: ").concat(directDamagePerSecond, " / Area: ").concat(areaDamagePerSecond, ")"),
+      // damage per second
+      dpb: "".concat(damagePerBullet, " (Direct: ").concat(directDamagePerBullet, " / Area: ").concat(areaDamagePerBullet, ")"),
+      // damage per bullet
+      dpa: "".concat(totalDamage, " (Direct: ").concat(totalDirectDamage, " / Area: ").concat(totalAreaDamage, ")") // total damage available
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Area Damage",
+      value: 110
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 8
+    },
+    clip: {
+      name: "Clip Size",
+      value: 1
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 2
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2
+    },
+    ex1: {
+      name: "Effect Radius",
+      value: 2.5
+    },
+    ex2: {
+      name: "Armor Breaking",
+      value: 50,
+      percent: true
+    },
+    ex3: {
+      name: "Fear Factor",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Projectile Velocity",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "% Converted to Fire",
+      value: 0,
+      percent: true
+    },
+    ex6: {
+      name: "Stun Chance",
+      value: 0,
+      percent: true
+    },
+    ex7: {
+      name: "Proximity Trigger",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Direct Damage",
+      value: 0
+    },
+    ex10: {
+      name: "RJ250 Compound",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Fragmentary Shell",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Damage radius increase",
+    stats: {
+      ex1: {
+        name: "Effect Radius",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Extra Ammo",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Expanded Ammo Bags",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "HE Compound",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Area Damage",
+        value: 15
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Expanded Ammo Bags",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Larger Payload",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "More bang for the buck! Increases the damage done within the Area of Effect!",
+    stats: {
+      dmg: {
+        name: "Area Damage",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Velocity Grenades",
+    icon: "Icon_Upgrade_ProjectileSpeed",
+    type: "Projectile Speed",
+    text: "We souped up the ejection mechanisms of your gun, so the projectiles are now fired at a much higher velocity.",
+    stats: {
+      ex4: {
+        name: "Projectile Velocity",
+        value: 180,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 18,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Incendiary Compound",
+    icon: "Icon_Upgrade_Heat",
+    type: "Heat",
+    text: "50% damage converted to heat. This will reduce direct Damage, but will set enemies on fire.",
+    stats: {
+      ex5: {
+        name: "% Converted to Fire",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Pressure Wave",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those bug buggers like butter. What could be finer?",
+    stats: {
+      ex2: {
+        name: "Armor Breaking",
+        value: 500,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 30,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Homebrew Explosive",
+    icon: "Icon_Overclock_ChangeOfHigherDamage",
+    type: "Randomized Damage",
+    text: "More damage on average but it's a bit inconsistent with a spread from 80% to 140%",
+    stats: {
+      dmg: {
+        name: "Area Damage",
+        value: 1.1,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 36,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 15,
+      magnite: 25,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Nails + Tape",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Fire in the hole! The Area of Effect is increased. (We advise keeping the term \"safe distance\" close to your heart)",
+    stats: {
+      ex1: {
+        name: "Effect Radius",
+        value: 1.5
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 15,
+      jadiz: 36,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Concussive Blast",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Stuns creatures within the blast radius",
+    stats: {
+      ex6: {
+        name: "Stun Chance",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 36,
+      jadiz: 25,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Proximity Trigger",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "Launched grenades will only detonate when they are in close proximity to an enemy or after the projectile comes to a complete stop. Note: The trigger takes a moment to arm, indicated by a green light, and until then the grenade functions as usual.",
+    stats: {
+      ex7: {
+        name: "Proximity Trigger",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 40,
+      croppa: 60,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Spiky Grenade",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "Deals damage on direct impact",
+    stats: {
+      ex8: {
+        name: "Direct Damage",
+        value: 60
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 60,
+      enorPearl: 0,
+      jadiz: 40,
+      magnite: 0,
+      umanite: 110,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Clean Sweep",
+    icon: "Icon_Upgrade_Area",
+    type: "clean",
+    cost: {
+      credits: 8100,
+      bismor: 105,
+      croppa: 0,
+      enorPearl: 70,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 135,
+      err: 0
+    },
+    text: "Increases the explosion radius and damage without any unwanted effects.",
+    stats: {
+      dmg: {
+        name: "Area Damage",
+        value: 10
+      },
+      ex1: {
+        name: "Effect Radius",
+        value: 0.5
+      }
+    }
+  }, {
+    selected: false,
+    name: "Pack Rat",
+    icon: "Icon_Upgrade_Ammo",
+    type: "clean",
+    cost: {
+      credits: 7950,
+      bismor: 80,
+      croppa: 0,
+      enorPearl: 105,
+      jadiz: 0,
+      magnite: 120,
+      umanite: 0,
+      err: 0
+    },
+    text: "You found a way to pack away two more rounds somewhere",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 2
+      }
+    }
+  }, {
+    selected: false,
+    name: "Compact Rounds",
+    icon: "Icon_Upgrade_Ammo",
+    type: "balanced",
+    cost: {
+      credits: 7900,
+      bismor: 120,
+      croppa: 0,
+      enorPearl: 100,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 70,
+      err: 0
+    },
+    text: "Smaller and lighter rounds means more rounds in the pocket at the cost of the explosion's effective radius and damage",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 4
+      },
+      dmg: {
+        name: "Area Damage",
+        value: 10,
+        subtract: true
+      },
+      ex1: {
+        name: "Effect Radius",
+        value: 0.5,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "RJ250 Compound",
+    icon: "Icon_Overclock_ExplosionJump",
+    type: "balanced",
+    cost: {
+      credits: 8800,
+      bismor: 65,
+      croppa: 0,
+      enorPearl: 110,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 120,
+      err: 0
+    },
+    text: "Trade raw damage for the ability to use explosions to move yourself and your teammates.",
+    stats: {
+      ex10: {
+        name: "RJ250 Compound",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Area Damage",
+        value: 25,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Fat Boy",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "unstable",
+    cost: {
+      credits: 8300,
+      bismor: 120,
+      croppa: 0,
+      enorPearl: 70,
+      jadiz: 0,
+      magnite: 105,
+      umanite: 0,
+      err: 0
+    },
+    text: "Big and deadly and dirty. Too bad plutonium is so heavy that you can only take a few rounds with you. And remember to take care with the fallout.",
+    stats: {
+      dmg: {
+        name: "Area Damage",
+        value: 4,
+        multiply: true
+      },
+      ex1: {
+        name: "Effect Radius",
+        value: 1
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 0.3,
+        multiply: true
+      },
+      ex4: {
+        name: "Projectile Velocity",
+        value: 0.7,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Hyper Propellant",
+    icon: "Icon_Upgrade_ProjectileSpeed",
+    type: "unstable",
+    cost: {
+      credits: 8950,
+      bismor: 0,
+      croppa: 90,
+      enorPearl: 0,
+      jadiz: 70,
+      magnite: 130,
+      umanite: 0,
+      err: 0
+    },
+    text: "New super-high velocity projectiles trade explosive range for raw damage in a tight area. The larger rounds also limit the total amount you can carry.",
+    stats: {
+      ex8: {
+        name: "Direct Damage",
+        value: 250
+      },
+      ex4: {
+        name: "Projectile Velocity",
+        value: 350,
+        percent: true
+      },
+      ex1: {
+        name: "Effect Radius",
+        value: 0.3,
+        multiply: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/E_S2_Breach.js":
+/*!***********************************************!*\
+  !*** ./resources/js/equipment/E_S2_Breach.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Breach Cutter",
+  "class": "Heavy Weapon",
+  icon: "equipment.E_S2_Breach",
+  calculateDamage: function calculateDamage(stats) {
+    // todo: calculate simple dps as if beam was in target all the time?
+    return {};
+  },
+  baseStats: {
+    dmg: {
+      name: "Beam DPS",
+      value: 575
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 12
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 4
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 1.5
+    },
+    reload: {
+      name: "Reload Time",
+      value: 3
+    },
+    ex1: {
+      name: "Projectile Lifetime",
+      value: 1.5
+    },
+    ex2: {
+      name: "Plasma Beam Width",
+      value: 2
+    },
+    ex3: {
+      name: "Plasma Expansion Delay",
+      value: 0.2
+    },
+    ex4: {
+      name: "Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "Explosive Goodbye",
+      value: 0,
+      "boolean": true
+    },
+    ex6: {
+      name: "Plasma Trail",
+      value: 0,
+      "boolean": true
+    },
+    ex7: {
+      name: "Triple Split Line",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Roll Control",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Return to Sender",
+      value: 0,
+      "boolean": true
+    },
+    ex10: {
+      name: "Spinning Death",
+      value: 0,
+      "boolean": true
+    },
+    ex11: {
+      name: "High Voltage Crossover",
+      value: 0,
+      "boolean": true
+    },
+    ex12: {
+      name: "Inferno",
+      value: 0,
+      "boolean": true
+    },
+    ex13: {
+      name: "Stun Chance",
+      value: 0,
+      percent: true
+    },
+    ex14: {
+      name: "Stun Duration",
+      value: 0
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Prolonged Power Generation",
+
+    /* todo: new icon */
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "The projectile is able to travel for a longer period of time before collapsing",
+    stats: {
+      ex1: {
+        name: "Projectile Lifetime",
+        value: 1.5
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 20,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 8
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 12,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Condensed Plasma",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Beam DPS",
+        value: 175
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 18,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Loosened Node Cohesion",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Get a significantly wider plasma line that can hit more targets at once.",
+    stats: {
+      ex2: {
+        name: "Plasma Beam Width",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 12,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Quick Deploy",
+    icon: "Icon_Upgrade_Duration",
+    type: "Charge Speed",
+    text: "The line projectile opens almost immediately and can hit multiple targets at very close range.",
+    stats: {
+      ex3: {
+        name: "Plasma Expansion Delay",
+        value: 0.2,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 30,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 20,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Loosened Node Cohesion",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Get a significantly wider plasma line that can hit more targets at once.",
+    stats: {
+      ex2: {
+        name: "Plasma Beam Width",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 30,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 20,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Armor Breaking",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "Greatly improves the armor breaking capabilities of the plasma beam.",
+    stats: {
+      ex4: {
+        name: "Armor Breaking",
+        value: 200,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 25,
+      croppa: 36,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 15,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Disruptive Frequency Tuning",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "The plasma beam will stun most of the denizens of Hoxxes on contact",
+    stats: {
+      ex13: {
+        name: "Stun Chance",
+        value: 100,
+        percent: true
+      },
+      ex14: {
+        name: "Stun Duration",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 36,
+      jadiz: 0,
+      magnite: 15,
+      umanite: 25,
+      err: 0
+    }
+  }
+  /*{
+  	selected: false,
+  	name: "Increase Line Size",
+  	icon: "Icon_Upgrade_Area",
+  	type: "Area of effect",
+  	text: "Longer plasma line",
+  	stats: {
+  		ex2: { name: "Plasma Beam Width", value: 0.3 }
+  	},
+  	cost: {
+  		credits: 3800,
+  		bismor: 0,
+  		croppa: 0,
+  		enorPearl: 36,
+  		jadiz: 25,
+  		magnite: 0,
+  		umanite: 15,
+  		err: 0
+  	}
+  },*/
+  ], [{
+    selected: false,
+    name: "Explosive Goodbye",
+    icon: "Icon_Upgrade_Explosion",
+    type: "Explosion",
+    text: "The projectile explodes at the end of its lifecycle when the nodes collapse damaging anything unlucky enough to be near by and leaving a residual plasma field for a short time. You can also manually trigger the explosion by pulling the trigger a second time while the projectile is in flight.",
+    stats: {
+      ex5: {
+        name: "Explosive Goodbye",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 40,
+      enorPearl: 0,
+      jadiz: 110,
+      magnite: 60,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Plasma Trail",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "The beam leaves behind a residual trail of plasma that will continuously damage any enemy that gets too close.",
+    stats: {
+      ex6: {
+        name: "Plasma Trail",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 40,
+      croppa: 60,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Triple Split Line",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "The plasma beam is split into 3 lines that covers a taller area making it possible to hit multiple targets at various heights.",
+    stats: {
+      ex7: {
+        name: "Triple Split Line",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 110,
+      jadiz: 60,
+      magnite: 0,
+      umanite: 40,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Light-Weight Cases",
+    icon: "Icon_Upgrade_Ammo",
+    type: "clean",
+    cost: {
+      credits: 8700,
+      bismor: 130,
+      croppa: 100,
+      enorPearl: 0,
+      jadiz: 80,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Bring more ammo with you and slam those cases in faster!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 4
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Roll Control",
+    icon: "Icon_Overclock_Spinning_Linecutter",
+    type: "clean",
+    cost: {
+      credits: 8150,
+      bismor: 0,
+      croppa: 95,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 80,
+      umanite: 135,
+      err: 0
+    },
+    text: "A few tweaks to the launcher cause it to add roll to the projectile as it is ejected. Holding down the trigger after the line leaves the gun activates a remote connection with on the release of the trigger causes the line to stop rolling.",
+    stats: {
+      ex8: {
+        name: "Roll Control",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Stronger Plasma Current",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "clean",
+    cost: {
+      credits: 8650,
+      bismor: 0,
+      croppa: 100,
+      enorPearl: 0,
+      jadiz: 140,
+      magnite: 75,
+      umanite: 0,
+      err: 0
+    },
+    text: "By improving the node's efficiency you can up the raw damage without too much fuss and it lasts a bit longer too!",
+    stats: {
+      dmg: {
+        name: "Beam DPS",
+        value: 50
+      },
+      ex1: {
+        name: "Projectile Lifetime",
+        value: 0.5
+      }
+    }
+  }, {
+    selected: false,
+    name: "Return to Sender",
+    icon: "Icon_Overclock_ForthAndBack_Linecutter",
+    type: "balanced",
+    cost: {
+      credits: 7950,
+      bismor: 140,
+      croppa: 0,
+      enorPearl: 100,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 80,
+      err: 0
+    },
+    text: "Holding down the trigger after line leaves the gun activates a remote connection with on the release of the trigger causes the line to change direction and move back towards the gun.",
+    stats: {
+      ex9: {
+        name: "Return to Sender",
+        value: 1,
+        "boolean": true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 4,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "High Voltage Crossover",
+    icon: "Icon_Upgrade_Electricity",
+    type: "balanced",
+    cost: {
+      credits: 8250,
+      bismor: 120,
+      croppa: 0,
+      enorPearl: 80,
+      jadiz: 0,
+      magnite: 100,
+      umanite: 0,
+      err: 0
+    },
+    text: "By passing an electric current through the plasma, the beam electrocutes anything it touches but at the cost of raw damage and the bulky hardware limits magazine capacity.",
+    stats: {
+      ex11: {
+        name: "High Voltage Crossover",
+        value: 1,
+        "boolean": true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Spinning Death",
+    icon: "Icon_Upgrade_Special",
+    type: "unstable",
+    cost: {
+      credits: 7300,
+      bismor: 75,
+      croppa: 95,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 120,
+      err: 0
+    },
+    text: "These heavily tweaked plasma nodes convert most of the forward momentum into angular momentum continuously doing damage to the immediate area where it was launched. The plasma beams also last much longer but they deal less damage every second and are big and heavy so both magazine and total capacity is greatly reduced.",
+    stats: {
+      ex10: {
+        name: "Spinning Death",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Beam DPS",
+        value: 0.2,
+        multiply: true
+      },
+      ex1: {
+        name: "Projectile Lifetime",
+        value: 2.5,
+        multiply: true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 0.5,
+        multiply: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 0.25,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Inferno",
+    icon: "Icon_Upgrade_Heat",
+    type: "unstable",
+    cost: {
+      credits: 7550,
+      bismor: 0,
+      croppa: 70,
+      enorPearl: 0,
+      jadiz: 90,
+      magnite: 135,
+      umanite: 0,
+      err: 0
+    },
+    text: "Turn your Breach Cutter into a tool of burning death and destruction at the cost of ammo and armor breaking.",
+    stats: {
+      ex12: {
+        name: "Inferno",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Beam DPS",
+        value: 175,
+        subtract: true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 4,
+        subtract: true
+      },
+      ex4: {
+        name: "Armor Breaking",
+        value: 0.25,
+        percent: true,
+        multiply: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/G_E_Armor.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/G_E_Armor.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Reinforced Impact Suit",
+  "class": "Armor",
+  icon: "equipment.X_E_Armor",
+  baseStats: {
+    shield: {
+      name: "Shield",
+      value: 25
+    },
+    health: {
+      name: "Health",
+      value: 110
+    },
+    explosion: {
+      name: "Explosion Resistance",
+      value: 0,
+      percent: true
+    },
+    delay: {
+      name: "Regeneration Delay",
+      value: 7
+    },
+    rate: {
+      name: "Regeneration Rate",
+      value: 100,
+      percent: true
+    },
+    revive: {
+      name: "Revive Invulnerability",
+      value: 3
+    },
+    carry: {
+      name: "Carry Capacity",
+      value: 40
+    },
+    ex1: {
+      name: "AoE Damage On Shield Break",
+      value: 0,
+      "boolean": true
+    },
+    ex2: {
+      name: "AoE Stun On Shield Break",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Improved Generator",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "Shield begins to regenerate sooner.",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 1,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Boosted Converter",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Shield regenerates at a much faster rate but after a longer initial delay",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 2
+      },
+      rate: {
+        name: "Regeneration Rate",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bigger Mineral Bag",
+    icon: "Icon_Upgrade_Capacity",
+    type: "Capacity",
+    text: "You can collect more of each mineral before needing to deposit.",
+    stats: {
+      carry: {
+        name: "Carry Capacity",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 10,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Overcharger",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Your shield can absorb more damage before breaking",
+    stats: {
+      shield: {
+        name: "Shield",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Healthy",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Max health increased",
+    stats: {
+      health: {
+        name: "Health",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 15,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Reactive Armor",
+    icon: "Icon_Upgrade_Explosive_Resistance",
+    type: "Explosion Damage Resistance",
+    text: "Fire in the hole! Fancy Reactive Armor plating takes half the sting out of any explosions.",
+    stats: {
+      explosion: {
+        name: "Explosion Resistance",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2060,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 10,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Shockwave",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "Your shield breaks violently, damaging all enemies around you in the process.",
+    stats: {
+      ex1: {
+        name: "AoE Damage On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 14,
+      jadiz: 0,
+      magnite: 22,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Static Discharge",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "Whenever your shield breaks it releases a static discharge that has a chance to stun nearby enemies.",
+    stats: {
+      ex2: {
+        name: "AoE Stun On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 22,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 14,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Breathing Room",
+    icon: "Icon_Upgrade_Revive",
+    type: "Resistance",
+    text: "Temporary invulnerability after being revived.",
+    stats: {
+      revive: {
+        name: "Revive Invulnerability",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 14,
+      croppa: 0,
+      enorPearl: 22,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/G_E_Shield.js":
+/*!**********************************************!*\
+  !*** ./resources/js/equipment/G_E_Shield.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Shield Generator",
+  "class": "Support Tool",
+  icon: "equipment.G_E_Shield",
+  baseStats: {
+    ammo: {
+      name: "Carried Amount",
+      value: 1
+    },
+    radius: {
+      name: "Shield Radius",
+      value: 2.7
+    },
+    duration: {
+      name: "Duration",
+      value: 6
+    },
+    rate: {
+      name: "Shield Regen per second",
+      value: 10
+    },
+    reload: {
+      name: "Recharge Time",
+      value: 12.5
+    },
+    ex1: {
+      name: "Protection Time After Leaving",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Streamlined Integrity Check",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Shield recharges faster.",
+    stats: {
+      reload: {
+        name: "Recharge Time",
+        value: 1,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Projector",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Shield protects a larger area.",
+    stats: {
+      radius: {
+        name: "Shield Radius",
+        value: 0.5
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Fast Charging Capacitors",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Generator recharges faster.",
+    stats: {
+      reload: {
+        name: "Recharge Time",
+        value: 2,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 26,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Larger Capacitors",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "Shield lasts longer.",
+    stats: {
+      duration: {
+        name: "Duration",
+        value: 1.5
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 26,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Supercharged Coils",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Shield protects a larger area.",
+    stats: {
+      radius: {
+        name: "Shield Radius",
+        value: 0.8
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 14,
+      umanite: 20,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Lasting Effect",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "The shield's protective properties linger for a few seconds after you leave the shield.",
+    stats: {
+      ex1: {
+        name: "Protection Time After Leaving",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 14,
+      magnite: 0,
+      umanite: 20,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Efficiency",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "Shield lasts longer.",
+    stats: {
+      duration: {
+        name: "Duration",
+        value: 1.5
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 14,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 20,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/G_E_Zipline.js":
+/*!***********************************************!*\
+  !*** ./resources/js/equipment/G_E_Zipline.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Zipline Gun",
+  "class": "Support Tool",
+  icon: "equipment.G_E_Zipline",
+  baseStats: {
+    range: {
+      name: "Max Range",
+      value: 30
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 3
+    },
+    reload: {
+      name: "Reload Time",
+      value: 1.5
+    },
+    angle: {
+      name: "Max Angle",
+      value: 30
+    },
+    speed: {
+      name: "Movement Speed",
+      value: 250
+    },
+    ex1: {
+      name: "Fall Damage Reduction",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Upgraded Connection Joint",
+    icon: "Icon_Upgrade_Angle",
+    type: "Angle",
+    text: "Increases the operational angle of the zipline",
+    stats: {
+      angle: {
+        name: "Max Angle",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Reinforced Anchor",
+    icon: "Icon_Upgrade_Distance",
+    type: "Reach",
+    text: "Zipline can span a greater distance",
+    stats: {
+      range: {
+        name: "Max Range",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 10,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Reinforced Cable",
+    icon: "Icon_Upgrade_Distance",
+    type: "Reach",
+    text: "Zipline can span a greater distance",
+    stats: {
+      range: {
+        name: "Max Range",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 780,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 22,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Disconnection Protection",
+    icon: "Icon_Upgrade_FallDamageResistance",
+    type: "Fall Damage Resistance",
+    text: "Take less damage if you fall off the zipline",
+    stats: {
+      ex1: {
+        name: "Fall Damage Reduction",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 960,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 16,
+      magnite: 12,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Increased Motor Traction",
+    icon: "Icon_Upgrade_MovementSpeed",
+    type: "Movement Speed",
+    text: "Can reach a higher top speed on the zipline",
+    stats: {
+      speed: {
+        name: "Movement Speed",
+        value: 75
+      }
+    },
+    cost: {
+      credits: 960,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 16,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/G_P1_Lead.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/G_P1_Lead.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: true,
+  modified: false,
+  name: "\"Lead Storm\" Powered Minigun",
+  "class": "Heavy Weapon",
+  icon: "equipment.G_P1_Lead",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var totalDamage;
+    var dpsStats = {}; // todo: minigun should include spinup time in dps, aswell as cooling rate! -> spinup time + how much damage can be done until overheated.
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    damagePerSecond = parseFloat(dpsStats.damage * dpsStats.rateOfFire / 2).toFixed(2);
+    totalDamage = parseFloat(dpsStats.damage * dpsStats.maxAmmo / 2).toFixed(0);
+    return {
+      dps: "".concat(damagePerSecond, " (Burst until overheated)"),
+      // damage per second
+      dpa: totalDamage // total damage available
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 10
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 2400
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 30
+    },
+    reload: {
+      name: "Cooling Rate",
+      value: 1.5
+    },
+    ex1: {
+      name: "Spinup Time",
+      value: 0.7
+    },
+    ex2: {
+      name: "Spindown Time",
+      value: 3
+    },
+    ex3: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "Stun Chance",
+      value: 30,
+      percent: true
+    },
+    ex11: {
+      name: "Stun Duration",
+      value: 1
+    },
+    ex6: {
+      name: "Max Penetrations",
+      value: 0
+    },
+    ex7: {
+      name: "Max Stabilization Damage Bonus",
+      value: 0,
+      percent: true
+    },
+    ex8: {
+      name: "Critical Overheat",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Heat Removed on Kill",
+      value: 0,
+      "boolean": true
+    },
+    ex10: {
+      name: "Hot Bullets",
+      value: 0,
+      percent: true
+    },
+    ex12: {
+      name: "Movement Speed While Using",
+      value: 50,
+      percent: true
+    },
+    ex13: {
+      name: "Burning Hell",
+      value: 0,
+      "boolean": true
+    },
+    ex14: {
+      name: "Heat Generation",
+      value: 100,
+      percent: true
+    },
+    ex15: {
+      name: "Ricochet chance on bullets",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Magnetic Refrigeration",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Cooling",
+    text: "Cooling Rate",
+    stats: {
+      reload: {
+        name: "Cooling Rate",
+        value: 1.5
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Motor",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "Increased rate of fire and faster gyro stabilization",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 4
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Platform Stability",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Increased Accuracy",
+    stats: {
+      ex3: {
+        name: "Base Spread",
+        value: 80,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Oversized Drum",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Expanded Ammo Bags",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 600
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 15,
+      croppa: 0,
+      enorPearl: 24,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 0,
+      jadiz: 15,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Hardened Rounds",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "Improved armor breaking",
+    stats: {
+      ex4: {
+        name: "Armor Breaking",
+        value: 200,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 35,
+      enorPearl: 0,
+      jadiz: 50,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Stun Duration",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Stunned enemies are incapacitated for a longer period of time",
+    stats: {
+      ex11: {
+        name: "Stun Duration",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 35,
+      umanite: 50,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Blowthrough Rounds",
+    icon: "Icon_Upgrade_BulletPenetration",
+    type: "Blow Through",
+    text: "Shaped bullets capable of passing through a target!",
+    stats: {
+      ex6: {
+        name: "Max Penetrations",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 35,
+      jadiz: 0,
+      magnite: 50,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Variable Chamber Pressure",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "Damage increase when fully stabilized",
+    stats: {
+      ex7: {
+        name: "Max Stabilization Damage Bonus",
+        value: 15,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 72,
+      enorPearl: 50,
+      jadiz: 48,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Lighter Barrel Assembly",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Start killing things sooner with a shorter spinup time",
+    stats: {
+      ex1: {
+        name: "Spinup Time",
+        value: 0.4,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 48,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 72,
+      umanite: 50,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Magnetic Bearings",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "Barrels keep spinning for a longer time after firing, keeping the gun stable for longer.",
+    stats: {
+      ex2: {
+        name: "Spindown Time",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 50,
+      croppa: 72,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 48,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Aggressive Venting",
+    icon: "Icon_Upgrade_Explosion",
+    type: "Explosion",
+    text: "Burn everything around you and send enemies running when the minigun overheats.",
+    stats: {
+      ex8: {
+        name: "Critical Overheat",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 140,
+      croppa: 64,
+      enorPearl: 70,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Cold As The Grave",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "Cooling",
+    text: "Every kill cools the gun",
+    stats: {
+      ex9: {
+        name: "Heat Removed on Kill",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 70,
+      jadiz: 140,
+      magnite: 64,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Hot Bullets",
+    icon: "Icon_Upgrade_Heat",
+    type: "Heat",
+    text: "Rounds fired when the heat meter is red will burn the target",
+    stats: {
+      ex10: {
+        name: "Hot Bullets",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 140,
+      magnite: 70,
+      umanite: 64,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "A Little More Oomph!",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "clean",
+    cost: {
+      credits: 8700,
+      bismor: 120,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 95,
+      umanite: 75,
+      err: 0
+    },
+    text: "Get the most out of each shot without compromising any of the gun's systems. ",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      },
+      ex1: {
+        name: "Spinup Time",
+        value: 0.2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Thinned Drum Walls ",
+    icon: "Icon_Upgrade_TemperatureCoolDown",
+    type: "clean",
+    cost: {
+      credits: 7650,
+      bismor: 0,
+      croppa: 75,
+      enorPearl: 125,
+      jadiz: 95,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Stuff more bullets into the ammo drum by thinning the material in non-critical areas. ",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 300
+      },
+      reload: {
+        name: "Cooling Rate",
+        value: 0.5
+      }
+    }
+  }, {
+    selected: false,
+    name: "Burning Hell",
+    icon: "Icon_Upgrade_Heat",
+    type: "balanced",
+    cost: {
+      credits: 8700,
+      bismor: 0,
+      croppa: 110,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 140,
+      umanite: 65,
+      err: 0
+    },
+    text: "Turn the area just infront of the minigun into an even worse place by venting all the combustion gasses forward. However, it does overheat rather quickly. ",
+    stats: {
+      ex13: {
+        name: "Burning Hell",
+        value: 1,
+        "boolean": true
+      },
+      ex14: {
+        name: "Heat Generation",
+        value: 150,
+        percent: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Compact Feed Mechanism",
+    icon: "Icon_Upgrade_Ammo",
+    type: "balanced",
+    cost: {
+      credits: 7450,
+      bismor: 70,
+      croppa: 95,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 130,
+      umanite: 0,
+      err: 0
+    },
+    text: "More space left for ammo at the cost of a reduced rate of fire.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 800
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 4,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Exhaust Vectoring",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "balanced",
+    cost: {
+      credits: 7400,
+      bismor: 140,
+      croppa: 95,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 65,
+      umanite: 0,
+      err: 0
+    },
+    text: "Increases damage at a cost to accuracy.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      },
+      ex3: {
+        name: "Base Spread",
+        value: 2.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Bullet Hell",
+    icon: "Icon_Upgrade_Ricoshet",
+    type: "unstable",
+    cost: {
+      credits: 7600,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 105,
+      jadiz: 0,
+      magnite: 140,
+      umanite: 75,
+      err: 0
+    },
+    text: "Special bullets that ricochet off all surfaces and even enemies going on to hit nearby targets. However they deal less damage and are less accurate overall.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 3,
+        subtract: true
+      },
+      ex3: {
+        name: "Base Spread",
+        value: 6,
+        percent: true,
+        multiply: true
+      },
+      ex15: {
+        name: "Bullet Hell",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Lead Storm",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 8800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 130,
+      jadiz: 100,
+      magnite: 65,
+      umanite: 0,
+      err: 0
+    },
+    text: "Pushing things to the limit this overclock greatly increases damage output but the kickback makes it almost impossible to move.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 4
+      },
+      ex12: {
+        name: "Movement Speed While Using",
+        value: 0,
+        percent: true,
+        multiply: true
+      },
+      ex5: {
+        name: "Stun Chance",
+        value: 0,
+        percent: true,
+        multiply: true
+      },
+      ex11: {
+        name: "Stun Duration",
+        value: 0,
+        multiply: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/G_P2_Thunder.js":
+/*!************************************************!*\
+  !*** ./resources/js/equipment/G_P2_Thunder.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "\"Thunderhead\" Heavy Autocannon",
+  "class": "Heavy Weapon",
+  icon: "equipment.G_P2_Thunder",
+  calculateDamage: function calculateDamage(stats) {
+    var directDamagePerSecond;
+    var areaDamagePerSecond;
+    var damagePerSecond;
+    var directDamagePerBullet;
+    var areaDamagePerBullet;
+    var damagePerBullet;
+    var directDamagePerMagazine;
+    var areaDamagePerMagazine;
+    var damagePerMagazine;
+    var totalDirectDamage;
+    var totalAreaDamage;
+    var totalDamage;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.directDamage = parseFloat(stat.value);
+        } else if (stat.name === "Area Damage") {
+          dpsStats.areaDamage = parseFloat(stat.value);
+        } else if (stat.name === "Magazine Size") {
+          dpsStats.magazineSize = parseFloat(stat.value);
+        } else if (stat.name === "Top Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Reload Time") {
+          dpsStats.reloadTime = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+    dpsStats.damage = dpsStats.directDamage + dpsStats.areaDamage;
+    var timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+    var damageTime = timeToEmpty + dpsStats.reloadTime;
+    directDamagePerMagazine = dpsStats.directDamage * dpsStats.magazineSize;
+    areaDamagePerMagazine = dpsStats.areaDamage * dpsStats.magazineSize;
+    damagePerMagazine = dpsStats.damage * dpsStats.magazineSize;
+    directDamagePerSecond = parseFloat(directDamagePerMagazine / damageTime).toFixed(2);
+    areaDamagePerSecond = parseFloat(areaDamagePerMagazine / damageTime).toFixed(2);
+    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+    directDamagePerBullet = dpsStats.directDamage;
+    areaDamagePerBullet = dpsStats.areaDamage;
+    damagePerBullet = dpsStats.damage;
+    totalDirectDamage = dpsStats.directDamage * dpsStats.maxAmmo;
+    totalAreaDamage = dpsStats.areaDamage * dpsStats.maxAmmo;
+    totalDamage = dpsStats.damage * dpsStats.maxAmmo;
+    return {
+      tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
+      dps: "".concat(damagePerSecond, " (Direct: ").concat(directDamagePerSecond, " / Area: ").concat(areaDamagePerSecond, ")"),
+      // damage per second
+      dpb: "".concat(damagePerBullet, " (Direct: ").concat(directDamagePerBullet, " / Area: ").concat(areaDamagePerBullet, ")"),
+      // damage per bullet
+      dpm: "".concat(damagePerMagazine, " (Direct: ").concat(directDamagePerMagazine, " / Area: ").concat(areaDamagePerMagazine, ")"),
+      // damage per magazine
+      dpa: "".concat(totalDamage, " (Direct: ").concat(totalDirectDamage, " / Area: ").concat(totalAreaDamage, ")") // total damage available
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 14
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 440
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 110
+    },
+    rate: {
+      name: "Top Rate of Fire",
+      value: 5.5
+    },
+    reload: {
+      name: "Reload Time",
+      value: 5
+    },
+    ex1: {
+      name: "Area Damage",
+      value: 9
+    },
+    ex2: {
+      name: "Effect Radius",
+      value: 1.4
+    },
+    ex3: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Rate of Fire Growth Speed",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex6: {
+      name: "Movement Speed While Using",
+      value: 50,
+      percent: true
+    },
+    ex7: {
+      name: "Top RoF Damage Bonus",
+      value: 0,
+      percent: true
+    },
+    ex8: {
+      name: "Impact Fear AoE",
+      value: 0
+    },
+    ex9: {
+      name: "Damage Resistance at Full RoF",
+      value: 0,
+      percent: true
+    },
+    ex10: {
+      name: "Neurotoxin Payload",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 110
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-space, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 220
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Tighter Barrel Alignment",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Improved accuracy",
+    stats: {
+      ex3: {
+        name: "Base Spread",
+        value: 30,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Gas System",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask, just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Top Rate of Fire",
+        value: 1.5
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 24,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Lighter Barrel Assembly",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "Reach the max rate of fire faster",
+    stats: {
+      ex4: {
+        name: "Rate of Fire Growth Speed",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 15,
+      croppa: 0,
+      enorPearl: 24,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Supercharged Feed Mechanism",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask, just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Top Rate of Fire",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 50,
+      enorPearl: 0,
+      jadiz: 25,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Loaded Rounds",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "Increased splash damage",
+    stats: {
+      ex1: {
+        name: "Area Damage",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 35,
+      umanite: 50,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 4
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 35,
+      jadiz: 0,
+      magnite: 50,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Penerating Rounds",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those bug buggers like butter. What could be finer?",
+    stats: {
+      ex5: {
+        name: "Armor Breaking",
+        value: 400,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 48,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Shrapnel Rounds",
+    icon: "Icon_Upgrade_Area",
+    type: "Area of effect",
+    text: "Greater splash damage radius",
+    stats: {
+      ex2: {
+        name: "Effect Radius",
+        value: 0.6
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 72,
+      magnite: 50,
+      umanite: 48,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Feedback Loop",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "Increased damage when at max rate of fire",
+    stats: {
+      ex7: {
+        name: "Top RoF Damage Bonus",
+        value: 20,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 140,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Suppressive Fire",
+    icon: "Icon_Upgrade_ScareEnemies",
+    type: "Fear",
+    text: "Chance to scare creatures next to a bullet impact",
+    stats: {
+      ex8: {
+        name: "Impact Fear AoE",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 140,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Damage Resistance At Full RoF",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Take less damage when at max rate of fire",
+    stats: {
+      ex9: {
+        name: "Damage Resistance at Full RoF",
+        value: 33,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 64,
+      enorPearl: 70,
+      jadiz: 140,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Composite Drums",
+    icon: "Icon_Upgrade_Ammo",
+    type: "clean",
+    cost: {
+      credits: 7850,
+      bismor: 0,
+      croppa: 135,
+      enorPearl: 70,
+      jadiz: 0,
+      magnite: 105,
+      umanite: 0,
+      err: 0
+    },
+    text: "Lighter weight materials means you can carry even more ammo!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 110
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.5,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Splintering Shells",
+    icon: "Icon_Upgrade_Area",
+    type: "clean",
+    cost: {
+      credits: 7300,
+      bismor: 0,
+      croppa: 95,
+      enorPearl: 0,
+      jadiz: 125,
+      magnite: 65,
+      umanite: 0,
+      err: 0
+    },
+    text: "Specially designed shells splinter into smaller pieces increasing the splash damage range. ",
+    stats: {
+      ex1: {
+        name: "Area Damage",
+        value: 1
+      },
+      ex2: {
+        name: "Effect Radius",
+        value: 0.3
+      }
+    }
+  }, {
+    selected: false,
+    name: "Carpet Bomber",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "balanced",
+    cost: {
+      credits: 7350,
+      bismor: 0,
+      croppa: 120,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 105,
+      umanite: 70,
+      err: 0
+    },
+    text: "A few tweaks here and there and the autocannon can now shoot HE rounds! Direct damage is lower but the increased splash damage and range lets you saturate and area like no other weapon can. ",
+    stats: {
+      ex1: {
+        name: "Area Damage",
+        value: 3
+      },
+      ex2: {
+        name: "Effect Radius",
+        value: 0.7
+      },
+      dmg: {
+        name: "Damage",
+        value: 6,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Combat Mobility",
+    icon: "Icon_Upgrade_MovementSpeed",
+    type: "balanced",
+    cost: {
+      credits: 7650,
+      bismor: 0,
+      croppa: 70,
+      enorPearl: 0,
+      jadiz: 120,
+      magnite: 95,
+      umanite: 0,
+      err: 0
+    },
+    text: "A slight reduction in the power of the rounds permits using a smaller chamber and a light-weight backplate with in turn allows extensive weight redistribution. The end result is a weapon that still packs a punch but is easier to handle on the move. ",
+    stats: {
+      ex6: {
+        name: "Movement Speed While Using",
+        value: 15,
+        percent: true
+      },
+      dmg: {
+        name: "Damage",
+        value: 2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Big Bertha",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 8400,
+      bismor: 125,
+      croppa: 105,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 80,
+      err: 0
+    },
+    text: "Extensive tweaks give a huge bump in raw damage at the cost of ammo capacity and fire rate. ",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 12
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 0.5,
+        multiply: true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 110,
+        subtract: true
+      },
+      ex3: {
+        name: "Base Spread",
+        value: 30,
+        percent: true,
+        subtract: true
+      },
+      rate: {
+        name: "Top Rate of Fire",
+        value: 1.5,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Neurotoxin Payload",
+    icon: "Icon_Overclock_Neuro",
+    type: "unstable",
+    cost: {
+      credits: 8100,
+      bismor: 0,
+      croppa: 100,
+      enorPearl: 0,
+      jadiz: 75,
+      magnite: 135,
+      umanite: 0,
+      err: 0
+    },
+    text: "Channel your inner war criminal by mixing some neurotoxin into the explosive compound. The rounds deal less direct damage and splash damage, but affected bugs move slower and take lots of damage over time.",
+    stats: {
+      ex10: {
+        name: "Neurotoxin Payload",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Damage",
+        value: 3,
+        subtract: true
+      },
+      ex1: {
+        name: "Area Damage",
+        value: 6,
+        subtract: true
+      },
+      ex2: {
+        name: "Effect Radius",
+        value: 0.3
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/G_S1_Bulldog.js":
+/*!************************************************!*\
+  !*** ./resources/js/equipment/G_S1_Bulldog.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "\"Bulldog\" Heavy Revolver",
+  "class": "Revolver",
+  icon: "equipment.G_S1_Bulldog",
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 50
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 28
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 4
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 2
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2
+    },
+    ex1: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex2: {
+      name: "Spread Per Shot",
+      value: 100,
+      percent: true
+    },
+    ex3: {
+      name: "Max Penetrations",
+      value: 0
+    },
+    ex4: {
+      name: "Stun Chance",
+      value: 50,
+      percent: true
+    },
+    ex10: {
+      name: "Stun Duration",
+      value: 1.5
+    },
+    ex5: {
+      name: "Area Damage",
+      value: 0
+    },
+    ex9: {
+      name: "Effect Radius",
+      value: 0
+    },
+    ex6: {
+      name: "Weakpoint Damage Bonus",
+      value: 15,
+      percent: true
+    },
+    ex7: {
+      name: "Dead-Eye",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Neurotoxin Coating",
+      value: 0,
+      "boolean": true
+    },
+    ex11: {
+      name: "Chain Hit",
+      value: 0,
+      "boolean": true
+    },
+    ex12: {
+      name: "Magic Bullets",
+      value: 0,
+      "boolean": true
+    },
+    ex13: {
+      name: "Recoil",
+      value: 100,
+      percent: true
+    },
+    ex14: {
+      name: "Damage Vs Burning",
+      value: 0,
+      percent: true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Quickfire Ejector",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Experience, training, and a couple of under-the-table design \"adjustments\" means your gun can be reloaded significantly faster. ",
+    stats: {
+      reload: {
+        name: "Reload Time",
+        value: 0.7,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Perfect Weight Balance",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Improved Accuracy",
+    stats: {
+      ex1: {
+        name: "Base Spread",
+        value: 70,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1.3,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Floating Barrel",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Sweet, sweet optimization. We called in a few friends and managed to significantly improve the stability of this gun.",
+    stats: {
+      ex13: {
+        name: "Recoil",
+        value: 0.75,
+        multiply: true
+      },
+      ex2: {
+        name: "Spread Per Shot",
+        value: 80,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "Expanded Ammo Bags",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 12
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 18,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Super Blowthrough Rounds",
+    icon: "Icon_Upgrade_BulletPenetration",
+    type: "Blow Through",
+    text: "Shaped projectiles capable to over-penetrate targets with a mininal loss of energy. In other words: Fire straight through several enemies at once!",
+    stats: {
+      ex3: {
+        name: "Max Penetrations",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Explosive Rounds",
+    icon: "Icon_Upgrade_Explosion",
+    type: "Explosion",
+    text: "Bullets detonate creating a radius of damage but deals less direct damage",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 0.5,
+        multiply: true
+      },
+      ex5: {
+        name: "Area Damage",
+        value: 30
+      },
+      ex9: {
+        name: "Effect Radius",
+        value: 1.5
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Hollow-Point Bullets",
+    icon: "Icon_Upgrade_Weakspot",
+    type: "Weak Spot Bonus",
+    text: "Hit 'em where it hurts! Literally! We've upped the damage you'll be able to do to any creatures fleshy bits. You're welcome.",
+    stats: {
+      ex6: {
+        name: "Weakpoint Damage Bonus",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 15,
+      magnite: 0,
+      umanite: 36,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 12
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 36,
+      jadiz: 25,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 15
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 36,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Dead Eye",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "No aim penalty while moving",
+    stats: {
+      ex7: {
+        name: "Dead-Eye",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 40,
+      croppa: 0,
+      enorPearl: 60,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 110,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Neurotoxin Coating",
+    icon: "Icon_Upgrade_Special",
+    type: "Neurotoxin",
+    text: "Chance to poison your target. Affected creatures move slower and take damage over time.",
+    stats: {
+      ex8: {
+        name: "Neurotoxin Coating",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 40,
+      enorPearl: 0,
+      jadiz: 60,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Homebrew Powder",
+    icon: "Icon_Overclock_ChangeOfHigherDamage",
+    type: "clean",
+    cost: {
+      credits: 7350,
+      bismor: 0,
+      croppa: 135,
+      enorPearl: 105,
+      jadiz: 0,
+      magnite: 70,
+      umanite: 0,
+      err: 0
+    },
+    text: "More damage on average but it's a bit inconsistent. ",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1.1,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Chain Hit",
+    icon: "Icon_Upgrade_Ricoshet",
+    type: "clean",
+    cost: {
+      credits: 7300,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 80,
+      jadiz: 110,
+      magnite: 120,
+      umanite: 0,
+      err: 0
+    },
+    text: "Any shot that hits a weakspot has a chance to ricochet into a nearby enemy.",
+    stats: {
+      ex11: {
+        name: "Chain Hit",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Volatile Bullets",
+    icon: "Icon_Upgrade_FireRate",
+    type: "balanced",
+    cost: {
+      credits: 7350,
+      bismor: 0,
+      croppa: 130,
+      enorPearl: 0,
+      jadiz: 110,
+      magnite: 60,
+      umanite: 0,
+      err: 0
+    },
+    text: "Fuel on the fire! These rounds are extremely effective against burning targets but at the cost of direct damage dealt to unaffected creatures.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 25,
+        subtract: true
+      },
+      ex14: {
+        name: "Damage Vs Burning",
+        value: 300,
+        percent: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Six Shooter",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "balanced",
+    cost: {
+      credits: 7750,
+      bismor: 120,
+      croppa: 60,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 100,
+      umanite: 0,
+      err: 0
+    },
+    text: "An updated casing profile lets you squeeze one more round into the cylinder and increases the maximum rate of fire, but all that filling and drilling has compromised the pure damage output of the weapon. ",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 2
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 8
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 4
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.5
+      },
+      ex1: {
+        name: "Base Spread",
+        value: 1.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Elephant Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 7300,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 140,
+      jadiz: 0,
+      magnite: 90,
+      umanite: 65,
+      err: 0
+    },
+    text: "Heavy tweaking has made it possible to use modified autocannon rounds in the revolver! The damage is crazy but so is the recoil and you can't carry very many rounds. Also only 3 rounds fit in the gun and reload time is a bit slower but base accuracy is improved.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2,
+        multiply: true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 13,
+        subtract: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 1,
+        subtract: true
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.5
+      },
+      ex13: {
+        name: "Recoil",
+        value: 2.5,
+        percent: true,
+        multiply: true
+      },
+      ex1: {
+        name: "Base Spread",
+        value: 0.5,
+        percent: true,
+        multiply: true
+      },
+      ex2: {
+        name: "Spread Per Shot",
+        value: 71,
+        percent: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Magic Bullets",
+    icon: "Icon_Upgrade_Ricoshet",
+    type: "unstable",
+    cost: {
+      credits: 8750,
+      bismor: 0,
+      croppa: 105,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 130,
+      umanite: 75,
+      err: 0
+    },
+    text: "Smaller bouncy bullets ricochet off hard surfaces and hit nearby enemies like magic and you can carry a few more due to their compact size. However the overall damage of the weapon is reduced. ",
+    stats: {
+      ex12: {
+        name: "Magic Bullets",
+        value: 1,
+        "boolean": true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 8
+      },
+      dmg: {
+        name: "Damage",
+        value: 20,
+        subtract: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/G_S2_Burst.js":
+/*!**********************************************!*\
+  !*** ./resources/js/equipment/G_S2_Burst.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "BRT7 Burst Fire Gun",
+  "class": "Pistol",
+  icon: "equipment.G_S2_Burst",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var burstDamage;
+    var damagePerMagazine;
+    var totalDamage;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Burst Size") {
+          dpsStats.burstSize = parseFloat(stat.value);
+        } else if (stat.name === "Burst Speed") {
+          dpsStats.burstSpeed = parseFloat(stat.value);
+        } else if (stat.name === "Burst Damage") {
+          dpsStats.burstBonus = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        } else if (stat.name === "Magazine Size") {
+          dpsStats.magazineSize = parseFloat(stat.value);
+        } else if (stat.name === "Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Reload Time") {
+          dpsStats.reloadTime = parseFloat(stat.value);
+        } else if (stat.name === "Weakpoint Damage Bonus") {
+          dpsStats.weakPoint = parseFloat(stat.value);
+        }
+      } // damage over one burst (3 or 6 bullets used)
+
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+    burstDamage = dpsStats.damage * dpsStats.burstSize;
+
+    if (dpsStats.burstBonus) {
+      burstDamage += dpsStats.burstBonus;
+    }
+
+    burstDamage = parseFloat(burstDamage).toFixed(0);
+    var burstMagazine = dpsStats.magazineSize / dpsStats.burstSize; // rate of fire is rate of bursts per second (burst speed ignored)
+
+    var timeToEmpty = burstMagazine / dpsStats.rateOfFire;
+    var damageTime = timeToEmpty + dpsStats.reloadTime;
+    damagePerMagazine = parseFloat(burstDamage * burstMagazine).toFixed(0);
+    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+    totalDamage = parseFloat(burstDamage * (dpsStats.maxAmmo / dpsStats.burstSize)).toFixed(0);
+    return {
+      tte: timeToEmpty.toFixed(2),
+      wpd: parseFloat(dpsStats.damage * (1 + dpsStats.weakPoint / 100)).toFixed(2),
+      dps: damagePerSecond,
+      dpb: burstDamage,
+      dpm: damagePerMagazine,
+      dpa: totalDamage
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 20
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 120
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 24
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 2.5
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2.2
+    },
+    ex1: {
+      name: "Burst Size",
+      value: 3
+    },
+    ex2: {
+      name: "Burst Speed",
+      value: 0.05
+    },
+    ex3: {
+      name: "Spread Per Shot",
+      value: 100,
+      percent: true
+    },
+    ex10: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Recoil",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "Armor Breaking",
+      value: 50,
+      percent: true
+    },
+    ex6: {
+      name: "Weakpoint Damage Bonus",
+      value: 0,
+      percent: true
+    },
+    ex7: {
+      name: "Burst Damage",
+      value: 0
+    },
+    ex8: {
+      name: "Burst Stun Duration",
+      value: 0
+    },
+    ex9: {
+      name: "Electro Minelets",
+      value: 0,
+      "boolean": true
+    },
+    ex11: {
+      name: "Max Penetrations",
+      value: 1
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Floating Barrel",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Sweet, sweet optimization. We called in a few friends and managed to significantly improve the stability of this gun.",
+    stats: {
+      ex10: {
+        name: "Base Spread",
+        value: 30,
+        percent: true,
+        subtract: true
+      },
+      ex3: {
+        name: "Spread Per Shot",
+        value: 40,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Blowthrough Rounds",
+    icon: "Icon_Upgrade_BulletPenetration",
+    type: "Blow Through",
+    text: "Shaped projectiles designed to over-penetrate targets with a minimal loss of energy. In other words: Fire straight trough an enemy!",
+    stats: {
+      ex11: {
+        name: "Max Penetrations",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Recoil Dampener",
+    icon: "Icon_Upgrade_Recoil",
+    type: "Recoil",
+    text: "Quality engineering, the best laser cut parts, the tender loving care of a dedicated R&D Department. The recoil of your gun is drastically reduced.",
+    stats: {
+      ex4: {
+        name: "Recoil",
+        value: 50,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Quickfire Ejector",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Experience, training, and a couple of under-the-table design \"adjustments\" means your gun can be reloaded significantly faster. ",
+    stats: {
+      reload: {
+        name: "Reload Time",
+        value: 0.7,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 18,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Disabled Safety",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "Shorter Delay between bursts",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 12
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 30,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Hardened Rounds",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those big buggers like butter. What could be finer?",
+    stats: {
+      ex5: {
+        name: "Armor Breaking",
+        value: 200,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 36,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 15,
+      magnite: 25,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 72
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 36,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Hollow-Point Bullets",
+    icon: "Icon_Upgrade_Weakspot",
+    type: "Weak Spot Bonus",
+    text: "Hit 'em where it hurts! Literally! We've upped the damage you'll be able to do to any creatures fleshy bits. You're welcome.",
+    stats: {
+      ex6: {
+        name: "Weakpoint Damage Bonus",
+        value: 40,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 36,
+      jadiz: 26,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Burst Stun",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Stun target if all shots in a burst hit",
+    stats: {
+      ex8: {
+        name: "Burst Stun Duration",
+        value: 4
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 40,
+      croppa: 60,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Longer Burst",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "Fire more rounds in each burst",
+    stats: {
+      ex1: {
+        name: "Burst Size",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 60,
+      croppa: 0,
+      enorPearl: 110,
+      jadiz: 40,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Composite Casings",
+    icon: "Icon_Upgrade_FireRate",
+    type: "clean",
+    cost: {
+      credits: 7950,
+      bismor: 0,
+      croppa: 140,
+      enorPearl: 75,
+      jadiz: 0,
+      magnite: 100,
+      umanite: 0,
+      err: 0
+    },
+    text: "Lighter rounds that permit a shorter delay between bursts and you can carry a few more of them as well. What's not to like?",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 36
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 1
+      }
+    }
+  }, {
+    selected: false,
+    name: "Full Chamber Seal",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "clean",
+    cost: {
+      credits: 7850,
+      bismor: 120,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 75,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    },
+    text: "Meticulous sealing lets you get a bit more power out of each round and the attention to detail improves how easily the magazine slots in.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Compact Mags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "balanced",
+    cost: {
+      credits: 7350,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 75,
+      magnite: 135,
+      umanite: 105,
+      err: 0
+    },
+    text: "You can carry even more ammo but the rate of fire needs to be toned back to avoid a jam and please take more care while reloading.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 84
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 1,
+        subtract: true
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.4
+      }
+    }
+  }, {
+    selected: false,
+    name: "Experimental Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "balanced",
+    cost: {
+      credits: 8550,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 100,
+      jadiz: 75,
+      magnite: 130,
+      umanite: 0,
+      err: 0
+    },
+    text: "A new shape to the bullet delivers a lot more damage but it's odd size means fewer rounds in the clip and a bit less ammo overall.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 9
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 36,
+        subtract: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 6,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Electro Minelets",
+    icon: "Icon_Upgrade_Electricity",
+    type: "unstable",
+    cost: {
+      credits: 7450,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 80,
+      jadiz: 95,
+      magnite: 0,
+      umanite: 120,
+      err: 0
+    },
+    text: "After impacting terrain, these high-tech bullets convert in to electro-minelets that will electrocute anything unfortunate enough to come close. However they don't last forever and the rounds themselves take more space in the clip and deal less direct damage.",
+    stats: {
+      ex9: {
+        name: "Electro Minelets",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Damage",
+        value: 3,
+        subtract: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 6,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Lead Spray",
+    icon: "Icon_Upgrade_Special",
+    type: "unstable",
+    cost: {
+      credits: 8050,
+      bismor: 125,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 75,
+      umanite: 105,
+      err: 0
+    },
+    text: "It ain't pretty but this overclock will tear apart anything that gets close, tough it gets a bit iffy at range.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1.5,
+        multiply: true
+      },
+      ex10: {
+        name: "Base Spread",
+        value: 4,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Micro Fletchettes",
+    icon: "Icon_Overclock_SmallBullets",
+    type: "unstable",
+    cost: {
+      credits: 7650,
+      bismor: 80,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 100,
+      magnite: 130,
+      umanite: 0,
+      err: 0
+    },
+    text: "Convert the BRT to fire small flechettes instead of slugs. Increases overall ammo and clip size as well as reducing recoil but at the cost of pure damage.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 2,
+        multiply: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 30
+      },
+      ex4: {
+        name: "Recoil",
+        value: 0.5,
+        percent: true,
+        multiply: true
+      },
+      ex3: {
+        name: "Spread Per Shot",
+        value: 50,
+        percent: true,
+        subtract: true
+      },
+      dmg: {
+        name: "Damage",
+        value: 0.5,
+        multiply: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/R_P1_Bosco.js":
+/*!**********************************************!*\
+  !*** ./resources/js/equipment/R_P1_Bosco.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: true,
+  modified: false,
+  name: "APD-B317",
+  "class": "All-Purpose Drone",
+  icon: "equipment.R_P1_Bosco",
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 4
+    },
+    light: {
+      name: "Light Radius",
+      value: 10
+    },
+    revive: {
+      name: "Revive",
+      value: 2
+    },
+    ex1: {
+      name: "Mining Expert",
+      value: 0,
+      percent: true
+    },
+    ex2: {
+      name: "Rocket Attacks",
+      value: 0
+    },
+    ex3: {
+      name: "Rocket Area Damage",
+      value: 0
+    },
+    ex4: {
+      name: "Rocket Effect Radius",
+      value: 0
+    },
+    ex5: {
+      name: "Rocket Regeneration Time",
+      value: 0
+    },
+    ex6: {
+      name: "Rocket Fear Factor",
+      value: 0,
+      percent: true
+    },
+    ex7: {
+      name: "Rocket Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex8: {
+      name: "Cryo Rocket",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Electrocution Chance",
+      value: 0,
+      percent: true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The overall damage of its weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Extra Revive",
+    icon: "Icon_Upgrade_PlusOne",
+    type: "Revive",
+    text: "One extra revive kit to bring back to action an incapacitated dwarf.",
+    stats: {
+      revive: {
+        name: "Revive",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Mining Expert",
+    icon: "Icon_Upgrade_Digging",
+    type: "Digging",
+    text: "Improves Bosco's capabilites to mine minerals, dirt, or any kind of terrain.",
+    stats: {
+      ex1: {
+        name: "Mining Expert",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 25,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Rockets",
+    icon: "Icon_Upgrade_Bosco_Rocket_Upgrade",
+    type: "Rockets",
+    text: "A secondary weapon that can shoot explosive rockets. Bosco's AI is not ready to handle this kind of weaponary, use the Laser Pointer for manual activation.",
+    stats: {
+      ex2: {
+        name: "Rocket Attacks",
+        value: 2
+      },
+      ex3: {
+        name: "Rocket Area Damage",
+        value: 120
+      },
+      ex4: {
+        name: "Rocket Effect Radius",
+        value: 2.5
+      },
+      ex5: {
+        name: "Rocket Regeneration Time",
+        value: 90
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Let There Be Light",
+    icon: "Icon_Upgrade_Light_Intensity",
+    type: "Light",
+    text: "A significant lumens increase that can make the difference in some of the darkest caves.",
+    stats: {
+      light: {
+        name: "Light Radius",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 5,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 10,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Extra Revive",
+    icon: "Icon_Upgrade_PlusOne",
+    type: "Revive",
+    text: "One extra revive kit to bring back to action an incapacitated dwarf.",
+    stats: {
+      revive: {
+        name: "Revive",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Extra Rocket",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Ammo",
+    text: "Increases the total amount of rockets Bosco can fire before regenerating.",
+    stats: {
+      ex2: {
+        name: "Rocket Attacks",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 10,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Fear The Rocket",
+    icon: "Icon_Upgrade_ScareEnemies",
+    type: "Fear",
+    text: "There is a chance to scare enemies away from the explosion of the rockets.",
+    stats: {
+      ex6: {
+        name: "Rocket Fear Factor",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 30,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Frequency Explosion",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "Higher chance for the rocket to shatter armor.",
+    stats: {
+      ex7: {
+        name: "Rocket Armor Breaking",
+        value: 600,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Cryo Explosion",
+    icon: "Icon_Upgrade_Cold",
+    type: "Cold",
+    text: "Adds cryogenic liquid to the explosion of the rocket. Cold slows down enemies and can eventually freeze them. The rocket deals almost no damage, but the area of effect increases.",
+    stats: {
+      ex8: {
+        name: "Cryo Rocket",
+        value: 1,
+        "boolean": true
+      },
+      ex3: {
+        name: "Rocket Area Damage",
+        value: 20,
+        subtract: true
+      },
+      ex4: {
+        name: "Rocket Effect Radius",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 30,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Bigger Explosion",
+    icon: "Icon_Upgrade_Area",
+    type: "Area",
+    text: "Increased area of effect for the explosion of the rocket.",
+    stats: {
+      ex4: {
+        name: "Rocket Effect Radius",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 30,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Fast Regeneration",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "It takes half the time for the rockets to be ready to shoot again.",
+    stats: {
+      ex5: {
+        name: "Rocket Regeneration Time",
+        value: 50,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 20,
+      magnite: 0,
+      umanite: 30,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Overcharged Rounds",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electrocution",
+    text: "Bullets coming out of the primary weapon have a chance to electrocute.",
+    stats: {
+      ex9: {
+        name: "Electrocution Chance",
+        value: 30,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 140,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/S_E_Armor.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/S_E_Armor.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Light Scouting Suit",
+  "class": "Armor",
+  icon: "equipment.X_E_Armor",
+  baseStats: {
+    shield: {
+      name: "Shield",
+      value: 25
+    },
+    health: {
+      name: "Health",
+      value: 110
+    },
+    fall: {
+      name: "Fall Damage Reduction",
+      value: 0,
+      percent: true
+    },
+    delay: {
+      name: "Regeneration Delay",
+      value: 7
+    },
+    rate: {
+      name: "Regeneration Rate",
+      value: 100,
+      percent: true
+    },
+    revive: {
+      name: "Revive Invulnerability",
+      value: 3
+    },
+    carry: {
+      name: "Carry Capacity",
+      value: 40
+    },
+    ex1: {
+      name: "AoE Damage On Shield Break",
+      value: 0,
+      "boolean": true
+    },
+    ex2: {
+      name: "AoE Stun On Shield Break",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Improved Generator",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "Shield begins to regenerate sooner.",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 1,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 10,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Boosted Converter",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Shield regenerates at a much faster rate but after a longer initial delay",
+    stats: {
+      delay: {
+        name: "Regeneration Delay",
+        value: 2
+      },
+      rate: {
+        name: "Regeneration Rate",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bigger Mineral Bag",
+    icon: "Icon_Upgrade_Capacity",
+    type: "Capacity",
+    text: "You can collect more of each mineral before needing to deposit.",
+    stats: {
+      carry: {
+        name: "Carry Capacity",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1400,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 10,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Overcharger",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Your shield can absorb more damage before breaking",
+    stats: {
+      shield: {
+        name: "Shield",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Healthy",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Max health increased",
+    stats: {
+      health: {
+        name: "Health",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 15,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Shock Absorbers",
+    icon: "Icon_Upgrade_FallDamageResistance",
+    type: "Fall Damage Resistance",
+    text: "Built-in shock absorbers make falling less painful.",
+    stats: {
+      fall: {
+        name: "Fall Damage Reduction",
+        value: 33,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2060,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 10,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Shockwave",
+    icon: "Icon_Upgrade_AreaDamage",
+    type: "Area Damage",
+    text: "Your shield breaks violently, damaging all enemies around you in the process.",
+    stats: {
+      ex1: {
+        name: "AoE Damage On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 14,
+      jadiz: 0,
+      magnite: 22,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Static Discharge",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "Whenever your shield breaks it releases a static discharge that has a chance to stun nearby enemies.",
+    stats: {
+      ex2: {
+        name: "AoE Stun On Shield Break",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 22,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 14,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Breathing Room",
+    icon: "Icon_Upgrade_Revive",
+    type: "Resistance",
+    text: "Temporary invulnerability after being revived.",
+    stats: {
+      revive: {
+        name: "Revive Invulnerability",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2150,
+      bismor: 14,
+      croppa: 0,
+      enorPearl: 22,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/S_E_Flare.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/S_E_Flare.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Flare Gun",
+  "class": "Support Tool",
+  icon: "equipment.S_E_Flare",
+  calculateDamage: function calculateDamage(stats) {
+    var lightingMinutes;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Duration") {
+          dpsStats.duration = parseFloat(stat.value);
+        } else if (stat.name === "Magazine Size") {
+          dpsStats.magazineSize = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+    var lightingSeconds = dpsStats.maxAmmo * dpsStats.duration;
+    lightingMinutes = lightingSeconds / 60;
+    return {
+      ex1: lightingMinutes
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 40
+    },
+    duration: {
+      name: "Duration",
+      value: 75
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 3
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 12
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2.4
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 1.0
+    },
+    ex1: {
+      name: "Auto Reload",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Thicker Core",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "More core material for a longer burn.",
+    stats: {
+      duration: {
+        name: "Duration",
+        value: 15
+      }
+    },
+    cost: {
+      credits: 360,
+      bismor: 12,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Supercharged Feed Mechanism",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask, just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 26,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 700,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 26,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Auto Reload",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Reloads automatically when unequipped for more than 5 seconds.",
+    stats: {
+      ex1: {
+        name: "Auto Reload",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 14,
+      umanite: 20,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 20,
+      croppa: 14,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Magnesium Core",
+    icon: "Icon_Upgrade_Duration",
+    type: "Delay",
+    text: "A solid magnesium core is added to the flare, increasing how long it can burn.",
+    stats: {
+      duration: {
+        name: "Duration",
+        value: 15
+      }
+    },
+    cost: {
+      credits: 920,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 14,
+      magnite: 0,
+      umanite: 20,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/S_E_Grapling.js":
+/*!************************************************!*\
+  !*** ./resources/js/equipment/S_E_Grapling.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Grappling Gun",
+  "class": "Support Tool",
+  icon: "equipment.S_E_Grapling",
+  baseStats: {
+    range: {
+      name: "Max Range",
+      value: 20
+    },
+    cool: {
+      name: "Cooldown",
+      value: 4
+    },
+    speed: {
+      name: "Max Speed",
+      value: 1500
+    },
+    wind: {
+      name: "Wind up time",
+      value: 0.4
+    },
+    risk: {
+      name: "Risk of Accidental Death",
+      value: "HIGH"
+    },
+    ex1: {
+      name: "Fall damage reduction after release",
+      value: 0,
+      "boolean": true
+    },
+    ex2: {
+      name: "Faster movement after release",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Improved Recharger",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Spend less time waiting and more time swinging",
+    stats: {
+      cool: {
+        name: "Cooldown",
+        value: 0.5,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 10,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Longer Cable",
+    icon: "Icon_Upgrade_Distance",
+    type: "Reach",
+    text: "Increased range",
+    stats: {
+      range: {
+        name: "Max Range",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 420,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 10,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Greater Cable Stretch",
+    icon: "Icon_Upgrade_Distance",
+    type: "Reach",
+    text: "Increased range",
+    stats: {
+      range: {
+        name: "Max Range",
+        value: 5
+      }
+    },
+    cost: {
+      credits: 780,
+      bismor: 22,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "High velocity ejection system",
+    icon: "Icon_Upgrade_ProjectileSpeed",
+    type: "Projectile Speed",
+    text: "Hook shoots out at a higher speed",
+    stats: {
+      wind: {
+        name: "Wind up time",
+        value: 0.2,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 960,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 16,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Overcharged Winch",
+    icon: "Icon_Upgrade_MovementSpeed",
+    type: "Movement Speed",
+    text: "Faster hook retraction means a faster dwarf. Survival not guaranteed",
+    stats: {
+      speed: {
+        name: "Max Speed",
+        value: 750
+      }
+    },
+    cost: {
+      credits: 960,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 16,
+      magnite: 0,
+      umanite: 12,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Safety First",
+    icon: "Icon_Upgrade_Resistance",
+    type: "Resistance",
+    text: "Temporary fall damage reduction bonus after releasing the Grapling Gun",
+    stats: {
+      ex1: {
+        name: "Fall damage reduction after release",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 1100,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 18,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Momentum",
+    icon: "Icon_Upgrade_MovementSpeed",
+    type: "Movement Speed",
+    text: "Temporary movement speed bonus after releasing the Grapling Gun.",
+    stats: {
+      ex2: {
+        name: "Faster movement after release",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 1100,
+      bismor: 24,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Bypassed Integrity Check",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Charge Speed",
+    text: "Faster cooldown and a voided warranty",
+    stats: {
+      cool: {
+        name: "Cooldown",
+        value: 1,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1100,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 18,
+      jadiz: 0,
+      magnite: 24,
+      umanite: 0,
+      err: 0
+    }
+  }]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/S_P1_GK2.js":
+/*!********************************************!*\
+  !*** ./resources/js/equipment/S_P1_GK2.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: true,
+  modified: false,
+  name: "Deepcore GK2",
+  "class": "Assault Rifle",
+  icon: "equipment.S_P1_GK2",
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 15
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 350
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 25
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 7
+    },
+    reload: {
+      name: "Reload Time",
+      value: 1.8
+    },
+    ex1: {
+      name: "Weakpoint Stun Duration",
+      value: 1.5
+    },
+    ex2: {
+      name: "Weakpoint Stun Chance",
+      value: 10,
+      percent: true
+    },
+    ex3: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Recoil",
+      value: 100,
+      percent: true
+    },
+    ex5: {
+      name: "Weakpoint Damage Bonus",
+      value: 10,
+      percent: true
+    },
+    ex6: {
+      name: "Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex7: {
+      name: "Battle Frenzy",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Battle Cool",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Bonus Damage to Afflicted Targets",
+      value: 0,
+      percent: true
+    },
+    ex10: {
+      name: "Spread Recovery Speed",
+      value: 100,
+      percent: true
+    },
+    ex11: {
+      name: "Electric Reload (100% chance)",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Gyro Stabilisation",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Base accuracy improvement with pin-point accuracy on first shot",
+    stats: {
+      ex3: {
+        name: "Base Spread",
+        value: 100,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Supercharged Feed Mechanism",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask, just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 24,
+      jadiz: 0,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 100
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 24,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 15,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Floating Barrel",
+    icon: "Icon_Upgrade_Recoil",
+    type: "Accuracy",
+    text: "Sweet, sweet optimization. We called in a few friends and managed to significantly improve the stability of this gun.",
+    stats: {
+      ex4: {
+        name: "Recoil",
+        value: 50,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 50,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Propellant",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 35,
+      magnite: 50,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 35,
+      croppa: 50,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Hollow-Point Bullets",
+    icon: "Icon_Upgrade_Weakspot",
+    type: "Weak Spot Bonus",
+    text: "Hit 'em where it hurts! Literally! We've upped the damage you'll be able to do to any creatures fleshy bits. You're welcome.",
+    stats: {
+      ex5: {
+        name: "Weakpoint Damage Bonus",
+        value: 20,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 72,
+      croppa: 50,
+      enorPearl: 0,
+      jadiz: 48,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Penetrating Rounds",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those big buggers like butter. What could be finer?",
+    stats: {
+      ex6: {
+        name: "Armor Breaking",
+        value: 500,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 72,
+      enorPearl: 48,
+      jadiz: 50,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Gas System",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask, just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 50,
+      magnite: 48,
+      umanite: 72,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Battle Frenzy",
+    icon: "Icon_Upgrade_MovementSpeed",
+    type: "Movement Speed",
+    text: "Move faster for a short time after killing an enemy",
+    stats: {
+      ex7: {
+        name: "Battle Frenzy",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 64,
+      croppa: 70,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 140,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Battle Cool",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Killing an enemy increases accuracy",
+    stats: {
+      ex8: {
+        name: "Battle Cool",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 140,
+      enorPearl: 0,
+      jadiz: 70,
+      magnite: 64,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Stun",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Increased chance to stun the target",
+    stats: {
+      ex2: {
+        name: "Weakpoint Stun Chance",
+        value: 30,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 140,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Compact Ammo",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "clean",
+    cost: {
+      credits: 7250,
+      bismor: 125,
+      croppa: 0,
+      enorPearl: 80,
+      jadiz: 105,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Stuff a few more of these compact rounds into each magazine and they have a bit less recoil as well.",
+    stats: {
+      clip: {
+        name: "Magazine Size",
+        value: 5
+      },
+      ex4: {
+        name: "Recoil",
+        value: 0.7,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Gas Rerouting",
+    icon: "Icon_Upgrade_FireRate",
+    type: "clean",
+    cost: {
+      credits: 7800,
+      bismor: 0,
+      croppa: 60,
+      enorPearl: 0,
+      jadiz: 125,
+      magnite: 105,
+      umanite: 0,
+      err: 0
+    },
+    text: "Increases the weapon's rate of fire without affecting performance and helps with magazine ejection as well.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 1
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.3,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Homebrew Powder",
+    icon: "Icon_Overclock_ChangeOfHigherDamage",
+    type: "clean",
+    cost: {
+      credits: 8100,
+      bismor: 95,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 140,
+      magnite: 0,
+      umanite: 65,
+      err: 0
+    },
+    text: "More damage on average but it's a bit inconsistent.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1.1,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Overclocked Firing Mechanism",
+    icon: "Icon_Upgrade_FireRate",
+    type: "balanced",
+    cost: {
+      credits: 7950,
+      bismor: 95,
+      croppa: 0,
+      enorPearl: 120,
+      jadiz: 0,
+      magnite: 65,
+      umanite: 0,
+      err: 0
+    },
+    text: "Fires more bullets faster and it kicks like a mule.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 3
+      },
+      ex4: {
+        name: "Recoil",
+        value: 2.5,
+        percent: true,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Bullets of Mercy",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "balanced",
+    cost: {
+      credits: 8100,
+      bismor: 90,
+      croppa: 80,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 125,
+      umanite: 0,
+      err: 0
+    },
+    text: "Put suffering bugs out of their missery with a damage bonus against afflicted enemies.",
+    stats: {
+      ex9: {
+        name: "Bonus Damage to Afflicted Targets",
+        value: 33,
+        percent: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 5,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "AI Stability Engine",
+    icon: "Icon_Upgrade_Aim",
+    type: "unstable",
+    cost: {
+      credits: 8250,
+      bismor: 0,
+      croppa: 60,
+      enorPearl: 125,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 100,
+      err: 0
+    },
+    text: "It's like it knows what you are going to do before you do it, compensating for all recoil and bullet spread but the system requires a lower rate of fire and the modified firing chamber reduces overall damage.",
+    stats: {
+      ex4: {
+        name: "Recoil",
+        value: 0,
+        percent: true,
+        multiply: true
+      },
+      ex10: {
+        name: "Spread Recovery Speed",
+        value: 9,
+        percent: true,
+        multiply: true
+      },
+      dmg: {
+        name: "Damage",
+        value: 1,
+        subtract: true
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Electrifying Reload",
+    icon: "Icon_Overclock_Special_Magazine",
+    type: "unstable",
+    cost: {
+      credits: 7750,
+      bismor: 105,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 65,
+      umanite: 135,
+      err: 0
+    },
+    text: "Embedded capacitors have a chance to electrocute targets from the inside when you reload. Probability of electrocution increases with the number of hits. However all that tech reduces raw damage of the bullets and takes up some space in the magazines.",
+    stats: {
+      ex11: {
+        name: "Electric Reload (100% chance)",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Damage",
+        value: 3,
+        subtract: true
+      },
+      clip: {
+        name: "Magazine Size",
+        value: 5,
+        subtract: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/S_P2_M1000.js":
+/*!**********************************************!*\
+  !*** ./resources/js/equipment/S_P2_M1000.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "M1000 Classic",
+  "class": "Semi-Automatic Rifle",
+  icon: "equipment.S_P2_M1000",
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 50
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 96
+    },
+    clip: {
+      name: "Clip Size",
+      value: 8
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 4
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2.5
+    },
+    ex1: {
+      name: "Focus Speed",
+      value: 100,
+      percent: true
+    },
+    ex2: {
+      name: "Focused Shot Damage Bonus",
+      value: 100,
+      percent: true
+    },
+    ex3: {
+      name: "Recoil",
+      value: 100,
+      percent: true
+    },
+    ex4: {
+      name: "Max Penetrations",
+      value: 0
+    },
+    ex5: {
+      name: "Weakpoint Damage Bonus",
+      value: 10,
+      percent: true
+    },
+    ex6: {
+      name: "Armor Breaking",
+      value: 30,
+      percent: true
+    },
+    ex7: {
+      name: "Focused Shot Stun Chance",
+      value: 0,
+      percent: true
+    },
+    ex9: {
+      name: "Focus Shot Fear",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Focus Mode Movement Speed",
+      value: 30,
+      percent: true
+    },
+    ex10: {
+      name: "Focus Shot Kill AoE Fear",
+      value: 0,
+      "boolean": true
+    },
+    ex11: {
+      name: "Focus Shot Hover",
+      value: 0,
+      "boolean": true
+    },
+    ex12: {
+      name: "Electrocuting Focus Shots",
+      value: 0,
+      "boolean": true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 32
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 25,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 1200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Fast-Charging Coils",
+    icon: "Icon_Upgrade_ChargeUp",
+    type: "Accuracy",
+    text: "Focus faster when holding down the trigger.",
+    stats: {
+      ex1: {
+        name: "Focus Speed",
+        value: 60,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 24,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Better Weight Balance",
+    icon: "Icon_Upgrade_Recoil",
+    type: "Recoil",
+    text: "Improved hip-shot accuracy.",
+    stats: {
+      ex3: {
+        name: "Recoil",
+        value: 0.5,
+        multiply: true
+      }
+    },
+    cost: {
+      credits: 2000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 15,
+      jadiz: 24,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Killer Focus",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "Greater focus damage bonus",
+    stats: {
+      ex2: {
+        name: "Focused Shot Damage Bonus",
+        value: 25,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 2800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 35,
+      jadiz: 0,
+      magnite: 50,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Extended Clip",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks... You can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Clip Size",
+        value: 6
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 48,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Super Blowthrough Rounds",
+    icon: "Icon_Upgrade_BulletPenetration",
+    type: "Blow Through",
+    text: "Shaped projectiles designed to over-penetrate targets with a minimal loss of energy. In other words: Fire straight through several enemies at once!",
+    stats: {
+      ex4: {
+        name: "Max Penetrations",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 48,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Hollow-Point Bullets",
+    icon: "Icon_Upgrade_Weakspot",
+    type: "Weak Spot Bonus",
+    text: "Hit 'em where it hurts! Literally! We've upped the damage you'll be able to do to any creatures fleshy bits. You're welcome.",
+    stats: {
+      ex5: {
+        name: "Weakpoint Damage",
+        value: 25,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 72,
+      croppa: 48,
+      enorPearl: 50,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Kinetic Energy Penetrator",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those big buggers like butter. What could be finer?",
+    stats: {
+      ex6: {
+        name: "Armor Breaking",
+        value: 220,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4800,
+      bismor: 0,
+      croppa: 48,
+      enorPearl: 50,
+      jadiz: 72,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Hitting Where it Hurts",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Focused shots stagger the target",
+    stats: {
+      ex7: {
+        name: "Focused Shot Stun Chance",
+        value: 100,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 140,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Precision Terror",
+    icon: "Icon_Upgrade_ScareEnemies",
+    type: "Fear",
+    text: "Killing your target with a focused shot to the weakspot will send nearby creatures fleeing with terror!",
+    stats: {
+      ex10: {
+        name: "Focus Shot Kill AoE Fear",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 70,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 64,
+      umanite: 140,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Killing Machine",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "You can perform a lightning fast reload right after killing an enemy.",
+    stats: {
+      ex10: {
+        name: "Focus Shot Kill AoE Fear",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 5600,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 140,
+      jadiz: 0,
+      magnite: 70,
+      umanite: 64,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Hoverclock",
+    icon: "Icon_Overclock_Slowdown",
+    type: "clean",
+    cost: {
+      credits: 7350,
+      bismor: 105,
+      croppa: 135,
+      enorPearl: 0,
+      jadiz: 65,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Your movement slows down for a few seconds while using focus mode in the air.",
+    stats: {
+      ex11: {
+        name: "Focus Shot Hover",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Minimal Clips",
+    icon: "Icon_Upgrade_Ammo",
+    type: "clean",
+    cost: {
+      credits: 8200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 95,
+      jadiz: 130,
+      magnite: 75,
+      umanite: 0,
+      err: 0
+    },
+    text: "Make space for more ammo and speed up reloads by getting rid of dead weight on the clips.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 16
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Active Stability System",
+    icon: "Icon_Upgrade_MovementSpeed",
+    type: "balanced",
+    cost: {
+      credits: 8150,
+      bismor: 90,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 70,
+      umanite: 135,
+      err: 0
+    },
+    text: "Focus without slowing down but the power drain from the coils lowers the power of the focused shots.",
+    stats: {
+      ex8: {
+        name: "Focus Mode Movement Speed",
+        value: 70,
+        percent: true
+      },
+      ex2: {
+        name: "Focused Shot Damage Bonus",
+        value: 25,
+        percent: true,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Hipster",
+    icon: "Icon_Upgrade_Aim",
+    type: "balanced",
+    cost: {
+      credits: 8900,
+      bismor: 0,
+      croppa: 125,
+      enorPearl: 105,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 80,
+      err: 0
+    },
+    text: "A rebalancing of weight distribution, enlarged vents and a reshaped grip result in a rifle that is more controllable when hip-firing in quick succession but at the cost of pure damage output.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 1.75,
+        multiply: true
+      },
+      rate: {
+        name: "Rate of Fire",
+        value: 3
+      },
+      ex3: {
+        name: "Recoil",
+        value: 0.5,
+        multiply: true
+      },
+      dmg: {
+        name: "Damage",
+        value: 0.6,
+        multiply: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Electrocuting Focus Shots",
+    icon: "Icon_Upgrade_Electricity",
+    type: "unstable",
+    cost: {
+      credits: 8850,
+      bismor: 120,
+      croppa: 95,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 75,
+      err: 0
+    },
+    text: "Embedded capacitors in a copper core carry the electric charge from the EM coils used for focus shots and will electrocute the target at the cost of a reduced focus shot damage bonus.",
+    stats: {
+      ex12: {
+        name: "Electrocuting Focus Shots",
+        value: 1,
+        "boolean": true
+      },
+      ex2: {
+        name: "Focused Shot Damage Bonus",
+        value: 25,
+        percent: true,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Supercooling Chamber",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 8500,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 90,
+      jadiz: 130,
+      magnite: 70,
+      umanite: 0,
+      err: 0
+    },
+    text: "Take the M1000'S focus mode to the extreme by supercooling the rounds before firing to improve their acceleration through the coils, but the extra coolant in the clips limits how much ammo you can bring.",
+    stats: {
+      ex2: {
+        name: "Focused Shot Damage Bonus",
+        value: 125,
+        percent: true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 0.635,
+        multiply: true
+      },
+      ex1: {
+        name: "Focus Speed",
+        value: 0.5,
+        percent: true,
+        multiply: true
+      },
+      ex8: {
+        name: "Focus Mode Movement Speed",
+        value: 0,
+        percent: true,
+        multiply: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/S_S1_Jury.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/S_S1_Jury.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Jury-Rigged Boomstick",
+  "class": "Shotgun",
+  icon: "equipment.S_S1_Jury",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var damagePerBullet;
+    var totalDamage;
+    var magazineDamage;
+    var timeToEmpty;
+    var damageTime;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Reload Time") {
+          dpsStats.reloadTime = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        } else if (stat.name === "Double Barrel" && stat.value === "1") {
+          dpsStats.doubleBarrel = true;
+        } else if (stat.name === "Magazine Size") {
+          dpsStats.magazineSize = parseFloat(stat.value);
+        } else if (stat.name === "Pellets") {
+          dpsStats.pellets = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+    timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+    damageTime = timeToEmpty + dpsStats.reloadTime;
+    damagePerBullet = parseFloat(dpsStats.damage * dpsStats.pellets).toFixed(0);
+    magazineDamage = parseFloat(damagePerBullet * dpsStats.magazineSize).toFixed(0);
+    damagePerSecond = parseFloat(magazineDamage / damageTime).toFixed(2);
+    totalDamage = parseFloat(damagePerBullet * dpsStats.maxAmmo).toFixed(0);
+
+    if (dpsStats.doubleBarrel) {
+      return {
+        dps: parseFloat(damagePerSecond * 2).toFixed(2),
+        dpb: damagePerBullet * 2,
+        dpm: magazineDamage,
+        dpa: totalDamage
+      };
+    } else {
+      return {
+        dps: parseFloat(damagePerSecond).toFixed(2),
+        dpb: damagePerBullet,
+        dpm: magazineDamage,
+        dpa: totalDamage
+      };
+    }
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 12
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 24
+    },
+    clip: {
+      name: "Magazine Size",
+      value: 2
+    },
+    rate: {
+      name: "Rate of Fire",
+      value: 1.5
+    },
+    reload: {
+      name: "Reload Time",
+      value: 2
+    },
+    ex1: {
+      name: "Pellets",
+      value: 8
+    },
+    ex5: {
+      name: "Front AoE shock wave Damage",
+      value: 20
+    },
+    ex2: {
+      name: "Stun Chance",
+      value: 30,
+      percent: true
+    },
+    ex9: {
+      name: "Stun Duration",
+      value: 2.5
+    },
+    ex3: {
+      name: "Max Penetrations",
+      value: 0
+    },
+    ex4: {
+      name: "Armor Breaking",
+      value: 100,
+      percent: true
+    },
+    ex6: {
+      name: "Auto Reload",
+      value: 0,
+      "boolean": true
+    },
+    ex7: {
+      name: "Proximity Fear Chance",
+      value: 0,
+      percent: true
+    },
+    ex8: {
+      name: "Damage % as Fire",
+      value: 0,
+      percent: true
+    },
+    ex10: {
+      name: "Double Barrel",
+      value: 0,
+      "boolean": true
+    },
+    ex11: {
+      name: "Shotgun Jump",
+      value: 0,
+      "boolean": true
+    },
+    ex12: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 8
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Double-Sized Buckshot",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "Bigger and heavier handcrafted specialist dwarf buckshot. Accept no substitute.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Double Trigger",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "Tweaked trigger mechanism allows you to unload both barrels in quick succession dealing massive damage to anything in front of you.",
+    stats: {
+      rate: {
+        name: "Rate of Fire",
+        value: 7.5
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Quickfire Ejector",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Experience, training, and a couple of under-the-table design \"adjustments\" means your gun can be reloaded significantly faster. ",
+    stats: {
+      reload: {
+        name: "Reload Time",
+        value: 0.7,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 18,
+      enorPearl: 0,
+      jadiz: 12,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Stun",
+    icon: "Icon_Upgrade_Stun",
+    type: "Stun",
+    text: "Stunned enemies are incapacitated for a longer period of time.",
+    stats: {
+      ex9: {
+        name: "Stun Duration",
+        value: 2.5
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 12
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Capacity Shells",
+    icon: "Icon_Upgrade_Shotgun_Pellet",
+    type: "Pellet Count",
+    text: "It took some creating thinking, but we finally found out how to pack more buckshot into each shell. Just... Handle with care, they're liable to take your eye out.",
+    stats: {
+      ex1: {
+        name: "Pellets",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 30,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Super Blowthrough Rounds",
+    icon: "Icon_Upgrade_BulletPenetration",
+    type: "Blow Through",
+    text: "Shaped projectiles designed to over-penetrate targets with a minimal loss of energy. In other words: Fire straight through several enemies at once!",
+    stats: {
+      ex3: {
+        name: "Max Penetrations",
+        value: 3
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 36,
+      jadiz: 25,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Tungsten Coated Buckshot",
+    icon: "Icon_Upgrade_ArmorBreaking",
+    type: "Armor Breaking",
+    text: "We're proud of this one. Armor shredding. Tear through that high-impact plating of those big buggers like butter. What could be finer?",
+    stats: {
+      ex4: {
+        name: "Armor Breaking",
+        value: 300,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 0,
+      jadiz: 15,
+      magnite: 0,
+      umanite: 36,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Improved Blast Wave",
+    icon: "Icon_Upgrade_Special",
+    type: "Special",
+    text: "The Shockwave from the blast deals extra damage to any enemies unlucky enough to be in the area extending 4m in front of you.",
+    stats: {
+      ex5: {
+        name: "Front AoE shock wave Damage",
+        value: 20
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 36,
+      croppa: 0,
+      enorPearl: 25,
+      jadiz: 0,
+      magnite: 15,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Auto Reload",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Reloads automatically when unequipped for more than 5 seconds",
+    stats: {
+      ex6: {
+        name: "Auto Reload",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 40,
+      croppa: 0,
+      enorPearl: 60,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 110,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Fear the Boomstick",
+    icon: "Icon_Upgrade_ScareEnemies",
+    type: "Fear",
+    text: "Chance to scare nearby creatures whenever you shoot",
+    stats: {
+      ex7: {
+        name: "Proximity Fear Chance",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 40,
+      enorPearl: 0,
+      jadiz: 60,
+      magnite: 110,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "White Phosphorous Shells",
+    icon: "Icon_Upgrade_Heat",
+    type: "Heat",
+    text: "Convert some of the damage to Fire damage",
+    stats: {
+      ex8: {
+        name: "Damage % as Fire",
+        value: 50,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 60,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 110,
+      magnite: 0,
+      umanite: 40,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Compact Shells",
+    icon: "Icon_Upgrade_Ammo",
+    type: "clean",
+    cost: {
+      credits: 8550,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 100,
+      magnite: 65,
+      umanite: 120,
+      err: 0
+    },
+    text: "You can carry a few more of these compact shells in your pockets and they are a bit faster to reload with.",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 6
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Double Barrel",
+    icon: "Icon_Upgrade_FireRate",
+    type: "clean",
+    cost: {
+      credits: 7950,
+      bismor: 0,
+      croppa: 100,
+      enorPearl: 75,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 125,
+      err: 0
+    },
+    text: "Unload both barrels at once, no regrets.",
+    stats: {
+      ex10: {
+        name: "Double Barrel",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Damage",
+        value: 1
+      }
+    }
+  }, {
+    selected: false,
+    name: "Special Powder",
+    icon: "Icon_Overclock_ShotgunJump",
+    type: "clean",
+    cost: {
+      credits: 7050,
+      bismor: 95,
+      croppa: 125,
+      enorPearl: 65,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Less like gunpowder and more like rocketfuel, this mixture gives a hell of a kick that you can use to get places.",
+    stats: {
+      ex11: {
+        name: "Shotgun Jump",
+        value: 1,
+        "boolean": true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Stuffed Shells",
+    icon: "Icon_Upgrade_Shotgun_Pellet",
+    type: "clean",
+    cost: {
+      credits: 7850,
+      bismor: 100,
+      croppa: 0,
+      enorPearl: 135,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 80,
+      err: 0
+    },
+    text: "With a bit of patience and some luck you can get one more pellet and a few more grains of powder into each shell without affecting the gun's performance or losing an eye in the process.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      },
+      ex1: {
+        name: "Pellets",
+        value: 1
+      }
+    }
+  }, {
+    selected: false,
+    name: "Shaped Shells",
+    icon: "Icon_Upgrade_Aim",
+    type: "balanced",
+    cost: {
+      credits: 7700,
+      bismor: 95,
+      croppa: 0,
+      enorPearl: 70,
+      jadiz: 135,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Specially shaped shells result in a tighter shot but the number of pellets is reduced.",
+    stats: {
+      ex12: {
+        name: "Base Spread",
+        value: 35,
+        percent: true,
+        subtract: true
+      },
+      ex1: {
+        name: "Pellets",
+        value: 2,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Jumbo Shells",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 8800,
+      bismor: 65,
+      croppa: 0,
+      enorPearl: 105,
+      jadiz: 125,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "These large shells pack a lot more charge for a big increase in damage but they also take up more space so total ammo is limited.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 8
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 10,
+        subtract: true
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.5
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/equipment/S_S2_Zhuk.js":
+/*!*********************************************!*\
+  !*** ./resources/js/equipment/S_S2_Zhuk.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  selected: false,
+  modified: false,
+  name: "Zhukov NUK17",
+  "class": "Submachine Gun",
+  icon: "equipment.S_S2_Zhuk",
+  calculateDamage: function calculateDamage(stats) {
+    var damagePerSecond;
+    var damagePerBullet;
+    var damagePerMagazine;
+    var totalDamage;
+    var dpsStats = {};
+
+    var _iterator = _createForOfIteratorHelper(stats),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var stat = _step.value;
+
+        if (stat.name === "Damage") {
+          dpsStats.damage = parseFloat(stat.value);
+        } else if (stat.name === "Combined Clip Size") {
+          dpsStats.magazineSize = parseFloat(stat.value);
+        } else if (stat.name === "Combined Rate of Fire") {
+          dpsStats.rateOfFire = parseFloat(stat.value);
+        } else if (stat.name === "Reload Time") {
+          dpsStats.reloadTime = parseFloat(stat.value);
+        } else if (stat.name === "Max Ammo") {
+          dpsStats.maxAmmo = parseFloat(stat.value);
+        } else if (stat.name === "Weakpoint Damage Bonus") {
+          dpsStats.weakPoint = parseFloat(stat.value);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+    var timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+    var damageTime = timeToEmpty + dpsStats.reloadTime;
+    damagePerMagazine = parseFloat(dpsStats.damage * dpsStats.magazineSize / 2).toFixed(0);
+    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+    damagePerBullet = parseFloat(dpsStats.damage).toFixed(0);
+    totalDamage = parseFloat(dpsStats.damage * dpsStats.maxAmmo / 2).toFixed(0);
+    return {
+      tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
+      wpd: parseFloat(dpsStats.damage * (1 + dpsStats.weakPoint / 100)).toFixed(2),
+      // damage on crit
+      dps: damagePerSecond,
+      // damage per second
+      dpm: damagePerMagazine,
+      // damage per magazine
+      dpa: totalDamage // total damage available
+
+    };
+  },
+  baseStats: {
+    dmg: {
+      name: "Damage",
+      value: 11
+    },
+    ammo: {
+      name: "Max Ammo",
+      value: 600
+    },
+    clip: {
+      name: "Combined Clip Size",
+      value: 50
+    },
+    rate: {
+      name: "Combined Rate of Fire",
+      value: 30
+    },
+    reload: {
+      name: "Reload Time",
+      value: 1.8
+    },
+    ex1: {
+      name: "Base Spread",
+      value: 100,
+      percent: true
+    },
+    ex2: {
+      name: "Max Penetrations",
+      value: 0
+    },
+    ex4: {
+      name: "Weakpoint Damage Bonus",
+      value: 0,
+      percent: true
+    },
+    ex5: {
+      name: "Get in, get out",
+      value: 0,
+      "boolean": true
+    },
+    ex6: {
+      name: "Damage vs Electrically Affected",
+      value: 0,
+      percent: true
+    },
+    ex7: {
+      name: "Cryo Minelets",
+      value: 0,
+      "boolean": true
+    },
+    ex8: {
+      name: "Embedded Detonators",
+      value: 0,
+      "boolean": true
+    },
+    ex9: {
+      name: "Movement Speed While Using",
+      value: 100,
+      percent: true
+    }
+  },
+  mods: [[{
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 75
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 20,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "High Velocity Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1000,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "High Capacity Magazine",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "Magazine Size",
+    text: "The good thing about clips, magazines, ammo drums, fuel tanks...you can always get bigger variants.",
+    stats: {
+      clip: {
+        name: "Combined Clip Size",
+        value: 10
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 30,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Supercharged Feed Mechanism",
+    icon: "Icon_Upgrade_FireRate",
+    type: "Rate of Fire",
+    text: "We overclocked your gun. It fires faster. Don't ask. Just enjoy. Also probably don't tell Management, please.",
+    stats: {
+      rate: {
+        name: "Combined Rate of Fire",
+        value: 8
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 18,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Quickfire Ejector",
+    icon: "Icon_Upgrade_Speed",
+    type: "Reload Speed",
+    text: "Experience, training, and a couple of under-the-table design \"adjustments\" means your gun can be reloaded significantly faster. ",
+    stats: {
+      reload: {
+        name: "Reload Time",
+        value: 0.6,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 30,
+      croppa: 0,
+      enorPearl: 20,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Increased Caliber Rounds",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "Damage",
+    text: "The good folk in R&D have been busy. The overall damage of your weapon is increased.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 2
+      }
+    },
+    cost: {
+      credits: 2200,
+      bismor: 0,
+      croppa: 20,
+      enorPearl: 0,
+      jadiz: 30,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Better Weight Balance",
+    icon: "Icon_Upgrade_Accuracy",
+    type: "Accuracy",
+    text: "Base Accuracy Increase",
+    stats: {
+      ex1: {
+        name: "Base Spread",
+        value: 50,
+        percent: true,
+        subtract: true
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 0,
+      croppa: 12,
+      enorPearl: 0,
+      jadiz: 18,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Blowthrough Rounds",
+    icon: "Icon_Upgrade_BulletPenetration",
+    type: "Blow Through",
+    text: "Shaped projectiles designed to over-penetrate targets with minimal loss of energy. In other words: Fire straight through several enemies at once!",
+    stats: {
+      ex2: {
+        name: "Max Penetrations",
+        value: 1
+      }
+    },
+    cost: {
+      credits: 1800,
+      bismor: 18,
+      croppa: 0,
+      enorPearl: 12,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Hollow-Point Bullets",
+    icon: "Icon_Upgrade_Weakspot",
+    type: "Weak Spot Bonus",
+    text: "Hit em' where it hurts! Literally! We've upped the damage you'll be able to do to any creature's fleshy bits. You're welcome.",
+    stats: {
+      ex4: {
+        name: "Weakpoint Damage Bonus",
+        value: 30,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 0,
+      croppa: 25,
+      enorPearl: 15,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 36,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Expanded Ammo Bags",
+    icon: "Icon_Upgrade_Ammo",
+    type: "Total Ammo",
+    text: "You had to give up on some sandwich-storage, but your total ammo capacity is increased!",
+    stats: {
+      ammo: {
+        name: "Max Ammo",
+        value: 150
+      }
+    },
+    cost: {
+      credits: 3800,
+      bismor: 36,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 15,
+      magnite: 26,
+      umanite: 0,
+      err: 0
+    }
+  }], [{
+    selected: false,
+    name: "Conductive Bullets",
+    icon: "Icon_Upgrade_Electricity",
+    type: "Electricity",
+    text: "More damage to targets that are in an electric field",
+    stats: {
+      ex6: {
+        name: "Damage vs Electrically Affected",
+        value: 30,
+        percent: true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 0,
+      croppa: 40,
+      enorPearl: 0,
+      jadiz: 110,
+      magnite: 0,
+      umanite: 60,
+      err: 0
+    }
+  }, {
+    selected: false,
+    name: "Get In, Get Out",
+    icon: "Icon_Upgrade_MovementSpeed",
+    type: "Movement Speed",
+    text: "Temporary movement speed bonus after emptying clip",
+    stats: {
+      ex5: {
+        name: "Get in, get out",
+        value: 1,
+        "boolean": true
+      }
+    },
+    cost: {
+      credits: 4400,
+      bismor: 60,
+      croppa: 0,
+      enorPearl: 110,
+      jadiz: 0,
+      magnite: 40,
+      umanite: 0,
+      err: 0
+    }
+  }]],
+  overclocks: [{
+    selected: false,
+    name: "Minimal Magazines",
+    icon: "Icon_Upgrade_Speed",
+    type: "clean",
+    cost: {
+      credits: 8450,
+      bismor: 130,
+      croppa: 100,
+      enorPearl: 0,
+      jadiz: 70,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "By filling away unnecessary material from the magazines you've made them lighter, and that means they pop out faster when reloading. Also the rounds can move more freely increasing the max rate of fire slightly.",
+    stats: {
+      rate: {
+        name: "Combined Rate of Fire",
+        value: 2
+      },
+      reload: {
+        name: "Reload Time",
+        value: 0.4,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Custom Casings",
+    icon: "Icon_Upgrade_ClipSize",
+    type: "balanced",
+    cost: {
+      credits: 7700,
+      bismor: 95,
+      croppa: 75,
+      enorPearl: 140,
+      jadiz: 0,
+      magnite: 0,
+      umanite: 0,
+      err: 0
+    },
+    text: "Fit more of these custom rounds in each magazine but at small loss in raw damage.",
+    stats: {
+      clip: {
+        name: "Combined Clip Size",
+        value: 30
+      },
+      dmg: {
+        name: "Damage",
+        value: 1,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Cryo Minelets",
+    icon: "Icon_Upgrade_Cold",
+    type: "unstable",
+    cost: {
+      credits: 7300,
+      bismor: 0,
+      croppa: 65,
+      enorPearl: 0,
+      jadiz: 0,
+      magnite: 135,
+      umanite: 95,
+      err: 0
+    },
+    text: "After impacting terrain, these high-tech bullets convert into cryo-minelets that will super-cool anything that comes close. However they don't last forever and the rounds themselves take more space in the clip and deal less direct damage.",
+    stats: {
+      ex7: {
+        name: "Cryo Minelets",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Damage",
+        value: 1,
+        subtract: true
+      },
+      clip: {
+        name: "Combined Clip Size",
+        value: 10,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Embedded Detonators",
+    icon: "Icon_Overclock_Special_Magazine",
+    type: "unstable",
+    cost: {
+      credits: 7550,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 0,
+      jadiz: 135,
+      magnite: 65,
+      umanite: 90,
+      err: 0
+    },
+    text: "Special bullets contain micro-explosives that detonate when you reload the weapon at the cost of total ammo and direct damage.",
+    stats: {
+      ex8: {
+        name: "Embedded Detonators",
+        value: 1,
+        "boolean": true
+      },
+      dmg: {
+        name: "Damage",
+        value: 3,
+        subtract: true
+      },
+      ammo: {
+        name: "Max Ammo",
+        value: 75,
+        subtract: true
+      }
+    }
+  }, {
+    selected: false,
+    name: "Gas Recycling",
+    icon: "Icon_Upgrade_DamageGeneral",
+    type: "unstable",
+    cost: {
+      credits: 7800,
+      bismor: 0,
+      croppa: 0,
+      enorPearl: 70,
+      jadiz: 105,
+      magnite: 125,
+      umanite: 0,
+      err: 0
+    },
+    text: "Special hardened bullets combined with rerouting escaping gasses back into the chamber greatly increases the raw damage of the weapon but makes it more difficult to control and removes any bonus to weakpoint hits.",
+    stats: {
+      dmg: {
+        name: "Damage",
+        value: 5
+      },
+      ex4: {
+        name: "Weakpoint Damage Bonus",
+        value: 0,
+        percent: true,
+        multiply: true
+      },
+      ex1: {
+        name: "Base Spread",
+        value: 1.5,
+        percent: true,
+        multiply: true
+      },
+      ex9: {
+        name: "Movement Speed While Using",
+        value: 50,
+        percent: true,
+        subtract: true
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/store.js":
+/*!*******************************!*\
+  !*** ./resources/js/store.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _equipment_D_E_Armor_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./equipment/D_E_Armor.js */ "./resources/js/equipment/D_E_Armor.js");
+/* harmony import */ var _equipment_D_E_Satchel_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./equipment/D_E_Satchel.js */ "./resources/js/equipment/D_E_Satchel.js");
+/* harmony import */ var _assets_D_E_Satchel_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/D_E_Satchel.js */ "./resources/js/assets/D_E_Satchel.js");
+/* harmony import */ var _equipment_D_E_Drill_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./equipment/D_E_Drill.js */ "./resources/js/equipment/D_E_Drill.js");
+/* harmony import */ var _assets_D_E_Drill_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./assets/D_E_Drill.js */ "./resources/js/assets/D_E_Drill.js");
+/* harmony import */ var _equipment_D_P1_CRSPR_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./equipment/D_P1_CRSPR.js */ "./resources/js/equipment/D_P1_CRSPR.js");
+/* harmony import */ var _assets_D_P1_CRSPR_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./assets/D_P1_CRSPR.js */ "./resources/js/assets/D_P1_CRSPR.js");
+/* harmony import */ var _equipment_D_P2_Cryo_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./equipment/D_P2_Cryo.js */ "./resources/js/equipment/D_P2_Cryo.js");
+/* harmony import */ var _assets_D_P2_Cryo_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./assets/D_P2_Cryo.js */ "./resources/js/assets/D_P2_Cryo.js");
+/* harmony import */ var _equipment_D_S1_Subata_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./equipment/D_S1_Subata.js */ "./resources/js/equipment/D_S1_Subata.js");
+/* harmony import */ var _assets_D_S1_Subata_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./assets/D_S1_Subata.js */ "./resources/js/assets/D_S1_Subata.js");
+/* harmony import */ var _equipment_D_S2_Plasma_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./equipment/D_S2_Plasma.js */ "./resources/js/equipment/D_S2_Plasma.js");
+/* harmony import */ var _assets_D_S2_Plasma_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./assets/D_S2_Plasma.js */ "./resources/js/assets/D_S2_Plasma.js");
+/* harmony import */ var _equipment_E_E_Armor_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./equipment/E_E_Armor.js */ "./resources/js/equipment/E_E_Armor.js");
+/* harmony import */ var _equipment_E_E_Sentry_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./equipment/E_E_Sentry.js */ "./resources/js/equipment/E_E_Sentry.js");
+/* harmony import */ var _assets_E_E_Sentry_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./assets/E_E_Sentry.js */ "./resources/js/assets/E_E_Sentry.js");
+/* harmony import */ var _equipment_E_E_Platform_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./equipment/E_E_Platform.js */ "./resources/js/equipment/E_E_Platform.js");
+/* harmony import */ var _assets_E_E_Platform_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./assets/E_E_Platform.js */ "./resources/js/assets/E_E_Platform.js");
+/* harmony import */ var _equipment_E_P1_Warthog_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./equipment/E_P1_Warthog.js */ "./resources/js/equipment/E_P1_Warthog.js");
+/* harmony import */ var _assets_E_P1_Warthog_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./assets/E_P1_Warthog.js */ "./resources/js/assets/E_P1_Warthog.js");
+/* harmony import */ var _equipment_E_P2_Stubby_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./equipment/E_P2_Stubby.js */ "./resources/js/equipment/E_P2_Stubby.js");
+/* harmony import */ var _assets_E_P2_Stubby_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./assets/E_P2_Stubby.js */ "./resources/js/assets/E_P2_Stubby.js");
+/* harmony import */ var _equipment_E_S1_PGL_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./equipment/E_S1_PGL.js */ "./resources/js/equipment/E_S1_PGL.js");
+/* harmony import */ var _assets_E_S1_PGL_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./assets/E_S1_PGL.js */ "./resources/js/assets/E_S1_PGL.js");
+/* harmony import */ var _equipment_E_S2_Breach_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./equipment/E_S2_Breach.js */ "./resources/js/equipment/E_S2_Breach.js");
+/* harmony import */ var _assets_E_S2_Breach_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./assets/E_S2_Breach.js */ "./resources/js/assets/E_S2_Breach.js");
+/* harmony import */ var _equipment_G_E_Armor_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./equipment/G_E_Armor.js */ "./resources/js/equipment/G_E_Armor.js");
+/* harmony import */ var _equipment_G_E_Shield_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./equipment/G_E_Shield.js */ "./resources/js/equipment/G_E_Shield.js");
+/* harmony import */ var _assets_G_E_Shield_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./assets/G_E_Shield.js */ "./resources/js/assets/G_E_Shield.js");
+/* harmony import */ var _equipment_G_E_Zipline_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./equipment/G_E_Zipline.js */ "./resources/js/equipment/G_E_Zipline.js");
+/* harmony import */ var _assets_G_E_Zipline_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./assets/G_E_Zipline.js */ "./resources/js/assets/G_E_Zipline.js");
+/* harmony import */ var _equipment_G_P1_Lead_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./equipment/G_P1_Lead.js */ "./resources/js/equipment/G_P1_Lead.js");
+/* harmony import */ var _assets_G_P1_Lead_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./assets/G_P1_Lead.js */ "./resources/js/assets/G_P1_Lead.js");
+/* harmony import */ var _equipment_G_P2_Thunder_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./equipment/G_P2_Thunder.js */ "./resources/js/equipment/G_P2_Thunder.js");
+/* harmony import */ var _assets_G_P2_Thunder_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./assets/G_P2_Thunder.js */ "./resources/js/assets/G_P2_Thunder.js");
+/* harmony import */ var _equipment_G_S1_Bulldog_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./equipment/G_S1_Bulldog.js */ "./resources/js/equipment/G_S1_Bulldog.js");
+/* harmony import */ var _assets_G_S1_Bulldog_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./assets/G_S1_Bulldog.js */ "./resources/js/assets/G_S1_Bulldog.js");
+/* harmony import */ var _equipment_G_S2_Burst_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./equipment/G_S2_Burst.js */ "./resources/js/equipment/G_S2_Burst.js");
+/* harmony import */ var _assets_G_S2_Burst_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./assets/G_S2_Burst.js */ "./resources/js/assets/G_S2_Burst.js");
+/* harmony import */ var _equipment_S_E_Armor_js__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./equipment/S_E_Armor.js */ "./resources/js/equipment/S_E_Armor.js");
+/* harmony import */ var _equipment_S_E_Flare_js__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./equipment/S_E_Flare.js */ "./resources/js/equipment/S_E_Flare.js");
+/* harmony import */ var _assets_S_E_Flare_js__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./assets/S_E_Flare.js */ "./resources/js/assets/S_E_Flare.js");
+/* harmony import */ var _equipment_S_E_Grapling_js__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./equipment/S_E_Grapling.js */ "./resources/js/equipment/S_E_Grapling.js");
+/* harmony import */ var _assets_S_E_Grapling_js__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./assets/S_E_Grapling.js */ "./resources/js/assets/S_E_Grapling.js");
+/* harmony import */ var _equipment_S_P1_GK2_js__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./equipment/S_P1_GK2.js */ "./resources/js/equipment/S_P1_GK2.js");
+/* harmony import */ var _assets_S_P1_GK2_js__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./assets/S_P1_GK2.js */ "./resources/js/assets/S_P1_GK2.js");
+/* harmony import */ var _equipment_S_P2_M1000_js__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./equipment/S_P2_M1000.js */ "./resources/js/equipment/S_P2_M1000.js");
+/* harmony import */ var _assets_S_P2_M1000_js__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./assets/S_P2_M1000.js */ "./resources/js/assets/S_P2_M1000.js");
+/* harmony import */ var _equipment_S_S1_Jury_js__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./equipment/S_S1_Jury.js */ "./resources/js/equipment/S_S1_Jury.js");
+/* harmony import */ var _assets_S_S1_Jury_js__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./assets/S_S1_Jury.js */ "./resources/js/assets/S_S1_Jury.js");
+/* harmony import */ var _equipment_S_S2_Zhuk_js__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./equipment/S_S2_Zhuk.js */ "./resources/js/equipment/S_S2_Zhuk.js");
+/* harmony import */ var _assets_S_S2_Zhuk_js__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./assets/S_S2_Zhuk.js */ "./resources/js/assets/S_S2_Zhuk.js");
+/* harmony import */ var _equipment_R_P1_Bosco_js__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./equipment/R_P1_Bosco.js */ "./resources/js/equipment/R_P1_Bosco.js");
+/* harmony import */ var _assets_R_P1_Bosco_js__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./assets/R_P1_Bosco.js */ "./resources/js/assets/R_P1_Bosco.js");
+/* harmony import */ var _assets_X_E_Armor_js__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./assets/X_E_Armor.js */ "./resources/js/assets/X_E_Armor.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Distance_js__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Distance.js */ "./resources/js/assets/mods/Icon_Upgrade_Distance.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_FireRate_js__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_FireRate.js */ "./resources/js/assets/mods/Icon_Upgrade_FireRate.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Fuel_js__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Fuel.js */ "./resources/js/assets/mods/Icon_Upgrade_Fuel.js");
+/* harmony import */ var _assets_mods_Class_level_icon_js__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./assets/mods/Class_level_icon.js */ "./resources/js/assets/mods/Class_level_icon.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Accuracy_js__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Accuracy.js */ "./resources/js/assets/mods/Icon_Upgrade_Accuracy.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Aim_js__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Aim.js */ "./resources/js/assets/mods/Icon_Upgrade_Aim.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Ammo_js__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Ammo.js */ "./resources/js/assets/mods/Icon_Upgrade_Ammo.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Angle_js__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Angle.js */ "./resources/js/assets/mods/Icon_Upgrade_Angle.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Area_js__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Area.js */ "./resources/js/assets/mods/Icon_Upgrade_Area.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_AreaDamage_js__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_AreaDamage.js */ "./resources/js/assets/mods/Icon_Upgrade_AreaDamage.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_ArmorBreaking_js__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_ArmorBreaking.js */ "./resources/js/assets/mods/Icon_Upgrade_ArmorBreaking.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_BulletPenetration_js__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_BulletPenetration.js */ "./resources/js/assets/mods/Icon_Upgrade_BulletPenetration.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Capacity_js__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Capacity.js */ "./resources/js/assets/mods/Icon_Upgrade_Capacity.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_ChargeUp_js__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_ChargeUp.js */ "./resources/js/assets/mods/Icon_Upgrade_ChargeUp.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_ClipSize_js__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_ClipSize.js */ "./resources/js/assets/mods/Icon_Upgrade_ClipSize.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Cold_js__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Cold.js */ "./resources/js/assets/mods/Icon_Upgrade_Cold.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_DamageGeneral_js__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_DamageGeneral.js */ "./resources/js/assets/mods/Icon_Upgrade_DamageGeneral.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_DefenseOne_js__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_DefenseOne.js */ "./resources/js/assets/mods/Icon_Upgrade_DefenseOne.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Digging_js__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Digging.js */ "./resources/js/assets/mods/Icon_Upgrade_Digging.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Duration_js__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Duration.js */ "./resources/js/assets/mods/Icon_Upgrade_Duration.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Electricity_js__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Electricity.js */ "./resources/js/assets/mods/Icon_Upgrade_Electricity.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Explosion_js__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Explosion.js */ "./resources/js/assets/mods/Icon_Upgrade_Explosion.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Explosive_js__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Explosive.js */ "./resources/js/assets/mods/Icon_Upgrade_Explosive.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Explosive_Resistance_js__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Explosive_Resistance.js */ "./resources/js/assets/mods/Icon_Upgrade_Explosive_Resistance.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_FallDamageResistance_js__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_FallDamageResistance.js */ "./resources/js/assets/mods/Icon_Upgrade_FallDamageResistance.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Fire_Resistance_js__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Fire_Resistance.js */ "./resources/js/assets/mods/Icon_Upgrade_Fire_Resistance.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Flare_01_js__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Flare_01.js */ "./resources/js/assets/mods/Icon_Upgrade_Flare_01.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Heat_js__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Heat.js */ "./resources/js/assets/mods/Icon_Upgrade_Heat.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_MovementSpeed_js__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_MovementSpeed.js */ "./resources/js/assets/mods/Icon_Upgrade_MovementSpeed.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_PoisonResistance_js__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_PoisonResistance.js */ "./resources/js/assets/mods/Icon_Upgrade_PoisonResistance.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Poison_Resistance_js__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Poison_Resistance.js */ "./resources/js/assets/mods/Icon_Upgrade_Poison_Resistance.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_ProjectileSpeed_js__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_ProjectileSpeed.js */ "./resources/js/assets/mods/Icon_Upgrade_ProjectileSpeed.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Recoil_js__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Recoil.js */ "./resources/js/assets/mods/Icon_Upgrade_Recoil.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Resistance_js__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Resistance.js */ "./resources/js/assets/mods/Icon_Upgrade_Resistance.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Revive_js__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Revive.js */ "./resources/js/assets/mods/Icon_Upgrade_Revive.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Ricoshet_js__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Ricoshet.js */ "./resources/js/assets/mods/Icon_Upgrade_Ricoshet.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_ScareEnemies_js__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_ScareEnemies.js */ "./resources/js/assets/mods/Icon_Upgrade_ScareEnemies.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Shot_js__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Shot.js */ "./resources/js/assets/mods/Icon_Upgrade_Shot.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Shotgun_Pellet_js__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Shotgun_Pellet.js */ "./resources/js/assets/mods/Icon_Upgrade_Shotgun_Pellet.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Speed_js__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Speed.js */ "./resources/js/assets/mods/Icon_Upgrade_Speed.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_SpeedUp_js__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_SpeedUp.js */ "./resources/js/assets/mods/Icon_Upgrade_SpeedUp.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Sticky_js__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Sticky.js */ "./resources/js/assets/mods/Icon_Upgrade_Sticky.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Stun_js__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Stun.js */ "./resources/js/assets/mods/Icon_Upgrade_Stun.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_TemperatureCoolDown_js__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_TemperatureCoolDown.js */ "./resources/js/assets/mods/Icon_Upgrade_TemperatureCoolDown.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Weakspot_js__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Weakspot.js */ "./resources/js/assets/mods/Icon_Upgrade_Weakspot.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Bosco_Rocket_Upgrade_js__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Bosco_Rocket_Upgrade.js */ "./resources/js/assets/mods/Icon_Upgrade_Bosco_Rocket_Upgrade.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_PlusOne_js__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_PlusOne.js */ "./resources/js/assets/mods/Icon_Upgrade_PlusOne.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Light_ExtraLife_js__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Light_ExtraLife.js */ "./resources/js/assets/mods/Icon_Upgrade_Light_ExtraLife.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Light_Intensity_js__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Light_Intensity.js */ "./resources/js/assets/mods/Icon_Upgrade_Light_Intensity.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_Special_js__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_Special.js */ "./resources/js/assets/mods/Icon_Upgrade_Special.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_StrongerTurret_js__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_StrongerTurret.js */ "./resources/js/assets/mods/Icon_Upgrade_StrongerTurret.js");
+/* harmony import */ var _assets_mods_Icon_Upgrade_TwoTurrets_js__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./assets/mods/Icon_Upgrade_TwoTurrets.js */ "./resources/js/assets/mods/Icon_Upgrade_TwoTurrets.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_ChangeOfHigherDamage_js__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_ChangeOfHigherDamage.js */ "./resources/js/assets/mods/Icon_Overclock_ChangeOfHigherDamage.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_ExplosionJump_js__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_ExplosionJump.js */ "./resources/js/assets/mods/Icon_Overclock_ExplosionJump.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_ForthAndBack_Linecutter_js__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_ForthAndBack_Linecutter.js */ "./resources/js/assets/mods/Icon_Overclock_ForthAndBack_Linecutter.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_Neuro_js__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_Neuro.js */ "./resources/js/assets/mods/Icon_Overclock_Neuro.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_ShotgunJump_js__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_ShotgunJump.js */ "./resources/js/assets/mods/Icon_Overclock_ShotgunJump.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_Slowdown_js__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_Slowdown.js */ "./resources/js/assets/mods/Icon_Overclock_Slowdown.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_SmallBullets_js__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_SmallBullets.js */ "./resources/js/assets/mods/Icon_Overclock_SmallBullets.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_Special_Magazine_js__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_Special_Magazine.js */ "./resources/js/assets/mods/Icon_Overclock_Special_Magazine.js");
+/* harmony import */ var _assets_mods_Icon_Overclock_Spinning_Linecutter_js__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./assets/mods/Icon_Overclock_Spinning_Linecutter.js */ "./resources/js/assets/mods/Icon_Overclock_Spinning_Linecutter.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+ // imports for driller equipment
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // imports for engineer equipment
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // imports for gunner equipment
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // imports for scout equipment
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // imports for robot equipment
+
+
+ // imports for shared equipment
+
+ // imports for modification icons
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: {
+    loadedFromLink: false,
+    loadedOverclockFromLink: false,
+    selected: {
+      "class": "D",
+      equipment: "P1",
+      slot1: 0,
+      slot2: 0,
+      slot3: 0,
+      slot4: 0,
+      slot5: 0,
+      overclock: 0
+    },
+    dataParts: {},
+    hovered: {},
+    testJS: _assets_D_P1_CRSPR_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+    icons: {
+      equipment: {
+        X_E_Armor: _assets_X_E_Armor_js__WEBPACK_IMPORTED_MODULE_56__["default"],
+        D_E_Satchel: _assets_D_E_Satchel_js__WEBPACK_IMPORTED_MODULE_4__["default"],
+        D_E_Drill: _assets_D_E_Drill_js__WEBPACK_IMPORTED_MODULE_6__["default"],
+        D_P1_CRSPR: _assets_D_P1_CRSPR_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+        D_P2_Cryo: _assets_D_P2_Cryo_js__WEBPACK_IMPORTED_MODULE_10__["default"],
+        D_S1_Subata: _assets_D_S1_Subata_js__WEBPACK_IMPORTED_MODULE_12__["default"],
+        D_S2_Plasma: _assets_D_S2_Plasma_js__WEBPACK_IMPORTED_MODULE_14__["default"],
+        E_E_Sentry: _assets_E_E_Sentry_js__WEBPACK_IMPORTED_MODULE_17__["default"],
+        E_E_Platform: _assets_E_E_Platform_js__WEBPACK_IMPORTED_MODULE_19__["default"],
+        E_P1_Warthog: _assets_E_P1_Warthog_js__WEBPACK_IMPORTED_MODULE_21__["default"],
+        E_P2_Stubby: _assets_E_P2_Stubby_js__WEBPACK_IMPORTED_MODULE_23__["default"],
+        E_S1_PGL: _assets_E_S1_PGL_js__WEBPACK_IMPORTED_MODULE_25__["default"],
+        E_S2_Breach: _assets_E_S2_Breach_js__WEBPACK_IMPORTED_MODULE_27__["default"],
+        G_E_Shield: _assets_G_E_Shield_js__WEBPACK_IMPORTED_MODULE_30__["default"],
+        G_E_Zipline: _assets_G_E_Zipline_js__WEBPACK_IMPORTED_MODULE_32__["default"],
+        G_P1_Lead: _assets_G_P1_Lead_js__WEBPACK_IMPORTED_MODULE_34__["default"],
+        G_P2_Thunder: _assets_G_P2_Thunder_js__WEBPACK_IMPORTED_MODULE_36__["default"],
+        G_S1_Bulldog: _assets_G_S1_Bulldog_js__WEBPACK_IMPORTED_MODULE_38__["default"],
+        G_S2_Burst: _assets_G_S2_Burst_js__WEBPACK_IMPORTED_MODULE_40__["default"],
+        S_E_Flare: _assets_S_E_Flare_js__WEBPACK_IMPORTED_MODULE_43__["default"],
+        S_E_Grapling: _assets_S_E_Grapling_js__WEBPACK_IMPORTED_MODULE_45__["default"],
+        S_P1_GK2: _assets_S_P1_GK2_js__WEBPACK_IMPORTED_MODULE_47__["default"],
+        S_P2_M1000: _assets_S_P2_M1000_js__WEBPACK_IMPORTED_MODULE_49__["default"],
+        S_S1_Jury: _assets_S_S1_Jury_js__WEBPACK_IMPORTED_MODULE_51__["default"],
+        S_S2_Zhuk: _assets_S_S2_Zhuk_js__WEBPACK_IMPORTED_MODULE_53__["default"],
+        R_P1_Bosco: _assets_R_P1_Bosco_js__WEBPACK_IMPORTED_MODULE_55__["default"]
+      },
+      mods: {
+        Icon_Upgrade_Distance: _assets_mods_Icon_Upgrade_Distance_js__WEBPACK_IMPORTED_MODULE_57__["default"],
+        Icon_Upgrade_FireRate: _assets_mods_Icon_Upgrade_FireRate_js__WEBPACK_IMPORTED_MODULE_58__["default"],
+        Icon_Upgrade_Fuel: _assets_mods_Icon_Upgrade_Fuel_js__WEBPACK_IMPORTED_MODULE_59__["default"],
+        Class_level_icon: _assets_mods_Class_level_icon_js__WEBPACK_IMPORTED_MODULE_60__["default"],
+        Icon_Upgrade_Accuracy: _assets_mods_Icon_Upgrade_Accuracy_js__WEBPACK_IMPORTED_MODULE_61__["default"],
+        Icon_Upgrade_Aim: _assets_mods_Icon_Upgrade_Aim_js__WEBPACK_IMPORTED_MODULE_62__["default"],
+        Icon_Upgrade_Ammo: _assets_mods_Icon_Upgrade_Ammo_js__WEBPACK_IMPORTED_MODULE_63__["default"],
+        Icon_Upgrade_Angle: _assets_mods_Icon_Upgrade_Angle_js__WEBPACK_IMPORTED_MODULE_64__["default"],
+        Icon_Upgrade_Area: _assets_mods_Icon_Upgrade_Area_js__WEBPACK_IMPORTED_MODULE_65__["default"],
+        Icon_Upgrade_AreaDamage: _assets_mods_Icon_Upgrade_AreaDamage_js__WEBPACK_IMPORTED_MODULE_66__["default"],
+        Icon_Upgrade_ArmorBreaking: _assets_mods_Icon_Upgrade_ArmorBreaking_js__WEBPACK_IMPORTED_MODULE_67__["default"],
+        Icon_Upgrade_BulletPenetration: _assets_mods_Icon_Upgrade_BulletPenetration_js__WEBPACK_IMPORTED_MODULE_68__["default"],
+        Icon_Upgrade_Capacity: _assets_mods_Icon_Upgrade_Capacity_js__WEBPACK_IMPORTED_MODULE_69__["default"],
+        Icon_Upgrade_ChargeUp: _assets_mods_Icon_Upgrade_ChargeUp_js__WEBPACK_IMPORTED_MODULE_70__["default"],
+        Icon_Upgrade_ClipSize: _assets_mods_Icon_Upgrade_ClipSize_js__WEBPACK_IMPORTED_MODULE_71__["default"],
+        Icon_Upgrade_Cold: _assets_mods_Icon_Upgrade_Cold_js__WEBPACK_IMPORTED_MODULE_72__["default"],
+        Icon_Upgrade_DamageGeneral: _assets_mods_Icon_Upgrade_DamageGeneral_js__WEBPACK_IMPORTED_MODULE_73__["default"],
+        Icon_Upgrade_DefenseOne: _assets_mods_Icon_Upgrade_DefenseOne_js__WEBPACK_IMPORTED_MODULE_74__["default"],
+        Icon_Upgrade_Digging: _assets_mods_Icon_Upgrade_Digging_js__WEBPACK_IMPORTED_MODULE_75__["default"],
+        Icon_Upgrade_Duration: _assets_mods_Icon_Upgrade_Duration_js__WEBPACK_IMPORTED_MODULE_76__["default"],
+        Icon_Upgrade_Electricity: _assets_mods_Icon_Upgrade_Electricity_js__WEBPACK_IMPORTED_MODULE_77__["default"],
+        Icon_Upgrade_Explosion: _assets_mods_Icon_Upgrade_Explosion_js__WEBPACK_IMPORTED_MODULE_78__["default"],
+        Icon_Upgrade_Explosive: _assets_mods_Icon_Upgrade_Explosive_js__WEBPACK_IMPORTED_MODULE_79__["default"],
+        Icon_Upgrade_Explosive_Resistance: _assets_mods_Icon_Upgrade_Explosive_Resistance_js__WEBPACK_IMPORTED_MODULE_80__["default"],
+        Icon_Upgrade_FallDamageResistance: _assets_mods_Icon_Upgrade_FallDamageResistance_js__WEBPACK_IMPORTED_MODULE_81__["default"],
+        Icon_Upgrade_Fire_Resistance: _assets_mods_Icon_Upgrade_Fire_Resistance_js__WEBPACK_IMPORTED_MODULE_82__["default"],
+        Icon_Upgrade_Flare_01: _assets_mods_Icon_Upgrade_Flare_01_js__WEBPACK_IMPORTED_MODULE_83__["default"],
+        Icon_Upgrade_Heat: _assets_mods_Icon_Upgrade_Heat_js__WEBPACK_IMPORTED_MODULE_84__["default"],
+        Icon_Upgrade_MovementSpeed: _assets_mods_Icon_Upgrade_MovementSpeed_js__WEBPACK_IMPORTED_MODULE_85__["default"],
+        Icon_Upgrade_PoisonResistance: _assets_mods_Icon_Upgrade_PoisonResistance_js__WEBPACK_IMPORTED_MODULE_86__["default"],
+        Icon_Upgrade_Poison_Resistance: _assets_mods_Icon_Upgrade_Poison_Resistance_js__WEBPACK_IMPORTED_MODULE_87__["default"],
+        Icon_Upgrade_ProjectileSpeed: _assets_mods_Icon_Upgrade_ProjectileSpeed_js__WEBPACK_IMPORTED_MODULE_88__["default"],
+        Icon_Upgrade_Recoil: _assets_mods_Icon_Upgrade_Recoil_js__WEBPACK_IMPORTED_MODULE_89__["default"],
+        Icon_Upgrade_Resistance: _assets_mods_Icon_Upgrade_Resistance_js__WEBPACK_IMPORTED_MODULE_90__["default"],
+        Icon_Upgrade_Revive: _assets_mods_Icon_Upgrade_Revive_js__WEBPACK_IMPORTED_MODULE_91__["default"],
+        Icon_Upgrade_Ricoshet: _assets_mods_Icon_Upgrade_Ricoshet_js__WEBPACK_IMPORTED_MODULE_92__["default"],
+        Icon_Upgrade_ScareEnemies: _assets_mods_Icon_Upgrade_ScareEnemies_js__WEBPACK_IMPORTED_MODULE_93__["default"],
+        Icon_Upgrade_Shot: _assets_mods_Icon_Upgrade_Shot_js__WEBPACK_IMPORTED_MODULE_94__["default"],
+        Icon_Upgrade_Shotgun_Pellet: _assets_mods_Icon_Upgrade_Shotgun_Pellet_js__WEBPACK_IMPORTED_MODULE_95__["default"],
+        Icon_Upgrade_Speed: _assets_mods_Icon_Upgrade_Speed_js__WEBPACK_IMPORTED_MODULE_96__["default"],
+        Icon_Upgrade_SpeedUp: _assets_mods_Icon_Upgrade_SpeedUp_js__WEBPACK_IMPORTED_MODULE_97__["default"],
+        Icon_Upgrade_Sticky: _assets_mods_Icon_Upgrade_Sticky_js__WEBPACK_IMPORTED_MODULE_98__["default"],
+        Icon_Upgrade_Stun: _assets_mods_Icon_Upgrade_Stun_js__WEBPACK_IMPORTED_MODULE_99__["default"],
+        Icon_Upgrade_TemperatureCoolDown: _assets_mods_Icon_Upgrade_TemperatureCoolDown_js__WEBPACK_IMPORTED_MODULE_100__["default"],
+        Icon_Upgrade_Weakspot: _assets_mods_Icon_Upgrade_Weakspot_js__WEBPACK_IMPORTED_MODULE_101__["default"],
+        Icon_Upgrade_Bosco_Rocket_Upgrade: _assets_mods_Icon_Upgrade_Bosco_Rocket_Upgrade_js__WEBPACK_IMPORTED_MODULE_102__["default"],
+        Icon_Upgrade_PlusOne: _assets_mods_Icon_Upgrade_PlusOne_js__WEBPACK_IMPORTED_MODULE_103__["default"],
+        Icon_Upgrade_Light_ExtraLife: _assets_mods_Icon_Upgrade_Light_ExtraLife_js__WEBPACK_IMPORTED_MODULE_104__["default"],
+        Icon_Upgrade_Light_Intensity: _assets_mods_Icon_Upgrade_Light_Intensity_js__WEBPACK_IMPORTED_MODULE_105__["default"],
+        Icon_Upgrade_Special: _assets_mods_Icon_Upgrade_Special_js__WEBPACK_IMPORTED_MODULE_106__["default"],
+        Icon_Upgrade_StrongerTurret: _assets_mods_Icon_Upgrade_StrongerTurret_js__WEBPACK_IMPORTED_MODULE_107__["default"],
+        Icon_Upgrade_TwoTurrets: _assets_mods_Icon_Upgrade_TwoTurrets_js__WEBPACK_IMPORTED_MODULE_108__["default"],
+        Icon_Overclock_ChangeOfHigherDamage: _assets_mods_Icon_Overclock_ChangeOfHigherDamage_js__WEBPACK_IMPORTED_MODULE_109__["default"],
+        Icon_Overclock_ExplosionJump: _assets_mods_Icon_Overclock_ExplosionJump_js__WEBPACK_IMPORTED_MODULE_110__["default"],
+        Icon_Overclock_ForthAndBack_Linecutter: _assets_mods_Icon_Overclock_ForthAndBack_Linecutter_js__WEBPACK_IMPORTED_MODULE_111__["default"],
+        Icon_Overclock_Neuro: _assets_mods_Icon_Overclock_Neuro_js__WEBPACK_IMPORTED_MODULE_112__["default"],
+        Icon_Overclock_ShotgunJump: _assets_mods_Icon_Overclock_ShotgunJump_js__WEBPACK_IMPORTED_MODULE_113__["default"],
+        Icon_Overclock_Slowdown: _assets_mods_Icon_Overclock_Slowdown_js__WEBPACK_IMPORTED_MODULE_114__["default"],
+        Icon_Overclock_SmallBullets: _assets_mods_Icon_Overclock_SmallBullets_js__WEBPACK_IMPORTED_MODULE_115__["default"],
+        Icon_Overclock_Special_Magazine: _assets_mods_Icon_Overclock_Special_Magazine_js__WEBPACK_IMPORTED_MODULE_116__["default"],
+        Icon_Overclock_Spinning_Linecutter: _assets_mods_Icon_Overclock_Spinning_Linecutter_js__WEBPACK_IMPORTED_MODULE_117__["default"]
+      }
+    },
+    tree: {
+      D: {
+        P1: _equipment_D_P1_CRSPR_js__WEBPACK_IMPORTED_MODULE_7__["default"],
+        P2: _equipment_D_P2_Cryo_js__WEBPACK_IMPORTED_MODULE_9__["default"],
+        S1: _equipment_D_S1_Subata_js__WEBPACK_IMPORTED_MODULE_11__["default"],
+        S2: _equipment_D_S2_Plasma_js__WEBPACK_IMPORTED_MODULE_13__["default"],
+        E1: _equipment_D_E_Satchel_js__WEBPACK_IMPORTED_MODULE_3__["default"],
+        E2: _equipment_D_E_Drill_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+        E3: _equipment_D_E_Armor_js__WEBPACK_IMPORTED_MODULE_2__["default"]
+      },
+      E: {
+        P1: _equipment_E_P1_Warthog_js__WEBPACK_IMPORTED_MODULE_20__["default"],
+        P2: _equipment_E_P2_Stubby_js__WEBPACK_IMPORTED_MODULE_22__["default"],
+        S1: _equipment_E_S1_PGL_js__WEBPACK_IMPORTED_MODULE_24__["default"],
+        S2: _equipment_E_S2_Breach_js__WEBPACK_IMPORTED_MODULE_26__["default"],
+        E1: _equipment_E_E_Sentry_js__WEBPACK_IMPORTED_MODULE_16__["default"],
+        E2: _equipment_E_E_Platform_js__WEBPACK_IMPORTED_MODULE_18__["default"],
+        E3: _equipment_E_E_Armor_js__WEBPACK_IMPORTED_MODULE_15__["default"]
+      },
+      G: {
+        P1: _equipment_G_P1_Lead_js__WEBPACK_IMPORTED_MODULE_33__["default"],
+        P2: _equipment_G_P2_Thunder_js__WEBPACK_IMPORTED_MODULE_35__["default"],
+        S1: _equipment_G_S1_Bulldog_js__WEBPACK_IMPORTED_MODULE_37__["default"],
+        S2: _equipment_G_S2_Burst_js__WEBPACK_IMPORTED_MODULE_39__["default"],
+        E1: _equipment_G_E_Shield_js__WEBPACK_IMPORTED_MODULE_29__["default"],
+        E2: _equipment_G_E_Zipline_js__WEBPACK_IMPORTED_MODULE_31__["default"],
+        E3: _equipment_G_E_Armor_js__WEBPACK_IMPORTED_MODULE_28__["default"]
+      },
+      S: {
+        P1: _equipment_S_P1_GK2_js__WEBPACK_IMPORTED_MODULE_46__["default"],
+        P2: _equipment_S_P2_M1000_js__WEBPACK_IMPORTED_MODULE_48__["default"],
+        S1: _equipment_S_S1_Jury_js__WEBPACK_IMPORTED_MODULE_50__["default"],
+        S2: _equipment_S_S2_Zhuk_js__WEBPACK_IMPORTED_MODULE_52__["default"],
+        E1: _equipment_S_E_Flare_js__WEBPACK_IMPORTED_MODULE_42__["default"],
+        E2: _equipment_S_E_Grapling_js__WEBPACK_IMPORTED_MODULE_44__["default"],
+        E3: _equipment_S_E_Armor_js__WEBPACK_IMPORTED_MODULE_41__["default"]
+      },
+      R: {
+        P1: _equipment_R_P1_Bosco_js__WEBPACK_IMPORTED_MODULE_54__["default"]
+      }
+    }
+  },
+  mutations: {
+    selectClass: function selectClass(state, indizes) {
+      state.selected["class"] = indizes.classID;
+      var selectedEquipmentId = state.selected.equipment;
+
+      if (indizes.classID === "R") {
+        // select bosco
+        state.selected.equipment = "P1";
+        state.tree[indizes.classID]["P1"].selected = true;
+        return;
+      }
+
+      for (var equipment in state.tree[indizes.classID]) {
+        state.tree[indizes.classID][equipment].selected = equipment === selectedEquipmentId;
+      }
+    },
+    selectEquipment: function selectEquipment(state, indizes) {
+      state.selected.equipment = indizes.equipID;
+      state.tree[indizes.classID][indizes.equipID].selected = true;
+    },
+    deSelectOtherEquipments: function deSelectOtherEquipments(state, indizes) {
+      for (var equipment in state.tree[indizes.classID]) {
+        if (equipment !== indizes.equipID) {
+          state.tree[indizes.classID][equipment].selected = false;
+        }
+      }
+    },
+    selectModification: function selectModification(state, indizes) {
+      // keep track in url
+      if (!state.dataParts[indizes.classID]) {
+        state.dataParts[indizes.classID] = {};
+      }
+
+      if (!state.dataParts[indizes.classID][indizes.equipID]) {
+        state.dataParts[indizes.classID][indizes.equipID] = [];
+      }
+
+      state.dataParts[indizes.classID][indizes.equipID][indizes.tierID] = indizes.modID;
+      state.tree[indizes.classID][indizes.equipID].modified = true; // set state
+
+      if (indizes.tierID === "overclock") {
+        state.dataParts[indizes.classID][indizes.equipID][5] = indizes.modID;
+        return state.tree[indizes.classID][indizes.equipID].overclocks[indizes.modID].selected = true;
+      } else {
+        return state.tree[indizes.classID][indizes.equipID].mods[indizes.tierID][indizes.modID].selected = true;
+      }
+    },
+    deSelectOtherModifications: function deSelectOtherModifications(state, indizes) {
+      if (indizes.tierID === "overclock") {
+        var tierOfModification = state.tree[indizes.classID][indizes.equipID].overclocks;
+        var modIdClicked = parseInt(indizes.modID);
+
+        for (var mod in tierOfModification) {
+          var modIdInLoop = parseInt(mod);
+
+          if (modIdInLoop !== modIdClicked) {
+            state.tree[indizes.classID][indizes.equipID].overclocks[modIdInLoop].selected = false;
+          }
+        }
+      } else {
+        var _tierOfModification = state.tree[indizes.classID][indizes.equipID].mods[indizes.tierID];
+
+        var _modIdClicked = parseInt(indizes.modID);
+
+        for (var _mod in _tierOfModification) {
+          var _modIdInLoop = parseInt(_mod);
+
+          if (_modIdInLoop !== _modIdClicked) {
+            state.tree[indizes.classID][indizes.equipID].mods[indizes.tierID][_modIdInLoop].selected = false;
+          }
+        }
+      }
+    },
+    deSelectAllModifications: function deSelectAllModifications(state, indizes) {
+      if (indizes.tierID === "overclock") {
+        // keep track in url
+        state.dataParts[indizes.classID][indizes.equipID][indizes.tierID] = undefined; // set state
+
+        var tierOfModification = state.tree[indizes.classID][indizes.equipID].overclocks;
+
+        for (var mod in tierOfModification) {
+          var modIdInLoop = parseInt(mod);
+          state.tree[indizes.classID][indizes.equipID].overclocks[modIdInLoop].selected = false;
+        }
+      } else {
+        // keep track in url
+        state.dataParts[indizes.classID][indizes.equipID][indizes.tierID] = undefined; // set state
+
+        var _tierOfModification2 = state.tree[indizes.classID][indizes.equipID].mods[indizes.tierID];
+
+        for (var _mod2 in _tierOfModification2) {
+          var _modIdInLoop2 = parseInt(_mod2);
+
+          state.tree[indizes.classID][indizes.equipID].mods[indizes.tierID][_modIdInLoop2].selected = false;
+        }
+      }
+    },
+    addToHovered: function addToHovered(state, indizes) {
+      if (indizes.tierID === "overclock") {
+        state.hovered = state.tree[indizes.classID][indizes.equipID].overclocks[indizes.modID];
+      } else {
+        state.hovered = state.tree[indizes.classID][indizes.equipID].mods[indizes.tierID][indizes.modID];
+      }
+
+      var hoveredStatKey = Object.keys(state.hovered.stats)[0];
+      var hoveredStat = state.hovered.stats[hoveredStatKey];
+      var baseStat = state.tree[indizes.classID][indizes.equipID].baseStats[hoveredStatKey];
+      var increase = 0;
+
+      if (baseStat.value !== 0) {
+        increase = hoveredStat.value / baseStat.value * 100;
+      }
+
+      state.hovered.increase = increase;
+    },
+    loadFromLink: function loadFromLink(state, data) {
+      state.dataParts = data;
+      state.loadedFromLink = true;
+
+      for (var _i = 0, _Object$entries = Object.entries(data); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            classId = _Object$entries$_i[0],
+            equipments = _Object$entries$_i[1];
+
+        for (var _i2 = 0, _Object$entries2 = Object.entries(equipments); _i2 < _Object$entries2.length; _i2++) {
+          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+              equipmentId = _Object$entries2$_i[0],
+              mods = _Object$entries2$_i[1];
+
+          state.tree[classId][equipmentId].modified = true;
+
+          for (var tierId in mods) {
+            if (parseInt(mods[tierId]) >= 0) {
+              if (state.tree[classId][equipmentId].mods[tierId]) {
+                state.tree[classId][equipmentId].mods[tierId][mods[tierId]].selected = true;
+              } else {
+                state.tree[classId][equipmentId].overclocks[mods[tierId]].selected = true;
+                state.selected.overclock = mods[tierId];
+                state.loadedOverclockFromLink = true;
+              }
+            } else if (mods[tierId] === "focus") {
+              state.selected["class"] = classId;
+              state.selected.equipment = equipmentId;
+
+              for (var equipment in state.tree[classId]) {
+                state.tree[classId][equipment].selected = equipment === equipmentId;
+              } // focus
+
+            }
+          }
+        }
+      }
+    }
+  },
+  actions: {}
+}));
+
+/***/ }),
+
 /***/ 0:
 /*!***********************************************************!*\
   !*** multi ./resources/js/app.js ./resources/css/app.css ***!
@@ -49959,8 +70451,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/cconey/projects/drg-builds/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/cconey/projects/drg-builds/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Users\yatw\Documents\drg_project\drg-builds\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\yatw\Documents\drg_project\drg-builds\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
