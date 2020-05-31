@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="karlApp">
-        <div class="classSelectContainer">
+        <!--<div class="classSelectContainer">
             <ClassSelect :classId="'D'" :name="'Driller'"/>
             <ClassSelect :classId="'E'" :name="'Engineer'"/>
             <ClassSelect :classId="'G'" :name="'Gunner'"/>
@@ -10,11 +10,11 @@
                 <label for="idCopyTextArea" class="linkText">Generate</label>
                 <input id="idCopyTextArea" class="copyTextArea" disabled/>
             </div>
-            <!--upload configuration for management approval-->
-            <!--todo: use https://sharingbuttons.io/ ?-->
-        </div>
-        <div>
-            <!-- todo: autoscroll on equipment -->
+            &lt;!&ndash;upload configuration for management approval&ndash;&gt;
+            &lt;!&ndash;todo: use https://sharingbuttons.io/ ?&ndash;&gt;
+        </div>-->
+        <!--<div>
+            &lt;!&ndash; todo: autoscroll on equipment &ndash;&gt;
             <div v-if="selectedClass === 'D'" class="equipmentSelectContainer">
                 <EquipmentSelect
                     v-for="(equipment, equipmentId) in drillerEquipment"
@@ -70,12 +70,15 @@
                     :data="equipment"
                 />
             </div>
-        </div>
+        </div>-->
         <div class="mainContainer">
             <StatsDisplay/>
             <ModificationSelect/>
         </div>
         <p class="versionNumber">KARL v1.6.8 Based on DRG v0.29.39685.0</p>
+
+        <!-- todo: start by getting dps stats from api for the chosen build -->
+        <!-- todo: /api/guns/1/stats/ABAAC2 ? -->
     </div>
 </template>
 
@@ -171,6 +174,24 @@
                     console.log(err);
                 }
             }
+
+            fetch('/api/characters')
+            .then(response => response.json())
+            // .then(data => this.characters = data)
+            .then(data => console.log('characters', data));
+
+            fetch('/api/builds')
+            .then(response => response.json())
+            // .then(data => this.characters = data)
+            .then(data => console.log('builds', data));
+
+            fetch('/api/guns')
+            .then(response => response.json())
+            .then(data => console.log('guns', data));
+
+            fetch('/api/guns/2/mods')
+            .then(response => response.json())
+            .then(data => console.log('guns/2/mods', data));
 
             this.$nextTick(function () {
                 let storeState = this.getStoreState;

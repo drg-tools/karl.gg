@@ -31,7 +31,7 @@ files.keys().map(key => {
  */
 
 import Vue from 'vue';
-import App from './App.vue';
+// import App from './App.vue';
 import store from './store';
 import Toasted from 'vue-toasted';
 import Popover from 'vue-js-popover';
@@ -43,6 +43,6 @@ Vue.use(Popover);
 
 const app = new Vue({
     el: '#app',
-    store,
-    render: h => h(App) /* todo: remove renderer overwrite to get back to the php views and place karl components one by one, without App.vue */
+    store/*,
+    render: h => h(App)*/ /* todo: remove renderer overwrite to get back to the php views and place karl components one by one, without App.vue */
 });
