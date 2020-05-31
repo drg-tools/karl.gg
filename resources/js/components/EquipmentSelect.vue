@@ -1,86 +1,108 @@
 <template>
-	<div class="weaponSelectContainer" v-on:click="selectEquip()" :title="[getModified ? 'Equipment is modified' : '']">
-		<div class="flexboxWeaponSelect" :class="[getSelected ? 'equipmentActive' : 'equipment']">
-			<svg xmlns="http://www.w3.org/2000/svg"
-			     viewBox="0 0 180 90"
-			     :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']"
-			     height="70%"
-			     preserveAspectRatio="xMidYMid meet"
-			     v-html="getIconFromPath"></svg>
-		</div>
-		<div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']">
-			<h4>{{ name }}<span v-if="getModified"> *</span></h4>
-		</div>
-	</div>
+    <div>
+        <!-- todo: autoscroll on equipment -->
+        <div v-if="selectedClass === 'D'" class="equipmentComponentContainer">
+            <EquipmentComponent
+                v-for="(equipment, equipmentId) in drillerEquipment"
+                :key="equipmentId"
+                :iconPath="equipment.icon"
+                :name="equipment.name"
+                :classId="'D'"
+                :equipmentId="equipmentId"
+                :data="equipment"
+            />
+        </div>
+        <div v-if="selectedClass === 'E'" class="equipmentComponentContainer">
+            <EquipmentComponent
+                v-for="(equipment, equipmentId) in engineerEquipment"
+                :key="equipmentId"
+                :iconPath="equipment.icon"
+                :name="equipment.name"
+                :classId="'E'"
+                :equipmentId="equipmentId"
+                :data="equipment"
+            />
+        </div>
+        <div v-if="selectedClass === 'G'" class="equipmentComponentContainer">
+            <EquipmentComponent
+                v-for="(equipment, equipmentId) in gunnerEquipment"
+                :key="equipmentId"
+                :iconPath="equipment.icon"
+                :name="equipment.name"
+                :classId="'G'"
+                :equipmentId="equipmentId"
+                :data="equipment"
+            />
+        </div>
+        <div v-if="selectedClass === 'S'" class="equipmentComponentContainer">
+            <EquipmentComponent
+                v-for="(equipment, equipmentId) in scoutEquipment"
+                :key="equipmentId"
+                :iconPath="equipment.icon"
+                :name="equipment.name"
+                :classId="'S'"
+                :equipmentId="equipmentId"
+                :data="equipment"
+            />
+        </div>
+        <div v-if="selectedClass === 'R'" class="equipmentComponentContainer">
+            <EquipmentComponent
+                v-for="(equipment, equipmentId) in robotEquipment"
+                :key="equipmentId"
+                :iconPath="equipment.icon"
+                :name="equipment.name"
+                :classId="'R'"
+                :equipmentId="equipmentId"
+                :data="equipment"
+            />
+        </div>
+    </div>
 </template>
 
 <script>
-	import store from "../store";
+    import EquipmentComponent from './EquipmentComponent.vue';
+    import store from '../store';
 
-	export default {
-		name: "EquipmentSelect",
-		props: {
-			iconPath: String,
-			name: String,
-			classId: String,
-			equipmentId: String,
-			data: Object
-		},
-		computed: {
-			getIconFromPath: function() {
-				let aPath = this.iconPath.split(".");
-				if (aPath.length < 2) {
-					return "";
-				}
-				return store.state.icons[aPath[0]][aPath[1]];
-			},
-			getSelected: function() {
-				return this.data.selected;
-			},
-			getModified: function() {
-				return store.state.tree[this.classId][this.equipmentId].modified;
-			}
-		},
-		methods: {
-			selectEquip() {
-				store.commit("selectEquipment", {
-					classID: this.classId,
-					equipID: this.equipmentId
-				});
-				store.commit("deSelectOtherEquipments", {
-					classID: this.classId,
-					equipID: this.equipmentId
-				});
-			}
-		}
-	};
+    export default {
+        name: 'EquipmentSelect',
+        components: {
+            EquipmentComponent
+        },
+        computed: {
+            selectedClass() {
+                return store.state.selected.class;
+            },
+            drillerEquipment() {
+                return store.state.tree.D;
+            },
+            engineerEquipment() {
+                return store.state.tree.E;
+            },
+            gunnerEquipment() {
+                return store.state.tree.G;
+            },
+            scoutEquipment() {
+                return store.state.tree.S;
+            },
+            robotEquipment() {
+                return store.state.tree.R;
+            }
+        },
+        methods: {},
+        mounted: function () {
+        }
+    };
 </script>
 
-<style scoped>
-	h4 {
-		white-space: nowrap;
-	}
-
-	.weaponSelectContainer {
-		display: flex;
-		cursor: pointer;
-	}
-
-	.weaponSelectContainer:hover .equipmentText {
-		color: #fffbff;
-	}
-
-	.weaponSelectContainer:hover .equipmentIcon {
-		fill: #fffbff;
-	}
-
-	.flexboxWeaponSelect {
-		display: flex;
-		align-items: center;
-		height: 5rem;
-	}
-
-	.flexboxWeaponSelect > svg {
-		margin: 0.5rem;
-	}
+<style>
+    .equipmentComponentContainer {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border-top: 5px solid #fc9e00;
+        background-color: #352e1e;
+        margin-bottom: 0.5rem;
+    }
 </style>
