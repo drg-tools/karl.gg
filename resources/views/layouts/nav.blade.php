@@ -56,7 +56,15 @@
                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu" aria-labelledby="user-menu">
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" role="menuitem">Your Profile</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" role="menuitem">Settings</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" role="menuitem">Sign out</a>
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" href="{{ route('logout') }}"  role="menuitem"
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Sign out') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                         </div>
                     </div>
                 </div>
