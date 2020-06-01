@@ -16,16 +16,7 @@ composer install && \
   npm install
 ```
 
-- Copy and fill out env `cp .env.example .env` (DB_DATABASE, DB_USERNAME and DB_PASSWORD must match docker-compose config for mysql container.)
-
-- Get database migrated and seeded
-
-```bash
-php artisan migrate
-php artisan db:seed
-php artisan key:generate
-php artisan config:clear
-```
+- Copy and fill out env `cp .env.example .env`
 
 - Start services:
 
@@ -38,6 +29,13 @@ php artisan serve
 
 ## And another
 npm run watch
+```
+
+- Get database migrated and seeded
+
+```bash
+php artisan migrate
+php artisan db:seed
 ```
 
 ### Frontend Components
