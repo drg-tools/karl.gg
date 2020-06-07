@@ -14,4 +14,9 @@ class Gun extends Model
     {
         return $this->hasMany(Mod::class);
     }
+
+    public function character()
+    {
+	return $this->belongsTo(Character::class);
+    }
 }

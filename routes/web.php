@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('test', 'test.example');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('my-builds', 'BuildController@myBuilds')->name('builds.my');
     Route::get('favorites', 'BuildController@favorites')->name('builds.favorites');

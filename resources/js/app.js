@@ -35,14 +35,25 @@ import Vue from 'vue';
 import store from './store';
 import Toasted from 'vue-toasted';
 import Popover from 'vue-js-popover';
+import ApolloClient from "apollo-boost"
+import VueApollo from "vue-apollo"
 
 Vue.config.productionTip = false;
 Vue.use(Toasted);
 
 Vue.use(Popover);
 
+const apolloProvider = new VueApollo({
+    defaultClient: new ApolloClient({
+	uri: "/graphql"
+    })
+});
+
+Vue.use(VueApollo);
+
 const app = new Vue({
     el: '#app',
-    store/*,
+    store,
+    apolloProvider/*,
     render: h => h(App)*/ /* todo: remove renderer overwrite to get back to the php views and place karl components one by one, without App.vue */
 });

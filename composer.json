@@ -21,12 +21,15 @@
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
         "livewire/livewire": "^1.1",
+	"mll-lab/laravel-graphql-playground": "^2.1",
+	"nuwave/lighthouse": "^4.14",
         "tucker-eric/eloquentfilter": "^2.3"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
+	"haydenpierce/class-finder": "^0.4.2",
         "laracasts/generators": "^1.1",
         "laravel-frontend-presets/tailwindcss": "^4.1",
         "laravel/homestead": "^10.8",

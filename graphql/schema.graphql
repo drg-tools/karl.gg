@@ -1,0 +1,68 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
+scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
+
+type Query {
+    users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+    characters: [Character!]! @paginate(defaultCount: 10)
+    character(id: ID @eq): Character @find
+    builds: [Build!]! @paginate(defaultCount: 10)
+    build(id: ID @eq): Build @find
+    guns: [Gun!]! @paginate(defaultCount: 10)
+    gun(id: ID @eq): Gun @find
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Character {
+    id: ID!
+    name: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Gun {
+    id: ID!
+    name: String!
+    gun_class: String!
+    character_slot: Int!
+    character: Character @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Mod {
+    id: ID!
+    name: String!
+    effect: String!
+    description: String
+    img_name: String!
+    row: Int!
+    column: Int!
+    gun: Gun @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Build {
+    id: ID!
+    name: String!
+    description: String!
+    character: Character @belongsTo
+    user: User @belongsTo
+    mods: [Mod!] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
