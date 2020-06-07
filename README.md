@@ -53,7 +53,7 @@ As long as you are running the frontend build process via `npm run watch`, you w
 ### Backend Components
 
 ## Admin Panel
-We have implemented an admin panel, which includes CRUD interfaces for all models (excluding the incoming Build Statistics model). We are using a framework called (Backpack)[https://backpackforlaravel.com/docs/4.1/introduction] to run our admin panel. In order to get this installed locally, you will have to run a couple of commands. This should be a set-and-forget situation, so once you run this you won't have to run again -- excluding sitations where you destroy your local environment.
+We have implemented an admin panel, which includes CRUD interfaces for all models (excluding the incoming Build Statistics model). We are using a framework called [Backpack](https://backpackforlaravel.com/docs/4.1/introduction) to run our admin panel. In order to get this installed locally, you will have to run a couple of commands. This should be a set-and-forget situation, so once you run this you won't have to run again -- excluding sitations where you destroy your local environment.
 
 # Install Backpack
 
