@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +11,7 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable
 {
-    use Notifiable, Favoriteability;
+    use Notifiable, Favoriteability, CrudTrait, HasRoles;
 
     /**
      * The attributes that are mass assignable.

@@ -3,13 +3,14 @@
 namespace App;
 
 use EloquentFilter\Filterable;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
 class Build extends Model
 {
 
-    use Favoriteable, Filterable;
+    use Favoriteable, Filterable, CrudTrait;
 
     protected $guarded = [];
 
