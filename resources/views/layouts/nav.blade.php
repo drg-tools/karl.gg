@@ -72,6 +72,9 @@
                 @guest
                     <a href="/login" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Login</a>
                 @endguest
+                @hasrole('super-admin')
+                <a href="/admin" class=" ml-3 px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Admin</a>
+                @endhasrole
             </div>
             <div class="-mr-2 flex md:hidden" id="mobile-menu-button">
                 <!-- Mobile menu button -->

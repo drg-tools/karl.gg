@@ -57,19 +57,28 @@ We have implemented an admin panel, which includes CRUD interfaces for all model
 
 ### Install Backpack
 
-```
-# install updated dependencies
+```bash
+## install updated dependencies
 composer install
 
-# install backpack
+## install backpack
 php artisan backpack:install
-```
 
-Additionally, if there are DB-related errors, it would be a good idea to go ahead and run `php artisan migrate`
+## run migrations
+php artisan migrate
+
+## you may have to delete existing user for this
+## run db seeders
+php artisan db:seed
+## if you have errors, you can try individually:
+php artisan db:seed --class=RolesAndPermissionsSeeder
+
+php artisan db:seed --class=UserSeeder
+```
 
 Finally, it's always a good idea to:
-```
-# clear config cache and cache new one
+```bash
+## clear config cache and cache new one
 php artisan config:cache
 ```
 
@@ -77,11 +86,13 @@ php artisan config:cache
 Please raise issues as you have them, and we can add debug info if any of these commands fail.
 
 ### Access the Admin Panel
-Once you have run your install, you can authenticate to the admin panel with your normal login credentials. Go to: `https://yoursite.local/admin` and enter your credentials, or register if you need to. You will then be able to access a basic CRUD interface for all current Models.
+Once you have run your install, you can authenticate to the admin panel with the newly seeded DB credentials. Go to: `https://yoursite.local/admin` and enter your credentials, Email: `admin@test.com` Pass: `adminadmin`. You will then be able to access a basic CRUD interface for all current Models.
 
 This is the base-level setup for the admin panel, and we can continue to add features from here as needed.
 
 ### Permissions Manager
-Now that we have an admin panel, we need to have a permissions system in place to eventually guard it from normal users. Luckily, Backpack has integrated a good package for this. We now have a users, permissions and roles management system in place. When we are ready to push this version to Production, we will likely create a DB seeder to setup the admin role. It's very simple to do even from the admin panel, so either way we are covered.
+Now that we have an admin panel, we need to have a permissions system in place to eventually guard it from normal users. Luckily, Backpack has integrated a good package for this. We now have a users, permissions and roles management system in place. 
 
-That being said, the `/admin` route is not protected from normal users, to enable easy admin panel access on your *local* installs. I wanted to save us all the time of having to establish roles etc. every time, as you will be the only local user anyways. In addition to the setup of the admin role, we need to enable some middleware to protect this when pushing to Production. Easy enough once we're ready for that!
+We have implemented a basic admin role, as well as basic checks on the admin panel to see if you are the proper role. Make sure to login and give yourself access to the admin panel on a new account if you want.
+
+You can find all these settings by clicking on "Authentication" in the admin panel side-nav.
