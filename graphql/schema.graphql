@@ -18,6 +18,23 @@ type Query {
     gun(id: ID @eq): Gun @find
 }
 
+type Mutation {
+    createBuild(
+	name: String!
+	description: String
+	character_id: Int!
+	mods: [Int!]!
+    ): Build @field(resolver: "App\\GraphQL\\Mutations\\CreateBuild")
+
+    updateBuild(
+	id: Int!
+	name: String!
+	description: String
+	character_id: Int!
+	mods: [Int!]!
+    ): Build @field(resolver: "App\\GraphQL\\Mutations\\UpdateBuild")
+}
+
 type User {
     id: ID!
     name: String!
