@@ -27,11 +27,11 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-	"apollo-boost": "^0.4.9",
-	"graphql": "^15.1.0",
-	"graphql-anywhere": "^4.2.7",
+        "apollo-boost": "^0.4.9",
+        "graphql": "^15.1.0",
+        "graphql-anywhere": "^4.2.7",
         "lz-string": "^1.4.4",
-	"vue-apollo": "^3.0.3",
+        "vue-apollo": "^3.0.3",
         "vue-js-popover": "^1.2.1",
         "vue-toasted": "^1.1.28",
         "vuex": "^3.4.0"
