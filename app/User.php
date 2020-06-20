@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-    public $guard_name = 'backpack';
+    public $guard_name = 'web';
 
     /**
      * The attributes that should be hidden for arrays.
