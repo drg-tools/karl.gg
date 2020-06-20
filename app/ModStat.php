@@ -12,6 +12,7 @@ class ModStat extends Model
 
     protected $table = 'mods_stats';
     protected $primaryKey = 'id';
+    public $identifiableAttribute = 'name';
 
     public function gun()
     {

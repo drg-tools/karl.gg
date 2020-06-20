@@ -18,4 +18,12 @@ class Gun extends Model
     {
         return $this->hasMany(ModStat::class);
     }
+    public function overclocks()
+    {
+        return $this->hasMany(Overclock::class);
+    } 
+    public function character()
+    {
+        return $this->belongsTo(Character::class);
+    }
 }

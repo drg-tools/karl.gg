@@ -37,4 +37,8 @@ class Build extends Model
     {
         return $this->belongsToMany(ModStat::class);
     }
+    public function overclocks()
+    {
+        return $this->belongsToMany(Overclock::class);
+    }
 }
