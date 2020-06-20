@@ -23,7 +23,7 @@ class ModStatCrudController extends CrudController
     {
         $this->crud->setModel('App\ModStat');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/mod-stat');
-        $this->crud->setEntityNameStrings('mod-stat', 'mod-stats');
+        $this->crud->setEntityNameStrings('mod stat', 'mod stats');
     }
 
     protected function setupListOperation()
