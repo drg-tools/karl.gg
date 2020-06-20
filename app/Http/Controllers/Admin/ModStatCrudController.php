@@ -72,6 +72,30 @@ class ModStatCrudController extends CrudController
         ], function($value) { // if the filter is active
             $this->crud->addClause('where', 'character_id', $value);
         });
+        $this->crud->addFilter([ 
+            'type'  => 'dropdown',
+            'name'  => 'gun',
+            'label' => 'Gun'
+        ], [
+            1 =>	'"Warthog" Auto 210',
+            2 =>	'"Stubby" Voltaic SMG',
+            3 =>	'Deepcore 40MM PGL',
+            4 =>	'Breach Cutter',
+            5 =>	'Deepcore GK2',
+            6 =>	'M1000 Classic',
+            7 =>	'Jury-Rigged Boomstick',
+            8 =>	'Zhukov NUK17',
+            9 =>	'CRSPR Flamethrower',
+            10 =>	'Cryo Cannon',
+            11 =>	'Subata 120',
+            12 =>	'Experimental Plasma Charger',
+            13 =>	'"Lead Storm" Powered Minigun',
+            14 =>	'"Thunderhead" Heavy Autocannon',
+            15 =>	'"Bulldog" Heavy Revolver',
+            16 =>	'BRT7 Burst Fire Gun'
+        ], function($value) { // if the filter is active
+            $this->crud->addClause('where', 'gun_id', $value);
+        });
     }
 
     protected function setupCreateOperation()
