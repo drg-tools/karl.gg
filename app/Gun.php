@@ -14,4 +14,8 @@ class Gun extends Model
     {
         return $this->hasMany(Mod::class);
     }
+    public function modstats()
+    {
+        return $this->hasMany(ModStat::class);
+    }
 }

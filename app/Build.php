@@ -33,4 +33,8 @@ class Build extends Model
     {
         return $this->belongsToMany(Mod::class);
     }
+    public function modstats()
+    {
+        return $this->belongsToMany(ModStat::class);
+    }
 }
