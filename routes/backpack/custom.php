@@ -13,6 +13,7 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('user', 'UserCrudController');
     Route::crud('mod', 'ModCrudController');
+    Route::crud('mod-stat', 'ModStatCrudController');
     Route::crud('gun', 'GunCrudController');
     Route::crud('build', 'BuildCrudController');
     Route::crud('character', 'CharacterCrudController');
