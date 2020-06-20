@@ -37,6 +37,11 @@ class ModStatCrudController extends CrudController
             'entity'    => 'character', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => App\Character::class, // foreign key model
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('character', function ($q) use ($column, $searchTerm) {
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
+                });
+            }
          ]);
          $this->crud->addColumn([
             'name'  => 'gun', // The db column name
@@ -45,6 +50,11 @@ class ModStatCrudController extends CrudController
             'entity'    => 'gun', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => App\Gun::class, // foreign key model
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('gun', function ($q) use ($column, $searchTerm) {
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
+                });
+            }
          ]);
 
 
