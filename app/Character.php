@@ -12,4 +12,12 @@ class Character extends Model
     {
         return $this->hasMany(Gun::class);
     }
+    public function modstats()
+    {
+        return $this->hasMany(ModStat::class);
+    }
+    public function overclocks()
+    {
+        return $this->hasMany(Overclock::class);
+    }
 }
