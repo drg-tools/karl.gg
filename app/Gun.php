@@ -17,6 +17,14 @@ class Gun extends Model
 
     public function character()
     {
-	return $this->belongsTo(Character::class);
+	      return $this->belongsTo(Character::class);
     }
+    public function modstats()
+    {
+        return $this->hasMany(ModStat::class);
+    }
+    public function overclocks()
+    {
+        return $this->hasMany(Overclock::class);
+    } 
 }

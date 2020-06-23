@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+         Backpack\PermissionManager\PermissionManagerServiceProvider::class,
 
         /*
          * Application Service Providers...

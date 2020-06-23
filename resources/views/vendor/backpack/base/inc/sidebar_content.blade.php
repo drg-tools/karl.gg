@@ -1,7 +1,8 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('mod') }}"><i class="la la-cog nav-icon"></i> Mods</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('gun') }}"><i class="la la-dungeoun nav-icon"></i> Guns</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('mod-stat') }}"><i class="la la-puzzle-piece nav-icon"></i> Mod Stats</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('overclock') }}"><i class="la la-tachometer-alt nav-icon"></i> Overclock Stats</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('gun') }}"><i class="la la-rocket nav-icon"></i> Guns</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('build') }}"><i class="la la-address-card nav-icon"></i> Builds</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('character') }}"><i class="la la-running nav-icon"></i> Characters</a></li>
 <!-- Users, Roles, Permissions -->

@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GunSeeder::class);
         $this->call(RolesAndPermissionsSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(OverclockSeeder::class);
+        $this->call(ModStatSeeder::class);
     }
 }

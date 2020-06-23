@@ -45,7 +45,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group([
 	'prefix' => config('backpack.base.route_prefix', 'admin'), 
-	'middleware' => ['web','role:super-admin'], 
+	'middleware' => ['role:super-admin'], 
 	'namespace' => '\Backpack\PermissionManager\app\Http\Controllers'
 ], function () {
   	Route::crud('permission', 'PermissionCrudController');
