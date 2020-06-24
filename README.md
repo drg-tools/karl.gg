@@ -34,9 +34,16 @@ npm run watch
 - Get database migrated and seeded
 
 ```bash
-php artisan migrate
-php artisan db:seed
+php artisan migrate --seed
 ```
+
+- Install passport keys (run once)
+
+```bash
+php artisan passport:install
+```
+
+- Default admin user is `admin@admin.com` / `adminadmin`
 
 ### Frontend Components
 

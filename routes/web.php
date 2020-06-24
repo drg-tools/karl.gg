@@ -13,17 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('test', 'test.example');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('my-builds', 'BuildController@myBuilds')->name('builds.my');
     Route::get('favorites', 'BuildController@favorites')->name('builds.favorites');
+    Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
+
     Route::resource('builds', 'BuildController')->except(['index', 'show']);
     Route::resource('builds.favorites', 'Build\FavoriteController')->only('store');
-
-
-    Route::resource('api/builds', 'Api\BuildController')->only(['index', 'show']);
-    Route::resource('api/characters', 'Api\CharacterController')->only(['index', 'show']);
-    Route::resource('api/guns', 'Api\GunController')->only(['index', 'show']);
-    Route::resource('api/mods', 'Api\ModController')->only(['index', 'show']);
 
 });
 
@@ -42,12 +40,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group([
-	'prefix' => config('backpack.base.route_prefix', 'admin'), 
-	'middleware' => ['role:super-admin'], 
+	'prefix' => config('backpack.base.route_prefix', 'admin'),
+	'middleware' => ['role:super-admin'],
 	'namespace' => '\Backpack\PermissionManager\app\Http\Controllers'
 ], function () {
   	Route::crud('permission', 'PermissionCrudController');
     Route::crud('role', 'RoleCrudController');
     Route::crud('user', 'UserCrudController');
-  
+
 });

@@ -3,6 +3,7 @@
 namespace App;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -11,7 +12,7 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable
 {
-    use Notifiable, Favoriteability, CrudTrait, HasRoles;
+    use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +23,7 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-    public $guard_name = 'web';
+    public $guard_name = 'backpack';
 
     /**
      * The attributes that should be hidden for arrays.

@@ -1,23 +1,29 @@
 <template>
-    <div>
-        <ul>
-            <li v-for="character in characters">{{ character.name }}</li>
-        </ul>
-    </div>
+    <ApolloQuery :query="$options.query">
+        <template slot-scope="{result: {loading, data, error }}">
+            <div v-if="loading">Loading...</div>
+            <div v-else-if="data">
+                <ul>
+                    <li v-for="character in data.characters.data">{{ character.name }}</li>
+                </ul>
+            </div>
+        </template>
+    </ApolloQuery>
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                characters: []
-            }
-        },
+    import gql from 'graphql-tag'
 
-        mounted () {
-            fetch('/api/characters')
-                .then(response => response.json())
-                .then(data => this.characters = data)
-        }
+    export default {
+        query: gql`
+            query {
+                characters {
+                    data {
+                        id
+                        name
+                    }
+                }
+            }
+	`
     }
 </script>

@@ -12,7 +12,7 @@ class Build extends Model
 
     use Favoriteable, Filterable, CrudTrait;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'description', 'character_id'];
 
     public function creator()
     {

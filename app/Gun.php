@@ -12,7 +12,12 @@ class Gun extends Model
 
     public function mods()
     {
-        return $this->hasMany(Mod::class);
+        return $this->hasMany(ModStat::class);
+    }
+
+    public function character()
+    {
+	      return $this->belongsTo(Character::class);
     }
     public function modstats()
     {
@@ -21,9 +26,5 @@ class Gun extends Model
     public function overclocks()
     {
         return $this->hasMany(Overclock::class);
-    } 
-    public function character()
-    {
-        return $this->belongsTo(Character::class);
     }
 }
