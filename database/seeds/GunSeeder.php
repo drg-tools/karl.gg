@@ -1,7 +1,7 @@
 <?php
 
 use App\Gun;
-use App\Mod;
+use App\ModStat;
 use Illuminate\Database\Seeder;
 
 class GunSeeder extends Seeder
@@ -49,11 +49,7 @@ class GunSeeder extends Seeder
         foreach ($characterGuns as $character_id => $character) {
             foreach($character as $gun) {
                 $attrs = array_merge($gun, ['character_id' => $character_id]);
-                $gun = factory(Gun::class)->create($attrs);
-                for ($i = 1; $i <= 5; $i++) {
-                    $gun->mods()->save(factory(Mod::class)->make(['row' => $i, 'column' => 1]));
-                    $gun->mods()->save(factory(Mod::class)->make(['row' => $i, 'column' => 2]));
-                }
+                factory(Gun::class)->create($attrs);
             }
         }
 

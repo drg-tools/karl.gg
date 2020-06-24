@@ -8,9 +8,9 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
-    characters: [Character!]! @paginate(defaultCount: 10)
+#    users: [User!]! @paginate(defaultCount: 10)
+#    user(id: ID @eq): User @find
+    characters: [Character!]! @paginate(defaultCount: 10) @guard
     character(id: ID @eq): Character @find
     builds: [Build!]! @paginate(defaultCount: 10)
     build(id: ID @eq): Build @find
@@ -20,18 +20,18 @@ type Query {
 
 type Mutation {
     createBuild(
-	name: String!
-	description: String
-	character_id: Int!
-	mods: [Int!]!
+        name: String!
+        description: String
+        character_id: Int!
+        mods: [Int!]!
     ): Build @field(resolver: "App\\GraphQL\\Mutations\\CreateBuild")
 
     updateBuild(
-	id: Int!
-	name: String!
-	description: String
-	character_id: Int!
-	mods: [Int!]!
+        id: Int!
+        name: String!
+        description: String
+        character_id: Int!
+        mods: [Int!]!
     ): Build @field(resolver: "App\\GraphQL\\Mutations\\UpdateBuild")
 }
 
