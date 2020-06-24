@@ -53,12 +53,11 @@ import VueApollo from 'vue-apollo'
 Vue.config.productionTip = false
 Vue.use(Toasted)
 Vue.use(Popover)
+Vue.use(VueApollo)
 
 const apolloProvider = new VueApollo({
     defaultClient: Apollo
 })
-
-Vue.use(VueApollo)
 
 const app = new Vue({
     el: '#app',
