@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ModStatRequest;
+use App\Http\Requests\ModRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class ModStatCrudController
+ * Class ModCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class ModStatCrudController extends CrudController
+class ModCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -21,9 +21,9 @@ class ModStatCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\ModStat');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/mod-stat');
-        $this->crud->setEntityNameStrings('mod stat', 'mods stats');
+        $this->crud->setModel('App\Mod');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/mod');
+        $this->crud->setEntityNameStrings('mod', 'mods');
     }
 
     protected function setupListOperation()

@@ -7,7 +7,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
-class Build extends Model
+class Loadout extends Model
 {
 
     use Favoriteable, Filterable, CrudTrait;

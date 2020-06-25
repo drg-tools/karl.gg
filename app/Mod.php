@@ -6,11 +6,11 @@ use EloquentFilter\Filterable;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class ModStat extends Model
+class Mod extends Model
 {
     use Filterable, CrudTrait;
 
-    protected $table = 'mods_stats';
+    protected $table = 'mods';
     protected $primaryKey = 'id';
     public $identifiableAttribute = 'name';
 

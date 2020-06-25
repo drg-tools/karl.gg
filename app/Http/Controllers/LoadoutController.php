@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Build;
+use App\Loadout;
 use App\Character;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class BuildController extends Controller
+class LoadoutController extends Controller
 {
+    // TODO: Fix naming conventions for Loadout Terminology
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +19,7 @@ class BuildController extends Controller
      */
     public function index()
     {
-        $builds = Build::latest()->paginate(25);
+        $Loadouts = Loadout::latest()->paginate(25);
 
         return view('builds.index', compact('builds'));
     }
@@ -79,7 +82,7 @@ class BuildController extends Controller
      * @param \App\Build $build
      * @return \Illuminate\Http\Response
      */
-    public function show(Build $build)
+    public function show(Loadout $build)
     {
         return view('builds.show', compact('build'));
     }
@@ -90,7 +93,7 @@ class BuildController extends Controller
      * @param \App\Build $build
      * @return \Illuminate\Http\Response
      */
-    public function edit(Build $build)
+    public function edit(Loadout $build)
     {
         $characters = Character::all();
 
@@ -105,7 +108,7 @@ class BuildController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, Build $build)
+    public function update(Request $request, Loadout $build)
     {
         $this->authorize($build);
 

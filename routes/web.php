@@ -16,18 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::view('test', 'test.example');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('my-builds', 'BuildController@myBuilds')->name('builds.my');
-    Route::get('favorites', 'BuildController@favorites')->name('builds.favorites');
+    Route::get('my-builds', 'LoadoutController@myBuilds')->name('builds.my');
+    Route::get('favorites', 'LoadoutController@favorites')->name('builds.favorites');
     Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
 
-    Route::resource('builds', 'BuildController')->except(['index', 'show']);
+    Route::resource('builds', 'LoadoutController')->except(['index', 'show']);
     Route::resource('builds.favorites', 'Build\FavoriteController')->only('store');
 
 });
 
-Route::resource('builds', 'BuildController')->only(['index', 'show']);
+Route::resource('builds', 'LoadoutController')->only(['index', 'show']);
 Route::view('/privacy-policy', 'privacy-policy.index');
-Route::get('/', 'BuildController@index');
+Route::get('/', 'LoadoutController@index');
 Auth::routes();
 
 
