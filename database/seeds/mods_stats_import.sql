@@ -1,4 +1,4 @@
-INSERT INTO `mods_stats` (`id`, `character_id`, `gun_id`, `mod_tier`, `mod_index`, `mod_name`, `credits_cost`, `magnite_cost`, `bismor_cost`, `umanite_cost`, `croppa_cost`, `enor_pearl_cost`, `jadiz_cost`, `text_description`, `json_stats`, `icon`, `mod_type`, `patch_number_index`)
+INSERT INTO `mods` (`id`, `character_id`, `gun_id`, `mod_tier`, `mod_index`, `mod_name`, `credits_cost`, `magnite_cost`, `bismor_cost`, `umanite_cost`, `croppa_cost`, `enor_pearl_cost`, `jadiz_cost`, `text_description`, `json_stats`, `icon`, `mod_type`, `patch_number_index`)
 VALUES
 (NULL, 3, 9, 1, 'A', 'High Capacity Tanks', 1200, 0, 0, 0, 0, 25, 0, '+25 Tank Size', '{ "clip": { "name": "Tank Size", "value": 25 } }', 'Icon_Upgrade_ClipSize', 'Magazine Size', 3),
 (NULL, 3, 9, 1, 'B', 'High Pressure Ejector', 1200, 0, 25, 0, 0, 0, 0, '+5m Flame Reach', '{ "ex6": { "name": "Flame Reach", "value": 5 } }', 'Icon_Upgrade_Distance', 'Reach', 3),
