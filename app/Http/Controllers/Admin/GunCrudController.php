@@ -143,12 +143,12 @@ class GunCrudController extends CrudController
             'model'     => "App\Character",
         ]);
         $this->crud->addField([
-            'name'      => 'modstats', // name of relationship method in the model
+            'name'      => 'mods', // name of relationship method in the model
             'type'      => 'relationship', 
             'label'     => 'Mods', // Table column heading
-            'entity' => 'modstats', // the relationship name in your Model
+            'entity' => 'mods', // the relationship name in your Model
             'attribute' => 'mod_name', // attribute on Article that is shown to admin
-            'model'     => "App\ModStat",
+            'model'     => "App\Mod",
          ],);
         $this->crud->addField([
             'name'      => 'overclocks', // name of relationship method in the model

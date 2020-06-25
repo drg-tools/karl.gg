@@ -100,7 +100,7 @@ class ModCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(ModStatRequest::class);
+        $this->crud->setValidation(ModRequest::class);
 
         $this->crud->addField([   
             'name'        => 'mod_name',
