@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Builds')
+@section('title', 'Loadouts')
 
 
 @section('content')
@@ -28,33 +28,33 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white">
-                    @foreach($builds as $build)
+                    @foreach($loadouts as $loadout)
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="flex items-center">
                                     <div class="ml-4">
                                         <div class="text-sm leading-5 font-medium text-gray-900">
-                                            <a href="{{ route('builds.show', [$build->id]) }}">{{ $build->name }}</a>
+                                            <a href="{{ route('loadouts.show', [$loadout->id]) }}">{{ $loadout->name }}</a>
                                         </div>
-                                        <div class="text-sm leading-5 text-gray-500">{{ \Str::limit($build->description, 55) }}</div>
+                                        <div class="text-sm leading-5 text-gray-500">{{ \Str::limit($loadout->description, 55) }}</div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-sm leading-5 text-gray-900">
-                                    <x-character-icon name="{{ $build->character->name }}"/>
-                                    {{ $build->character->name }}
+                                    <x-character-icon name="{{ $loadout->character->name }}"/>
+                                    {{ $loadout->character->name }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-sm leading-5 text-gray-900">
-                                    @foreach($build->mods->groupBy('gun_id') as $mods)
+                                    @foreach($loadout->mods->groupBy('gun_id') as $mods)
                                     <x-gun-icon :name="$mods[0]->gun->name" size="16" />
                                     @endforeach
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                {{ $build->updated_at->diffForHumans() }}
+                                {{ $loadout->updated_at->diffForHumans() }}
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
 {{--                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>--}}
@@ -68,10 +68,10 @@
                                         </svg>
                                     </div>
                                     <div class="ml-4" id="favorite-btn">
-                                        {!! Form::model($build, ['route' => ['builds.favorites.store', $build->id]]) !!}
+                                        {!! Form::model($loadout, ['route' => ['loadouts.favorites.store', $loadout->id]]) !!}
 
                                         <button>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 {{ $build->isFavorited() ? "text-red-600" : "text-gray-300" }} cursor-pointer" stroke="currentColor" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3.22l-.61-.6a5.5 5.5 0 0 0-7.78 7.77L10 18.78l8.39-8.4a5.5 5.5 0 0 0-7.78-7.77l-.61.61z"></path></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 {{ $loadout->isFavorited() ? "text-red-600" : "text-gray-300" }} cursor-pointer" stroke="currentColor" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3.22l-.61-.6a5.5 5.5 0 0 0-7.78 7.77L10 18.78l8.39-8.4a5.5 5.5 0 0 0-7.78-7.77l-.61.61z"></path></svg>
                                         </button>
 
                                         {!! Form::close() !!}
@@ -82,7 +82,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $builds->links() }}
+                {{ $loadouts->links() }}
             </div>
         </div>
     </div>
