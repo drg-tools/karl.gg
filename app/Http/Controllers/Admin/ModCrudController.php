@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\OverclockRequest;
+use App\Http\Requests\ModRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class OverclockCrudController
+ * Class ModCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class OverclockCrudController extends CrudController
+class ModCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -21,14 +21,14 @@ class OverclockCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Overclock');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/overclock');
-        $this->crud->setEntityNameStrings('overclock', 'overclocks');
+        $this->crud->setModel('App\Mod');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/mod');
+        $this->crud->setEntityNameStrings('mod', 'mods');
     }
 
     protected function setupListOperation()
     {
-        $this->crud->addColumns(['overclock_name']); // make these the only columns in the table
+        $this->crud->addColumns(['mod_name']); // make these the only columns in the table
         // '','gun_id'
         $this->crud->addColumn([
             'name' => 'character', // The db column name
@@ -57,7 +57,8 @@ class OverclockCrudController extends CrudController
             }
         ]);
 
-        $this->crud->addColumn('overclock_type');
+
+        $this->crud->addColumns(['mod_tier', 'mod_index']);
         // add a "simple" filter called Class
         $this->crud->addFilter([
             'type' => 'dropdown',
@@ -99,11 +100,11 @@ class OverclockCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(OverclockRequest::class);
+        $this->crud->setValidation(ModRequest::class);
 
         $this->crud->addField([
-            'name' => 'overclock_name',
-            'label' => "Overclock Name",
+            'name' => 'mod_name',
+            'label' => "Mod Name",
             'type' => 'text',
             'tab' => 'Base Info',
         ]);
@@ -123,11 +124,21 @@ class OverclockCrudController extends CrudController
             'model' => "App\Gun",
             'tab' => 'Base Info',
         ]);
+
         $this->crud->addField([   // select_from_array
-            'name' => 'overclock_index',
-            'label' => "Overclock Index",
+            'name' => 'mod_tier',
+            'label' => "Mod Tier",
             'type' => 'select_from_array',
-            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7],
+            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5],
+            'allows_null' => false,
+            'default' => '',
+            'tab' => 'Base Info',
+        ]);
+        $this->crud->addField([   // select_from_array
+            'name' => 'mod_index',
+            'label' => "Mod Index",
+            'type' => 'select_from_array',
+            'options' => ['A' => 'A', 'B' => 'B', 'C' => 'C'],
             'allows_null' => false,
             'default' => '',
             'tab' => 'Base Info',
@@ -210,8 +221,8 @@ class OverclockCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->crud->addField([
-            'name' => 'overclock_name',
-            'label' => "Overclock Name",
+            'name' => 'mod_name',
+            'label' => "Mod Name",
             'type' => 'text',
             'tab' => 'Base Info',
         ]);
@@ -242,10 +253,19 @@ class OverclockCrudController extends CrudController
         ]);
 
         $this->crud->addField([   // select_from_array
-            'name' => 'overclock_index',
-            'label' => "Overclock Index",
+            'name' => 'mod_tier',
+            'label' => "Mod Tier",
             'type' => 'select_from_array',
-            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7],
+            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5],
+            'allows_null' => false,
+            'default' => '',
+            'tab' => 'Base Info',
+        ]);
+        $this->crud->addField([   // select_from_array
+            'name' => 'mod_index',
+            'label' => "Mod Index",
+            'type' => 'select_from_array',
+            'options' => ['A' => 'A', 'B' => 'B', 'C' => 'C'],
             'allows_null' => false,
             'default' => '',
             'tab' => 'Base Info',

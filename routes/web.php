@@ -16,20 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::view('test', 'test.example');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('my-builds', 'BuildController@myBuilds')->name('builds.my');
-    Route::get('favorites', 'BuildController@favorites')->name('builds.favorites');
+    Route::get('my-loadouts', 'LoadoutController@myLoadouts')->name('loadouts.my');
+    Route::get('favorites', 'LoadoutController@favorites')->name('loadouts.favorites');
     Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
 
-    Route::resource('builds', 'BuildController')->except(['index', 'show']);
-    Route::resource('builds.favorites', 'Build\FavoriteController')->only('store');
+    Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);
+    Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
 
 });
 
-Route::resource('builds', 'BuildController')->only(['index', 'show']);
+Route::resource('loadouts', 'LoadoutController')->only(['index', 'show']);
 Route::view('/privacy-policy', 'privacy-policy.index');
-Route::get('/', 'BuildController@index');
+Route::get('/', 'LoadoutController@index');
 Auth::routes();
-
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
@@ -40,11 +39,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group([
-	'prefix' => config('backpack.base.route_prefix', 'admin'),
-	'middleware' => ['role:super-admin'],
-	'namespace' => '\Backpack\PermissionManager\app\Http\Controllers'
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['role:super-admin'],
+    'namespace' => '\Backpack\PermissionManager\app\Http\Controllers'
 ], function () {
-  	Route::crud('permission', 'PermissionCrudController');
+    Route::crud('permission', 'PermissionCrudController');
     Route::crud('role', 'RoleCrudController');
     Route::crud('user', 'UserCrudController');
 

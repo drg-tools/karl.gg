@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->group(function() {
+Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    Route::resource('builds', 'Api\BuildController')->only(['index', 'show']);
+    Route::resource('loadouts', 'Api\LoadoutController')->only(['index', 'show']);
     Route::resource('characters', 'Api\CharacterController')->only(['index', 'show']);
     Route::resource('guns', 'Api\GunController')->only(['index', 'show']);
     Route::resource('mods', 'Api\ModController')->only(['index', 'show']);

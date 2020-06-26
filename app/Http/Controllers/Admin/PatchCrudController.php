@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ModRequest;
+use App\Http\Requests\PatchRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class BuildCrudController
+ * Class PatchCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class BuildCrudController extends CrudController
+class PatchCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -21,9 +21,9 @@ class BuildCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Build');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/build');
-        $this->crud->setEntityNameStrings('build', 'builds');
+        $this->crud->setModel('App\Patch');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/patch');
+        $this->crud->setEntityNameStrings('patch', 'patches');
     }
 
     protected function setupListOperation()
@@ -34,7 +34,7 @@ class BuildCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(BuildRequest::class);
+        $this->crud->setValidation(PatchRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();

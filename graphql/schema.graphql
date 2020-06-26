@@ -12,27 +12,27 @@ type Query {
 #    user(id: ID @eq): User @find
     characters: [Character!]! @paginate(defaultCount: 10)
     character(id: ID @eq): Character @find
-    builds: [Build!]! @paginate(defaultCount: 10)
-    build(id: ID @eq): Build @find
+    loadouts: [Loadout!]! @paginate(defaultCount: 10)
+    loadout(id: ID @eq): Loadout @find
     guns: [Gun!]! @paginate(defaultCount: 10)
     gun(id: ID @eq): Gun @find
 }
 
 type Mutation {
-    createBuild(
+    createLoadout(
         name: String!
         description: String
         character_id: Int!
         mods: [Int!]!
-    ): Build @field(resolver: "App\\GraphQL\\Mutations\\CreateBuild") @guard
+    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\CreateLoadout") @guard
 
-    updateBuild(
+    updateLoadout(
         id: Int!
         name: String!
         description: String
         character_id: Int!
         mods: [Int!]!
-    ): Build @field(resolver: "App\\GraphQL\\Mutations\\UpdateBuild") @guard
+    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard
 }
 
 type User {
@@ -73,7 +73,7 @@ type Mod {
     updated_at: DateTime!
 }
 
-type Build {
+type Loadout {
     id: ID!
     name: String!
     description: String!

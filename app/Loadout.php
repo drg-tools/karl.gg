@@ -7,7 +7,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
-class Build extends Model
+class Loadout extends Model
 {
 
     use Favoriteable, Filterable, CrudTrait;
@@ -33,10 +33,7 @@ class Build extends Model
     {
         return $this->belongsToMany(Mod::class);
     }
-    public function modstats()
-    {
-        return $this->belongsToMany(ModStat::class);
-    }
+
     public function overclocks()
     {
         return $this->belongsToMany(Overclock::class);

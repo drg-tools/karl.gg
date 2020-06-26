@@ -7,14 +7,15 @@
 // Routes you generate using Backpack\Generators will be placed here.
 
 Route::group([
-    'prefix'     => config('backpack.base.route_prefix', 'admin'),
-    'middleware' => ['web','role:super-admin'],
-    'namespace'  => 'App\Http\Controllers\Admin',
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['web', 'role:super-admin'],
+    'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     Route::crud('user', 'UserCrudController');
-    Route::crud('mod-stat', 'ModStatCrudController');
+    Route::crud('mod', 'ModCrudController');
+    Route::crud('patch', 'PatchCrudController');
     Route::crud('overclock', 'OverclockCrudController');
     Route::crud('gun', 'GunCrudController');
-    Route::crud('build', 'BuildCrudController');
+    Route::crud('loadout', 'LoadoutCrudController');
     Route::crud('character', 'CharacterCrudController');
 }); // this should be the absolute last line of this file

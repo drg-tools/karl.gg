@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Build;
+use App\Loadout;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BuildController extends Controller
+class LoadoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class BuildController extends Controller
      */
     public function index(Request $request)
     {
-        return Build::filter($request->all())->get();
+        return Loadout::filter($request->all())->get();
     }
 
     /**
@@ -32,7 +32,7 @@ class BuildController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,18 +43,18 @@ class BuildController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Build $build
-     * @return Build
+     * @param Loadout $loadout
+     * @return Loadout
      */
-    public function show(Build $build)
+    public function show(Loadout $loadout)
     {
-        return $build;
+        return $loadout;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -65,8 +65,8 @@ class BuildController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -77,7 +77,7 @@ class BuildController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

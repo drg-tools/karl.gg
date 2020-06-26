@@ -1,7 +1,7 @@
 <?php
 
 use App\Gun;
-use App\ModStat;
+use App\Mod;
 use Illuminate\Database\Seeder;
 
 class GunSeeder extends Seeder

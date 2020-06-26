@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Build;
+use App\Loadout;
 use App\Character;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class BuildController extends Controller
+class LoadoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,22 +16,22 @@ class BuildController extends Controller
      */
     public function index()
     {
-        $builds = Build::latest()->paginate(25);
+        $loadouts = Loadout::latest()->paginate(25);
 
-        return view('builds.index', compact('builds'));
+        return view('loadouts.index', compact('loadouts'));
     }
 
     /**
-     * Display a listing of user's builds.
+     * Display a listing of user's loadouts.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function myBuilds(Request $request)
+    public function myLoadouts(Request $request)
     {
-        $builds = $request->user()->builds()->latest()->paginate(25);
+        $loadouts = $request->user()->loadouts()->latest()->paginate(25);
 
-        return view('builds.index', compact('builds'));
+        return view('loadouts.index', compact('loadouts'));
     }
 
     /**
@@ -42,9 +42,9 @@ class BuildController extends Controller
      */
     public function favorites(Request $request)
     {
-        $favorites = $request->user()->favorites()->where('favoriteable_type', Build::class)->with('favoriteable')->paginate(10);
+        $favorites = $request->user()->favorites()->where('favoriteable_type', Loadout::class)->with('favoriteable')->paginate(10);
 
-        return view('builds.favorites', compact('favorites'));
+        return view('loadouts.favorites', compact('favorites'));
     }
 
     /**
@@ -56,7 +56,7 @@ class BuildController extends Controller
     {
         $characters = Character::all();
 
-        return view('builds.create', compact('characters'));
+        return view('loadouts.create', compact('characters'));
     }
 
     /**
@@ -67,8 +67,8 @@ class BuildController extends Controller
      */
     public function store(Request $request)
     {
-        $build = $request->user()->builds()->create($request->except('mods'));
-        $build->mods()->sync(Arr::flatten($request->get('mods')));
+        $loadout = $request->user()->builds()->create($request->except('mods'));
+        $loadout->mods()->sync(Arr::flatten($request->get('mods')));
 
         return redirect('/');
     }
@@ -76,42 +76,42 @@ class BuildController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Build $build
+     * @param \App\Build $loadout
      * @return \Illuminate\Http\Response
      */
-    public function show(Build $build)
+    public function show(Loadout $loadout)
     {
-        return view('builds.show', compact('build'));
+        return view('loadouts.show', compact('loadout'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Build $build
+     * @param \App\Build $loadout
      * @return \Illuminate\Http\Response
      */
-    public function edit(Build $build)
+    public function edit(Loadout $loadout)
     {
         $characters = Character::all();
 
-        return view('builds.edit', compact('build', 'characters'));
+        return view('loadouts.edit', compact('loadout', 'characters'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Build $build
+     * @param \App\Build $loadout
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, Build $build)
+    public function update(Request $request, Loadout $loadout)
     {
-        $this->authorize($build);
+        $this->authorize($loadout);
 
-        $build->update($request->except('mods'));
-        $build->mods()->sync(Arr::flatten($request->get('mods')));
-        $build->touch();
+        $loadout->update($request->except('mods'));
+        $loadout->mods()->sync(Arr::flatten($request->get('mods')));
+        $loadout->touch();
 
         return redirect('/');
     }
@@ -119,10 +119,10 @@ class BuildController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Build $build
+     * @param \App\Build $loadout
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Build $build)
+    public function destroy(Build $loadout)
     {
         //
     }
