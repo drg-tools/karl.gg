@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Build;
+use App\Loadout;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class UpdateBuild
+class UpdateLoadout
 {
     /**
      * Return a value for the field.
@@ -20,12 +20,12 @@ class UpdateBuild
      */
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-	$build = Build::findOrFail($args['id']);
+	$loadout = Loadout::findOrFail($args['id']);
 
-	$build->update($args);
-	$build->mods()->sync(Arr::flatten($args['mods']));
-	$build->touch();
+	$loadout->update($args);
+	$loadout->mods()->sync(Arr::flatten($args['mods']));
+	$loadout->touch();
 
-	return $build;
+	return $loadout;
     }
 }

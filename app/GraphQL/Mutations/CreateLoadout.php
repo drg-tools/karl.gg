@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Build;
+use App\Loadout;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class CreateBuild
+class CreateLoadout
 {
     /**
      * Return a value for the field.
@@ -20,15 +20,16 @@ class CreateBuild
      */
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-	$build = Build::make($args);
+	$loadout = Loadout::make($args);
 
 	// TODO: Remove when auth Passport implemented
-	$build->user_id = 1;
-	$build->save();
+	$loadout->user_id = 1;
+	$loadout->save();
 
-	// TODO: do we assume mods is always here?
-	$build->mods()->sync(Arr::flatten($args['mods']));
+    // TODO: do we assume mods is always here?
+    // Andrew: Per above, my assumption is a loadout should have 1 selection at least in order to allow save. We need some validation.
+	$loadout->mods()->sync(Arr::flatten($args['mods']));
 
-	return $build;
+	return $loadout;
     }
 }
