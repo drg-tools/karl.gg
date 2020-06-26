@@ -33,7 +33,8 @@ class Loadout extends Model
     {
         return $this->belongsToMany(Mod::class);
     }
-   public function overclocks()
+
+    public function overclocks()
     {
         return $this->belongsToMany(Overclock::class);
     }

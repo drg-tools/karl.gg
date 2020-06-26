@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', true),
+    'debug' => (bool)env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-         Backpack\PermissionManager\PermissionManagerServiceProvider::class,
+        Backpack\PermissionManager\PermissionManagerServiceProvider::class,
 
         /*
          * Application Service Providers...

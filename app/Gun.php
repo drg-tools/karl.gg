@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gun extends Model
 {
-    use Filterable,CrudTrait;
+    use Filterable, CrudTrait;
 
     public function mods()
     {
@@ -17,8 +17,9 @@ class Gun extends Model
 
     public function character()
     {
-	      return $this->belongsTo(Character::class);
+        return $this->belongsTo(Character::class);
     }
+
     public function overclocks()
     {
         return $this->hasMany(Overclock::class);

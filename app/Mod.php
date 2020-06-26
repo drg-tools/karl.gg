@@ -18,6 +18,7 @@ class Mod extends Model
     {
         return $this->belongsTo(Gun::class);
     }
+
     public function character()
     {
         return $this->belongsTo(Character::class);

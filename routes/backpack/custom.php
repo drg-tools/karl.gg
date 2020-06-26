@@ -7,9 +7,9 @@
 // Routes you generate using Backpack\Generators will be placed here.
 
 Route::group([
-    'prefix'     => config('backpack.base.route_prefix', 'admin'),
-    'middleware' => ['web','role:super-admin'],
-    'namespace'  => 'App\Http\Controllers\Admin',
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['web', 'role:super-admin'],
+    'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     Route::crud('user', 'UserCrudController');
     Route::crud('mod', 'ModCrudController');
