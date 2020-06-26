@@ -31,7 +31,7 @@ class ChangeBuildsToLoadoutsTable extends Migration
         Schema::table('loadouts', function (Blueprint $table) {
             // We do the opposite here so Laravel can reverse the migration
             $table->dropColumn('patch_id');
-            Schema::rename('loadouts', 'builds');
         });
+        Schema::rename('loadouts', 'builds');
     }
 }

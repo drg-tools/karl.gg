@@ -24,9 +24,6 @@ class ChangeBuildModToLoadoutModTable extends Migration
      */
     public function down()
     {
-        Schema::table('loadout_mod', function (Blueprint $table) {
-            // We do the opposite here so Laravel can reverse the migration
-            Schema::rename('loadout_mod', 'build_mod');
-        });
+        Schema::rename('loadout_mod', 'build_mod');
     }
 }

@@ -10,6 +10,5 @@ class Patch extends Model
 {
     use Filterable, CrudTrait;
 
-    protected $table = 'patches';
     protected $primaryKey = 'id';
 }

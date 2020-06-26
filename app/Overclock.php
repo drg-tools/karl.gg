@@ -10,7 +10,6 @@ class Overclock extends Model
 {
     use Filterable, CrudTrait;
 
-    protected $table = 'overclocks';
     protected $primaryKey = 'id';
 
     public function gun()

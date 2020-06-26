@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 
 class LoadoutController extends Controller
 {
-    // TODO: Fix naming conventions for Loadout Terminology
-
-
     /**
      * Display a listing of the resource.
      *
