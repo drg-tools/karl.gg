@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Build;
 use App\Character;
 use Livewire\Component;
 
@@ -30,8 +29,6 @@ class CharacterSelector extends Component
 
     public function render()
     {
-
-
         return view('livewire.character-selector');
     }
 }

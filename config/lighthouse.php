@@ -33,9 +33,9 @@ return [
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class . ':api',
+            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class.':api',
 
-//            'auth:api'
+            //            'auth:api'
         ],
 
         /*
@@ -322,7 +322,7 @@ return [
             ],
             'pusher' => [
                 'driver' => 'pusher',
-                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@pusher',
+                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
         ],

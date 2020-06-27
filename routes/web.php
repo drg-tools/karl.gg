@@ -22,7 +22,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);
     Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
-
 });
 
 Route::resource('loadouts', 'LoadoutController')->only(['index', 'show']);
@@ -30,9 +29,7 @@ Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('/', 'LoadoutController@index');
 Auth::routes();
 
-
 //Route::get('/home', 'HomeController@index')->name('home');
-
 
 Auth::routes();
 
@@ -41,10 +38,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
     'middleware' => ['role:super-admin'],
-    'namespace' => '\Backpack\PermissionManager\app\Http\Controllers'
+    'namespace' => '\Backpack\PermissionManager\app\Http\Controllers',
 ], function () {
     Route::crud('permission', 'PermissionCrudController');
     Route::crud('role', 'RoleCrudController');
     Route::crud('user', 'UserCrudController');
-
 });

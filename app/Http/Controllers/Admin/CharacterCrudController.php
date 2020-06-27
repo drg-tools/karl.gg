@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CharacterRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class CharacterCrudController
- * @package App\Http\Controllers\Admin
+ * Class CharacterCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class CharacterCrudController extends CrudController
@@ -22,7 +20,7 @@ class CharacterCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Character');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/character');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/character');
         $this->crud->setEntityNameStrings('character', 'characters');
     }
 

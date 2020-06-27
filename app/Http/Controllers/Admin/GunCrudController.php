@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\GunRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class GunCrudController
- * @package App\Http\Controllers\Admin
+ * Class GunCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class GunCrudController extends CrudController
@@ -22,7 +20,7 @@ class GunCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Gun');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/gun');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/gun');
         $this->crud->setEntityNameStrings('gun', 'guns');
     }
 
@@ -38,14 +36,14 @@ class GunCrudController extends CrudController
             'model' => App\Character::class, // foreign key model
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhereHas('character', function ($q) use ($column, $searchTerm) {
-                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
                 });
-            }
+            },
         ]);
         $this->crud->addFilter([
             'type' => 'dropdown',
             'name' => 'class',
-            'label' => 'Class'
+            'label' => 'Class',
         ], [
             1 => 'Engineer',
             2 => 'Scout',
@@ -54,8 +52,6 @@ class GunCrudController extends CrudController
         ], function ($value) { // if the filter is active
             $this->crud->addClause('where', 'character_id', $value);
         });
-
-
     }
 
     protected function setupCreateOperation()
@@ -64,12 +60,12 @@ class GunCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'name',
-            'label' => "Gun Name",
+            'label' => 'Gun Name',
             'type' => 'text',
         ]);
         $this->crud->addField([   // select_from_array
             'name' => 'gun_class',
-            'label' => "Gun Class",
+            'label' => 'Gun Class',
             'type' => 'select_from_array',
             'options' => [
                 'Shotgun' => 'Shotgun',
@@ -86,7 +82,7 @@ class GunCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name' => 'character_slot',
-            'label' => "Character Slot",
+            'label' => 'Character Slot',
             'type' => 'number',
         ]);
         $this->crud->addField([
@@ -103,12 +99,12 @@ class GunCrudController extends CrudController
         // $this->setupCreateOperation();
         $this->crud->addField([
             'name' => 'name',
-            'label' => "Gun Name",
+            'label' => 'Gun Name',
             'type' => 'text',
         ]);
         $this->crud->addField([
             'name' => 'id',
-            'label' => "id",
+            'label' => 'id',
             'type' => 'text',
             'attributes' => [
                 'readonly' => 'readonly',
@@ -116,7 +112,7 @@ class GunCrudController extends CrudController
         ]);
         $this->crud->addField([   // select_from_array
             'name' => 'gun_class',
-            'label' => "Gun Class",
+            'label' => 'Gun Class',
             'type' => 'select_from_array',
             'options' => [
                 'Shotgun' => 'Shotgun',
@@ -132,7 +128,7 @@ class GunCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name' => 'character_slot',
-            'label' => "Character Slot",
+            'label' => 'Character Slot',
             'type' => 'number',
         ]);
         $this->crud->addField([
@@ -149,7 +145,7 @@ class GunCrudController extends CrudController
             'entity' => 'mods', // the relationship name in your Model
             'attribute' => 'mod_name', // attribute on Article that is shown to admin
             'model' => "App\Mod",
-        ],);
+        ], );
         $this->crud->addField([
             'name' => 'overclocks', // name of relationship method in the model
             'type' => 'relationship',
@@ -157,6 +153,6 @@ class GunCrudController extends CrudController
             'entity' => 'overclocks', // the relationship name in your Model
             'attribute' => 'overclock_name', // attribute on Article that is shown to admin
             'model' => "App\Overclock",
-        ],);
+        ], );
     }
 }

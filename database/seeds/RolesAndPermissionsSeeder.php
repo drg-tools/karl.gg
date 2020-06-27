@@ -1,8 +1,8 @@
-<?php 
+<?php
 
-use Illuminate\Database\Seeder;
-use Backpack\PermissionManager\app\Models\Role;
 use Backpack\PermissionManager\app\Models\Permission;
+use Backpack\PermissionManager\app\Models\Role;
+use Illuminate\Database\Seeder;
 
 class RolesAndPermissionsSeeder extends Seeder
 {

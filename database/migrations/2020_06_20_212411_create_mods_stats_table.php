@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateModsStatsTable extends Migration
 {
@@ -31,7 +31,6 @@ class CreateModsStatsTable extends Migration
             $table->string('icon', 1000);
             $table->string('mod_type', 1000);
             $table->unsignedBigInteger('patch_number_index');
-
         });
     }
 
