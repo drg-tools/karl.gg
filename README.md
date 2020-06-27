@@ -45,6 +45,26 @@ php artisan passport:install
 
 - Default admin user is `admin@admin.com` / `adminadmin`
 
+### Lint / Styles
+
+We use the `laravel` code style which enforces things like where to put new lines, spaces, etc.
+
+We use [StyleCI](https://styleci.io/) to help keep us in check, but you can also run the style fixer locally.
+
+To check if you are in compliance run:
+
+```bash
+composer check-style
+```
+
+To automatically fix the violations, run:
+
+```bash
+composer fix-style
+```
+
+Worst case scenario, StyleCI will make a PR against yours to fix any style issues and mark the PR as failed.
+
 ### Frontend Components
 
 All of the frontend components live in `resources/js/components`. All of these components are automatically
