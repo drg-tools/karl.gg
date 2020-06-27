@@ -10,7 +10,6 @@
         <stats-display></stats-display>
         <modification-select></modification-select>
     </div>
-    <!--<App></App>-->
 
 @endsection
 
