@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateOverclocksStatsTable extends Migration
 {
@@ -30,7 +30,6 @@ class CreateOverclocksStatsTable extends Migration
             $table->string('json_stats', 1000);
             $table->string('icon', 1000);
             $table->bigInteger('patch_number_index');
-
         });
     }
 
