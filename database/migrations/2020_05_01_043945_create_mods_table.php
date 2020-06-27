@@ -24,7 +24,6 @@ class CreateModsTable extends Migration
             $table->timestamps();
 
             $table->unique(['row', 'column', 'gun_id']);
-
         });
     }
 
