@@ -24,6 +24,7 @@
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "laravel-frontend-presets/tailwindcss": "^4.1",
+        "matt-allan/laravel-code-style": "^0.5.1",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5"
@@ -55,6 +56,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "check-style": "php-cs-fixer fix --dry-run --diff",
+        "fix-style": "php-cs-fixer fix",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
