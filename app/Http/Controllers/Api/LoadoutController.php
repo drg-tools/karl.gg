@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Loadout;
 use App\Http\Controllers\Controller;
+use App\Loadout;
 use Illuminate\Http\Request;
 
 class LoadoutController extends Controller

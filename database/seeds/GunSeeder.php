@@ -1,7 +1,6 @@
 <?php
 
 use App\Gun;
-use App\Mod;
 use Illuminate\Database\Seeder;
 
 class GunSeeder extends Seeder
@@ -17,7 +16,7 @@ class GunSeeder extends Seeder
          * 1	Engineer
          * 2	Scout
          * 3	Driller
-         * 4	Gunner
+         * 4	Gunner.
          */
         $characterGuns = [
             1 => [
@@ -43,16 +42,14 @@ class GunSeeder extends Seeder
                 ['name' => '"Thunderhead" Heavy Autocannon', 'gun_class' => 'Heavy Weapon', 'character_slot' => 1],
                 ['name' => '"Bulldog" Heavy Revolver', 'gun_class' => 'Revolver', 'character_slot' => 2],
                 ['name' => 'BRT7 Burst Fire Gun', 'gun_class' => 'Pistol', 'character_slot' => 2],
-            ]
+            ],
         ];
 
         foreach ($characterGuns as $character_id => $character) {
-            foreach($character as $gun) {
+            foreach ($character as $gun) {
                 $attrs = array_merge($gun, ['character_id' => $character_id]);
                 factory(Gun::class)->create($attrs);
             }
         }
-
-
     }
 }

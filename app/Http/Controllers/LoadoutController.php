@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Loadout;
 use App\Character;
+use App\Loadout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 

@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\LoadoutRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class LoadoutCrudController
- * @package App\Http\Controllers\Admin
+ * Class LoadoutCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class LoadoutCrudController extends CrudController
@@ -22,7 +20,7 @@ class LoadoutCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Loadout');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/loadout');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/loadout');
         $this->crud->setEntityNameStrings('loadout', 'loadouts');
     }
 

@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PatchRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class PatchCrudController
- * @package App\Http\Controllers\Admin
+ * Class PatchCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class PatchCrudController extends CrudController
@@ -22,7 +20,7 @@ class PatchCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Patch');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/patch');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/patch');
         $this->crud->setEntityNameStrings('patch', 'patches');
     }
 

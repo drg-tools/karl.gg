@@ -2,14 +2,13 @@
 
 namespace App;
 
-use EloquentFilter\Filterable;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Model;
 
 class Loadout extends Model
 {
-
     use Favoriteable, Filterable, CrudTrait;
 
     protected $fillable = ['name', 'description', 'character_id'];

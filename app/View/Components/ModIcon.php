@@ -17,7 +17,7 @@ class ModIcon extends Component
      * @param Mod $mod
      * @param string $size
      */
-    public function __construct(Mod $mod, $size = "6")
+    public function __construct(Mod $mod, $size = '6')
     {
         $this->mod = $mod;
         $this->size = $size;

@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
         factory(App\User::class)->create([
             'name' => 'admin',
             'email' => 'admin@test.com',
-            'password' => bcrypt('adminadmin')
+            'password' => bcrypt('adminadmin'),
         ])->assignRole('super-admin');
     }
 }

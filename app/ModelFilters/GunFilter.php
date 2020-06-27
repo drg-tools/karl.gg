@@ -23,5 +23,4 @@ class GunFilter extends ModelFilter
     {
         $this->whereLike('name', $name);
     }
-
 }
