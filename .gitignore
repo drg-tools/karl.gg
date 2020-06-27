@@ -16,3 +16,4 @@ after.sh
 aliases
 VagrantFile
 .vagrant
+.php_cs.cache
