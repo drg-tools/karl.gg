@@ -10,8 +10,6 @@ class Mod extends Model
 {
     use Filterable, CrudTrait;
 
-    protected $table = 'mods';
-    protected $primaryKey = 'id';
     public $identifiableAttribute = 'name';
 
     public function gun()
