@@ -8,8 +8,8 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
 type Query {
-#    users: [User!]! @paginate(defaultCount: 10)
-#    user(id: ID @eq): User @find
+    #    users: [User!]! @paginate(defaultCount: 10)
+    #    user(id: ID @eq): User @find
     characters: [Character!]! @paginate(defaultCount: 10)
     character(id: ID @eq): Character @find
     loadouts: [Loadout!]! @paginate(defaultCount: 10)
@@ -32,7 +32,7 @@ type Mutation {
         description: String
         character_id: Int!
         mods: [Int!]!
-    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard
+    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard @can(ability: "update", find: "id")
 }
 
 type User {
