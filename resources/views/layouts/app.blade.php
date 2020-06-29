@@ -40,13 +40,13 @@
 
         @include('layouts.nav')
 
-        <header class="bg-white shadow">
+        <!--<header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <h1 class="text-3xl font-bold leading-tight text-gray-900">
                     @yield('title')
                 </h1>
             </div>
-        </header>
+        </header>-->
         <main>
             <div class="max-w-7xl mx-auto">
                 @yield('content')
@@ -57,11 +57,11 @@
             <div class="p-2"><a href="/privacy-policy">Privacy Policy</a></div>
         </footer>
 
-        
+
     </div>
     @livewireScripts
         @yield('scripts')
-        
+
         <script>
             (function() {
                 $('#mobile-menu-button').on('click', function () {

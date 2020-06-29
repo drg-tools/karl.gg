@@ -19383,7 +19383,7 @@ span {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 60px;
+  margin-top: 1rem;
   width: 1000px;
 }
 
@@ -19411,7 +19411,15 @@ svg > a:hover {
   text-decoration: none!important;
 }
 
-.navButton {
+.navMenu {
+  background-color: rgb(24, 17, 11);
+  border-bottom: 5px solid rgb(252, 158, 0);
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.navButton, .navButtonActive {
   margin-right: 1rem;
 }
 
@@ -19420,7 +19428,7 @@ svg > a:hover {
 }
 
 .navButton text {
-  fill: rgb(0, 0, 0);
+  fill: rgb(173, 161, 149);
 }
 
 .navButton:hover path {

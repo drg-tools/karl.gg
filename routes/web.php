@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
 });
 
+Route::view('browse', 'loadouts.browse');
+Route::view('overview', 'loadouts.overview');
 Route::resource('loadouts', 'LoadoutController')->only(['index', 'show']);
 Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('/', 'LoadoutController@index');
