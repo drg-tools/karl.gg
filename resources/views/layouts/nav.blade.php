@@ -8,7 +8,22 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline">
 {{--                        <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>--}}
-                        <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>
+                        <div class="navButton navButtonActive">
+                            <svg height="54" width="154">
+                                <a href="/">
+                                <path d="m 2 2 l 133 0 l 17 17 l 0 33 l -150 0 l 0 -50" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
+                                <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">HOME</text>
+                                </a>
+                            </svg>
+                        </div>
+                        <div>
+                            <svg class="navButton" height="54" width="154">
+                                <a href="/">
+                                <path d="m 2 2 l 133 0 l 17 17 l 0 33 l -150 0 l 0 -50" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
+                                <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">BROWSE</text>
+                                </a>
+                            </svg>
+                        </div>
                         <a href="{{ route('loadouts.my') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">My Loadouts</a>
                         <a href="{{ route('loadouts.favorites') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">My Favorites</a>
                         <a href="{{ route('loadouts.create') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Create a Loadout</a>

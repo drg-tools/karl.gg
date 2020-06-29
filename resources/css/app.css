@@ -61,6 +61,16 @@ span {
 /*todo: only three different font sizes!*/
 /*todo: web fonts*/
 
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('fonts/BebasNeue.eot'); /* IE9 Compat Modes */
+    src: url('fonts/BebasNeue.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('fonts/BebasNeue.woff2') format('woff2'), /* Super Modern Browsers */
+         url('fonts/BebasNeue.woff') format('woff'), /* Pretty Modern Browsers */
+         url('fonts/BebasNeue.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('fonts/BebasNeue.svg#svgFontName') format('svg'); /* Legacy iOS */
+  }
+
 #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -87,6 +97,35 @@ span {
     display: flex;
     flex-wrap: wrap;
     /*height: 5rem;*/
+}
+
+
+svg > a:hover {
+    text-decoration: none!important;
+}
+
+.navButton {
+    margin-right: 1rem;
+}
+.navButton path {
+    stroke: none;
+}
+.navButton text {
+    fill: rgb(0, 0, 0);
+}
+
+.navButton:hover path {
+    stroke: rgb(252, 158, 0);
+}
+.navButton:hover text {
+    fill: rgb(255, 255, 255);
+}
+
+.navButtonActive path {
+    stroke: rgb(252, 158, 0);
+}
+.navButtonActive text {
+    fill: rgb(255, 255, 255);
 }
 
 

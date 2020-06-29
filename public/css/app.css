@@ -19367,6 +19367,18 @@ span {
 
 /*todo: web fonts*/
 
+@font-face {
+  font-family: 'BebasNeue';
+
+  src: url(/fonts/BebasNeue.eot?a526a43bff331e232f66f17040689c37); /* IE9 Compat Modes */
+
+  src: url(/fonts/BebasNeue.eot?a526a43bff331e232f66f17040689c37?#iefix) format('embedded-opentype'), 
+         url(/fonts/BebasNeue.woff2?2da48e946ae21f4f312edf53a6bd5317) format('woff2'), 
+         url(/fonts/BebasNeue.woff?d201e4aa499eff8d160fe37e1f4fc941) format('woff'), 
+         url(/fonts/BebasNeue.ttf?26536728c0f6e197d4c7d62f11dfb8b9)  format('truetype'), 
+         url(/fonts/BebasNeue.svg?fad3837b744edf0140e4f3f2f54a72ee#svgFontName) format('svg'); /* Legacy iOS */
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19393,6 +19405,38 @@ span {
   display: flex;
   flex-wrap: wrap;
   /*height: 5rem;*/
+}
+
+svg > a:hover {
+  text-decoration: none!important;
+}
+
+.navButton {
+  margin-right: 1rem;
+}
+
+.navButton path {
+  stroke: none;
+}
+
+.navButton text {
+  fill: rgb(0, 0, 0);
+}
+
+.navButton:hover path {
+  stroke: rgb(252, 158, 0);
+}
+
+.navButton:hover text {
+  fill: rgb(255, 255, 255);
+}
+
+.navButtonActive path {
+  stroke: rgb(252, 158, 0);
+}
+
+.navButtonActive text {
+  fill: rgb(255, 255, 255);
 }
 
 ::-webkit-scrollbar-button {
