@@ -9,25 +9,25 @@
                     <div class="ml-10 flex items-baseline">
 {{--                        <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>--}}
                         <div>
-                            <svg class="{{ (\Request::is('/')) ? 'navButtonActive' : 'navButton' }}" height="54" width="154">
+                            <svg class="{{ (\Request::is('/')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
                                 <a href="/">
-                                <path d="m 1 2 l 134 0 l 17 17 l 0 33 l -151 0 l 0 -51" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
+                                <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
                                 <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">HOME</text>
                                 </a>
                             </svg>
                         </div>
                         <div>
-                            <svg class="{{ (\Request::is('browse')) || (\Request::is('overview')) ? 'navButtonActive' : 'navButton' }}" height="54" width="154">
+                            <svg class="{{ (\Request::is('browse')) || (\Request::is('overview')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
                                 <a href="/browse">
-                                <path d="m 1 2 l 134 0 l 17 17 l 0 33 l -151 0 l 0 -51" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
+                                <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
                                 <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">BROWSE</text>
                                 </a>
                             </svg>
                         </div>
                         <div>
-                            <svg class="{{ (\Request::is('loadouts/create')) ? 'navButtonActive' : 'navButton' }}" height="54" width="154">
+                            <svg class="{{ (\Request::is('loadouts/create')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
                                 <a href="/loadouts/create">
-                                <path d="m 1 2 l 134 0 l 17 17 l 0 33 l -151 0 l 0 -51" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
+                                <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
                                 <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">BUILD</text>
                                 </a>
                             </svg>

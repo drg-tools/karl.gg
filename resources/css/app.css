@@ -107,8 +107,6 @@ svg > a:hover {
 .navMenu {
     background-color: rgb(24, 17, 11);
     border-bottom: 5px solid rgb(252, 158, 0);
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
     margin-bottom: 2rem;
 }
 

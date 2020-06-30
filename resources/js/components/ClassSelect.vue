@@ -14,6 +14,64 @@
     </div>
 </template>
 
+<!--
+todo: query examples (http://localhost:8000/graphql-playground)
+
+get characters
+{
+  characters {
+        data {
+            id
+            name
+        }
+    }
+}
+
+get character
+{
+    character(id: 1) {
+        id
+        name
+    }
+}
+
+get guns
+{
+	guns {
+        data {
+            id
+            name
+            gun_class
+            character_slot
+            character {
+            	id
+            	name
+            }
+        }
+    }
+}
+
+get gun
+{
+    gun(id: 1) {
+        id
+        name
+        gun_class
+        character_slot
+        character {
+            id
+            name
+        }
+    }
+}
+
+get all equipment for character
+???
+
+get mods for equipment
+???
+-->
+
 <script>
     import ClassComponent from './ClassComponent.vue';
     import EquipmentCard from './EquipmentCard.vue';
