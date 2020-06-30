@@ -1,15 +1,18 @@
 <template>
     <div class="featuredLoadoutsContainer">
-        <LoadoutCard 
-        v-for="(loadout, loadoutId) in drillerLoadouts"
+        <h1>MOST POPULAR LOADOUTS</h1>
+        <div class="loadoutCards">
+            <LoadoutCard
+                v-for="(loadout, loadoutId) in popularLoadouts"
                 :key="loadoutId"
                 :iconPath="loadout.iconPath"
                 :name="loadout.name"
                 :author="loadout.author"
-                :classId="'D'"
+                :classId="loadout.classId"
                 :salutes="loadout.salutes"
-                :primaryId="loadout.primaryId"
-                :secondaryId="loadout.secondaryId" />
+                :primary="loadout.primary"
+                :secondary="loadout.secondary"/>
+        </div>
     </div>
 </template>
 
@@ -20,26 +23,45 @@
     export default {
         name: 'FeaturedLoadouts',
         components: {
-            LoadoutCard,
+            LoadoutCard
         },
         computed: {
-            drillerLoadouts() {
+            popularLoadouts() {
                 return [
                     {
-                        iconPath: "50px-Driller_icon.png",
-                        name: "Karl's Freezer Build",
-                        author: "Karl_21347",
+                        iconPath: '50px-Driller_icon.png',
+                        name: 'Karl\'s Freezer Build',
+                        author: 'Karl_21347',
+                        classId: "D",
                         salutes: 47,
-                        primaryId: "P2",
-                        secondaryId: "S1"
+                        primary: 'P2_Cryo',
+                        secondary: 'S1_Subata'
+                    },
+                    {
+                        iconPath: '50px-Gunner_icon.png',
+                        name: 'pew pew pew',
+                        author: 'redguy',
+                        classId: "G",
+                        salutes: 22,
+                        primary: 'P1_Lead',
+                        secondary: 'S1_Bulldog'
+                    },
+                    {
+                        iconPath: '50px-Engineer_icon.png',
+                        name: 'cheese party',
+                        author: 'turret-master_666',
+                        classId: "E",
+                        salutes: 21,
+                        primary: 'P1_Warthog',
+                        secondary: 'S1_PGL'
                     }
                 ];
-            },
+            }
         },
         methods: {},
         apollo: {},
         mounted: function () {
-            console.log("mounted featured loadouts")
+            console.log('mounted featured loadouts');
         }
     };
 </script>
@@ -47,10 +69,19 @@
 <style>
     .featuredLoadoutsContainer {
         width: 100%;
+        border-top: 5px solid #fc9e00;
+        background-color: #352E1E;
+        margin-bottom: 0.5rem;
+    }
+
+    .loadoutCards {
         display: flex;
         flex-wrap: wrap;
-        border-top: 5px solid #fc9e00;
-        background-color: #352e1e;
-        margin-bottom: 0.5rem;
+        justify-content: space-between;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        color: #fc9e00
     }
 </style>
