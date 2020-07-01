@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Throwable extends Model
 {
     use Filterable, CrudTrait;
-    
+
     public function character()
     {
         return $this->belongsTo(Character::class);

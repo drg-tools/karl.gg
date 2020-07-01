@@ -14,6 +14,7 @@ class EquipmentMod extends Model
     {
         return $this->belongsTo(Character::class);
     }
+
     public function equipment()
     {
         return $this->belongsTo(Equipment::class);

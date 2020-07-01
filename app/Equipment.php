@@ -13,7 +13,8 @@ class Equipment extends Model
     public function character()
     {
         return $this->belongsTo(Character::class);
-    } 
+    }
+
     public function equipment_mods()
     {
         return $this->hasMany(EquipmentMod::class);
