@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(OverclockSeeder::class);
         $this->call(ModStatSeeder::class);
+        $this->call(EquipmentSeeder::class);
     }
 }
