@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OverclockSeeder::class);
         $this->call(ModStatSeeder::class);
         $this->call(EquipmentSeeder::class);
+        $this->call(EquipmentModSeeder::class);
     }
 }

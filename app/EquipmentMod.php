@@ -6,16 +6,16 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
-class Equipment extends Model
+class EquipmentMod extends Model
 {
     use Filterable, CrudTrait;
 
     public function character()
     {
         return $this->belongsTo(Character::class);
-    } 
-    public function equipment_mods()
+    }
+    public function equipment()
     {
-        return $this->hasMany(EquipmentMod::class);
+        return $this->belongsTo(Equipment::class);
     }
 }

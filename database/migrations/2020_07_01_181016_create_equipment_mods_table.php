@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateOverclocksStatsTable extends Migration
+class CreateEquipmentModsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +13,15 @@ class CreateOverclocksStatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('overclocks_stats', function (Blueprint $table) {
+        Schema::create('equipment_mods', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('character_id');
-            $table->unsignedBigInteger('gun_id');
-            $table->string('overclock_type', 20);
-            $table->unsignedTinyInteger('overclock_index');
-            $table->string('overclock_name', 50);
+            $table->unsignedBigInteger('equipment_id');
+            $table->unsignedTinyInteger('mod_tier');
+            $table->string('mod_index', 1);
+            $table->string('mod_name', 50);
+            $table->string('description', 1000);
+            $table->string('json_stats', 1000);
             $table->unsignedSmallInteger('credits_cost');
             $table->unsignedTinyInteger('magnite_cost');
             $table->unsignedTinyInteger('bismor_cost');
@@ -26,10 +29,10 @@ class CreateOverclocksStatsTable extends Migration
             $table->unsignedTinyInteger('croppa_cost');
             $table->unsignedTinyInteger('enor_pearl_cost');
             $table->unsignedTinyInteger('jadiz_cost');
-            $table->string('text_description', 1000);
-            $table->string('json_stats', 1000);
             $table->string('icon', 1000);
-            $table->bigInteger('patch_id');
+            $table->string('mod_type', 1000);
+            $table->unsignedBigInteger('patch_id');
+            $table->timestamps();
         });
     }
 
@@ -40,6 +43,6 @@ class CreateOverclocksStatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('overclocks_stats');
+        Schema::dropIfExists('equipment_mods');
     }
 }
