@@ -16,6 +16,17 @@ type Query {
     loadout(id: ID @eq): Loadout @find
     guns: [Gun!]! @paginate(defaultCount: 10)
     gun(id: ID @eq): Gun @find
+    equipments: [Equipment!]! @paginate(defaultCount: 20)
+    equipment(id: ID @eq): Equipment @find
+    overclocks: [Overclock!]! @paginate(defaultCount: 10)
+    ocerclock(id: ID @eq): Overclock @find
+    equipment_mods: [EquipmentMod!]! @paginate(defaultCount: 10)
+    equipment_mod(id: ID @eq): EquipmentMod @find
+    throwables: [Throwable!]! @paginate(defaultCount: 10)
+    throwable(id: ID @eq): Throwable @find
+    mods: [Mod!]! @paginate(defaultCount: 10)
+    mod(id: ID @eq): Mod @find
+    
 }
 
 type Mutation {
@@ -58,17 +69,105 @@ type Gun {
     character: Character @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
+    json_stats: String!
 }
 
 type Mod {
     id: ID!
-    name: String!
-    effect: String!
-    description: String
-    img_name: String!
-    row: Int!
-    column: Int!
+    mod_name: String!
+    json_stats: String!
+    text_description: String
+    icon: String!
+    mod_tier: Int!
+    mod_index: Int!
+    credits_cost: Int!
+    magnite_cost: Int!
+    bismor_cost: Int!
+    umanite_cost: Int!
+    croppa_cost: Int!
+    enor_pearl_cost: Int!
+    jadiz_cost: Int!
+    character: Character @belongsTo
     gun: Gun @belongsTo
+    mod_type: String!
+    patch_id: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Overclock {
+    id: ID!
+    overclock_name: String!
+    json_stats: String!
+    text_description: String
+    icon: String!
+    overclock_index: Int!
+    credits_cost: Int!
+    magnite_cost: Int!
+    bismor_cost: Int!
+    umanite_cost: Int!
+    croppa_cost: Int!
+    enor_pearl_cost: Int!
+    jadiz_cost: Int!
+    character: Character @belongsTo
+    gun: Gun @belongsTo
+    overclock_type: String!
+    patch_id: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Throwable {
+    id: ID!
+    name: String!
+    json_stats: String!
+    description: String
+    icon: String!
+    credits_cost: Int!
+    magnite_cost: Int!
+    bismor_cost: Int!
+    umanite_cost: Int!
+    croppa_cost: Int!
+    enor_pearl_cost: Int!
+    jadiz_cost: Int!
+    character: Character @belongsTo
+    patch_id: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Equipment {
+    id: ID!
+    name: String!
+    json_stats: String!
+    description: String
+    icon: String!
+    character: Character @belongsTo
+    eq_type: String!
+    patch_id: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type EquipmentMod {
+    id: ID!
+    mod_name: String!
+    json_stats: String!
+    description: String
+    icon: String!
+    mod_tier: Int!
+    mod_index: Int!
+    credits_cost: Int!
+    magnite_cost: Int!
+    bismor_cost: Int!
+    umanite_cost: Int!
+    croppa_cost: Int!
+    enor_pearl_cost: Int!
+    jadiz_cost: Int!
+    character: Character @belongsTo
+    equipment: Equipment @belongsTo
+    mod_type: String!
+    patch_id: Int!
     created_at: DateTime!
     updated_at: DateTime!
 }
