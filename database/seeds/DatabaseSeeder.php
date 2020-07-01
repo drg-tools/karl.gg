@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ModStatSeeder::class);
         $this->call(EquipmentSeeder::class);
         $this->call(EquipmentModSeeder::class);
+        $this->call(ThrowableSeeder::class);
     }
 }
