@@ -4,6 +4,7 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('mod') }}"><i class="la la-puzzle-piece nav-icon"></i> Mods</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('overclock') }}"><i class="la la-tachometer-alt nav-icon"></i> Overclocks</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('gun') }}"><i class="la la-rocket nav-icon"></i> Guns</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('equipment') }}"><i class="la la-tshirt nav-icon"></i> Equipment</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('loadout') }}"><i class="la la-address-card nav-icon"></i> Loadouts</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('character') }}"><i class="la la-running nav-icon"></i> Characters</a></li>
 <!-- Users, Roles, Permissions -->
