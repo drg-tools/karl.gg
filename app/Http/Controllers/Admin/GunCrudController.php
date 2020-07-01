@@ -63,6 +63,12 @@ class GunCrudController extends CrudController
             'label' => 'Gun Name',
             'type' => 'text',
         ]);
+        $this->crud->addField([
+            'name' => 'json_stats',
+            'label' => 'JSON Stats',
+            'type' => 'textarea',
+            'tab' => 'Stats',
+        ]);
         $this->crud->addField([   // select_from_array
             'name' => 'gun_class',
             'label' => 'Gun Class',
@@ -101,6 +107,12 @@ class GunCrudController extends CrudController
             'name' => 'name',
             'label' => 'Gun Name',
             'type' => 'text',
+        ]);
+        $this->crud->addField([
+            'name' => 'json_stats',
+            'label' => 'JSON Stats',
+            'type' => 'textarea',
+            'tab' => 'Stats',
         ]);
         $this->crud->addField([
             'name' => 'id',
