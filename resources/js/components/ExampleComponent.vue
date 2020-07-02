@@ -4,7 +4,7 @@
             <div v-if="loading">Loading...</div>
             <div v-else-if="data">
                 <ul>
-                    <li v-for="character in data.characters.data">{{ character.name }}</li>
+                    <li v-for="gun in data.guns.data">{{gun.name}}: {{ JSON.parse(gun.json_stats) }}</li>
                 </ul>
             </div>
         </template>
@@ -17,13 +17,13 @@
     export default {
         query: gql`
             query {
-                characters {
+                guns {
                     data {
-                        id
                         name
+                        json_stats
                     }
                 }
             }
-	`
+        `,
     }
 </script>

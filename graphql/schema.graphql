@@ -7,6 +7,8 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
+scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
+
 type Query {
     #    users: [User!]! @paginate(defaultCount: 10)
     #    user(id: ID @eq): User @find
@@ -69,13 +71,13 @@ type Gun {
     character: Character @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
-    json_stats: String!
+    json_stats: JSON!
 }
 
 type Mod {
     id: ID!
     mod_name: String!
-    json_stats: String!
+    json_stats: JSON!
     text_description: String
     icon: String!
     mod_tier: Int!
@@ -98,7 +100,7 @@ type Mod {
 type Overclock {
     id: ID!
     overclock_name: String!
-    json_stats: String!
+    json_stats: JSON!
     text_description: String
     icon: String!
     overclock_index: Int!
@@ -120,7 +122,7 @@ type Overclock {
 type Throwable {
     id: ID!
     name: String!
-    json_stats: String!
+    json_stats: JSON!
     description: String
     icon: String!
     credits_cost: Int!
@@ -139,7 +141,7 @@ type Throwable {
 type Equipment {
     id: ID!
     name: String!
-    json_stats: String!
+    json_stats: JSON!
     description: String
     icon: String!
     character: Character @belongsTo
@@ -152,7 +154,7 @@ type Equipment {
 type EquipmentMod {
     id: ID!
     mod_name: String!
-    json_stats: String!
+    json_stats: JSON!
     description: String
     icon: String!
     mod_tier: Int!
