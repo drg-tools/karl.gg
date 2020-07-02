@@ -29,7 +29,7 @@ class CreateOverclocksStatsTable extends Migration
             $table->string('text_description', 1000);
             $table->string('json_stats', 1000);
             $table->string('icon', 1000);
-            $table->bigInteger('patch_id');
+            $table->bigInteger('patch_number_index');
         });
     }
 

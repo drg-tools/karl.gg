@@ -30,7 +30,7 @@ class CreateModsStatsTable extends Migration
             $table->string('json_stats', 1000);
             $table->string('icon', 1000);
             $table->string('mod_type', 1000);
-            $table->unsignedBigInteger('patch_id');
+            $table->unsignedBigInteger('patch_number_index');
         });
     }
 
