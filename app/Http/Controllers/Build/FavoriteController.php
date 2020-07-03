@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
-
     /**
      * @param Request $request
      * @param Build $build
