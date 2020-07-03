@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use Illuminate\Database\Eloquent\Model;
 
 class Build extends Model
 {
-
     use Favoriteable;
 
     protected $guarded = [];

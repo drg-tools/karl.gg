@@ -51,8 +51,7 @@ class ProcessImgs extends Command
             foreach ($files as $file) {
 
                 // Remove all but "Upgrade"
-                if (!Str::contains($file->getFilename(), "Icon_Upgrade")) {
-
+                if (! Str::contains($file->getFilename(), 'Icon_Upgrade')) {
                     File::delete($file->getPathname());
                 } else {
                     $newName = Str::of($file->getFilename())
@@ -67,6 +66,5 @@ class ProcessImgs extends Command
         }
 
         // Normalize name
-
     }
 }

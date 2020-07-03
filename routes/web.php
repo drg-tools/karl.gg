@@ -25,7 +25,4 @@ Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('/', 'BuildController@index');
 Auth::routes();
 
-
-
 //Route::get('/home', 'HomeController@index')->name('home');
-
