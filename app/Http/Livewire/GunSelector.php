@@ -6,7 +6,6 @@ use Livewire\Component;
 
 class GunSelector extends Component
 {
-
     public $guns;
     public $selected;
     public $build;

@@ -9,6 +9,6 @@ $factory->define(Gun::class, function (Faker $faker) {
     return [
         'name' => 'Warthog Auth 210',
         'character_slot' => 1,
-        'character_id' => 1
+        'character_id' => 1,
     ];
 });
