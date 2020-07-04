@@ -1,10 +1,10 @@
 <template>
 	<div class="buttonContainer">
         <div class="button" v-on:click="onSaveClick">
-            <h3 class="buttonText">save</h3>
+            <h1 class="buttonText">SAVE</h1>
         </div>
         <div class="button" v-on:click="onShareClick">
-            <h3 class="buttonText">share</h3>
+            <h1 class="buttonText">SHARE</h1>
         </div>
     </div>
 </template>
@@ -23,7 +23,8 @@
 	};
 </script>
 
-<style scoped>
+<style>
+    /* todo: put these in global css */
     .buttonContainer {
         width: 100%;
         display: flex;
@@ -47,6 +48,7 @@
     }
 
     .buttonText {
+        color: #000000;
         font-size: 1.6rem;
         letter-spacing: 0.05rem;
         font-weight: bold;

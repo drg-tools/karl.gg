@@ -4,7 +4,8 @@
 
 @section('content')
 
-<h1>Preview</h1>
+    <preview-header></preview-header>
+    <loadout-preview></loadout-preview>
 
 @endsection
 

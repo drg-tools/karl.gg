@@ -19351,6 +19351,14 @@ h2 {
           margin-inline-end: 0px;
 }
 
+h3 {
+  color: #fc9e00;
+  display: block;
+  font-size: 1.4rem;
+  font-weight: normal;
+  font-family: BebasNeue, sans-serif;
+}
+
 h4 {
   display: block;
   font-weight: normal;

@@ -17,7 +17,7 @@
                             </svg>
                         </div>
                         <div>
-                            <svg class="{{ (\Request::is('browse')) || (\Request::is('overview')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
+                            <svg class="{{ (\Request::is('browse')) || (\Request::has('preview')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
                                 <a href="/browse">
                                 <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
                                 <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">BROWSE</text>
