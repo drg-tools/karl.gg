@@ -1,170 +1,95 @@
 <template>
     <div class="classSelectContainer">
-        <!-- todo: #move# this to loadout preview view -->
-        <div>
-            <div>{{characters}}</div>
-            <EquipmentCard :classId="'D'" :equipmentId="'P1'" :build="'ACBCA1'"></EquipmentCard>
+        <h1>Select class:</h1>
+        <div v-on:click="selectClass('D')" class="classSelect"
+             :class="[selectedClass === 'D' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-D_icon-hex.png" class="classIcon"/>
+            <h2>Driller</h2>
         </div>
-        <!-- todo: #move# -->
-        <ClassComponent :classId="'D'" :name="'Driller'"/>
-        <ClassComponent :classId="'E'" :name="'Engineer'"/>
-        <ClassComponent :classId="'G'" :name="'Gunner'"/>
-        <ClassComponent :classId="'S'" :name="'Scout'"/>
-        <ClassComponent :classId="'R'" :name="'Robots'"/>
+        <div v-on:click="selectClass('E')" class="classSelect"
+             :class="[selectedClass === 'E' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-E_icon-hex.png" class="classIcon"/>
+            <h2>Engineer</h2>
+        </div>
+        <div v-on:click="selectClass('G')" class="classSelect"
+             :class="[selectedClass === 'G' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-G_icon-hex.png" class="classIcon"/>
+            <h2>Gunner</h2>
+        </div>
+        <div v-on:click="selectClass('S')" class="classSelect"
+             :class="[selectedClass === 'S' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-S_icon-hex.png" class="classIcon"/>
+            <h2>Scout</h2>
+        </div>
     </div>
 </template>
 
-<!--
-todo: query examples (http://localhost:8000/graphql-playground)
-
-get characters
-{
-  characters {
-        data {
-            id
-            name
-        }
-    }
-}
-
-get character
-{
-    character(id: 1) {
-        id
-        name
-    }
-}
-
-get guns
-{
-	guns {
-        data {
-            id
-            name
-            gun_class
-            character_slot
-            character {
-            	id
-            	name
-            }
-        }
-    }
-}
-
-get gun
-{
-    gun(id: 1) {
-        id
-        name
-        gun_class
-        character_slot
-        character {
-            id
-            name
-        }
-    }
-}
-
-get all equipment for character
-???
-
-get mods for equipment
-???
--->
-
 <script>
-    import ClassComponent from './ClassComponent.vue';
-    import EquipmentCard from './EquipmentCard.vue';
-    import gql from 'graphql-tag';
+    import store from '../store';
 
     export default {
         name: 'ClassSelect',
-        components: {
-            ClassComponent,
-            EquipmentCard
-        },
-        computed: {},
-        methods: {
-            async getCharacters() {
-                console.time('getCharacters');
-                const response = await this.$apollo.query({
-                    query: gql`query {
-                      characters {
-                            data {
-                                id
-                                name
-                            }
-                        }
-                    }`
-                });
-                console.log(response.data.characters);
-                console.timeEnd('getCharacters');
-                return response.data.characters;
-            },
-            async getWeapons() {
-                console.time('getWeapons');
-                const response = await this.$apollo.query({
-                    query: gql`query {
-                      characters {
-                            data {
-                                id
-                                name
-                            }
-                        }
-                    }`
-                });
-                console.log(response.data.characters);
-                console.timeEnd('getWeapons');
-                return response.data.characters;
+        computed: {
+            selectedClass: function () {
+                return store.state.loadout.selectedClassId;
             }
         },
-        /* todo: examples to test api */
-        apollo: {
-            characters: gql`query {
-              characters {
-                    data {
-                        id
-                        name
-                    }
-                }
-            }`
+        methods: {
+            selectClass: function (classId) {
+                console.log('select', classId);
+                store.commit('selectLoadoutClass', {classId: classId});
+            }
         },
         mounted: function () {
-            /* todo: examples to test api */
-            /*fetch('/api/characters')
-            .then(response => response.json())
-            // .then(data => this.characters = data)
-            .then(data => console.log('characters', data));
-
-            fetch('/api/builds')
-            .then(response => response.json())
-            // .then(data => this.characters = data)
-            .then(data => console.log('builds', data));
-
-            fetch('/api/guns')
-            .then(response => response.json())
-            .then(data => console.log('guns', data));
-
-            fetch('/api/guns/2/mods')
-            .then(response => response.json())
-            .then(data => console.log('guns/2/mods', data));*/
-
-            console.log(this.$apollo.queries.characters);
-
-            this.getCharacters().then(data => {
-                console.log(data.data)
-            });
-
+            console.log('class select mounted');
+            console.log(store.state);
         }
     };
 </script>
 
-<style>
+<style scoped>
     .classSelectContainer {
-        display: flex;
-        flex-wrap: wrap;
         border-top: 5px solid #fc9e00;
-        background-color: #352e1e;
-        margin-bottom: 0.5rem;
+        display: flex;
+
+    }
+
+    .classSelectContainer > h1 {
+        margin: 0;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-right: 2rem
+    }
+
+    .classSelect {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .classSelect:hover {
+        background: #fc9e00;
+    }
+
+    .classSelect > h2 {
+        color: #ADA195;
+        padding-left: 1rem;
+        padding-right: 2rem;
+        margin-block-start: 0;
+        margin-block-end: 0;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+    }
+
+    .classSelect > img {
+        opacity: 0.4;
+    }
+
+    .classSelectActive > h2 {
+        color: #ffffff;
+    }
+
+    .classSelectActive > img {
+        opacity: 1;
     }
 </style>

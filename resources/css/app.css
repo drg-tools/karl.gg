@@ -127,7 +127,7 @@ svg > a:hover {
 }
 
 .navButton:hover path {
-    stroke: rgb(252, 158, 0);
+    stroke: rgb(255, 255, 255);
 }
 .navButton:hover text {
     fill: rgb(255, 255, 255);
@@ -142,6 +142,33 @@ svg > a:hover {
 
 .footerBorder {
     border-top: 5px solid rgb(252, 158, 0)
+}
+
+.allCaps {
+    text-transform: uppercase;
+}
+
+.defaultBackground {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.costList {
+    display: flex;
+    flex-wrap: wrap;
+    color: #fffbff;
+}
+
+.costListItem {
+    display: flex;
+    align-items: center;
+}
+
+.costListItem > img {
+    padding-right: 0.2rem;
+}
+
+.costListItem > span {
+    padding-right: 0.6rem;
 }
 
 ::-webkit-scrollbar-button {

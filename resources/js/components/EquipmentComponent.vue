@@ -1,5 +1,5 @@
 <template>
-    <div class="weaponSelectContainer" v-on:click="selectEquip()" :title="[getModified ? 'Equipment is modified' : '']">
+    <div class="weaponSelectContainer" v-on:click="selectEquipment()">
         <div class="flexboxWeaponSelect" :class="[getSelected ? 'equipmentActive' : 'equipment']">
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 180 90"
@@ -8,12 +8,12 @@
                  preserveAspectRatio="xMidYMid meet"
                  v-html="getIconFromPath"></svg>
         </div>
-        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']">
-            <h4>{{ name }}<span v-if="getModified"> *</span></h4>
+        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']" v-if="equipmentNameVisible">
+            <h4>{{ name }}</h4>
         </div>
     </div>
 </template>
-
+<!-- todo: differentiate selected primary and secondary weapons visibly hide text from not-selected weapon atm -->
 <script>
     import store from '../store';
 
@@ -35,21 +35,21 @@
                 return store.state.icons[aPath[0]][aPath[1]];
             },
             getSelected: function () {
-                return this.data.selected;
+                return store.state.loadout.selectedEquipmentId === this.equipmentId;
             },
-            getModified: function () {
-                return store.state.tree[this.classId][this.equipmentId].modified;
+            equipmentNameVisible: function () {
+                if (this.equipmentId.includes("P")) {
+                    return store.state.loadout.chosenPrimaryId === this.equipmentId;
+                } else if (this.equipmentId.includes("S")) {
+                    return store.state.loadout.chosenSecondaryId === this.equipmentId;
+                }
+                return true;
             }
         },
         methods: {
-            selectEquip() {
-                store.commit('selectEquipment', {
-                    classID: this.classId,
-                    equipID: this.equipmentId
-                });
-                store.commit('deSelectOtherEquipments', {
-                    classID: this.classId,
-                    equipID: this.equipmentId
+            selectEquipment() {
+                store.commit('selectLoadoutEquipment', {
+                    equipmentId: this.equipmentId
                 });
             }
         }
@@ -57,8 +57,47 @@
 </script>
 
 <style scoped>
+    /* todo: proper styles for this stuff, it's messy atm */
     h4 {
         white-space: nowrap;
+    }
+
+    .equipmentActive {
+        background-color: #fc9e00;
+        color: #352e1e;
+    }
+
+    .equipment {
+        background-color: #5b402d;
+        color: #352e1e;
+    }
+
+    .equipmentIcon {
+        fill: #ada195;
+    }
+
+    .equipmentIconActive {
+        fill: #fffbff;
+    }
+
+    .equipmentText {
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #352e1e;
+        color: #ada195;
+    }
+
+    .equipmentTextActive {
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #010103;
+        color: #fffbff;
     }
 
     .weaponSelectContainer {
@@ -77,7 +116,7 @@
     .flexboxWeaponSelect {
         display: flex;
         align-items: center;
-        height: 5rem;
+        height: 4rem;
     }
 
     .flexboxWeaponSelect > svg {

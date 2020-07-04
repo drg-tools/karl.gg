@@ -131,6 +131,12 @@ export default new Vuex.Store({
 	state: {
 		loadedFromLink: false,
 		loadedOverclockFromLink: false,
+        loadout: {
+		    selectedClassId: "D",
+            selectedEquipmentId: "P1",
+            chosenPrimaryId: "P1",
+            chosenSecondaryId: "S1",
+        },
 		selected: {
 			class: "D",
 			equipment: "P1",
@@ -280,6 +286,20 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
+        selectLoadoutClass: (state, indices) => {
+            state.loadout.selectedClassId = indices.classId
+        },
+        selectLoadoutEquipment: (state, indices) => {
+            state.loadout.selectedEquipmentId = indices.equipmentId;
+            if (indices.equipmentId.includes("P")) {
+                state.loadout.chosenPrimaryId = indices.equipmentId;
+            } else if (indices.equipmentId.includes("S")) {
+                state.loadout.chosenSecondaryId = indices.equipmentId;
+            }
+        },
+        /* todo: new select for mods and ocs */
+
+	    /* old store mutations */
 		selectClass: (state, indizes) => {
 			state.selected.class = indizes.classID;
 			let selectedEquipmentId = state.selected.equipment;

@@ -224,10 +224,10 @@
 		name: "ModificationSelect",
 		computed: {
 			selectedClassId: function() {
-				return store.state.selected.class;
+				return store.state.loadout.selectedClassId;
 			},
 			selectedEquipmentId: function() {
-				return store.state.selected.equipment;
+				return store.state.loadout.selectedEquipmentId;
 			},
 			availableMods: function() {
 				return store.state.tree[this.selectedClassId][this.selectedEquipmentId].mods;
@@ -315,7 +315,7 @@
 				return store.state.icons.mods[iconPath];
 			},
 			getSelectedOverclockIcon: function(state) {
-				let overclocks = state.tree[state.selected.class][state.selected.equipment].overclocks;
+				let overclocks = state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
 				let dataParts = state.dataParts[state.selected.class];
 				if (!state || !dataParts) {
 					return "";
@@ -328,7 +328,7 @@
 				return selectedOverclock ? state.icons.mods[selectedOverclock.icon] : "";
 			},
 			getSelectedOverclockClass: function(state) {
-				let overclocks = state.tree[state.selected.class][state.selected.equipment].overclocks;
+				let overclocks = state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
 				let dataParts = state.dataParts[state.selected.class];
 				if (!state || !dataParts) {
 					return "clean";
@@ -341,7 +341,8 @@
 				return selectedOverclock ? selectedOverclock.type : "clean";
 			},
 			getOverclocksAvailable: function(state) {
-				let overclocks = state.tree[state.selected.class][state.selected.equipment].overclocks;
+
+				let overclocks = state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
 				return !overclocks ? "displayNone" : "";
 			},
 			getCleanDisplay: function(state) {

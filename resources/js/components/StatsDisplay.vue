@@ -139,9 +139,11 @@
 		let magazineDamage = dpsStats.damage * dpsStats.magazineSize;
 		let damagePerSecond = magazineDamage / damageTime;
 
+        let weakpointDamage = (dpsStats.damage * (1 + (dpsStats.weakPoint / 100))).toFixed(2)
+        console.log("calculate wpd for default equipment", weakpointDamage ? weakpointDamage : undefined);
 		return {
 			tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
-			wpd: (dpsStats.damage * (1 + (dpsStats.weakPoint / 100))).toFixed(2),
+			wpd: isNaN(weakpointDamage) ? undefined : weakpointDamage,
 			dps: parseFloat(damagePerSecond).toFixed(2),
 			dpm: magazineDamage,
 			dpa: dpsStats.damage * (dpsStats.maxAmmo)
@@ -255,10 +257,10 @@
 		name: "StatsDisplay",
 		computed: {
 			selectedClassId: function() {
-				return store.state.selected.class;
+				return store.state.loadout.selectedClassId;
 			},
 			selectedEquipmentId: function() {
-				return store.state.selected.equipment;
+				return store.state.loadout.selectedEquipmentId;
 			},
 			equipment: function() {
 				return store.state.tree[this.selectedClassId][this.selectedEquipmentId];

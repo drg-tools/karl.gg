@@ -210,7 +210,7 @@
     };
 </script>
 
-<style>
+<!--<style>
     /*todo: only three different font sizes!*/
     /*todo: web fonts*/
 
@@ -449,4 +449,4 @@
         width: 12px;
         height: 12px;
     }
-</style>
+</style>-->
