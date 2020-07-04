@@ -40,7 +40,6 @@
         name: 'LoadoutCard',
         props: {
             loadoutId: String,
-            iconPath: String,
             name: String,
             author: String,
             classId: String,
@@ -51,9 +50,7 @@
         components: {},
         computed: {
             getIconFromPath: function () {
-                console.log(this);
-                console.log(this.iconPath);
-                return `../assets/img/${this.iconPath}`;
+                return `../assets/img/50px-${this.classId}_icon.png`;
             },
             getPrimaryIcon: function () {
                 return store.state.icons.equipment[`${this.classId}_${this.primary}`];

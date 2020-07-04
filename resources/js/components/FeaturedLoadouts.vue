@@ -18,7 +18,6 @@
                     v-for="(loadout, id) in popularDrillerLoadouts"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
-                    :iconPath="loadout.iconPath"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
@@ -31,7 +30,6 @@
                     v-for="(loadout, id) in popularEngineerLoadouts"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
-                    :iconPath="loadout.iconPath"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
@@ -44,7 +42,6 @@
                     v-for="(loadout, id) in popularGunnerLoadouts"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
-                    :iconPath="loadout.iconPath"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
@@ -57,7 +54,6 @@
                     v-for="(loadout, id) in popularScoutLoadouts"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
-                    :iconPath="loadout.iconPath"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
@@ -85,7 +81,6 @@
                 return [
                     {
                         loadoutId: "111111",
-                        iconPath: '50px-Driller_icon.png',
                         name: 'Karl\'s Freezer Build',
                         author: 'Karl_21347',
                         classId: 'D',
@@ -96,7 +91,6 @@
                     },
                     {
                         loadoutId: "222222",
-                        iconPath: '50px-Driller_icon.png',
                         name: 'Karl\'s Flamer Build',
                         author: 'Karl_21347',
                         classId: 'D',
@@ -107,7 +101,6 @@
                     },
                     {
                         loadoutId: "333333",
-                        iconPath: '50px-Gunner_icon.png',
                         name: 'pew pew pew',
                         author: 'redguy',
                         classId: 'G',
@@ -118,7 +111,6 @@
                     },
                     {
                         loadoutId: "444444",
-                        iconPath: '50px-Engineer_icon.png',
                         name: 'cheese party',
                         author: 'turret-master_666',
                         classId: 'E',

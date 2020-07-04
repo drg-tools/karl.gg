@@ -1,10 +1,29 @@
 <template>
     <div class="table">
         <!-- todo: custom filter by class -->
+        <div class="classFilterContainer">
+            <h1>Filter by class:</h1>
+            <div v-on:click="toggleFilter('D')" class="classFilter" :class="[classFilter.D ? 'classFilterActive' : '']">
+                <img src="../assets/img/50px-D_icon-hex.png" class="classIcon"/>
+                <h2>Driller</h2>
+            </div>
+            <div v-on:click="toggleFilter('E')" class="classFilter" :class="[classFilter.E ? 'classFilterActive' : '']">
+                <img src="../assets/img/50px-E_icon-hex.png" class="classIcon"/>
+                <h2>Engineer</h2>
+            </div>
+            <div v-on:click="toggleFilter('G')" class="classFilter" :class="[classFilter.G ? 'classFilterActive' : '']">
+                <img src="../assets/img/50px-G_icon-hex.png" class="classIcon"/>
+                <h2>Gunner</h2>
+            </div>
+            <div v-on:click="toggleFilter('S')" class="classFilter" :class="[classFilter.S ? 'classFilterActive' : '']">
+                <img src="../assets/img/50px-S_icon-hex.png" class="classIcon"/>
+                <h2>Scout</h2>
+            </div>
+        </div>
         <vue-good-table
             @on-row-click="onRowClick"
             :columns="columns"
-            :rows="rows"
+            :rows="tableData"
             :sort-options="{
                 enabled: true,
                 initialSortBy: {field: 'salutes', type: 'desc'}
@@ -32,6 +51,12 @@
         },
         data() {
             return {
+                classFilter: {
+                    D: true,
+                    E: true,
+                    G: true,
+                    S: true
+                },
                 columns: [
                     {
                         label: 'Class',
@@ -80,7 +105,6 @@
                 rows: [
                     {
                         loadoutId: '111111',
-                        iconPath: '50px-Driller_icon.png',
                         name: 'Karl\'s Freezer Build',
                         author: 'Karl_21347',
                         classId: 'D',
@@ -91,7 +115,6 @@
                     },
                     {
                         loadoutId: '222222',
-                        iconPath: '50px-Driller_icon.png',
                         name: 'Karl\'s Flamer Build',
                         author: 'Karl_21347',
                         classId: 'D',
@@ -102,7 +125,6 @@
                     },
                     {
                         loadoutId: '333333',
-                        iconPath: '50px-Gunner_icon.png',
                         name: 'pew pew pew',
                         author: 'redguy',
                         classId: 'G',
@@ -113,7 +135,6 @@
                     },
                     {
                         loadoutId: '444444',
-                        iconPath: '50px-Engineer_icon.png',
                         name: 'cheese party',
                         author: 'turret-master_666',
                         classId: 'E',
@@ -125,11 +146,20 @@
                 ]
             };
         },
-        computed: {},
+        computed: {
+            tableData: function () {
+                console.log('table data with filters', this.classFilter);
+                return this.rows.filter(row => this.classFilter[row.classId]);
+            }
+        },
         methods: {
             onRowClick: function (params) {
                 console.log('nav to preview', params.row.classId, params.row.loadoutId);
                 window.location.href = `${window.location.origin}/preview/${params.row.loadoutId}`;
+            },
+            toggleFilter: function (classId) {
+                console.log('toggle filter', classId);
+                Vue.set(this.classFilter, classId, !this.classFilter[classId]);
             },
             getClassIcon: function (rowObj) {
                 let classId = rowObj.classId;
@@ -161,6 +191,49 @@
 
 <style>
     /* todo: move non scoped styles into global css*/
+    .classFilterContainer {
+        border-top: 5px solid #fc9e00;
+        display: flex;
+    }
+
+    .classFilterContainer > h1 {
+        margin: 0;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-right: 2rem
+    }
+
+    .classFilter {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .classFilter:hover {
+        background: #fc9e00;
+    }
+
+    .classFilter > h2 {
+        color: #ADA195;
+        padding-left: 1rem;
+        padding-right: 2rem;
+        margin-block-start: 0;
+        margin-block-end: 0;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+    }
+
+    .classFilter > img {
+        opacity: 0.4;
+    }
+
+    .classFilterActive > h2 {
+        color: #ffffff;
+    }
+
+    .classFilterActive > img {
+        opacity: 1;
+    }
 
     table.vgt-table {
         border: none;
@@ -229,6 +302,7 @@
         background-color: #4d422e;
         color: #fffbff;
         border-color: #fc9e00;
+        border-radius: 0;
     }
 
     .vgt-input:focus {
