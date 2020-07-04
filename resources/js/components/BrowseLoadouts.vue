@@ -1,11 +1,17 @@
 <template>
     <div class="table">
+        <!-- todo: custom filter by class -->
         <vue-good-table
+            @on-row-click="onRowClick"
             :columns="columns"
             :rows="rows"
             :sort-options="{
                 enabled: true,
                 initialSortBy: {field: 'salutes', type: 'desc'}
+            }"
+            :search-options="{
+                enabled: true,
+                placeholder: 'Search Loadouts',
             }"
             styleClass="vgt-table"
             :fixed-header="true"/>
@@ -73,6 +79,7 @@
                 ],
                 rows: [
                     {
+                        loadoutId: '111111',
                         iconPath: '50px-Driller_icon.png',
                         name: 'Karl\'s Freezer Build',
                         author: 'Karl_21347',
@@ -83,6 +90,7 @@
                         lastUpdate: '2020-02-15'
                     },
                     {
+                        loadoutId: '222222',
                         iconPath: '50px-Driller_icon.png',
                         name: 'Karl\'s Flamer Build',
                         author: 'Karl_21347',
@@ -93,6 +101,7 @@
                         lastUpdate: '2020-02-14'
                     },
                     {
+                        loadoutId: '333333',
                         iconPath: '50px-Gunner_icon.png',
                         name: 'pew pew pew',
                         author: 'redguy',
@@ -103,6 +112,7 @@
                         lastUpdate: '2020-06-01'
                     },
                     {
+                        loadoutId: '444444',
                         iconPath: '50px-Engineer_icon.png',
                         name: 'cheese party',
                         author: 'turret-master_666',
@@ -117,6 +127,10 @@
         },
         computed: {},
         methods: {
+            onRowClick: function (params) {
+                console.log('nav to preview', params.row.classId, params.row.loadoutId);
+                window.location.href = `${window.location.origin}/preview/${params.row.loadoutId}`;
+            },
             getClassIcon: function (rowObj) {
                 let classId = rowObj.classId;
                 return `<img src="../assets/img/50px-${classId}_icon-hex.png" class="classIcon"/>`;
@@ -159,6 +173,10 @@
         font-family: BebasNeue, sans-serif;
     }
 
+    table.vgt-table thead tr {
+        border-bottom: 3px solid #4d422e;
+    }
+
     table.vgt-table th {
         border: 1px solid #fc9e00
     }
@@ -185,20 +203,45 @@
         fill: #ADA195;
     }
 
-    table.vgt-table tr:hover {
+    table.vgt-table tr.clickable:hover {
         background-color: #fc9e00;
     }
 
-    table.vgt-table tr:hover svg {
+    table.vgt-table tr.clickable:hover svg {
         fill: #ffffff;
     }
 
     table.vgt-table thead th.sorting-desc:before {
-        border-top: 5px solid #ffffff;
+        border-top: 5px solid #000000;
     }
 
     table.vgt-table thead th.sorting-asc:after {
-        border-bottom: 5px solid #ffffff;
+        border-bottom: 5px solid #000000;
+    }
+
+    .vgt-global-search {
+        border: none;
+        margin-bottom: 1rem;
+        background: #fc9e00;
+    }
+
+    .vgt-input {
+        background-color: #4d422e;
+        color: #fffbff;
+        border-color: #fc9e00;
+    }
+
+    .vgt-input:focus {
+        border-color: #fffbff;
+    }
+
+    .vgt-input::placeholder {
+        color: #fffbff;
+        opacity: 0.6;
+    }
+
+    .input__icon {
+        border-color: #ADA195
     }
 
 

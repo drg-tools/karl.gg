@@ -336,9 +336,9 @@
 
 <style scoped>
 	h2 {
-		text-transform: uppercase;
-		font-size: 1rem;
-		font-weight: normal;
+		/*text-transform: uppercase;*/
+		/*font-size: 1rem;*/
+		/*font-weight: normal;*/
 		margin-top: 1.5rem;
 		margin-bottom: 0.5rem;
 	}

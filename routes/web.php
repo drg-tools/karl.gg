@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::view('browse', 'loadouts.browse');
-Route::view('overview', 'loadouts.overview');
+Route::view('preview/{loadoutId}', 'loadouts.preview');
 Route::resource('loadouts', 'LoadoutController')->only(['index', 'show']);
 Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('/', 'LoadoutController@index');

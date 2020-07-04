@@ -19318,8 +19318,12 @@ body {
 }
 
 h1 {
+  color: #fc9e00;
   display: block;
-  font-size: 2em;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  font-family: BebasNeue, sans-serif;
   -webkit-margin-before: 0.67em;
           margin-block-start: 0.67em;
   -webkit-margin-after: 0.67em;
@@ -19328,12 +19332,15 @@ h1 {
           margin-inline-start: 0px;
   -webkit-margin-end: 0px;
           margin-inline-end: 0px;
-  font-weight: bold;
 }
 
 h2 {
+  color: #fffbff;
   display: block;
-  font-size: 1.5em;
+  font-size: 1.6rem;
+  letter-spacing: 0.05rem;
+  font-weight: normal!important;
+  font-family: BebasNeue, sans-serif;
   -webkit-margin-before: 0.83em;
           margin-block-start: 0.83em;
   -webkit-margin-after: 0.83em;
@@ -19342,12 +19349,12 @@ h2 {
           margin-inline-start: 0px;
   -webkit-margin-end: 0px;
           margin-inline-end: 0px;
-  font-weight: bold;
-  color: #fffbff;
 }
 
 h4 {
   display: block;
+  font-weight: normal;
+  font-family: BebasNeue, sans-serif;
   -webkit-margin-before: 1.33em;
           margin-block-start: 1.33em;
   -webkit-margin-after: 1.33em;
@@ -19356,7 +19363,6 @@ h4 {
           margin-inline-start: 0px;
   -webkit-margin-end: 0px;
           margin-inline-end: 0px;
-  font-weight: bold;
 }
 
 span {
@@ -19443,6 +19449,10 @@ svg > a:hover {
 
 .navButtonActive text {
   fill: rgb(255, 255, 255);
+}
+
+.footerBorder {
+  border-top: 5px solid rgb(252, 158, 0)
 }
 
 ::-webkit-scrollbar-button {

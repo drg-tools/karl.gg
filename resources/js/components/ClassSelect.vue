@@ -1,6 +1,6 @@
 <template>
     <div class="classSelectContainer">
-        <!-- todo: #move# this to loadout overview view -->
+        <!-- todo: #move# this to loadout preview view -->
         <div>
             <div>{{characters}}</div>
             <EquipmentCard :classId="'D'" :equipmentId="'P1'" :build="'ACBCA1'"></EquipmentCard>
