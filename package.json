@@ -37,6 +37,7 @@
         "graphql-anywhere": "^4.2.7",
         "lz-string": "^1.4.4",
         "vue-apollo": "^3.0.3",
+        "vue-good-table": "^2.19.5",
         "vue-js-popover": "^1.2.1",
         "vue-toasted": "^1.1.28",
         "vuex": "^3.4.0"

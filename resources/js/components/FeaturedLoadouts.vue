@@ -32,28 +32,41 @@
                         iconPath: '50px-Driller_icon.png',
                         name: 'Karl\'s Freezer Build',
                         author: 'Karl_21347',
-                        classId: "D",
+                        classId: 'D',
                         salutes: 47,
                         primary: 'P2_Cryo',
-                        secondary: 'S1_Subata'
+                        secondary: 'S1_Subata',
+                        lastUpdate: new Date('2020-02-15')
+                    },
+                    {
+                        iconPath: '50px-Driller_icon.png',
+                        name: 'Karl\'s Flamer Build',
+                        author: 'Karl_21347',
+                        classId: 'D',
+                        salutes: 43,
+                        primary: 'P1_CRSPR',
+                        secondary: 'S2_Plasma',
+                        lastUpdate: new Date('2020-02-14')
                     },
                     {
                         iconPath: '50px-Gunner_icon.png',
                         name: 'pew pew pew',
                         author: 'redguy',
-                        classId: "G",
+                        classId: 'G',
                         salutes: 22,
                         primary: 'P1_Lead',
-                        secondary: 'S1_Bulldog'
+                        secondary: 'S1_Bulldog',
+                        lastUpdate: new Date('2020-06-01')
                     },
                     {
                         iconPath: '50px-Engineer_icon.png',
                         name: 'cheese party',
                         author: 'turret-master_666',
-                        classId: "E",
+                        classId: 'E',
                         salutes: 21,
                         primary: 'P1_Warthog',
-                        secondary: 'S1_PGL'
+                        secondary: 'S1_PGL',
+                        lastUpdate: new Date('2020-04-02')
                     }
                 ];
             }

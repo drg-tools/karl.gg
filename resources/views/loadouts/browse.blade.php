@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>browse</h1>
+    <browse-loadouts></browse-loadouts>
 
 @endsection
 
