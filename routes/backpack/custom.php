@@ -16,6 +16,9 @@ Route::group([
     Route::crud('patch', 'PatchCrudController');
     Route::crud('overclock', 'OverclockCrudController');
     Route::crud('gun', 'GunCrudController');
+    Route::crud('equipment', 'EquipmentCrudController');
+    Route::crud('equipment-mod', 'EquipmentModCrudController');
+    Route::crud('throwable', 'ThrowableCrudController');
     Route::crud('loadout', 'LoadoutCrudController');
     Route::crud('character', 'CharacterCrudController');
 }); // this should be the absolute last line of this file

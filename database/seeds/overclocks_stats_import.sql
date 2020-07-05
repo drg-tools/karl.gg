@@ -1,4 +1,4 @@
-INSERT INTO `overclocks` (`id`, `character_id`, `gun_id`, `overclock_type`, `overclock_index`, `overclock_name`, `credits_cost`, `magnite_cost`, `bismor_cost`, `umanite_cost`, `croppa_cost`, `enor_pearl_cost`, `jadiz_cost`, `text_description`, `json_stats`, `icon`, `patch_number_index`)
+INSERT INTO `overclocks` (`id`, `character_id`, `gun_id`, `overclock_type`, `overclock_index`, `overclock_name`, `credits_cost`, `magnite_cost`, `bismor_cost`, `umanite_cost`, `croppa_cost`, `enor_pearl_cost`, `jadiz_cost`, `text_description`, `json_stats`, `icon`, `patch_id`)
 VALUES
 (NULL, 3, 9, 'Clean', 1, 'Lighter Tanks', 7500, 0, 125, 90, 75, 0, 0, '+75 Max Fuel', '{ "ammo": { "name": "Max Fuel", "value": 75 } }', 'Icon_Upgrade_Ammo', 3),
 (NULL, 3, 9, 'Clean', 2, 'Sticky Additive', 8250, 100, 80, 0, 0, 0, 130, '+1 Damage per Particle, +1 sec Sticky Flame duration', '{ "dmg": { "name": "Damage", "value": 1 }, "ex4": { "name": "Sticky Flame Duration", "value": 1 } }', 'Icon_Upgrade_Duration', 3),
