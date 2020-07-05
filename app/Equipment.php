@@ -10,7 +10,7 @@ class Equipment extends Model
 {
     use Filterable, CrudTrait;
     protected $table = 'equipment';
-    
+
     public function character()
     {
         return $this->belongsTo(Character::class);
