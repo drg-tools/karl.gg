@@ -188,7 +188,7 @@ type Loadout {
     description: String!
     character: Character @belongsTo
     user: User @belongsTo
-    mods: [Mod!] @hasMany
+    mods: [Mod!]! @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!
 }

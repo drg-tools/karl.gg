@@ -25,7 +25,7 @@ class Loadout extends Model
 
     public function guns()
     {
-        return $this->hasMany(Gun::class);
+        return $this->belongsToMany(Gun::class);
     }
 
     public function mods()
