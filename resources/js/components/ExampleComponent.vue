@@ -4,8 +4,8 @@
             <!-- <div v-if="loading">Loading...</div> -->
             <div>
                 <ul>
-                    <!-- <li v-for="(gun,gunId) in getGuns" v-bind:key="gunId">Hello {{ gun.json_stats[0].dmg }}</li> -->
-                    {{ getGuns() }}
+                    <li v-for="(gun, gunId) in getGuns()" v-bind:key="gunId">Hello {{ gun.json_stats[0].dmg }}</li>
+                    <!-- {{ getGuns() }} -->
                 </ul>
             </div>
         <!-- </template> -->
@@ -26,7 +26,7 @@
                 }
             }
         `,
-        computed: {
+        methods: {
             getGuns() {
                 console.time('getGuns');
                 const response = this.$apollo.query({
@@ -39,14 +39,8 @@
                         }
                    }`
                 }).then(response => {
-                    let guns = response.data.guns.data.map(gun => {
-                        gun.json_stats = JSON.parse(gun.json_stats)
-                        return gun
-                    });
-                    console.log(response.data.guns);
-                    console.log(guns);
-                    console.timeEnd('getGuns');
-                    return guns;
+                    console.log(response.data.guns.data)
+                    return response.data.guns.data;
                 });
                 
             },
