@@ -10,7 +10,6 @@
                     :name="equipment.name"
                     :classId="'D'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="secondariesContainer">
@@ -21,7 +20,6 @@
                     :name="equipment.name"
                     :classId="'D'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="equipmentContainer">
@@ -32,7 +30,6 @@
                     :name="equipment.name"
                     :classId="'D'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
         </div>
@@ -46,7 +43,6 @@
                     :name="equipment.name"
                     :classId="'E'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="secondariesContainer">
@@ -57,7 +53,6 @@
                     :name="equipment.name"
                     :classId="'E'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="equipmentContainer">
@@ -68,9 +63,7 @@
                     :name="equipment.name"
                     :classId="'E'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
-                <!-- todo: remove data! -->
             </div>
         </div>
         <!-- gunner -->
@@ -83,7 +76,6 @@
                     :name="equipment.name"
                     :classId="'G'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="secondariesContainer">
@@ -94,7 +86,6 @@
                     :name="equipment.name"
                     :classId="'G'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="equipmentContainer">
@@ -105,7 +96,6 @@
                     :name="equipment.name"
                     :classId="'G'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
         </div>
@@ -119,7 +109,6 @@
                     :name="equipment.name"
                     :classId="'S'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="secondariesContainer">
@@ -130,7 +119,6 @@
                     :name="equipment.name"
                     :classId="'S'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
             <div class="equipmentContainer">
@@ -141,7 +129,6 @@
                     :name="equipment.name"
                     :classId="'S'"
                     :equipmentId="equipmentId"
-                    :data="equipment"
                 />
             </div>
         </div>

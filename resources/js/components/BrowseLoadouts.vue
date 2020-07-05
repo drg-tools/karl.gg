@@ -52,10 +52,10 @@
         data() {
             return {
                 classFilter: {
-                    D: true,
-                    E: true,
-                    G: true,
-                    S: true
+                    D: false,
+                    E: false,
+                    G: false,
+                    S: false
                 },
                 columns: [
                     {
@@ -149,7 +149,12 @@
         computed: {
             tableData: function () {
                 console.log('table data with filters', this.classFilter);
-                return this.rows.filter(row => this.classFilter[row.classId]);
+                let filterby = Object.values(this.classFilter).filter(value => !!value);
+                if (filterby.length > 0) {
+                    return this.rows.filter(row => this.classFilter[row.classId]);
+                } else {
+                    return this.rows;
+                }
             }
         },
         methods: {

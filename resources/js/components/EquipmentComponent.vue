@@ -4,11 +4,11 @@
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 180 90"
                  :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']"
-                 height="70%"
+                 :height="equipmentNameVisible ? '70%' : '50%'"
                  preserveAspectRatio="xMidYMid meet"
                  v-html="getIconFromPath"></svg>
         </div>
-        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']" v-if="equipmentNameVisible">
+        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"><!-- v-if="equipmentNameVisible"-->
             <h4>{{ name }}</h4>
         </div>
     </div>
@@ -23,8 +23,7 @@
             iconPath: String,
             name: String,
             classId: String,
-            equipmentId: String,
-            data: Object
+            equipmentId: String
         },
         computed: {
             getIconFromPath: function () {

@@ -243,6 +243,7 @@
 			}
 		},
 		methods: {
+		    /* todo: new selection logic, based on backend data structure */
 			selectMod(classId, equipmentId, tierId, modId, selected) {
 				if (selected) {
 					store.commit("deSelectAllModifications", {
