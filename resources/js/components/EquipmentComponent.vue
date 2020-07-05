@@ -9,7 +9,7 @@
                  v-html="getIconFromPath"></svg>
         </div>
         <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"><!-- v-if="equipmentNameVisible"-->
-            <h4>{{ name }}</h4>
+            <h4 :class="[equipmentNameVisible ? 'largeText' : '']">{{ name }}</h4>
         </div>
     </div>
 </template>
@@ -37,9 +37,9 @@
                 return store.state.loadout.selectedEquipmentId === this.equipmentId;
             },
             equipmentNameVisible: function () {
-                if (this.equipmentId.includes("P")) {
+                if (this.equipmentId.includes('P')) {
                     return store.state.loadout.chosenPrimaryId === this.equipmentId;
-                } else if (this.equipmentId.includes("S")) {
+                } else if (this.equipmentId.includes('S')) {
                     return store.state.loadout.chosenSecondaryId === this.equipmentId;
                 }
                 return true;
@@ -79,7 +79,19 @@
         fill: #fffbff;
     }
 
+    h4 {
+        margin: 0;
+        white-space: pre-wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .largeText {
+        font-size: 1.4rem;
+    }
+
     .equipmentText {
+        flex: auto;
         padding-left: 0.5rem;
         padding-right: 1rem;
         display: flex;
@@ -90,6 +102,7 @@
     }
 
     .equipmentTextActive {
+        flex: auto;
         padding-left: 0.5rem;
         padding-right: 1rem;
         display: flex;
@@ -100,6 +113,7 @@
     }
 
     .weaponSelectContainer {
+        flex: auto;
         display: flex;
         cursor: pointer;
     }

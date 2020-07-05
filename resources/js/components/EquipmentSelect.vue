@@ -149,7 +149,7 @@
                 return store.state.loadout.selectedClassId;
             },
             classIds() {
-                return ["D", "E", "G", "S"]
+                return ['D', 'E', 'G', 'S'];
             },
 
             engineerEquipment() {
@@ -167,18 +167,18 @@
         },
         methods: {
             classPrimaries(classId) {
-                let tree =  store.state.tree[classId];
-                return {P1: tree.P1, P2: tree.P2}
+                let tree = store.state.tree[classId];
+                return {P1: tree.P1, P2: tree.P2};
             },
             classSecondaries(classId) {
-                let tree =  store.state.tree[classId];
-                return {S1: tree.S1, S2: tree.S2}
+                let tree = store.state.tree[classId];
+                return {S1: tree.S1, S2: tree.S2};
             },
             classEquipments(classId) {
                 /* todo: don't hard code this stuff */
-                let tree =  store.state.tree[classId];
+                let tree = store.state.tree[classId];
                 return {E1: tree.E1, E2: tree.E2, E3: tree.E3};
-            },
+            }
         },
         mounted: function () {
         }
