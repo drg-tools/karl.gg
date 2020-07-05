@@ -28,7 +28,7 @@ class JSON extends ScalarType
     public function serialize($value)
     {
         // Assuming the internal representation of the value is always correct
-        return $value;
+        return json_decode($value);
     }
 
     /**
