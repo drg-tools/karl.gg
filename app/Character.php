@@ -13,6 +13,18 @@ class Character extends Model
     {
         return $this->hasMany(Gun::class);
     }
+    public function equipments()
+    {
+        return $this->hasMany(Equipment::class);
+    }
+    public function equipment_mods()
+    {
+        return $this->hasMany(EquipmentMod::class);
+    }
+    public function throwables()
+    {
+        return $this->hasMany(Throwable::class);
+    }
 
     public function mods()
     {
