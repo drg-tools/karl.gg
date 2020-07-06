@@ -21,6 +21,7 @@ class Mod extends Model
     {
         return $this->belongsTo(Character::class);
     }
+
     public function loadouts()
     {
         return $this->belongsToMany(Loadout::class, 'loadout_mod');

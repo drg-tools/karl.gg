@@ -37,14 +37,17 @@ class Loadout extends Model
     {
         return $this->belongsToMany(Overclock::class, 'loadout_overclock');
     }
+
     public function equipments()
     {
         return $this->belongsToMany(Equipment::class, 'loadout_equipment');
     }
+
     public function equipment_mods()
     {
         return $this->belongsToMany(EquipmentMod::class, 'loadout_equipment_mod');
     }
+
     public function throwable()
     {
         return $this->hasOne(Throwable::class, 'id', 'throwable_id');
