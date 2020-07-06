@@ -187,8 +187,13 @@ type Loadout {
     name: String!
     description: String!
     character: Character @belongsTo
-    user: User @belongsTo
+    creator: User @belongsTo
     mods: [Mod!]! @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!
+    equipments: [Equipment!]! @belongsToMany
+    overclocks: [Overclock!]! @belongsToMany
+    guns: [Gun!]! @belongsToMany
+    equipment_mods: [EquipmentMod!]! @belongsToMany
+    throwable: Throwable @hasOne
 }

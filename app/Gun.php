@@ -24,4 +24,8 @@ class Gun extends Model
     {
         return $this->hasMany(Overclock::class);
     }
+    public function loadouts()
+    {
+        return $this->belongsToMany(Loadout::class, 'loadout_gun');
+    }
 }

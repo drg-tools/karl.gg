@@ -23,6 +23,6 @@ class Mod extends Model
     }
     public function loadouts()
     {
-        return $this->belongsToMany(Loadout::class);
+        return $this->belongsToMany(Loadout::class, 'loadout_mod');
     }
 }

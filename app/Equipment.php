@@ -20,4 +20,9 @@ class Equipment extends Model
     {
         return $this->hasMany(EquipmentMod::class);
     }
+
+    public function loadouts()
+    {
+        return $this->belongsToMany(Loadout::class, 'loadout_equipment');
+    }
 }
