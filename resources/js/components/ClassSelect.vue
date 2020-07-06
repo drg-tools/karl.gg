@@ -1,6 +1,7 @@
 <template>
     <div class="classSelectContainer">
         <h1>Select class:</h1>
+        {{character.name}}<!-- todo -->
         <div v-on:click="selectClass('D')" class="classSelect"
              :class="[selectedClass === 'D' ? 'classSelectActive' : '']">
             <img src="../assets/img/50px-D_icon-hex.png" class="classIcon"/>
@@ -26,6 +27,15 @@
 
 <script>
     import store from '../store';
+    import apolloQueries from '../apolloQueries';
+    import gql from 'graphql-tag';
+
+    const charToId = {
+        D: 3,
+        E: 1,
+        G: 4,
+        S: 2
+    };
 
     export default {
         name: 'ClassSelect',
@@ -37,12 +47,45 @@
         methods: {
             selectClass: function (classId) {
                 console.log('select', classId);
+                this.getCharacterData(classId)
                 store.commit('selectLoadoutClass', {classId: classId});
+            },
+            /* todo: load like this and put into store */
+            async getCharacterData(classId) {
+                let id = charToId[classId];
+                console.time('getCharacter');
+                const response = await this.$apollo.query({
+                    query: gql`${apolloQueries.characterById(id)}`
+                });
+                console.timeEnd('getCharacter');
+                /* todo: store function, transform data from backend into a form that is more or less like the old one */
+                /* todo: find a way to access the old calc functions until backend is ready */
+                store.commit('somethingsomething', {classId: classId});
+                return response.data.character;
+            }
+        },
+        /* todo: or like this and use again in other components? apollo will cache it all but unsure if we can then use selected and stuff on that data */
+        /* but accessing this data directly in template before it was loaded sucks */
+        /* just keep it as an example for later, where it makes more sense */
+        apollo: {
+            // Query with parameters
+            character: {
+                query: gql`${apolloQueries.character}`,
+                // Reactive parameters
+                variables() {
+                    console.log('auto apollo query', charToId[this.selectedClass]);
+                    // Use vue reactive properties here
+                    return {
+                        id: charToId[this.selectedClass]
+                    };
+                }
             }
         },
         mounted: function () {
             console.log('class select mounted');
+            console.log(this.selectedClass);
             console.log(store.state);
+            // this.getCharacterData(this.selectedClass).then(character => console.log(character));
         }
     };
 </script>

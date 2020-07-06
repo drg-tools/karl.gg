@@ -132,12 +132,22 @@
                 />
             </div>
         </div>
+        {{character.name}}
     </div>
 </template>
 
 <script>
     import EquipmentComponent from './EquipmentComponent.vue';
     import store from '../store';
+    import apolloQueries from '../apolloQueries';
+    import gql from 'graphql-tag';
+
+    const charToId = {
+        D: 3,
+        E: 1,
+        G: 4,
+        S: 2
+    };
 
     export default {
         name: 'EquipmentSelect',
@@ -178,6 +188,20 @@
                 /* todo: don't hard code this stuff */
                 let tree = store.state.tree[classId];
                 return {E1: tree.E1, E2: tree.E2, E3: tree.E3};
+            }
+        },
+        apollo: {
+            // Query with parameters
+            character: {
+                query: gql`${apolloQueries.character}`,
+                // Reactive parameters
+                variables() {
+                    console.log('auto apollo query', charToId[this.selectedClass]);
+                    // Use vue reactive properties here
+                    return {
+                        id: charToId[this.selectedClass]
+                    };
+                }
             }
         },
         mounted: function () {
