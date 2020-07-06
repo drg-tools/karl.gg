@@ -17,3 +17,4 @@ aliases
 VagrantFile
 .vagrant
 .php_cs.cache
+public/js/app.js
