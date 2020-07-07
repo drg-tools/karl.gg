@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Equipment extends Model
 {
     use Filterable, CrudTrait;
+    protected $table = 'equipment';
 
     public function character()
     {
@@ -18,5 +19,10 @@ class Equipment extends Model
     public function equipment_mods()
     {
         return $this->hasMany(EquipmentMod::class);
+    }
+
+    public function loadouts()
+    {
+        return $this->belongsToMany(Loadout::class, 'loadout_equipment');
     }
 }

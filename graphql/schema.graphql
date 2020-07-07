@@ -62,6 +62,11 @@ type Character {
     created_at: DateTime!
     updated_at: DateTime!
     guns: [Gun]
+    mods: [Mod]
+    overclocks: [Overclock]
+    equipments: [Equipment]
+    equipment_mods: [EquipmentMod]
+    throwables: [Throwable]
 }
 
 type Gun {
@@ -69,6 +74,7 @@ type Gun {
     name: String!
     gun_class: String!
     character_slot: Int!
+    mods: [Mod]
     character: Character @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
@@ -82,7 +88,7 @@ type Mod {
     text_description: String
     icon: String!
     mod_tier: Int!
-    mod_index: Int!
+    mod_index: String!
     credits_cost: Int!
     magnite_cost: Int!
     bismor_cost: Int!
@@ -146,6 +152,7 @@ type Equipment {
     description: String
     icon: String!
     character: Character @belongsTo
+    equipment_mods: [EquipmentMod]
     eq_type: String!
     patch_id: Int!
     created_at: DateTime!
@@ -159,7 +166,7 @@ type EquipmentMod {
     description: String
     icon: String!
     mod_tier: Int!
-    mod_index: Int!
+    mod_index: String!
     credits_cost: Int!
     magnite_cost: Int!
     bismor_cost: Int!
@@ -180,8 +187,13 @@ type Loadout {
     name: String!
     description: String!
     character: Character @belongsTo
-    user: User @belongsTo
-    mods: [Mod!] @hasMany
+    creator: User @belongsTo
+    mods: [Mod!]! @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!
+    equipments: [Equipment!]! @belongsToMany
+    overclocks: [Overclock!]! @belongsToMany
+    guns: [Gun!]! @belongsToMany
+    equipment_mods: [EquipmentMod!]! @belongsToMany
+    throwable: Throwable @hasOne
 }
