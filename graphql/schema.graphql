@@ -74,6 +74,7 @@ type Gun {
     gun_class: String!
     character_slot: Int!
     mods: [Mod]
+    overclocks: [Overclock]
     character: Character @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
