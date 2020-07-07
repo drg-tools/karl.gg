@@ -10,15 +10,15 @@ class LoadoutSeeder extends Seeder
     {
         // There's likely a more elegant way to do this.
         $loadouts = [
-           [
+            [
                 'name' => 'Scout Test Loadout',
                 'description' => 'Testing the scout loadout',
                 'user_id' => 1,
                 'character_id' => 2,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'patch_id' => 5,
-                'throwable_id' => 12
-           ]
+                'throwable_id' => 12,
+            ],
         ];
         $loadout_eq = [
             [
