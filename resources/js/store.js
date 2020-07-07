@@ -134,7 +134,7 @@ export default new Vuex.Store({
     state: {
         loadedFromLink: false,
         loadedOverclockFromLink: false,
-        loadout: {
+        loadoutCreator: {
             selectedClassId: 'D',
             selectedEquipmentId: 'P1',
             chosenPrimaryId: 'P1',
@@ -145,7 +145,9 @@ export default new Vuex.Store({
             S2: [],
             E1: [],
             E2: [],
-            E3: []
+            E3: [],
+            dataReady: false,
+            baseData: {}
         },
         selected: {
             class: 'D',
@@ -295,28 +297,53 @@ export default new Vuex.Store({
             }
         }
     },
+    getters: {
+        getDrillerPrimaries: state => {
+            console.log('getter', state.loadoutCreator.baseData.D.primaryWeapons);
+            return state.loadoutCreator.baseData.D.primaryWeapons;
+        }
+    },
     mutations: {
+        setDataReady: (state, indices) => {
+            state.loadoutCreator.dataReady = indices.ready
+        },
         /* todo: new select for mods and ocs */
         selectLoadoutClass: (state, indices) => {
-            state.loadout.selectedClassId = indices.classId;
+            state.loadoutCreator.selectedClassId = indices.classId;
+            console.log("data for selected class", state.loadoutCreator.baseData[indices.classId])
+            console.log(state.loadoutCreator)
         },
         selectLoadoutEquipment: (state, indices) => {
-            state.loadout.selectedEquipmentId = indices.equipmentId;
+            state.loadoutCreator.selectedEquipmentId = indices.equipmentId;
             if (indices.equipmentId.includes('P')) {
-                state.loadout.chosenPrimaryId = indices.equipmentId;
+                state.loadoutCreator.chosenPrimaryId = indices.equipmentId;
             } else if (indices.equipmentId.includes('S')) {
-                state.loadout.chosenSecondaryId = indices.equipmentId;
+                state.loadoutCreator.chosenSecondaryId = indices.equipmentId;
             }
         },
         selectLoadoutMods: (state, indices) => {
             console.log('new mod selection', indices);
-            state.loadout[indices.equipmentId][indices.tierId] = idToChar[indices.chosenMod];
-            console.log('equipment', state.loadout);
+            state.loadoutCreator[indices.equipmentId][indices.tierId] = idToChar[indices.chosenMod];
+            console.log('equipment', state.loadoutCreator);
         },
         selectLoadoutOverclocks: (state, indices) => {
             console.log('new overclock selection', indices);
-            state.loadout[indices.equipmentId][5] = indices.chosenOverclock;
-            console.log('equipment', state.loadout);
+            state.loadoutCreator[indices.equipmentId][5] = indices.chosenOverclock;
+            console.log('equipment', state.loadoutCreator);
+        },
+        setLoadoutCreatorBaseData: (state, indices) => {
+            let classId = indices.classId;
+            let baseData = indices.baseData;
+            console.log(`base data for ${classId}`, baseData);
+            let primaryWeapons = baseData.guns.filter(gun => gun.character_slot === 1);
+            let secondaryWeapons = baseData.guns.filter(gun => gun.character_slot === 2);
+            state.loadoutCreator.baseData[classId] = {
+                primaryWeapons: primaryWeapons,
+                secondaryWeapons: secondaryWeapons,
+                equipments: baseData.equipments,
+                throwables: baseData.throwables
+            };
+            console.log("data ready", state.loadoutCreator.baseData[classId]);
         },
         /* :todo */
 

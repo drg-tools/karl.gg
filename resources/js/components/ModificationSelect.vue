@@ -226,10 +226,10 @@
         name: 'ModificationSelect',
         computed: {
             selectedClassId: function () {
-                return store.state.loadout.selectedClassId;
+                return store.state.loadoutCreator.selectedClassId;
             },
             selectedEquipmentId: function () {
-                return store.state.loadout.selectedEquipmentId;
+                return store.state.loadoutCreator.selectedEquipmentId;
             },
             availableMods: function () {
                 return store.state.tree[this.selectedClassId][this.selectedEquipmentId].mods;
@@ -247,7 +247,7 @@
         methods: {
             /* todo: cannot use a method to get selected state of mod, mod.selected is better performance wise.. */
             modIsSelected(tierId, modId) {
-                let selectedInTier = store.state.loadout[this.selectedEquipmentId][tierId];
+                let selectedInTier = store.state.loadoutCreator[this.selectedEquipmentId][tierId];
                 return charToId[selectedInTier] === modId
             },
             selectMod(classId, equipmentId, tierId, modId, selected) {

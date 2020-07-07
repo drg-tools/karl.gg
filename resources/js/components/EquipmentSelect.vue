@@ -1,15 +1,16 @@
 <template>
-    <div>
+    <div v-if="dataReady">
         <!-- driller -->
         <div v-if="selectedClass === 'D'" class="equipmentSelectContainer">
             <div class="primariesContainer">
+                <!-- todo: icon missing from equipment backend.. get from store -->
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classPrimaries('D')"
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
                     :classId="'D'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="secondariesContainer">
@@ -42,7 +43,7 @@
                     :iconPath="equipment.icon"
                     :name="equipment.name"
                     :classId="'E'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="secondariesContainer">
@@ -75,7 +76,7 @@
                     :iconPath="equipment.icon"
                     :name="equipment.name"
                     :classId="'G'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="secondariesContainer">
@@ -108,7 +109,7 @@
                     :iconPath="equipment.icon"
                     :name="equipment.name"
                     :classId="'S'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="secondariesContainer">
@@ -132,7 +133,6 @@
                 />
             </div>
         </div>
-        {{character.name}}
     </div>
 </template>
 
@@ -156,7 +156,7 @@
         },
         computed: {
             selectedClass() {
-                return store.state.loadout.selectedClassId;
+                return store.state.loadoutCreator.selectedClassId;
             },
             classIds() {
                 return ['D', 'E', 'G', 'S'];
@@ -173,12 +173,24 @@
             },
             robotEquipment() {
                 return store.state.tree.R;
+            },
+
+            dataReady() {
+                return store.state.loadoutCreator.dataReady
+            },
+
+            drillerPrimaries() {
+                return store.getters.getDrillerPrimaries
             }
         },
         methods: {
             classPrimaries(classId) {
                 let tree = store.state.tree[classId];
-                return {P1: tree.P1, P2: tree.P2};
+                console.log("old class primaries", {P1: tree.P1, P2: tree.P2});
+                console.log("new class primaries", store.getters.getDrillerPrimaries);
+                // return store.state.loadoutCreator.baseData[classId].primaryWeapons
+                return store.getters.getDrillerPrimaries
+                // return {P1: tree.P1, P2: tree.P2};
             },
             classSecondaries(classId) {
                 let tree = store.state.tree[classId];
@@ -190,9 +202,15 @@
                 return {E1: tree.E1, E2: tree.E2, E3: tree.E3};
             }
         },
+        watch: {
+            '$store.state.loadoutCreator.baseData.D': function() {
+                console.log("watch!")
+                console.log(this.$store.state.loadoutCreator.baseData.D)
+            }
+        },
         apollo: {
             // Query with parameters
-            character: {
+            /*character: {
                 query: gql`${apolloQueries.character}`,
                 // Reactive parameters
                 variables() {
@@ -202,7 +220,7 @@
                         id: charToId[this.selectedClass]
                     };
                 }
-            }
+            }*/
         },
         mounted: function () {
         }

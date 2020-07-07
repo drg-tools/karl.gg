@@ -257,10 +257,10 @@
 		name: "StatsDisplay",
 		computed: {
 			selectedClassId: function() {
-				return store.state.loadout.selectedClassId;
+				return store.state.loadoutCreator.selectedClassId;
 			},
 			selectedEquipmentId: function() {
-				return store.state.loadout.selectedEquipmentId;
+				return store.state.loadoutCreator.selectedEquipmentId;
 			},
 			equipment: function() {
 				return store.state.tree[this.selectedClassId][this.selectedEquipmentId];
