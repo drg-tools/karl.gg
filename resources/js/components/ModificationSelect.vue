@@ -1,5 +1,5 @@
 <template>
-    <div class="modSelection">
+    <div v-if="dataReady" class="modSelection">
         <h1 class="modSelectionTitle allCaps">Gear modifications</h1>
         <div v-for="(tier, tierId) in availableMods" :key="tierId" class="tierContainer">
             <h2 v-if="selectedClassId !== 'R'">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator">Level
@@ -33,7 +33,7 @@
                 <div v-if="tier.length === 2" class="pseudoModDisplay"></div>
             </div>
         </div>
-        <div class="overclockContainer" :class="getOverclocksAvailable(computedState)">
+        <div class="overclockContainer" v-if="selectedEquipmentType !== 'equipments'">
             <h2>Overclock</h2>
             <div class="overclockDisplay">
                 <!--todo: show name of selected overclock on hover?-->
@@ -97,8 +97,7 @@
                      :key="overclockId"
                      v-on:click="selectOverclock(selectedClassId, selectedEquipmentId, overclockId, overclock.selected)"
                      v-on:mouseover="hoverOverclock(selectedClassId, selectedEquipmentId, overclockId)"
-                     class="tooltip-target modDisplay"
-                     :class="[overclock.selected ? 'selectedTemp' : '']">
+                     class="tooltip-target modDisplay">
                     <svg viewBox="0 0 80 80"
                          height="6rem"
                          class="mod"
@@ -225,19 +224,34 @@
     export default {
         name: 'ModificationSelect',
         computed: {
+            dataReady() {
+                return store.state.loadoutCreator.dataReady;
+            },
             selectedClassId: function () {
                 return store.state.loadoutCreator.selectedClassId;
             },
             selectedEquipmentId: function () {
                 return store.state.loadoutCreator.selectedEquipmentId;
             },
+            selectedEquipmentType: function () {
+                return store.state.loadoutCreator.selectedEquipmentType;
+            },
             availableMods: function () {
-                return store.state.tree[this.selectedClassId][this.selectedEquipmentId].mods;
+                return store.getters.getAvailableModsByClassTypeId({
+                    selectedClassId: this.selectedClassId,
+                    selectedEquipmentId: this.selectedEquipmentId,
+                    selectedEquipmentType: this.selectedEquipmentType
+                });
             },
             availableOverclocks: function () {
-                return store.state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
+                return store.getters.getAvailableOverclocksByClassTypeId({
+                    selectedClassId: this.selectedClassId,
+                    selectedEquipmentId: this.selectedEquipmentId,
+                    selectedEquipmentType: this.selectedEquipmentType
+                });
             },
             hoveredMod: function () {
+                return false; // todo: hovers
                 return store.state.hovered;
             },
             computedState: function () {
@@ -245,26 +259,30 @@
             }
         },
         methods: {
-            /* todo: cannot use a method to get selected state of mod, mod.selected is better performance wise.. */
-            modIsSelected(tierId, modId) {
-                let selectedInTier = store.state.loadoutCreator[this.selectedEquipmentId][tierId];
-                return charToId[selectedInTier] === modId
-            },
+            /* todo: cannot use a method to get selected state of mod, mod.selected is better performance wise.. but not reactive!! */
             selectMod(classId, equipmentId, tierId, modId, selected) {
+                console.log('select mod, is selected?', selected);
                 /* todo: new selection logic, based on backend data structure */
-                store.commit('selectLoadoutMods', {
-                    equipmentId: equipmentId,
-                    tierId: tierId,
-                    chosenMod: modId
-                });
                 if (selected) {
                     store.commit('selectLoadoutMods', {
+                        classId: classId,
+                        equipmentType: this.selectedEquipmentType,
                         equipmentId: equipmentId,
                         tierId: tierId
                     });
+                } else {
+                    store.commit('selectLoadoutMods', {
+                        classId: classId,
+                        equipmentType: this.selectedEquipmentType,
+                        equipmentId: equipmentId,
+                        tierId: tierId,
+                        chosenMod: modId
+                    });
                 }
+                // workaround so selected state is known
+                this.$forceUpdate();
                 /* :todo */
-                if (selected) {
+                /*if (selected) {
                     store.commit('deSelectAllModifications', {
                         classID: classId,
                         equipID: equipmentId,
@@ -284,9 +302,10 @@
                         tierID: tierId,
                         modID: modId
                     });
-                }
+                }*/
             },
             hoverMod(classId, equipmentId, tierId, modId) {
+                return; //todo: hovers
                 store.commit('addToHovered', {
                     classID: classId,
                     equipID: equipmentId,
@@ -296,7 +315,23 @@
             },
             selectOverclock(classId, equipmentId, overclockId, selected) {
                 /* todo: new selection logic, based on backend data structure */
-                store.commit('selectLoadoutOverclocks', {
+                if (selected) {
+                    store.commit('selectLoadoutOverclocks', {
+                        classId: classId,
+                        equipmentType: this.selectedEquipmentType,
+                        equipmentId: equipmentId
+                    });
+                } else {
+                    store.commit('selectLoadoutOverclocks', {
+                        classId: classId,
+                        equipmentType: this.selectedEquipmentType,
+                        equipmentId: equipmentId,
+                        chosenOverclock: overclockId
+                    });
+                }
+                // workaround so selected state is known
+                this.$forceUpdate();
+                /*store.commit('selectLoadoutOverclocks', {
                     equipmentId: equipmentId,
                     chosenOverclock: overclockId
                 });
@@ -304,9 +339,9 @@
                     store.commit('selectLoadoutOverclocks', {
                         equipmentId: equipmentId
                     });
-                }
+                }*/
                 /* :todo */
-                let tierId = 'overclock';
+                /*let tierId = 'overclock';
                 if (selected) {
                     store.commit('deSelectAllModifications', {
                         classID: classId,
@@ -327,9 +362,10 @@
                         tierID: tierId,
                         modID: overclockId
                     });
-                }
+                }*/
             },
             hoverOverclock(classId, equipmentId, overclockId) {
+                return; //todo: hovers
                 let tierId = 'overclock';
                 store.commit('addToHovered', {
                     classID: classId,
@@ -346,53 +382,34 @@
                 return store.state.icons.mods[iconPath];
             },
             getSelectedOverclockIcon: function (state) {
-                let overclocks = state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
-                let dataParts = state.dataParts[state.selected.class];
-                if (!state || !dataParts) {
-                    return '';
-                }
-                let dataPartsEquipment = dataParts[state.selected.equipment];
-                if (!dataPartsEquipment || !overclocks) {
-                    return '';
-                }
-                let selectedOverclock = overclocks[dataPartsEquipment['overclock']];
-                return selectedOverclock ? state.icons.mods[selectedOverclock.icon] : '';
+                let weapons = state.loadoutCreator.baseData[this.selectedClassId][this.selectedEquipmentType];
+                let selectedWeapon = weapons.filter(weapon => weapon.id === this.selectedEquipmentId);
+                let selectedOverclock = selectedWeapon[0].overclocks.filter(overclock => overclock.selected);
+                return selectedOverclock[0] ? state.icons.mods[selectedOverclock[0].icon] : '';
             },
             getSelectedOverclockClass: function (state) {
-                let overclocks = state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
-                let dataParts = state.dataParts[state.selected.class];
-                if (!state || !dataParts) {
-                    return 'clean';
-                }
-                let dataPartsEquipment = dataParts[state.selected.equipment];
-                if (!dataPartsEquipment || !overclocks) {
-                    return 'clean';
-                }
-                let selectedOverclock = overclocks[dataPartsEquipment['overclock']];
-                return selectedOverclock ? selectedOverclock.type : 'clean';
-            },
-            getOverclocksAvailable: function (state) {
-
-                let overclocks = state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
-                return !overclocks ? 'displayNone' : '';
+                let weapons = state.loadoutCreator.baseData[this.selectedClassId][this.selectedEquipmentType];
+                let selectedWeapon = weapons.filter(weapon => weapon.id === this.selectedEquipmentId);
+                let selectedOverclock = selectedWeapon[0].overclocks.filter(overclock => overclock.selected);
+                return selectedOverclock[0] ? selectedOverclock[0].overclock_type : 'Clean';
             },
             getCleanDisplay: function (state) {
-                return this.getSelectedOverclockClass(state) === 'clean' ? 'inherit' : 'none';
+                return this.getSelectedOverclockClass(state) === 'Clean' ? 'inherit' : 'none';
             },
             getBalancedDisplay: function (state) {
-                return this.getSelectedOverclockClass(state) === 'balanced' ? 'inherit' : 'none';
+                return this.getSelectedOverclockClass(state) === 'Balanced' ? 'inherit' : 'none';
             },
             getUnstableDisplay: function (state) {
-                return this.getSelectedOverclockClass(state) === 'unstable' ? 'inherit' : 'none';
+                return this.getSelectedOverclockClass(state) === 'Unstable' ? 'inherit' : 'none';
             },
             getCleanDisplayByOverclock: function (overclock) {
-                return overclock.type === 'clean' ? 'inherit' : 'none';
+                return overclock.overclock_type === 'Clean' ? 'inherit' : 'none';
             },
             getBalancedDisplayByOverclock: function (overclock) {
-                return overclock.type === 'balanced' ? 'inherit' : 'none';
+                return overclock.overclock_type === 'Balanced' ? 'inherit' : 'none';
             },
             getUnstableDisplayByOverclock: function (overclock) {
-                return overclock.type === 'unstable' ? 'inherit' : 'none';
+                return overclock.overclock_type === 'Unstable' ? 'inherit' : 'none';
             }
         }
     };

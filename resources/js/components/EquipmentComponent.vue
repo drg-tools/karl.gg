@@ -39,14 +39,13 @@
             getSelected: function () {
                 if (this.character_slot) {
                     return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
-                        && store.state.loadoutCreator.selectedEquipmentType === "weapon";
+                        && store.state.loadoutCreator.selectedEquipmentType.includes("Weapons");
                 } else {
                     return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
-                        && store.state.loadoutCreator.selectedEquipmentType === "equipment";
+                        && store.state.loadoutCreator.selectedEquipmentType === "equipments";
                 }
             },
             equipmentNameVisible: function () {
-                console.log('this.equipmentId', this.equipmentId, this.character_slot);
                 if (this.character_slot === 1) {
                     return store.state.loadoutCreator.chosenPrimaryId === this.equipmentId;
                 } else if (this.character_slot === 2) {
