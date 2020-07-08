@@ -59,6 +59,7 @@
                     return store.state.loadoutCreator.baseData[classId];
                 } else {
                     console.log('fetch base data from graphql');
+                    store.commit('setDataReady', {ready: false });
                     const response = await this.$apollo.query({
                         query: gql`${apolloQueries.characterById(id)}`
                     });

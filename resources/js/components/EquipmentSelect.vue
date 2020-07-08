@@ -9,6 +9,7 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'D'"
                     :equipmentId="equipment.id"
                 />
@@ -19,8 +20,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'D'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="equipmentContainer">
@@ -29,8 +31,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'D'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
         </div>
@@ -42,6 +45,7 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'E'"
                     :equipmentId="equipment.id"
                 />
@@ -52,8 +56,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'E'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="equipmentContainer">
@@ -62,8 +67,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'E'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
         </div>
@@ -75,6 +81,7 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'G'"
                     :equipmentId="equipment.id"
                 />
@@ -85,8 +92,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'G'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="equipmentContainer">
@@ -95,8 +103,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'G'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
         </div>
@@ -108,6 +117,7 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'S'"
                     :equipmentId="equipment.id"
                 />
@@ -118,8 +128,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'S'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
             <div class="equipmentContainer">
@@ -128,8 +139,9 @@
                     :key="equipmentId"
                     :iconPath="equipment.icon"
                     :name="equipment.name"
+                    :character_slot="equipment.character_slot"
                     :classId="'S'"
-                    :equipmentId="equipmentId"
+                    :equipmentId="equipment.id"
                 />
             </div>
         </div>
@@ -179,33 +191,25 @@
                 return store.state.loadoutCreator.dataReady
             },
 
-            drillerPrimaries() {
-                return store.getters.getDrillerPrimaries
-            }
         },
         methods: {
             classPrimaries(classId) {
-                let tree = store.state.tree[classId];
-                console.log("old class primaries", {P1: tree.P1, P2: tree.P2});
-                console.log("new class primaries", store.getters.getDrillerPrimaries);
+                // let tree = store.state.tree[classId];
+                // console.log("old class primaries", {P1: tree.P1, P2: tree.P2});
+                // console.log("new class primaries", store.getters.getPrimariesByClass(classId))
                 // return store.state.loadoutCreator.baseData[classId].primaryWeapons
-                return store.getters.getDrillerPrimaries
+                return store.getters.getPrimariesByClass(classId)
                 // return {P1: tree.P1, P2: tree.P2};
             },
             classSecondaries(classId) {
-                let tree = store.state.tree[classId];
-                return {S1: tree.S1, S2: tree.S2};
+                // let tree = store.state.tree[classId];
+                return store.getters.getSecondariesByClass(classId)
+                // return {S1: tree.S1, S2: tree.S2};
             },
             classEquipments(classId) {
-                /* todo: don't hard code this stuff */
-                let tree = store.state.tree[classId];
-                return {E1: tree.E1, E2: tree.E2, E3: tree.E3};
-            }
-        },
-        watch: {
-            '$store.state.loadoutCreator.baseData.D': function() {
-                console.log("watch!")
-                console.log(this.$store.state.loadoutCreator.baseData.D)
+                return store.getters.getEquipmentsByClass(classId)
+                // let tree = store.state.tree[classId];
+                // return {E1: tree.E1, E2: tree.E2, E3: tree.E3};
             }
         },
         apollo: {

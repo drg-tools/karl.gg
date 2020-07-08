@@ -1,12 +1,12 @@
 <template>
     <div class="weaponSelectContainer" v-on:click="selectEquipment()">
         <div class="flexboxWeaponSelect" :class="[getSelected ? 'equipmentActive' : 'equipment']">
-            <!--<svg xmlns="http://www.w3.org/2000/svg"
+            <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 180 90"
                  :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']"
                  :height="equipmentNameVisible ? '70%' : '50%'"
                  preserveAspectRatio="xMidYMid meet"
-                 v-html="getIconFromPath"></svg>-->
+                 v-html="getIconFromPath"></svg>
         </div>
         <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"><!-- v-if="equipmentNameVisible"-->
             <h4 :class="[equipmentNameVisible ? 'largeText' : '']">{{ name }}</h4>
@@ -20,28 +20,36 @@
     export default {
         name: 'EquipmentComponent',
         props: {
-            /* todo: icon missing from equipment backend.. get from store */
             iconPath: String,
             name: String,
             classId: String,
+            character_slot: Number,
             equipmentId: String
         },
         computed: {
             getIconFromPath: function () {
-                /* todo: icon missing from equipment backend.. get from store */
-                let aPath = this.iconPath.split('.');
-                if (aPath.length < 2) {
-                    return '';
+                /* todo: weapons are missing their icons atm, fine for equipments */
+                if (!this.iconPath) {
+                    let iconName = store.state.missingBackendWeaponData[this.equipmentId].icon;
+                    return store.state.icons.equipment[iconName];
+                } else {
+                    return store.state.icons.equipment[this.iconPath];
                 }
-                return store.state.icons[aPath[0]][aPath[1]];
             },
             getSelected: function () {
-                return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId;
+                if (this.character_slot) {
+                    return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
+                        && store.state.loadoutCreator.selectedEquipmentType === "weapon";
+                } else {
+                    return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
+                        && store.state.loadoutCreator.selectedEquipmentType === "equipment";
+                }
             },
             equipmentNameVisible: function () {
-                if (this.equipmentId.includes('P')) {
+                console.log('this.equipmentId', this.equipmentId, this.character_slot);
+                if (this.character_slot === 1) {
                     return store.state.loadoutCreator.chosenPrimaryId === this.equipmentId;
-                } else if (this.equipmentId.includes('S')) {
+                } else if (this.character_slot === 2) {
                     return store.state.loadoutCreator.chosenSecondaryId === this.equipmentId;
                 }
                 return true;
@@ -51,7 +59,8 @@
             selectEquipment() {
                 console.log(this.equipmentId);
                 store.commit('selectLoadoutEquipment', {
-                    equipmentId: this.equipmentId
+                    equipmentId: this.equipmentId,
+                    character_slot: this.character_slot
                 });
             }
         }

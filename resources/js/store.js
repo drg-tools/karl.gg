@@ -136,9 +136,10 @@ export default new Vuex.Store({
         loadedOverclockFromLink: false,
         loadoutCreator: {
             selectedClassId: 'D',
-            selectedEquipmentId: 'P1',
-            chosenPrimaryId: 'P1',
-            chosenSecondaryId: 'S1',
+            selectedEquipmentType: "weapon",
+            selectedEquipmentId: "9",
+            chosenPrimaryId: "9",
+            chosenSecondaryId: "11",
             P1: [],
             P2: [],
             S1: [],
@@ -149,6 +150,553 @@ export default new Vuex.Store({
             dataReady: false,
             baseData: {}
         },
+        /* todo: this is temporary, until backend provides icon and stats calculation */
+        missingBackendWeaponData: [
+            {
+                'id': 0,
+                'name': 'dummy'
+            },
+            {
+                'id': '1',
+                'name': '"Warthog" Auto 210',
+                'icon': 'E_P1_Warthog',
+                calculateDamage: (stats) => {
+                    let damagePerSecond;
+                    let damagePerBullet;
+                    let totalDamage;
+                    let magazineDamage;
+                    let timeToEmpty;
+                    let damageTime;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.damage = parseFloat(stat.value);
+                        } else if (stat.name === 'Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Reload Time') {
+                            dpsStats.reloadTime = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Ammo') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        } else if (stat.name === 'Magazine Size') {
+                            dpsStats.magazineSize = parseFloat(stat.value);
+                        } else if (stat.name === 'Pellets') {
+                            dpsStats.pellets = parseFloat(stat.value);
+                        }
+                    }
+
+                    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+                    timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+                    damageTime = timeToEmpty + dpsStats.reloadTime;
+
+                    damagePerBullet = parseFloat(dpsStats.damage * dpsStats.pellets).toFixed(0);
+                    magazineDamage = parseFloat(damagePerBullet * dpsStats.magazineSize).toFixed(0);
+                    damagePerSecond = parseFloat(magazineDamage / damageTime).toFixed(2);
+                    totalDamage = parseFloat(damagePerBullet * dpsStats.maxAmmo).toFixed(0);
+
+                    return {
+                        tte: parseFloat(timeToEmpty).toFixed(2),
+                        dps: damagePerSecond,
+                        dpb: damagePerBullet,
+                        dpm: magazineDamage,
+                        dpa: totalDamage
+                    };
+                }
+            },
+            {
+                'id': '2',
+                'name': '"Stubby" Voltaic SMG',
+                'icon': 'E_P2_Stubby'
+            },
+            {
+                'id': '3',
+                'name': 'Deepcore 40MM PGL',
+                'icon': 'E_S1_PGL',
+                calculateDamage: (stats) => {
+                    let directDamagePerSecond;
+                    let areaDamagePerSecond;
+                    let damagePerSecond;
+                    let directDamagePerBullet;
+                    let areaDamagePerBullet;
+                    let damagePerBullet;
+                    let directDamagePerMagazine;
+                    let areaDamagePerMagazine;
+                    let damagePerMagazine;
+                    let totalDirectDamage;
+                    let totalAreaDamage;
+                    let totalDamage;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Direct Damage') {
+                            dpsStats.directDamage = parseFloat(stat.value);
+                        } else if (stat.name === 'Area Damage') {
+                            dpsStats.areaDamage = parseFloat(stat.value);
+                        } else if (stat.name === 'Clip Size') {
+                            dpsStats.magazineSize = parseFloat(stat.value);
+                        } else if (stat.name === 'Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Reload Time') {
+                            dpsStats.reloadTime = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Ammo') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        }
+                    }
+                    dpsStats.damage = dpsStats.directDamage + dpsStats.areaDamage;
+
+                    let timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+                    let damageTime = timeToEmpty + dpsStats.reloadTime;
+
+                    directDamagePerMagazine = dpsStats.directDamage * dpsStats.magazineSize;
+                    areaDamagePerMagazine = dpsStats.areaDamage * dpsStats.magazineSize;
+                    damagePerMagazine = dpsStats.damage * dpsStats.magazineSize;
+
+                    directDamagePerSecond = parseFloat(directDamagePerMagazine / damageTime).toFixed(2);
+                    areaDamagePerSecond = parseFloat(areaDamagePerMagazine / damageTime).toFixed(2);
+                    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+
+                    directDamagePerBullet = dpsStats.directDamage;
+                    areaDamagePerBullet = dpsStats.areaDamage;
+                    damagePerBullet = dpsStats.damage;
+
+                    totalDirectDamage = dpsStats.directDamage * dpsStats.maxAmmo;
+                    totalAreaDamage = dpsStats.areaDamage * dpsStats.maxAmmo;
+                    totalDamage = dpsStats.damage * dpsStats.maxAmmo;
+
+                    return {
+                        dps: `${damagePerSecond} (Direct: ${directDamagePerSecond} / Area: ${areaDamagePerSecond})`, // damage per second
+                        dpb: `${damagePerBullet} (Direct: ${directDamagePerBullet} / Area: ${areaDamagePerBullet})`, // damage per bullet
+                        dpa: `${totalDamage} (Direct: ${totalDirectDamage} / Area: ${totalAreaDamage})` // total damage available
+                    };
+                }
+            },
+            {
+                'id': '4',
+                'name': 'Breach Cutter',
+                'icon': 'E_S2_Breach',
+                calculateDamage: (stats) => {
+                    // nothing :(
+                    return {};
+                }
+            },
+            {
+                'id': '5',
+                'name': 'Deepcore GK2',
+                'icon': 'S_P1_GK2'
+            },
+            {
+                'id': '6',
+                'name': 'M1000 Classic',
+                'icon': 'S_P2_M1000'
+            },
+            {
+                'id': '7',
+                'name': 'Jury-Rigged Boomstick',
+                'icon': 'S_S1_Jury',
+                calculateDamage: (stats) => {
+                    let damagePerSecond;
+                    let damagePerBullet;
+                    let totalDamage;
+                    let magazineDamage;
+                    let timeToEmpty;
+                    let damageTime;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.damage = parseFloat(stat.value);
+                        } else if (stat.name === 'Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Reload Time') {
+                            dpsStats.reloadTime = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Ammo') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        } else if (stat.name === 'Double Barrel' && stat.value === '1') {
+                            dpsStats.doubleBarrel = true;
+                        } else if (stat.name === 'Magazine Size') {
+                            dpsStats.magazineSize = parseFloat(stat.value);
+                        } else if (stat.name === 'Pellets') {
+                            dpsStats.pellets = parseFloat(stat.value);
+                        }
+                    }
+
+                    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+
+                    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+                    timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+                    damageTime = timeToEmpty + dpsStats.reloadTime;
+
+                    damagePerBullet = parseFloat(dpsStats.damage * dpsStats.pellets).toFixed(0);
+                    magazineDamage = parseFloat(damagePerBullet * dpsStats.magazineSize).toFixed(0);
+                    damagePerSecond = parseFloat(magazineDamage / damageTime).toFixed(2);
+                    totalDamage = parseFloat(damagePerBullet * dpsStats.maxAmmo).toFixed(0);
+
+                    if (dpsStats.doubleBarrel) {
+                        return {
+                            dps: parseFloat(damagePerSecond * 2).toFixed(2),
+                            dpb: damagePerBullet * 2,
+                            dpm: magazineDamage,
+                            dpa: totalDamage
+                        };
+                    } else {
+                        return {
+                            dps: parseFloat(damagePerSecond).toFixed(2),
+                            dpb: damagePerBullet,
+                            dpm: magazineDamage,
+                            dpa: totalDamage
+                        };
+                    }
+                }
+            },
+            {
+                'id': '8',
+                'name': 'Zhukov NUK17',
+                'icon': 'S_S2_Zhuk',
+                calculateDamage: (stats) => {
+                    let damagePerSecond;
+                    let damagePerBullet;
+                    let damagePerMagazine;
+                    let totalDamage;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.damage = parseFloat(stat.value);
+                        } else if (stat.name === 'Combined Clip Size') {
+                            dpsStats.magazineSize = parseFloat(stat.value);
+                        } else if (stat.name === 'Combined Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Reload Time') {
+                            dpsStats.reloadTime = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Ammo') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        } else if (stat.name === 'Weakpoint Damage Bonus') {
+                            dpsStats.weakPoint = parseFloat(stat.value);
+                        }
+                    }
+
+                    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+
+                    let timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+                    let damageTime = timeToEmpty + dpsStats.reloadTime;
+
+                    damagePerMagazine = parseFloat(dpsStats.damage * dpsStats.magazineSize / 2).toFixed(0);
+
+                    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+
+                    damagePerBullet = parseFloat(dpsStats.damage).toFixed(0);
+
+                    totalDamage = parseFloat(dpsStats.damage * dpsStats.maxAmmo / 2).toFixed(0);
+
+                    return {
+                        tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
+                        wpd: parseFloat(dpsStats.damage * (1 + (dpsStats.weakPoint / 100))).toFixed(2), // damage on crit
+                        dps: damagePerSecond, // damage per second
+                        dpm: damagePerMagazine, // damage per magazine
+                        dpa: totalDamage // total damage available
+                    };
+                }
+            },
+            {
+                'id': '9',
+                'name': 'CRSPR Flamethrower',
+                'icon': 'D_P1_CRSPR',
+                calculateDamage: (stats) => {
+                    let damagePerSecond;
+                    let totalDamage;
+                    let rof;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.damage = parseFloat(stat.value);
+                        } else if (stat.name === 'Fuel Flow Rate') {
+                            dpsStats.flowRate = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Fuel') {
+                            dpsStats.maxFuel = parseFloat(stat.value);
+                        } else if (stat.name === 'Tank Size') {
+                            dpsStats.tankSize = parseFloat(stat.value);
+                        }
+                    }
+
+                    dpsStats.maxFuel = dpsStats.maxFuel + dpsStats.tankSize;
+
+                    rof = (dpsStats.flowRate / 100) * 6;
+
+                    damagePerSecond = parseFloat(dpsStats.damage * rof).toFixed(2);
+
+                    totalDamage = parseFloat(dpsStats.damage * dpsStats.maxFuel).toFixed(0);
+
+                    return {
+                        tte: (dpsStats.tankSize / rof).toFixed(2),
+                        dpm: dpsStats.tankSize * dpsStats.damage,
+                        dps: damagePerSecond, // damage per second
+                        dpa: totalDamage // total damage available
+                    };
+                }
+            },
+            {
+                'id': '10',
+                'name': 'Cryo Cannon',
+                'icon': 'D_P2_Cryo',
+                calculateDamage: (stats) => {
+                    let damagePerSecond;
+                    let totalDamage;
+                    let rof;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.damage = parseFloat(stat.value);
+                        } else if (stat.name === 'Flow Rate') {
+                            dpsStats.flowRate = parseFloat(stat.value);
+                        } else if (stat.name === 'Tank Capacity') {
+                            dpsStats.tankCapacity = parseFloat(stat.value);
+                        }
+                    }
+
+                    rof = (dpsStats.flowRate / 100) * 8;
+
+                    damagePerSecond = parseFloat(dpsStats.damage * rof).toFixed(2);
+
+                    totalDamage = parseFloat(dpsStats.damage * dpsStats.tankCapacity).toFixed(0);
+
+                    return {
+                        dps: damagePerSecond, // damage per second
+                        dpa: totalDamage // total damage available
+                    };
+                }
+            },
+            {
+                'id': '11',
+                'name': 'Subata 120',
+                'icon': 'D_S1_Subata'
+            },
+            {
+                'id': '12',
+                'name': 'Experimental Plasma Charger',
+                'icon': 'D_S2_Plasma',
+                calculateDamage: (stats) => {
+                    let directDamagePerSecond;
+                    let chargeDirectDamagePerSecond;
+                    let chargeAreaDamagePerSecond;
+                    let chargeDamagePerSecond;
+
+                    let directDamagePerBullet;
+                    let chargeDirectDamagePerBullet;
+                    let chargeAreaDamagePerBullet;
+                    let chargeDamagePerBullet;
+
+                    let totalDirectDamage;
+                    let totalChargeDirectDamage;
+                    let totalChargeAreaDamage;
+                    let totalChargeDamage;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.directDamage = parseFloat(stat.value);
+                        } else if (stat.name === 'Charged Damage') {
+                            dpsStats.chargeDamage = parseFloat(stat.value);
+                        } else if (stat.name === 'Charged Area Damage') {
+                            dpsStats.chargeAreaDamage = parseFloat(stat.value);
+                        } else if (stat.name === 'Charged Shot Ammo Use') {
+                            dpsStats.chargeAmmoUse = parseFloat(stat.value);
+                        } else if (stat.name === 'Charge Speed') {
+                            dpsStats.chargeSpeed = parseFloat(stat.value);
+                        } else if (stat.name === 'Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Reload Time') {
+                            dpsStats.reloadTime = parseFloat(stat.value);
+                        } else if (stat.name === 'Battery Capacity') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        } else if (stat.name === 'Cooling Rate') {
+                            dpsStats.coolingRate = parseFloat(stat.value);
+                            dpsStats.cooldownTime = 2.5 * dpsStats.coolingRate / 100;
+                        }
+                    }
+                    // get damage time for single and charge shots
+                    let timePerChargedShot = dpsStats.chargeSpeed;
+                    let chargedRateOfFire = 1 / timePerChargedShot;
+
+                    // get single and charge shot damage
+                    directDamagePerBullet = parseFloat(dpsStats.directDamage).toFixed(0);
+                    chargeDirectDamagePerBullet = parseFloat(dpsStats.chargeDamage).toFixed(0);
+                    chargeAreaDamagePerBullet = parseFloat(dpsStats.chargeAreaDamage).toFixed(0);
+                    chargeDamagePerBullet = parseFloat(dpsStats.chargeDamage + dpsStats.chargeAreaDamage).toFixed(0);
+
+                    directDamagePerSecond = parseFloat(directDamagePerBullet * dpsStats.rateOfFire).toFixed(2); // direct dps burst until overheated.
+                    chargeDirectDamagePerSecond = parseFloat(chargeDirectDamagePerBullet * chargedRateOfFire).toFixed(2);
+                    chargeAreaDamagePerSecond = parseFloat(chargeAreaDamagePerBullet * chargedRateOfFire).toFixed(2);
+                    chargeDamagePerSecond = parseFloat(chargeDamagePerBullet * chargedRateOfFire).toFixed(2);
+
+                    let chargedShotCapacity = dpsStats.maxAmmo / dpsStats.chargeAmmoUse;
+
+                    totalDirectDamage = parseFloat(directDamagePerBullet * dpsStats.maxAmmo).toFixed(0);
+                    totalChargeDirectDamage = parseFloat(chargeDirectDamagePerBullet * chargedShotCapacity).toFixed(0);
+                    totalChargeAreaDamage = parseFloat(chargeAreaDamagePerBullet * chargedShotCapacity).toFixed(0);
+                    totalChargeDamage = parseFloat(chargeDamagePerBullet * chargedShotCapacity).toFixed(0);
+                    return {
+                        dpsplasma: `${directDamagePerSecond}`, // damage per second for normal shot
+                        dpscharged: `${chargeDamagePerSecond} (Direct: ${chargeDirectDamagePerSecond} / Area: ${chargeAreaDamagePerSecond})`, // damage per second for charged shot
+                        dpbplasma: `${directDamagePerBullet}`, // damage per shot
+                        dpbcharged: `${chargeDamagePerBullet} (Direct: ${chargeDirectDamagePerBullet} / Area: ${chargeAreaDamagePerBullet})`, // damage per charged shot
+                        dpaplasma: `${totalDirectDamage}`, // total damage available for normal shots
+                        dpacharged: `${totalChargeDamage} (Direct: ${totalChargeDirectDamage} / Area: ${totalChargeAreaDamage})` // total damage available for charged shots
+                    };
+                }
+            },
+            {
+                'id': '13',
+                'name': '"Lead Storm" Powered Minigun',
+                'icon': 'G_P1_Lead',
+                calculateDamage: (stats) => {
+                    let damagePerSecond;
+                    let totalDamage;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.damage = parseFloat(stat.value);
+                        } else if (stat.name === 'Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Ammo') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        }
+                    }
+
+                    damagePerSecond = parseFloat(dpsStats.damage * dpsStats.rateOfFire / 2).toFixed(2);
+
+                    totalDamage = parseFloat(dpsStats.damage * dpsStats.maxAmmo / 2).toFixed(0);
+
+                    return {
+                        dps: `${damagePerSecond} (Burst until overheated)`, // damage per second
+                        dpa: totalDamage // total damage available
+                    };
+                }
+            },
+            {
+                'id': '14',
+                'name': '"Thunderhead" Heavy Autocannon',
+                'icon': 'G_P2_Thunder',
+                calculateDamage: (stats) => {
+                    let directDamagePerSecond;
+                    let areaDamagePerSecond;
+                    let damagePerSecond;
+                    let directDamagePerBullet;
+                    let areaDamagePerBullet;
+                    let damagePerBullet;
+                    let directDamagePerMagazine;
+                    let areaDamagePerMagazine;
+                    let damagePerMagazine;
+                    let totalDirectDamage;
+                    let totalAreaDamage;
+                    let totalDamage;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.directDamage = parseFloat(stat.value);
+                        } else if (stat.name === 'Area Damage') {
+                            dpsStats.areaDamage = parseFloat(stat.value);
+                        } else if (stat.name === 'Magazine Size') {
+                            dpsStats.magazineSize = parseFloat(stat.value);
+                        } else if (stat.name === 'Top Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Reload Time') {
+                            dpsStats.reloadTime = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Ammo') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        }
+                    }
+
+                    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+                    dpsStats.damage = dpsStats.directDamage + dpsStats.areaDamage;
+
+                    let timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+                    let damageTime = timeToEmpty + dpsStats.reloadTime;
+
+                    directDamagePerMagazine = dpsStats.directDamage * dpsStats.magazineSize;
+                    areaDamagePerMagazine = dpsStats.areaDamage * dpsStats.magazineSize;
+                    damagePerMagazine = dpsStats.damage * dpsStats.magazineSize;
+
+                    directDamagePerSecond = parseFloat(directDamagePerMagazine / damageTime).toFixed(2);
+                    areaDamagePerSecond = parseFloat(areaDamagePerMagazine / damageTime).toFixed(2);
+                    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+
+                    directDamagePerBullet = dpsStats.directDamage;
+                    areaDamagePerBullet = dpsStats.areaDamage;
+                    damagePerBullet = dpsStats.damage;
+
+                    totalDirectDamage = dpsStats.directDamage * dpsStats.maxAmmo;
+                    totalAreaDamage = dpsStats.areaDamage * dpsStats.maxAmmo;
+                    totalDamage = dpsStats.damage * dpsStats.maxAmmo;
+
+                    return {
+                        tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
+                        dps: `${damagePerSecond} (Direct: ${directDamagePerSecond} / Area: ${areaDamagePerSecond})`, // damage per second
+                        dpb: `${damagePerBullet} (Direct: ${directDamagePerBullet} / Area: ${areaDamagePerBullet})`, // damage per bullet
+                        dpm: `${damagePerMagazine} (Direct: ${directDamagePerMagazine} / Area: ${areaDamagePerMagazine})`, // damage per magazine
+                        dpa: `${totalDamage} (Direct: ${totalDirectDamage} / Area: ${totalAreaDamage})` // total damage available
+                    };
+                }
+            },
+            {
+                'id': '15',
+                'name': '"Bulldog" Heavy Revolver',
+                'icon': 'G_S1_Bulldog'
+            },
+            {
+                'id': '16',
+                'name': 'BRT7 Burst Fire Gun',
+                'icon': 'G_S2_Burst',
+                calculateDamage: (stats) => {
+                    let damagePerSecond;
+                    let burstDamage;
+                    let damagePerMagazine;
+                    let totalDamage;
+                    let dpsStats = {};
+                    for (let stat of stats) {
+                        if (stat.name === 'Damage') {
+                            dpsStats.damage = parseFloat(stat.value);
+                        } else if (stat.name === 'Burst Size') {
+                            dpsStats.burstSize = parseFloat(stat.value);
+                        } else if (stat.name === 'Burst Speed') {
+                            dpsStats.burstSpeed = parseFloat(stat.value);
+                        } else if (stat.name === 'Burst Damage') {
+                            dpsStats.burstBonus = parseFloat(stat.value);
+                        } else if (stat.name === 'Max Ammo') {
+                            dpsStats.maxAmmo = parseFloat(stat.value);
+                        } else if (stat.name === 'Magazine Size') {
+                            dpsStats.magazineSize = parseFloat(stat.value);
+                        } else if (stat.name === 'Rate of Fire') {
+                            dpsStats.rateOfFire = parseFloat(stat.value);
+                        } else if (stat.name === 'Reload Time') {
+                            dpsStats.reloadTime = parseFloat(stat.value);
+                        } else if (stat.name === 'Weakpoint Damage Bonus') {
+                            dpsStats.weakPoint = parseFloat(stat.value);
+                        }
+                    }
+                    // damage over one burst (3 or 6 bullets used)
+
+                    dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+
+                    burstDamage = dpsStats.damage * dpsStats.burstSize;
+                    if (dpsStats.burstBonus) {
+                        burstDamage += dpsStats.burstBonus;
+                    }
+                    burstDamage = parseFloat(burstDamage).toFixed(0);
+                    let burstMagazine = dpsStats.magazineSize / dpsStats.burstSize;
+                    // rate of fire is rate of bursts per second (burst speed ignored)
+                    let timeToEmpty = burstMagazine / dpsStats.rateOfFire;
+                    let damageTime = timeToEmpty + dpsStats.reloadTime;
+                    damagePerMagazine = parseFloat(burstDamage * burstMagazine).toFixed(0);
+                    damagePerSecond = parseFloat(damagePerMagazine / damageTime).toFixed(2);
+                    totalDamage = parseFloat(burstDamage * (dpsStats.maxAmmo / dpsStats.burstSize)).toFixed(0);
+
+                    return {
+                        tte: timeToEmpty.toFixed(2),
+                        wpd: parseFloat(dpsStats.damage * (1 + (dpsStats.weakPoint / 100))).toFixed(2),
+                        dps: damagePerSecond,
+                        dpb: burstDamage,
+                        dpm: damagePerMagazine,
+                        dpa: totalDamage
+                    };
+                }
+            }
+
+        ],
         selected: {
             class: 'D',
             equipment: 'P1',
@@ -298,28 +846,46 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        getDrillerPrimaries: state => {
-            console.log('getter', state.loadoutCreator.baseData.D.primaryWeapons);
-            return state.loadoutCreator.baseData.D.primaryWeapons;
+        getPrimariesByClass: state => id => {
+            console.log('getter', state.loadoutCreator.baseData[id].primaryWeapons);
+            return state.loadoutCreator.baseData[id].primaryWeapons;
+        },
+        getSecondariesByClass: state => id => {
+            console.log('getter', state.loadoutCreator.baseData[id].secondaryWeapons);
+            return state.loadoutCreator.baseData[id].secondaryWeapons;
+        },
+        getEquipmentsByClass: state => id => {
+            console.log('getter', state.loadoutCreator.baseData[id].equipments);
+            return state.loadoutCreator.baseData[id].equipments;
+        },
+        getThrowablesByClass: state => id => {
+            console.log('getter', state.loadoutCreator.baseData[id].throwables);
+            return state.loadoutCreator.baseData[id].throwables;
         }
     },
     mutations: {
         setDataReady: (state, indices) => {
-            state.loadoutCreator.dataReady = indices.ready
+            state.loadoutCreator.dataReady = indices.ready;
         },
         /* todo: new select for mods and ocs */
         selectLoadoutClass: (state, indices) => {
             state.loadoutCreator.selectedClassId = indices.classId;
-            console.log("data for selected class", state.loadoutCreator.baseData[indices.classId])
-            console.log(state.loadoutCreator)
+            console.log('data for selected class', state.loadoutCreator.baseData[indices.classId]);
+            console.log(state.loadoutCreator);
         },
         selectLoadoutEquipment: (state, indices) => {
+            if (!indices.character_slot) {
+                state.loadoutCreator.selectedEquipmentType = "equipment"
+            } else {
+                state.loadoutCreator.selectedEquipmentType = "weapon"
+            }
             state.loadoutCreator.selectedEquipmentId = indices.equipmentId;
-            if (indices.equipmentId.includes('P')) {
+            if (indices.character_slot === 1) {
                 state.loadoutCreator.chosenPrimaryId = indices.equipmentId;
-            } else if (indices.equipmentId.includes('S')) {
+            } else if (indices.character_slot === 2) {
                 state.loadoutCreator.chosenSecondaryId = indices.equipmentId;
             }
+            console.log("loadout creator state", state.loadoutCreator)
         },
         selectLoadoutMods: (state, indices) => {
             console.log('new mod selection', indices);
@@ -343,7 +909,7 @@ export default new Vuex.Store({
                 equipments: baseData.equipments,
                 throwables: baseData.throwables
             };
-            console.log("data ready", state.loadoutCreator.baseData[classId]);
+            console.log('data ready', state.loadoutCreator.baseData[classId]);
         },
         /* :todo */
 
