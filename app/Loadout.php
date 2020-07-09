@@ -23,11 +23,6 @@ class Loadout extends Model
         return $this->belongsTo(Character::class);
     }
 
-    public function guns()
-    {
-        return $this->belongsToMany(Gun::class, 'loadout_gun');
-    }
-
     public function mods()
     {
         return $this->belongsToMany(Mod::class, 'loadout_mod');
@@ -36,11 +31,6 @@ class Loadout extends Model
     public function overclocks()
     {
         return $this->belongsToMany(Overclock::class, 'loadout_overclock');
-    }
-
-    public function equipments()
-    {
-        return $this->belongsToMany(Equipment::class, 'loadout_equipment');
     }
 
     public function equipment_mods()
