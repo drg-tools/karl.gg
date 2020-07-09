@@ -1,60 +1,150 @@
 <template>
-    <div>
-        <!-- todo: autoscroll on equipment -->
-        <div v-if="selectedClass === 'D'" class="equipmentComponentContainer">
-            <EquipmentComponent
-                v-for="(equipment, equipmentId) in drillerEquipment"
-                :key="equipmentId"
-                :iconPath="equipment.icon"
-                :name="equipment.name"
-                :classId="'D'"
-                :equipmentId="equipmentId"
-                :data="equipment"
-            />
+    <!-- todo: busy indicator if data is not ready -->
+    <div v-if="dataReady">
+        <!-- driller -->
+        <div v-if="selectedClass === 'D'" class="equipmentSelectContainer">
+            <div class="primariesContainer">
+                <!-- todo: icon missing from equipment backend.. get from store -->
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classPrimaries('D')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'D'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="secondariesContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classSecondaries('D')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'D'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="equipmentContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classEquipments('D')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'D'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
         </div>
-        <div v-if="selectedClass === 'E'" class="equipmentComponentContainer">
-            <EquipmentComponent
-                v-for="(equipment, equipmentId) in engineerEquipment"
-                :key="equipmentId"
-                :iconPath="equipment.icon"
-                :name="equipment.name"
-                :classId="'E'"
-                :equipmentId="equipmentId"
-                :data="equipment"
-            />
+        <!-- engineer -->
+        <div v-if="selectedClass === 'E'" class="equipmentSelectContainer">
+            <div class="primariesContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classPrimaries('E')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'E'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="secondariesContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classSecondaries('E')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'E'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="equipmentContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classEquipments('E')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'E'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
         </div>
-        <div v-if="selectedClass === 'G'" class="equipmentComponentContainer">
-            <EquipmentComponent
-                v-for="(equipment, equipmentId) in gunnerEquipment"
-                :key="equipmentId"
-                :iconPath="equipment.icon"
-                :name="equipment.name"
-                :classId="'G'"
-                :equipmentId="equipmentId"
-                :data="equipment"
-            />
+        <!-- gunner -->
+        <div v-if="selectedClass === 'G'" class="equipmentSelectContainer">
+            <div class="primariesContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classPrimaries('G')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'G'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="secondariesContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classSecondaries('G')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'G'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="equipmentContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classEquipments('G')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'G'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
         </div>
-        <div v-if="selectedClass === 'S'" class="equipmentComponentContainer">
-            <EquipmentComponent
-                v-for="(equipment, equipmentId) in scoutEquipment"
-                :key="equipmentId"
-                :iconPath="equipment.icon"
-                :name="equipment.name"
-                :classId="'S'"
-                :equipmentId="equipmentId"
-                :data="equipment"
-            />
-        </div>
-        <div v-if="selectedClass === 'R'" class="equipmentComponentContainer">
-            <EquipmentComponent
-                v-for="(equipment, equipmentId) in robotEquipment"
-                :key="equipmentId"
-                :iconPath="equipment.icon"
-                :name="equipment.name"
-                :classId="'R'"
-                :equipmentId="equipmentId"
-                :data="equipment"
-            />
+        <!-- scout -->
+        <div v-if="selectedClass === 'S'" class="equipmentSelectContainer">
+            <div class="primariesContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classPrimaries('S')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'S'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="secondariesContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classSecondaries('S')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'S'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
+            <div class="equipmentContainer">
+                <EquipmentComponent
+                    v-for="(equipment, equipmentId) in classEquipments('S')"
+                    :key="equipmentId"
+                    :iconPath="equipment.icon"
+                    :name="equipment.name"
+                    :character_slot="equipment.character_slot"
+                    :classId="'S'"
+                    :equipmentId="equipment.id"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +152,15 @@
 <script>
     import EquipmentComponent from './EquipmentComponent.vue';
     import store from '../store';
+    import apolloQueries from '../apolloQueries';
+    import gql from 'graphql-tag';
+
+    const charToId = {
+        D: 3,
+        E: 1,
+        G: 4,
+        S: 2
+    };
 
     export default {
         name: 'EquipmentSelect',
@@ -70,38 +169,78 @@
         },
         computed: {
             selectedClass() {
-                return store.state.selected.class;
+                return store.state.loadoutCreator.selectedClassId;
             },
-            drillerEquipment() {
-                return store.state.tree.D;
+            classIds() {
+                return ['D', 'E', 'G', 'S'];
             },
-            engineerEquipment() {
-                return store.state.tree.E;
+
+            dataReady() {
+                return store.state.loadoutCreator.dataReady;
+            }
+
+        },
+        methods: {
+            classPrimaries(classId) {
+                return store.getters.getPrimariesByClass(classId);
             },
-            gunnerEquipment() {
-                return store.state.tree.G;
+            classSecondaries(classId) {
+                return store.getters.getSecondariesByClass(classId);
             },
-            scoutEquipment() {
-                return store.state.tree.S;
-            },
-            robotEquipment() {
-                return store.state.tree.R;
+            classEquipments(classId) {
+                return store.getters.getEquipmentsByClass(classId);
             }
         },
-        methods: {},
+        apollo: {
+            // Query with parameters
+            /*character: {
+                query: gql`${apolloQueries.character}`,
+                // Reactive parameters
+                variables() {
+                    console.log('auto apollo query', charToId[this.selectedClass]);
+                    // Use vue reactive properties here
+                    return {
+                        id: charToId[this.selectedClass]
+                    };
+                }
+            }*/
+        },
         mounted: function () {
         }
     };
 </script>
 
-<style>
-    .equipmentComponentContainer {
+<style scoped>
+    .equipmentSelectContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .primariesContainer {
+        display: flex;
+        width: 48%;
+        border-top: 5px solid #fc9e00;
+        background-color: #352e1e;
+        margin-bottom: 0.5rem;
+    }
+
+    .secondariesContainer {
+        display: flex;
+        width: 48%;
+        border-top: 5px solid #fc9e00;
+        background-color: #352e1e;
+        margin-bottom: 0.5rem;
+    }
+
+    .equipmentContainer {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         -ms-overflow-style: -ms-autohiding-scrollbar;
-        border-top: 5px solid #fc9e00;
+        width: 100%;
+        border-bottom: 5px solid #fc9e00;
         background-color: #352e1e;
         margin-bottom: 0.5rem;
     }

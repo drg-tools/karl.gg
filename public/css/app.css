@@ -19318,8 +19318,12 @@ body {
 }
 
 h1 {
+  color: #fc9e00;
   display: block;
-  font-size: 2em;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  font-family: BebasNeue, sans-serif;
   -webkit-margin-before: 0.67em;
           margin-block-start: 0.67em;
   -webkit-margin-after: 0.67em;
@@ -19328,12 +19332,15 @@ h1 {
           margin-inline-start: 0px;
   -webkit-margin-end: 0px;
           margin-inline-end: 0px;
-  font-weight: bold;
 }
 
 h2 {
+  color: #fffbff;
   display: block;
-  font-size: 1.5em;
+  font-size: 1.6rem;
+  letter-spacing: 0.05rem;
+  font-weight: normal!important;
+  font-family: BebasNeue, sans-serif;
   -webkit-margin-before: 0.83em;
           margin-block-start: 0.83em;
   -webkit-margin-after: 0.83em;
@@ -19342,12 +19349,20 @@ h2 {
           margin-inline-start: 0px;
   -webkit-margin-end: 0px;
           margin-inline-end: 0px;
-  font-weight: bold;
-  color: #fffbff;
+}
+
+h3 {
+  color: #fc9e00;
+  display: block;
+  font-size: 1.4rem;
+  font-weight: normal;
+  font-family: BebasNeue, sans-serif;
 }
 
 h4 {
   display: block;
+  font-weight: normal;
+  font-family: BebasNeue, sans-serif;
   -webkit-margin-before: 1.33em;
           margin-block-start: 1.33em;
   -webkit-margin-after: 1.33em;
@@ -19356,7 +19371,6 @@ h4 {
           margin-inline-start: 0px;
   -webkit-margin-end: 0px;
           margin-inline-end: 0px;
-  font-weight: bold;
 }
 
 span {
@@ -19367,11 +19381,23 @@ span {
 
 /*todo: web fonts*/
 
+@font-face {
+  font-family: 'BebasNeue';
+
+  src: url(/fonts/BebasNeue.eot?a526a43bff331e232f66f17040689c37); /* IE9 Compat Modes */
+
+  src: url(/fonts/BebasNeue.eot?a526a43bff331e232f66f17040689c37?#iefix) format('embedded-opentype'), 
+         url(/fonts/BebasNeue.woff2?2da48e946ae21f4f312edf53a6bd5317) format('woff2'), 
+         url(/fonts/BebasNeue.woff?d201e4aa499eff8d160fe37e1f4fc941) format('woff'), 
+         url(/fonts/BebasNeue.ttf?26536728c0f6e197d4c7d62f11dfb8b9)  format('truetype'), 
+         url(/fonts/BebasNeue.svg?fad3837b744edf0140e4f3f2f54a72ee#svgFontName) format('svg'); /* Legacy iOS */
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 60px;
+  margin-top: 1rem;
   width: 1000px;
 }
 
@@ -19393,6 +19419,75 @@ span {
   display: flex;
   flex-wrap: wrap;
   /*height: 5rem;*/
+}
+
+svg > a:hover {
+  text-decoration: none!important;
+}
+
+.navMenu {
+  background-color: rgb(24, 17, 11);
+  border-bottom: 5px solid rgb(252, 158, 0);
+  margin-bottom: 2rem;
+}
+
+.navButton, .navButtonActive {
+  margin-right: 1rem;
+}
+
+.navButton path {
+  stroke: none;
+}
+
+.navButton text {
+  fill: rgb(173, 161, 149);
+}
+
+.navButton:hover path {
+  stroke: rgb(255, 255, 255);
+}
+
+.navButton:hover text {
+  fill: rgb(255, 255, 255);
+}
+
+.navButtonActive path {
+  stroke: rgb(252, 158, 0);
+}
+
+.navButtonActive text {
+  fill: rgb(255, 255, 255);
+}
+
+.footerBorder {
+  border-top: 5px solid rgb(252, 158, 0)
+}
+
+.allCaps {
+  text-transform: uppercase;
+}
+
+.defaultBackground {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.costList {
+  display: flex;
+  flex-wrap: wrap;
+  color: #fffbff;
+}
+
+.costListItem {
+  display: flex;
+  align-items: center;
+}
+
+.costListItem > img {
+  padding-right: 0.2rem;
+}
+
+.costListItem > span {
+  padding-right: 0.6rem;
 }
 
 ::-webkit-scrollbar-button {

@@ -1,19 +1,19 @@
 <template>
-    <div class="weaponSelectContainer" v-on:click="selectEquip()" :title="[getModified ? 'Equipment is modified' : '']">
+    <div class="weaponSelectContainer" v-on:click="selectEquipment()">
         <div class="flexboxWeaponSelect" :class="[getSelected ? 'equipmentActive' : 'equipment']">
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 180 90"
                  :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']"
-                 height="70%"
+                 :height="equipmentNameVisible ? '70%' : '50%'"
                  preserveAspectRatio="xMidYMid meet"
                  v-html="getIconFromPath"></svg>
         </div>
-        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']">
-            <h4>{{ name }}<span v-if="getModified"> *</span></h4>
+        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"><!-- v-if="equipmentNameVisible"-->
+            <h4 :class="[equipmentNameVisible ? 'largeText' : '']">{{ name }}</h4>
         </div>
     </div>
 </template>
-
+<!-- todo: differentiate selected primary and secondary weapons visibly hide text from not-selected weapon atm -->
 <script>
     import store from '../store';
 
@@ -23,33 +23,43 @@
             iconPath: String,
             name: String,
             classId: String,
-            equipmentId: String,
-            data: Object
+            character_slot: Number,
+            equipmentId: String
         },
         computed: {
             getIconFromPath: function () {
-                let aPath = this.iconPath.split('.');
-                if (aPath.length < 2) {
-                    return '';
+                /* todo: weapons are missing their icons atm, fine for equipments */
+                if (!this.iconPath) {
+                    let iconName = store.state.missingBackendWeaponData[this.equipmentId].icon;
+                    return store.state.icons.equipment[iconName];
+                } else {
+                    return store.state.icons.equipment[this.iconPath];
                 }
-                return store.state.icons[aPath[0]][aPath[1]];
             },
             getSelected: function () {
-                return this.data.selected;
+                if (this.character_slot) {
+                    return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
+                        && store.state.loadoutCreator.selectedEquipmentType.includes("Weapons");
+                } else {
+                    return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
+                        && store.state.loadoutCreator.selectedEquipmentType === "equipments";
+                }
             },
-            getModified: function () {
-                return store.state.tree[this.classId][this.equipmentId].modified;
+            equipmentNameVisible: function () {
+                if (this.character_slot === 1) {
+                    return store.state.loadoutCreator.chosenPrimaryId === this.equipmentId;
+                } else if (this.character_slot === 2) {
+                    return store.state.loadoutCreator.chosenSecondaryId === this.equipmentId;
+                }
+                return true;
             }
         },
         methods: {
-            selectEquip() {
-                store.commit('selectEquipment', {
-                    classID: this.classId,
-                    equipID: this.equipmentId
-                });
-                store.commit('deSelectOtherEquipments', {
-                    classID: this.classId,
-                    equipID: this.equipmentId
+            selectEquipment() {
+                console.log(this.equipmentId);
+                store.commit('selectLoadoutEquipment', {
+                    equipmentId: this.equipmentId,
+                    character_slot: this.character_slot
                 });
             }
         }
@@ -57,11 +67,64 @@
 </script>
 
 <style scoped>
+    /* todo: proper styles for this stuff, it's messy atm */
     h4 {
         white-space: nowrap;
     }
 
+    .equipmentActive {
+        background-color: #fc9e00;
+        color: #352e1e;
+    }
+
+    .equipment {
+        background-color: #5b402d;
+        color: #352e1e;
+    }
+
+    .equipmentIcon {
+        fill: #ada195;
+    }
+
+    .equipmentIconActive {
+        fill: #fffbff;
+    }
+
+    h4 {
+        margin: 0;
+        white-space: pre-wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .largeText {
+        font-size: 1.4rem;
+    }
+
+    .equipmentText {
+        flex: auto;
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #352e1e;
+        color: #ada195;
+    }
+
+    .equipmentTextActive {
+        flex: auto;
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #010103;
+        color: #fffbff;
+    }
+
     .weaponSelectContainer {
+        flex: auto;
         display: flex;
         cursor: pointer;
     }
@@ -77,7 +140,7 @@
     .flexboxWeaponSelect {
         display: flex;
         align-items: center;
-        height: 5rem;
+        height: 4rem;
     }
 
     .flexboxWeaponSelect > svg {

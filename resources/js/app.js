@@ -4,9 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap')
+require('./bootstrap');
 
-window.Vue = require('vue')
+window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,23 +19,23 @@ window.Vue = require('vue')
 Vue.component(
     'passport-clients',
     require('./components/passport/Clients.vue').default
-)
+);
 
 Vue.component(
     'passport-authorized-clients',
     require('./components/passport/AuthorizedClients.vue').default
-)
+);
 
 Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
-)
+);
 
-const files = require.context('./', true, /\.vue$/i)
+const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => {
-    let keyId = key.split('/').pop().split('.')[0]
-    Vue.component(keyId, files(key).default)
-})
+    let keyId = key.split('/').pop().split('.')[0];
+    Vue.component(keyId, files(key).default);
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43,24 +43,24 @@ files.keys().map(key => {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import Vue from 'vue'
-import store from './store'
-import { Apollo } from './apollo'
-import Toasted from 'vue-toasted'
-import Popover from 'vue-js-popover'
-import VueApollo from 'vue-apollo'
+import Vue from 'vue';
+import store from './store';
+import {Apollo} from './apollo';
+import Toasted from 'vue-toasted';
+import Popover from 'vue-js-popover';
+import VueApollo from 'vue-apollo';
 
-Vue.config.productionTip = false
-Vue.use(Toasted)
-Vue.use(Popover)
-Vue.use(VueApollo)
+Vue.config.productionTip = false;
+Vue.use(Toasted);
+Vue.use(Popover);
+Vue.use(VueApollo);
 
 const apolloProvider = new VueApollo({
     defaultClient: Apollo
-})
+});
 
 const app = new Vue({
     el: '#app',
     store,
     apolloProvider
-})
+});
