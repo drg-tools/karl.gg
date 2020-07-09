@@ -87,6 +87,7 @@
             }*/
         },
         mounted: function () {
+            /* todo: get selected class from URL! */
             console.log('class select mounted');
             console.log(this.selectedClass);
             console.log(store.state);
