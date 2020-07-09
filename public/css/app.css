@@ -19390,7 +19390,7 @@ span {
          url(/fonts/BebasNeue.woff2?2da48e946ae21f4f312edf53a6bd5317) format('woff2'), 
          url(/fonts/BebasNeue.woff?d201e4aa499eff8d160fe37e1f4fc941) format('woff'), 
          url(/fonts/BebasNeue.ttf?26536728c0f6e197d4c7d62f11dfb8b9)  format('truetype'), 
-         url(/fonts/BebasNeue.svg?fad3837b744edf0140e4f3f2f54a72ee#svgFontName) format('svg'); /* Legacy iOS */
+         url(/fonts/BebasNeue.svg?a007c3b92f4dafecd60edbc1abb273eb#svgFontName) format('svg'); /* Legacy iOS */
 }
 
 #app {
