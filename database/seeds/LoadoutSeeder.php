@@ -20,18 +20,6 @@ class LoadoutSeeder extends Seeder
                 'throwable_id' => 12,
             ],
         ];
-        $loadout_eq = [
-            [
-                'loadout_id' => 1,
-                'equipment_id' => 7,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 1,
-                'equipment_id' => 10,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-        ];
         $loadout_eq_mods = [
             [
                 'loadout_id' => 1,
@@ -71,18 +59,6 @@ class LoadoutSeeder extends Seeder
             [
                 'loadout_id' => 1,
                 'equipment_mod_id' => 96,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-        ];
-        $loadout_guns = [
-            [
-                'loadout_id' => 1,
-                'gun_id' => 5,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 1,
-                'gun_id' => 8,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
         ];
@@ -151,9 +127,7 @@ class LoadoutSeeder extends Seeder
             ],
         ];
         Loadout::insert($loadouts);
-        DB::table('loadout_equipment')->insert($loadout_eq);
         DB::table('loadout_equipment_mod')->insert($loadout_eq_mods);
-        DB::table('loadout_gun')->insert($loadout_guns);
         DB::table('loadout_mod')->insert($loadout_gun_mods);
         DB::table('loadout_overclock')->insert($loadout_overclocks);
     }

@@ -28,7 +28,6 @@ type Query {
     throwable(id: ID @eq): Throwable @find
     mods: [Mod!]! @paginate(defaultCount: 10)
     mod(id: ID @eq): Mod @find
-    
 }
 
 type Mutation {
@@ -188,12 +187,10 @@ type Loadout {
     description: String!
     character: Character @belongsTo
     creator: User @belongsTo
-    mods: [Mod!]! @belongsToMany
+    mods: [Mod!] @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!
-    equipments: [Equipment!]! @belongsToMany
     overclocks: [Overclock!]! @belongsToMany
-    guns: [Gun!]! @belongsToMany
     equipment_mods: [EquipmentMod!]! @belongsToMany
     throwable: Throwable @hasOne
 }
