@@ -174,42 +174,20 @@
                 return ['D', 'E', 'G', 'S'];
             },
 
-            engineerEquipment() {
-                return store.state.tree.E;
-            },
-            gunnerEquipment() {
-                return store.state.tree.G;
-            },
-            scoutEquipment() {
-                return store.state.tree.S;
-            },
-            robotEquipment() {
-                return store.state.tree.R;
-            },
-
             dataReady() {
-                return store.state.loadoutCreator.dataReady
-            },
+                return store.state.loadoutCreator.dataReady;
+            }
 
         },
         methods: {
             classPrimaries(classId) {
-                // let tree = store.state.tree[classId];
-                // console.log("old class primaries", {P1: tree.P1, P2: tree.P2});
-                // console.log("new class primaries", store.getters.getPrimariesByClass(classId))
-                // return store.state.loadoutCreator.baseData[classId].primaryWeapons
-                return store.getters.getPrimariesByClass(classId)
-                // return {P1: tree.P1, P2: tree.P2};
+                return store.getters.getPrimariesByClass(classId);
             },
             classSecondaries(classId) {
-                // let tree = store.state.tree[classId];
-                return store.getters.getSecondariesByClass(classId)
-                // return {S1: tree.S1, S2: tree.S2};
+                return store.getters.getSecondariesByClass(classId);
             },
             classEquipments(classId) {
-                return store.getters.getEquipmentsByClass(classId)
-                // let tree = store.state.tree[classId];
-                // return {E1: tree.E1, E2: tree.E2, E3: tree.E3};
+                return store.getters.getEquipmentsByClass(classId);
             }
         },
         apollo: {

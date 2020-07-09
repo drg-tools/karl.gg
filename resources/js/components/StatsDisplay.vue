@@ -140,7 +140,7 @@
         let damagePerSecond = magazineDamage / damageTime;
 
         let weakpointDamage = (dpsStats.damage * (1 + (dpsStats.weakPoint / 100))).toFixed(2);
-        console.log('calculate wpd for default equipment', weakpointDamage ? weakpointDamage : undefined);
+
         return {
             tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
             wpd: isNaN(weakpointDamage) ? undefined : weakpointDamage,
@@ -204,17 +204,15 @@
     };
 
     const getModifiedStats = (baseStats, selectedUpgrades) => {
-        /* todo */
         // loop trough all selected upgrades
         let upgradesForEachStat = new Map();
         let costs = [];
         for (let upgrade of selectedUpgrades) {
-            /* todo: map cost into old structure when loading mod data in store */
             costs.push(upgrade.cost);
 
             // loop trough stats of upgrade
-            for (let statKey in upgrade.stats) {
-                let statContent = upgrade.stats[statKey];
+            for (let statKey in upgrade.json_stats) {
+                let statContent = upgrade.json_stats[statKey];
                 let tempContent = [];
                 if (upgradesForEachStat.has(statKey)) {
                     tempContent = upgradesForEachStat.get(statKey);
@@ -277,23 +275,11 @@
                     selectedEquipmentType: this.selectedEquipmentType
                 });
             },
-            /*equipment: function() {
-				return store.state.tree[this.selectedClassId][this.selectedEquipmentId];
-			},*/
             baseStats: function () {
                 return this.equipment.json_stats;
-                // return store.getters.getStatsByClassTypeId({
-                //     selectedClassId: this.selectedClassId,
-                //     selectedEquipmentId: this.selectedEquipmentId,
-                //     selectedEquipmentType: this.selectedEquipmentType
-                // });
-                // return store.state.tree[this.selectedClassId][this.selectedEquipmentId].baseStats;
             },
             calcStats: function () {
-                /* todo: this is not reactive anymore.. */
-                console.log("***calc stats***");
                 let visible = false;
-                console.log(this.equipment);
                 let mods = this.equipment.mods;
                 let overclocks = this.equipment.overclocks;
                 let aSelectedUpgrades = mods.reduce(
@@ -303,7 +289,7 @@
                     },
                     []
                 );
-                // let overclocks = store.state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
+
                 if (overclocks) {
                     for (let overclock of overclocks) {
                         if (overclock.selected) {
@@ -312,12 +298,13 @@
                     }
                 }
 
-                console.log('selected upgrades', aSelectedUpgrades);
                 let results = getModifiedStats(this.baseStats, aSelectedUpgrades);
                 let stats = results.stats;
                 let costs = results.costs;
 
-                let damage = this.equipment.calculateDamage ? this.equipment.calculateDamage(stats) : _calculateDamage(stats);
+                let calculateDamage = store.state.missingBackendWeaponData[this.selectedEquipmentId].calculateDamage;
+
+                let damage = calculateDamage ? calculateDamage(stats) : _calculateDamage(stats);
 
                 let totalCost = {
                     credits: 0,

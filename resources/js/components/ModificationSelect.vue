@@ -259,10 +259,7 @@
             }
         },
         methods: {
-            /* todo: cannot use a method to get selected state of mod, mod.selected is better performance wise.. but not reactive!! */
             selectMod(classId, equipmentId, tierId, modId, selected) {
-                console.log('select mod, is selected?', selected);
-                /* todo: new selection logic, based on backend data structure */
                 if (selected) {
                     store.commit('selectLoadoutMods', {
                         classId: classId,
@@ -279,30 +276,6 @@
                         chosenMod: modId
                     });
                 }
-                // workaround so selected state is known
-                this.$forceUpdate();
-                /* :todo */
-                /*if (selected) {
-                    store.commit('deSelectAllModifications', {
-                        classID: classId,
-                        equipID: equipmentId,
-                        tierID: tierId,
-                        modID: modId
-                    });
-                } else {
-                    store.commit('selectModification', {
-                        classID: classId,
-                        equipID: equipmentId,
-                        tierID: tierId,
-                        modID: modId
-                    });
-                    store.commit('deSelectOtherModifications', {
-                        classID: classId,
-                        equipID: equipmentId,
-                        tierID: tierId,
-                        modID: modId
-                    });
-                }*/
             },
             hoverMod(classId, equipmentId, tierId, modId) {
                 return; //todo: hovers
@@ -329,40 +302,6 @@
                         chosenOverclock: overclockId
                     });
                 }
-                // workaround so selected state is known
-                this.$forceUpdate();
-                /*store.commit('selectLoadoutOverclocks', {
-                    equipmentId: equipmentId,
-                    chosenOverclock: overclockId
-                });
-                if (selected) {
-                    store.commit('selectLoadoutOverclocks', {
-                        equipmentId: equipmentId
-                    });
-                }*/
-                /* :todo */
-                /*let tierId = 'overclock';
-                if (selected) {
-                    store.commit('deSelectAllModifications', {
-                        classID: classId,
-                        equipID: equipmentId,
-                        tierID: tierId,
-                        modID: overclockId
-                    });
-                } else {
-                    store.commit('selectModification', {
-                        classID: classId,
-                        equipID: equipmentId,
-                        tierID: tierId,
-                        modID: overclockId
-                    });
-                    store.commit('deSelectOtherModifications', {
-                        classID: classId,
-                        equipID: equipmentId,
-                        tierID: tierId,
-                        modID: overclockId
-                    });
-                }*/
             },
             hoverOverclock(classId, equipmentId, overclockId) {
                 return; //todo: hovers
