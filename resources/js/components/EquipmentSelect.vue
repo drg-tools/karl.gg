@@ -1,4 +1,5 @@
 <template>
+    <!-- todo: busy indicator if data is not ready -->
     <div v-if="dataReady">
         <!-- driller -->
         <div v-if="selectedClass === 'D'" class="equipmentSelectContainer">

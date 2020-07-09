@@ -982,7 +982,10 @@ export default new Vuex.Store({
             state.loadoutCreator.dataReady = indices.ready;
         },
         selectLoadoutClass: (state, indices) => {
+            /* todo: also select first weapon for class */
+            /* todo: Vue.set */
             state.loadoutCreator.selectedClassId = indices.classId;
+            state.loadoutCreator.selectedEquipmentId = indices.firstEquipmentId;
             console.log('data for selected class', state.loadoutCreator.baseData[indices.classId]);
             console.log(state.loadoutCreator);
         },
@@ -1051,52 +1054,25 @@ export default new Vuex.Store({
             });
             console.log('data ready', state.loadoutCreator.baseData[classId]);
         },
-        /* todo: all hovered functionality */
-        addToHovered: (state, indizes) => {
-            if (indizes.tierID === 'overclock') {
-                state.hovered = state.tree[indizes.classID][indizes.equipID].overclocks[indizes.modID];
+        addToHovered: (state, indices) => {
+            let currentEquipment = state.loadoutCreator.baseData[indices.classId][indices.equipmentType].filter(equipment => equipment.id === indices.equipmentId)[0];
+            if (indices.tierId >= 0) {
+                let hoveredMod = currentEquipment.mods[indices.tierId][indices.modId];
+                Vue.set(state, 'hovered', hoveredMod);
             } else {
-                state.hovered = state.tree[indizes.classID][indizes.equipID].mods[indizes.tierID][indizes.modID];
+                let hoveredOverclock = currentEquipment.overclocks[indices.overclockId];
+                Vue.set(state, 'hovered', hoveredOverclock);
             }
 
-            let hoveredStatKey = Object.keys(state.hovered.stats)[0];
+            /*let hoveredStatKey = Object.keys(state.hovered.stats)[0];
             let hoveredStat = state.hovered.stats[hoveredStatKey];
             let baseStat = state.tree[indizes.classID][indizes.equipID].baseStats[hoveredStatKey];
             let increase = 0;
             if (baseStat.value !== 0) {
                 increase = (hoveredStat.value / baseStat.value) * 100;
             }
-            state.hovered.increase = increase;
-        },
-
-        /*loadFromLink: (state, data) => {
-            state.dataParts = data;
-            state.loadedFromLink = true;
-
-            for (let [classId, equipments] of Object.entries(data)) {
-                for (let [equipmentId, mods] of Object.entries(equipments)) {
-                    state.tree[classId][equipmentId].modified = true;
-                    for (let tierId in mods) {
-                        if (parseInt(mods[tierId]) >= 0) {
-                            if (state.tree[classId][equipmentId].mods[tierId]) {
-                                state.tree[classId][equipmentId].mods[tierId][mods[tierId]].selected = true;
-                            } else {
-                                state.tree[classId][equipmentId].overclocks[mods[tierId]].selected = true;
-                                state.selected.overclock = mods[tierId];
-                                state.loadedOverclockFromLink = true;
-                            }
-                        } else if (mods[tierId] === 'focus') {
-                            state.selected.class = classId;
-                            state.selected.equipment = equipmentId;
-                            for (let equipment in state.tree[classId]) {
-                                state.tree[classId][equipment].selected = equipment === equipmentId;
-                            }
-                            // focus
-                        }
-                    }
-                }
-            }
-        }*/
+            state.hovered.increase = increase;*/
+        }
     },
     actions: {}
 });

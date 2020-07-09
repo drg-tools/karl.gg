@@ -46,13 +46,15 @@
         methods: {
             selectClass: function (classId) {
                 console.log('select', classId);
-                this.getCharacterData(classId);
-                store.commit('selectLoadoutClass', {classId: classId});
+                this.getCharacterData(classId).then(response => {
+                    // todo: this isn't nice
+                    let firstGunId = response.primaryWeapons ? response.primaryWeapons[0].id : response.guns[0].id;
+                    console.log("char data response", response)
+                    store.commit('selectLoadoutClass', {classId: classId, firstEquipmentId: firstGunId});
+                });
             },
-            /* todo: load like this and put into store */
             async getCharacterData(classId) {
                 let id = charToId[classId];
-                console.time('getCharacter');
                 if (store.state.loadoutCreator.baseData[classId]) {
                     console.log('base data already there');
                     store.commit('setDataReady', {ready: true });
@@ -63,18 +65,13 @@
                     const response = await this.$apollo.query({
                         query: gql`${apolloQueries.characterById(id)}`
                     });
-                    console.timeEnd('getCharacter');
-                    /* todo: store function, transform data from backend into a form that is more or less like the old one */
-                    /* todo: find a way to access the old calc functions until backend is ready */
                     store.commit('setLoadoutCreatorBaseData', {classId: classId, baseData: response.data.character});
                     store.commit('setDataReady', {ready: true });
                     return response.data.character;
                 }
             }
         },
-        /* todo: or like this and use again in other components? apollo will cache it all but unsure if we can then use selected and stuff on that data */
-        /* but accessing this data directly in template before it was loaded sucks */
-        /* just keep it as an example for later, where it makes more sense */
+        /* just keep it as an example for later, where it makes more sense to load directly from apollo */
         apollo: {
             // Query with parameters
             /*character: {

@@ -155,7 +155,7 @@
                 </div>
             </popover>
         </div>
-        <div class="modTextBox" v-if="!!hoveredMod.name">
+        <div class="modTextBox" v-if="!!hoveredMod.mod_name || !!hoveredMod.overclock_name">
             <div class="modTextBoxHeader">
                 <div class="modTextBoxIcon">
                     <svg viewBox="0 0 80 50" height="100%" class="modPadding modBackgroundActiveNoStroke">
@@ -173,8 +173,8 @@
                     </svg>
                 </div>
                 <div class="modTextBoxTitle">
-                    <p class="allCaps">{{ hoveredMod.type }}</p>
-                    <p class="allCaps modificationName">{{ hoveredMod.name }}</p>
+                    <p class="allCaps">{{ hoveredMod.mod_type || hoveredMod.overclock_type }}</p>
+                    <p class="allCaps modificationName">{{ hoveredMod.mod_name || hoveredMod.overclock_name }}</p>
                     <p class="costList">
 						<span class="costListItem" v-if="hoveredMod.cost.credits > 0">
 							<img src="../assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
@@ -208,7 +208,7 @@
                 </div>
             </div>
             <div>
-                {{ hoveredMod.text }}
+                {{ hoveredMod.text_description }}
             </div>
         </div>
     </div>
@@ -251,7 +251,6 @@
                 });
             },
             hoveredMod: function () {
-                return false; // todo: hovers
                 return store.state.hovered;
             },
             computedState: function () {
@@ -278,16 +277,15 @@
                 }
             },
             hoverMod(classId, equipmentId, tierId, modId) {
-                return; //todo: hovers
                 store.commit('addToHovered', {
-                    classID: classId,
-                    equipID: equipmentId,
-                    tierID: tierId,
-                    modID: modId
+                    classId: classId,
+                    equipmentType: this.selectedEquipmentType,
+                    equipmentId: equipmentId,
+                    tierId: tierId,
+                    modId: modId
                 });
             },
             selectOverclock(classId, equipmentId, overclockId, selected) {
-                /* todo: new selection logic, based on backend data structure */
                 if (selected) {
                     store.commit('selectLoadoutOverclocks', {
                         classId: classId,
@@ -304,13 +302,11 @@
                 }
             },
             hoverOverclock(classId, equipmentId, overclockId) {
-                return; //todo: hovers
-                let tierId = 'overclock';
                 store.commit('addToHovered', {
-                    classID: classId,
-                    equipID: equipmentId,
-                    tierID: tierId,
-                    modID: overclockId
+                    classId: classId,
+                    equipmentType: this.selectedEquipmentType,
+                    equipmentId: equipmentId,
+                    overclockId: overclockId
                 });
             },
             getSelected: function (mod) {

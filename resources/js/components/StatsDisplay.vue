@@ -194,6 +194,7 @@
                 modifiedValue = (parseFloat(modifiedValue) * parseFloat(upgradetoMultiply.value)).toFixed(precision);
             }
         }
+        /* todo: homebrew explosive is getting too many digits :( */
         modifiedValue = (parseFloat(modifiedValue)).toFixed(precision);
         let difference = (parseFloat(modifiedValue) - parseFloat(originalValue)).toFixed(precision);
         stat.modifier = `${difference < 0 ? '' : '+'}${difference}${stat.percent ? '%' : ''}`;
