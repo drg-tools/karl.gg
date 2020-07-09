@@ -1,0 +1,144 @@
+<template>
+    <div class="classSelectContainer">
+        <h1>Select class:</h1>
+        <div v-on:click="selectClass('D')" class="classSelect"
+             :class="[selectedClass === 'D' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-D_icon-hex.png" class="classIcon"/>
+            <h2>Driller</h2>
+        </div>
+        <div v-on:click="selectClass('E')" class="classSelect"
+             :class="[selectedClass === 'E' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-E_icon-hex.png" class="classIcon"/>
+            <h2>Engineer</h2>
+        </div>
+        <div v-on:click="selectClass('G')" class="classSelect"
+             :class="[selectedClass === 'G' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-G_icon-hex.png" class="classIcon"/>
+            <h2>Gunner</h2>
+        </div>
+        <div v-on:click="selectClass('S')" class="classSelect"
+             :class="[selectedClass === 'S' ? 'classSelectActive' : '']">
+            <img src="../assets/img/50px-S_icon-hex.png" class="classIcon"/>
+            <h2>Scout</h2>
+        </div>
+    </div>
+</template>
+
+<script>
+    import store from '../store';
+    import apolloQueries from '../apolloQueries';
+    import gql from 'graphql-tag';
+
+    const charToId = {
+        D: 3,
+        E: 1,
+        G: 4,
+        S: 2
+    };
+
+    export default {
+        name: 'ClassSelect',
+        computed: {
+            selectedClass: function () {
+                return store.state.loadoutCreator.selectedClassId;
+            }
+        },
+        methods: {
+            selectClass: function (classId) {
+                console.log('select', classId);
+                this.getCharacterData(classId).then(response => {
+                    // todo: this isn't nice
+                    let firstGunId = response.primaryWeapons ? response.primaryWeapons[0].id : response.guns[0].id;
+                    console.log("char data response", response)
+                    store.commit('selectLoadoutClass', {classId: classId, firstEquipmentId: firstGunId});
+                });
+            },
+            async getCharacterData(classId) {
+                let id = charToId[classId];
+                if (store.state.loadoutCreator.baseData[classId]) {
+                    console.log('base data already there');
+                    store.commit('setDataReady', {ready: true });
+                    return store.state.loadoutCreator.baseData[classId];
+                } else {
+                    console.log('fetch base data from graphql');
+                    store.commit('setDataReady', {ready: false });
+                    const response = await this.$apollo.query({
+                        query: gql`${apolloQueries.characterById(id)}`
+                    });
+                    store.commit('setLoadoutCreatorBaseData', {classId: classId, baseData: response.data.character});
+                    store.commit('setDataReady', {ready: true });
+                    return response.data.character;
+                }
+            }
+        },
+        /* just keep it as an example for later, where it makes more sense to load directly from apollo */
+        apollo: {
+            // Query with parameters
+            /*character: {
+                query: gql`${apolloQueries.character}`,
+                // Reactive parameters
+                variables() {
+                    console.log('auto apollo query', charToId[this.selectedClass]);
+                    // Use vue reactive properties here
+                    return {
+                        id: charToId[this.selectedClass]
+                    };
+                }
+            }*/
+        },
+        mounted: function () {
+            /* todo: get selected class from URL! */
+            console.log('class select mounted');
+            console.log(this.selectedClass);
+            console.log(store.state);
+            this.getCharacterData(this.selectedClass).then(character => console.log(character));
+        }
+    };
+</script>
+
+<style scoped>
+    .classSelectContainer {
+        border-top: 5px solid #fc9e00;
+        display: flex;
+
+    }
+
+    .classSelectContainer > h1 {
+        margin: 0;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-right: 2rem
+    }
+
+    .classSelect {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .classSelect:hover {
+        background: #fc9e00;
+    }
+
+    .classSelect > h2 {
+        color: #ADA195;
+        padding-left: 1rem;
+        padding-right: 2rem;
+        margin-block-start: 0;
+        margin-block-end: 0;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+    }
+
+    .classSelect > img {
+        opacity: 0.4;
+    }
+
+    .classSelectActive > h2 {
+        color: #ffffff;
+    }
+
+    .classSelectActive > img {
+        opacity: 1;
+    }
+</style>
