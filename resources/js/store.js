@@ -885,6 +885,26 @@ export default new Vuex.Store({
             console.log('getter', state.loadoutCreator.baseData[id].throwables);
             return state.loadoutCreator.baseData[id].throwables;
         },
+        getEquipmentByClassTypeId: state => indices => {
+            if (indices.selectedEquipmentType === 'primaryWeapons') {
+                let primaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].primaryWeapons;
+                let selectedPrimaryWeapon = primaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
+                console.log('data for primary', selectedPrimaryWeapon[0]);
+                return selectedPrimaryWeapon[0];
+            } else if (indices.selectedEquipmentType === 'secondaryWeapons') {
+                let secondaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].secondaryWeapons;
+                let selectedSecondaryWeapon = secondaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
+                console.log('data for secondary', selectedSecondaryWeapon[0]);
+                return selectedSecondaryWeapon[0];
+            } else if (indices.selectedEquipmentType === 'equipments') {
+                let equipments = state.loadoutCreator.baseData[indices.selectedClassId].equipments;
+                let selectedEquipment = equipments.filter(equipment => equipment.id === indices.selectedEquipmentId);
+                console.log('data for equipment', selectedEquipment[0]);
+                return selectedEquipment[0];
+            } else {
+                return {};
+            }
+        },
         getAvailableModsByClassTypeId: state => indices => {
             //selectedClassId
             if (indices.selectedEquipmentType === 'primaryWeapons') {

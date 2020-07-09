@@ -1,247 +1,249 @@
 <template>
-	<div class="statsDisplay">
-		<h1 class="equipmentTitle allCaps">{{ equipment.name }}</h1>
-		<h2 class="equipmentSubTitle allCaps">{{ equipment.class }}</h2>
-		<div class="statsBaseContainer">
-			<div v-for="(stat, statId) in calcStats.stats" :key="statId" class="statsContainer">
-				<span class="statsText" :class="[stat.inactive ? 'inactiveStat' : '']">{{ stat.name }}:</span>
-				<div class="statsValueContainer">
+    <div v-if="dataReady" class="statsDisplay">
+        <h1 class="equipmentTitle allCaps">{{ equipment.name }}</h1>
+        <h2 class="equipmentSubTitle allCaps">{{ equipment.class }}</h2>
+        <div class="statsBaseContainer">
+            <div v-for="(stat, statId) in calcStats.stats" :key="statId" class="statsContainer">
+                <span class="statsText" :class="[stat.inactive ? 'inactiveStat' : '']">{{ stat.name }}:</span>
+                <div class="statsValueContainer">
 					<span class="statsValue fixedWidth" :class="[stat.inactive ? 'inactiveStat' : '']">
 						{{ stat.baseValue }}<span v-if="stat.percent">%</span>
 					</span>
-					<span class="statsModifier fixedWidth">{{ stat.modifier }}</span>
-					<span class="statsValue fixedWidth"
-					      :class="[stat.modified ? 'modifiedStat' : stat.inactive ? 'inactiveStat' : '']">
+                    <span class="statsModifier fixedWidth">{{ stat.modifier }}</span>
+                    <span class="statsValue fixedWidth"
+                          :class="[stat.modified ? 'modifiedStat' : stat.inactive ? 'inactiveStat' : '']">
 						{{ stat.value }}<span v-if="stat.percent">%</span>
 					</span>
-				</div>
-			</div>
-			<!-- todo: different color for dps numbers -->
-			<h2 v-if="calcStats.dps && calcStats.dps !== 'NaN'">DPS: {{ calcStats.dps }}</h2>
-			<span v-if="!!calcStats.dps && calcStats.dps !== 'NaN'" class="inactiveStat">
+                </div>
+            </div>
+            <!-- todo: different color for dps numbers -->
+            <h2 v-if="calcStats.dps && calcStats.dps !== 'NaN'">DPS: {{ calcStats.dps }}</h2>
+            <span v-if="!!calcStats.dps && calcStats.dps !== 'NaN'" class="inactiveStat">
 				<i>Theoretical</i> damage per second, ignoring armor break and weakspot bonuses.
 			</span>
 
-			<h2 v-if="calcStats.dpb">Damage per shot: {{ calcStats.dpb }}</h2> <!-- damage per bullet -->
+            <h2 v-if="calcStats.dpb">Damage per shot: {{ calcStats.dpb }}</h2> <!-- damage per bullet -->
 
-			<h2 v-if="calcStats.wpd">Weakpoint Damage: {{ `(1x: ${calcStats.wpd} / 2x: ${(calcStats.wpd * 2).toFixed(2)}
-				/ 3x: ${(calcStats.wpd * 3).toFixed(2)})` }}</h2>
-			<span v-if="calcStats.wpd" class="inactiveStat">
+            <h2 v-if="calcStats.wpd">Weakpoint Damage: {{ `(1x: ${calcStats.wpd} / 2x: ${(calcStats.wpd * 2).toFixed(2)}
+                / 3x: ${(calcStats.wpd * 3).toFixed(2)})` }}</h2>
+            <span v-if="calcStats.wpd" class="inactiveStat">
 				<i>Important,</i> 1x damage is applied to praetorians and oppressors. 2x damage is applied to all grunts and most enemies. 3x is applied to bulks, breeders, mactera, etc.
 			</span>
 
-			<h2 v-if="calcStats.dpm">Magazine damage: {{ calcStats.dpm }}<span v-if="calcStats.tte"> / Time to empty mag: {{ calcStats.tte }}S</span>
-			</h2>
-			<span v-if="calcStats.dpm" class="inactiveStat">
+            <h2 v-if="calcStats.dpm">Magazine damage: {{ calcStats.dpm }}<span v-if="calcStats.tte"> / Time to empty mag: {{ calcStats.tte }}S</span>
+            </h2>
+            <span v-if="calcStats.dpm" class="inactiveStat">
 				<i>Theoretical</i> damage per magazine and how long it takes to empty it.
 			</span>
 
-			<h2 v-if="calcStats.dpa">Total damage: {{ calcStats.dpa }}</h2>
-			<span v-if="calcStats.dpa" class="inactiveStat">
+            <h2 v-if="calcStats.dpa">Total damage: {{ calcStats.dpa }}</h2>
+            <span v-if="calcStats.dpa" class="inactiveStat">
 				<i>Theoretical</i> total damage available with initial ammunition.
 			</span>
 
-			<h2 v-if="calcStats.ex1">Total lighting time: {{ calcStats.ex1 }} minutes</h2>
-			<span v-if="calcStats.ex1" class="inactiveStat">
+            <h2 v-if="calcStats.ex1">Total lighting time: {{ calcStats.ex1 }} minutes</h2>
+            <span v-if="calcStats.ex1" class="inactiveStat">
 				<i>Theoretical</i> total lighting time available with initial ammunition.
 			</span>
 
-			<h2 v-if="calcStats.dpsplasma && calcStats.dpsplasma !== 'NaN'">Normal shot DPS: {{ calcStats.dpsplasma }}
-				<br/>Charged shot DPS: {{ calcStats.dpscharged }}</h2>
-			<span v-if="!!calcStats.dpsplasma && calcStats.dpsplasma !== 'NaN'" class="inactiveStat">
+            <h2 v-if="calcStats.dpsplasma && calcStats.dpsplasma !== 'NaN'">Normal shot DPS: {{ calcStats.dpsplasma }}
+                <br/>Charged shot DPS: {{ calcStats.dpscharged }}</h2>
+            <span v-if="!!calcStats.dpsplasma && calcStats.dpsplasma !== 'NaN'" class="inactiveStat">
 				<i>Theoretical</i> damage per second without taking overheat into account, ignoring armor break and weakspot bonuses.
 			</span>
 
-			<h2 v-if="calcStats.dpbplasma">Damage per normal shot: {{ calcStats.dpbplasma }}
-				<br/>Damage per charged shot: {{ calcStats.dpbcharged}}</h2>
+            <h2 v-if="calcStats.dpbplasma">Damage per normal shot: {{ calcStats.dpbplasma }}
+                <br/>Damage per charged shot: {{ calcStats.dpbcharged}}</h2>
 
-			<h2 v-if="calcStats.dpaplasma">Total damage for normal shots: {{ calcStats.dpaplasma }}
-				<br/>Total damage for charged shots: {{ calcStats.dpacharged }}</h2>
-			<span v-if="calcStats.dpaplasma" class="inactiveStat">
+            <h2 v-if="calcStats.dpaplasma">Total damage for normal shots: {{ calcStats.dpaplasma }}
+                <br/>Total damage for charged shots: {{ calcStats.dpacharged }}</h2>
+            <span v-if="calcStats.dpaplasma" class="inactiveStat">
 				<i>Theoretical</i> total damage available with initial ammunition.
 			</span>
 
-			<!--todo: add numbers for weakspot damage to all stats-->
-			<h2 v-if="calcStats.visible">Total Costs:</h2>
-			<p class="costList">
+            <!--todo: add numbers for weakspot damage to all stats-->
+            <h2 v-if="calcStats.visible">Total Costs:</h2>
+            <p class="costList">
 				<span class="costListItem" v-if="calcStats.cost.credits > 0">
 					<img src="../assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
 					<span>{{ calcStats.cost.credits }}</span>
 				</span>
-				<span class="costListItem" v-if="calcStats.cost.bismor > 0">
+                <span class="costListItem" v-if="calcStats.cost.bismor > 0">
 					<img src="../assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
 					<span>{{ calcStats.cost.bismor }}</span>
 				</span>
-				<span class="costListItem" v-if="calcStats.cost.croppa > 0">
+                <span class="costListItem" v-if="calcStats.cost.croppa > 0">
 					<img src="../assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
 					<span>{{ calcStats.cost.croppa }}</span>
 				</span>
-				<span class="costListItem" v-if="calcStats.cost.enorPearl > 0">
+                <span class="costListItem" v-if="calcStats.cost.enorPearl > 0">
 					<img src="../assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
 					<span>{{ calcStats.cost.enorPearl }}</span>
 				</span>
-				<span class="costListItem" v-if="calcStats.cost.jadiz > 0">
+                <span class="costListItem" v-if="calcStats.cost.jadiz > 0">
 					<img src="../assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
 					<span>{{ calcStats.cost.jadiz }}</span>
 				</span>
-				<span class="costListItem" v-if="calcStats.cost.magnite > 0">
+                <span class="costListItem" v-if="calcStats.cost.magnite > 0">
 					<img src="../assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
 					<span>{{ calcStats.cost.magnite }}</span>
 				</span>
-				<span class="costListItem" v-if="calcStats.cost.umanite > 0">
+                <span class="costListItem" v-if="calcStats.cost.umanite > 0">
 					<img src="../assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
 					<span>{{ calcStats.cost.umanite }}</span>
 				</span>
-			</p>
-		</div>
-	</div>
+            </p>
+        </div>
+    </div>
 </template>
 <!--todo: show most cost effective upgrade in tier (most change %)-->
 <script>
-	import store from "../store";
+    import store from '../store';
 
-	const _calculateDamage = stats => {
-		let damageWords = ["Damage", "Area Damage", "Electric Damage", "Direct Damage"];
-		let magazineSizeWords = ["Tank Size", "Magazine Size", "Clip Size", "Combined Clip Size"];
-		let ammoWords = ["Max Ammo", "Max Fuel"];
-		let rateOfFireWords = ["Rate of Fire", "Combined Rate of Fire"];
-		let reloadTimeWords = ["Reload Time"];
-		let pelletsWords = ["Pellets"];
-		let weakPointWords = ["Weakpoint Damage Bonus"];
-		let dpsStats = {};
-		for (let stat of stats) {
-			if (damageWords.includes(stat.name)) {
-				if (dpsStats.damage) {
-					// there is a damage stat already, add the second one to it (probably area damage)
-					dpsStats.damage += parseFloat(stat.value);
-				} else {
-					dpsStats.damage = parseFloat(stat.value);
-				}
-			} else if (magazineSizeWords.includes(stat.name) && !dpsStats.magazineSize) {
-				dpsStats.magazineSize = parseFloat(stat.value);
-			} else if (rateOfFireWords.includes(stat.name) && !dpsStats.rateOfFire) {
-				dpsStats.rateOfFire = parseFloat(stat.value);
-			} else if (reloadTimeWords.includes(stat.name) && !dpsStats.reloadTime) {
-				dpsStats.reloadTime = parseFloat(stat.value);
-			} else if (pelletsWords.includes(stat.name)) {
-				dpsStats.damage = dpsStats.damage * parseFloat(stat.value);
-			} else if (ammoWords.includes(stat.name)) {
-				dpsStats.maxAmmo = parseFloat(stat.value);
-			} else if (weakPointWords.includes(stat.name)) {
-				dpsStats.weakPoint = parseFloat(stat.value);
-			}
+    const _calculateDamage = stats => {
+        let damageWords = ['Damage', 'Area Damage', 'Electric Damage', 'Direct Damage'];
+        let magazineSizeWords = ['Tank Size', 'Magazine Size', 'Clip Size', 'Combined Clip Size'];
+        let ammoWords = ['Max Ammo', 'Max Fuel'];
+        let rateOfFireWords = ['Rate of Fire', 'Combined Rate of Fire'];
+        let reloadTimeWords = ['Reload Time'];
+        let pelletsWords = ['Pellets'];
+        let weakPointWords = ['Weakpoint Damage Bonus'];
+        let dpsStats = {};
+        for (let stat of stats) {
+            if (damageWords.includes(stat.name)) {
+                if (dpsStats.damage) {
+                    // there is a damage stat already, add the second one to it (probably area damage)
+                    dpsStats.damage += parseFloat(stat.value);
+                } else {
+                    dpsStats.damage = parseFloat(stat.value);
+                }
+            } else if (magazineSizeWords.includes(stat.name) && !dpsStats.magazineSize) {
+                dpsStats.magazineSize = parseFloat(stat.value);
+            } else if (rateOfFireWords.includes(stat.name) && !dpsStats.rateOfFire) {
+                dpsStats.rateOfFire = parseFloat(stat.value);
+            } else if (reloadTimeWords.includes(stat.name) && !dpsStats.reloadTime) {
+                dpsStats.reloadTime = parseFloat(stat.value);
+            } else if (pelletsWords.includes(stat.name)) {
+                dpsStats.damage = dpsStats.damage * parseFloat(stat.value);
+            } else if (ammoWords.includes(stat.name)) {
+                dpsStats.maxAmmo = parseFloat(stat.value);
+            } else if (weakPointWords.includes(stat.name)) {
+                dpsStats.weakPoint = parseFloat(stat.value);
+            }
 
-		}
-		dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
+        }
+        dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
 
-		let timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
-		let damageTime = timeToEmpty + dpsStats.reloadTime; // sequence of shooting and reloading for calculating dps
-		let magazineDamage = dpsStats.damage * dpsStats.magazineSize;
-		let damagePerSecond = magazineDamage / damageTime;
+        let timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
+        let damageTime = timeToEmpty + dpsStats.reloadTime; // sequence of shooting and reloading for calculating dps
+        let magazineDamage = dpsStats.damage * dpsStats.magazineSize;
+        let damagePerSecond = magazineDamage / damageTime;
 
-        let weakpointDamage = (dpsStats.damage * (1 + (dpsStats.weakPoint / 100))).toFixed(2)
-        console.log("calculate wpd for default equipment", weakpointDamage ? weakpointDamage : undefined);
-		return {
-			tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
-			wpd: isNaN(weakpointDamage) ? undefined : weakpointDamage,
-			dps: parseFloat(damagePerSecond).toFixed(2),
-			dpm: magazineDamage,
-			dpa: dpsStats.damage * (dpsStats.maxAmmo)
-		};
-	};
+        let weakpointDamage = (dpsStats.damage * (1 + (dpsStats.weakPoint / 100))).toFixed(2);
+        console.log('calculate wpd for default equipment', weakpointDamage ? weakpointDamage : undefined);
+        return {
+            tte: (dpsStats.magazineSize / dpsStats.rateOfFire).toFixed(2),
+            wpd: isNaN(weakpointDamage) ? undefined : weakpointDamage,
+            dps: parseFloat(damagePerSecond).toFixed(2),
+            dpm: magazineDamage,
+            dpa: dpsStats.damage * (dpsStats.maxAmmo)
+        };
+    };
 
-	const precisionCalc = a => {
-		if (!isFinite(a)) return 0;
-		var e = 1,
-			p = 0;
-		while (Math.round(a * e) / e !== a) {
-			e *= 10;
-			p++;
-		}
-		return p;
-	};
+    const precisionCalc = a => {
+        if (!isFinite(a)) return 0;
+        var e = 1,
+            p = 0;
+        while (Math.round(a * e) / e !== a) {
+            e *= 10;
+            p++;
+        }
+        return p;
+    };
 
-	const calculateUpgradesForStat = (stat, upgradesForStat) => {
-		// loop trough upgradesForStat and calculate
-		// if multiply is true, put in temp array and loop trough all multiplications in the end, after normal calc is done
-		let upgradesToMultiply = [];
+    const calculateUpgradesForStat = (stat, upgradesForStat) => {
+        // loop trough upgradesForStat and calculate
+        // if multiply is true, put in temp array and loop trough all multiplications in the end, after normal calc is done
+        let upgradesToMultiply = [];
 
-		let modifiedValue = stat.value;
-		let originalValue = stat.value;
-		let statsPrecision = precisionCalc(modifiedValue);
-		let basePrecision = precisionCalc(originalValue);
-		let precision;
+        let modifiedValue = stat.value;
+        let originalValue = stat.value;
+        let statsPrecision = precisionCalc(modifiedValue);
+        let basePrecision = precisionCalc(originalValue);
+        let precision;
 
-		for (let upgradeElement of upgradesForStat) {
-			let upgradePrecision = precisionCalc(upgradeElement.value);
-			let precisionTemp = statsPrecision > upgradePrecision ? statsPrecision : upgradePrecision;
-			precision = basePrecision > precisionTemp ? basePrecision : precisionTemp;
+        for (let upgradeElement of upgradesForStat) {
+            let upgradePrecision = precisionCalc(upgradeElement.value);
+            let precisionTemp = statsPrecision > upgradePrecision ? statsPrecision : upgradePrecision;
+            precision = basePrecision > precisionTemp ? basePrecision : precisionTemp;
 
-			if (upgradeElement.multiply) {
-				upgradesToMultiply.push(upgradeElement);
-			} else {
-				// calculation here
-				if (upgradeElement.subtract) {
-					modifiedValue = (parseFloat(modifiedValue) - parseFloat(upgradeElement.value)).toFixed(precision);
-				} else {
-					modifiedValue = (parseFloat(modifiedValue) + parseFloat(upgradeElement.value)).toFixed(precision);
-				}
-			}
-		}
-		if (upgradesToMultiply.length > 0) {
-			for (let upgradetoMultiply of upgradesToMultiply) {
-				// calculation here
-				modifiedValue = (parseFloat(modifiedValue) * parseFloat(upgradetoMultiply.value)).toFixed(precision);
-			}
-		}
-		modifiedValue = (parseFloat(modifiedValue)).toFixed(precision);
-		let difference = (parseFloat(modifiedValue) - parseFloat(originalValue)).toFixed(precision);
-		stat.modifier = `${difference < 0 ? "" : "+"}${difference}${stat.percent ? "%" : ""}`;
-		stat.modified = true;
-		stat.value = modifiedValue;
-		stat.baseValue = originalValue;
-		return stat;
-	};
+            if (upgradeElement.multiply) {
+                upgradesToMultiply.push(upgradeElement);
+            } else {
+                // calculation here
+                if (upgradeElement.subtract) {
+                    modifiedValue = (parseFloat(modifiedValue) - parseFloat(upgradeElement.value)).toFixed(precision);
+                } else {
+                    modifiedValue = (parseFloat(modifiedValue) + parseFloat(upgradeElement.value)).toFixed(precision);
+                }
+            }
+        }
+        if (upgradesToMultiply.length > 0) {
+            for (let upgradetoMultiply of upgradesToMultiply) {
+                // calculation here
+                modifiedValue = (parseFloat(modifiedValue) * parseFloat(upgradetoMultiply.value)).toFixed(precision);
+            }
+        }
+        modifiedValue = (parseFloat(modifiedValue)).toFixed(precision);
+        let difference = (parseFloat(modifiedValue) - parseFloat(originalValue)).toFixed(precision);
+        stat.modifier = `${difference < 0 ? '' : '+'}${difference}${stat.percent ? '%' : ''}`;
+        stat.modified = true;
+        stat.value = modifiedValue;
+        stat.baseValue = originalValue;
+        return stat;
+    };
 
-	const getModifiedStats = (baseStats, selectedUpgrades) => {
-		// loop trough all selected upgrades
-		let upgradesForEachStat = new Map();
-		let costs = [];
-		for (let upgrade of selectedUpgrades) {
-			costs.push(upgrade.cost);
+    const getModifiedStats = (baseStats, selectedUpgrades) => {
+        /* todo */
+        // loop trough all selected upgrades
+        let upgradesForEachStat = new Map();
+        let costs = [];
+        for (let upgrade of selectedUpgrades) {
+            /* todo: map cost into old structure when loading mod data in store */
+            costs.push(upgrade.cost);
 
-			// loop trough stats of upgrade
-			for (let statKey in upgrade.stats) {
-				let statContent = upgrade.stats[statKey];
-				let tempContent = [];
-				if (upgradesForEachStat.has(statKey)) {
-					tempContent = upgradesForEachStat.get(statKey);
-				}
-				tempContent.push(statContent);
-				upgradesForEachStat.set(statKey, tempContent);
-			}
-		}
-		// group all upgrades by stat
-		// loop trough groups and calculate new value for each stat
-		// return stats
-		let stats = [];
-		for (let stat in baseStats) {
-			let workingStat = Object.assign({}, baseStats[stat]);
-			if (upgradesForEachStat.has(stat)) {
-				let upgradesForStat = upgradesForEachStat.get(stat);
-				let upgradedStat = calculateUpgradesForStat(workingStat, upgradesForStat);
-				stats.push(upgradedStat);
-			} else {
-				if (workingStat.value === 0) {
-					workingStat.inactive = true;
-				}
-				workingStat.baseValue = workingStat.value;
-				stats.push(workingStat);
-			}
-		}
+            // loop trough stats of upgrade
+            for (let statKey in upgrade.stats) {
+                let statContent = upgrade.stats[statKey];
+                let tempContent = [];
+                if (upgradesForEachStat.has(statKey)) {
+                    tempContent = upgradesForEachStat.get(statKey);
+                }
+                tempContent.push(statContent);
+                upgradesForEachStat.set(statKey, tempContent);
+            }
+        }
+        // group all upgrades by stat
+        // loop trough groups and calculate new value for each stat
+        // return stats
+        let stats = [];
+        for (let stat in baseStats) {
+            let workingStat = Object.assign({}, baseStats[stat]);
+            if (upgradesForEachStat.has(stat)) {
+                let upgradesForStat = upgradesForEachStat.get(stat);
+                let upgradedStat = calculateUpgradesForStat(workingStat, upgradesForStat);
+                stats.push(upgradedStat);
+            } else {
+                if (workingStat.value === 0) {
+                    workingStat.inactive = true;
+                }
+                workingStat.baseValue = workingStat.value;
+                stats.push(workingStat);
+            }
+        }
 
-		// stats is array of objects:
-		/*
+        // stats is array of objects:
+        /*
 		baseValue: 120
 		modified: true
 		modifier: "+24"
@@ -250,173 +252,198 @@
 		...also
 		*/
 
-		return { stats: stats, costs: costs };
-	};
+        return {stats: stats, costs: costs};
+    };
 
-	export default {
-		name: "StatsDisplay",
-		computed: {
-			selectedClassId: function() {
-				return store.state.loadoutCreator.selectedClassId;
-			},
-			selectedEquipmentId: function() {
-				return store.state.loadoutCreator.selectedEquipmentId;
-			},
-			equipment: function() {
+    export default {
+        name: 'StatsDisplay',
+        computed: {
+            dataReady() {
+                return store.state.loadoutCreator.dataReady;
+            },
+            selectedClassId: function () {
+                return store.state.loadoutCreator.selectedClassId;
+            },
+            selectedEquipmentId: function () {
+                return store.state.loadoutCreator.selectedEquipmentId;
+            },
+            selectedEquipmentType: function () {
+                return store.state.loadoutCreator.selectedEquipmentType;
+            },
+            equipment: function () {
+                return store.getters.getEquipmentByClassTypeId({
+                    selectedClassId: this.selectedClassId,
+                    selectedEquipmentId: this.selectedEquipmentId,
+                    selectedEquipmentType: this.selectedEquipmentType
+                });
+            },
+            /*equipment: function() {
 				return store.state.tree[this.selectedClassId][this.selectedEquipmentId];
-			},
-			baseStats: function() {
-				return store.state.tree[this.selectedClassId][this.selectedEquipmentId].baseStats;
-			},
-			calcStats: function() {
-				let visible = false;
-				let aSelectedUpgrades = store.state.tree[this.selectedClassId][this.selectedEquipmentId].mods.reduce(
-					(array, tierArray) => {
-						array.push(...tierArray.filter(mod => mod.selected));
-						return array;
-					},
-					[]
-				);
-				let overclocks = store.state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
-				if (overclocks) {
-					for (let overclock of store.state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks) {
-						if (overclock.selected) {
-							aSelectedUpgrades.push(overclock);
-						}
-					}
-				}
+			},*/
+            baseStats: function () {
+                return this.equipment.json_stats;
+                // return store.getters.getStatsByClassTypeId({
+                //     selectedClassId: this.selectedClassId,
+                //     selectedEquipmentId: this.selectedEquipmentId,
+                //     selectedEquipmentType: this.selectedEquipmentType
+                // });
+                // return store.state.tree[this.selectedClassId][this.selectedEquipmentId].baseStats;
+            },
+            calcStats: function () {
+                /* todo: this is not reactive anymore.. */
+                console.log("***calc stats***");
+                let visible = false;
+                console.log(this.equipment);
+                let mods = this.equipment.mods;
+                let overclocks = this.equipment.overclocks;
+                let aSelectedUpgrades = mods.reduce(
+                    (array, tierArray) => {
+                        array.push(...tierArray.filter(mod => mod.selected));
+                        return array;
+                    },
+                    []
+                );
+                // let overclocks = store.state.tree[this.selectedClassId][this.selectedEquipmentId].overclocks;
+                if (overclocks) {
+                    for (let overclock of overclocks) {
+                        if (overclock.selected) {
+                            aSelectedUpgrades.push(overclock);
+                        }
+                    }
+                }
 
-				let results = getModifiedStats(this.baseStats, aSelectedUpgrades);
-				let stats = results.stats;
-				let costs = results.costs;
+                console.log('selected upgrades', aSelectedUpgrades);
+                let results = getModifiedStats(this.baseStats, aSelectedUpgrades);
+                let stats = results.stats;
+                let costs = results.costs;
 
-				let damage = this.equipment.calculateDamage ? this.equipment.calculateDamage(stats) : _calculateDamage(stats);
+                let damage = this.equipment.calculateDamage ? this.equipment.calculateDamage(stats) : _calculateDamage(stats);
 
-				let totalCost = {
-					credits: 0,
-					bismor: 0,
-					croppa: 0,
-					enorPearl: 0,
-					jadiz: 0,
-					magnite: 0,
-					umanite: 0,
-					err: 0
-				};
-				for (let cost of costs) {
-					totalCost.credits += cost.credits;
-					totalCost.bismor += cost.bismor;
-					totalCost.croppa += cost.croppa;
-					totalCost.enorPearl += cost.enorPearl;
-					totalCost.jadiz += cost.jadiz;
-					totalCost.magnite += cost.magnite;
-					totalCost.umanite += cost.umanite;
-					totalCost.err += cost.err;
-				}
+                let totalCost = {
+                    credits: 0,
+                    bismor: 0,
+                    croppa: 0,
+                    enorPearl: 0,
+                    jadiz: 0,
+                    magnite: 0,
+                    umanite: 0,
+                    err: 0
+                };
+                for (let cost of costs) {
+                    totalCost.credits += cost.credits;
+                    totalCost.bismor += cost.bismor;
+                    totalCost.croppa += cost.croppa;
+                    totalCost.enorPearl += cost.enorPearl;
+                    totalCost.jadiz += cost.jadiz;
+                    totalCost.magnite += cost.magnite;
+                    totalCost.umanite += cost.umanite;
+                    totalCost.err += cost.err;
+                }
 
-				return {
-					stats: stats,
-					cost: totalCost,
-					visible: visible,
-					tte: damage.tte ? damage.tte : undefined,
-					wpd: damage.wpd ? damage.wpd : undefined,
-					dps: damage.dps ? damage.dps : undefined,
-					dpb: damage.dpb ? damage.dpb : undefined,
-					dpm: damage.dpm ? damage.dpm : undefined,
-					dpa: damage.dpa ? damage.dpa : undefined,
-					ex1: damage.ex1 ? damage.ex1 : undefined,
-					dpsplasma: damage.dpsplasma ? damage.dpsplasma : undefined,
-					dpscharged: damage.dpscharged ? damage.dpscharged : undefined,
-					dpbplasma: damage.dpbplasma ? damage.dpbplasma : undefined,
-					dpbcharged: damage.dpbcharged ? damage.dpbcharged : undefined,
-					dpaplasma: damage.dpaplasma ? damage.dpaplasma : undefined,
-					dpacharged: damage.dpacharged ? damage.dpacharged : undefined
-				};
-			}
-		}
-	};
+                return {
+                    stats: stats,
+                    cost: totalCost,
+                    visible: visible,
+                    tte: damage.tte ? damage.tte : undefined,
+                    wpd: damage.wpd ? damage.wpd : undefined,
+                    dps: damage.dps ? damage.dps : undefined,
+                    dpb: damage.dpb ? damage.dpb : undefined,
+                    dpm: damage.dpm ? damage.dpm : undefined,
+                    dpa: damage.dpa ? damage.dpa : undefined,
+                    ex1: damage.ex1 ? damage.ex1 : undefined,
+                    dpsplasma: damage.dpsplasma ? damage.dpsplasma : undefined,
+                    dpscharged: damage.dpscharged ? damage.dpscharged : undefined,
+                    dpbplasma: damage.dpbplasma ? damage.dpbplasma : undefined,
+                    dpbcharged: damage.dpbcharged ? damage.dpbcharged : undefined,
+                    dpaplasma: damage.dpaplasma ? damage.dpaplasma : undefined,
+                    dpacharged: damage.dpacharged ? damage.dpacharged : undefined
+                };
+            }
+        }
+    };
 </script>
 
 <style scoped>
-	h2 {
-		/*text-transform: uppercase;*/
-		/*font-size: 1rem;*/
-		/*font-weight: normal;*/
-		margin-top: 1.5rem;
-		margin-bottom: 0.5rem;
-	}
+    h2 {
+        /*text-transform: uppercase;*/
+        /*font-size: 1rem;*/
+        /*font-weight: normal;*/
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
 
-	.statsDisplay {
-		flex: 1;
-		height: 100%;
-		width: 100%;
-		padding-right: 1rem;
+    .statsDisplay {
+        flex: 1;
+        height: 100%;
+        width: 100%;
+        padding-right: 1rem;
 
-		display: flex;
-		flex-flow: column;
-		align-items: center;
-	}
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
 
-	@media (max-width: 1024px) {
-		.statsDisplay {
-			flex: 0 0 100%;
-			order: 2;
-			padding: 0;
-		}
-	}
+    @media (max-width: 1024px) {
+        .statsDisplay {
+            flex: 0 0 100%;
+            order: 2;
+            padding: 0;
+        }
+    }
 
-	.equipmentTitle {
-		font-size: 1.5rem;
-		text-align: center;
-		color: #fc9e00;
-		margin-bottom: 0;
-	}
+    .equipmentTitle {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #fc9e00;
+        margin-bottom: 0;
+    }
 
-	.equipmentSubTitle {
-		text-align: center;
-		color: #fffbff;
-		font-size: 1rem;
-		margin-top: 0;
-	}
+    .equipmentSubTitle {
+        text-align: center;
+        color: #fffbff;
+        font-size: 1rem;
+        margin-top: 0;
+    }
 
-	.statsBaseContainer {
-		width: 100%;
-	}
+    .statsBaseContainer {
+        width: 100%;
+    }
 
-	.statsContainer {
-		display: flex;
-		width: 100%;
-	}
+    .statsContainer {
+        display: flex;
+        width: 100%;
+    }
 
-	.fixedWidth {
-		width: 33%;
-	}
+    .fixedWidth {
+        width: 33%;
+    }
 
-	.statsValueContainer {
-		width: 45%;
-		display: flex;
-		justify-content: end;
-	}
+    .statsValueContainer {
+        width: 45%;
+        display: flex;
+        justify-content: end;
+    }
 
-	.statsText {
-		width: 55%;
-		color: rgba(255, 251, 255, 1);
-	}
+    .statsText {
+        width: 55%;
+        color: rgba(255, 251, 255, 1);
+    }
 
-	.statsValue {
-		color: #fc9e00;
-		text-align: right;
-	}
+    .statsValue {
+        color: #fc9e00;
+        text-align: right;
+    }
 
-	.statsModifier {
-		text-align: right;
-		color: #fccc00;
-	}
+    .statsModifier {
+        text-align: right;
+        color: #fccc00;
+    }
 
-	.modifiedStat {
-		color: #fccc00;
-	}
+    .modifiedStat {
+        color: #fccc00;
+    }
 
-	.inactiveStat {
-		color: rgba(255, 251, 255, 0.2);
-	}
+    .inactiveStat {
+        color: rgba(255, 251, 255, 0.2);
+    }
 </style>
