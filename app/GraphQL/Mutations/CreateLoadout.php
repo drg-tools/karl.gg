@@ -26,6 +26,8 @@ class CreateLoadout
         $loadout->save();
 
         $loadout->mods()->sync(Arr::flatten($args['mods']));
+        $loadout->equipment_mods()->sync(Arr::flatten($args['equipment_mods']));
+        $loadout->overclocks()->sync(Arr::flatten($args['overclocks']));
 
         return $loadout;
     }

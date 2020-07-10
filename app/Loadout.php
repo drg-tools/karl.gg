@@ -11,7 +11,7 @@ class Loadout extends Model
 {
     use Favoriteable, Filterable, CrudTrait;
 
-    protected $fillable = ['name', 'description', 'character_id'];
+    protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
 
     public function creator()
     {
