@@ -19,4 +19,4 @@ VagrantFile
 .php_cs.cache
 public/js/app.js
 public/css/app.css
-package.lock
+package-lock.lock
