@@ -72,7 +72,7 @@
                         </g>
                     </g>
                 </svg>
-                <h3 class="overclockName">{{ getOverclockData.name }}</h3>
+                <h3 class="overclockName">{{ getOverclockData.overclock_name }}</h3>
             </div>
         </div>
     </div>
@@ -86,55 +86,36 @@
         props: {
             build: String,
             classId: String,
-            equipmentId: String
+            equipmentId: String,
+            equipmentName: String,
+            icon: String,
+            modMatrix: Array,
+            overclock: Object
         },
         computed: {
             getIconFromPath: function () {
-                let iconPath = store.state.tree[this.classId][this.equipmentId].icon;
-                let aPath = iconPath.split('.');
-                if (aPath.length < 2) {
-                    return '';
-                }
-                console.log('icons', store.state.icons);
-                return store.state.icons[aPath[0]][aPath[1]];
+                return store.state.icons.equipment[this.icon];
             },
             getEquipmentName: function () {
-                console.log('equipment', store.state.tree[this.classId][this.equipmentId]);
-                return store.state.tree[this.classId][this.equipmentId].name;
+                return this.equipmentName;
             },
             getModMatrix: function () {
-                let charToIndex = ['A', 'B', 'C'];
-                let chosenMods = this.build.split('');
-                console.log(chosenMods);
-                let modMatrix = store.state.tree[this.classId][this.equipmentId].mods.map((tier, tierIndex) => {
-                    let rowChar = chosenMods[tierIndex];
-                    return tier.map((column, columnIndex) => {
-                        return charToIndex[columnIndex] === rowChar;
-                    });
-                });
-                console.log('modMatrix', modMatrix);
-                return modMatrix;
+                return this.modMatrix;
             },
             getOverclockData: function () {
-                if (!store.state.tree[this.classId][this.equipmentId].overclocks) {
+                if (!this.overclock) {
                     return;
                 }
-                let chosenMods = this.build.split('');
-                let chosenOverclock;
-                if (chosenMods.length === 6) {
-                    chosenOverclock = chosenMods.pop();
-                }
-                console.log('overclock', store.state.tree[this.classId][this.equipmentId].overclocks[chosenOverclock - 1]);
-                return store.state.tree[this.classId][this.equipmentId].overclocks[chosenOverclock - 1];
+                return this.overclock;
             },
             isCleanOverclock: function () {
-                return this.getOverclockData.type === 'clean';
+                return this.getOverclockData.overclock_type === 'Clean';
             },
             isBalancedOverclock: function () {
-                return this.getOverclockData.type === 'balanced';
+                return this.getOverclockData.overclock_type === 'Balanced';
             },
             isUnstableOverclock: function () {
-                return this.getOverclockData.type === 'unstable';
+                return this.getOverclockData.overclock_type === 'Unstable';
             },
             isSelected: function () {
                 return store.state.selected.class === this.classId;
@@ -145,13 +126,13 @@
                 console.log('nav to build view', {classID: this.classId, equipmentId: this.equipmentId});
             },
             getCleanDisplayByOverclock: function (overclock) {
-                return overclock.type === 'clean' ? 'inherit' : 'none';
+                return overclock.type === 'Clean' ? 'inherit' : 'none';
             },
             getBalancedDisplayByOverclock: function (overclock) {
-                return overclock.type === 'balanced' ? 'inherit' : 'none';
+                return overclock.type === 'Balanced' ? 'inherit' : 'none';
             },
             getUnstableDisplayByOverclock: function (overclock) {
-                return overclock.type === 'unstable' ? 'inherit' : 'none';
+                return overclock.type === 'Unstable' ? 'inherit' : 'none';
             }
         }
     };
