@@ -1163,10 +1163,14 @@ export default new Vuex.Store({
                 return modMatrix;
 
             };
-            let primaryWeaponModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.primaryWeapons[0]);
-            let secondaryWeaponModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.secondaryWeapons[0]);
-            Vue.set(state.loadoutDetails.primaryWeapons[0], 'modMatrix', primaryWeaponModMatrix);
-            Vue.set(state.loadoutDetails.secondaryWeapons[0], 'modMatrix', secondaryWeaponModMatrix);
+            if (state.loadoutDetails.primaryWeapons[0]) {
+                let primaryWeaponModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.primaryWeapons[0]);
+                Vue.set(state.loadoutDetails.primaryWeapons[0], 'modMatrix', primaryWeaponModMatrix);
+            }
+            if (state.loadoutDetails.secondaryWeapons[0]) {
+                let secondaryWeaponModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.secondaryWeapons[0]);
+                Vue.set(state.loadoutDetails.secondaryWeapons[0], 'modMatrix', secondaryWeaponModMatrix);
+            }
 
             for (let equipmentIndex in state.loadoutDetails.equipments) {
                 let equipmentModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.equipments[equipmentIndex]);
@@ -1175,7 +1179,6 @@ export default new Vuex.Store({
 
         },
         selectLoadoutClass: (state, indices) => {
-            /* todo: also select first weapon for class */
             /* todo: Vue.set */
             state.loadoutCreator.selectedClassId = indices.classId;
             state.loadoutCreator.selectedEquipmentId = indices.firstEquipmentId;

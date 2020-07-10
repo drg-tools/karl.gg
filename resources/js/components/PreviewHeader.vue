@@ -1,7 +1,10 @@
 <template>
-    <div class="previewHeaderBackground">
-        <div class="previewHeaderContainer imageD">
-            <h1>preview header here plz</h1>
+    <div class="previewHeaderBackground" v-if="dataReady">
+        <div class="previewHeaderContainer" :class="getHeaderImageClass">
+            <h1>{{loadoutDetails.name}}</h1>
+            <!-- todo: style this! -->
+            <h2>by {{loadoutDetails.author}} on {{loadoutDetails.created_at}}</h2>
+            <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
                 <div>salutes</div>
                 <div class="buttonContainer">
@@ -18,15 +21,32 @@
 </template>
 
 <script>
+    import store from '../store';
+
     export default {
         name: 'PreviewHeader',
+        computed: {
+            dataReady() {
+                return store.state.loadoutDetailDataReady;
+            },
+            loadoutDetails() {
+                // loadout details are getting loaded by LoadoutPreview component
+                return store.state.loadoutDetails;
+            },
+            getHeaderImageClass() {
+                return `image${this.loadoutDetails.classId}`;
+            }
+        },
         methods: {
             onEditClick() {
-                console.log("nav to build view")
+                console.log('nav to build view');
             },
             onShareClick() {
-                console.log("copy/show share link for this loadout")
+                console.log('copy/show share link for this loadout');
             }
+        },
+        mounted: function () {
+            console.log('loadout preview header mounted');
         }
     };
 </script>
@@ -54,25 +74,28 @@
     }
 
     .imageD {
-        background-image: radial-gradient(circle, rgba(255,255,255,0.6) -25%, rgba(255,255,255,0) 75%), url("../assets/img/full-D_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-D_image.png");
         background-repeat: no-repeat;
         background-size: 45%;
         background-position: right -10% top -10%;
     }
+
     .imageE {
-        background-image: radial-gradient(circle, rgba(255,255,255,0.6) -25%, rgba(255,255,255,0) 75%), url("../assets/img/full-E_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-E_image.png");
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: right -5% top -10%;
     }
+
     .imageG {
-        background-image: radial-gradient(circle, rgba(255,255,255,0.6) -25%, rgba(255,255,255,0) 75%), url("../assets/img/full-G_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-G_image.png");
         background-repeat: no-repeat;
         background-size: 45%;
         background-position: right -10% top -10%;
     }
+
     .imageS {
-        background-image: radial-gradient(circle, rgba(255,255,255,0.6) -25%, rgba(255,255,255,0) 75%), url("../assets/img/full-S_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-S_image.png");
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: right -5% top -10%;

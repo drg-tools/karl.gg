@@ -1,6 +1,7 @@
 <template>
     <div class="equipmentCards" v-if="dataReady">
-        <EquipmentCard :classId="loadoutDetails.classId"
+        <EquipmentCard v-if="loadoutDetails.primaryWeapons[0]"
+                       :classId="loadoutDetails.classId"
                        :equipmentId="loadoutDetails.primaryWeapons[0].id"
                        :equipmentName="loadoutDetails.primaryWeapons[0].name"
                        :icon="loadoutDetails.primaryWeapons[0].icon"
@@ -8,7 +9,8 @@
                        :modMatrix="loadoutDetails.primaryWeapons[0].modMatrix"
                        :build="loadoutDetails.primaryWeapons[0].modString.join('')">
         </EquipmentCard>
-        <EquipmentCard :classId="loadoutDetails.classId"
+        <EquipmentCard v-if="loadoutDetails.secondaryWeapons[0]"
+                       :classId="loadoutDetails.classId"
                        :equipmentId="loadoutDetails.secondaryWeapons[0].id"
                        :equipmentName="loadoutDetails.secondaryWeapons[0].name"
                        :icon="loadoutDetails.secondaryWeapons[0].icon"
@@ -55,15 +57,19 @@
                     query: gql`${apolloQueries.loadoutDetails(loadoutId)}`
                 });
                 store.commit('setLoadoutDetails', {loadout: response.data.loadout});
-                console.log('get mod for gun', store.state.loadoutDetails.primaryWeapons[0].id);
-                let baseModWeaponQueries = [
-                    this.$apollo.query({
+
+                let baseModWeaponQueries = [];
+                if (store.state.loadoutDetails.primaryWeapons[0]) {
+                    baseModWeaponQueries.push(this.$apollo.query({
                         query: gql`${apolloQueries.getModsForGun(store.state.loadoutDetails.primaryWeapons[0].id)}`
-                    }),
-                    this.$apollo.query({
+                    }))
+                }
+                if (store.state.loadoutDetails.secondaryWeapons[0]) {
+                    baseModWeaponQueries.push(this.$apollo.query({
                         query: gql`${apolloQueries.getModsForGun(store.state.loadoutDetails.secondaryWeapons[0].id)}`
-                    })
-                ];
+                    }))
+                }
+
                 let baseModEquipmentQueries = store.state.loadoutDetails.equipments.map(equipment => {
                     return this.$apollo.query({
                         query: gql`${apolloQueries.getModsForEquipment(equipment.id)}`
