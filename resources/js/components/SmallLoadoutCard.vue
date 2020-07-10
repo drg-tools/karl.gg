@@ -53,12 +53,10 @@
                 return `../assets/img/50px-${this.classId}_icon.png`;
             },
             getPrimaryIcon: function () {
-                return store.state.icons.equipment[`${this.classId}_${this.primary}`];
+                return store.state.icons.equipment[this.primary];
             },
             getSecondaryIcon: function () {
-                console.log(store.state.icons.equipment);
-                console.log(`${this.classId}_${this.secondary}`);
-                return store.state.icons.equipment[`${this.classId}_${this.secondary}`];
+                return store.state.icons.equipment[this.secondary];
             }
         },
         methods: {

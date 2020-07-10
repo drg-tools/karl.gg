@@ -166,6 +166,31 @@ export default {
                         jadiz_cost
                     }
                   }
-                }`
-
+                }`,
+    popularLoadouts: `query {
+                      loadouts {
+                        data {
+                          id
+                          name
+                          description
+                          created_at
+                          creator {
+                            id
+                            name
+                          }
+                          character {
+                            id
+                            name
+                          }
+                          mods {
+                            id
+                            gun {
+                              id
+                              name
+                              character_slot
+                            }
+                          }
+                        }
+                      }
+                    }`
 };

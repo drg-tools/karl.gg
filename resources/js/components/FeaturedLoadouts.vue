@@ -1,18 +1,7 @@
 <template>
     <div class="featuredLoadoutsContainer">
         <h1>MOST POPULAR LOADOUTS</h1>
-        <!--<div class="loadoutCards">
-            <LoadoutCard
-                v-for="(loadout, loadoutId) in popularLoadouts"
-                :key="loadoutId"
-                :iconPath="loadout.iconPath"
-                :name="loadout.name"
-                :author="loadout.author"
-                :classId="loadout.classId"
-                :salutes="loadout.salutes"
-                :primary="loadout.primary"
-                :secondary="loadout.secondary"/>-->
-        <div class="cardGroups">
+        <div class="cardGroups" v-if="dataReady">
             <div class="loadoutCards">
                 <SmallLoadoutCard
                     v-for="(loadout, id) in popularDrillerLoadouts"
@@ -68,8 +57,16 @@
 <script>
     import LoadoutCard from './LoadoutCard.vue';
     import SmallLoadoutCard from './SmallLoadoutCard.vue';
+    import store from '../store';
+    import apolloQueries from '../apolloQueries';
     import gql from 'graphql-tag';
 
+    const charToId = {
+        D: 3,
+        E: 1,
+        G: 4,
+        S: 2
+    };
     export default {
         name: 'FeaturedLoadouts',
         components: {
@@ -77,10 +74,13 @@
             SmallLoadoutCard
         },
         computed: {
-            popularLoadouts() {
+            dataReady() {
+                return store.state.popularDataReady;
+            },
+            /*popularLoadouts() {
                 return [
                     {
-                        loadoutId: "111111",
+                        loadoutId: '111111',
                         name: 'Karl\'s Freezer Build',
                         author: 'Karl_21347',
                         classId: 'D',
@@ -90,7 +90,7 @@
                         lastUpdate: new Date('2020-02-15')
                     },
                     {
-                        loadoutId: "222222",
+                        loadoutId: '222222',
                         name: 'Karl\'s Flamer Build',
                         author: 'Karl_21347',
                         classId: 'D',
@@ -100,7 +100,7 @@
                         lastUpdate: new Date('2020-02-14')
                     },
                     {
-                        loadoutId: "333333",
+                        loadoutId: '333333',
                         name: 'pew pew pew',
                         author: 'redguy',
                         classId: 'G',
@@ -110,7 +110,7 @@
                         lastUpdate: new Date('2020-06-01')
                     },
                     {
-                        loadoutId: "444444",
+                        loadoutId: '444444',
                         name: 'cheese party',
                         author: 'turret-master_666',
                         classId: 'E',
@@ -120,25 +120,42 @@
                         lastUpdate: new Date('2020-04-02')
                     }
                 ];
-            },
+            },*/
             popularDrillerLoadouts() {
-                /* todo: return top 5, sorted by salutes */
-                return this.popularLoadouts.filter(loadout => loadout.classId === "D");
+                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'D');
             },
             popularEngineerLoadouts() {
-                return this.popularLoadouts.filter(loadout => loadout.classId === "E");
+                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'E');
             },
             popularGunnerLoadouts() {
-                return this.popularLoadouts.filter(loadout => loadout.classId === "G");
+                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'G');
             },
             popularScoutLoadouts() {
-                return this.popularLoadouts.filter(loadout => loadout.classId === "S");
+                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'S');
             }
         },
-        methods: {},
+        methods: {
+            async getPopularLoadouts() {
+                // store.commit('setPopularDataReady', {ready: false});
+                if (store.state.popularLoadouts.length > 0) {
+                    // store.commit('setPopularDataReady', {ready: true});
+                    return store.state.popularLoadouts;
+                }
+                const response = await this.$apollo.query({
+                    query: gql`${apolloQueries.popularLoadouts}`
+                });
+                console.log('response', response);
+                store.commit('setPopularLoadouts', {loadouts: response.data.loadouts.data});
+                return store.state.popularLoadouts;
+            }
+        },
         apollo: {},
         mounted: function () {
             console.log('mounted featured loadouts');
+            this.getPopularLoadouts().then((popularLoadouts) => {
+                store.commit('setPopularDataReady', {ready: true});
+                console.log('done with popular loadouts', popularLoadouts)
+            });
         }
     };
 </script>

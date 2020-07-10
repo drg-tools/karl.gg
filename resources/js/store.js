@@ -129,6 +129,7 @@ Vue.use(Vuex);
 
 const idToChar = ['A', 'B', 'C'];
 const charToId = {A: 0, B: 1, C: 2};
+const characterIdToChar = ['', 'E', 'S', 'D', 'G'];
 
 const transformMods = (items) => {
     for (let item of items) {
@@ -208,6 +209,8 @@ export default new Vuex.Store({
             dataReady: false,
             baseData: {}
         },
+        popularDataReady: false,
+        popularLoadouts: [],
         /* todo: this is temporary, until backend provides icon and stats calculation */
         missingBackendWeaponData: [
             {
@@ -980,6 +983,60 @@ export default new Vuex.Store({
     mutations: {
         setDataReady: (state, indices) => {
             state.loadoutCreator.dataReady = indices.ready;
+        },
+        setPopularDataReady: (state, indices) => {
+            console.log('set popularDataReady', indices.ready);
+            Vue.set(state, 'popularDataReady', indices.ready);
+        },
+        setPopularLoadouts: (state, indices) => {
+            let loadouts = indices.loadouts.map(loadout => {
+                let primaryId = '';
+                let secondaryId = '';
+                if (loadout.mods.length === 0) {
+                    /* todo: temporary workaround because i don't understand the loadout seeder */
+                    let dummyWeapons = {
+                        D: {
+                            primaryId: '9',
+                            secondaryId: '11'
+                        },
+                        E: {
+                            primaryId: '1',
+                            secondaryId: '3'
+                        },
+                        G: {
+                            primaryId: '13',
+                            secondaryId: '15'
+                        },
+                        S: {
+                            primaryId: '6',
+                            secondaryId: '7'
+                        }
+                    };
+                    primaryId = dummyWeapons[characterIdToChar[loadout.character.id]].primaryId;
+                    secondaryId = dummyWeapons[characterIdToChar[loadout.character.id]].secondaryId;
+                } else {
+                    for (let mod of loadout.mods) {
+                        if (mod.gun.character_slot === 1) {
+                            primaryId = mod.gun.id;
+                        } else if (mod.gun.character_slot === 2) {
+                            secondaryId = mod.gun.id;
+                        }
+                    }
+                }
+                /* todo: salutes and last update */
+                return {
+                    loadoutId: loadout.id,
+                    name: loadout.name,
+                    author: loadout.creator.name,
+                    classId: characterIdToChar[loadout.character.id],
+                    salutes: 0,
+                    primary: state.missingBackendWeaponData[primaryId].icon,
+                    secondary: state.missingBackendWeaponData[secondaryId].icon,
+                    lastUpdate: new Date(loadout.created_at)
+                };
+            });
+            console.log('transformed loadouts', loadouts);
+            Vue.set(state, 'popularLoadouts', loadouts);
         },
         selectLoadoutClass: (state, indices) => {
             /* todo: also select first weapon for class */
