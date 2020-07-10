@@ -100,6 +100,9 @@ php artisan db:seed
 php artisan db:seed --class=RolesAndPermissionsSeeder
 
 php artisan db:seed --class=UserSeeder
+
+## if you get errors while seeding, run
+composer dump-autoload
 ```
 
 Finally, it's always a good idea to:

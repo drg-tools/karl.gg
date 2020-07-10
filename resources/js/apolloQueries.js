@@ -166,6 +166,102 @@ export default {
                         jadiz_cost
                     }
                   }
-                }`
+                }`,
+    popularLoadouts: `query {
+                      loadouts {
+                        data {
+                          id
+                          name
+                          description
+                          created_at
+                          creator {
+                            id
+                            name
+                          }
+                          character {
+                            id
+                            name
+                          }
+                          mods {
+                            id
+                            gun {
+                              id
+                              name
+                              character_slot
+                            }
+                          }
+                        }
+                      }
+                    }`,
 
+    loadoutDetails: (id) => `query {
+                      loadout(id: ${id}) {
+                        id
+                        name
+                        description
+                        created_at
+                        creator {
+                          id
+                          name
+                        }
+                        character {
+                          id
+                          name
+                        }
+                        mods {
+                          id
+                          mod_name
+                          mod_tier
+                          mod_index
+                          mod_type
+                          gun {
+                            id
+                            name
+                            character_slot
+                          }
+                        }
+                        overclocks {
+                          id
+                          overclock_name
+                          overclock_index
+                          overclock_type
+                          gun {
+                            id
+                            name
+                            character_slot
+                          }
+                        }
+                        equipment_mods {
+                          id
+                          mod_name
+                          mod_tier
+                          mod_index
+                          equipment {
+                            id
+                            icon
+                            name
+                          }
+                        }
+                      }
+                    }`,
+    getModsForGun: (id) => `query {
+                          gun(id: ${id}) {
+                            id
+                            mods {
+                              id
+                              mod_tier
+                              mod_index
+                            }
+                          }
+                        }`,
+    getModsForEquipment: (id) => `query {
+                          equipment(id: ${id}) {
+                            id
+                            equipment_mods {
+                              id
+                              mod_tier
+                              mod_index
+                            }
+                          }
+                        }`
 };

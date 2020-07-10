@@ -1,5 +1,5 @@
 <template>
-    <div class="table">
+    <div class="table" v-if="dataReady">
         <!-- todo: custom filter by class -->
         <div class="classFilterContainer">
             <h1>Filter by class:</h1>
@@ -39,6 +39,8 @@
 
 <script>
     import store from '../store';
+    import apolloQueries from '../apolloQueries';
+    import gql from 'graphql-tag';
 
     import 'vue-good-table/dist/vue-good-table.css';
     import {VueGoodTable} from 'vue-good-table';
@@ -102,7 +104,7 @@
                         width: '8rem'
                     }
                 ],
-                rows: [
+                rows: this.getBrowseLoadouts()/*[
                     {
                         loadoutId: '111111',
                         name: 'Karl\'s Freezer Build',
@@ -143,21 +145,38 @@
                         secondary: 'S1_PGL',
                         lastUpdate: '2020-04-02'
                     }
-                ]
+                ]*/
             };
         },
         computed: {
+            dataReady() {
+                return store.state.browseDataReady;
+            },
+            loadoutRows() {
+                return store.state.browseLoadouts;
+            },
             tableData: function () {
-                console.log('table data with filters', this.classFilter);
                 let filterby = Object.values(this.classFilter).filter(value => !!value);
+                let rows = this.loadoutRows;
                 if (filterby.length > 0) {
-                    return this.rows.filter(row => this.classFilter[row.classId]);
+                    return rows.filter(row => this.classFilter[row.classId]);
                 } else {
-                    return this.rows;
+                    return rows;
                 }
+
             }
         },
         methods: {
+            async getBrowseLoadouts() {
+                if (store.state.browseLoadouts.length > 0) {
+                    return store.state.browseLoadouts;
+                }
+                const response = await this.$apollo.query({
+                    query: gql`${apolloQueries.popularLoadouts}`
+                });
+                store.commit('setBrowseLoadouts', {loadouts: response.data.loadouts.data});
+                return store.state.browseLoadouts;
+            },
             onRowClick: function (params) {
                 console.log('nav to preview', params.row.classId, params.row.loadoutId);
                 window.location.href = `${window.location.origin}/preview/${params.row.loadoutId}`;
@@ -171,7 +190,7 @@
                 return `<img src="../assets/img/50px-${classId}_icon-hex.png" class="classIcon"/>`;
             },
             getPrimaryIcon: function (rowObj) {
-                let weaponSVGPath = store.state.icons.equipment[`${rowObj.classId}_${rowObj.primary}`];
+                let weaponSVGPath = store.state.icons.equipment[rowObj.primary];
                 return `<svg xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 180 90"
                      height="90%"
@@ -179,7 +198,7 @@
                      >${weaponSVGPath}</svg>`;
             },
             getSecondaryIcon: function (rowObj) {
-                let weaponSVGPath = store.state.icons.equipment[`${rowObj.classId}_${rowObj.secondary}`];
+                let weaponSVGPath = store.state.icons.equipment[rowObj.secondary];
                 return `<svg xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 180 90"
                      height="90%"
@@ -190,6 +209,10 @@
         apollo: {},
         mounted: function () {
             console.log('mounted browse table');
+            this.getBrowseLoadouts().then((browseLoadouts) => {
+                store.commit('setBrowseDataReady', {ready: true});
+                console.log('done with browse loadouts', browseLoadouts);
+            });
         }
     };
 </script>

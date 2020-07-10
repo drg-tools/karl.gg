@@ -49,7 +49,7 @@
                 this.getCharacterData(classId).then(response => {
                     // todo: this isn't nice
                     let firstGunId = response.primaryWeapons ? response.primaryWeapons[0].id : response.guns[0].id;
-                    console.log("char data response", response)
+                    console.log('char data response', response);
                     store.commit('selectLoadoutClass', {classId: classId, firstEquipmentId: firstGunId});
                 });
             },
@@ -57,16 +57,16 @@
                 let id = charToId[classId];
                 if (store.state.loadoutCreator.baseData[classId]) {
                     console.log('base data already there');
-                    store.commit('setDataReady', {ready: true });
+                    store.commit('setDataReady', {ready: true});
                     return store.state.loadoutCreator.baseData[classId];
                 } else {
                     console.log('fetch base data from graphql');
-                    store.commit('setDataReady', {ready: false });
+                    store.commit('setDataReady', {ready: false});
                     const response = await this.$apollo.query({
                         query: gql`${apolloQueries.characterById(id)}`
                     });
                     store.commit('setLoadoutCreatorBaseData', {classId: classId, baseData: response.data.character});
-                    store.commit('setDataReady', {ready: true });
+                    store.commit('setDataReady', {ready: true});
                     return response.data.character;
                 }
             }

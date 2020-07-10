@@ -129,7 +129,82 @@ Vue.use(Vuex);
 
 const idToChar = ['A', 'B', 'C'];
 const charToId = {A: 0, B: 1, C: 2};
+const characterIdToChar = ['', 'E', 'S', 'D', 'G'];
 
+/* todo: put helper functions into their own module */
+const groupByEquipment = (mods, overclocks, equipment_mods, state) => {
+    console.log('mods', mods);
+    console.log('overclocks', overclocks);
+    let primaryWeapons = [];
+    let secondaryWeapons = [];
+    let equipments = [];
+    for (let element of [...mods, ...overclocks]) {
+        if (element.gun.character_slot === 1) {
+            let primaryWeaponIndex = primaryWeapons.findIndex(weapon => weapon.id === element.gun.id);
+            if (primaryWeaponIndex < 0) {
+                let length = primaryWeapons.push({
+                    name: element.gun.name,
+                    id: element.gun.id,
+                    icon: state.missingBackendWeaponData[element.gun.id].icon,
+                    mods: [],
+                    overclocks: [],
+                    modString: []
+                });
+                primaryWeaponIndex = length - 1;
+            }
+            delete element.gun;
+            if (element.mod_name) {
+                primaryWeapons[primaryWeaponIndex].mods.push(element);
+                primaryWeapons[primaryWeaponIndex].modString[element.mod_tier - 1] = element.mod_index;
+            } else if (element.overclock_name) {
+                primaryWeapons[primaryWeaponIndex].overclocks.push(element);
+                primaryWeapons[primaryWeaponIndex].modString[5] = element.overclock_index;
+            }
+        } else if (element.gun.character_slot === 2) {
+            let secondaryWeaponIndex = secondaryWeapons.findIndex(weapon => weapon.id === element.gun.id);
+            if (secondaryWeaponIndex < 0) {
+                let length = secondaryWeapons.push({
+                    name: element.gun.name,
+                    id: element.gun.id,
+                    icon: state.missingBackendWeaponData[element.gun.id].icon,
+                    mods: [],
+                    overclocks: [],
+                    modString: []
+                });
+                secondaryWeaponIndex = length - 1;
+            }
+            delete element.gun;
+            if (element.mod_name) {
+                secondaryWeapons[secondaryWeaponIndex].mods.push(element);
+                secondaryWeapons[secondaryWeaponIndex].modString[element.mod_tier - 1] = element.mod_index;
+            } else if (element.overclock_name) {
+                secondaryWeapons[secondaryWeaponIndex].overclocks.push(element);
+                secondaryWeapons[secondaryWeaponIndex].modString[5] = element.overclock_index;
+            }
+        }
+    }
+    for (let equipment_mod of equipment_mods) {
+        let equipmentIndex = equipments.findIndex(equipment => equipment.id === equipment_mod.equipment.id);
+        if (equipmentIndex < 0) {
+            let length = equipments.push({
+                name: equipment_mod.equipment.name,
+                id: equipment_mod.equipment.id,
+                icon: equipment_mod.equipment.icon,
+                mods: [],
+                overclocks: [],
+                modString: []
+            });
+            equipmentIndex = length - 1;
+        }
+        delete equipment_mod.gun;
+        if (equipment_mod.mod_name) {
+            equipments[equipmentIndex].mods.push(equipment_mod);
+            equipments[equipmentIndex].modString[equipment_mod.mod_tier - 1] = equipment_mod.mod_index;
+        }
+    }
+
+    return {primaryWeapons: primaryWeapons, secondaryWeapons: secondaryWeapons, equipments: equipments};
+};
 const transformMods = (items) => {
     for (let item of items) {
         // rename equipment_mods
@@ -194,6 +269,52 @@ const transformMods = (items) => {
     return items;
 };
 
+const transformLoadouts = (loadouts, state) => {
+    return loadouts.map(loadout => {
+        console.log('transform loadout', loadout);
+        let primaryId = '';
+        let secondaryId = '';
+        if (loadout.mods.length === 0) {
+            console.log('no mods available for this loadout');
+            /* todo: temporary workaround because i don't understand the loadout seeder */
+            let dummyWeapons = {
+                D: {
+                    primaryId: '9',
+                    secondaryId: '11'
+                },
+                E: {
+                    primaryId: '1',
+                    secondaryId: '3'
+                },
+                G: {
+                    primaryId: '13',
+                    secondaryId: '15'
+                },
+                S: {
+                    primaryId: '6',
+                    secondaryId: '7'
+                }
+            };
+            primaryId = dummyWeapons[characterIdToChar[loadout.character.id]].primaryId;
+            secondaryId = dummyWeapons[characterIdToChar[loadout.character.id]].secondaryId;
+        } else {
+            primaryId = loadout.mods.find(mod => mod.gun.character_slot === 1).gun.id;
+            secondaryId = loadout.mods.find(mod => mod.gun.character_slot === 2).gun.id;
+        }
+        /* todo: salutes and last update */
+        return {
+            loadoutId: loadout.id,
+            name: loadout.name,
+            author: loadout.creator.name,
+            classId: characterIdToChar[loadout.character.id],
+            salutes: 0,
+            primary: state.missingBackendWeaponData[primaryId].icon,
+            secondary: state.missingBackendWeaponData[secondaryId].icon,
+            lastUpdate: new Date(loadout.created_at).toISOString().split('T')[0]
+        };
+    });
+};
+
 export default new Vuex.Store({
     state: {
         loadedFromLink: false,
@@ -208,6 +329,12 @@ export default new Vuex.Store({
             dataReady: false,
             baseData: {}
         },
+        popularDataReady: false,
+        popularLoadouts: [],
+        browseDataReady: false,
+        browseLoadouts: [],
+        loadoutDetailDataReady: false,
+        loadoutDetails: [],
         /* todo: this is temporary, until backend provides icon and stats calculation */
         missingBackendWeaponData: [
             {
@@ -979,10 +1106,79 @@ export default new Vuex.Store({
     },
     mutations: {
         setDataReady: (state, indices) => {
-            state.loadoutCreator.dataReady = indices.ready;
+            Vue.set(state.loadoutCreator, 'dataReady', indices.ready);
+        },
+        setPopularDataReady: (state, indices) => {
+            Vue.set(state, 'popularDataReady', indices.ready);
+        },
+        setPopularLoadouts: (state, indices) => {
+            let loadouts = transformLoadouts(indices.loadouts, state);
+            console.log('transformed loadouts', loadouts);
+            Vue.set(state, 'popularLoadouts', loadouts);
+        },
+        setBrowseDataReady: (state, indices) => {
+            Vue.set(state, 'browseDataReady', indices.ready);
+        },
+        setBrowseLoadouts: (state, indices) => {
+            let loadouts = transformLoadouts(indices.loadouts, state);
+            console.log('transformed loadouts', loadouts);
+            Vue.set(state, 'browseLoadouts', loadouts);
+        },
+        setLoadoutDetailDataReady: (state, indices) => {
+            Vue.set(state, 'loadoutDetailDataReady', indices.ready);
+        },
+        setLoadoutDetails: (state, indices) => {
+            let loadoutMods = groupByEquipment(indices.loadout.mods, indices.loadout.overclocks, indices.loadout.equipment_mods, state);
+            let loadout = {
+                classId: characterIdToChar[indices.loadout.character.id],
+                created_at: indices.loadout.created_at,
+                author: indices.loadout.creator.name,
+                authorId: indices.loadout.creator.id,
+                description: indices.loadout.description,
+                loadoutId: indices.loadout.id,
+                name: indices.loadout.name,
+                primaryWeapons: loadoutMods.primaryWeapons,
+                secondaryWeapons: loadoutMods.secondaryWeapons,
+                equipments: loadoutMods.equipments
+            };
+            Vue.set(state, 'loadoutDetails', loadout);
+        },
+        setLoadoutDetailModMatrix: (state, indices) => {
+            let generateModMatrix = (baseMods, equipmentItem) => {
+                let relevantBaseModsId = baseMods.findIndex(base => {
+                    let baseId = base.data.gun ? base.data.gun.id : base.data.equipment.id;
+                    return baseId === equipmentItem.id;
+                });
+                let modMatrix = [];
+                let availableModsForItem = baseMods[relevantBaseModsId].data.gun
+                                           ? baseMods[relevantBaseModsId].data.gun.mods
+                                           : baseMods[relevantBaseModsId].data.equipment.equipment_mods;
+                for (let availableMod of availableModsForItem) {
+                    if (!modMatrix[availableMod.mod_tier - 1]) {
+                        modMatrix[availableMod.mod_tier - 1] = [];
+                    }
+                    let isModInLoadout = equipmentItem.mods.find(mod => mod.mod_index === availableMod.mod_index && mod.mod_tier === availableMod.mod_tier);
+                    modMatrix[availableMod.mod_tier - 1][charToId[availableMod.mod_index]] = !!isModInLoadout;
+                }
+                return modMatrix;
+
+            };
+            if (state.loadoutDetails.primaryWeapons[0]) {
+                let primaryWeaponModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.primaryWeapons[0]);
+                Vue.set(state.loadoutDetails.primaryWeapons[0], 'modMatrix', primaryWeaponModMatrix);
+            }
+            if (state.loadoutDetails.secondaryWeapons[0]) {
+                let secondaryWeaponModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.secondaryWeapons[0]);
+                Vue.set(state.loadoutDetails.secondaryWeapons[0], 'modMatrix', secondaryWeaponModMatrix);
+            }
+
+            for (let equipmentIndex in state.loadoutDetails.equipments) {
+                let equipmentModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.equipments[equipmentIndex]);
+                Vue.set(state.loadoutDetails.equipments[equipmentIndex], 'modMatrix', equipmentModMatrix);
+            }
+
         },
         selectLoadoutClass: (state, indices) => {
-            /* todo: also select first weapon for class */
             /* todo: Vue.set */
             state.loadoutCreator.selectedClassId = indices.classId;
             state.loadoutCreator.selectedEquipmentId = indices.firstEquipmentId;
