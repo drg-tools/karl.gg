@@ -9,13 +9,15 @@
             <h2>by {{loadoutDetails.author}} on {{loadoutDetails.created_at}}</h2>
             <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
-                <div>
+                <div class="salutes-container">
+                        <img src="../assets/img/bosco.png" @click="upvote" :class="{disabled: !upvoted}" />
                             <!-- <i class="las la-chevron-up"  @click="upvote" :class="{disabled: upvoted}"></i> -->
-                        <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" />
-                        <span class="label label-primary">{{ loadoutDetails.votes }}</span>
+                        <!-- <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" /> -->
+                        <span class="salute-count">{{ loadoutDetails.votes }}</span>
                 </div>
                 <div class="buttonContainer">
                     <div class="button" v-on:click="onEditClick">
+                        <!-- TODO: Get the edit button fixed w/ current user -->
                         <h1 class="buttonText">EDIT</h1>
                     </div>
                     <div class="button" v-on:click="onShareClick">
@@ -126,7 +128,17 @@
         background-size: 35%;
         background-position: right -5% top -10%;
     }
+    .salutes-container {
+        padding: 5px;
+        border-radius: 3px;
+        background: rgba(24, 17, 11, .6);
+        color: #FFF;
+        font-weight: bold;
+        text-align: center;
+    }
     .disabled {
-    color: orange;
+        filter: gray; /* IE6-9 */
+        -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+        filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
     }
 </style>
