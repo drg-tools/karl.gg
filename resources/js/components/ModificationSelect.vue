@@ -1,5 +1,8 @@
 <template>
-    <div v-if="dataReady" class="modSelection">
+    <div v-if="!dataReady">
+        <h1>imagine a loading spinner here...</h1>
+    </div>
+    <div v-else-if="dataReady" class="modSelection">
         <h1 class="modSelectionTitle allCaps">Gear modifications</h1>
         <div v-for="(tier, tierId) in availableMods" :key="tierId" class="tierContainer">
             <h2 v-if="selectedClassId !== 'R'">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator">Level

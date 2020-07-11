@@ -1,6 +1,9 @@
 <template>
     <!-- todo: busy indicator if data is not ready -->
-    <div v-if="dataReady">
+    <div v-if="!dataReady">
+        <h1>imagine a loading spinner here...</h1>
+    </div>
+    <div v-else-if="dataReady">
         <!-- driller -->
         <div v-if="selectedClass === 'D'" class="equipmentSelectContainer">
             <div class="primariesContainer">

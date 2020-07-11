@@ -1,5 +1,8 @@
 <template>
-    <div class="equipmentCards" v-if="dataReady">
+    <div v-if="!dataReady">
+        <h1>imagine a loading spinner here...</h1>
+    </div>
+    <div v-else-if="dataReady" class="equipmentCards">
         <EquipmentCard v-if="loadoutDetails.primaryWeapons[0]"
                        :classId="loadoutDetails.classId"
                        :equipmentId="loadoutDetails.primaryWeapons[0].id"

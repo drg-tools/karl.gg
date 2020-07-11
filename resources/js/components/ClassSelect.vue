@@ -48,6 +48,7 @@
         methods: {
             selectClass: function (classId) {
                 console.log('select', classId);
+                store.commit('setDataReady', {ready: false});
                 this.getCharacterData(classId).then(response => {
                     /* todo: chosen primary and chosen secondary ids are not correct when switching characters */
                     let chosenPrimaryId = response.primaryWeapons ? response.primaryWeapons[0].id : response.guns[0].id;

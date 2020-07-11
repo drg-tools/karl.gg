@@ -1,5 +1,8 @@
 <template>
-    <div class="previewHeaderBackground" v-if="dataReady">
+    <div v-if="!dataReady">
+        <h1>imagine a loading spinner here...</h1>
+    </div>
+    <div v-else-if="dataReady" class="previewHeaderBackground">
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
             <h1>{{loadoutDetails.name}}</h1>
             <!-- todo: style this! -->
