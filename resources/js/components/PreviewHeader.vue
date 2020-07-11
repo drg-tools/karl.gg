@@ -7,11 +7,9 @@
             <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
                 <div>
-                    <li class="list-group-item">
-                        <i class="glyphicon glyphicon-chevron-up" @click="upvote" :class="{disabled: upvoted}"></i>
-                        <span class="label label-primary">{{ votes }}</span>
-                        <i class="glyphicon glyphicon-chevron-down" @click="downvote" :class="{disabled: downvoted}"></i>
-                    </li>
+                            <!-- <i class="las la-chevron-up"  @click="upvote" :class="{disabled: upvoted}"></i> -->
+                        <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" />
+                        <span class="label label-primary">{{ loadoutDetails.votes }}</span>
                 </div>
                 <div class="buttonContainer">
                     <div class="button" v-on:click="onEditClick">
@@ -31,6 +29,11 @@
 
     export default {
         name: 'PreviewHeader',
+        data: function() {
+            return {
+                upvoted: false,
+            };
+        },
         computed: {
             dataReady() {
                 return store.state.loadoutDetailDataReady;
@@ -62,10 +65,6 @@
             upvote: function() {
                 this.upvoted = !this.upvoted;
                 this.downvoted = false;
-            },
-            downvote: function() {
-                this.downvoted = !this.downvoted;
-                this.upvoted = false;
             }
         },
         mounted: function () {
@@ -122,5 +121,8 @@
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: right -5% top -10%;
+    }
+    .disabled {
+    color: orange;
     }
 </style>

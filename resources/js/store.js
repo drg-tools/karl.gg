@@ -1139,7 +1139,8 @@ export default new Vuex.Store({
                 name: indices.loadout.name,
                 primaryWeapons: loadoutMods.primaryWeapons,
                 secondaryWeapons: loadoutMods.secondaryWeapons,
-                equipments: loadoutMods.equipments
+                equipments: loadoutMods.equipments,
+                votes: indices.loadout.votes
             };
             Vue.set(state, 'loadoutDetails', loadout);
         },
