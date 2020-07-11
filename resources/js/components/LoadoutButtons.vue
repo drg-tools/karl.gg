@@ -32,9 +32,12 @@
 
     export default {
         name: 'LoadoutButtons',
-        data: {
-            name: '',
-            description: ''
+        /* todo: set name and description of existing loadout if the loadout belongs to the user */
+        data: () => {
+            return {
+                name: '',
+                description: ''
+            }
         },
         methods: {
             onSaveClick() {
@@ -47,6 +50,7 @@
                 console.log('generate share link without saving');
             },
             onAcceptSave() {
+                /* todo: if the loadout belongs to the user, don't create new loadout but update existing */
                 if (!!this.name && !!this.description) {
                     let loadoutData = store.getters.getLoadoutForUpdate();
                     loadoutData.name = this.name;

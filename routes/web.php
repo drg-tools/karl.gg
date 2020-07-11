@@ -45,9 +45,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);
     Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
 });
-
+// todo: removed build view from middleware..
 Route::view('browse', 'loadouts.browse');
 Route::view('preview/{loadoutId}', 'loadouts.preview');
+Route::view('build', 'loadouts.create');
+Route::view('build/{loadoutId}', 'loadouts.create');
 Route::resource('loadouts', 'LoadoutController')->only(['index', 'show']);
 Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('/', 'LoadoutController@index');

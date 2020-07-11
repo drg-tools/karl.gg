@@ -39,7 +39,8 @@
         },
         methods: {
             onEditClick() {
-                console.log('nav to build view');
+                console.log('nav to build view', {classID: this.loadoutDetails.classId, loadoutId: this.loadoutDetails.loadoutId});
+                window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
             },
             onShareClick() {
                 console.log('copy/show share link for this loadout');
