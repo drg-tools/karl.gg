@@ -30,6 +30,7 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => {
@@ -50,6 +51,11 @@ import Toasted from 'vue-toasted';
 import Popover from 'vue-js-popover';
 import VModal from 'vue-js-modal'
 import VueApollo from 'vue-apollo';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChevronUp,faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faChevronUp,faChevronDown)
 
 Vue.config.productionTip = false;
 Vue.use(Toasted);
