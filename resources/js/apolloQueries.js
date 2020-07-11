@@ -242,6 +242,7 @@ export default {
                             name
                           }
                         }
+                        votes
                       }
                     }`,
     getModsForGun: (id) => `query {
@@ -263,5 +264,5 @@ export default {
                               mod_index
                             }
                           }
-                        }`
+                        }`             
 };

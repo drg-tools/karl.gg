@@ -24,6 +24,7 @@
         "livewire/livewire": "^1.1",
         "mll-lab/graphql-php-scalars": "^3.1",
         "mll-lab/laravel-graphql-playground": "^2.1",
+        "nagy/laravel-rating": "^1.4",
         "nuwave/lighthouse": "^4.14",
         "tucker-eric/eloquentfilter": "^2.3"
     },

@@ -9,7 +9,13 @@
             <h2>by {{loadoutDetails.author}} on {{loadoutDetails.created_at}}</h2>
             <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
-                <div>salutes</div>
+                <div>
+                    <li class="list-group-item">
+                        <i class="glyphicon glyphicon-chevron-up" @click="upvote" :class="{disabled: upvoted}"></i>
+                        <span class="label label-primary">{{ votes }}</span>
+                        <i class="glyphicon glyphicon-chevron-down" @click="downvote" :class="{disabled: downvoted}"></i>
+                    </li>
+                </div>
                 <div class="buttonContainer">
                     <div class="button" v-on:click="onEditClick">
                         <h1 class="buttonText">EDIT</h1>
@@ -38,6 +44,15 @@
             },
             getHeaderImageClass() {
                 return `image${this.loadoutDetails.classId}`;
+            },
+            votes: function() {
+                if (this.upvoted) {
+                    return this.loadoutDetails.votes + 1;
+                } else if (this.downvoted) {
+                    return this.loadoutDetails.votes - 1;
+                } else {
+                    return this.loadoutDetails.votes;
+                }
             }
         },
         methods: {
@@ -47,6 +62,14 @@
             },
             onShareClick() {
                 console.log('copy/show share link for this loadout');
+            },
+            upvote: function() {
+                this.upvoted = !this.upvoted;
+                this.downvoted = false;
+            },
+            downvote: function() {
+                this.downvoted = !this.downvoted;
+                this.upvoted = false;
             }
         },
         mounted: function () {
