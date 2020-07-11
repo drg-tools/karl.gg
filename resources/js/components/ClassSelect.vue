@@ -47,10 +47,11 @@
             selectClass: function (classId) {
                 console.log('select', classId);
                 this.getCharacterData(classId).then(response => {
-                    // todo: this isn't nice
+                    // todo: get chosen primary and secondary ids from loadout if available
                     let firstGunId = response.primaryWeapons ? response.primaryWeapons[0].id : response.guns[0].id;
+                    let chosenSecondaryId = response.secondaryWeapons ? response.secondaryWeapons[0].id : response.guns[2].id;
                     console.log('char data response', response);
-                    store.commit('selectLoadoutClass', {classId: classId, firstEquipmentId: firstGunId});
+                    store.commit('selectLoadoutClass', {classId: classId, firstEquipmentId: firstGunId, chosenPrimaryId: firstGunId, chosenSecondaryId: chosenSecondaryId});
                 });
             },
             async getCharacterData(classId) {

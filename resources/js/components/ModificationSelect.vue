@@ -8,10 +8,10 @@
                 {{tierId + 1}}</p></h2>
             <div class="tierSubContainer"
                  :class="[tier.length === 1 ? '' : tier.length === 2 ? 'tierBackgroundGradientHalf' : 'tierBackgroundGradient']">
-                <div v-for="(mod, modId) in tier"
-                     :key="modId"
-                     v-on:click="selectMod(selectedClassId, selectedEquipmentId, tierId, modId, mod.selected)"
-                     v-on:mouseover="hoverMod(selectedClassId, selectedEquipmentId, tierId, modId)"
+                <div v-for="(mod, modIndex) in tier"
+                     :key="modIndex"
+                     v-on:click="selectMod(selectedClassId, selectedEquipmentId, tierId, modIndex, mod.id, mod.selected)"
+                     v-on:mouseover="hoverMod(selectedClassId, selectedEquipmentId, tierId, modIndex)"
                      class="tooltip-target modDisplay">
                     <svg viewBox="0 0 80 50"
                          height="100%"
@@ -93,10 +93,10 @@
                 </svg>
             </div>
             <popover name="overclocks" class="overclockGrid">
-                <div v-for="(overclock, overclockId) in availableOverclocks"
-                     :key="overclockId"
-                     v-on:click="selectOverclock(selectedClassId, selectedEquipmentId, overclockId, overclock.selected)"
-                     v-on:mouseover="hoverOverclock(selectedClassId, selectedEquipmentId, overclockId)"
+                <div v-for="(overclock, overclockIndex) in availableOverclocks"
+                     :key="overclockIndex"
+                     v-on:click="selectOverclock(selectedClassId, selectedEquipmentId, overclockIndex, overclock.id, overclock.selected)"
+                     v-on:mouseover="hoverOverclock(selectedClassId, selectedEquipmentId, overclockIndex)"
                      class="tooltip-target modDisplay">
                     <svg viewBox="0 0 80 80"
                          height="6rem"
@@ -258,7 +258,8 @@
             }
         },
         methods: {
-            selectMod(classId, equipmentId, tierId, modId, selected) {
+            selectMod(classId, equipmentId, tierId, modIndex, modId, selected) {
+                console.log("mod id", modId)
                 if (selected) {
                     store.commit('selectLoadoutMods', {
                         classId: classId,
@@ -272,20 +273,22 @@
                         equipmentType: this.selectedEquipmentType,
                         equipmentId: equipmentId,
                         tierId: tierId,
-                        chosenMod: modId
+                        chosenMod: modIndex,
+                        chosenModId: modId
                     });
                 }
             },
-            hoverMod(classId, equipmentId, tierId, modId) {
+            hoverMod(classId, equipmentId, tierId, modIndex) {
                 store.commit('addToHovered', {
                     classId: classId,
                     equipmentType: this.selectedEquipmentType,
                     equipmentId: equipmentId,
                     tierId: tierId,
-                    modId: modId
+                    modId: modIndex
                 });
             },
-            selectOverclock(classId, equipmentId, overclockId, selected) {
+            selectOverclock(classId, equipmentId, overclockIndex, overclockId, selected) {
+                console.log("oc id", overclockId)
                 if (selected) {
                     store.commit('selectLoadoutOverclocks', {
                         classId: classId,
@@ -297,16 +300,17 @@
                         classId: classId,
                         equipmentType: this.selectedEquipmentType,
                         equipmentId: equipmentId,
-                        chosenOverclock: overclockId
+                        chosenOverclock: overclockIndex,
+                        chosenOverclockId: overclockId
                     });
                 }
             },
-            hoverOverclock(classId, equipmentId, overclockId) {
+            hoverOverclock(classId, equipmentId, overclockIndex) {
                 store.commit('addToHovered', {
                     classId: classId,
                     equipmentType: this.selectedEquipmentType,
                     equipmentId: equipmentId,
-                    overclockId: overclockId
+                    overclockId: overclockIndex
                 });
             },
             getSelected: function (mod) {
