@@ -1,7 +1,10 @@
 <template>
     <div class="featuredLoadoutsContainer">
         <h1>MOST POPULAR LOADOUTS</h1>
-        <div class="cardGroups" v-if="dataReady">
+        <div v-if="!dataReady">
+            <h1>imagine a loading spinner here...</h1>
+        </div>
+        <div v-else-if="dataReady" class="cardGroups">
             <div class="loadoutCards">
                 <SmallLoadoutCard
                     v-for="(loadout, id) in popularDrillerLoadouts"

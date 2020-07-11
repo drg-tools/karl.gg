@@ -1,5 +1,8 @@
 <template>
-    <div class="previewHeaderBackground" v-if="dataReady">
+    <div v-if="!dataReady">
+        <h1>imagine a loading spinner here...</h1>
+    </div>
+    <div v-else-if="dataReady" class="previewHeaderBackground">
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
             <h1>{{loadoutDetails.name}}</h1>
             <!-- todo: style this! -->
@@ -39,7 +42,8 @@
         },
         methods: {
             onEditClick() {
-                console.log('nav to build view');
+                console.log('nav to build view', {classID: this.loadoutDetails.classId, loadoutId: this.loadoutDetails.loadoutId});
+                window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
             },
             onShareClick() {
                 console.log('copy/show share link for this loadout');

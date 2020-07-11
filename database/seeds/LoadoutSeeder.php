@@ -19,42 +19,6 @@ class LoadoutSeeder extends Seeder
                 'patch_id' => 5,
                 'throwable_id' => 12,
             ],
-            [
-                'name' => 'Karls Freezer Build',
-                'description' => 'pfffft',
-                'user_id' => 1,
-                'character_id' => 3,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'patch_id' => 5,
-                'throwable_id' => 12,
-            ],
-            [
-                'name' => 'Karls Flamer Build',
-                'description' => 'hothothot',
-                'user_id' => 1,
-                'character_id' => 3,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'patch_id' => 5,
-                'throwable_id' => 12,
-            ],
-            [
-                'name' => 'pew pew pew',
-                'description' => 'yea test',
-                'user_id' => 1,
-                'character_id' => 4,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'patch_id' => 5,
-                'throwable_id' => 12,
-            ],
-            [
-                'name' => 'cheese party',
-                'description' => 'just cheese',
-                'user_id' => 1,
-                'character_id' => 1,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'patch_id' => 5,
-                'throwable_id' => 12,
-            ],
         ];
         $loadout_eq_mods = [
             [
@@ -94,26 +58,6 @@ class LoadoutSeeder extends Seeder
             ],
             [
                 'loadout_id' => 1,
-                'equipment_mod_id' => 96,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 2,
-                'equipment_mod_id' => 96,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 3,
-                'equipment_mod_id' => 96,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 4,
-                'equipment_mod_id' => 96,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 5,
                 'equipment_mod_id' => 96,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
@@ -167,46 +111,6 @@ class LoadoutSeeder extends Seeder
             [
                 'loadout_id' => 1,
                 'mod_id' => 203,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 2,
-                'equipment_mod_id' => 14,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 2,
-                'equipment_mod_id' => 27,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 3,
-                'equipment_mod_id' => 1,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 3,
-                'equipment_mod_id' => 39,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 4,
-                'equipment_mod_id' => 102,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 4,
-                'equipment_mod_id' => 130,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 5,
-                'equipment_mod_id' => 53,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'loadout_id' => 5,
-                'equipment_mod_id' => 77,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
         ];

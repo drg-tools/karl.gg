@@ -1,5 +1,8 @@
 <template>
-    <div class="table" v-if="dataReady">
+    <div v-if="!dataReady">
+        <h1>imagine a loading spinner here...</h1>
+    </div>
+    <div v-else-if="dataReady" class="table">
         <!-- todo: custom filter by class -->
         <div class="classFilterContainer">
             <h1>Filter by class:</h1>

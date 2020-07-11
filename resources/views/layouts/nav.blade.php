@@ -25,8 +25,9 @@
                             </svg>
                         </div>
                         <div>
-                            <svg class="{{ (\Request::is('loadouts/create')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
-                                <a href="/loadouts/create">
+                        <!-- todo: how can i have class active if url is build/xyz? -->
+                            <svg class="{{ (\Request::is('build')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
+                                <a href="/build">
                                 <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
                                 <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">BUILD</text>
                                 </a>
