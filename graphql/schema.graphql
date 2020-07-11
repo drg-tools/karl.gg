@@ -200,4 +200,5 @@ type Loadout {
     overclocks: [Overclock!]! @belongsToMany
     equipment_mods: [EquipmentMod!]! @belongsToMany
     throwable: Throwable @hasOne
+    votes: Int! @field(resolver: "App\\GraphQL\\Queries\\GetLoadoutVotes")
 }
