@@ -1096,6 +1096,7 @@ export default new Vuex.Store({
             }
         },
         getLoadoutForUpdate: state => indices => {
+
             let loadoutCreator = state.loadoutCreator;
             console.log('loadoutCreator state', loadoutCreator);
             let primaryWeaponMods = loadoutCreator.modSelections.primaryWeapons[state.loadoutCreator.chosenPrimaryId];
@@ -1138,6 +1139,7 @@ export default new Vuex.Store({
             }, []);
             console.log('return loadout data');
             return {
+                loadout_id: state.loadoutDetails.loadoutId,
                 character_id: charToCharacterId[state.loadoutCreator.selectedClassId],
                 mods: mods,
                 overclocks: overclocks,
