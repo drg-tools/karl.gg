@@ -179,6 +179,14 @@ svg > a:hover {
     padding-right: 0.6rem;
 }
 
+.loadingIndicator {
+    width: 100%;
+    border-bottom: 5px solid rgb(252, 158, 0);
+}
+.loadingIndicator > img {
+    margin: auto;
+}
+
 ::-webkit-scrollbar-button {
     display: none;
     height: 12px;

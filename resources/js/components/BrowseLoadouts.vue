@@ -1,6 +1,6 @@
 <template>
-    <div v-if="!dataReady">
-        <h1>imagine a loading spinner here...</h1>
+    <div v-if="!dataReady" class="loadingIndicator">
+        <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
     </div>
     <div v-else-if="dataReady" class="table">
         <!-- todo: custom filter by class -->
@@ -225,6 +225,7 @@
     .classFilterContainer {
         border-top: 5px solid #fc9e00;
         display: flex;
+        flex-wrap: wrap;
     }
 
     .classFilterContainer > h1 {

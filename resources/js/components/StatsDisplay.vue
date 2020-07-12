@@ -1,8 +1,5 @@
 <template>
-    <div v-if="!dataReady">
-        <h1>imagine a loading spinner here...</h1>
-    </div>
-    <div v-else-if="dataReady" class="statsDisplay">
+    <div v-if="dataReady" class="statsDisplay">
         <h1 class="equipmentTitle allCaps">{{ equipment.name }}</h1>
         <h2 class="equipmentSubTitle allCaps">{{ equipment.class }}</h2>
         <div class="statsBaseContainer">
@@ -374,7 +371,7 @@
         align-items: center;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 770px) {
         .statsDisplay {
             flex: 0 0 100%;
             order: 2;

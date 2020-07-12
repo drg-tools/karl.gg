@@ -1,7 +1,6 @@
 <template>
-    <!-- todo: busy indicator if data is not ready -->
-    <div v-if="!dataReady">
-        <h1>imagine a loading spinner here...</h1>
+    <div v-if="!dataReady" class="loadingIndicator">
+        <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
     </div>
     <div v-else-if="dataReady">
         <!-- driller -->
@@ -227,6 +226,11 @@
         background-color: #352e1e;
         margin-bottom: 0.5rem;
     }
+    @media (max-width: 770px) {
+        .primariesContainer {
+            width: 100%;
+        }
+    }
 
     .secondariesContainer {
         display: flex;
@@ -234,6 +238,11 @@
         border-top: 5px solid #fc9e00;
         background-color: #352e1e;
         margin-bottom: 0.5rem;
+    }
+    @media (max-width: 770px) {
+        .secondariesContainer {
+            width: 100%;
+        }
     }
 
     .equipmentContainer {

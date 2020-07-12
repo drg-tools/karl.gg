@@ -1,8 +1,5 @@
 <template>
-    <div v-if="!dataReady">
-        <h1>imagine a loading spinner here...</h1>
-    </div>
-    <div v-else-if="dataReady" class="modSelection">
+    <div v-if="dataReady" class="modSelection">
         <h1 class="modSelectionTitle allCaps">Gear modifications</h1>
         <div v-for="(tier, tierId) in availableMods" :key="tierId" class="tierContainer">
             <h2 v-if="selectedClassId !== 'R'">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator">Level
@@ -38,6 +35,7 @@
         </div>
         <div class="overclockContainer" v-if="selectedEquipmentType !== 'equipments'">
             <h2>Overclock</h2>
+            <!-- todo: For the OC selection, I think the choosen OC icon should be a bit lighter -->
             <div class="overclockDisplay">
                 <!--todo: show name of selected overclock on hover?-->
                 <svg v-popover:overclocks.top
@@ -560,7 +558,7 @@
         padding-top: 1rem;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 770px) {
         .modSelection {
             flex: 0 0 100%;
             order: 1;

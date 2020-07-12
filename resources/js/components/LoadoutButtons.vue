@@ -27,6 +27,7 @@
                 </div>
             </div>
         </modal>
+        <!-- todo: show loadout name to the left of there buttons if build belongs to user, show 'new loadout' if not -->
         <div class="button" v-on:click="onSaveClick">
             <h1 class="buttonText">SAVE</h1>
         </div>
@@ -104,6 +105,7 @@
                             this.name = '';
                             this.description = '';
                             this.$modal.hide('loadoutNameModal');
+                            /* todo: show success messages and redirect to loadout preview */
                         });
                     } else {
                         // create fresh loadout
@@ -114,6 +116,7 @@
                             this.description = '';
                             this.$modal.hide('loadoutNameModal');
                         });
+                        /* todo: show success messages and redirect to loadout preview */
                     }
                 } else {
                     // todo: show indicators on required text fields
