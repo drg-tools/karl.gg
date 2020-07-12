@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateRatingsTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateRatingsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('ratings')) {
+        if (! Schema::hasTable('ratings')) {
             Schema::create('ratings', function (Blueprint $table) {
                 $table->increments('id');
 
@@ -25,6 +25,7 @@ class CreateRatingsTable extends Migration
             });
         }
     }
+
     /**
      * Reverse the migrations.
      *
