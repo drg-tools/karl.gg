@@ -48,7 +48,7 @@ import Vue from 'vue';
 import store from './store';
 import {Apollo} from './apollo';
 import Toasted from 'vue-toasted';
-import Popover from 'vue-js-popover';
+import VPopover from 'vue-js-popover';
 import VModal from 'vue-js-modal'
 import VueApollo from 'vue-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -59,9 +59,9 @@ library.add(faChevronUp,faChevronDown)
 
 Vue.config.productionTip = false;
 Vue.use(Toasted);
-Vue.use(Popover);
 Vue.use(VModal);
 Vue.use(VueApollo);
+Vue.use(VPopover, { tooltip: true });
 
 const apolloProvider = new VueApollo({
     defaultClient: Apollo

@@ -42,7 +42,9 @@
         methods: {
             onSaveClick() {
                 console.log('save loadout to backend');
-
+                // Set this.name & description
+                this.name = this.state.loadoutDetails.name
+                // description: ''
                 this.$modal.show('loadoutNameModal');
 
             },
@@ -52,6 +54,10 @@
             onAcceptSave() {
                 /* todo: if the loadout belongs to the user, don't create new loadout but update existing */
                 if (!!this.name && !!this.description) {
+                    let loadoutDetails = store.state.loadoutDetails;
+                    let authorId = loadoutDetails.authorId;
+                    let loadoutId = loadoutDetails.loadoutId
+                    // let loggedInUser = 
                     let loadoutData = store.getters.getLoadoutForUpdate();
                     loadoutData.name = this.name;
                     loadoutData.description = this.description;
@@ -108,8 +114,52 @@
                     variables: variables
                 });
                 return result;
+            },
+            // TODO: updateLoadout Mutation
+            async updateLoadout(params) {
+                let variables = {
+                    name: params.name,
+                    description: params.description,
+                    character_id: params.character_id,
+                    mods: params.mods,
+                    overclocks: params.overclocks,
+                    equipment_mods: params.equipment_mods,
+                    throwable_id: params.throwable_id
+                };
+                console.log('send variables', variables);
+                // Call to the graphql mutation
+                const result = await this.$apollo.mutate({
+                    // Query
+                    mutation: gql`mutation (
+                    $name: String!,
+                    $description: String!,
+                    $character_id: Int!,
+                    $mods: [Int!]!,
+                    $overclocks: [Int!]!,
+                    $equipment_mods: [Int!]!,
+                    $throwable_id: Int!,
+                    ) {
+                        createLoadout(
+                            name: $name
+                            description: $description
+                            character_id: $character_id
+                            mods: $mods
+                            overclocks: $overclocks
+                            equipment_mods: $equipment_mods
+                            throwable_id: $throwable_id
+                          ) {
+                          id
+                          name
+                          description
+                        }
+                      }`,
+                    // Parameters
+                    variables: variables
+                });
+                return result;
             }
-        }
+        },
+        
     };
 </script>
 

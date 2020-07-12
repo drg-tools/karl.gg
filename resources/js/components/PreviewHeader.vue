@@ -10,6 +10,7 @@
             <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
                 <div class="salutes-container">
+                         <h3>Salutes</h3>
                         <img src="../assets/img/bosco.png" @click="upvote" :class="{disabled: !upvoted}" />
                             <!-- <i class="las la-chevron-up"  @click="upvote" :class="{disabled: upvoted}"></i> -->
                         <!-- <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" /> -->
@@ -52,6 +53,7 @@
             },
             votes: function() {
                 if (this.upvoted) {
+
                     return this.loadoutDetails.votes + 1;
                 } else if (this.downvoted) {
                     return this.loadoutDetails.votes - 1;
