@@ -1,10 +1,10 @@
 <template>
-    <div class="featuredLoadoutsContainer">
+    <div v-if="!dataReady" class="loadingIndicator">
+        <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
+    </div>
+    <div v-else-if="dataReady" class="featuredLoadoutsContainer">
         <h1>MOST POPULAR LOADOUTS</h1>
-        <div v-if="!dataReady">
-            <h1>imagine a loading spinner here...</h1>
-        </div>
-        <div v-else-if="dataReady" class="cardGroups">
+        <div class="cardGroups">
             <div class="loadoutCards">
                 <SmallLoadoutCard
                     v-for="(loadout, id) in popularLoadouts('D')"
@@ -166,7 +166,7 @@
     };
 </script>
 
-<style scoped>
+<style>
     .featuredLoadoutsContainer {
         width: 100%;
         border-top: 5px solid #fc9e00;
@@ -186,6 +186,11 @@
         flex-wrap: wrap;
         justify-content: space-between;
         padding-bottom: 2rem;
+    }
+    @media (max-width: 770px) {
+        .loadoutCards {
+            width: 100%;
+        }
     }
 
     h1 {

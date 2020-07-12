@@ -2,6 +2,7 @@ export default {
     characterById: (id) => `query {
                       character(id: ${id}) {
                         name
+                        id
                         guns {
                           id
                           name

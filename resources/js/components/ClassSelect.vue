@@ -128,8 +128,8 @@
             console.log('class select mounted');
 
             let path = window.location.pathname.split('/');
-            let loadoutId = parseInt(path[path.length - 1]);
-            if (path.length === 3 && !isNaN(loadoutId)) {
+            let loadoutId = path[path.length - 1];
+            if (path.length === 3 && !isNaN(parseInt(loadoutId))) {
                 // if there is a loadout, load it first to see what class it is! then load character data and set selected class
                 console.log('get loadout by id', loadoutId);
                 this.getLoadoutDetails(loadoutId).then((loadoutDetails) => {
@@ -212,11 +212,26 @@
                     });
                 });
             } else {
-                // get character data directly
-                this.getCharacterData(this.selectedClass).then(character => {
-                    store.commit('setDataReady', {ready: true});
-                    console.log('loaded char base data', character);
-                });
+                if (loadoutId === 'D' || loadoutId === 'E' || loadoutId === 'G' || loadoutId === 'S') {
+                    // get base data for class
+                    let characterId = loadoutId;
+                    this.getCharacterData(characterId).then(character => {
+                        store.commit('selectLoadoutClass', {
+                            classId: characterId,
+                            chosenPrimaryId: character.guns[0].id,
+                            chosenSecondaryId: character.guns[2].id
+                        });
+                        store.commit('setDataReady', {ready: true});
+                    });
+                } else if (loadoutId === 'R') {
+                    console.log('get random loadout');
+                } else {
+                    // get character data directly
+                    this.getCharacterData(this.selectedClass).then(character => {
+                        store.commit('setDataReady', {ready: true});
+                        console.log('loaded char base data', character);
+                    });
+                }
             }
         }
     };
@@ -226,7 +241,7 @@
     .classSelectContainer {
         border-top: 5px solid #fc9e00;
         display: flex;
-
+        flex-wrap: wrap;
     }
 
     .classSelectContainer > h1 {
