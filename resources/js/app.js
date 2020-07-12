@@ -48,15 +48,15 @@ import store from './store';
 import {Apollo} from './apollo';
 import Toasted from 'vue-toasted';
 import VPopover from 'vue-js-popover';
-import VModal from 'vue-js-modal'
+import VModal from 'vue-js-modal';
 import VueApollo from 'vue-apollo';
 
 Vue.config.productionTip = false;
 Vue.use(Toasted);
 Vue.use(VModal);
 Vue.use(VueApollo);
-Vue.use(VPopover, { tooltip: true });
-Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
+Vue.use(VPopover, {tooltip: true});
+// Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
 const apolloProvider = new VueApollo({
     defaultClient: Apollo
