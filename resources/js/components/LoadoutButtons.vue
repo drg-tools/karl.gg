@@ -1,6 +1,7 @@
 <template>
     <div class="buttonContainer">
-        <modal name="loadoutNameModal" class="saveLoadoutModal">
+        <!-- todo: show loading spinner in modals -->
+        <modal name="loadoutNameModal" class="loadoutModal">
             <h1 class="modalTitle">Name your loadout, miner!</h1>
             <h2>Name</h2>
             <input v-model="name" class="modalNameInput" placeholder="Karl's amazing loadout">
@@ -15,6 +16,11 @@
                     <h1 class="buttonText">CANCEL</h1>
                 </div>
             </div>
+        </modal>
+        <modal name="messageModal" class="loadoutModal">
+            <h1 class="modalTitle">{{messageTitle}}</h1>
+            <h2>{{messageText}}</h2>
+            <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
         </modal>
         <div class="button" v-on:click="onSaveClick">
             <h1 class="buttonText">SAVE</h1>
@@ -32,33 +38,47 @@
 
     export default {
         name: 'LoadoutButtons',
-        /* todo: set name and description of existing loadout if the loadout belongs to the user */
         data: () => {
             return {
                 name: '',
                 description: '',
-                me: this.methods.getLoggedInUser()
-            }
+                messageTitle: '',
+                messageText: '',
+                update: false
+            };
         },
         methods: {
             onSaveClick() {
                 console.log('save loadout to backend');
                 // Set this.name & description
-                this.name = this.state.loadoutDetails.name
-                // description: ''
-                this.$modal.show('loadoutNameModal');
+                this.getLoggedInUser().then(response => {
+                    let loadoutAuthorId = store.state.loadoutDetails.authorId;
+                    let loggedInUserId = response.me.id;
+                    if (loadoutAuthorId === loggedInUserId) {
+                        this.name = store.state.loadoutDetails.name;
+                        this.description = store.state.loadoutDetails.description;
+                        this.update = true;
+                    }
+                    this.$modal.show('loadoutNameModal');
+                }).catch(err => {
+                    console.log('no logged in user', err);
+                    this.messageTitle = 'Not logged in :(';
+                    this.messageText = 'You can save your loadout anonymously or log in first.';
+                    this.$modal.show('messageModal');
+                    /* todo: keep loadout in local storage so his stuff is not lost when he goes to create an account.. */
+                });
 
             },
             onShareClick() {
                 console.log('generate share link without saving');
             },
             async getLoggedInUser() {
-               
                 const response = await this.$apollo.query({
                     query: gql`
                     {
                         me {
                             id
+                            name
                         }
                     }
                     `
@@ -67,22 +87,31 @@
                 return response.data;
             },
             onAcceptSave() {
-                /* todo: if the loadout belongs to the user, don't create new loadout but update existing */
                 if (!!this.name && !!this.description) {
-                    let loadoutDetails = store.state.loadoutDetails;
-                    let authorId = loadoutDetails.authorId;
-                    let loadoutId = loadoutDetails.loadoutId;
-                    let loggedInUser = this.me;
                     let loadoutData = store.getters.getLoadoutForUpdate();
                     loadoutData.name = this.name;
                     loadoutData.description = this.description;
-                    console.log('createLoadoutData', loadoutData);
-                    this.createLoadout(loadoutData).then(result => {
-                        console.log('got result back', result);
-                        this.name = '';
-                        this.description = '';
-                    });
-                    this.$modal.hide('loadoutNameModal');
+                    if (this.update) {
+                        // this user created the loadout, so let him update it instead of creating a new one
+                        console.log('update loadout', loadoutData);
+                        this.updateLoadout(loadoutData).then(result => {
+                            console.log('got result back', result);
+                            this.name = '';
+                            this.description = '';
+                            this.$modal.hide('loadoutNameModal');
+                        });
+                    } else {
+                        // create fresh loadout
+                        console.log('create loadout', loadoutData);
+                        this.createLoadout(loadoutData).then(result => {
+                            console.log('got result back', result);
+                            this.name = '';
+                            this.description = '';
+                            this.$modal.hide('loadoutNameModal');
+                        });
+                    }
+                } else {
+                    // todo: show indicators on required text fields
                 }
             },
             onCancelSave() {
@@ -130,9 +159,9 @@
                 });
                 return result;
             },
-            // TODO: updateLoadout Mutation
             async updateLoadout(params) {
                 let variables = {
+                    id: params.loadout_id,
                     name: params.name,
                     description: params.description,
                     character_id: params.character_id,
@@ -146,6 +175,7 @@
                 const result = await this.$apollo.mutate({
                     // Query
                     mutation: gql`mutation (
+                    $id: Int!,
                     $name: String!,
                     $description: String!,
                     $character_id: Int!,
@@ -154,7 +184,8 @@
                     $equipment_mods: [Int!]!,
                     $throwable_id: Int!,
                     ) {
-                        createLoadout(
+                        updateLoadout(
+                            id: $id
                             name: $name
                             description: $description
                             character_id: $character_id
@@ -174,7 +205,7 @@
                 return result;
             }
         },
-        
+
     };
 </script>
 
@@ -210,16 +241,16 @@
         font-family: BebasNeue, sans-serif;
     }
 
-    .saveLoadoutModal .vm--modal {
+    .loadoutModal .vm--modal {
         background-color: #130e09;
         padding: 1rem;
     }
 
-    .saveLoadoutModal .vm--modal h1.modalTitle {
+    .loadoutModal .vm--modal h1.modalTitle {
         margin-top: 0;
     }
 
-    .saveLoadoutModal .vm--modal h2 {
+    .loadoutModal .vm--modal h2 {
         margin-top: 1rem;
         margin-bottom: 0;
     }

@@ -11,7 +11,7 @@
             <div class="previewFooter">
                 <div class="salutes-container">
                          <h3>Salutes</h3>
-                        <img src="../assets/img/bosco.png" @click="upvote" :class="{disabled: upvoted}" class="bosco-salute" />
+                        <img src="../assets/img/bosco.png" @click="setUpvote" :class="{disabled: !upvoted}" class="bosco-salute" />
                             <!-- <i class="las la-chevron-up"  @click="upvote" :class="{disabled: upvoted}"></i> -->
                         <!-- <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" /> -->
                         <span class="salute-count">{{ this.votes }}</span>
@@ -40,8 +40,7 @@
         name: 'PreviewHeader',
         data: function() {
             return {
-                upvoted: this.getUpVoteStatus,
-                downvoted: false,
+                upvoted: this.getUpVoteStatus(),
                 user_id: this.$userId,
             }
         },
@@ -65,22 +64,6 @@
                     return this.loadoutDetails.votes;
                 }
             },
-            async getUpVoteStatus() {
-                let loadoutId = this.loadoutDetails.loadoutId;
-                const result = await this.$apollo.query({
-                    query: gql`query getVoteStatus($id: Int!)
-                            {
-                                getVoteStatus(id: $id)
-                            }
-                            `,
-                        variables: {
-                            id: loadoutId
-                        }
-                });
-                console.log('upvote status' + result);
-                
-                return result;
-            }
         },
         methods: {
             onEditClick() {
@@ -90,7 +73,7 @@
             onShareClick() {
                 console.log('copy/show share link for this loadout');
             },
-            upvote: function() {
+            setUpvote: function() {
                 this.upvoted = !this.upvoted;
                 this.$store.state.votes = this.setVotes(this.loadoutDetails.loadoutId);
 
@@ -111,10 +94,30 @@
                 // console.log(result.data.upVoteLoadout.votes);
                 return result.data.upVoteLoadout.votes;    
                
+            },
+            async getUpVoteStatus() {
+                let loadoutId = this.loadoutDetails.loadoutId;
+                const result = await this.$apollo.query({
+                    query: gql`query getVoteStatus($id: Int!)
+                            {
+                                getVoteStatus(id: $id)
+                            }
+                            `,
+                        variables: {
+                            id: loadoutId
+                        }
+                })
+                .then(function(result){
+                    console.log(result);
+                    return result.data.getVoteStatus;
+                });
+                
             }
         },
         mounted: function () {
             console.log('loadout preview header mounted');
+            // console.log(this.getUpVoteStatus());
+            // this.upvote = this.getUpVoteStatus();
         }
     };
 </script>
