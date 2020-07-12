@@ -64,6 +64,22 @@
                 } else {
                     return this.loadoutDetails.votes;
                 }
+            },
+            async getUpVoteStatus() {
+                let loadoutId = this.loadoutDetails.loadoutId;
+                const result = await this.$apollo.query({
+                    query: gql`query getVoteStatus($id: Int!)
+                            {
+                                getVoteStatus(id: $id)
+                            }
+                            `,
+                        variables: {
+                            id: loadoutId
+                        }
+                });
+                console.log('upvote status' + result);
+                
+                return result;
             }
         },
         methods: {
@@ -95,7 +111,7 @@
                 // console.log(result.data.upVoteLoadout.votes);
                 return result.data.upVoteLoadout.votes;    
                
-            },
+            }
         },
         mounted: function () {
             console.log('loadout preview header mounted');
