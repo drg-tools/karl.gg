@@ -5,7 +5,7 @@
     <div v-else-if="dataReady" class="previewHeaderBackground">
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
             <h1>{{loadoutDetails.name}}</h1>
-            <!-- todo: style this! -->
+            <!-- todo: style this! --> 
             <h2>by {{loadoutDetails.author}} on {{loadoutDetails.created_at}}</h2>
             <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
