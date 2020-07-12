@@ -29,6 +29,7 @@ type Query {
     mods: [Mod!]! @paginate(defaultCount: 10)
     mod(id: ID @eq): Mod @find
     me: User @auth
+    getVoteStatus(id: Int! @eq): Int!
 }
 
 type Mutation {
