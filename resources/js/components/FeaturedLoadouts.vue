@@ -7,49 +7,49 @@
         <div v-else-if="dataReady" class="cardGroups">
             <div class="loadoutCards">
                 <SmallLoadoutCard
-                    v-for="(loadout, id) in popularDrillerLoadouts"
+                    v-for="(loadout, id) in popularLoadouts('D')"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
-                    :salutes="loadout.salutes"
+                    :votes="loadout.votes"
                     :primary="loadout.primary"
                     :secondary="loadout.secondary"/>
             </div>
             <div class="loadoutCards">
                 <SmallLoadoutCard
-                    v-for="(loadout, id) in popularEngineerLoadouts"
+                    v-for="(loadout, id) in popularLoadouts('E')"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
-                    :salutes="loadout.salutes"
+                    :votes="loadout.votes"
                     :primary="loadout.primary"
                     :secondary="loadout.secondary"/>
             </div>
             <div class="loadoutCards">
                 <SmallLoadoutCard
-                    v-for="(loadout, id) in popularGunnerLoadouts"
+                    v-for="(loadout, id) in popularLoadouts('G')"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
-                    :salutes="loadout.salutes"
+                    :votes="loadout.votes"
                     :primary="loadout.primary"
                     :secondary="loadout.secondary"/>
             </div>
             <div class="loadoutCards">
                 <SmallLoadoutCard
-                    v-for="(loadout, id) in popularScoutLoadouts"
+                    v-for="(loadout, id) in popularLoadouts('S')"
                     :key="id"
                     :loadoutId="loadout.loadoutId"
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
-                    :salutes="loadout.salutes"
+                    :votes="loadout.votes"
                     :primary="loadout.primary"
                     :secondary="loadout.secondary"/>
             </div>
@@ -70,6 +70,16 @@
         G: 4,
         S: 2
     };
+    const sortByVotes = (a, b) => {
+        if (a.votes < b.votes) {
+            return 1;
+        }
+        if (a.votes > b.votes) {
+            return -1;
+        }
+        return 0;
+    };
+    const numberOfLoadoutsToShowPerClass = 3;
     export default {
         name: 'FeaturedLoadouts',
         components: {
@@ -79,7 +89,7 @@
         computed: {
             dataReady() {
                 return store.state.popularDataReady;
-            },
+            }
             /*popularLoadouts() {
                 return [
                     {
@@ -124,20 +134,13 @@
                     }
                 ];
             },*/
-            popularDrillerLoadouts() {
-                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'D');
-            },
-            popularEngineerLoadouts() {
-                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'E');
-            },
-            popularGunnerLoadouts() {
-                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'G');
-            },
-            popularScoutLoadouts() {
-                return store.state.popularLoadouts.filter(loadout => loadout.classId === 'S');
-            }
         },
         methods: {
+            popularLoadouts(classId) {
+                let loadouts = store.state.popularLoadouts.filter(loadout => loadout.classId === classId);
+                loadouts.sort(sortByVotes);
+                return loadouts.slice(0, numberOfLoadoutsToShowPerClass);
+            },
             async getPopularLoadouts() {
                 // store.commit('setPopularDataReady', {ready: false});
                 if (store.state.popularLoadouts.length > 0) {
@@ -157,7 +160,7 @@
             console.log('mounted featured loadouts');
             this.getPopularLoadouts().then((popularLoadouts) => {
                 store.commit('setPopularDataReady', {ready: true});
-                console.log('done with popular loadouts', popularLoadouts)
+                console.log('done with popular loadouts', popularLoadouts);
             });
         }
     };

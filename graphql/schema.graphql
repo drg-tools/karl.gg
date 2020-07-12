@@ -7,7 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
-scalar JSON
+scalar JSON 
 
 type Query {
     #    users: [User!]! @paginate(defaultCount: 10)
@@ -28,6 +28,8 @@ type Query {
     throwable(id: ID @eq): Throwable @find
     mods: [Mod!]! @paginate(defaultCount: 10)
     mod(id: ID @eq): Mod @find
+    me: User @auth
+    getVoteStatus(id: Int! @eq): Int!
 }
 
 type Mutation {
@@ -51,6 +53,10 @@ type Mutation {
         equipment_mods: [Int!]!
         throwable_id: Int!
     ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard @can(ability: "update", find: "id")
+
+    upVoteLoadout(
+        id: Int!
+    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpvoteLoadout")
 }
 
 type User {
@@ -200,4 +206,5 @@ type Loadout {
     overclocks: [Overclock!]! @belongsToMany
     equipment_mods: [EquipmentMod!]! @belongsToMany
     throwable: Throwable @hasOne
+    votes: Int! @field(resolver: "App\\GraphQL\\Queries\\GetLoadoutVotes")
 }

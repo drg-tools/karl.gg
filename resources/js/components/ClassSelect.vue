@@ -135,8 +135,8 @@
                 this.getLoadoutDetails(loadoutId).then((loadoutDetails) => {
                     console.log('done with loadout details', loadoutDetails);
 
-                    let chosenPrimaryId = loadoutDetails.primaryWeapons ? loadoutDetails.primaryWeapons[0].id : undefined;
-                    let chosenSecondaryId = loadoutDetails.secondaryWeapons ? loadoutDetails.secondaryWeapons[0].id : undefined;
+                    let chosenPrimaryId = loadoutDetails.primaryWeapons[0] ? loadoutDetails.primaryWeapons[0].id : undefined;
+                    let chosenSecondaryId = loadoutDetails.secondaryWeapons[0] ? loadoutDetails.secondaryWeapons[0].id : undefined;
 
                     this.getCharacterData(loadoutDetails.classId).then(character => {
                         chosenPrimaryId = chosenPrimaryId ? chosenPrimaryId : character.guns[0].id;
@@ -150,7 +150,7 @@
                         // after char base data is loaded, loop over loadout data and select mods!
                         // todo: put into seperate function
                         let primary = loadoutDetails.primaryWeapons[0];
-                        if (primary.mods) {
+                        if (primary && primary.mods) {
                             for (let mod of primary.mods) {
                                 store.commit('selectLoadoutMods', {
                                     classId: loadoutDetails.classId,
@@ -162,7 +162,7 @@
                                 });
                             }
                         }
-                        if (primary.overclocks[0]) {
+                        if (primary && primary.overclocks[0]) {
                             store.commit('selectLoadoutOverclocks', {
                                 classId: loadoutDetails.classId,
                                 equipmentType: 'primaryWeapons',
@@ -172,7 +172,7 @@
                             });
                         }
                         let secondary = loadoutDetails.secondaryWeapons[0];
-                        if (secondary.mods) {
+                        if (secondary && secondary.mods) {
                             for (let mod of secondary.mods) {
                                 store.commit('selectLoadoutMods', {
                                     classId: loadoutDetails.classId,
@@ -184,7 +184,7 @@
                                 });
                             }
                         }
-                        if (secondary.overclocks[0]) {
+                        if (secondary && secondary.overclocks[0]) {
                             store.commit('selectLoadoutOverclocks', {
                                 classId: loadoutDetails.classId,
                                 equipmentType: 'secondaryWeapons',
@@ -193,16 +193,18 @@
                                 chosenOverclockId: secondary.overclocks[0].overclockId
                             });
                         }
-                        for (let equipment of loadoutDetails.equipments) {
-                            for (let mod of equipment.mods) {
-                                store.commit('selectLoadoutMods', {
-                                    classId: loadoutDetails.classId,
-                                    equipmentType: 'equipments',
-                                    equipmentId: equipment.id,
-                                    tierId: mod.mod_tier - 1,
-                                    chosenMod: charToModId[mod.mod_index],
-                                    chosenModId: mod.id
-                                });
+                        if (loadoutDetails.equipments && loadoutDetails.equipments.length > 0 && loadoutDetails.equipments.mods) {
+                            for (let equipment of loadoutDetails.equipments) {
+                                for (let mod of equipment.mods) {
+                                    store.commit('selectLoadoutMods', {
+                                        classId: loadoutDetails.classId,
+                                        equipmentType: 'equipments',
+                                        equipmentId: equipment.id,
+                                        tierId: mod.mod_tier - 1,
+                                        chosenMod: charToModId[mod.mod_index],
+                                        chosenModId: mod.id
+                                    });
+                                }
                             }
                         }
                         store.commit('setDataReady', {ready: true});

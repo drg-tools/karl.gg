@@ -17,7 +17,7 @@
         </div>
         <div class="subtitleRow">
             <div class="titleContentLeft">
-                <h2 class="salutes">{{salutes}}</h2>
+                <h2 class="salutes">{{votes}}</h2>
                 <h2 class="author">{{author}}</h2>
             </div>
             <div class="titleContentRight">
@@ -43,7 +43,7 @@
             name: String,
             author: String,
             classId: String,
-            salutes: Number,
+            votes: Number,
             primary: String,
             secondary: String
         },
