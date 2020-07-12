@@ -36,7 +36,8 @@
         data: () => {
             return {
                 name: '',
-                description: ''
+                description: '',
+                me: this.methods.getLoggedInUser()
             }
         },
         methods: {
@@ -51,13 +52,27 @@
             onShareClick() {
                 console.log('generate share link without saving');
             },
+            async getLoggedInUser() {
+               
+                const response = await this.$apollo.query({
+                    query: gql`
+                    {
+                        me {
+                            id
+                        }
+                    }
+                    `
+                });
+                console.log(response);
+                return response.data;
+            },
             onAcceptSave() {
                 /* todo: if the loadout belongs to the user, don't create new loadout but update existing */
                 if (!!this.name && !!this.description) {
                     let loadoutDetails = store.state.loadoutDetails;
                     let authorId = loadoutDetails.authorId;
-                    let loadoutId = loadoutDetails.loadoutId
-                    // let loggedInUser = 
+                    let loadoutId = loadoutDetails.loadoutId;
+                    let loggedInUser = this.me;
                     let loadoutData = store.getters.getLoadoutForUpdate();
                     loadoutData.name = this.name;
                     loadoutData.description = this.description;

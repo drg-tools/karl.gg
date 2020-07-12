@@ -19,6 +19,7 @@
                 <div class="buttonContainer">
                     <div class="button" v-on:click="onEditClick">
                         <!-- TODO: Get the edit button fixed w/ current user -->
+                        {{user_id}}
                         <h1 class="buttonText">EDIT</h1>
                     </div>
                     <div class="button" v-on:click="onShareClick">
@@ -32,13 +33,16 @@
 
 <script>
     import store from '../store';
+    import gql from 'graphql-tag';
+
 
     export default {
         name: 'PreviewHeader',
         data: function() {
             return {
                 upvoted: false,
-            };
+                user_id: this.$userId,
+            }
         },
         computed: {
             dataReady() {

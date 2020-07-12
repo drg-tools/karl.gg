@@ -17,8 +17,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
-
+    <title>{{ config('app.name', 'Karl: Born Ready') }} - @yield('title')</title>
+    @auth
+    <meta name="user-id" content="{{ (Auth::user()->id) }}">
+    @endauth
+    @guest
+    <meta name="user-id" content="0">
+    @endguest
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
    <!-- CSS only -->

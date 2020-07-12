@@ -62,6 +62,7 @@ Vue.use(Toasted);
 Vue.use(VModal);
 Vue.use(VueApollo);
 Vue.use(VPopover, { tooltip: true });
+Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
 const apolloProvider = new VueApollo({
     defaultClient: Apollo
