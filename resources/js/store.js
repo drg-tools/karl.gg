@@ -299,7 +299,7 @@ const transformLoadouts = (loadouts, state) => {
             name: loadout.name,
             author: loadout.creator.name,
             classId: characterIdToChar[loadout.character.id],
-            salutes: 0,
+            votes: 0,
             primary: state.missingBackendWeaponData[primaryId].icon,
             secondary: state.missingBackendWeaponData[secondaryId].icon,
             lastUpdate: new Date(loadout.created_at).toISOString().split('T')[0]

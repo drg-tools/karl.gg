@@ -11,7 +11,7 @@
             <div class="previewFooter">
                 <div class="salutes-container">
                          <h3>Salutes</h3>
-                        <img src="../assets/img/bosco.png" @click="upvote" :class="{disabled: !upvoted}" />
+                        <img src="../assets/img/bosco.png" @click="upvote" :class="{disabled: !upvoted}" class="bosco-salute" />
                             <!-- <i class="las la-chevron-up"  @click="upvote" :class="{disabled: upvoted}"></i> -->
                         <!-- <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" /> -->
                         <span class="salute-count">{{ loadoutDetails.votes }}</span>
@@ -57,10 +57,13 @@
             },
             votes: function() {
                 if (this.upvoted) {
-
+                    // fire upvote function
+                    // return the new number
                     return this.loadoutDetails.votes + 1;
                 } else if (this.downvoted) {
                     return this.loadoutDetails.votes - 1;
+                    // fire downvote function
+                    // return the new number
                 } else {
                     return this.loadoutDetails.votes;
                 }
@@ -77,7 +80,26 @@
             upvote: function() {
                 this.upvoted = !this.upvoted;
                 this.downvoted = false;
-            }
+                let newVotes = this.setUpvote(this.loadoutDetails.loadoutId);
+                this.loadoutDetails.votes = newVotes;
+            },
+            async setUpvote(loadoutId) {
+                const result = await this.$apollo.mutate({
+                    mutation: gql`mutation upVoteLoadout($id: Int!)
+                            {
+                                upVoteLoadout(id: $id) {
+                                    votes
+                                }
+                            }
+                            `,
+                        variables: {
+                            id: loadoutId
+                        }
+                });
+                console.log(result.data.upVoteLoadout.votes);
+                return result.data.upVoteLoadout.votes;    
+               
+            },
         },
         mounted: function () {
             console.log('loadout preview header mounted');
@@ -93,7 +115,7 @@
     }
 
     .previewHeaderContainer {
-        height: 20rem;
+        /* height: 20rem; */
         background-color: #352e1e;
         margin-bottom: 2rem;
         background-blend-mode: overlay;
@@ -141,10 +163,16 @@
         color: #FFF;
         font-weight: bold;
         text-align: center;
+        font-size: 26px;
+
     }
     .disabled {
         filter: gray; /* IE6-9 */
         -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
         filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+    }
+    .bosco-salute {
+        display: block;
+        margin: auto;
     }
 </style>
