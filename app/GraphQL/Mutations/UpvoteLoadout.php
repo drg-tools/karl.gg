@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 use App\Loadout;
 use App\User;
-use Illuminate\Support\Facades\Log;
 use Nagy\LaravelRating\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -23,7 +22,6 @@ class UpvoteLoadout
             $user  = User::find(auth()->user()->id);
         }
         $isUpVoted = $user->upVoted()->contains('id', $args['id'] );
-        Log::debug($isUpVoted);
         if ($isUpVoted) {
             $user->downvote($loadout);
         } else {
