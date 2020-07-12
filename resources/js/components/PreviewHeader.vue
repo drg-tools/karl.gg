@@ -64,6 +64,22 @@
                 } else {
                     return this.loadoutDetails.votes;
                 }
+            },
+            async getUpVoteStatus() {
+                let loadoutId = this.loadoutDetails.loadoutId;
+                const result = await this.$apollo.query({
+                    query: gql`query getVoteStatus($id: Int!)
+                            {
+                                getVoteStatus(id: $id)
+                            }
+                            `,
+                        variables: {
+                            id: loadoutId
+                        }
+                });
+                console.log('upvote status' + result);
+                
+                return result;
             }
         },
         methods: {
@@ -78,22 +94,6 @@
                 this.upvoted = !this.upvoted;
                 this.$store.state.votes = this.setVotes(this.loadoutDetails.loadoutId);
 
-            },
-            getUpVoteStatus() {
-                let loadoutId = this.loadoutDetails.loadoutId;
-                const result = this.$apollo.query({
-                    query: gql`query getVoteStatus($id: Int!)
-                            {
-                                getVoteStatus(id: $id)
-                            }
-                            `,
-                        variables: {
-                            id: loadoutId
-                        }
-                });
-                console.log('upvote status' + result);
-                
-                return result;
             },
             async setVotes(loadoutId) {
                 const result = await this.$apollo.mutate({
