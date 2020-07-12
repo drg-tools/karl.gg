@@ -293,13 +293,13 @@ const transformLoadouts = (loadouts, state) => {
         let secondaries = loadout.mods.find(mod => mod.gun.character_slot === 2);
         let primaryId = primaries ? primaries.gun.id : dummyWeapons[characterIdToChar[loadout.character.id]].primaryId;
         let secondaryId = secondaries ? secondaries.gun.id : dummyWeapons[characterIdToChar[loadout.character.id]].secondaryId;
-        /* todo: salutes and last update */
+        /* todo: last update */
         return {
             loadoutId: loadout.id,
             name: loadout.name,
             author: loadout.creator.name,
             classId: characterIdToChar[loadout.character.id],
-            votes: 0,
+            votes: loadout.votes,
             primary: state.missingBackendWeaponData[primaryId].icon,
             secondary: state.missingBackendWeaponData[secondaryId].icon,
             lastUpdate: new Date(loadout.created_at).toISOString().split('T')[0]
@@ -1184,9 +1184,14 @@ export default new Vuex.Store({
                 primaryWeapons: loadoutMods.primaryWeapons,
                 secondaryWeapons: loadoutMods.secondaryWeapons,
                 equipments: loadoutMods.equipments,
-                votes: indices.loadout.votes
+                votes: indices.loadout.votes,
+                userVoted: indices.userVoted
             };
             Vue.set(state, 'loadoutDetails', loadout);
+        },
+        setLoadoutVotedState: (state, indices) => {
+            Vue.set(state.loadoutDetails, 'userVoted', indices.userVoted);
+            Vue.set(state.loadoutDetails, 'votes', indices.newNumberOfVotes);
         },
         setLoadoutDetailModMatrix: (state, indices) => {
             let generateModMatrix = (baseMods, equipmentItem) => {
@@ -1230,7 +1235,7 @@ export default new Vuex.Store({
             state.loadoutCreator.chosenSecondaryId = indices.chosenSecondaryId;
 
             state.loadoutCreator.selectedEquipmentId = state.loadoutCreator.baseData[indices.classId].primaryWeapons[0].id;
-            state.loadoutCreator.selectedEquipmentType = "primaryWeapons";
+            state.loadoutCreator.selectedEquipmentType = 'primaryWeapons';
 
             console.log('data for selected class', state.loadoutCreator.baseData[indices.classId]);
             console.log(state.loadoutCreator);

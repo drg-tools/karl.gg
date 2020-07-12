@@ -29,7 +29,7 @@
             :rows="tableData"
             :sort-options="{
                 enabled: true,
-                initialSortBy: {field: 'salutes', type: 'desc'}
+                initialSortBy: {field: 'votes', type: 'desc'}
             }"
             :search-options="{
                 enabled: true,
@@ -94,7 +94,7 @@
                     },
                     {
                         label: 'Salutes',
-                        field: 'salutes',
+                        field: 'votes',
                         type: 'number',
                         width: '5rem'
                     },

@@ -21,6 +21,11 @@
             <h1 class="modalTitle">{{messageTitle}}</h1>
             <h2>{{messageText}}</h2>
             <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
+            <div class="buttonContainer">
+                <div class="button" v-on:click="onCloseMessageModal">
+                    <h1 class="buttonText">CLOSE</h1>
+                </div>
+            </div>
         </modal>
         <div class="button" v-on:click="onSaveClick">
             <h1 class="buttonText">SAVE</h1>
@@ -117,6 +122,9 @@
             onCancelSave() {
                 this.$modal.hide('loadoutNameModal');
             },
+            onCloseMessageModal() {
+                this.$modal.hide('messageModal');
+            },
             async createLoadout(params) {
                 let variables = {
                     name: params.name,
@@ -204,7 +212,7 @@
                 });
                 return result;
             }
-        },
+        }
 
     };
 </script>

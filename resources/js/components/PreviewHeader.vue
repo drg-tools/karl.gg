@@ -5,21 +5,18 @@
     <div v-else-if="dataReady" class="previewHeaderBackground">
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
             <h1>{{loadoutDetails.name}}</h1>
-            <!-- todo: style this! --> 
+            <!-- todo: style this! -->
             <h2>by {{loadoutDetails.author}} on {{loadoutDetails.created_at}}</h2>
             <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
-                <div class="salutes-container">
-                         <h3>Salutes</h3>
-                        <img src="../assets/img/bosco.png" @click="setUpvote" :class="{disabled: !upvoted}" class="bosco-salute" />
-                            <!-- <i class="las la-chevron-up"  @click="upvote" :class="{disabled: upvoted}"></i> -->
-                        <!-- <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" /> -->
-                        <span class="salute-count">{{ this.votes }}</span>
+                <!-- todo: tooltip on salutes container! -->
+                <div v-on:click="onToggleVote" class="salutes-container">
+                    <h3>Salutes</h3>
+                    <img src="../assets/img/bosco.png" :class="getUserVotedState" class="bosco-salute"/>
+                    <span class="salute-count">{{ loadoutDetails.votes }}</span>
                 </div>
                 <div class="buttonContainer">
                     <div class="button" v-on:click="onEditClick">
-                        <!-- TODO: Get the edit button fixed w/ current user -->
-                        {{user_id}}
                         <h1 class="buttonText">EDIT</h1>
                     </div>
                     <div class="button" v-on:click="onShareClick">
@@ -28,6 +25,16 @@
                 </div>
             </div>
         </div>
+        <!-- todo: style modals nicely -->
+        <modal name="upvoteMessageModal" class="loadoutModal">
+            <h1 class="modalTitle">{{messageTitle}}</h1>
+            <h2>{{messageText}}</h2>
+            <div class="buttonContainer">
+                <div class="button" v-on:click="onCloseMessageModal">
+                    <h1 class="buttonText">CLOSE</h1>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -35,14 +42,13 @@
     import store from '../store';
     import gql from 'graphql-tag';
 
-
     export default {
         name: 'PreviewHeader',
-        data: function() {
+        data: function () {
             return {
-                upvoted: this.getUpVoteStatus(),
-                user_id: this.$userId,
-            }
+                messageTitle: '',
+                messageText: ''
+            };
         },
         computed: {
             dataReady() {
@@ -55,32 +61,43 @@
             getHeaderImageClass() {
                 return `image${this.loadoutDetails.classId}`;
             },
-            votes: function() {
-                if (this.upvoted) {
-                    return this.loadoutDetails.votes + 1;
-                } else if (this.downvoted) {
-                    return this.loadoutDetails.votes - 1;
-                } else {
-                    return this.loadoutDetails.votes;
-                }
-            },
+            getUserVotedState() {
+                // show bosco in disabled state if user has not yet voted or is not able to vote
+                return this.loadoutDetails.userVoted ? '' : 'disabled';
+            }
         },
         methods: {
+            onToggleVote() {
+                // toggle vote
+                let userVoted = this.loadoutDetails.userVoted;
+                this.setVotes(this.loadoutDetails.loadoutId).then(numberOfVotes => {
+                    console.log('new votes result', numberOfVotes);
+                    store.commit('setLoadoutVotedState', {userVoted: !userVoted, newNumberOfVotes: numberOfVotes});
+                }).catch(err => {
+                    console.log('error voting', err);
+                    // user cannot vote!
+                    this.messageTitle = 'Cannot vote :(';
+                    this.messageText = 'Sorry, you need to be signed in to vote on Loadouts.';
+                    this.$modal.show('upvoteMessageModal');
+                });
+            },
+            onCloseMessageModal() {
+                this.$modal.hide('upvoteMessageModal');
+            },
             onEditClick() {
-                console.log('nav to build view', {classID: this.loadoutDetails.classId, loadoutId: this.loadoutDetails.loadoutId});
+                console.log('nav to build view', {
+                    classID: this.loadoutDetails.classId,
+                    loadoutId: this.loadoutDetails.loadoutId
+                });
                 window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
             },
             onShareClick() {
                 console.log('copy/show share link for this loadout');
             },
-            setUpvote: function() {
-                this.upvoted = !this.upvoted;
-                this.$store.state.votes = this.setVotes(this.loadoutDetails.loadoutId);
-
-            },
             async setVotes(loadoutId) {
-                const result = await this.$apollo.mutate({
-                    mutation: gql`mutation upVoteLoadout($id: Int!)
+                try {
+                    const result = await this.$apollo.mutate({
+                        mutation: gql`mutation upVoteLoadout($id: Int!)
                             {
                                 upVoteLoadout(id: $id) {
                                     votes
@@ -90,34 +107,16 @@
                         variables: {
                             id: loadoutId
                         }
-                });
-                // console.log(result.data.upVoteLoadout.votes);
-                return result.data.upVoteLoadout.votes;    
-               
-            },
-            async getUpVoteStatus() {
-                let loadoutId = this.loadoutDetails.loadoutId;
-                const result = await this.$apollo.query({
-                    query: gql`query getVoteStatus($id: Int!)
-                            {
-                                getVoteStatus(id: $id)
-                            }
-                            `,
-                        variables: {
-                            id: loadoutId
-                        }
-                })
-                .then(function(result){
-                    console.log(result);
-                    return result.data.getVoteStatus;
-                });
-                
+                    });
+                    return result.data.upVoteLoadout.votes;
+                } catch (err) {
+                    console.log('error on voting!');
+                    throw(err);
+                }
             }
         },
         mounted: function () {
             console.log('loadout preview header mounted');
-            // console.log(this.getUpVoteStatus());
-            // this.upvote = this.getUpVoteStatus();
         }
     };
 </script>
@@ -171,6 +170,7 @@
         background-size: 35%;
         background-position: right -5% top -10%;
     }
+
     .salutes-container {
         padding: 5px;
         border-radius: 3px;
@@ -181,11 +181,13 @@
         font-size: 26px;
 
     }
+
     .disabled {
         filter: gray; /* IE6-9 */
         -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
         filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
     }
+
     .bosco-salute {
         display: block;
         margin: auto;

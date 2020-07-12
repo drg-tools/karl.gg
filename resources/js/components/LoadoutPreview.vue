@@ -59,18 +59,38 @@
                 const response = await this.$apollo.query({
                     query: gql`${apolloQueries.loadoutDetails(loadoutId)}`
                 });
-                store.commit('setLoadoutDetails', {loadout: response.data.loadout});
+                /* todo: run these two queries in parallel */
+                let userVotedStatus = false;
+                try {
+                    let getVoteStatus = await this.$apollo.query({
+                        query: gql`query getVoteStatus($id: Int!)
+                            {
+                                getVoteStatus(id: $id)
+                            }
+                            `,
+                        variables: {
+                            id: loadoutId
+                        }
+                    });
+                    console.log('getVoteStatus', getVoteStatus);
+                    if (getVoteStatus.data.getVoteStatus === 1) {
+                        userVotedStatus = true;
+                    }
+                } catch (e) {
+                    console.log('user not signed in, no voted status');
+                }
+                store.commit('setLoadoutDetails', {loadout: response.data.loadout, userVoted: userVotedStatus});
 
                 let baseModWeaponQueries = [];
                 if (store.state.loadoutDetails.primaryWeapons[0]) {
                     baseModWeaponQueries.push(this.$apollo.query({
                         query: gql`${apolloQueries.getModsForGun(store.state.loadoutDetails.primaryWeapons[0].id)}`
-                    }))
+                    }));
                 }
                 if (store.state.loadoutDetails.secondaryWeapons[0]) {
                     baseModWeaponQueries.push(this.$apollo.query({
                         query: gql`${apolloQueries.getModsForGun(store.state.loadoutDetails.secondaryWeapons[0].id)}`
-                    }))
+                    }));
                 }
 
                 let baseModEquipmentQueries = store.state.loadoutDetails.equipments.map(equipment => {

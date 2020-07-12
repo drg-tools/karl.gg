@@ -5,7 +5,7 @@
             <h2 class="buildName">{{name}}</h2>
         </div>
         <div class="subtitleRow">
-            <h2 class="salutes">{{salutes}}</h2>
+            <h2 class="salutes">{{votes}}</h2>
             <h2 class="author">{{author}}</h2>
         </div>
         <div class="content">
@@ -37,7 +37,7 @@
             name: String,
             author: String,
             classId: String,
-            salutes: Number,
+            votes: Number,
             primary: String,
             secondary: String
         },

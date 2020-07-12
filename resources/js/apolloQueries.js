@@ -174,6 +174,7 @@ export default {
                           name
                           description
                           created_at
+                          votes
                           creator {
                             id
                             name
@@ -200,6 +201,7 @@ export default {
                         name
                         description
                         created_at
+                        votes
                         creator {
                           id
                           name
@@ -242,7 +244,6 @@ export default {
                             name
                           }
                         }
-                        votes
                       }
                     }`,
     getModsForGun: (id) => `query {
@@ -264,5 +265,5 @@ export default {
                               mod_index
                             }
                           }
-                        }`             
+                        }`
 };
