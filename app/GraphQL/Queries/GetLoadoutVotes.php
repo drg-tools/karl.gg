@@ -1,9 +1,9 @@
 <?php
 
 namespace App\GraphQL\Queries;
+
 use App\Loadout;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class GetLoadoutVotes
@@ -16,8 +16,7 @@ class GetLoadoutVotes
     {
         $loadout = Loadout::findOrFail($rootValue['id']);
         $votes = $loadout->upVotesCount();
-       
+
         return $votes;
     }
 }
-
