@@ -7,10 +7,10 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
+use Nagy\LaravelRating\Traits\Like\CanLike;
 use Nagy\LaravelRating\Traits\Rate\CanRate;
 use Nagy\LaravelRating\Traits\Vote\CanVote;
-use Nagy\LaravelRating\Traits\Like\CanLike;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
