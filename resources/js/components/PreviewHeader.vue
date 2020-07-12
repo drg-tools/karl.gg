@@ -11,7 +11,7 @@
             <div class="previewFooter">
                 <div class="salutes-container">
                          <h3>Salutes</h3>
-                        <img src="../assets/img/bosco.png" @click="upvote" :class="{disabled: upvoted}" class="bosco-salute" />
+                        <img src="../assets/img/bosco.png" @click="upvote" :class="{disabled: !upvoted}" class="bosco-salute" />
                             <!-- <i class="las la-chevron-up"  @click="upvote" :class="{disabled: upvoted}"></i> -->
                         <!-- <font-awesome-icon icon="chevron-up"  @click="upvote" :class="{disabled: upvoted}" /> -->
                         <span class="salute-count">{{ this.votes }}</span>
@@ -64,22 +64,6 @@
                 } else {
                     return this.loadoutDetails.votes;
                 }
-            },
-            async getUpVoteStatus() {
-                let loadoutId = this.loadoutDetails.loadoutId;
-                const result = await this.$apollo.query({
-                    query: gql`query getVoteStatus($id: Int!)
-                            {
-                                getVoteStatus(id: $id)
-                            }
-                            `,
-                        variables: {
-                            id: loadoutId
-                        }
-                });
-                console.log('upvote status' + result);
-                
-                return result;
             }
         },
         methods: {
@@ -111,7 +95,7 @@
                 // console.log(result.data.upVoteLoadout.votes);
                 return result.data.upVoteLoadout.votes;    
                
-            }
+            },
         },
         mounted: function () {
             console.log('loadout preview header mounted');
