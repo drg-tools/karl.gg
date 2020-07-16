@@ -108,7 +108,7 @@ return [
     'developer_name' => 'DRG Builds',
 
     // Developer website. Link in footer. Type false if you want to hide it.
-    'developer_link' => 'https://drg-builds.com',
+    'developer_link' => 'https://karl.gg',
 
     // Show powered by Laravel Backpack in the footer? true/false
     'show_powered_by' => false,
