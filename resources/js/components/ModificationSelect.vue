@@ -86,7 +86,7 @@
                              y="24%"
                              x="15%"
                              viewBox="0 0 120 75"
-                             class="modIcon"
+                             class="modIcon selectedOverclock"
                              height="70%"
                              preserveAspectRatio="xMidYMid meet"
                              v-html="getSelectedOverclockIcon(computedState)"></svg>
@@ -488,6 +488,10 @@
     .modIcon {
         fill: #5b402d;
         stroke: none;
+    }
+
+    .modIcon.selectedOverclock {
+        fill: #ada195
     }
 
     .modIconActive {

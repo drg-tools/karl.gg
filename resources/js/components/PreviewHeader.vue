@@ -190,6 +190,7 @@
     }
 
     .salutes-container {
+        cursor: pointer;
         padding: 5px;
         border-radius: 3px;
         background: rgba(24, 17, 11, .6);
@@ -197,7 +198,9 @@
         font-weight: bold;
         text-align: center;
         font-size: 26px;
-
+    }
+    .salutes-container:hover > h3 {
+        text-decoration: underline;
     }
 
     .disabled {
