@@ -267,6 +267,10 @@
         opacity: 1;
     }
 
+    .table {
+        width: 100%
+    }
+
     table.vgt-table {
         border: none;
         border-right: 1px solid #352E1E
