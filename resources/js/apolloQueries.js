@@ -170,7 +170,6 @@ export default {
                 }`,
     popularLoadouts: `query {
                       loadouts {
-                        data {
                           id
                           name
                           description
@@ -193,8 +192,7 @@ export default {
                             }
                           }
                         }
-                      }
-                    }`,
+                      }`,
 
     loadoutDetails: (id) => `query {
                       loadout(id: ${id}) {

@@ -22,7 +22,7 @@
             <h2>{{messageText}}</h2>
             <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
             <div class="buttonContainer">
-                <div class="button guest-btn" v-on:click="onAcceptSave">
+                <div class="button guest-btn" v-on:click="onGuestSave">
                     <h1 class="buttonText">SAVE AS GUEST</h1>
                 </div>
                 <div class="button" v-on:click="onCloseMessageModal">
@@ -63,6 +63,9 @@
                 // Set this.name & description
                 this.getLoggedInUser().then(response => {
                     let loadoutAuthorId = store.state.loadoutDetails.authorId;
+                    if(loadoutAuthorId == null) {
+                        throw ErrorEvent; // If you are a guest, and editing a guest build, still show the popup for guest saving
+                    }
                     let loggedInUserId = response;
                     if (loadoutAuthorId === loggedInUserId) {
                         this.name = store.state.loadoutDetails.name;
@@ -79,6 +82,10 @@
                     /* todo: keep loadout in local storage so his stuff is not lost when he goes to create an account.. */
                 });
 
+            },
+            onGuestSave() {
+                this.$modal.hide('messageModal');
+                this.$modal.show('loadoutNameModal');
             },
             onShareClick() {
                 console.log('generate share link without saving');

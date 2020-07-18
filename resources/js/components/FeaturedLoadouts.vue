@@ -151,7 +151,7 @@
                     query: gql`${apolloQueries.popularLoadouts}`
                 });
                 console.log('response', response);
-                store.commit('setPopularLoadouts', {loadouts: response.data.loadouts.data});
+                store.commit('setPopularLoadouts', {loadouts: response.data.loadouts});
                 return store.state.popularLoadouts;
             }
         },
