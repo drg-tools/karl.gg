@@ -17,7 +17,7 @@
                             </svg>
                         </div>
                         <div>
-                            <svg class="{{ (\Request::is('browse')) || (\Request::has('preview')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
+                            <svg class="{{ (\Request::is('browse')) || (\Request::is('preview/*')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
                                 <a href="/browse">
                                 <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
                                 <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">BROWSE</text>
@@ -96,10 +96,22 @@
                 </div>
                 @endauth
                 @guest
-                    <a href="/login" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Login</a>
+                <div>
+                    <svg class="{{ (\Request::is('login')) ? 'navButtonActive' : 'navButton' }}" height="49" width="154">
+                        <a href="/login">
+                        <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
+                        <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">LOGIN</text>
+                        </a>
+                    </svg>
+                    </div>
                 @endguest
                 @hasrole('super-admin')
-                <a href="/admin" class=" ml-3 px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Admin</a>
+                <svg class="navButton" height="49" width="154">
+                    <a href="/admin">
+                    <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent" stroke="#FC9E00" stroke-width="3"/>
+                    <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34" font-family="BebasNeue">ADMIN</text>
+                    </a>
+                </svg>
                 @endhasrole
             </div>
             <div class="-mr-2 flex md:hidden" id="mobile-menu-button">

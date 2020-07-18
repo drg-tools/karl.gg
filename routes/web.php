@@ -53,9 +53,6 @@ Route::view('build/{loadoutId}', 'loadouts.create');
 Route::resource('loadouts', 'LoadoutController')->only(['index', 'show']);
 Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('/', 'LoadoutController@index');
-Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
