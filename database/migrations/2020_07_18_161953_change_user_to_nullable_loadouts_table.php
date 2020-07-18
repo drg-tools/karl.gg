@@ -27,6 +27,6 @@ class ChangeUserToNullableLoadoutsTable extends Migration
     {
         Schema::table('loadouts', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->change();
-        }); 
+        });
     }
 }

@@ -22,7 +22,7 @@ class CreateLoadout
     {
         $loadout = Loadout::make($args);
 
-        if($context->user() == null) {
+        if ($context->user() == null) {
             $loadout->user_id = null;
         } else {
             $loadout->user_id = $context->user()->id;
