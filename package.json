@@ -40,6 +40,7 @@
         "graphql-anywhere": "^4.2.7",
         "lz-string": "^1.4.4",
         "vue-apollo": "^3.0.3",
+        "vue-clipboard2": "^0.3.1",
         "vue-good-table": "^2.19.5",
         "vue-js-modal": "^2.0.0-rc.5",
         "vue-js-popover": "^1.2.1",

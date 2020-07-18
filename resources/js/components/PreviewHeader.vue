@@ -19,7 +19,11 @@
                     <div class="button" v-on:click="onEditClick">
                         <h1 class="buttonText">EDIT</h1>
                     </div>
-                    <div class="button" v-on:click="onShareClick">
+                    <input type="hidden" v-model="this.pageUrl" />
+                    <div class="button"
+                        v-clipboard:copy="pageUrl"
+                        v-clipboard:success="onCopy"
+                        v-clipboard:error="onError">
                         <h1 class="buttonText">SHARE</h1>
                     </div>
                 </div>
@@ -44,10 +48,11 @@
 
     export default {
         name: 'PreviewHeader',
+        props: ['pageUrl'],
         data: function () {
             return {
                 messageTitle: '',
-                messageText: ''
+                messageText: '',
             };
         },
         computed: {
@@ -92,7 +97,19 @@
                 window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
             },
             onShareClick() {
-                console.log('copy/show share link for this loadout');
+                console.log('generate share link without saving');
+            },
+            onCopy: function (e) {
+                this.$toasted.info('You just copied: ' + this.pageUrl , { 
+                    position: "top-center", 
+                    duration : 5000
+                });
+            },
+            onError: function (e) {
+                this.$toasted.error('Failed to copy URL' , { 
+                    position: "top-center", 
+                    duration : 5000
+                });
             },
             async setVotes(loadoutId) {
                 try {
@@ -116,7 +133,8 @@
             }
         },
         mounted: function () {
-            console.log('loadout preview header mounted');
+            console.log('loadout preview header mounted'); 
+            console.log(this.pageUrl);
         }
     };
 </script>

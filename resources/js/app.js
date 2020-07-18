@@ -50,7 +50,9 @@ import Toasted from 'vue-toasted';
 import VPopover from 'vue-js-popover';
 import VModal from 'vue-js-modal';
 import VueApollo from 'vue-apollo';
-
+import VueClipboard from 'vue-clipboard2'
+ 
+Vue.use(VueClipboard);
 Vue.config.productionTip = false;
 Vue.use(Toasted);
 Vue.use(VModal);

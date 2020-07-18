@@ -34,9 +34,10 @@
         <div class="button" v-on:click="onSaveClick">
             <h1 class="buttonText">SAVE</h1>
         </div>
-        <div class="button" v-on:click="onShareClick">
+        <!-- todo: hide this on edit for now. We do not have a mechanism to share while editing. -->
+        <!-- <div class="button" v-on:click="onShareClick">
             <h1 class="buttonText">SHARE</h1>
-        </div>
+        </div> -->
     </div>
 </template>
 
