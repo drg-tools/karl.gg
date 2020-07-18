@@ -62,10 +62,7 @@
                 console.log('save loadout to backend');
                 // Set this.name & description
                 this.getLoggedInUser().then(response => {
-                    let loadoutAuthorId = store.state.loadoutDetails.authorId;
-                    if(loadoutAuthorId == null) {
-                        throw ErrorEvent; // If you are a guest, and editing a guest build, still show the popup for guest saving
-                    }
+                    let loadoutAuthorId = store.state.loadoutDetails.authorId.id;
                     let loggedInUserId = response;
                     if (loadoutAuthorId === loggedInUserId) {
                         this.name = store.state.loadoutDetails.name;
@@ -121,6 +118,8 @@
                             this.name = '';
                             this.description = '';
                             this.$modal.hide('loadoutNameModal');
+                            let redirId = result.data.updateLoadout.id;
+                            window.location.href = `/preview/${redirId}`;
                             /* todo: show success messages and redirect to loadout preview */
                         });
                     } else {
@@ -131,8 +130,11 @@
                             this.name = '';
                             this.description = '';
                             this.$modal.hide('loadoutNameModal');
+                            // Get the new loadout id
+                            let redirId = result.data.createLoadout.id;
+                            window.location.href = `/preview/${redirId}`;
+                            /* todo: show success messages and redirect to loadout preview */
                         });
-                        /* todo: show success messages and redirect to loadout preview */
                     }
                 } else {
                     // todo: show indicators on required text fields
