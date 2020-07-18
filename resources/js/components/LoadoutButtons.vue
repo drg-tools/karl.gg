@@ -21,6 +21,7 @@
             <h1 class="modalTitle">{{messageTitle}}</h1>
             <h2>{{messageText}}</h2>
             <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
+
             <div class="buttonContainer">
                 <div class="button" v-on:click="onCloseMessageModal">
                     <h1 class="buttonText">CLOSE</h1>
