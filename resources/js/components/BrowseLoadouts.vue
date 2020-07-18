@@ -177,7 +177,7 @@
                 const response = await this.$apollo.query({
                     query: gql`${apolloQueries.popularLoadouts}`
                 });
-                store.commit('setBrowseLoadouts', {loadouts: response.data.loadouts.data});
+                store.commit('setBrowseLoadouts', {loadouts: response.data.loadouts});
                 return store.state.browseLoadouts;
             },
             onRowClick: function (params) {

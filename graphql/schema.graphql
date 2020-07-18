@@ -14,7 +14,7 @@ type Query {
     #    user(id: ID @eq): User @find
     characters: [Character!]! @paginate(defaultCount: 10)
     character(id: ID @eq): Character @find
-    loadouts: [Loadout!]! @paginate(defaultCount: 10)
+    loadouts: [Loadout!]! @all # @paginate(defaultCount: 10) TODO: Paginate this in the backend
     loadout(id: ID @eq): Loadout @find
     guns: [Gun!]! @paginate(defaultCount: 10)
     gun(id: ID @eq): Gun @find
@@ -41,7 +41,7 @@ type Mutation {
         overclocks: [Int!]!
         equipment_mods: [Int!]!
         throwable_id: Int!
-    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\CreateLoadout") @guard
+    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\CreateLoadout")
 
     updateLoadout(
         id: Int!

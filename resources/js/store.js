@@ -297,7 +297,7 @@ const transformLoadouts = (loadouts, state) => {
         return {
             loadoutId: loadout.id,
             name: loadout.name,
-            author: loadout.creator.name,
+            author: loadout.creator ? loadout.creator.name : "Anonymous",
             classId: characterIdToChar[loadout.character.id],
             votes: loadout.votes,
             primary: state.missingBackendWeaponData[primaryId].icon,
@@ -1176,8 +1176,8 @@ export default new Vuex.Store({
             let loadout = {
                 classId: characterIdToChar[indices.loadout.character.id],
                 created_at: indices.loadout.created_at,
-                author: indices.loadout.creator.name,
-                authorId: indices.loadout.creator.id,
+                author: indices.loadout.creator ? indices.loadout.creator.name : "Anonymous",
+                authorId: indices.loadout.creator,
                 description: indices.loadout.description,
                 loadoutId: indices.loadout.id,
                 name: indices.loadout.name,
