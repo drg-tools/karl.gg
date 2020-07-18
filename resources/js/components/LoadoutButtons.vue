@@ -21,8 +21,10 @@
             <h1 class="modalTitle">{{messageTitle}}</h1>
             <h2>{{messageText}}</h2>
             <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
-
             <div class="buttonContainer">
+                <div class="button guest-btn" v-on:click="onAcceptSave">
+                    <h1 class="buttonText">SAVE AS GUEST</h1>
+                </div>
                 <div class="button" v-on:click="onCloseMessageModal">
                     <h1 class="buttonText">CLOSE</h1>
                 </div>
@@ -51,7 +53,8 @@
                 description: '',
                 messageTitle: '',
                 messageText: '',
-                update: false
+                update: false,
+                guest: false,
             };
         },
         methods: {
@@ -60,7 +63,7 @@
                 // Set this.name & description
                 this.getLoggedInUser().then(response => {
                     let loadoutAuthorId = store.state.loadoutDetails.authorId;
-                    let loggedInUserId = response.me.id;
+                    let loggedInUserId = response;
                     if (loadoutAuthorId === loggedInUserId) {
                         this.name = store.state.loadoutDetails.name;
                         this.description = store.state.loadoutDetails.description;
@@ -71,6 +74,7 @@
                     console.log('no logged in user', err);
                     this.messageTitle = 'Not logged in :(';
                     this.messageText = 'You can save your loadout anonymously or log in first.';
+                    this.guest = true;
                     this.$modal.show('messageModal');
                     /* todo: keep loadout in local storage so his stuff is not lost when he goes to create an account.. */
                 });
@@ -91,7 +95,11 @@
                     `
                 });
                 console.log(response);
-                return response.data;
+                if(response.data.me == null) {
+                    return 0;
+                } else {
+                    return response.data.me.id;
+                }
             },
             onAcceptSave() {
                 if (!!this.name && !!this.description) {
@@ -235,9 +243,13 @@
         justify-content: center;
         align-items: center;
         margin: 0.5rem 0 0.5rem 1rem;
-        width: 8rem;
+        min-width: 8rem;
         height: 2.2rem;
         background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
+    }
+    .button.guest-btn {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     /* todo: base all hover effects on this one, like buttons ingame */

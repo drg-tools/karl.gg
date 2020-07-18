@@ -22,7 +22,11 @@ class CreateLoadout
     {
         $loadout = Loadout::make($args);
 
-        $loadout->user_id = $context->user()->id;
+        if($context->user() == null) {
+            $loadout->user_id = null;
+        } else {
+            $loadout->user_id = $context->user()->id;
+        }
         $loadout->save();
 
         $loadout->mods()->sync(Arr::flatten($args['mods']));
