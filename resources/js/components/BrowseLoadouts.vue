@@ -36,7 +36,36 @@
                 placeholder: 'Search Loadouts',
             }"
             styleClass="vgt-table"
-            :fixed-header="true"/>
+            :fixed-header="true">
+            <template slot="table-row" slot-scope="props">
+                <span v-if="props.column.field === 'classId' && props.row.classId === 'D'">
+                    <img src="../assets/img/50px-D_icon-hex.png" class="classIcon" alt="Driller icon"/>
+                </span>
+                <span v-else-if="props.column.field === 'classId' && props.row.classId === 'E'">
+                    <img src="../assets/img/50px-E_icon-hex.png" class="classIcon" alt="Engineer icon"/>
+                </span>
+                <span v-else-if="props.column.field === 'classId' && props.row.classId === 'G'">
+                    <img src="../assets/img/50px-G_icon-hex.png" class="classIcon" alt="Gunner icon"/>
+                </span>
+                <span v-else-if="props.column.field === 'classId' && props.row.classId === 'S'">
+                    <img src="../assets/img/50px-S_icon-hex.png" class="classIcon" alt="Scout icon"/>
+                </span>
+                <span v-else-if="props.column.field === 'primary'">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 180 90"
+                         height="90%"
+                         preserveAspectRatio="xMidYMid meet"
+                    ><path :d="getPath(props.row.primary)"></path></svg>
+                </span>
+                <span v-else-if="props.column.field === 'secondary'">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 180 90"
+                         height="90%"
+                         preserveAspectRatio="xMidYMid meet"
+                    ><path :d="getPath(props.row.secondary)"></path></svg>
+                </span>
+            </template>
+        </vue-good-table>
     </div>
 </template>
 
@@ -64,11 +93,9 @@
                 },
                 columns: [
                     {
-                        label: 'Class',
+                        label: 'classId',
                         width: '5rem',
-                        field: this.getClassIcon,
-                        html: true,
-                        tdClass: 'tableClassIcon'
+                        field: 'classId'
                     },
                     {
                         label: 'Name',
@@ -81,15 +108,13 @@
                     {
                         label: 'Primary',
                         width: '6rem',
-                        field: this.getPrimaryIcon,
-                        html: true,
+                        field: 'primary',
                         tdClass: 'tableWeaponIcon'
                     },
                     {
                         label: 'Secondary',
                         width: '6rem',
-                        field: this.getSecondaryIcon,
-                        html: true,
+                        field: 'secondary',
                         tdClass: 'tableWeaponIcon'
                     },
                     {
@@ -107,48 +132,7 @@
                         width: '8rem'
                     }
                 ],
-                rows: this.getBrowseLoadouts()/*[
-                    {
-                        loadoutId: '111111',
-                        name: 'Karl\'s Freezer Build',
-                        author: 'Karl_21347',
-                        classId: 'D',
-                        salutes: 47,
-                        primary: 'P2_Cryo',
-                        secondary: 'S1_Subata',
-                        lastUpdate: '2020-02-15'
-                    },
-                    {
-                        loadoutId: '222222',
-                        name: 'Karl\'s Flamer Build',
-                        author: 'Karl_21347',
-                        classId: 'D',
-                        salutes: 43,
-                        primary: 'P1_CRSPR',
-                        secondary: 'S2_Plasma',
-                        lastUpdate: '2020-02-14'
-                    },
-                    {
-                        loadoutId: '333333',
-                        name: 'pew pew pew',
-                        author: 'redguy',
-                        classId: 'G',
-                        salutes: 22,
-                        primary: 'P1_Lead',
-                        secondary: 'S1_Bulldog',
-                        lastUpdate: '2020-06-01'
-                    },
-                    {
-                        loadoutId: '444444',
-                        name: 'cheese party',
-                        author: 'turret-master_666',
-                        classId: 'E',
-                        salutes: 21,
-                        primary: 'P1_Warthog',
-                        secondary: 'S1_PGL',
-                        lastUpdate: '2020-04-02'
-                    }
-                ]*/
+                rows: this.getBrowseLoadouts()
             };
         },
         computed: {
@@ -185,28 +169,11 @@
                 window.location.href = `${window.location.origin}/preview/${params.row.loadoutId}`;
             },
             toggleFilter: function (classId) {
-                console.log('toggle filter', classId);
                 Vue.set(this.classFilter, classId, !this.classFilter[classId]);
             },
-            getClassIcon: function (rowObj) {
-                let classId = rowObj.classId;
-                return `<img src="../assets/img/50px-${classId}_icon-hex.png" class="classIcon"/>`;
-            },
-            getPrimaryIcon: function (rowObj) {
-                let weaponSVGPath = store.state.icons.equipment[rowObj.primary];
-                return `<svg xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 180 90"
-                     height="90%"
-                     preserveAspectRatio="xMidYMid meet"
-                     >${weaponSVGPath}</svg>`;
-            },
-            getSecondaryIcon: function (rowObj) {
-                let weaponSVGPath = store.state.icons.equipment[rowObj.secondary];
-                return `<svg xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 180 90"
-                     height="90%"
-                     preserveAspectRatio="xMidYMid meet"
-                     >${weaponSVGPath}</svg>`;
+            getPath: function (id) {
+                // get svg path by weapon id. workaround for improved performance
+                return store.state.icons.equipment[id].replace('<path d="', '').replace('"/>', '');
             }
         },
         apollo: {},
