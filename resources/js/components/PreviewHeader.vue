@@ -6,7 +6,7 @@
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
             <h1>{{loadoutDetails.name}}</h1>
             <!-- todo: style this! -->
-            <h2>by {{loadoutDetails.author}} on {{loadoutDetails.created_at}}</h2>
+            <h2>by {{loadoutDetails.author}} on {{loadoutDetails.updated_at}}</h2>
             <h2>{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
                 <!-- todo: tooltip on salutes container! -->
@@ -19,11 +19,11 @@
                     <div class="button" v-on:click="onEditClick">
                         <h1 class="buttonText">EDIT</h1>
                     </div>
-                    <input type="hidden" v-model="this.pageUrl" />
+                    <input type="hidden" v-model="this.pageUrl"/>
                     <div class="button"
-                        v-clipboard:copy="pageUrl"
-                        v-clipboard:success="onCopy"
-                        v-clipboard:error="onError">
+                         v-clipboard:copy="pageUrl"
+                         v-clipboard:success="onCopy"
+                         v-clipboard:error="onError">
                         <h1 class="buttonText">SHARE</h1>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
         data: function () {
             return {
                 messageTitle: '',
-                messageText: '',
+                messageText: ''
             };
         },
         computed: {
@@ -100,15 +100,15 @@
                 console.log('generate share link without saving');
             },
             onCopy: function (e) {
-                this.$toasted.info('You just copied: ' + this.pageUrl , { 
-                    position: "top-center", 
-                    duration : 5000
+                this.$toasted.info('You just copied: ' + this.pageUrl, {
+                    position: 'top-center',
+                    duration: 5000
                 });
             },
             onError: function (e) {
-                this.$toasted.error('Failed to copy URL' , { 
-                    position: "top-center", 
-                    duration : 5000
+                this.$toasted.error('Failed to copy URL', {
+                    position: 'top-center',
+                    duration: 5000
                 });
             },
             async setVotes(loadoutId) {
@@ -133,7 +133,7 @@
             }
         },
         mounted: function () {
-            console.log('loadout preview header mounted'); 
+            console.log('loadout preview header mounted');
             console.log(this.pageUrl);
         }
     };
@@ -199,6 +199,7 @@
         text-align: center;
         font-size: 26px;
     }
+
     .salutes-container:hover > h3 {
         text-decoration: underline;
     }
