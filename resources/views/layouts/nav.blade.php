@@ -53,7 +53,7 @@
 
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative">
-                        <div class="dropdown">
+                        <div class="dropdown dropdown-overwrite">
                             <button class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                 <img class="h-8 w-8 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}" alt="" />
                             </button>

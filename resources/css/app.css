@@ -186,6 +186,12 @@ svg > a:hover {
 .loadingIndicator > img {
     margin: auto;
 }
+.dropdown-overwrite .dropdown-menu {
+    display: none;
+}
+.dropdown-overwrite .dropdown-menu.show {
+    display: block;
+}
 
 /* todo: give stuff in login etc. classes and style here! */
 .loginPage {
