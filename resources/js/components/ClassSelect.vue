@@ -193,7 +193,7 @@
                                 chosenOverclockId: secondary.overclocks[0].overclockId
                             });
                         }
-                        if (loadoutDetails.equipments && loadoutDetails.equipments.length > 0 && loadoutDetails.equipments.mods) {
+                        if (loadoutDetails.equipments && loadoutDetails.equipments.length > 0) {
                             for (let equipment of loadoutDetails.equipments) {
                                 for (let mod of equipment.mods) {
                                     store.commit('selectLoadoutMods', {

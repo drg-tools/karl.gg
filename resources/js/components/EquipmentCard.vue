@@ -100,6 +100,7 @@
                 return this.equipmentName;
             },
             getModMatrix: function () {
+                console.log(`mod matrix for ${this.equipmentName}`, this.modMatrix)
                 return this.modMatrix;
             },
             getOverclockData: function () {

@@ -96,6 +96,7 @@
                     });
                 });
                 let allBaseMods = await Promise.all([...baseModWeaponQueries, ...baseModEquipmentQueries]);
+                console.log("all base mods for equipment", allBaseMods)
                 store.commit('setLoadoutDetailModMatrix', {baseMods: allBaseMods});
                 return store.state.loadoutDetails;
             }

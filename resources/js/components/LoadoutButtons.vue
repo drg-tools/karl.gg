@@ -55,7 +55,7 @@
                 messageTitle: '',
                 messageText: '',
                 update: false,
-                guest: false,
+                guest: false
             };
         },
         methods: {
@@ -63,7 +63,7 @@
                 console.log('save loadout to backend');
                 // Set this.name & description
                 this.getLoggedInUser().then(response => {
-                    let loadoutAuthorId = store.state.loadoutDetails.authorId.id;
+                    let loadoutAuthorId = store.state.loadoutDetails.authorId;
                     let loggedInUserId = response;
                     if (loadoutAuthorId === loggedInUserId) {
                         this.name = store.state.loadoutDetails.name;
@@ -99,9 +99,8 @@
                     }
                     `
                 });
-                console.log(response);
-                if(response.data.me == null) {
-                    return 0;
+                if (!response.data.me) {
+                    throw new Error('Not logged in');
                 } else {
                     return response.data.me.id;
                 }
@@ -257,6 +256,7 @@
         height: 2.2rem;
         background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
     }
+
     .button.guest-btn {
         padding-left: 20px;
         padding-right: 20px;
