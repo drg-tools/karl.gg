@@ -297,7 +297,7 @@ const transformLoadouts = (loadouts, state) => {
         return {
             loadoutId: loadout.id,
             name: loadout.name,
-            author: loadout.creator ? loadout.creator.name : "Anonymous",
+            author: loadout.creator ? loadout.creator.name : 'Anonymous',
             classId: characterIdToChar[loadout.character.id],
             votes: loadout.votes,
             primary: state.missingBackendWeaponData[primaryId].icon,
@@ -1176,8 +1176,8 @@ export default new Vuex.Store({
             let loadout = {
                 classId: characterIdToChar[indices.loadout.character.id],
                 created_at: indices.loadout.created_at,
-                author: indices.loadout.creator ? indices.loadout.creator.name : "Anonymous",
-                authorId: indices.loadout.creator,
+                author: indices.loadout.creator ? indices.loadout.creator.name : 'Anonymous',
+                authorId: indices.loadout.creator ? indices.loadout.creator.id : undefined,
                 description: indices.loadout.description,
                 loadoutId: indices.loadout.id,
                 name: indices.loadout.name,
@@ -1194,8 +1194,12 @@ export default new Vuex.Store({
             Vue.set(state.loadoutDetails, 'votes', indices.newNumberOfVotes);
         },
         setLoadoutDetailModMatrix: (state, indices) => {
-            let generateModMatrix = (baseMods, equipmentItem) => {
+            let generateModMatrix = (baseMods, equipmentItem, isEquipment) => {
                 let relevantBaseModsId = baseMods.findIndex(base => {
+                    if (isEquipment && base.data.gun) {
+                        // we're looking for equipment id but this is a gun
+                        return false;
+                    }
                     let baseId = base.data.gun ? base.data.gun.id : base.data.equipment.id;
                     return baseId === equipmentItem.id;
                 });
@@ -1223,7 +1227,7 @@ export default new Vuex.Store({
             }
 
             for (let equipmentIndex in state.loadoutDetails.equipments) {
-                let equipmentModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.equipments[equipmentIndex]);
+                let equipmentModMatrix = generateModMatrix(indices.baseMods, state.loadoutDetails.equipments[equipmentIndex], true);
                 Vue.set(state.loadoutDetails.equipments[equipmentIndex], 'modMatrix', equipmentModMatrix);
             }
 
@@ -1234,7 +1238,7 @@ export default new Vuex.Store({
             state.loadoutCreator.chosenPrimaryId = indices.chosenPrimaryId;
             state.loadoutCreator.chosenSecondaryId = indices.chosenSecondaryId;
 
-            state.loadoutCreator.selectedEquipmentId = state.loadoutCreator.baseData[indices.classId].primaryWeapons[0].id;
+            state.loadoutCreator.selectedEquipmentId = indices.chosenPrimaryId ? indices.chosenPrimaryId : state.loadoutCreator.baseData[indices.classId].primaryWeapons[0].id;
             state.loadoutCreator.selectedEquipmentType = 'primaryWeapons';
 
             console.log('data for selected class', state.loadoutCreator.baseData[indices.classId]);
