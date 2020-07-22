@@ -1300,7 +1300,11 @@ export default new Vuex.Store({
                 Vue.set(overclock, 'selected', false);
             }
             // select mod
-            if (indices.chosenOverclock >= 0) {
+            if (!indices.chosenOverclockId) {
+                // when loading existing loadout
+                Vue.set(selectedEquipment[0].overclocks[indices.chosenOverclock - 1], 'selected', true);
+            } else if (indices.chosenOverclock >= 0) {
+                // when selecting overclock
                 Vue.set(selectedEquipment[0].overclocks[indices.chosenOverclock], 'selected', true);
             }
         },
