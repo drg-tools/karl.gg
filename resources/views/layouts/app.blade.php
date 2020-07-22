@@ -57,6 +57,7 @@
 
 
     </div>
+    <!-- todo: mobile menu without jquery/bootstrap -->
     @livewireScripts
         @yield('scripts')
 

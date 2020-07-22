@@ -229,11 +229,13 @@ svg > a:hover {
     height: 2.2rem;
     justify-content: center;
     align-items: center;
-    width: 8rem;
-    background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
+    /*width: 8rem;*/
+    padding-left: 10%;
+    padding-right: 10%;
+    background: linear-gradient(90deg, #fc9e00 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #fc9e00 0.6rem, #fc9e00 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #fc9e00 calc(100% - 0.3rem));
 }
 .loginPage button:hover {
-    background: linear-gradient(90deg, #ffd200 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #ffd200 8%, #ffd200 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #ffd200 96%);
+    background: linear-gradient(90deg, #ffd200 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #ffd200 0.6rem, #ffd200 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #ffd200 calc(100% - 0.3rem));
 }
 .loginPage input {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -241,9 +243,9 @@ svg > a:hover {
 }
 /* todo: style checkmark and inputs nicer in general  */
 .loginPage input.form-checkbox {
-    color: rgba(53, 46, 30, 0.5)
+    color: rgb(0, 0, 0)
 }
-.loginPage input:focus {
+.loginPage input.form-checkbox:focus {
     outline: none;
     box-shadow: 0 0 0 3px #FC9E00;
     border-color: #ffd200;
