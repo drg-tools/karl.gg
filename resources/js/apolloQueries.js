@@ -174,6 +174,7 @@ export default {
                           name
                           description
                           created_at
+                          updated_at
                           votes
                           creator {
                             id
@@ -200,6 +201,7 @@ export default {
                         name
                         description
                         created_at
+                        updated_at
                         votes
                         creator {
                           id

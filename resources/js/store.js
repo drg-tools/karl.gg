@@ -293,7 +293,7 @@ const transformLoadouts = (loadouts, state) => {
         let secondaries = loadout.mods.find(mod => mod.gun.character_slot === 2);
         let primaryId = primaries ? primaries.gun.id : dummyWeapons[characterIdToChar[loadout.character.id]].primaryId;
         let secondaryId = secondaries ? secondaries.gun.id : dummyWeapons[characterIdToChar[loadout.character.id]].secondaryId;
-        /* todo: last update */
+
         return {
             loadoutId: loadout.id,
             name: loadout.name,
@@ -302,7 +302,7 @@ const transformLoadouts = (loadouts, state) => {
             votes: loadout.votes,
             primary: state.missingBackendWeaponData[primaryId].icon,
             secondary: state.missingBackendWeaponData[secondaryId].icon,
-            lastUpdate: new Date(loadout.created_at).toISOString().split('T')[0]
+            lastUpdate: new Date(loadout.updated_at).toISOString().split('T')[0]
         };
     });
 };
@@ -1172,10 +1172,12 @@ export default new Vuex.Store({
             Vue.set(state, 'loadoutDetailDataReady', indices.ready);
         },
         setLoadoutDetails: (state, indices) => {
+            console.log('set loadout details updated at', indices.loadout);
             let loadoutMods = groupByEquipment(indices.loadout.mods, indices.loadout.overclocks, indices.loadout.equipment_mods, state);
             let loadout = {
                 classId: characterIdToChar[indices.loadout.character.id],
                 created_at: indices.loadout.created_at,
+                updated_at: indices.loadout.updated_at,
                 author: indices.loadout.creator ? indices.loadout.creator.name : 'Anonymous',
                 authorId: indices.loadout.creator ? indices.loadout.creator.id : undefined,
                 description: indices.loadout.description,
@@ -1300,7 +1302,11 @@ export default new Vuex.Store({
                 Vue.set(overclock, 'selected', false);
             }
             // select mod
-            if (indices.chosenOverclock >= 0) {
+            if (!indices.chosenOverclockId) {
+                // when loading existing loadout
+                Vue.set(selectedEquipment[0].overclocks[indices.chosenOverclock - 1], 'selected', true);
+            } else if (indices.chosenOverclock >= 0) {
+                // when selecting overclock
                 Vue.set(selectedEquipment[0].overclocks[indices.chosenOverclock], 'selected', true);
             }
         },

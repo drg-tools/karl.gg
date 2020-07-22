@@ -186,6 +186,77 @@ svg > a:hover {
 .loadingIndicator > img {
     margin: auto;
 }
+.dropdown-overwrite .dropdown-menu {
+    display: none;
+}
+.dropdown-overwrite .dropdown-menu.show {
+    display: block;
+}
+
+/* todo: give stuff in login etc. classes and style here! */
+.loginPage {
+    padding: 1rem;
+    border-top: 5px solid rgb(252, 158, 0);
+    background-image: url("../js/assets/img/LootBug.png");
+    background-color: rgba(53, 46, 30, 1);
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% bottom -10%;
+}
+.loginPage div {
+    background-color: transparent;
+    border: none;
+    font-family: BebasNeue, sans-serif;
+    font-size: 2.5rem;
+    color: rgb(252, 158, 0);
+    box-shadow: none;
+}
+.loginPage label, .loginPage p {
+    font-family: BebasNeue, sans-serif;
+    font-size: 1.5rem;
+    color: #ADA195;
+}
+.loginPage a {
+    font-family: BebasNeue, sans-serif;
+    font-size: 1.5rem;
+    color: rgb(252, 158, 0);
+}
+.loginPage button {
+    color: #000000;
+    font-size: 1.6rem;
+    letter-spacing: 0.05rem;
+    font-weight: bold;
+    font-family: BebasNeue, sans-serif;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    display: flex;
+    height: 2.2rem;
+    justify-content: center;
+    align-items: center;
+    /*width: 8rem;*/
+    padding-left: 10%;
+    padding-right: 10%;
+    background: linear-gradient(90deg, #fc9e00 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #fc9e00 0.6rem, #fc9e00 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #fc9e00 calc(100% - 0.3rem));
+}
+.loginPage button:hover {
+    background: linear-gradient(90deg, #ffd200 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #ffd200 0.6rem, #ffd200 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #ffd200 calc(100% - 0.3rem));
+}
+.loginPage input {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    color: #000000;
+}
+/* todo: style checkmark and inputs nicer in general  */
+.loginPage input.form-checkbox {
+    color: rgb(0, 0, 0)
+}
+.loginPage input.form-checkbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #FC9E00;
+    border-color: #ffd200;
+    color: rgba(53, 46, 30, 0.5)
+}
 
 ::-webkit-scrollbar-button {
     display: none;

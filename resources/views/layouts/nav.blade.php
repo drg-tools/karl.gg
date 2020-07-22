@@ -1,4 +1,5 @@
 <nav class="navMenu">
+<!-- todo: mobile nav -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
@@ -52,7 +53,7 @@
 
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative">
-                        <div class="dropdown">
+                        <div class="dropdown dropdown-overwrite">
                             <button class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                 <img class="h-8 w-8 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}" alt="" />
                             </button>
