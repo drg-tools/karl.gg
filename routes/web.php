@@ -40,11 +40,16 @@ Route::view('test', 'test.example');
 Route::middleware(['auth'])->group(function () {
     Route::get('my-loadouts', 'LoadoutController@myLoadouts')->name('loadouts.my');
     Route::get('favorites', 'LoadoutController@favorites')->name('loadouts.favorites');
-    Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
 
     Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);
     Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
 });
+
+Route::middleware(['role:super-admin'])->group(function () {
+    Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
+});
+
+
 // todo: removed build view from middleware..
 Route::view('browse', 'loadouts.browse');
 Route::view('preview/{loadoutId}', 'loadouts.preview');
