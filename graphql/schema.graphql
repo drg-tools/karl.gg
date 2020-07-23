@@ -202,7 +202,7 @@ type Loadout {
     creator: User @belongsTo
     mods: [Mod!] @belongsToMany
     created_at: DateTime!
-    updated_at: DateTime!
+    updated_at: DateTime
     overclocks: [Overclock!]! @belongsToMany
     equipment_mods: [EquipmentMod!]! @belongsToMany
     throwable: Throwable @hasOne
