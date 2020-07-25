@@ -8,18 +8,6 @@
             </a>
         </svg>
     </div>
-    <!--<div class="callToActionContainer">
-        <img class="wideHero" src="../assets/img/karl-hero-wide.png" alt="hero image" usemap="#wideHeroMap" width="100%" height="250">
-        <img class="highHero" src="../assets/img/karl-hero-high.png" alt="hero image" usemap="#wideHeroMap" width="100%" height="250">
-        &lt;!&ndash; todo: use svg for clickable areas. http://thenewcode.com/760/Create-A-Responsive-Imagemap-With-SVG &ndash;&gt;
-        <map name="wideHeroMap">
-            <area shape="rect" coords="500, 100, 570, 250" alt="random" href="/build/D">
-            <area shape="rect" coords="580, 100, 640, 250" alt="random" href="/build/E">
-            <area shape="rect" coords="655, 100, 725, 250" alt="random" href="/build/G">
-            <area shape="rect" coords="740, 100, 795, 250" alt="random" href="/build/S">
-            <area shape="rect" coords="400, 80, 450, 110" alt="random" href="/build/R">
-        </map>
-    </div>-->
 </template>
 
 <script>
