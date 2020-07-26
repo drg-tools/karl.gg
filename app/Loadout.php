@@ -48,7 +48,8 @@ class Loadout extends Model
 
     public static function getUpvotesCount($id)
     {
-        $loadout = Loadout::findOrFail($id);
+        $loadout = self::findOrFail($id);
+
         return $loadout->upVotesCount();
     }
 }
