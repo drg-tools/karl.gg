@@ -45,4 +45,10 @@ class Loadout extends Model
     {
         return $this->hasOne(Throwable::class, 'id', 'throwable_id');
     }
+
+    public static function getUpvotesCount($id)
+    {
+        $loadout = Loadout::findOrFail($id);
+        return $loadout->upVotesCount();
+    }
 }

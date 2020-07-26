@@ -68,6 +68,12 @@
         apollo: {},
         mounted: function () {
             console.log('mounted loadout card');
+            console.log(this.loadoutId);
+            console.log(this.name);
+            console.log(this.author);
+            console.log(this.classId);
+            console.log(this.primary);
+            console.log(this.secondary);
         }
     };
 </script>
