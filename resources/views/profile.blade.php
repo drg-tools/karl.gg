@@ -17,19 +17,6 @@
         </div>
     </div>
 </div>
-<!--
-@foreach ($loadouts as $item)
-    <small-loadout-card
-        :loadout-id={{$item->id}}
-        :name={{$item->name}}
-        :author={{$user->name}}
-        :class-id={{$item->character_id}}
-        :votes={{$item->getUpvotesCount($item->id)}}
-        {{-- :primary="loadout.primary" --}}
-        {{-- :secondary="loadout.secondary" --}}
-    />
-@endforeach
--->
-<profile-listing :loadouts-list='@json($loadouts)'></profile-listing>
+<profile-table :user-id={{$user->id}}></profile-table>
 
 @endsection

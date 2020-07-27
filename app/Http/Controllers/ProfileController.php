@@ -19,7 +19,8 @@ class ProfileController extends Controller
         $loadouts = $this->getLoadoutsForUser($id);
         $loadoutCount = $this->getLoadoutCount($id);
         $salutesCount = $this->getVoteCount($id);
-        return view('profile', ['user' => User::findOrFail($id), 'loadouts' => $loadouts, 'loadoutCount' => $loadoutCount, 'salutesCount' => $salutesCount]);
+        $loadoutsWithSalutes = $this->addSalutesToLoadoutsCollection($loadouts);
+        return view('profile', ['user' => User::findOrFail($id), 'loadouts' => $loadoutsWithSalutes, 'loadoutCount' => $loadoutCount, 'salutesCount' => $salutesCount]);
     }
 
     private function getLoadoutsForUser($userId) {
@@ -46,8 +47,13 @@ class ProfileController extends Controller
                 $totalUpvotes = $totalUpvotes + $upvotes;
             }
         }
-
-
         return $totalUpvotes;
+    }
+
+    private function addSalutesToLoadoutsCollection($loadouts) {
+        foreach ($loadouts as $key => $loadout) {
+            $loadout->salutes = $loadout->upVotesCount();
+         }
+        return $loadouts;
     }
 }

@@ -16,7 +16,7 @@
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
-                    :votes="loadout.votes"
+                    :votes="loadout.salutes"
                     :primary="loadout.primary"
                     :secondary="loadout.secondary"/>
             </div>
