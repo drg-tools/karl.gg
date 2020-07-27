@@ -17,6 +17,6 @@
         </div>
     </div>
 </div>
-<profile-table :user-id={{$user->id}}></profile-table>
+<profile-listing :user-id={{$user->id}}></profile-listing>
 
 @endsection

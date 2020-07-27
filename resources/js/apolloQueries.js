@@ -267,7 +267,7 @@ export default {
                             }
                           }
                         }`,
-    myLoadouts: (userId) => `query myLoadouts($userId: [Int!] = ${userId}) {
+    myLoadouts:     `query myLoadouts($userId: [Int!]) {
                           myLoadouts(userId: $userId) {
                               id
                               name

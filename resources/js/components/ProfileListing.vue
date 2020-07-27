@@ -16,7 +16,7 @@
                     :name="loadout.name"
                     :author="loadout.author"
                     :classId="loadout.classId"
-                    :votes="loadout.salutes"
+                    :votes="loadout.votes"
                     :primary="loadout.primary"
                     :secondary="loadout.secondary"/>
             </div>
@@ -27,6 +27,8 @@
 <script>
     import SmallLoadoutCard from './SmallLoadoutCard.vue';
     import store from '../store';
+    import apolloQueries from '../apolloQueries';
+    import gql from 'graphql-tag';
 
     export default {
         name: 'ProfileLoadouts',
@@ -34,7 +36,7 @@
             SmallLoadoutCard
         },
         props: {
-            LoadoutsList: Array
+            UserId: Number
         },
         computed: {
             dataReady() {
@@ -44,16 +46,31 @@
         methods: {
             myLoadouts() {
                 return store.state.myLoadouts;
+            },
+            async getMyLoadouts() {
+                // store.commit('setPopularDataReady', {ready: false});
+                if (store.state.myLoadouts.length > 0) {
+                    // store.commit('setPopularDataReady', {ready: true});
+                    return store.state.myLoadouts;
+                }
+                const response = await this.$apollo.query({
+                    query: gql`${apolloQueries.myLoadouts}`,
+                    variables: {
+                        userId: this.UserId
+                    }
+                });
+                console.log('response', response);
+                store.commit('setMyLoadouts', {loadouts: response.data.myLoadouts});
+                return store.state.myLoadouts;
             }
         },
         apollo: {},
         mounted: function () {
-            console.log('mounted profile loadouts');
-            console.log('here come the loadouts --------------------');
-            console.log(this.LoadoutsList);
-
-            store.commit('setMyLoadouts', {loadouts: this.LoadoutsList});
-            store.commit('setMyLoadoutsDataReady', {ready: true});
+            console.log('mounted featured loadouts');
+            this.getMyLoadouts().then((myLoadouts) => {
+                store.commit('setMyLoadoutsDataReady', {ready: true});
+                console.log('done with my loadouts', myLoadouts);
+            });
         }
     };
 </script>
