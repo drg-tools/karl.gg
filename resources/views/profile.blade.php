@@ -14,12 +14,10 @@
                 <h3>Salutes</h3>
                 <span>{{ $salutesCount }}</span>
             </div>
-            
         </div>
-        
     </div>
 </div>
-
+<!--
 @foreach ($loadouts as $item)
     <small-loadout-card
         :loadout-id={{$item->id}}
@@ -31,7 +29,7 @@
         {{-- :secondary="loadout.secondary" --}}
     />
 @endforeach
-        
+-->
 <profile-listing :loadouts-list='@json($loadouts)'></profile-listing>
 
 @endsection

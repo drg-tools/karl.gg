@@ -289,16 +289,19 @@ const transformLoadouts = (loadouts, state) => {
                 secondaryId: '7'
             }
         };
-        let primaries = loadout.mods.find(mod => mod.gun.character_slot === 1);
-        let secondaries = loadout.mods.find(mod => mod.gun.character_slot === 2);
-        let primaryId = primaries ? primaries.gun.id : dummyWeapons[characterIdToChar[loadout.character.id]].primaryId;
-        let secondaryId = secondaries ? secondaries.gun.id : dummyWeapons[characterIdToChar[loadout.character.id]].secondaryId;
+
+        let charId = loadout.character ? loadout.character.id : loadout.character_id;
+
+        let primaries = loadout.mods ? loadout.mods.find(mod => mod.gun.character_slot === 1) : undefined;
+        let secondaries = loadout.mods ? loadout.mods.find(mod => mod.gun.character_slot === 2) : undefined;
+        let primaryId = primaries ? primaries.gun.id : dummyWeapons[characterIdToChar[charId]].primaryId;
+        let secondaryId = secondaries ? secondaries.gun.id : dummyWeapons[characterIdToChar[charId]].secondaryId;
 
         return {
             loadoutId: loadout.id,
             name: loadout.name,
             author: loadout.creator ? loadout.creator.name : 'Anonymous',
-            classId: characterIdToChar[loadout.character.id],
+            classId: characterIdToChar[charId],
             votes: loadout.votes,
             primary: state.missingBackendWeaponData[primaryId].icon,
             secondary: state.missingBackendWeaponData[secondaryId].icon,
@@ -331,6 +334,8 @@ export default new Vuex.Store({
         browseLoadouts: [],
         loadoutDetailDataReady: false,
         loadoutDetails: [],
+        myLoadoutsDataReady: false,
+        myLoadouts: [],
         /* todo: this is temporary, until backend provides icon and stats calculation */
         missingBackendWeaponData: [
             {
@@ -1167,6 +1172,13 @@ export default new Vuex.Store({
             let loadouts = transformLoadouts(indices.loadouts, state);
             console.log('transformed loadouts', loadouts);
             Vue.set(state, 'browseLoadouts', loadouts);
+        },
+        setMyLoadouts: (state, indices) => {
+            let loadouts = transformLoadouts(indices.loadouts, state);
+            Vue.set(state, 'myLoadouts', loadouts);
+        },
+        setMyLoadoutsDataReady: (state, indices) => {
+            Vue.set(state, 'myLoadoutsDataReady', indices.ready);
         },
         setLoadoutDetailDataReady: (state, indices) => {
             Vue.set(state, 'loadoutDetailDataReady', indices.ready);

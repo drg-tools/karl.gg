@@ -13,6 +13,12 @@
                          preserveAspectRatio="xMidYMid meet"
                          v-html="getPrimaryIcon"></svg>
                 </div>
+                <!-- todo: make edit / delete buttons nicer, maybe not inside of card -->
+                <div class="buttonContainer" v-if="editEnabled">
+                    <div class="button" v-on:click="onEditLoadout">
+                        <h1 class="buttonText">EDIT</h1>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="subtitleRow">
@@ -28,6 +34,12 @@
                          preserveAspectRatio="xMidYMid meet"
                          v-html="getSecondaryIcon"></svg>
                 </div>
+                <!-- todo: make edit / delete buttons nicer, maybe not inside of card -->
+                <div class="buttonContainer" v-if="deleteEnabled">
+                    <div class="button" v-on:click="onDeleteLoadout">
+                        <h1 class="buttonText">DELETE</h1>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -40,6 +52,8 @@
         name: 'LoadoutCard',
         props: {
             loadoutId: String,
+            editEnabled: Boolean,
+            deleteEnabled: Boolean,
             name: String,
             author: String,
             classId: String,
@@ -60,9 +74,17 @@
             }
         },
         methods: {
-            onLoadoutClick: function () {
-                console.log('nav to preview', this.classId, this.loadoutId);
-                window.location.href = `${window.location.origin}/preview/${this.loadoutId}`;
+            onLoadoutClick: function (event) {
+                if (event.target.className !== "button" && event.target.className !== "buttonText") {
+                    window.location.href = `${window.location.origin}/preview/${this.loadoutId}`;
+                }
+            },
+            onEditLoadout: function () {
+                window.location.href = `${window.location.origin}/build/${this.loadoutId}`;
+            },
+            onDeleteLoadout: function () {
+                console.log("delete");
+                /* todo: delete loadout */
             }
         },
         apollo: {},
