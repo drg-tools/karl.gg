@@ -49,7 +49,6 @@ Route::middleware(['role:super-admin'])->group(function () {
     Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
 });
 
-
 // todo: removed build view from middleware..
 Route::view('browse', 'loadouts.browse');
 Route::view('preview/{loadoutId}', 'loadouts.preview');
