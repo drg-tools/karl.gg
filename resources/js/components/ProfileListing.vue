@@ -11,7 +11,7 @@
                     v-for="(loadout, id) in myLoadouts()"
                     :key="id"
                     :editEnabled="true"
-                    :deleteEnabled="true"
+                    :deleteEnabled="getDeleteStatus()"
                     :loadoutId="loadout.loadoutId"
                     :name="loadout.name"
                     :author="loadout.author"
@@ -36,7 +36,13 @@
             SmallLoadoutCard
         },
         props: {
-            UserId: Number
+            UserId: Number,
+            canDelete: false
+        },
+        data() {
+            return {
+                me: document.querySelector('meta[name="user-id"]').getAttribute('content')
+            }
         },
         computed: {
             dataReady() {
@@ -46,6 +52,12 @@
         methods: {
             myLoadouts() {
                 return store.state.myLoadouts;
+            },
+            getDeleteStatus() {
+                if(this.UserId == this.me) {
+                    this.canDelete = true;
+                }
+                return this.canDelete;
             },
             async getMyLoadouts() {
                 // store.commit('setPopularDataReady', {ready: false});
@@ -62,11 +74,12 @@
                 console.log('response', response);
                 store.commit('setMyLoadouts', {loadouts: response.data.myLoadouts});
                 return store.state.myLoadouts;
-            }
+            },
         },
         apollo: {},
         mounted: function () {
-            console.log('mounted featured loadouts');
+            console.log('mounted featured loadouts'); 
+            console.log(this.me);
             this.getMyLoadouts().then((myLoadouts) => {
                 store.commit('setMyLoadoutsDataReady', {ready: true});
                 console.log('done with my loadouts', myLoadouts);
@@ -75,8 +88,11 @@
     };
 </script>
 
+
 <style>
+
     .loadoutCards.wide {
         width: 60%;
+        margin: auto;
     }
 </style>

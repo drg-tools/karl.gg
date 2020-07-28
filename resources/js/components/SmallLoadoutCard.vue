@@ -13,12 +13,6 @@
                          preserveAspectRatio="xMidYMid meet"
                          v-html="getPrimaryIcon"></svg>
                 </div>
-                <!-- todo: make edit / delete buttons nicer, maybe not inside of card -->
-                <div class="buttonContainer" v-if="editEnabled">
-                    <div class="button" v-on:click="onEditLoadout">
-                        <h1 class="buttonText">EDIT</h1>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="subtitleRow">
@@ -34,14 +28,21 @@
                          preserveAspectRatio="xMidYMid meet"
                          v-html="getSecondaryIcon"></svg>
                 </div>
+                
+            </div>
+        </div>
+        <!-- todo: make edit / delete buttons nicer, maybe not inside of card -->
+                <div class="buttonContainer" v-if="editEnabled">
+                    <div class="button" v-on:click="onEditLoadout">
+                        <h1 class="buttonText">EDIT</h1>
+                    </div>
+                </div>
                 <!-- todo: make edit / delete buttons nicer, maybe not inside of card -->
                 <div class="buttonContainer" v-if="deleteEnabled">
                     <div class="button" v-on:click="onDeleteLoadout">
                         <h1 class="buttonText">DELETE</h1>
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 </template>
 
