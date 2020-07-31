@@ -195,6 +195,9 @@
         width: 60%;
         margin: auto;
     }
+    .body__home .loadoutCards.wide {
+        width: 100%;
+    }
     .buttonColumn {
         width: 20%;
         display: flex;

@@ -40,8 +40,8 @@ Route::view('test', 'test.example');
 Route::middleware(['auth'])->group(function () {
     Route::get('my-loadouts', 'LoadoutController@myLoadouts')->name('loadouts.my');
     Route::get('favorites', 'LoadoutController@favorites')->name('loadouts.favorites');
-    Route::get('profile/{id}/edit', 'ProfileController@editProfile');
-    Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')->name('profile.update');
+    Route::get('profile/{id}/edit', 'ProfileController@editProfile')->where('id', '[0-9]+');
+    Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')->name('profile.update')->where('id', '[0-9]+');
 
 
     Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);

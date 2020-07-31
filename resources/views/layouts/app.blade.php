@@ -32,7 +32,7 @@
 
     @livewireStyles
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-none">
+<body class="bg-gray-100 h-screen antialiased leading-none @yield('body_class')">
     <div id="app">
 
         @include('layouts.nav')

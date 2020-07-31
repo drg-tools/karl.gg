@@ -29,9 +29,16 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return View
      */
-    public function editProfile($id)
+    public function editProfile(Request $request, $id)
     {
-        return view('editprofile', ['user' => User::findOrFail($id)]);
+        $authUserId = \Auth::id();
+        if($authUserId == $id) {
+            // You are authenticated and trying to edit your profile
+            return view('editprofile', ['user' => User::findOrFail($id)]);
+        } else {
+            // Do not allow a user to edit someone else's profile
+            return response()->view('errors.' . '403', [], 403);
+        }
     }
     /**
      * Update the user's profile.
