@@ -357,3 +357,11 @@ svg > a:hover {
     padding: 20px;
 }
 
+/* Privacy policy */
+.body__privacy_policy p {
+    margin: 20px 0;
+    color: #FFF;
+}
+.body__privacy_policy h2 {
+    color: #fc9e00;
+}
