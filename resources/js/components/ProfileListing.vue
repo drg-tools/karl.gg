@@ -5,7 +5,6 @@
     <div v-else-if="dataReady" class="featuredLoadoutsContainer">
         <h1>MY LOADOUTS</h1>
         <div class="cardGroups">
-            <div class="loadoutCards wide">
                 <!-- todo: could also use table -->
                 <SmallLoadoutCard
                     v-for="(loadout, id) in myLoadouts()"
@@ -20,7 +19,6 @@
                     :primary="loadout.primary"
                     :secondary="loadout.secondary"/>
             </div>
-        </div>
     </div>
 </template>
 
@@ -87,12 +85,3 @@
         }
     };
 </script>
-
-
-<style>
-
-    .loadoutCards.wide {
-        width: 60%;
-        margin: auto;
-    }
-</style>
