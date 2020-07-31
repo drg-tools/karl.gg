@@ -7,7 +7,7 @@
             <h1>{{loadoutDetails.name}}</h1>
             <!-- todo: style this! -->
             <h2>by {{loadoutDetails.author}} on {{loadoutDetails.updated_at}}</h2>
-            <h2>{{loadoutDetails.description}}</h2>
+            <h2 class="loadoutDescription">{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
                 <!-- todo: tooltip on salutes container! -->
                 <div v-on:click="onToggleVote" class="salutes-container">
@@ -213,5 +213,8 @@
     .bosco-salute {
         display: block;
         margin: auto;
+    }
+    .loadoutDescription {
+        white-space: break-spaces;
     }
 </style>

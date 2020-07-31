@@ -29,8 +29,8 @@
                          preserveAspectRatio="xMidYMid meet"
                          v-html="getSecondaryIcon"></svg>
                 </div>
-                
             </div>
+            
         </div>
     </div>
     <div class="buttonColumn">

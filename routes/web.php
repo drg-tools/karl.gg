@@ -40,6 +40,9 @@ Route::view('test', 'test.example');
 Route::middleware(['auth'])->group(function () {
     Route::get('my-loadouts', 'LoadoutController@myLoadouts')->name('loadouts.my');
     Route::get('favorites', 'LoadoutController@favorites')->name('loadouts.favorites');
+    Route::get('profile/{id}/edit', 'ProfileController@editProfile');
+    Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')->name('profile.update');
+
 
     Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);
     Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
