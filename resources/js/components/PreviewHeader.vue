@@ -6,7 +6,7 @@
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
             <h1>{{loadoutDetails.name}}</h1>
             <!-- todo: style this! -->
-            <h2>by {{loadoutDetails.author}} on {{loadoutDetails.updated_at}}</h2>
+            <h2>by <a class="authorLink" :href="'/profile/' + loadoutDetails.authorId" >{{loadoutDetails.author}}</a> on {{loadoutDetails.updated_at}}</h2>
             <h2 class="loadoutDescription">{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
                 <!-- todo: tooltip on salutes container! -->

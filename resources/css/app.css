@@ -359,6 +359,12 @@ svg > a:hover {
 .profileBtnContainer {
     width: 20%;
 }
+.authorLink {
+    color:#fc9e00;
+}
+.authorLink:hover {
+    text-decoration: underline;
+}
 
 /* Privacy policy */
 .body__privacy_policy p {
