@@ -5,9 +5,12 @@
             <h1 class="modalTitle">Name your loadout, miner!</h1>
             <h2>Name</h2>
             <div class="error" v-if="!$v.name.required">Field is required</div>
+            <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
+
             <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout" :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
             <h2>Description</h2>
             <div class="error" v-if="!$v.description.required">Field is required</div>
+            <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}} characters.</div>
             <textarea v-model="$v.description.$model" class="modalDescriptionInput"
                       placeholder="Deep Rock really need to invest in some better equipment."></textarea>
             <div class="buttonContainer">
@@ -47,7 +50,7 @@
     import store from '../store';
     import apolloQueries from '../apolloQueries';
     import gql from 'graphql-tag';
-    import { required } from 'vuelidate/lib/validators';
+    import { required, maxLength } from 'vuelidate/lib/validators';
 
     export default {
         name: 'LoadoutButtons',
@@ -59,15 +62,17 @@
                 messageText: '',
                 update: false,
                 guest: false,
-                submitStatus: null
+                submitStatus: null,
             };
         },
         validations: {
             name: {
-                required
+                required,
+                maxLength: maxLength(255)
             },
             description: {
-                required
+                required,
+                maxLength: maxLength(500)
             }
         },
         methods: {
