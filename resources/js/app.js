@@ -60,7 +60,18 @@ Vue.use(VModal);
 Vue.use(VueApollo);
 Vue.use(VPopover, {tooltip: true});
 Vue.use(Vuelidate)
-// Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
+// credit to https://stackoverflow.com/questions/35070271/vue-js-components-how-to-truncate-the-text-in-the-slot-element-in-a-component 
+// for this filter
+/** Vue Filters Start */
+Vue.filter('truncate', function (text, length, suffix) {
+    if (text.length > length) {
+        return text.substring(0, length) + suffix;
+    } else {
+        return text;
+    }
+});
+/** Vue Filters End */
+
 
 const apolloProvider = new VueApollo({
     defaultClient: Apollo

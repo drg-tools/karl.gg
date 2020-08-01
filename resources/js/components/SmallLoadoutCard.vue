@@ -4,7 +4,7 @@
         <div class="titleRow">
             <div class="titleContentLeft">
                 <img :src="getIconFromPath" class="classIcon"/>
-                <h2 class="buildName">{{name}}</h2>
+                <h2 class="buildName">{{name |  truncate(30, '...')}}</h2>
             </div>
             <div class="titleContentRight">
                 <div class="weaponContainer">
