@@ -4,9 +4,14 @@
         <modal name="loadoutNameModal" class="loadoutModal">
             <h1 class="modalTitle">Name your loadout, miner!</h1>
             <h2>Name</h2>
-            <input v-model="name" class="modalNameInput" placeholder="Karl's amazing loadout">
+            <div class="error" v-if="!$v.name.required">Field is required</div>
+            <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
+
+            <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout" :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
             <h2>Description</h2>
-            <textarea v-model="description" class="modalDescriptionInput"
+            <div class="error" v-if="!$v.description.required">Field is required</div>
+            <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}} characters.</div>
+            <textarea v-model="$v.description.$model" class="modalDescriptionInput"
                       placeholder="Deep Rock really need to invest in some better equipment."></textarea>
             <div class="buttonContainer">
                 <div class="button" v-on:click="onAcceptSave">
@@ -45,6 +50,7 @@
     import store from '../store';
     import apolloQueries from '../apolloQueries';
     import gql from 'graphql-tag';
+    import { required, maxLength } from 'vuelidate/lib/validators';
 
     export default {
         name: 'LoadoutButtons',
@@ -55,10 +61,29 @@
                 messageTitle: '',
                 messageText: '',
                 update: false,
-                guest: false
+                guest: false,
+                submitStatus: null,
             };
         },
+        validations: {
+            name: {
+                required,
+                maxLength: maxLength(255)
+            },
+            description: {
+                required,
+                maxLength: maxLength(500)
+            }
+        },
         methods: {
+            setName(value) {
+                this.name = value;
+                this.$v.name.$touch();
+            },
+            setDescription(value) {
+                this.description = description;
+                this.$v.description.$touch();
+            },
             onSaveClick() {
                 console.log('save loadout to backend');
                 // Set this.name & description
@@ -110,34 +135,38 @@
                     let loadoutData = store.getters.getLoadoutForUpdate();
                     loadoutData.name = this.name;
                     loadoutData.description = this.description;
-                    if (this.update) {
-                        // this user created the loadout, so let him update it instead of creating a new one
-                        console.log('update loadout', loadoutData);
-                        this.updateLoadout(loadoutData).then(result => {
-                            console.log('got result back', result);
-                            this.name = '';
-                            this.description = '';
-                            this.$modal.hide('loadoutNameModal');
-                            let redirId = result.data.updateLoadout.id;
-                            window.location.href = `/preview/${redirId}`;
-                            /* todo: show success messages and redirect to loadout preview */
-                        });
+                    this.$v.$touch()
+                    if (this.$v.$invalid) {
+                        this.submitStatus = 'ERROR'
+                        console.log('error state applied.');
                     } else {
-                        // create fresh loadout
-                        console.log('create loadout', loadoutData);
-                        this.createLoadout(loadoutData).then(result => {
-                            console.log('got result back', result);
-                            this.name = '';
-                            this.description = '';
-                            this.$modal.hide('loadoutNameModal');
-                            // Get the new loadout id
-                            let redirId = result.data.createLoadout.id;
-                            window.location.href = `/preview/${redirId}`;
-                            /* todo: show success messages and redirect to loadout preview */
-                        });
-                    }
-                } else {
-                    // todo: show indicators on required text fields
+                        if (this.update) {
+                                // this user created the loadout, so let him update it instead of creating a new one
+                                console.log('update loadout', loadoutData);
+                                this.updateLoadout(loadoutData).then(result => {
+                                    console.log('got result back', result);
+                                    this.name = '';
+                                    this.description = '';
+                                    this.$modal.hide('loadoutNameModal');
+                                    let redirId = result.data.updateLoadout.id;
+                                    window.location.href = `/preview/${redirId}`;
+                                    /* todo: show success messages and redirect to loadout preview */
+                                });
+                            } else {
+                                // create fresh loadout
+                                console.log('create loadout', loadoutData);
+                                this.createLoadout(loadoutData).then(result => {
+                                    console.log('got result back', result);
+                                    this.name = '';
+                                    this.description = '';
+                                    this.$modal.hide('loadoutNameModal');
+                                    // Get the new loadout id
+                                    let redirId = result.data.createLoadout.id;
+                                    window.location.href = `/preview/${redirId}`;
+                                    /* todo: show success messages and redirect to loadout preview */
+                                });
+                            }
+                        }
                 }
             },
             onCancelSave() {
@@ -291,5 +320,12 @@
 
     .modalDescriptionInput, .modalNameInput {
         width: 100%
+    }
+
+    .error {
+        font-size: 1.3rem;
+        font-weight: normal;
+        color: red;
+        font-family: BebasNeue, sans-serif;
     }
 </style>

@@ -1,9 +1,10 @@
 <template>
+<div class="loadoutCards wide">
     <div class="loadoutCardContainer" v-on:click="onLoadoutClick">
         <div class="titleRow">
             <div class="titleContentLeft">
                 <img :src="getIconFromPath" class="classIcon"/>
-                <h2 class="buildName">{{name}}</h2>
+                <h2 class="buildName">{{name |  truncate(30, '...')}}</h2>
             </div>
             <div class="titleContentRight">
                 <div class="weaponContainer">
@@ -29,7 +30,23 @@
                          v-html="getSecondaryIcon"></svg>
                 </div>
             </div>
+            
         </div>
+    </div>
+    <div class="buttonColumn">
+
+             <div class="buttonContainer" v-if="editEnabled">
+                <div class="button" v-on:click="onEditLoadout">
+                    <h1 class="buttonText">EDIT</h1>
+                </div>
+            </div>
+            
+             <div class="buttonContainer" v-if="deleteEnabled">
+                <div class="button" v-on:click="onDeleteLoadout">
+                    <h1 class="buttonText">DELETE</h1>
+                </div>
+            </div>
+    </div>
     </div>
 </template>
 
@@ -40,6 +57,8 @@
         name: 'LoadoutCard',
         props: {
             loadoutId: String,
+            editEnabled: Boolean,
+            deleteEnabled: Boolean,
             name: String,
             author: String,
             classId: String,
@@ -60,14 +79,28 @@
             }
         },
         methods: {
-            onLoadoutClick: function () {
-                console.log('nav to preview', this.classId, this.loadoutId);
-                window.location.href = `${window.location.origin}/preview/${this.loadoutId}`;
+            onLoadoutClick: function (event) {
+                if (event.target.className !== "button" && event.target.className !== "buttonText") {
+                    window.location.href = `${window.location.origin}/preview/${this.loadoutId}`;
+                }
+            },
+            onEditLoadout: function () {
+                window.location.href = `${window.location.origin}/build/${this.loadoutId}`;
+            },
+            onDeleteLoadout: function () {
+                console.log("delete");
+                /* todo: delete loadout */
             }
         },
         apollo: {},
         mounted: function () {
             console.log('mounted loadout card');
+            console.log(this.loadoutId);
+            console.log(this.name);
+            console.log(this.author);
+            console.log(this.classId);
+            console.log(this.primary);
+            console.log(this.secondary);
         }
     };
 </script>
@@ -76,7 +109,7 @@
     .loadoutCardContainer {
         display: flex;
         flex-wrap: nowrap;
-        width: 100%;
+        width: 28.3rem;
         height: 5.3rem;
         flex-direction: column;
         border-top: 5px solid #fc9e00;
@@ -93,10 +126,6 @@
         fill: #ffffff;
     }
 
-    /* todo: remove all font-size, font-weight, font-family and color from h1-h4 in components! */
-    h2 {
-        /*font-size: 1.6rem;*/
-    }
 
     .titleRow {
         display: flex;
@@ -162,5 +191,27 @@
         fill: #ADA195;
     }
 
+    .loadoutCards.wide {
+        width: 60%;
+        margin: auto;
+    }
+    .body__home .loadoutCards.wide {
+        width: 100%;
+    }
+    .buttonColumn {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+    }
+    .button {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0 0.5rem 1rem;
+            min-width: 8rem;
+            height: 2.2rem;
+            background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
+        }
 
 </style>

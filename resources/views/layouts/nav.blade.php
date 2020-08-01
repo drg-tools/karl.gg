@@ -81,8 +81,10 @@
                             To: "transform opacity-0 scale-95"
                         -->
                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu" aria-labelledby="user-menu">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" role="menuitem">Your Profile</a>
-                                <a href="{{ route('settings.tokens') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" role="menuitem">Settings</a>
+                                <a href="{{ route('user.profile', ['id' => Auth::id()]) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" role="menuitem">Your Profile</a>
+                                @hasrole('super-admin')
+                                    <a href="{{ route('settings.tokens') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" role="menuitem">Settings</a>
+                                @endhasrole
                                 <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item" href="{{ route('logout') }}"  role="menuitem"
                                     onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

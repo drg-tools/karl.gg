@@ -266,5 +266,31 @@ export default {
                               mod_index
                             }
                           }
-                        }`
+                        }`,
+    myLoadouts:     `query myLoadouts($userId: [Int!]) {
+                          myLoadouts(userId: $userId) {
+                              id
+                              name
+                              description
+                              created_at
+                              updated_at
+                              votes
+                              creator {
+                                id
+                                name
+                              }
+                              character {
+                                id
+                                name
+                              }
+                              mods {
+                                id
+                                gun {
+                                  id
+                                  name
+                                  character_slot
+                                }
+                              }
+                            }
+                          }`,
 };

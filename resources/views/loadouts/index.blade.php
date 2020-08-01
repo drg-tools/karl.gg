@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Loadouts')
-
+@section('body_class', 'body__home')
 
 @section('content')
 

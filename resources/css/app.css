@@ -293,3 +293,78 @@ svg > a:hover {
     width: 12px;
     height: 12px;
 }
+
+/* Profile Styling */
+.profileHeaderBackground {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%)
+}
+
+.profileHeaderContainer {
+    /* height: 20rem; */
+    background-color: #352e1e;
+    margin-bottom: 2rem;
+    background-blend-mode: overlay;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profileImageD {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-D_image.png");
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% top -10%;
+}
+
+.profileImageE {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-E_image.png");
+    background-repeat: no-repeat;
+    background-size: 35%;
+    background-position: right -5% top -10%;
+}
+
+.profileImageG {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-G_image.png");
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% top -10%;
+}
+
+.profileImageS {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-S_image.png");
+    background-repeat: no-repeat;
+    background-size: 35%;
+    background-position: right -5% top -10%;
+}
+
+.data-container {
+    padding: 5px;
+    border-radius: 3px;
+    background: rgba(24, 17, 11, .6);
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    font-size: 26px;
+}
+.data-container:first-child {
+    margin-right: 20px;
+}
+
+.profileFooter {
+    display: flex;
+    padding: 20px;
+}
+.profileBtnContainer {
+    width: 20%;
+}
+
+/* Privacy policy */
+.body__privacy_policy p {
+    margin: 20px 0;
+    color: #FFF;
+}
+.body__privacy_policy h2 {
+    color: #fc9e00;
+}
