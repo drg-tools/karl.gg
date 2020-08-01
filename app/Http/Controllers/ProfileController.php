@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use App\User;
 
 
@@ -20,7 +21,9 @@ class ProfileController extends Controller
         $loadoutCount = $this->getLoadoutCount($id);
         $salutesCount = $this->getVoteCount($id);
         $loadoutsWithSalutes = $this->addSalutesToLoadoutsCollection($loadouts);
-        return view('profile', ['user' => User::findOrFail($id), 'loadouts' => $loadoutsWithSalutes, 'loadoutCount' => $loadoutCount, 'salutesCount' => $salutesCount]);
+        $profileImgClassArray = ['profileImageS','profileImageD','profileImageE','profileImageG'];
+        $profileImgClass = Arr::random($profileImgClassArray);
+        return view('profile', ['user' => User::findOrFail($id), 'loadouts' => $loadoutsWithSalutes, 'loadoutCount' => $loadoutCount, 'salutesCount' => $salutesCount, 'profileImgClass' => $profileImgClass]);
     }
 
     /**
@@ -45,10 +48,51 @@ class ProfileController extends Controller
      *
      * @param  Request  $request
      * @return Response
-     */
-    public function editProfileSave(Request $request)
+     */ 
+    public function editProfileSave(Request $request, $id)
     {
-        // $request->user() returns an instance of the authenticated user...
+        $authUserId = \Auth::id();
+        if($authUserId == $id) {
+            $user = User::find($id);
+            if(\Auth::user()->email == request('email')) {
+        
+                $this->validate(request(), [
+                        'name' => 'required',
+                    //    'email' => 'required|email|unique:users',
+                        'password' => 'required|min:6|confirmed'
+                    ]);
+            
+                    $user->name = request('name');
+                    // $user->email = request('email');
+                    $user->password = bcrypt(request('password'));
+            
+                    $user->save();
+            
+                    return back();
+                    
+                }
+                else{
+                    
+                    $this->validate(request(), [
+                            'name' => 'required',
+                            'email' => 'required|email|unique:users',
+                            'password' => 'required|min:6|confirmed'
+                    ]);
+            
+                    $user->name = request('name');
+                    $user->email = request('email');
+                    $user->password = bcrypt(request('password'));
+            
+                    $user->save();
+            
+                    return back();  
+                    
+                }
+        } else {
+            // Do not allow a user to edit someone else's profile
+            return response()->view('errors.' . '403', [], 403);
+        }
+        
     }
     
 

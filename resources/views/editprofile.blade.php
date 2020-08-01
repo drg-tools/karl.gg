@@ -10,23 +10,26 @@
                             {{ __('Edit Profile') }}
                         </div>
 
-                        <form class="w-full p-6" method="POST" action="{{ route('profile.update', $user->id) }}">
-                            @csrf                              
+                        <form class="w-full p-6" method="POST" action="{{ route('user.profile.update', $user->id) }}">
+                            @csrf      
+                            <div class="flex flex-wrap mb-6">
+                                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
+                                    {{ __('Name') }}:
+                                </label>
+
+                                <input id="name" type="text" class="form-input w-full" name="name" value="{{ $user->name }}" required>
+
+                            </div>                        
                             <div class="flex flex-wrap mb-6">
                                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
                                     {{ __('E-Mail Address') }}:
                                 </label>
 
-                                <input id="email" type="email" class="form-input w-full @error('email') border-red-500 @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-input w-full" name="email" value="{{ $user->email }}" required autocomplete="email">
 
-                                @error('email')
-                                    <p class="text-red-500 text-xs italic mt-4">
-                                        {{ $message }}
-                                    </p>
-                                @enderror
                             </div>
 
-                            {{-- <div class="flex flex-wrap mb-6">
+                            <div class="flex flex-wrap mb-6">
                                 <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
                                     {{ __('Password') }}:
                                 </label>
@@ -38,7 +41,20 @@
                                         {{ $message }}
                                     </p>
                                 @enderror
-                            </div> --}}
+                            </div> 
+                            <div class="flex flex-wrap mb-6">
+                                <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">
+                                    {{ __('Password Confirmation') }}:
+                                </label>
+
+                                <input id="password_confirmation" type="password" class="form-input w-full @error('password') border-red-500 @enderror" name="password_confirmation" required>
+
+                                @error('password_confirmation')
+                                    <p class="text-red-500 text-xs italic mt-4">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div> 
 
 
                             <div class="flex flex-wrap items-center">

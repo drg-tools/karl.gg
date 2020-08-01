@@ -3,8 +3,20 @@
 @section('content')
 
 <div class="profileHeaderBackground">
-    <div class="profileHeaderContainer profileImageS">
+    <div class="profileHeaderContainer {{$profileImgClass}}">
         <h1>{{$user->name}}</h1>
+
+        @if (Request()->id == Auth::id())
+        <div class="profileBtnContainer"> 
+            <a href="/profile/{{Auth::id()}}/edit">
+                <div class="button">
+                    <h1 class="buttonText">EDIT PROFILE</h1>
+                </div>
+            </a>
+        </div>
+        @endif
+        
+        
         <div class="profileFooter">
             <div class="data-container">
                 <h3>Loadouts</h3>

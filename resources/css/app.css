@@ -356,6 +356,9 @@ svg > a:hover {
     display: flex;
     padding: 20px;
 }
+.profileBtnContainer {
+    width: 20%;
+}
 
 /* Privacy policy */
 .body__privacy_policy p {
