@@ -34,7 +34,18 @@
         </div>
     </div>
     <div class="buttonColumn">
-
+        <modal :name="name" class="loadoutModal">
+            <h1 class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</h1>
+            <h2>{{this.name}}</h2>
+            <div class="buttonContainer">
+                <div class="button deleteBtn" v-on:click="onAcceptDelete">
+                    <h1 class="buttonText">DELETE</h1>
+                </div>
+                <div class="button" v-on:click="onCancelSave">
+                    <h1 class="buttonText">CANCEL</h1>
+                </div>
+            </div>
+        </modal>
              <div class="buttonContainer" v-if="editEnabled">
                 <div class="button" v-on:click="onEditLoadout">
                     <h1 class="buttonText">EDIT</h1>
@@ -42,7 +53,7 @@
             </div>
             
              <div class="buttonContainer" v-if="deleteEnabled">
-                <div class="button" v-on:click="onDeleteLoadout">
+                <div class="button" v-on:click="onDeleteLoadout(loadoutId)">
                     <h1 class="buttonText">DELETE</h1>
                 </div>
             </div>
@@ -66,6 +77,11 @@
             primary: String,
             secondary: String
         },
+        data() {
+            return {
+                deleteId: null
+            }
+        },
         components: {},
         computed: {
             getIconFromPath: function () {
@@ -87,10 +103,16 @@
             onEditLoadout: function () {
                 window.location.href = `${window.location.origin}/build/${this.loadoutId}`;
             },
-            onDeleteLoadout: function () {
-                console.log("delete");
-                /* todo: delete loadout */
-            }
+            onDeleteLoadout($loadoutId) {
+                this.deleteId = $loadoutId;
+                this.$modal.show(this.name);
+            },
+            onAcceptDelete: function () {
+                window.location.href = `${window.location.origin}/loadout/delete/${this.loadoutId}`;
+            },
+            onCancelSave() {
+                this.$modal.hide('deleteLoadoutModal');
+            },
         },
         apollo: {},
         mounted: function () {
@@ -213,5 +235,10 @@
             height: 2.2rem;
             background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
         }
+
+    .deleteBtn {
+        background: red;
+        color: white;
+    }
 
 </style>
