@@ -39,7 +39,7 @@
         },
         data() {
             return {
-                me: document.querySelector('meta[name="user-id"]').getAttribute('content')
+                me: this.$userId
             }
         },
         computed: {
@@ -52,7 +52,7 @@
                 return store.state.myLoadouts;
             },
             getDeleteStatus() {
-                if(this.UserId == this.me) {
+                if(this.UserId === this.me) {
                     this.canDelete = true;
                 }
                 return this.canDelete;
@@ -76,7 +76,7 @@
         },
         apollo: {},
         mounted: function () {
-            console.log('mounted featured loadouts'); 
+            console.log('mounted featured loadouts');
             console.log(this.me);
             this.getMyLoadouts().then((myLoadouts) => {
                 store.commit('setMyLoadoutsDataReady', {ready: true});

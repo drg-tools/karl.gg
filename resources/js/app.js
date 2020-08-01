@@ -52,7 +52,7 @@ import VModal from 'vue-js-modal';
 import VueApollo from 'vue-apollo';
 import VueClipboard from 'vue-clipboard2'
 import Vuelidate from 'vuelidate'
- 
+
 Vue.use(VueClipboard);
 Vue.config.productionTip = false;
 Vue.use(Toasted);
@@ -60,7 +60,7 @@ Vue.use(VModal);
 Vue.use(VueApollo);
 Vue.use(VPopover, {tooltip: true});
 Vue.use(Vuelidate)
-// credit to https://stackoverflow.com/questions/35070271/vue-js-components-how-to-truncate-the-text-in-the-slot-element-in-a-component 
+// credit to https://stackoverflow.com/questions/35070271/vue-js-components-how-to-truncate-the-text-in-the-slot-element-in-a-component
 // for this filter
 /** Vue Filters Start */
 Vue.filter('truncate', function (text, length, suffix) {
@@ -76,6 +76,8 @@ Vue.filter('truncate', function (text, length, suffix) {
 const apolloProvider = new VueApollo({
     defaultClient: Apollo
 });
+
+Vue.prototype.$userId = parseInt(document.querySelector("meta[name='user-id']").getAttribute('content'));
 
 const app = new Vue({
     el: '#app',

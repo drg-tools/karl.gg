@@ -17,7 +17,8 @@
                 </div>
                 <div class="buttonContainer">
                     <div class="button" v-on:click="onEditClick">
-                        <h1 class="buttonText">EDIT</h1>
+                        <h1 class="buttonText" v-if="userOwnsLoadout">EDIT</h1>
+                        <h1 class="buttonText" v-else>COPY</h1>
                     </div>
                     <input type="hidden" v-model="this.pageUrl"/>
                     <div class="button"
@@ -45,6 +46,7 @@
 <script>
     import store from '../store';
     import gql from 'graphql-tag';
+    import { get } from 'lodash';
 
     export default {
         name: 'PreviewHeader',
@@ -69,6 +71,9 @@
             getUserVotedState() {
                 // show bosco in disabled state if user has not yet voted or is not able to vote
                 return this.loadoutDetails.userVoted ? '' : 'disabled';
+            },
+            userOwnsLoadout() {
+                return get(this.loadoutDetails, 'authorId', false) === this.$userId;
             }
         },
         methods: {
@@ -94,7 +99,7 @@
                     classID: this.loadoutDetails.classId,
                     loadoutId: this.loadoutDetails.loadoutId
                 });
-                window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
+                // window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
             },
             onShareClick() {
                 console.log('generate share link without saving');
