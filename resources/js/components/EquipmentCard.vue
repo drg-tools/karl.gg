@@ -149,7 +149,6 @@
 
     .equipmentCardTitle {
         text-align: center;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }

@@ -99,7 +99,7 @@
                 }).catch(err => {
                     console.log('no logged in user', err);
                     this.messageTitle = 'Not logged in :(';
-                    this.messageText = 'You can save your loadout anonymously or log in first.';
+                    this.messageText = 'You can save your loadout anonymously or log in first. PLEASE NOTE: You will not be able to edit your build later. Only registered users can edit their builds.';
                     this.guest = true;
                     this.$modal.show('messageModal');
                     /* todo: keep loadout in local storage so his stuff is not lost when he goes to create an account.. */
