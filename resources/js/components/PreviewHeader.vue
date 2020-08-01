@@ -99,7 +99,7 @@
                     classID: this.loadoutDetails.classId,
                     loadoutId: this.loadoutDetails.loadoutId
                 });
-                // window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
+                window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
             },
             onShareClick() {
                 console.log('generate share link without saving');
