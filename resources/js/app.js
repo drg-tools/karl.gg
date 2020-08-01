@@ -77,7 +77,7 @@ const apolloProvider = new VueApollo({
     defaultClient: Apollo
 });
 
-Vue.prototype.$userId = parseInt(document.querySelector("meta[name='user-id']").getAttribute('content'));
+Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
 const app = new Vue({
     el: '#app',
