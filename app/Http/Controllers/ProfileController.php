@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
-
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -20,11 +19,12 @@ class ProfileController extends Controller
         $loadoutCount = $this->getLoadoutCount($id);
         $salutesCount = $this->getVoteCount($id);
         $loadoutsWithSalutes = $this->addSalutesToLoadoutsCollection($loadouts);
+
         return view('profile', ['user' => User::findOrFail($id), 'loadouts' => $loadoutsWithSalutes, 'loadoutCount' => $loadoutCount, 'salutesCount' => $salutesCount]);
     }
 
     /**
-     * Allow the current user to edit their current profile
+     * Allow the current user to edit their current profile.
      *
      * @param  int  $id
      * @return View
@@ -32,14 +32,15 @@ class ProfileController extends Controller
     public function editProfile(Request $request, $id)
     {
         $authUserId = \Auth::id();
-        if($authUserId == $id) {
+        if ($authUserId == $id) {
             // You are authenticated and trying to edit your profile
             return view('editprofile', ['user' => User::findOrFail($id)]);
         } else {
             // Do not allow a user to edit someone else's profile
-            return response()->view('errors.' . '403', [], 403);
+            return response()->view('errors.'.'403', [], 403);
         }
     }
+
     /**
      * Update the user's profile.
      *
@@ -50,39 +51,44 @@ class ProfileController extends Controller
     {
         // $request->user() returns an instance of the authenticated user...
     }
-    
 
-    private function getLoadoutsForUser($userId) {
+    private function getLoadoutsForUser($userId)
+    {
         $user = User::findOrFail($userId);
         $loadouts = $user->loadouts->all();
 
         return $loadouts;
     }
 
-    private function getLoadoutCount($userId) {
+    private function getLoadoutCount($userId)
+    {
         $user = User::findOrFail($userId);
         $loadoutCount = $user->loadouts->count();
 
         return $loadoutCount;
     }
 
-    private function getVoteCount($userId) {
+    private function getVoteCount($userId)
+    {
         $user = User::findOrFail($userId);
         $loadouts = $user->loadouts;
         $totalUpvotes = 0;
-        if($loadouts->count() > 0) {
+        if ($loadouts->count() > 0) {
             foreach ($loadouts as $key => $item) {
                 $upvotes = $item->upVotesCount();
                 $totalUpvotes = $totalUpvotes + $upvotes;
             }
         }
+
         return $totalUpvotes;
     }
 
-    private function addSalutesToLoadoutsCollection($loadouts) {
+    private function addSalutesToLoadoutsCollection($loadouts)
+    {
         foreach ($loadouts as $key => $loadout) {
             $loadout->salutes = $loadout->upVotesCount();
-         }
+        }
+
         return $loadouts;
     }
 }

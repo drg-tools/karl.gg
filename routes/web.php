@@ -43,7 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile/{id}/edit', 'ProfileController@editProfile')->where('id', '[0-9]+');
     Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')->name('profile.update')->where('id', '[0-9]+');
 
-
     Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);
     Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
 });
@@ -51,7 +50,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['role:super-admin'])->group(function () {
     Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
 });
-
 
 // todo: removed build view from middleware..
 Route::view('browse', 'loadouts.browse');
