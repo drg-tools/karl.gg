@@ -35,7 +35,7 @@ class GunCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => App\Character::class, // foreign key model
             'searchLogic' => function ($query, $column, $searchTerm) {
-                $query->orWhereHas('character', function ($q) use ($column, $searchTerm) {
+                $query->orWhereHas('character', function ($q) use ($searchTerm) {
                     $q->where('name', 'like', '%'.$searchTerm.'%');
                 });
             },
