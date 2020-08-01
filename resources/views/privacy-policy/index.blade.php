@@ -9,13 +9,13 @@
 <h3>Last updated May 07, 2020</h3>
 
 <p>
-Thank you for choosing to be part of our community at DRG Builds (“Company”, “we”, “us”, or “our”). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at admin@drg-builds.com.
+Thank you for choosing to be part of our community at Karl.gg (“Company”, “we”, “us”, or “our”). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at admin@karl.gg.
 </p>
 <p>
-When you visit our website https://drg-builds.com, and use our services, you trust us with your personal information. We take your privacy very seriously. In this privacy policy, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy policy that you do not agree with, please discontinue use of our Sites and our services.
+When you visit our website https://karl.gg, and use our services, you trust us with your personal information. We take your privacy very seriously. In this privacy policy, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy policy that you do not agree with, please discontinue use of our Sites and our services.
 </p>
 <p>
-This privacy policy applies to all information collected through our website (such as https://drg-builds.com), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the "Services"). 
+This privacy policy applies to all information collected through our website (such as https://karl.gg), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the "Services"). 
 </p>
 <p>
 Please read this privacy policy carefully as it will help you make informed decisions about sharing your personal information with us.
@@ -147,7 +147,7 @@ Google Analytics
 
 <p>If you are resident in the European Economic Area and you believe we are unlawfully processing your personal information, you also have the right to complain to your local data protection supervisory authority. You can find their contact details here: http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm.</p>
 
-<p>If you have questions or comments about your privacy rights, you may email us at admin@drg-builds.com.</p>
+<p>If you have questions or comments about your privacy rights, you may email us at admin@karl.gg.</p>
 
 <h3>Account Information</h3>
 
@@ -162,7 +162,7 @@ Google Analytics
 
 <h2>8. DATA BREACH</h2>
 
-<p>A privacy breach occurs when there is unauthorized access to or collection, use, disclosure or disposal of personal information. You will be notified about data breaches when DRG Builds believes you are likely to be at risk or serious harm. For example, a data breach may be likely to result in serious financial harm or harm to your mental or physical well-being. In the event that DRG Builds becomes aware of a security breach which has resulted or may result in unauthorized access, use or disclosure of personal information DRG Builds will promptly investigate the matter and notify the applicable Supervisory Authority not later than 72 hours after having become aware of it, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.</p>
+<p>A privacy breach occurs when there is unauthorized access to or collection, use, disclosure or disposal of personal information. You will be notified about data breaches when Karl.gg believes you are likely to be at risk or serious harm. For example, a data breach may be likely to result in serious financial harm or harm to your mental or physical well-being. In the event that Karl.gg becomes aware of a security breach which has resulted or may result in unauthorized access, use or disclosure of personal information Karl.gg will promptly investigate the matter and notify the applicable Supervisory Authority not later than 72 hours after having become aware of it, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.</p>
 
 
 <h2>9. CONTROLS FOR DO-NOT-TRACK FEATURES</h2>
@@ -188,15 +188,15 @@ We may update this privacy policy from time to time. The updated version will be
 
 <h2>12. HOW CAN YOU CONTACT US ABOUT THIS POLICY?</h2>
 <p>
-If you have questions or comments about this policy, you may email us at admin@drg-builds.com or by post to:
-DRG Builds<br /> 
+If you have questions or comments about this policy, you may email us at admin@karl.gg or by post to:
+Karl.gg<br /> 
 __________<br /> 
 __________<br /> 
 United States
 </p>
 
 <h3>HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?</h3>
-<p>Based on the laws of some countries, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please visit: admin@drg-builds.com. We will respond to your request within 30 days.</p>
+<p>Based on the laws of some countries, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please visit: admin@karl.gg. We will respond to your request within 30 days.</p>
 <p>
 This privacy policy was created using Termly’s Privacy Policy Generator.
 </p>

@@ -31,6 +31,7 @@ type Query {
     me: User @auth
     getVoteStatus(id: Int! @eq): Int!
     myLoadouts(userId: [Int!] @in(key: "user_id")): [Loadout!]! @all
+    deleteLoadout(id: ID!): Loadout @delete
 }
 
 type Mutation {
