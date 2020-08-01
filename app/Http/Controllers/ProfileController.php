@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Loadout;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -96,11 +96,12 @@ class ProfileController extends Controller
         $authUserId = \Auth::id();
         $loadout = Loadout::find($id);
         // dd($loadout);
-        if($authUserId == null) {
+        if ($authUserId == null) {
             return response()->view('errors.'.'403', [], 403);
-        } elseif($authUserId == $loadout->user_id) {
+        } elseif ($authUserId == $loadout->user_id) {
             Loadout::destroy($id);
-            return redirect('profile/' . $authUserId);
+
+            return redirect('profile/'.$authUserId);
         }
     }
 
