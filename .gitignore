@@ -19,3 +19,7 @@ VagrantFile
 .php_cs.cache
 public/js/app.js
 public/css/app.css
+
+# Generate IDE Helpers for GQL (Lighthouse)
+_lighthouse_ide_helper.php
+schema-directives.graphql

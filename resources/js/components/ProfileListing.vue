@@ -39,7 +39,7 @@
         },
         data() {
             return {
-                me: this.$userId
+                me: parseInt(this.$userId)
             }
         },
         computed: {
