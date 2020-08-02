@@ -31,6 +31,6 @@ class LoadoutPolicy
      */
     public function delete(User $user, Loadout $loadout)
     {
-        //
+        return $loadout->user_id === $user->id;
     }
 }
