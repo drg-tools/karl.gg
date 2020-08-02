@@ -35,12 +35,10 @@ karl.gg/loadouts/<loadoutId>
 ## modification-select (ModificationSelect.vue)
 */
 
-Route::view('test', 'test.example');
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('my-loadouts', 'LoadoutController@myLoadouts')->name('loadouts.my');
-    Route::get('favorites', 'LoadoutController@favorites')->name('loadouts.favorites');
     Route::get('profile/{id}/edit', 'ProfileController@editProfile')->where('id', '[0-9]+');
+
+    // TODO: need to review this
     Route::get('loadout/delete/{id}', 'ProfileController@deleteLoadout')->where('id', '[0-9]+');
     Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')->name('user.profile.update')->where('id', '[0-9]+');
 
@@ -57,9 +55,8 @@ Route::view('browse', 'loadouts.browse');
 Route::view('preview/{loadoutId}', 'loadouts.preview');
 Route::view('build', 'loadouts.create');
 Route::view('build/{loadoutId}', 'loadouts.create');
-Route::resource('loadouts', 'LoadoutController')->only(['index', 'show']);
 Route::view('/privacy-policy', 'privacy-policy.index');
-Route::get('/', 'LoadoutController@index');
+Route::view('/', 'loadouts.index');
 Route::get('profile/{id}', 'ProfileController@index')->name('user.profile')->where('id', '[0-9]+');
 Auth::routes();
 
