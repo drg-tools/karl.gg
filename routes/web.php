@@ -39,11 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile/{id}/edit', 'ProfileController@editProfile')->where('id', '[0-9]+');
 
     // TODO: need to review this
-    Route::get('loadout/delete/{id}', 'ProfileController@deleteLoadout')->where('id', '[0-9]+');
     Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')->name('user.profile.update')->where('id', '[0-9]+');
-
-    Route::resource('loadouts', 'LoadoutController')->except(['index', 'show']);
-    Route::resource('loadouts.favorites', 'Build\FavoriteController')->only('store');
 });
 
 Route::middleware(['role:super-admin'])->group(function () {
