@@ -10,6 +10,11 @@
 
         gtag('config', 'UA-165794980-1');
     </script>
+    <style>
+        #menu-toggle:checked + #menu {
+            display: block;
+        }
+    </style>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,17 +61,6 @@
     </div>
     <!-- todo: mobile menu without jquery/bootstrap -->
     @yield('scripts')
-    <script
-          src="https://code.jquery.com/jquery-3.5.1.min.js"
-          integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-          crossorigin="anonymous"></script>
-    <script>
-        (function() {
-            $('#mobile-menu-button').on('click', function () {
-                $('#mobile-menu').toggleClass('hidden md:hidden')
-            })
-        })();
-    </script>
 
 </body>
 </html>
