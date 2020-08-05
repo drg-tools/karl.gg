@@ -43,74 +43,74 @@
                         </div>
                     </div>
                 </div>
+                @hasrole('super-admin')
+                <svg class="navButton" height="49" width="154">
+                    <a href="/admin">
+                        <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
+                              stroke="#FC9E00" stroke-width="3"/>
+                        <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34"
+                              font-family="BebasNeue">ADMIN
+                        </text>
+                    </a>
+                </svg>
+                @endhasrole
             </div>
             <div>
-                    <div class="hidden md:block ml-4 flex items-center md:ml-6">
-                        @auth
-                        <!-- Profile dropdown -->
-                        <div class="ml-3 relative">
-                            <div class="dropdown dropdown-overwrite">
-                                <button
-                                    class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid dropdown-toggle"
-                                    type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <img class="h-8 w-8 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
-                                         alt=""/>
-                                </button>
+                <div class="hidden md:block ml-4 flex items-center md:ml-6">
+                    @auth
+                    <!-- Profile dropdown -->
+                    <div class="ml-3 relative">
+                        <div class="dropdown dropdown-overwrite">
+                            <button
+                                class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid dropdown-toggle"
+                                type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <img class="h-8 w-8 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
+                                     alt=""/>
+                            </button>
 
-                                <div
-                                    class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu"
-                                    aria-labelledby="user-menu">
-                                    <a href="{{ route('user.profile', ['id' => Auth::id()]) }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
-                                       role="menuitem">Your Profile</a>
-                                    @hasrole('super-admin')
-                                    <a href="{{ route('settings.tokens') }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
-                                       role="menuitem">Settings</a>
-                                    @endhasrole
-                                    <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
-                                       href="{{ route('logout') }}" role="menuitem"
-                                       onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                        {{ __('Sign out') }}
-                                    </a>
+                            <div
+                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu"
+                                aria-labelledby="user-menu">
+                                <a href="{{ route('user.profile', ['id' => Auth::id()]) }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
+                                   role="menuitem">Your Profile</a>
+                                @hasrole('super-admin')
+                                <a href="{{ route('settings.tokens') }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
+                                   role="menuitem">Settings</a>
+                                @endhasrole
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
+                                   href="{{ route('logout') }}" role="menuitem"
+                                   onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                    {{ __('Sign out') }}
+                                </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
-                        @endauth
-                        @guest
-                            <div>
-                                <svg class="{{ (\Request::is('login')) ? 'navButtonActive' : 'navButton' }}" height="49"
-                                     width="154">
-                                    <a href="/login">
-                                        <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
-                                              stroke="#FC9E00" stroke-width="3"/>
-                                        <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
-                                              font-size="34" font-family="BebasNeue">LOGIN
-                                        </text>
-                                    </a>
-                                </svg>
-                            </div>
-                        @endguest
-                        @hasrole('super-admin')
-                        <svg class="navButton" height="49" width="154">
-                            <a href="/admin">
-                                <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
-                                      stroke="#FC9E00" stroke-width="3"/>
-                                <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34"
-                                      font-family="BebasNeue">ADMIN
-                                </text>
-                            </a>
-                        </svg>
-                        @endhasrole
                     </div>
-                    <div class="-mr-2 flex md:hidden text-white">
+                    @endauth
+                    @guest
+                        <div>
+                            <svg class="{{ (\Request::is('login')) ? 'navButtonActive' : 'navButton' }}" height="49"
+                                 width="154">
+                                <a href="/login">
+                                    <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
+                                          stroke="#FC9E00" stroke-width="3"/>
+                                    <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+                                          font-size="34" font-family="BebasNeue">LOGIN
+                                    </text>
+                                </a>
+                            </svg>
+                        </div>
+                    @endguest
+                </div>
+                <div class="-mr-2 flex md:hidden text-white">
                         <!-- Mobile menu button -->
                         <button
                             id="mobile-menu-button"
@@ -140,6 +140,9 @@
             <a href="/" class="{{ \Request::is('/') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Home</a>
             <a href="/browse" class="{{  \Request::is('browse') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Browse</a>
             <a href="/build" class="{{ \Request::is('build')  || \Request::is('preview/*') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Build</a>
+            @hasrole('super-admin')
+            <a href="/admin" class="{{ \Request::is('admin') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Admin</a>
+            @endhasrole
         </div>
         <div class="pt-4 pb-3 border-t border-gray-700">
             @auth
