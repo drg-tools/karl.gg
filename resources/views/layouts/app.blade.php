@@ -64,7 +64,7 @@
             $('#mobile-menu-button').on('click', function () {
                 $('#mobile-menu').toggleClass('hidden')
             })
-        })();
+        });
     </script>
     @yield('scripts')
 

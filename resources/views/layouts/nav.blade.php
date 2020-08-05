@@ -1,5 +1,5 @@
 <nav class="navMenu">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="hidden md:block">
@@ -30,7 +30,6 @@
                             </svg>
                         </div>
                         <div>
-                            <!-- todo: how can i have class active if url is build/xyz? -->
                             <svg class="{{ (\Request::is('build')) ? 'navButtonActive' : 'navButton' }}" height="49"
                                  width="154">
                                 <a href="/build">
@@ -46,9 +45,8 @@
                 </div>
             </div>
             <div>
-                @auth
                     <div class="hidden md:block ml-4 flex items-center md:ml-6">
-
+                        @auth
                         <!-- Profile dropdown -->
                         <div class="ml-3 relative">
                             <div class="dropdown dropdown-overwrite">
@@ -60,28 +58,6 @@
                                          alt=""/>
                                 </button>
 
-
-                            {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div> --}}
-                            <!--
-                          Profile dropdown panel, show/hide based on dropdown state.
-
-                          Entering: "transition ease-out duration-100"
-                            From: "transform opacity-0 scale-95"
-                            To: "transform opacity-100 scale-100"
-                          Leaving: "transition ease-in duration-75"
-                            From: "transform opacity-100 scale-100"
-                            To: "transform opacity-0 scale-95"
-                        -->
                                 <div
                                     class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu"
                                     aria-labelledby="user-menu">
@@ -153,32 +129,31 @@
                     </div>
             </div>
         </div>
-
-        <!--
+    </div>
+    <!--
           Mobile menu, toggle classes based on menu state.
 
           Open: "block", closed: "hidden"
         -->
-        <div class="hidden md:hidden block" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 sm:px-3">
-                <a href="/" class="{{ \Request::is('/') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Home</a>
-                <a href="/browse" class="{{  \Request::is('browse') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Browse</a>
-                <a href="/build" class="{{ \Request::is('build')  || \Request::is('preview/*') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Build</a>
-            </div>
-            <div class="pt-4 pb-3 border-t border-gray-700">
-                @auth
-                    <div class="flex items-center px-5">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
-                                 alt=""/>
-                        </div>
+    <div class="hidden md:hidden block" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 sm:px-3">
+            <a href="/" class="{{ \Request::is('/') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Home</a>
+            <a href="/browse" class="{{  \Request::is('browse') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Browse</a>
+            <a href="/build" class="{{ \Request::is('build')  || \Request::is('preview/*') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Build</a>
+        </div>
+        <div class="pt-4 pb-3 border-t border-gray-700">
+            @auth
+                <div class="flex items-center px-5">
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
+                             alt=""/>
                     </div>
-                @endauth
-                @guest
-                    <a href="/login"
-                       class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Login</a>
-                @endguest
-            </div>
+                </div>
+            @endauth
+            @guest
+                <a href="/login"
+                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Login</a>
+            @endguest
         </div>
     </div>
 </nav>
