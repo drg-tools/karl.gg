@@ -187,6 +187,7 @@
                 };
                 console.log('send variables', variables);
                 // Call to the graphql mutation
+                /* todo: 'user_id' cannot be null when saving as a guest */
                 const result = await this.$apollo.mutate({
                     // Query
                     mutation: gql`mutation (

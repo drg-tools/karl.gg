@@ -167,8 +167,8 @@
                                 classId: loadoutDetails.classId,
                                 equipmentType: 'primaryWeapons',
                                 equipmentId: primary.id,
-                                chosenOverclock: primary.overclocks[0].overclock_index,
-                                chosenOverclockId: primary.overclocks[0].overclockId
+                                chosenOverclock: primary.overclocks[0].overclock_index - 1, // index from backend starts at one, frontend array starts at 0
+                                chosenOverclockId: primary.overclocks[0].id
                             });
                         }
                         let secondary = loadoutDetails.secondaryWeapons[0];
@@ -189,8 +189,8 @@
                                 classId: loadoutDetails.classId,
                                 equipmentType: 'secondaryWeapons',
                                 equipmentId: secondary.id,
-                                chosenOverclock: secondary.overclocks[0].overclock_index,
-                                chosenOverclockId: secondary.overclocks[0].overclockId
+                                chosenOverclock: secondary.overclocks[0].overclock_index - 1, // index from backend starts at one, frontend array starts at 0
+                                chosenOverclockId: secondary.overclocks[0].id
                             });
                         }
                         if (loadoutDetails.equipments && loadoutDetails.equipments.length > 0) {
