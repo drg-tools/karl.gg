@@ -328,6 +328,13 @@
                     totalCost.err += cost.err;
                 }
 
+                if (this.equipment.eq_type === 'Armor' || this.equipment.eq_type === 'Support Tool') {
+                    return {
+                        stats: stats,
+                        cost: totalCost,
+                        visible: visible
+                    };
+                }
                 return {
                     stats: stats,
                     cost: totalCost,

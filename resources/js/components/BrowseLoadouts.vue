@@ -128,7 +128,7 @@
                         field: 'lastUpdate',
                         type: 'date',
                         dateInputFormat: 'yyyy-MM-dd',
-                        dateOutputFormat: 'dd.MM.yyyy',
+                        dateOutputFormat: 'yyyy-MM-dd',
                         width: '8rem'
                     }
                 ],

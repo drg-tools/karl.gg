@@ -118,7 +118,7 @@
     .equipmentCards {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         -ms-overflow-style: -ms-autohiding-scrollbar;

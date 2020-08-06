@@ -1190,6 +1190,7 @@ export default new Vuex.Store({
                 classId: characterIdToChar[indices.loadout.character.id],
                 created_at: indices.loadout.created_at,
                 updated_at: indices.loadout.updated_at,
+                lastUpdate: new Date(indices.loadout.updated_at).toISOString().split('T')[0],
                 author: indices.loadout.creator ? indices.loadout.creator.name : 'Anonymous',
                 authorId: indices.loadout.creator ? indices.loadout.creator.id : undefined,
                 description: indices.loadout.description,
