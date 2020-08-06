@@ -27,6 +27,7 @@
                          v-clipboard:error="onError">
                         <h1 class="buttonText">SHARE</h1>
                     </div>
+                    <!-- todo: use texts from old karl and style toast messages -->
                 </div>
             </div>
         </div>

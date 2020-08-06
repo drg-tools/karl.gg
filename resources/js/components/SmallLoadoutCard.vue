@@ -1,5 +1,5 @@
 <template>
-    <div class="loadoutCards wide">
+    <div class="myLoadoutsContainer">
         <div class="loadoutCardContainer" v-on:click="onLoadoutClick">
             <div class="titleRow">
                 <div class="titleContentLeft">
@@ -62,56 +62,56 @@
 </template>
 
 <script>
-  import store from '../store'
-  import gql from 'graphql-tag'
+    import store from '../store';
+    import gql from 'graphql-tag';
 
-  export default {
-    name: 'LoadoutCard',
-    props: {
-      loadoutId: String,
-      editEnabled: Boolean,
-      deleteEnabled: Boolean,
-      name: String,
-      author: String,
-      classId: String,
-      votes: Number,
-      primary: String,
-      secondary: String
-    },
-    data () {
-      return {
-        deleteId: null
-      }
-    },
-    components: {},
-    computed: {
-      getIconFromPath: function () {
-        return `../assets/img/50px-${this.classId}_icon.png`
-      },
-      getPrimaryIcon: function () {
-        return store.state.icons.equipment[this.primary]
-      },
-      getSecondaryIcon: function () {
-        return store.state.icons.equipment[this.secondary]
-      }
-    },
-    methods: {
-      onLoadoutClick: function (event) {
-        if (event.target.className !== 'button' && event.target.className !== 'buttonText') {
-          window.location.href = `${window.location.origin}/preview/${this.loadoutId}`
-        }
-      },
-      onEditLoadout: function () {
-        window.location.href = `${window.location.origin}/build/${this.loadoutId}`
-      },
-      onDeleteLoadout ($loadoutId) {
-        this.deleteId = $loadoutId
-        this.$modal.show(this.name)
-      },
-      onAcceptDelete: async function () {
-        await this.$apollo.mutate({
-          // Query
-          mutation: gql`mutation (
+    export default {
+        name: 'LoadoutCard',
+        props: {
+            loadoutId: String,
+            editEnabled: Boolean,
+            deleteEnabled: Boolean,
+            name: String,
+            author: String,
+            classId: String,
+            votes: Number,
+            primary: String,
+            secondary: String
+        },
+        data() {
+            return {
+                deleteId: null
+            };
+        },
+        components: {},
+        computed: {
+            getIconFromPath: function () {
+                return `../assets/img/50px-${this.classId}_icon.png`;
+            },
+            getPrimaryIcon: function () {
+                return store.state.icons.equipment[this.primary];
+            },
+            getSecondaryIcon: function () {
+                return store.state.icons.equipment[this.secondary];
+            }
+        },
+        methods: {
+            onLoadoutClick: function (event) {
+                if (event.target.className !== 'button' && event.target.className !== 'buttonText') {
+                    window.location.href = `${window.location.origin}/preview/${this.loadoutId}`;
+                }
+            },
+            onEditLoadout: function () {
+                window.location.href = `${window.location.origin}/build/${this.loadoutId}`;
+            },
+            onDeleteLoadout($loadoutId) {
+                this.deleteId = $loadoutId;
+                this.$modal.show(this.name);
+            },
+            onAcceptDelete: async function () {
+                await this.$apollo.mutate({
+                    // Query
+                    mutation: gql`mutation (
                     $id: ID!
                     ) {
                         deleteLoadout(
@@ -122,34 +122,34 @@
                           description
                         }
                       }`,
-          // Parameters
-          variables: {id: this.loadoutId}
-        })
+                    // Parameters
+                    variables: {id: this.loadoutId}
+                });
 
-        location.reload()
-      },
-      onCancelSave () {
-        this.$modal.hide('deleteLoadoutModal')
-      },
-    },
-    apollo: {},
-    mounted: function () {
-      console.log('mounted loadout card')
-      console.log(this.loadoutId)
-      console.log(this.name)
-      console.log(this.author)
-      console.log(this.classId)
-      console.log(this.primary)
-      console.log(this.secondary)
-    }
-  }
+                location.reload();
+            },
+            onCancelSave() {
+                this.$modal.hide('deleteLoadoutModal');
+            }
+        },
+        apollo: {},
+        mounted: function () {
+            console.log('mounted loadout card');
+            console.log(this.loadoutId);
+            console.log(this.name);
+            console.log(this.author);
+            console.log(this.classId);
+            console.log(this.primary);
+            console.log(this.secondary);
+        }
+    };
 </script>
 <!-- todo: screw the border or make the whole card svg-->
 <style scoped>
     .loadoutCardContainer {
         display: flex;
         flex-wrap: nowrap;
-        width: 28.3rem;
+        width: 100%;
         height: 5.3rem;
         flex-direction: column;
         border-top: 5px solid #fc9e00;
@@ -166,6 +166,10 @@
         fill: #ffffff;
     }
 
+    /* todo: make responsive */
+    .myLoadoutsContainer > .loadoutCardContainer {
+        width: 28rem;
+    }
 
     .titleRow {
         display: flex;
@@ -231,12 +235,19 @@
         fill: #ADA195;
     }
 
-    .loadoutCards.wide {
+    /* todo: make responsive */
+    .myLoadoutsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: start;
+        padding-bottom: 0.5rem;
         width: 60%;
+        justify-content: space-between;
         margin: auto;
     }
 
-    .body__home .loadoutCards.wide {
+    /* todo: re-work css for loadout cards so it behaves properly in featured loadouts and profile view. kinda messed up now */
+    .body__home .myLoadoutsContainer {
         width: 100%;
     }
 
