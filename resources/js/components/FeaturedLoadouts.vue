@@ -180,13 +180,15 @@
         justify-content: space-between;
     }
 
+    /* todo: fix */
     .loadoutCards {
         width: 48%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
-        padding-bottom: 2rem;
+        align-content: start;
+        padding-bottom: 1rem;
     }
+
     @media (max-width: 770px) {
         .loadoutCards {
             width: 100%;

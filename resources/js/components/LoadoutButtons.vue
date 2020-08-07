@@ -7,12 +7,16 @@
             <div class="error" v-if="!$v.name.required">Field is required</div>
             <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
 
-            <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout" :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
+            <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout"
+                   :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
             <h2>Description</h2>
             <div class="error" v-if="!$v.description.required">Field is required</div>
-            <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}} characters.</div>
+            <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}}
+                characters.
+            </div>
             <textarea v-model="$v.description.$model" class="modalDescriptionInput"
                       placeholder="Deep Rock really need to invest in some better equipment."></textarea>
+            <!-- todo: disable buttons while data is loading! -->
             <div class="buttonContainer">
                 <div class="button" v-on:click="onAcceptSave">
                     <h1 class="buttonText">SAVE</h1>
@@ -50,7 +54,7 @@
     import store from '../store';
     import apolloQueries from '../apolloQueries';
     import gql from 'graphql-tag';
-    import { required, maxLength } from 'vuelidate/lib/validators';
+    import {required, maxLength} from 'vuelidate/lib/validators';
 
     export default {
         name: 'LoadoutButtons',
@@ -62,7 +66,7 @@
                 messageText: '',
                 update: false,
                 guest: false,
-                submitStatus: null,
+                submitStatus: null
             };
         },
         validations: {
@@ -135,38 +139,38 @@
                     let loadoutData = store.getters.getLoadoutForUpdate();
                     loadoutData.name = this.name;
                     loadoutData.description = this.description;
-                    this.$v.$touch()
+                    this.$v.$touch();
                     if (this.$v.$invalid) {
-                        this.submitStatus = 'ERROR'
+                        this.submitStatus = 'ERROR';
                         console.log('error state applied.');
                     } else {
                         if (this.update) {
-                                // this user created the loadout, so let him update it instead of creating a new one
-                                console.log('update loadout', loadoutData);
-                                this.updateLoadout(loadoutData).then(result => {
-                                    console.log('got result back', result);
-                                    this.name = '';
-                                    this.description = '';
-                                    this.$modal.hide('loadoutNameModal');
-                                    let redirId = result.data.updateLoadout.id;
-                                    window.location.href = `/preview/${redirId}`;
-                                    /* todo: show success messages and redirect to loadout preview */
-                                });
-                            } else {
-                                // create fresh loadout
-                                console.log('create loadout', loadoutData);
-                                this.createLoadout(loadoutData).then(result => {
-                                    console.log('got result back', result);
-                                    this.name = '';
-                                    this.description = '';
-                                    this.$modal.hide('loadoutNameModal');
-                                    // Get the new loadout id
-                                    let redirId = result.data.createLoadout.id;
-                                    window.location.href = `/preview/${redirId}`;
-                                    /* todo: show success messages and redirect to loadout preview */
-                                });
-                            }
+                            // this user created the loadout, so let him update it instead of creating a new one
+                            console.log('update loadout', loadoutData);
+                            this.updateLoadout(loadoutData).then(result => {
+                                console.log('got result back', result);
+                                this.name = '';
+                                this.description = '';
+                                this.$modal.hide('loadoutNameModal');
+                                let redirId = result.data.updateLoadout.id;
+                                window.location.href = `/preview/${redirId}`;
+                                /* todo: show success messages and redirect to loadout preview */
+                            });
+                        } else {
+                            // create fresh loadout
+                            console.log('create loadout', loadoutData);
+                            this.createLoadout(loadoutData).then(result => {
+                                console.log('got result back', result);
+                                this.name = '';
+                                this.description = '';
+                                this.$modal.hide('loadoutNameModal');
+                                // Get the new loadout id
+                                let redirId = result.data.createLoadout.id;
+                                window.location.href = `/preview/${redirId}`;
+                                /* todo: show success messages and redirect to loadout preview */
+                            });
                         }
+                    }
                 }
             },
             onCancelSave() {
@@ -187,6 +191,7 @@
                 };
                 console.log('send variables', variables);
                 // Call to the graphql mutation
+                /* todo: 'user_id' cannot be null when saving as a guest */
                 const result = await this.$apollo.mutate({
                     // Query
                     mutation: gql`mutation (

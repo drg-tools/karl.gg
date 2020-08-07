@@ -1277,6 +1277,7 @@ export default new Vuex.Store({
         },
         selectLoadoutMods: (state, indices) => {
             if (!state.loadoutCreator.modSelections[indices.equipmentType][indices.equipmentId]) {
+                // nothing has been selected for this equipment yet, prepare empty object
                 state.loadoutCreator.modSelections[indices.equipmentType][indices.equipmentId] = {
                     modString: [],
                     modIds: [],
@@ -1299,6 +1300,7 @@ export default new Vuex.Store({
         },
         selectLoadoutOverclocks: (state, indices) => {
             if (!state.loadoutCreator.modSelections[indices.equipmentType][indices.equipmentId]) {
+                // nothing has been selected for this equipment yet, prepare empty object
                 state.loadoutCreator.modSelections[indices.equipmentType][indices.equipmentId] = {
                     modString: [],
                     modIds: [],
@@ -1310,16 +1312,14 @@ export default new Vuex.Store({
 
             let itemsForEquipmentType = state.loadoutCreator.baseData[indices.classId][indices.equipmentType];
             let selectedEquipment = itemsForEquipmentType.filter(equipment => equipment.id === indices.equipmentId);
+
             // de-select all
             for (let overclock of selectedEquipment[0].overclocks) {
                 Vue.set(overclock, 'selected', false);
             }
-            // select mod
-            if (!indices.chosenOverclockId) {
-                // when loading existing loadout
-                Vue.set(selectedEquipment[0].overclocks[indices.chosenOverclock - 1], 'selected', true);
-            } else if (indices.chosenOverclock >= 0) {
-                // when selecting overclock
+
+            // select overclock
+            if (indices.chosenOverclock >= 0) {
                 Vue.set(selectedEquipment[0].overclocks[indices.chosenOverclock], 'selected', true);
             }
         },

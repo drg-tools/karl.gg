@@ -260,7 +260,6 @@
         },
         methods: {
             selectMod(classId, equipmentId, tierId, modIndex, modId, selected) {
-                console.log("mod id", modId)
                 if (selected) {
                     store.commit('selectLoadoutMods', {
                         classId: classId,
@@ -289,7 +288,6 @@
                 });
             },
             selectOverclock(classId, equipmentId, overclockIndex, overclockId, selected) {
-                console.log("oc id", overclockId)
                 if (selected) {
                     store.commit('selectLoadoutOverclocks', {
                         classId: classId,
