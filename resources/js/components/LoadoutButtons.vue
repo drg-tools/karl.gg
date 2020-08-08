@@ -10,7 +10,6 @@
             <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout"
                    :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
             <h2>Description</h2>
-            <div class="error" v-if="!$v.description.required">Field is required</div>
             <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}}
                 characters.
             </div>
@@ -75,8 +74,7 @@
                 maxLength: maxLength(255)
             },
             description: {
-                required,
-                maxLength: maxLength(500)
+                maxLength: maxLength(5000)
             }
         },
         methods: {
@@ -135,7 +133,7 @@
                 }
             },
             onAcceptSave() {
-                if (!!this.name && !!this.description) {
+                if (!!this.name) {
                     let loadoutData = store.getters.getLoadoutForUpdate();
                     loadoutData.name = this.name;
                     loadoutData.description = this.description;
@@ -196,7 +194,7 @@
                     // Query
                     mutation: gql`mutation (
                     $name: String!,
-                    $description: String!,
+                    $description: String,
                     $character_id: Int!,
                     $mods: [Int!]!,
                     $overclocks: [Int!]!,
@@ -240,7 +238,7 @@
                     mutation: gql`mutation (
                     $id: Int!,
                     $name: String!,
-                    $description: String!,
+                    $description: String,
                     $character_id: Int!,
                     $mods: [Int!]!,
                     $overclocks: [Int!]!,
