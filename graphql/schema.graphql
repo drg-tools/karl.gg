@@ -199,7 +199,7 @@ type EquipmentMod {
 type Loadout {
     id: ID!
     name: String!
-    description: String!
+    description: String
     character: Character @belongsTo
     creator: User @belongsTo
     mods: [Mod!] @belongsToMany
