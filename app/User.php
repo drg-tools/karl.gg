@@ -2,13 +2,19 @@
 
 namespace App;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+use Nagy\LaravelRating\Traits\Like\CanLike;
+use Nagy\LaravelRating\Traits\Rate\CanRate;
+use Nagy\LaravelRating\Traits\Vote\CanVote;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, Favoriteability;
+    use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanRate, CanVote, CanLike;
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +24,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
+
+    public $guard_name = 'backpack';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -37,8 +45,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function builds()
+    public function loadouts()
     {
-        return $this->hasMany(Build::class);
+        return $this->hasMany(Loadout::class);
     }
 }

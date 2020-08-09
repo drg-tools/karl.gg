@@ -1,79 +1,127 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## DRG Builds
+[![StyleCI](https://github.styleci.io/repos/260825558/shield?branch=master)](https://github.styleci.io/repos/260825558)
 
-## About Laravel
+### Requirements
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Docker
+- PHP (if not running in a container)
+- Node / NPM
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Local Development
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Install dependencies: 
 
-## Learning Laravel
+```bash
+composer install && \
+  npm install
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Copy and fill out env `cp .env.example .env`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Start services:
 
-## Laravel Sponsors
+```bash
+## In one terminal tab
+docker-compose up
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## In another
+php artisan serve
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-- [云软科技](http://www.yunruan.ltd/)
+## And another
+npm run watch
+```
 
-## Contributing
+- Get database migrated and seeded
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+php artisan migrate --seed
+```
 
-## Code of Conduct
+- Install passport keys (run once)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan passport:install
+```
 
-## Security Vulnerabilities
+- Default admin user is `admin@admin.com` / `adminadmin`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Lint / Styles
 
-## License
+We use the `laravel` code style which enforces things like where to put new lines, spaces, etc.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+We use [StyleCI](https://styleci.io/) to help keep us in check, but you can also run the style fixer locally.
+
+To check if you are in compliance run:
+
+```bash
+composer check-style
+```
+
+To automatically fix the violations, run:
+
+```bash
+composer fix-style
+```
+
+Worst case scenario, StyleCI will make a PR against yours to fix any style issues and mark the PR as failed.
+
+### Frontend Components
+
+All of the frontend components live in `resources/js/components`. All of these components are automatically
+registered and compiled. To add into a rendered view, simply open the view and add the component. For example, if
+you wanted to add a component to the create build screen, simply open `resources/views/builds/create.blade.php`. If
+your component was called `CharacterBuilderComponent.vue`, you would just pop in
+`<character-builder-component></character-builder-component>`
+
+As long as you are running the frontend build process via `npm run watch`, you will have realtime compilation.
+
+### Backend Components
+
+## Admin Panel
+We have implemented an admin panel, which includes CRUD interfaces for all models (excluding the incoming Build Statistics model). We are using a framework called [Backpack](https://backpackforlaravel.com/docs/4.1/introduction) to run our admin panel. In order to get this installed locally, you will have to run a couple of commands. This should be a set-and-forget situation, so once you run this you won't have to run again -- excluding sitations where you destroy your local environment.
+
+### Install Backpack
+
+```bash
+## install updated dependencies
+composer install
+
+## install backpack
+php artisan backpack:install
+
+## run migrations
+php artisan migrate
+
+## you may have to delete existing user for this
+## run db seeders
+php artisan db:seed
+## if you have errors, you can try individually:
+php artisan db:seed --class=RolesAndPermissionsSeeder
+
+php artisan db:seed --class=UserSeeder
+
+## if you get errors while seeding, run
+composer dump-autoload
+```
+
+Finally, it's always a good idea to:
+```bash
+## clear config cache and cache new one
+php artisan config:cache
+```
+
+
+Please raise issues as you have them, and we can add debug info if any of these commands fail.
+
+### Access the Admin Panel
+Once you have run your install, you can authenticate to the admin panel with the newly seeded DB credentials. Go to: `https://yoursite.local/admin` and enter your credentials, Email: `admin@test.com` Pass: `adminadmin`. You will then be able to access a basic CRUD interface for all current Models.
+
+This is the base-level setup for the admin panel, and we can continue to add features from here as needed.
+
+### Permissions Manager
+Now that we have an admin panel, we need to have a permissions system in place to eventually guard it from normal users. Luckily, Backpack has integrated a good package for this. We now have a users, permissions and roles management system in place. 
+
+We have implemented a basic admin role, as well as basic checks on the admin panel to see if you are the proper role. Make sure to login and give yourself access to the admin panel on a new account if you want.
+
+You can find all these settings by clicking on "Authentication" in the admin panel side-nav.

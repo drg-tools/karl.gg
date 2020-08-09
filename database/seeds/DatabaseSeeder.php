@@ -13,6 +13,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CharacterSeeder::class);
         $this->call(GunSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(OverclockSeeder::class);
+        $this->call(ModStatSeeder::class);
+        $this->call(EquipmentSeeder::class);
+        $this->call(EquipmentModSeeder::class);
+        $this->call(ThrowableSeeder::class);
+        $this->call(LoadoutSeeder::class);
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto">
+    <div class="container mx-auto loginPage">
         <div class="flex flex-wrap justify-center">
             <div class="w-full max-w-sm">
                 <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
@@ -15,7 +15,7 @@
 
                         <div class="flex flex-wrap mb-6">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
-                                {{ __('Name') }}:
+                                {{ __('Display Name') }}:
                             </label>
 
                             <input id="name" type="text" class="form-input w-full @error('name')  border-red-500 @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>

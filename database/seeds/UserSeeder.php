@@ -12,9 +12,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         factory(App\User::class)->create([
-            'name' => 'Chase',
-            'email' => 'rawr@rawr.com',
-            'password' => bcrypt('rawrrawr'),
-        ]);
+            'name' => 'admin',
+            'email' => 'admin@test.com',
+            'password' => bcrypt('adminadmin'),
+        ])->assignRole('super-admin');
     }
 }
