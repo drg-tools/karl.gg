@@ -224,7 +224,52 @@
                         store.commit('setDataReady', {ready: true});
                     });
                 } else if (loadoutId === 'R') {
-                    console.log('get random loadout');
+                    // random loadout
+                    let characterIds = ['D', 'E', 'G', 'S'];
+                    let randomId = Math.floor(Math.random() * Math.floor(4));
+                    let classId = characterIds[randomId];
+                    let randomPrimary = Math.floor(Math.random() * Math.floor(2));
+                    let randomSecondary = Math.floor(Math.random() * Math.floor(2)) + 2;
+                    this.getCharacterData(classId).then(character => {
+                        store.commit('selectLoadoutClass', {
+                            classId: classId,
+                            chosenPrimaryId: character.guns[randomPrimary].id,
+                            chosenSecondaryId: character.guns[randomSecondary].id
+                        });
+
+                        const selectRandomMods = (equipment, equipmentType) => {
+                            for (let tierId in equipment.mods) {
+                                let tier = equipment.mods[tierId];
+                                let randomModId = Math.floor(Math.random() * Math.floor(tier.length));
+                                let randomMod = tier[randomModId];
+                                store.commit('selectLoadoutMods', {
+                                    classId: classId,
+                                    equipmentType: equipmentType,
+                                    equipmentId: equipment.id,
+                                    tierId: tierId,
+                                    chosenMod: randomModId,
+                                    chosenModId: randomMod.id
+                                });
+                            }
+                            if (equipment.overclocks) {
+                                let randomOverclockId = Math.floor(Math.random() * Math.floor(equipment.overclocks.length));
+                                let randomOverclock = equipment.overclocks[randomOverclockId];
+                                store.commit('selectLoadoutOverclocks', {
+                                    classId: classId,
+                                    equipmentType: equipmentType,
+                                    equipmentId: equipment.id,
+                                    chosenOverclock: randomOverclockId,
+                                    chosenOverclockId: randomOverclock.id
+                                });
+                            }
+                        };
+                        selectRandomMods(character.guns[randomPrimary], 'primaryWeapons');
+                        selectRandomMods(character.guns[randomSecondary], 'secondaryWeapons');
+                        for (let equipment of character.equipments) {
+                            selectRandomMods(equipment, 'equipments');
+                        }
+                        store.commit('setDataReady', {ready: true});
+                    });
                 } else {
                     // get character data directly
                     this.getCharacterData(this.selectedClass).then(character => {
