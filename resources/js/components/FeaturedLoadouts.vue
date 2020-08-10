@@ -58,7 +58,6 @@
 </template>
 
 <script>
-    import LoadoutCard from './LoadoutCard.vue';
     import SmallLoadoutCard from './SmallLoadoutCard.vue';
     import store from '../store';
     import apolloQueries from '../apolloQueries';
@@ -83,7 +82,6 @@
     export default {
         name: 'FeaturedLoadouts',
         components: {
-            LoadoutCard,
             SmallLoadoutCard
         },
         computed: {
@@ -150,17 +148,14 @@
                 const response = await this.$apollo.query({
                     query: gql`${apolloQueries.popularLoadouts}`
                 });
-                console.log('response', response);
                 store.commit('setPopularLoadouts', {loadouts: response.data.loadouts});
                 return store.state.popularLoadouts;
             }
         },
         apollo: {},
         mounted: function () {
-            console.log('mounted featured loadouts');
             this.getPopularLoadouts().then((popularLoadouts) => {
                 store.commit('setPopularDataReady', {ready: true});
-                console.log('done with popular loadouts', popularLoadouts);
             });
         }
     };

@@ -134,8 +134,6 @@ const charToCharacterId = {E: 1, S: 2, D: 3, G: 4};
 
 /* todo: put helper functions into their own module */
 const groupByEquipment = (mods, overclocks, equipment_mods, state) => {
-    console.log('mods', mods);
-    console.log('overclocks', overclocks);
     let primaryWeapons = [];
     let secondaryWeapons = [];
     let equipments = [];
@@ -270,7 +268,6 @@ const transformMods = (items) => {
 
 const transformLoadouts = (loadouts, state) => {
     return loadouts.map(loadout => {
-        console.log('transform loadout', loadout);
         let dummyWeapons = {
             D: {
                 primaryId: '9',
@@ -1048,17 +1045,14 @@ export default new Vuex.Store({
             if (indices.selectedEquipmentType === 'primaryWeapons') {
                 let primaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].primaryWeapons;
                 let selectedPrimaryWeapon = primaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
-                console.log('data for primary', selectedPrimaryWeapon[0]);
                 return selectedPrimaryWeapon[0];
             } else if (indices.selectedEquipmentType === 'secondaryWeapons') {
                 let secondaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].secondaryWeapons;
                 let selectedSecondaryWeapon = secondaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
-                console.log('data for secondary', selectedSecondaryWeapon[0]);
                 return selectedSecondaryWeapon[0];
             } else if (indices.selectedEquipmentType === 'equipments') {
                 let equipments = state.loadoutCreator.baseData[indices.selectedClassId].equipments;
                 let selectedEquipment = equipments.filter(equipment => equipment.id === indices.selectedEquipmentId);
-                console.log('data for equipment', selectedEquipment[0]);
                 return selectedEquipment[0];
             } else {
                 return {};
@@ -1069,17 +1063,14 @@ export default new Vuex.Store({
             if (indices.selectedEquipmentType === 'primaryWeapons') {
                 let primaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].primaryWeapons;
                 let selectedPrimaryWeapon = primaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
-                console.log('mods for primary', selectedPrimaryWeapon[0].mods);
                 return selectedPrimaryWeapon[0].mods;
             } else if (indices.selectedEquipmentType === 'secondaryWeapons') {
                 let secondaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].secondaryWeapons;
                 let selectedSecondaryWeapon = secondaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
-                console.log('mods for secondary', selectedSecondaryWeapon[0].mods);
                 return selectedSecondaryWeapon[0].mods;
             } else if (indices.selectedEquipmentType === 'equipments') {
                 let equipments = state.loadoutCreator.baseData[indices.selectedClassId].equipments;
                 let selectedEquipment = equipments.filter(equipment => equipment.id === indices.selectedEquipmentId);
-                console.log('mods for equipment', selectedEquipment[0].mods);
                 return selectedEquipment[0].mods;
             } else {
                 return {};
@@ -1089,25 +1080,20 @@ export default new Vuex.Store({
             if (indices.selectedEquipmentType === 'primaryWeapons') {
                 let primaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].primaryWeapons;
                 let selectedPrimaryWeapon = primaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
-                console.log('overclocks for primary', selectedPrimaryWeapon[0].overclocks);
                 return selectedPrimaryWeapon[0].overclocks;
             } else if (indices.selectedEquipmentType === 'secondaryWeapons') {
                 let secondaryWeapons = state.loadoutCreator.baseData[indices.selectedClassId].secondaryWeapons;
                 let selectedSecondaryWeapon = secondaryWeapons.filter(weapon => weapon.id === indices.selectedEquipmentId);
-                console.log('overclocks for secondary', selectedSecondaryWeapon[0].overclocks);
                 return selectedSecondaryWeapon[0].overclocks;
             } else {
                 return {};
             }
         },
         getLoadoutForUpdate: state => indices => {
-
             let loadoutCreator = state.loadoutCreator;
-            console.log('loadoutCreator state', loadoutCreator);
             let primaryWeaponMods = loadoutCreator.modSelections.primaryWeapons[state.loadoutCreator.chosenPrimaryId];
             let secondaryWeaponMods = loadoutCreator.modSelections.secondaryWeapons[state.loadoutCreator.chosenSecondaryId];
             let equipments = loadoutCreator.modSelections.equipments;
-            console.log('mods primary', primaryWeaponMods);
             let equipmentMods = [];
             for (let equipmentId in equipments) {
                 equipmentMods.push(...equipments[equipmentId].modIds);
@@ -1142,7 +1128,6 @@ export default new Vuex.Store({
                 }
                 return array;
             }, []);
-            console.log('return loadout data');
             return {
                 loadout_id: state.loadoutDetails.loadoutId,
                 character_id: charToCharacterId[state.loadoutCreator.selectedClassId],
@@ -1162,7 +1147,6 @@ export default new Vuex.Store({
         },
         setPopularLoadouts: (state, indices) => {
             let loadouts = transformLoadouts(indices.loadouts, state);
-            console.log('transformed loadouts', loadouts);
             Vue.set(state, 'popularLoadouts', loadouts);
         },
         setBrowseDataReady: (state, indices) => {
@@ -1170,7 +1154,6 @@ export default new Vuex.Store({
         },
         setBrowseLoadouts: (state, indices) => {
             let loadouts = transformLoadouts(indices.loadouts, state);
-            console.log('transformed loadouts', loadouts);
             Vue.set(state, 'browseLoadouts', loadouts);
         },
         setMyLoadouts: (state, indices) => {
@@ -1184,7 +1167,6 @@ export default new Vuex.Store({
             Vue.set(state, 'loadoutDetailDataReady', indices.ready);
         },
         setLoadoutDetails: (state, indices) => {
-            console.log('set loadout details updated at', indices.loadout);
             let loadoutMods = groupByEquipment(indices.loadout.mods, indices.loadout.overclocks, indices.loadout.equipment_mods, state);
             let loadout = {
                 classId: characterIdToChar[indices.loadout.character.id],
@@ -1255,9 +1237,6 @@ export default new Vuex.Store({
 
             state.loadoutCreator.selectedEquipmentId = indices.chosenPrimaryId ? indices.chosenPrimaryId : state.loadoutCreator.baseData[indices.classId].primaryWeapons[0].id;
             state.loadoutCreator.selectedEquipmentType = 'primaryWeapons';
-
-            console.log('data for selected class', state.loadoutCreator.baseData[indices.classId]);
-            console.log(state.loadoutCreator);
         },
         selectLoadoutEquipment: (state, indices) => {
             if (indices.character_slot === 1) {
@@ -1273,7 +1252,6 @@ export default new Vuex.Store({
             } else if (indices.character_slot === 2) {
                 state.loadoutCreator.chosenSecondaryId = indices.equipmentId;
             }
-            console.log('loadout creator state', state.loadoutCreator);
         },
         selectLoadoutMods: (state, indices) => {
             if (!state.loadoutCreator.modSelections[indices.equipmentType][indices.equipmentId]) {
@@ -1326,7 +1304,6 @@ export default new Vuex.Store({
         setLoadoutCreatorBaseData: (state, indices) => {
             let classId = indices.classId;
             let baseData = indices.baseData;
-            console.log(`base data for ${classId}`, baseData);
             let primaryWeapons = baseData.guns.filter(gun => gun.character_slot === 1);
             let secondaryWeapons = baseData.guns.filter(gun => gun.character_slot === 2);
             Vue.set(state.loadoutCreator.baseData, classId, {
@@ -1335,7 +1312,6 @@ export default new Vuex.Store({
                 equipments: transformMods(baseData.equipments),
                 throwables: baseData.throwables
             });
-            console.log('data ready', state.loadoutCreator.baseData[classId]);
         },
         addToHovered: (state, indices) => {
             let currentEquipment = state.loadoutCreator.baseData[indices.classId][indices.equipmentType].filter(equipment => equipment.id === indices.equipmentId)[0];

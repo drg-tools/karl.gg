@@ -5,20 +5,20 @@
     <div v-else-if="dataReady" class="featuredLoadoutsContainer">
         <h1>MY LOADOUTS</h1>
         <div class="cardGroups">
-                <!-- todo: could also use table -->
-                <SmallLoadoutCard
-                    v-for="(loadout, id) in myLoadouts()"
-                    :key="id"
-                    :editEnabled="true"
-                    :deleteEnabled="getDeleteStatus()"
-                    :loadoutId="loadout.loadoutId"
-                    :name="loadout.name"
-                    :author="loadout.author"
-                    :classId="loadout.classId"
-                    :votes="loadout.votes"
-                    :primary="loadout.primary"
-                    :secondary="loadout.secondary"/>
-            </div>
+            <!-- todo: could also use table -->
+            <SmallLoadoutCard
+                v-for="(loadout, id) in myLoadouts()"
+                :key="id"
+                :editEnabled="true"
+                :deleteEnabled="getDeleteStatus()"
+                :loadoutId="loadout.loadoutId"
+                :name="loadout.name"
+                :author="loadout.author"
+                :classId="loadout.classId"
+                :votes="loadout.votes"
+                :primary="loadout.primary"
+                :secondary="loadout.secondary"/>
+        </div>
     </div>
 </template>
 
@@ -40,7 +40,7 @@
         data() {
             return {
                 me: parseInt(this.$userId)
-            }
+            };
         },
         computed: {
             dataReady() {
@@ -52,7 +52,8 @@
                 return store.state.myLoadouts;
             },
             getDeleteStatus() {
-                if(this.UserId === this.me) {
+                if (this.UserId === this.me) {
+                    // todo: Avoid mutating a prop directly. Instead, use a data or computed property based on the prop's value.
                     this.canDelete = true;
                 }
                 return this.canDelete;
@@ -69,18 +70,14 @@
                         userId: this.UserId
                     }
                 });
-                console.log('response', response);
                 store.commit('setMyLoadouts', {loadouts: response.data.myLoadouts});
                 return store.state.myLoadouts;
-            },
+            }
         },
         apollo: {},
         mounted: function () {
-            console.log('mounted featured loadouts');
-            console.log(this.me);
             this.getMyLoadouts().then((myLoadouts) => {
                 store.commit('setMyLoadoutsDataReady', {ready: true});
-                console.log('done with my loadouts', myLoadouts);
             });
         }
     };

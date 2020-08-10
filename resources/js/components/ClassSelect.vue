@@ -47,13 +47,11 @@
         },
         methods: {
             selectClass: function (classId) {
-                console.log('select', classId);
                 store.commit('setDataReady', {ready: false});
                 this.getCharacterData(classId).then(response => {
                     /* todo: chosen primary and chosen secondary ids are not correct when switching characters */
                     let chosenPrimaryId = response.primaryWeapons ? response.primaryWeapons[0].id : response.guns[0].id;
                     let chosenSecondaryId = response.secondaryWeapons ? response.secondaryWeapons[0].id : response.guns[2].id;
-                    console.log('char data response', response);
                     store.commit('selectLoadoutClass', {
                         classId: classId,
                         chosenPrimaryId: chosenPrimaryId,
@@ -63,13 +61,12 @@
                 });
             },
             async getCharacterData(classId) {
-                console.log('get character data for', classId);
                 let id = charToId[classId];
                 if (store.state.loadoutCreator.baseData[classId]) {
-                    console.log('base data already there');
+                    // base data already there
                     return store.state.loadoutCreator.baseData[classId];
                 } else {
-                    console.log('fetch base data from graphql');
+                    // fetch base data from graphql
                     const response = await this.$apollo.query({
                         query: gql`${apolloQueries.characterById(id)}`
                     });
@@ -125,16 +122,11 @@
             }*/
         },
         mounted: function () {
-            console.log('class select mounted');
-
             let path = window.location.pathname.split('/');
             let loadoutId = path[path.length - 1];
             if (path.length === 3 && !isNaN(parseInt(loadoutId))) {
                 // if there is a loadout, load it first to see what class it is! then load character data and set selected class
-                console.log('get loadout by id', loadoutId);
                 this.getLoadoutDetails(loadoutId).then((loadoutDetails) => {
-                    console.log('done with loadout details', loadoutDetails);
-
                     let chosenPrimaryId = loadoutDetails.primaryWeapons[0] ? loadoutDetails.primaryWeapons[0].id : undefined;
                     let chosenSecondaryId = loadoutDetails.secondaryWeapons[0] ? loadoutDetails.secondaryWeapons[0].id : undefined;
 
@@ -208,7 +200,6 @@
                             }
                         }
                         store.commit('setDataReady', {ready: true});
-                        console.log('loaded char base data', character);
                     });
                 });
             } else {
@@ -274,7 +265,6 @@
                     // get character data directly
                     this.getCharacterData(this.selectedClass).then(character => {
                         store.commit('setDataReady', {ready: true});
-                        console.log('loaded char base data', character);
                     });
                 }
             }

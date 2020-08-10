@@ -1,10 +1,12 @@
 <template>
     <div class="callToActionContainer">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 900 250" preserveAspectRatio="xMinYMin meet">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             viewBox="0 0 900 250" preserveAspectRatio="xMinYMin meet">
             <image width="900" height="250" xlink:href="../assets/img/karl-hero-wide.png">
             </image>
             <a xlink:href="/build/D" class="hoverEffect">
-                <rect x="500" y="100" fill="#fff" fill-opacity="0" stroke="#000" stroke-opacity="0"  stroke-width="5" stroke-linecap="butt" width="70" height="150" ></rect>
+                <rect x="500" y="100" fill="#fff" fill-opacity="0" stroke="#000" stroke-opacity="0" stroke-width="5"
+                      stroke-linecap="butt" width="70" height="150"></rect>
             </a>
         </svg>
     </div>
@@ -18,7 +20,6 @@
         methods: {},
         apollo: {},
         mounted: function () {
-            console.log("mounted call to action")
         }
     };
 </script>
@@ -33,14 +34,17 @@
     .wideHero {
         display: inherit;
     }
+
     @media (max-width: 770px) {
         .wideHero {
             display: none;
         }
     }
+
     .highHero {
         display: none;
     }
+
     @media (max-width: 770px) {
         .highHero {
             display: inherit;
