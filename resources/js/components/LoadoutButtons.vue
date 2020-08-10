@@ -2,19 +2,21 @@
     <div class="buttonContainer">
         <!-- todo: show loading spinner in modals -->
         <modal name="loadoutNameModal" class="loadoutModal">
-            <h1 class="modalTitle">Name your loadout, miner!</h1>
-            <h2>Name</h2>
-            <div class="error" v-if="!$v.name.required">Field is required</div>
-            <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
+            <div class="contentContainer">
+                <h1 class="modalTitle">Name your loadout, miner!</h1>
+                <h2>Name</h2>
+                <div class="error" v-if="!$v.name.required">Field is required</div>
+                <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
 
-            <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout"
-                   :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
-            <h2>Description</h2>
-            <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}}
-                characters.
+                <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout"
+                       :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
+                <h2>Description</h2>
+                <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}}
+                    characters.
+                </div>
+                <textarea v-model="$v.description.$model" class="modalDescriptionInput"
+                          placeholder="Deep Rock really need to invest in some better equipment."></textarea>
             </div>
-            <textarea v-model="$v.description.$model" class="modalDescriptionInput"
-                      placeholder="Deep Rock really need to invest in some better equipment."></textarea>
             <!-- todo: disable buttons while data is loading! -->
             <div class="buttonContainer">
                 <div class="button" v-on:click="onAcceptSave">
@@ -26,8 +28,10 @@
             </div>
         </modal>
         <modal name="messageModal" class="loadoutModal">
-            <h1 class="modalTitle">{{messageTitle}}</h1>
-            <h2>{{messageText}}</h2>
+            <div class="contentContainer">
+                <h1 class="modalTitle">{{messageTitle}}</h1>
+                <h2>{{messageText}}</h2>
+            </div>
             <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
             <div class="buttonContainer">
                 <div class="button guest-btn" v-on:click="onGuestSave">

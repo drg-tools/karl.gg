@@ -265,6 +265,7 @@
     table.vgt-table td {
         color: #ffffff;
         border-bottom: 3px solid #4d422e;
+        vertical-align: middle;
     }
 
     table.vgt-table td.tableClassIcon {

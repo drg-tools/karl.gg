@@ -33,8 +33,10 @@
         </div>
         <!-- todo: style modals nicely -->
         <modal name="upvoteMessageModal" class="loadoutModal">
-            <h1 class="modalTitle">{{messageTitle}}</h1>
-            <h2>{{messageText}}</h2>
+            <div class="contentContainer">
+                <h1 class="modalTitle">{{messageTitle}}</h1>
+                <h2>{{messageText}}</h2>
+            </div>
             <div class="buttonContainer">
                 <div class="button" v-on:click="onCloseMessageModal">
                     <h1 class="buttonText">CLOSE</h1>

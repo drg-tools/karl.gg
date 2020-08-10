@@ -35,8 +35,10 @@
         </div>
         <div class="buttonColumn">
             <modal :name="name" class="loadoutModal">
-                <h1 class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</h1>
-                <h2>{{this.name}}</h2>
+                <div class="contentContainer">
+                    <h1 class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</h1>
+                    <h2>{{this.name}}</h2>
+                </div>
                 <div class="buttonContainer">
                     <div class="button deleteBtn" v-on:click="onAcceptDelete">
                         <h1 class="buttonText">DELETE</h1>
