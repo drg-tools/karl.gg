@@ -55,7 +55,6 @@
 
 <script>
     import store from '../store';
-    import apolloQueries from '../apolloQueries';
     import gql from 'graphql-tag';
     import {required, maxLength} from 'vuelidate/lib/validators';
 

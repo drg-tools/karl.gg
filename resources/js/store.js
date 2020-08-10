@@ -1,63 +1,34 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 // imports for driller equipment
-import D_E_Armor from './equipment/D_E_Armor.js';
-import D_E_Satchel from './equipment/D_E_Satchel.js';
 import D_E_Satchel_SVG from './assets/D_E_Satchel.js';
-import D_E_Drill from './equipment/D_E_Drill.js';
 import D_E_Drill_SVG from './assets/D_E_Drill.js';
-import D_P1_CRSPR from './equipment/D_P1_CRSPR.js';
 import D_P1_CRSPR_SVG from './assets/D_P1_CRSPR.js';
-import D_P2_Cryo from './equipment/D_P2_Cryo.js';
 import D_P2_Cryo_SVG from './assets/D_P2_Cryo.js';
-import D_S1_Subata from './equipment/D_S1_Subata.js';
 import D_S1_Subata_SVG from './assets/D_S1_Subata.js';
-import D_S2_Plasma from './equipment/D_S2_Plasma.js';
 import D_S2_Plasma_SVG from './assets/D_S2_Plasma.js';
 // imports for engineer equipment
-import E_E_Armor from './equipment/E_E_Armor.js';
-import E_E_Sentry from './equipment/E_E_Sentry.js';
 import E_E_Sentry_SVG from './assets/E_E_Sentry.js';
-import E_E_Platform from './equipment/E_E_Platform.js';
 import E_E_Platform_SVG from './assets/E_E_Platform.js';
-import E_P1_Warthog from './equipment/E_P1_Warthog.js';
 import E_P1_Warthog_SVG from './assets/E_P1_Warthog.js';
-import E_P2_Stubby from './equipment/E_P2_Stubby.js';
 import E_P2_Stubby_SVG from './assets/E_P2_Stubby.js';
-import E_S1_PGL from './equipment/E_S1_PGL.js';
 import E_S1_PGL_SVG from './assets/E_S1_PGL.js';
-import E_S2_Breach from './equipment/E_S2_Breach.js';
 import E_S2_Breach_SVG from './assets/E_S2_Breach.js';
 // imports for gunner equipment
-import G_E_Armor from './equipment/G_E_Armor.js';
-import G_E_Shield from './equipment/G_E_Shield.js';
 import G_E_Shield_SVG from './assets/G_E_Shield.js';
-import G_E_Zipline from './equipment/G_E_Zipline.js';
 import G_E_Zipline_SVG from './assets/G_E_Zipline.js';
-import G_P1_Lead from './equipment/G_P1_Lead.js';
 import G_P1_Lead_SVG from './assets/G_P1_Lead.js';
-import G_P2_Thunder from './equipment/G_P2_Thunder.js';
 import G_P2_Thunder_SVG from './assets/G_P2_Thunder.js';
-import G_S1_Bulldog from './equipment/G_S1_Bulldog.js';
 import G_S1_Bulldog_SVG from './assets/G_S1_Bulldog.js';
-import G_S2_Burst from './equipment/G_S2_Burst.js';
 import G_S2_Burst_SVG from './assets/G_S2_Burst.js';
 // imports for scout equipment
-import S_E_Armor from './equipment/S_E_Armor.js';
-import S_E_Flare from './equipment/S_E_Flare.js';
 import S_E_Flare_SVG from './assets/S_E_Flare.js';
-import S_E_Grapling from './equipment/S_E_Grapling.js';
 import S_E_Grapling_SVG from './assets/S_E_Grapling.js';
-import S_P1_GK2 from './equipment/S_P1_GK2.js';
 import S_P1_GK2_SVG from './assets/S_P1_GK2.js';
-import S_P2_M1000 from './equipment/S_P2_M1000.js';
 import S_P2_M1000_SVG from './assets/S_P2_M1000.js';
-import S_S1_Jury from './equipment/S_S1_Jury.js';
 import S_S1_Jury_SVG from './assets/S_S1_Jury.js';
-import S_S2_Zhuk from './equipment/S_S2_Zhuk.js';
 import S_S2_Zhuk_SVG from './assets/S_S2_Zhuk.js';
 // imports for robot equipment
-import R_P1_Bosco from './equipment/R_P1_Bosco.js';
 import R_P1_Bosco_SVG from './assets/R_P1_Bosco.js';
 // imports for shared equipment
 import X_E_Armor_SVG from './assets/X_E_Armor.js';
@@ -309,8 +280,6 @@ const transformLoadouts = (loadouts, state) => {
 
 export default new Vuex.Store({
     state: {
-        loadedFromLink: false,
-        loadedOverclockFromLink: false,
         loadoutCreator: {
             selectedClassId: 'D',
             selectedEquipmentType: 'primaryWeapons',
@@ -880,19 +849,7 @@ export default new Vuex.Store({
             }
 
         ],
-        selected: {
-            class: 'D',
-            equipment: 'P1',
-            slot1: 0,
-            slot2: 0,
-            slot3: 0,
-            slot4: 0,
-            slot5: 0,
-            overclock: 0
-        },
-        dataParts: {},
         hovered: {},
-        testJS: D_P1_CRSPR_SVG,
         icons: {
             equipment: {
                 X_E_Armor: X_E_Armor_SVG,
@@ -984,47 +941,6 @@ export default new Vuex.Store({
                 Icon_Overclock_SmallBullets: Icon_Overclock_SmallBullets,
                 Icon_Overclock_Special_Magazine: Icon_Overclock_Special_Magazine,
                 Icon_Overclock_Spinning_Linecutter: Icon_Overclock_Spinning_Linecutter
-            }
-        },
-        tree: {
-            D: {
-                P1: D_P1_CRSPR,
-                P2: D_P2_Cryo,
-                S1: D_S1_Subata,
-                S2: D_S2_Plasma,
-                E1: D_E_Satchel,
-                E2: D_E_Drill,
-                E3: D_E_Armor
-            },
-            E: {
-                P1: E_P1_Warthog,
-                P2: E_P2_Stubby,
-                S1: E_S1_PGL,
-                S2: E_S2_Breach,
-                E1: E_E_Sentry,
-                E2: E_E_Platform,
-                E3: E_E_Armor
-            },
-            G: {
-                P1: G_P1_Lead,
-                P2: G_P2_Thunder,
-                S1: G_S1_Bulldog,
-                S2: G_S2_Burst,
-                E1: G_E_Shield,
-                E2: G_E_Zipline,
-                E3: G_E_Armor
-            },
-            S: {
-                P1: S_P1_GK2,
-                P2: S_P2_M1000,
-                S1: S_S1_Jury,
-                S2: S_S2_Zhuk,
-                E1: S_E_Flare,
-                E2: S_E_Grapling,
-                E3: S_E_Armor
-            },
-            R: {
-                P1: R_P1_Bosco
             }
         }
     },
@@ -1323,14 +1239,6 @@ export default new Vuex.Store({
                 Vue.set(state, 'hovered', hoveredOverclock);
             }
 
-            /*let hoveredStatKey = Object.keys(state.hovered.stats)[0];
-            let hoveredStat = state.hovered.stats[hoveredStatKey];
-            let baseStat = state.tree[indizes.classID][indizes.equipID].baseStats[hoveredStatKey];
-            let increase = 0;
-            if (baseStat.value !== 0) {
-                increase = (hoveredStat.value / baseStat.value) * 100;
-            }
-            state.hovered.increase = increase;*/
         }
     },
     actions: {}

@@ -116,9 +116,6 @@
             },
             isUnstableOverclock: function () {
                 return this.getOverclockData.overclock_type === 'Unstable';
-            },
-            isSelected: function () {
-                return store.state.selected.class === this.classId;
             }
         },
         methods: {
