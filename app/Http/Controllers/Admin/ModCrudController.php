@@ -107,7 +107,7 @@ class ModCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'character', // the relationship name in your Model
+            'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Character",
@@ -115,7 +115,7 @@ class ModCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'gun', // the relationship name in your Model
+            'name' => 'gun_id', // the relationship name in your Model
             'entity' => 'gun', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Gun",
@@ -159,7 +159,7 @@ class ModCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'patch_number_index',
+            'name' => 'patch_id',
             'label' => 'Patch Number Index',
             'type' => 'text',
             'tab' => 'Base Info',
@@ -233,7 +233,7 @@ class ModCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'character', // the relationship name in your Model
+            'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Character",
@@ -241,7 +241,7 @@ class ModCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'gun', // the relationship name in your Model
+            'name' => 'gun_id', // the relationship name in your Model
             'entity' => 'gun', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Gun",
@@ -285,7 +285,7 @@ class ModCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'patch_number_index',
+            'name' => 'patch_id',
             'label' => 'Patch Number Index',
             'type' => 'text',
             'tab' => 'Base Info',
