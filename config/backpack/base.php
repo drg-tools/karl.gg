@@ -105,7 +105,7 @@ return [
     // change background color with bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan, bg-white
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'DRG Builds',
+    'developer_name' => 'Karl: Born Ready',
 
     // Developer website. Link in footer. Type false if you want to hide it.
     'developer_link' => 'https://karl.gg',
