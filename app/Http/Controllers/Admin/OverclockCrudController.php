@@ -107,7 +107,7 @@ class OverclockCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'character', // the relationship name in your Model
+            'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Character",
@@ -115,7 +115,7 @@ class OverclockCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'gun', // the relationship name in your Model
+            'name' => 'gun_id', // the relationship name in your Model
             'entity' => 'gun', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Gun",
@@ -143,13 +143,13 @@ class OverclockCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'mod_type',
-            'label' => 'Mod Type',
+            'name' => 'overclock_type',
+            'label' => 'Overclock Type',
             'type' => 'text',
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'patch_number_index',
+            'name' => 'patch_id',
             'label' => 'Patch Number Index',
             'type' => 'text',
             'tab' => 'Base Info',
@@ -223,7 +223,7 @@ class OverclockCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'character', // the relationship name in your Model
+            'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Character",
@@ -231,7 +231,7 @@ class OverclockCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'gun', // the relationship name in your Model
+            'name' => 'gun_id', // the relationship name in your Model
             'entity' => 'gun', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Gun",
@@ -260,13 +260,13 @@ class OverclockCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'mod_type',
-            'label' => 'Mod Type',
+            'name' => 'overclock_type',
+            'label' => 'Overclock Type',
             'type' => 'text',
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'patch_number_index',
+            'name' => 'patch_id',
             'label' => 'Patch Number Index',
             'type' => 'text',
             'tab' => 'Base Info',
