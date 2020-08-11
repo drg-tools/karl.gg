@@ -54,6 +54,7 @@ import Icon_Upgrade_DamageGeneral from './assets/mods/Icon_Upgrade_DamageGeneral
 import Icon_Upgrade_DefenseOne from './assets/mods/Icon_Upgrade_DefenseOne.js';
 import Icon_Upgrade_Digging from './assets/mods/Icon_Upgrade_Digging.js';
 import Icon_Upgrade_Duration from './assets/mods/Icon_Upgrade_Duration.js';
+import Icon_Upgrade_Duration_Old from './assets/mods/Icon_Upgrade_Duration_Old.js';
 import Icon_Upgrade_Electricity from './assets/mods/Icon_Upgrade_Electricity.js';
 import Icon_Upgrade_Explosion from './assets/mods/Icon_Upgrade_Explosion.js';
 import Icon_Upgrade_Explosive from './assets/mods/Icon_Upgrade_Explosive.js';
@@ -900,6 +901,7 @@ export default new Vuex.Store({
                 Icon_Upgrade_DefenseOne: Icon_Upgrade_DefenseOne,
                 Icon_Upgrade_Digging: Icon_Upgrade_Digging,
                 Icon_Upgrade_Duration: Icon_Upgrade_Duration,
+                Icon_Upgrade_Duration_Old: Icon_Upgrade_Duration_Old,
                 Icon_Upgrade_Electricity: Icon_Upgrade_Electricity,
                 Icon_Upgrade_Explosion: Icon_Upgrade_Explosion,
                 Icon_Upgrade_Explosive: Icon_Upgrade_Explosive,
