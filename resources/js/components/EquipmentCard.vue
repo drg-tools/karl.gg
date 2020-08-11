@@ -100,7 +100,6 @@
                 return this.equipmentName;
             },
             getModMatrix: function () {
-                console.log(`mod matrix for ${this.equipmentName}`, this.modMatrix)
                 return this.modMatrix;
             },
             getOverclockData: function () {
@@ -117,14 +116,11 @@
             },
             isUnstableOverclock: function () {
                 return this.getOverclockData.overclock_type === 'Unstable';
-            },
-            isSelected: function () {
-                return store.state.selected.class === this.classId;
             }
         },
         methods: {
             navToBuildView() {
-                console.log('nav to build view', {classID: this.classId, equipmentId: this.equipmentId});
+                // todo: nav to build view with {classID: this.classId, equipmentId: this.equipmentId}?
             },
             getCleanDisplayByOverclock: function (overclock) {
                 return overclock.type === 'Clean' ? 'inherit' : 'none';

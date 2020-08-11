@@ -6,7 +6,8 @@
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
             <h1>{{loadoutDetails.name}}</h1>
             <!-- todo: style this! -->
-            <h2>by <a class="authorLink" :href="'/profile/' + loadoutDetails.authorId" >{{loadoutDetails.author}}</a> on {{loadoutDetails.lastUpdate}}</h2>
+            <h2>by <a class="authorLink" :href="'/profile/' + loadoutDetails.authorId">{{loadoutDetails.author}}</a> on
+                {{loadoutDetails.lastUpdate}}</h2>
             <h2 class="loadoutDescription">{{loadoutDetails.description}}</h2>
             <div class="previewFooter">
                 <!-- todo: tooltip on salutes container! -->
@@ -33,8 +34,10 @@
         </div>
         <!-- todo: style modals nicely -->
         <modal name="upvoteMessageModal" class="loadoutModal">
-            <h1 class="modalTitle">{{messageTitle}}</h1>
-            <h2>{{messageText}}</h2>
+            <div class="contentContainer">
+                <h1 class="modalTitle">{{messageTitle}}</h1>
+                <h2>{{messageText}}</h2>
+            </div>
             <div class="buttonContainer">
                 <div class="button" v-on:click="onCloseMessageModal">
                     <h1 class="buttonText">CLOSE</h1>
@@ -47,7 +50,7 @@
 <script>
     import store from '../store';
     import gql from 'graphql-tag';
-    import { get } from 'lodash';
+    import {get} from 'lodash';
 
     export default {
         name: 'PreviewHeader',
@@ -82,10 +85,9 @@
                 // toggle vote
                 let userVoted = this.loadoutDetails.userVoted;
                 this.setVotes(this.loadoutDetails.loadoutId).then(numberOfVotes => {
-                    console.log('new votes result', numberOfVotes);
                     store.commit('setLoadoutVotedState', {userVoted: !userVoted, newNumberOfVotes: numberOfVotes});
                 }).catch(err => {
-                    console.log('error voting', err);
+                    console.warn('error voting', err);
                     // user cannot vote!
                     this.messageTitle = 'Cannot vote :(';
                     this.messageText = 'Sorry, you need to be signed in to vote on Loadouts.';
@@ -96,14 +98,10 @@
                 this.$modal.hide('upvoteMessageModal');
             },
             onEditClick() {
-                console.log('nav to build view', {
-                    classID: this.loadoutDetails.classId,
-                    loadoutId: this.loadoutDetails.loadoutId
-                });
                 window.location.href = `${window.location.origin}/build/${this.loadoutDetails.loadoutId}`;
             },
             onShareClick() {
-                console.log('generate share link without saving');
+                // todo: generate share link without saving
             },
             onCopy: function (e) {
                 this.$toasted.info('You just copied: ' + this.pageUrl, {
@@ -133,14 +131,12 @@
                     });
                     return result.data.upVoteLoadout.votes;
                 } catch (err) {
-                    console.log('error on voting!');
+                    console.warn('error on voting!', err);
                     throw(err);
                 }
             }
         },
         mounted: function () {
-            console.log('loadout preview header mounted');
-            console.log(this.pageUrl);
         }
     };
 </script>
@@ -220,6 +216,7 @@
         display: block;
         margin: auto;
     }
+
     .loadoutDescription {
         white-space: break-spaces;
     }

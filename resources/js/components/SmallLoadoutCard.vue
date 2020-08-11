@@ -35,8 +35,10 @@
         </div>
         <div class="buttonColumn">
             <modal :name="name" class="loadoutModal">
-                <h1 class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</h1>
-                <h2>{{this.name}}</h2>
+                <div class="contentContainer">
+                    <h1 class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</h1>
+                    <h2>{{this.name}}</h2>
+                </div>
                 <div class="buttonContainer">
                     <div class="button deleteBtn" v-on:click="onAcceptDelete">
                         <h1 class="buttonText">DELETE</h1>
@@ -134,13 +136,6 @@
         },
         apollo: {},
         mounted: function () {
-            console.log('mounted loadout card');
-            console.log(this.loadoutId);
-            console.log(this.name);
-            console.log(this.author);
-            console.log(this.classId);
-            console.log(this.primary);
-            console.log(this.secondary);
         }
     };
 </script>

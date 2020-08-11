@@ -154,8 +154,6 @@
 <script>
     import EquipmentComponent from './EquipmentComponent.vue';
     import store from '../store';
-    import apolloQueries from '../apolloQueries';
-    import gql from 'graphql-tag';
 
     const charToId = {
         D: 3,

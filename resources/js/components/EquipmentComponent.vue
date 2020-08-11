@@ -56,7 +56,6 @@
         },
         methods: {
             selectEquipment() {
-                console.log(this.equipmentId);
                 store.commit('selectLoadoutEquipment', {
                     equipmentId: this.equipmentId,
                     character_slot: this.character_slot

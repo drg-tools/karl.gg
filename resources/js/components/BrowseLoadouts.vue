@@ -165,7 +165,6 @@
                 return store.state.browseLoadouts;
             },
             onRowClick: function (params) {
-                console.log('nav to preview', params.row.classId, params.row.loadoutId);
                 window.location.href = `${window.location.origin}/preview/${params.row.loadoutId}`;
             },
             toggleFilter: function (classId) {
@@ -178,10 +177,8 @@
         },
         apollo: {},
         mounted: function () {
-            console.log('mounted browse table');
             this.getBrowseLoadouts().then((browseLoadouts) => {
                 store.commit('setBrowseDataReady', {ready: true});
-                console.log('done with browse loadouts', browseLoadouts);
             });
         }
     };
@@ -265,6 +262,7 @@
     table.vgt-table td {
         color: #ffffff;
         border-bottom: 3px solid #4d422e;
+        vertical-align: middle;
     }
 
     table.vgt-table td.tableClassIcon {

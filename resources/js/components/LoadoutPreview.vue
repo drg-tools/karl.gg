@@ -69,12 +69,12 @@
                             id: loadoutId
                         }
                     });
-                    console.log('getVoteStatus', getVoteStatus);
+                    // getVoteStatus
                     if (getVoteStatus.data.getVoteStatus === 1) {
                         userVotedStatus = true;
                     }
                 } catch (e) {
-                    console.log('user not signed in, no voted status');
+                    console.warn('user not signed in, no voted status', e);
                 }
                 store.commit('setLoadoutDetails', {loadout: response.data.loadout, userVoted: userVotedStatus});
 
@@ -96,7 +96,6 @@
                     });
                 });
                 let allBaseMods = await Promise.all([...baseModWeaponQueries, ...baseModEquipmentQueries]);
-                console.log("all base mods for equipment", allBaseMods)
                 store.commit('setLoadoutDetailModMatrix', {baseMods: allBaseMods});
                 return store.state.loadoutDetails;
             }
@@ -105,10 +104,8 @@
             // get loadout id from url
             let path = window.location.pathname.split('/');
             let loadoutId = path[path.length - 1];
-            console.log('loadout preview mounted');
             this.getLoadoutDetails(loadoutId).then((loadoutDetails) => {
                 store.commit('setLoadoutDetailDataReady', {ready: true});
-                console.log('done with loadout details', loadoutDetails);
             });
         }
     };
