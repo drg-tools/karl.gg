@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Character;
 use App\Http\Requests\EquipmentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
@@ -26,16 +27,71 @@ class EquipmentCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        $this->crud->addColumn([
+            'name' => 'character', // The db column name
+            'label' => 'Character', // Table column heading
+            'type' => 'relationship',
+            'entity' => 'character', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model' => App\Character::class, // foreign key model
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('character', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
+                });
+            },
+        ]);
+
+        $this->crud->addColumns(['name', 'json_stats']);
+
+        $this->crud->addColumn([
+            'name' => 'icon',
+            'label' => 'Icon',
+            'type' => 'closure',
+            'function' => function ($entry) {
+                return "<img src='/assets/{$entry->icon}.svg' style='width: 40px;' />";
+            },
+        ]);
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
     }
 
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(EquipmentRequest::class);
 
-        // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+        $this->crud->addField([
+            'name' => 'name',
+            'label' => 'Name',
+            'type' => 'text',
+        ]);
+
+        $this->crud->addField([
+            'type' => 'select',
+            'name' => 'character_id',
+            'entity' => 'character',
+            'attribute' => 'name',
+            'model' => Character::class,
+        ]);
+
+        $this->crud->addField([
+            'name' => 'json_stats',
+            'label' => 'JSON Stats',
+            'type' => 'textarea',
+            'tab' => 'Stats',
+            'default' => '{}',
+        ]);
+
+        $this->crud->addFields(['icon', 'eq_type']);
+
+        $this->crud->addField([
+            'type' => 'number',
+            'name' => 'patch_id',
+            'label' => 'Patch',
+            'default' => 1,
+        ]);
     }
 
     protected function setupUpdateOperation()

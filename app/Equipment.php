@@ -9,7 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 class Equipment extends Model
 {
     use Filterable, CrudTrait;
+
     protected $table = 'equipment';
+
+    protected $fillable = [
+        'character_id',
+        'name',
+        'json_stats',
+        'icon',
+        'eq_type',
+        'patch_id',
+    ];
 
     public function character()
     {
