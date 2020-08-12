@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="buttonColumn">
-            <modal :name="name" class="loadoutModal">
+            <modal :name="name" class="loadoutModal" :adaptive="true" :height="250">
                 <div class="contentContainer">
                     <h1 class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</h1>
                     <h2>{{this.name}}</h2>
@@ -43,7 +43,7 @@
                     <div class="button deleteBtn" v-on:click="onAcceptDelete">
                         <h1 class="buttonText">DELETE</h1>
                     </div>
-                    <div class="button" v-on:click="onCancelSave">
+                    <div class="button" v-on:click="onCancelDelete">
                         <h1 class="buttonText">CANCEL</h1>
                     </div>
                 </div>
@@ -130,8 +130,8 @@
 
                 location.reload();
             },
-            onCancelSave() {
-                this.$modal.hide('deleteLoadoutModal');
+            onCancelDelete() {
+                this.$modal.hide(this.name);
             }
         },
         apollo: {},

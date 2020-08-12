@@ -1,7 +1,7 @@
 <template>
     <div class="buttonContainer">
         <!-- todo: show loading spinner in modals -->
-        <modal name="loadoutNameModal" class="loadoutModal">
+        <modal name="loadoutNameModal" class="loadoutModal" :adaptive="true" :height="500">
             <div class="contentContainer">
                 <h1 class="modalTitle">Name your loadout, miner!</h1>
                 <h2>Name</h2>
@@ -14,7 +14,7 @@
                 <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}}
                     characters.
                 </div>
-                <textarea v-model="$v.description.$model" class="modalDescriptionInput"
+                <textarea v-model="$v.description.$model" rows="15" class="modalDescriptionInput"
                           placeholder="Deep Rock really need to invest in some better equipment."></textarea>
             </div>
             <!-- todo: disable buttons while data is loading! -->
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </modal>
-        <modal name="messageModal" class="loadoutModal">
+        <modal name="messageModal" class="loadoutModal" :adaptive="true" :height="250">
             <div class="contentContainer">
                 <h1 class="modalTitle">{{messageTitle}}</h1>
                 <h2>{{messageText}}</h2>

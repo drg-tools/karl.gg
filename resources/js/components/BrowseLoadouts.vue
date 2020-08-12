@@ -2,7 +2,7 @@
     <div v-if="!dataReady" class="loadingIndicator">
         <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
     </div>
-    <div v-else-if="dataReady" class="table">
+    <div v-else-if="dataReady" class="tableContainer">
         <!-- todo: custom filter by class -->
         <div class="classFilterContainer">
             <h1>Filter by class:</h1>
@@ -231,8 +231,35 @@
         opacity: 1;
     }
 
-    .table {
+    .tableContainer {
         width: 100%
+    }
+
+    @media (max-width: 770px) {
+        .tableContainer {
+            width: 95vw;
+        }
+
+        .classFilterContainer h1 {
+            width: 100%;
+        }
+
+        .classFilterContainer .classFilter {
+            width: 50%;
+        }
+
+        .classFilterContainer .classFilter .classIcon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .vgt-responsive {
+            height: 55vh;
+        }
+
+        .vgt-fixed-header {
+            display: none;
+        }
     }
 
     table.vgt-table {

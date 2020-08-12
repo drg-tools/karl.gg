@@ -39,10 +39,10 @@
             getSelected: function () {
                 if (this.character_slot) {
                     return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
-                        && store.state.loadoutCreator.selectedEquipmentType.includes("Weapons");
+                        && store.state.loadoutCreator.selectedEquipmentType.includes('Weapons');
                 } else {
                     return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
-                        && store.state.loadoutCreator.selectedEquipmentType === "equipments";
+                        && store.state.loadoutCreator.selectedEquipmentType === 'equipments';
                 }
             },
             equipmentNameVisible: function () {

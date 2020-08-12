@@ -177,6 +177,10 @@
             let precisionTemp = statsPrecision > upgradePrecision ? statsPrecision : upgradePrecision;
             precision = basePrecision > precisionTemp ? basePrecision : precisionTemp;
 
+            if (precision > 1) {
+                precision = 1;
+            }
+
             if (upgradeElement.multiply) {
                 upgradesToMultiply.push(upgradeElement);
             } else {

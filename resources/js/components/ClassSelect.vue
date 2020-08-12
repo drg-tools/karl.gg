@@ -317,4 +317,19 @@
     .classSelectActive > img {
         opacity: 1;
     }
+
+    @media (max-width: 770px) {
+        .classSelectContainer h1 {
+            width: 100%;
+        }
+
+        .classSelectContainer .classSelect {
+            width: 50%;
+        }
+
+        .classSelectContainer .classSelect .classIcon {
+            width: 40px;
+            height: 40px;
+        }
+    }
 </style>
