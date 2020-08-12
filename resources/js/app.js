@@ -5,9 +5,6 @@
  */
 
 require('./bootstrap');
-require('@fortawesome/fontawesome-free');
-require('@fortawesome/fontawesome-svg-core');
-require('@fortawesome/free-solid-svg-icons');
 
 window.Vue = require('vue');
 
