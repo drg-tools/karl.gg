@@ -18,7 +18,7 @@ class Equipment extends Model
         'json_stats',
         'icon',
         'eq_type',
-        'patch_id'
+        'patch_id',
     ];
 
     public function character()
