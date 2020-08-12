@@ -243,9 +243,11 @@
         .classFilterContainer h1 {
             width: 100%;
         }
+
         .classFilterContainer .classFilter {
             width: 50%;
         }
+
         .classFilterContainer .classFilter .classIcon {
             width: 40px;
             height: 40px;

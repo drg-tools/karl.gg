@@ -1,19 +1,19 @@
 <template>
     <!-- <ApolloQuery :query="$options.query"> -->
-        <!-- <template slot-scope="{result: {loading, data, error }}"> -->
-            <!-- <div v-if="loading">Loading...</div> -->
-            <div>
-                <ul>
-                    <li v-for="(gun, gunId) in getGuns()" v-bind:key="gunId">Hello {{ gun.json_stats[0].dmg }}</li>
-                    <!-- {{ getGuns() }} -->
-                </ul>
-            </div>
-        <!-- </template> -->
+    <!-- <template slot-scope="{result: {loading, data, error }}"> -->
+    <!-- <div v-if="loading">Loading...</div> -->
+    <div>
+        <ul>
+            <li v-for="(gun, gunId) in getGuns()" v-bind:key="gunId">Hello {{ gun.json_stats[0].dmg }}</li>
+            <!-- {{ getGuns() }} -->
+        </ul>
+    </div>
+    <!-- </template> -->
     <!-- </ApolloQuery> -->
 </template>
 
 <script>
-    import gql from 'graphql-tag'
+    import gql from 'graphql-tag';
 
     export default {
         query: gql`
@@ -39,12 +39,12 @@
                         }
                    }`
                 }).then(response => {
-                    console.log(response.data.guns.data)
+                    console.log(response.data.guns.data);
                     return response.data.guns.data;
                 });
-                
-            },
+
+            }
         }
-            
-    }
+
+    };
 </script>

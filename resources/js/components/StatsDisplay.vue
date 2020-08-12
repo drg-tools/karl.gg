@@ -209,7 +209,6 @@
     };
 
     const getModifiedStats = (baseStats, selectedUpgrades) => {
-        console.log('get modified stats', baseStats, selectedUpgrades);
         // loop trough all selected upgrades
         let upgradesForEachStat = new Map();
         let costs = [];
