@@ -177,6 +177,10 @@
             let precisionTemp = statsPrecision > upgradePrecision ? statsPrecision : upgradePrecision;
             precision = basePrecision > precisionTemp ? basePrecision : precisionTemp;
 
+            if (precision > 1) {
+                precision = 1;
+            }
+
             if (upgradeElement.multiply) {
                 upgradesToMultiply.push(upgradeElement);
             } else {
@@ -205,6 +209,7 @@
     };
 
     const getModifiedStats = (baseStats, selectedUpgrades) => {
+        console.log('get modified stats', baseStats, selectedUpgrades);
         // loop trough all selected upgrades
         let upgradesForEachStat = new Map();
         let costs = [];
