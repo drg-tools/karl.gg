@@ -11,6 +11,8 @@ class Overclock extends Model
     use Filterable, CrudTrait;
 
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
+    public $timestamps = false;
 
     public function gun()
     {
