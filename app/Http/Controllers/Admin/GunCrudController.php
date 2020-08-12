@@ -93,7 +93,7 @@ class GunCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'character', // the relationship name in your Model
+            'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Character",
@@ -145,13 +145,13 @@ class GunCrudController extends CrudController
         ]);
         $this->crud->addField([
             'type' => 'select',
-            'name' => 'character', // the relationship name in your Model
+            'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
             'model' => "App\Character",
         ]);
         $this->crud->addField([
-            'name' => 'mods', // name of relationship method in the model
+            'name' => 'mod_id', // name of relationship method in the model
             'type' => 'relationship',
             'label' => 'Mods', // Table column heading
             'entity' => 'mods', // the relationship name in your Model
@@ -159,7 +159,7 @@ class GunCrudController extends CrudController
             'model' => "App\Mod",
         ], );
         $this->crud->addField([
-            'name' => 'overclocks', // name of relationship method in the model
+            'name' => 'overclock_id', // name of relationship method in the model
             'type' => 'relationship',
             'label' => 'Overclocks', // Table column heading
             'entity' => 'overclocks', // the relationship name in your Model

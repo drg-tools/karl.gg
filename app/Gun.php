@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gun extends Model
 {
     use Filterable, CrudTrait;
+    protected $guarded = ['id'];
 
     public function mods()
     {
