@@ -4,7 +4,9 @@
 
 @tailwind utilities;
 
-#character-selections input[type="radio"] { visibility:hidden; }
+#character-selections input[type="radio"] {
+    visibility: hidden;
+}
 
 
 html {
@@ -42,7 +44,7 @@ h2 {
     display: block;
     font-size: 1.6rem;
     letter-spacing: 0.05rem;
-    font-weight: normal!important;
+    font-weight: normal !important;
     font-family: BebasNeue, sans-serif;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
@@ -78,12 +80,8 @@ span {
 @font-face {
     font-family: 'BebasNeue';
     src: url('fonts/BebasNeue.eot'); /* IE9 Compat Modes */
-    src: url('fonts/BebasNeue.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('fonts/BebasNeue.woff2') format('woff2'), /* Super Modern Browsers */
-         url('fonts/BebasNeue.woff') format('woff'), /* Pretty Modern Browsers */
-         url('fonts/BebasNeue.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('fonts/BebasNeue.svg#svgFontName') format('svg'); /* Legacy iOS */
-  }
+    src: url('fonts/BebasNeue.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('fonts/BebasNeue.woff2') format('woff2'), /* Super Modern Browsers */ url('fonts/BebasNeue.woff') format('woff'), /* Pretty Modern Browsers */ url('fonts/BebasNeue.ttf') format('truetype'), /* Safari, Android, iOS */ url('fonts/BebasNeue.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
 
 #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -115,7 +113,7 @@ span {
 
 
 svg > a:hover {
-    text-decoration: none!important;
+    text-decoration: none !important;
 }
 
 .navMenu {
@@ -127,9 +125,11 @@ svg > a:hover {
 .navButton, .navButtonActive {
     margin-right: 1rem;
 }
+
 .navButton path {
     stroke: none;
 }
+
 .navButton text {
     fill: rgb(173, 161, 149);
 }
@@ -137,6 +137,7 @@ svg > a:hover {
 .navButton:hover path {
     stroke: rgb(255, 255, 255);
 }
+
 .navButton:hover text {
     fill: rgb(255, 255, 255);
 }
@@ -144,6 +145,7 @@ svg > a:hover {
 .navButtonActive path {
     stroke: rgb(252, 158, 0);
 }
+
 .navButtonActive text {
     fill: rgb(255, 255, 255);
 }
@@ -184,12 +186,15 @@ svg > a:hover {
     width: 100%;
     border-bottom: 5px solid rgb(252, 158, 0);
 }
+
 .loadingIndicator > img {
     margin: auto;
 }
+
 .dropdown-overwrite .dropdown-menu {
     display: none;
 }
+
 .dropdown-overwrite .dropdown-menu.show {
     display: block;
 }
@@ -205,6 +210,7 @@ svg > a:hover {
     background-size: 45%;
     background-position: right -10% bottom -10%;
 }
+
 .loginPage div {
     background-color: transparent;
     border: none;
@@ -213,16 +219,19 @@ svg > a:hover {
     color: rgb(252, 158, 0);
     box-shadow: none;
 }
+
 .loginPage label, .loginPage p {
     font-family: BebasNeue, sans-serif;
     font-size: 1.5rem;
     color: #ADA195;
 }
+
 .loginPage a {
     font-family: BebasNeue, sans-serif;
     font-size: 1.5rem;
     color: rgb(252, 158, 0);
 }
+
 .loginPage button {
     color: #000000;
     font-size: 1.6rem;
@@ -241,17 +250,21 @@ svg > a:hover {
     padding-right: 10%;
     background: linear-gradient(90deg, #fc9e00 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #fc9e00 0.6rem, #fc9e00 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #fc9e00 calc(100% - 0.3rem));
 }
+
 .loginPage button:hover {
     background: linear-gradient(90deg, #ffd200 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #ffd200 0.6rem, #ffd200 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #ffd200 calc(100% - 0.3rem));
 }
+
 .loginPage input {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     color: #000000;
 }
+
 /* todo: style checkmark and inputs nicer in general  */
 .loginPage input.form-checkbox {
     color: rgb(0, 0, 0)
 }
+
 .loginPage input.form-checkbox:focus {
     outline: none;
     box-shadow: 0 0 0 3px #FC9E00;
@@ -349,6 +362,7 @@ svg > a:hover {
     text-align: center;
     font-size: 26px;
 }
+
 .data-container:first-child {
     margin-right: 20px;
 }
@@ -357,12 +371,15 @@ svg > a:hover {
     display: flex;
     padding: 20px;
 }
+
 .profileBtnContainer {
     width: 20%;
 }
+
 .authorLink {
-    color:#fc9e00;
+    color: #fc9e00;
 }
+
 .authorLink:hover {
     text-decoration: underline;
 }
@@ -372,6 +389,7 @@ svg > a:hover {
     margin: 20px 0;
     color: #FFF;
 }
+
 .body__privacy_policy h2 {
     color: #fc9e00;
 }
@@ -381,3 +399,12 @@ svg > a:hover {
     flex-direction: column;
     justify-content: space-between;
 }
+
+/*@media (max-width: 770px) {
+    .vm--modal {
+        width: 100vw!important;
+        height: 100vh!important;
+        top: 0!important;
+        left: 0!important;
+    }
+}*/

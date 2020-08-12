@@ -33,7 +33,7 @@
             </div>
         </div>
         <!-- todo: style modals nicely -->
-        <modal name="upvoteMessageModal" class="loadoutModal">
+        <modal name="upvoteMessageModal" class="loadoutModal" :adaptive="true" :height="250">
             <div class="contentContainer">
                 <h1 class="modalTitle">{{messageTitle}}</h1>
                 <h2>{{messageText}}</h2>
