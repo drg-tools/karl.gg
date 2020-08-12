@@ -218,6 +218,40 @@
     }
 
     .loadoutDescription {
+        white-space: pre-line; /* for those that don't know break-spaces */
+    }
+
+    .loadoutDescription {
         white-space: break-spaces;
+    }
+
+    @media (max-width: 770px) {
+        .equipmentCards {
+            flex-wrap: wrap;
+        }
+
+        .imageD {
+            background-position: bottom -50px right -40px;
+            background-size: 300px;
+        }
+
+        .imageE {
+            background-position: bottom -150px right -40px;
+            background-size: 250px;
+        }
+
+        .imageG {
+            background-position: bottom -50px right -40px;
+            background-size: 300px;
+        }
+
+        .imageS {
+            background-position: bottom -150px right -40px;
+            background-size: 250px;
+        }
+
+        .buttonContainer {
+            flex-wrap: wrap;
+        }
     }
 </style>

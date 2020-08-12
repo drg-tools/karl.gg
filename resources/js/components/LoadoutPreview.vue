@@ -124,4 +124,10 @@
         /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
     }
+
+    @media (max-width: 770px) {
+        .equipmentCards {
+            flex-wrap: wrap;
+        }
+    }
 </style>
