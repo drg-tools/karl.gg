@@ -49,7 +49,7 @@
         </main>
         <!-- todo: footer -->
         <footer class='footerBorder w-full text-center border-t border-grey p-4 pin-b mt-4 text-gray-500 flex flex-1 justify-center'>
-            <div class="p-2 mr-2" id="copyright">Copyright @ {{ \Carbon\Carbon::today()->year }} DRG Builds</div>
+            <div class="p-2 mr-2" id="copyright">Copyright @ {{ \Carbon\Carbon::today()->year }} karl.gg</div>
             <div class="p-2"><a href="/privacy-policy">Privacy Policy</a></div>
             <a href="https://discord.gg/pdh5RMf" class="p-2"><div class="footer-disc"><i class="fab fa-discord"></i> JOIN OUR DISCORD</div></a>
         </footer>

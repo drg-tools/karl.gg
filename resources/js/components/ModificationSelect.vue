@@ -209,7 +209,7 @@
                 </div>
             </div>
             <div>
-                {{ hoveredMod.text_description }}
+                {{ hoveredMod.text_description || hoveredMod.description }}
             </div>
         </div>
     </div>
