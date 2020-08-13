@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('profile/{id}/edit', 'ProfileController@editProfile')->where('id', '[0-9]+');
 
