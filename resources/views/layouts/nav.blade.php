@@ -148,8 +148,41 @@
             @auth
                 <div class="flex items-center px-5">
                     <div class="flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
-                             alt=""/>
+                        <div class="dropdown dropdown-overwrite">
+                        <button
+                                class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid dropdown-toggle"
+                                type="button" id="user-mobile-menu" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <img class="h-8 w-8 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
+                                     alt=""/>
+                            </button>
+                        {{-- <img class="h-10 w-10 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}" --}}
+                             {{-- alt=""/> --}}
+
+                            <div
+                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu"
+                                aria-labelledby="user-mobile-menu">
+                                <a href="{{ route('user.profile', ['id' => Auth::id()]) }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
+                                   role="menuitem">Your Profile</a>
+                                @hasrole('super-admin')
+                                <a href="{{ route('settings.tokens') }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
+                                   role="menuitem">Settings</a>
+                                @endhasrole
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
+                                   href="{{ route('logout') }}" role="menuitem"
+                                   onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                    {{ __('Sign out') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endauth
