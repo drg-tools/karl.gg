@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Loadout;
 use App\User;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Support\Facades\Auth;
