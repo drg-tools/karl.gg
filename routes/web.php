@@ -13,28 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-todo: views and components
-# home (index.blade.php)
-## featured-foadouts (FeaturedLoadouts.vue)
-### loadout-card (LoadoutCard.vue)
-
-# browse (browse.blade.php)
-## browse-loadouts (BrowseLoadouts.vue)
-
-# overview (overview.blade.php)
-## loadout-overview (LoadoutOverview.vue)
-
-karl.gg/loadouts/<loadoutId>
-# build (create.blade.php)
-## class-select (ClassSelect.vue)
-### class-component (ClassComponent.vue)
-## equipment-select (EquipmentSelect.vue)
-### equipment-component (EquipmentComponent.vue)
-## stats-display (StatsDisplay.vue)
-## modification-select (ModificationSelect.vue)
-*/
-
 Route::middleware(['auth'])->group(function () {
     Route::get('profile/{id}/edit', 'ProfileController@editProfile')->where('id', '[0-9]+');
 

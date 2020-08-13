@@ -25,6 +25,7 @@
         "mll-lab/laravel-graphql-playground": "^2.1",
         "nagy/laravel-rating": "^1.4",
         "nuwave/lighthouse": "^4.14",
+        "rollbar/rollbar-laravel": "^6.0",
         "tucker-eric/eloquentfilter": "^2.3"
     },
     "require-dev": {
