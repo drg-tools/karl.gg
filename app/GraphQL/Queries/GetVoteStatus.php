@@ -16,12 +16,13 @@ class GetVoteStatus
      */
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $loadout = Loadout::findOrFail($args['id']);
-        // TODO: handle guest user
+        $isUpVoted = 0;
+
         if (Auth::check()) {
             $user = User::find(auth()->user()->id);
+            $isUpVoted = $user->upVoted()->contains('id', $args['id']);
         }
-        $isUpVoted = $user->upVoted()->contains('id', $args['id']);
+
         // 0 no, 1 yes
         return $isUpVoted;
     }
