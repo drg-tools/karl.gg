@@ -49,7 +49,7 @@ class EquipmentCrudController extends CrudController
             'type' => 'closure',
             'function' => function ($entry) {
                 return "<img src='/assets/{$entry->icon}.svg' style='width: 40px;' />";
-            }
+            },
         ]);
     }
 
@@ -81,7 +81,7 @@ class EquipmentCrudController extends CrudController
             'label' => 'JSON Stats',
             'type' => 'textarea',
             'tab' => 'Stats',
-            'default' => "{}"
+            'default' => '{}',
         ]);
 
         $this->crud->addFields(['icon', 'eq_type']);
@@ -90,7 +90,7 @@ class EquipmentCrudController extends CrudController
             'type' => 'number',
             'name' => 'patch_id',
             'label' => 'Patch',
-            'default' => 1
+            'default' => 1,
         ]);
     }
 
