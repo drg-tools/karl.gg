@@ -107,8 +107,8 @@ return [
             'level' => 'debug',
             'person_fn' => 'Auth::user',
             'capture_email' => true,            //optional
-            'capture_username' => true     //optional
-        ]
+            'capture_username' => true,     //optional
+        ],
     ],
 
 ];
