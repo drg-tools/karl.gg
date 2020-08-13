@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import moment from 'moment';
 // imports for driller equipment
 import D_E_Satchel_SVG from './assets/D_E_Satchel.js';
 import D_E_Drill_SVG from './assets/D_E_Drill.js';
@@ -274,7 +275,7 @@ const transformLoadouts = (loadouts, state) => {
             votes: loadout.votes,
             primary: state.missingBackendWeaponData[primaryId].icon,
             secondary: state.missingBackendWeaponData[secondaryId].icon,
-            lastUpdate: new Date(loadout.updated_at).toISOString().split('T')[0]
+            lastUpdate: moment(loadout.updated_at).format('YYYY-MM-DD')
         };
     });
 };
@@ -1090,7 +1091,7 @@ export default new Vuex.Store({
                 classId: characterIdToChar[indices.loadout.character.id],
                 created_at: indices.loadout.created_at,
                 updated_at: indices.loadout.updated_at,
-                lastUpdate: new Date(indices.loadout.updated_at).toISOString().split('T')[0],
+                lastUpdate: moment(indices.loadout.updated_at).format('YYYY-MM-DD'),
                 author: indices.loadout.creator ? indices.loadout.creator.name : 'Anonymous',
                 authorId: indices.loadout.creator ? indices.loadout.creator.id : undefined,
                 description: indices.loadout.description,
