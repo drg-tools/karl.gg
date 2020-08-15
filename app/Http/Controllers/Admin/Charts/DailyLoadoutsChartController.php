@@ -7,8 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\ChartController;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
 /**
- * Class DailyLoadoutsChartController
- * @package App\Http\Controllers\Admin\Charts
+ * Class DailyLoadoutsChartController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class DailyLoadoutsChartController extends ChartController
@@ -39,18 +38,18 @@ class DailyLoadoutsChartController extends ChartController
      *
      * @return json
      */
-     public function data()
-     {
-         $loadouts = [];
-         // TODO: There is a better way to do this, but we can optimize later
-         for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
-             // Could also be an array_push if using an array rather than a collection.
-             $loadouts[] = Loadout::whereDate('created_at', today()->subDays($days_backwards))
+    public function data()
+    {
+        $loadouts = [];
+        // TODO: There is a better way to do this, but we can optimize later
+        for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
+            // Could also be an array_push if using an array rather than a collection.
+            $loadouts[] = Loadout::whereDate('created_at', today()->subDays($days_backwards))
                  ->count();
-         }
+        }
 
-         $this->chart->dataset('Loadouts', 'line', $loadouts)
+        $this->chart->dataset('Loadouts', 'line', $loadouts)
              ->color('rgb(77, 189, 116)')
              ->backgroundColor('rgba(77, 189, 116, 0.4)');
-     }
+    }
 }
