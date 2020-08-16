@@ -21,4 +21,6 @@ Route::group([
     Route::crud('throwable', 'ThrowableCrudController');
     Route::crud('loadout', 'LoadoutCrudController');
     Route::crud('character', 'CharacterCrudController');
+    Route::get('charts/daily-users', 'Charts\DailyUsersChartController@response')->name('charts.daily-users.index');
+    Route::get('charts/daily-loadouts', 'Charts\DailyLoadoutsChartController@response')->name('charts.daily-loadouts.index');
 }); // this should be the absolute last line of this file

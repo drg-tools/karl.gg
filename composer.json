@@ -12,6 +12,7 @@
         "backpack/crud": "4.1.*",
         "backpack/permissionmanager": "^6.0",
         "christiankuri/laravel-favorite": "^1.4",
+        "consoletvs/charts": "6.*",
         "creativeorange/gravatar": "^1.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
