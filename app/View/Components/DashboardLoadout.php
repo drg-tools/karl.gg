@@ -25,7 +25,7 @@ class DashboardLoadout extends Component
         $possibleGunIds = $this->loadout->mods->groupBy('gun_id')->keys();
         $gunId = Arr::get($possibleGunIds, 0);
 
-        if (!$gunId) {
+        if (! $gunId) {
             return null;
         }
 
@@ -37,7 +37,7 @@ class DashboardLoadout extends Component
         $possibleGunIds = $this->loadout->mods->groupBy('gun_id')->keys();
         $gunId = Arr::get($possibleGunIds, 1);
 
-        if (!$gunId) {
+        if (! $gunId) {
             return null;
         }
 
