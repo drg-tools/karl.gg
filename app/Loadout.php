@@ -7,12 +7,11 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Nagy\LaravelRating\Traits\Like\Likeable;
-use Nagy\LaravelRating\Traits\Rate\Rateable;
 use Nagy\LaravelRating\Traits\Vote\Votable;
 
 class Loadout extends Model
 {
-    use Favoriteable, Filterable, CrudTrait, Rateable, Votable, Likeable;
+    use Favoriteable, Filterable, CrudTrait, Votable, Likeable;
 
     protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
 

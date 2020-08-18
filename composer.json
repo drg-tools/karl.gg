@@ -31,6 +31,7 @@
     },
     "require-dev": {
         "backpack/generators": "^3.1",
+        "barryvdh/laravel-debugbar": "^3.4",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "haydenpierce/class-finder": "^0.4.2",

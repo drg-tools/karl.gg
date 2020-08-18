@@ -11,7 +11,7 @@
                                     <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
                                           stroke="#FC9E00" stroke-width="3"/>
                                     <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34"
-                                          font-family="BebasNeue">HOME
+                                          >HOME
                                     </text>
                                 </a>
                             </svg>
@@ -24,7 +24,7 @@
                                     <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
                                           stroke="#FC9E00" stroke-width="3"/>
                                     <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34"
-                                          font-family="BebasNeue">BROWSE
+                                          >BROWSE
                                     </text>
                                 </a>
                             </svg>
@@ -36,7 +36,7 @@
                                     <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
                                           stroke="#FC9E00" stroke-width="3"/>
                                     <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34"
-                                          font-family="BebasNeue">BUILD
+                                          >BUILD
                                     </text>
                                 </a>
                             </svg>
@@ -49,7 +49,7 @@
                         <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
                               stroke="#FC9E00" stroke-width="3"/>
                         <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="34"
-                              font-family="BebasNeue">ADMIN
+                              >ADMIN
                         </text>
                     </a>
                 </svg>
@@ -103,7 +103,7 @@
                                     <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
                                           stroke="#FC9E00" stroke-width="3"/>
                                     <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
-                                          font-size="34" font-family="BebasNeue">LOGIN
+                                          font-size="34">LOGIN
                                     </text>
                                 </a>
                             </svg>
