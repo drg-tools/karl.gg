@@ -221,6 +221,9 @@ export default {
                             id
                             name
                             character_slot
+                            character {
+                                id
+                            }
                           }
                         }
                         overclocks {
@@ -232,6 +235,9 @@ export default {
                             id
                             name
                             character_slot
+                            character {
+                                id
+                            }
                           }
                         }
                         equipment_mods {
@@ -243,6 +249,9 @@ export default {
                             id
                             icon
                             name
+                            character {
+                                id
+                            }
                           }
                         }
                       }

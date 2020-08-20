@@ -106,11 +106,15 @@ const characterIdToChar = ['', 'E', 'S', 'D', 'G'];
 const charToCharacterId = {E: 1, S: 2, D: 3, G: 4};
 
 /* todo: put helper functions into their own module */
-const groupByEquipment = (mods, overclocks, equipment_mods, state) => {
+const groupByEquipment = (mods, overclocks, equipment_mods, characterId, state) => {
     let primaryWeapons = [];
     let secondaryWeapons = [];
     let equipments = [];
     for (let element of [...mods, ...overclocks]) {
+        if (element.gun.character.id !== characterId) {
+            /* workaround: do not load mods that don't belong to the selected loadout class */
+            continue;
+        }
         if (element.gun.character_slot === 1) {
             let primaryWeaponIndex = primaryWeapons.findIndex(weapon => weapon.id === element.gun.id);
             if (primaryWeaponIndex < 0) {
@@ -156,6 +160,10 @@ const groupByEquipment = (mods, overclocks, equipment_mods, state) => {
         }
     }
     for (let equipment_mod of equipment_mods) {
+        if (equipment_mod.equipment.character.id !== characterId) {
+            /* workaround: do not load mods that don't belong to the selected loadout class */
+            continue;
+        }
         let equipmentIndex = equipments.findIndex(equipment => equipment.id === equipment_mod.equipment.id);
         if (equipmentIndex < 0) {
             let length = equipments.push({
@@ -1086,7 +1094,7 @@ export default new Vuex.Store({
             Vue.set(state, 'loadoutDetailDataReady', indices.ready);
         },
         setLoadoutDetails: (state, indices) => {
-            let loadoutMods = groupByEquipment(indices.loadout.mods, indices.loadout.overclocks, indices.loadout.equipment_mods, state);
+            let loadoutMods = groupByEquipment(indices.loadout.mods, indices.loadout.overclocks, indices.loadout.equipment_mods, indices.loadout.character.id, state);
             let loadout = {
                 classId: characterIdToChar[indices.loadout.character.id],
                 created_at: indices.loadout.created_at,
