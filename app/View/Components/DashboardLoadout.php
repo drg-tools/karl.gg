@@ -2,8 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Gun;
-use Illuminate\Support\Arr;
 use Illuminate\View\Component;
 
 class DashboardLoadout extends Component
