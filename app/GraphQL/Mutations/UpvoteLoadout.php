@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Loadout;
 use App\User;
-use GraphQL\Type\Definition\ResolveInfo;
+use App\Loadout;
 use Illuminate\Support\Facades\Auth;
+use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class UpvoteLoadout
@@ -17,11 +17,10 @@ class UpvoteLoadout
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $loadout = Loadout::findOrFail($args['id']);
-        // TODO: handle guest user
-        if (Auth::check()) {
-            $user = User::find(auth()->user()->id);
-        }
+
+        $user = auth()->user();
         $isUpVoted = $user->upVoted()->contains('id', $args['id']);
+
         if ($isUpVoted) {
             $user->downvote($loadout);
         } else {

@@ -8,12 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Nagy\LaravelRating\Traits\Like\CanLike;
+use Nagy\LaravelRating\Traits\Rate\CanRate;
 use Nagy\LaravelRating\Traits\Vote\CanVote;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanVote, CanLike;
+    use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanVote, CanRate, CanLike;
 
     /**
      * The attributes that are mass assignable.
