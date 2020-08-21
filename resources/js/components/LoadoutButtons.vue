@@ -20,10 +20,10 @@
             <!-- todo: disable buttons while data is loading! -->
             <div class="buttonContainer">
                 <div class="button" v-on:click="onAcceptSave">
-                    <h1 class="buttonText">SAVE</h1>
+                    <span class="buttonText">SAVE</span>
                 </div>
                 <div class="button" v-on:click="onCancelSave">
-                    <h1 class="buttonText">CANCEL</h1>
+                    <span class="buttonText">CANCEL</span>
                 </div>
             </div>
         </modal>
@@ -35,16 +35,16 @@
             <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
             <div class="buttonContainer">
                 <div class="button guest-btn" v-on:click="onGuestSave">
-                    <h1 class="buttonText">SAVE AS GUEST</h1>
+                    <span class="buttonText">SAVE AS GUEST</span>
                 </div>
                 <div class="button" v-on:click="onCloseMessageModal">
-                    <h1 class="buttonText">CLOSE</h1>
+                    <span class="buttonText">CLOSE</span>
                 </div>
             </div>
         </modal>
         <!-- todo: show loadout name to the left of there buttons if build belongs to user, show 'new loadout' if not -->
         <div class="button" v-on:click="onSaveClick">
-            <h1 class="buttonText">SAVE</h1>
+            <span class="buttonText">SAVE</span>
         </div>
         <!-- todo: hide this on edit for now. We do not have a mechanism to share while editing. -->
         <!-- <div class="button" v-on:click="onShareClick">
@@ -296,7 +296,7 @@
     }
 
     .buttonText {
-        color: #000000!important;
+        color: #000000;
         font-size: 1.6rem;
         letter-spacing: 0.05rem;
         font-weight: bold;

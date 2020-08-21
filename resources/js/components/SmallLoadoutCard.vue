@@ -36,27 +36,27 @@
         <div class="buttonColumn">
             <modal :name="name" class="loadoutModal" :adaptive="true" :height="250">
                 <div class="contentContainer">
-                    <h1 class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</h1>
+                    <span class="modalTitle">ARE YOU SURE YOU WANT TO DELETE THIS LOADOUT?</span>
                     <h2>{{this.name}}</h2>
                 </div>
                 <div class="buttonContainer">
                     <div class="button deleteBtn" v-on:click="onAcceptDelete">
-                        <h1 class="buttonText">DELETE</h1>
+                        <span class="buttonText">DELETE</span>
                     </div>
                     <div class="button" v-on:click="onCancelDelete">
-                        <h1 class="buttonText">CANCEL</h1>
+                        <span class="buttonText">CANCEL</span>
                     </div>
                 </div>
             </modal>
             <div class="buttonContainer" v-if="editEnabled">
                 <div class="button" v-on:click="onEditLoadout">
-                    <h1 class="buttonText">EDIT</h1>
+                    <span class="buttonText">EDIT</span>
                 </div>
             </div>
 
             <div class="buttonContainer" v-if="deleteEnabled">
                 <div class="button" v-on:click="onDeleteLoadout(loadoutId)">
-                    <h1 class="buttonText">DELETE</h1>
+                    <span class="buttonText">DELETE</span>
                 </div>
             </div>
         </div>
