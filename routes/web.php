@@ -17,20 +17,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile/{id}/edit', 'ProfileController@editProfile')->where('id', '[0-9]+');
 
     // TODO: need to review this
-    Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')->name('user.profile.update')->where('id', '[0-9]+');
+    Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')
+    ->name('user.profile.update')
+    ->where('id', '[0-9]+');
 });
 
 Route::middleware(['role:super-admin'])->group(function () {
     Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
 });
 
-// todo: removed build view from middleware..
+Route::get('/', 'DashboardController@index');
+
 Route::view('browse', 'loadouts.browse');
-Route::view('preview/{loadoutId}', 'loadouts.preview');
+Route::view('preview/{loadoutId}', 'loadouts.preview')->name('preview.show');
 Route::view('build', 'loadouts.create');
 Route::view('build/{loadoutId}', 'loadouts.create');
 Route::view('/privacy-policy', 'privacy-policy.index');
-Route::view('/', 'loadouts.index');
 Route::get('profile/{id}', 'ProfileController@index')->name('user.profile')->where('id', '[0-9]+');
 Auth::routes();
 

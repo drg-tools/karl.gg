@@ -12,9 +12,9 @@ class CharacterSeeder extends Seeder
      */
     public function run()
     {
-        factory(Character::class)->create(['name' => 'Engineer']);
-        factory(Character::class)->create(['name' => 'Scout']);
-        factory(Character::class)->create(['name' => 'Driller']);
-        factory(Character::class)->create(['name' => 'Gunner']);
+        factory(Character::class)->create(['name' => 'Engineer', 'image' => '50px-E_icon']);
+        factory(Character::class)->create(['name' => 'Scout', 'image' => '50px-S_icon']);
+        factory(Character::class)->create(['name' => 'Driller', 'image' => '50px-D_icon']);
+        factory(Character::class)->create(['name' => 'Gunner', 'image' => '50px-G_icon']);
     }
 }

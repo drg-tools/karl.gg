@@ -39,11 +39,6 @@
                 <circle cx="423" cy="74" r="7" fill-opacity="0" stroke-opacity="0"></circle>
             </a>
         </svg>
-        <div class="textContainer">
-            <h1>Karls Advanced Remote Loadout</h1>
-            <h2>lets you create custom loadout builds to share with your fellow employees.
-                Get started by selecting a class above or choose a popular loadout below.</h2>
-        </div>
         <!-- todo: mobile CTA -->
         <!--<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              viewBox="0 0 450 500" preserveAspectRatio="xMinYMin meet" class="highHero">
