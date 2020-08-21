@@ -43,12 +43,14 @@ class DailyUsersChartController extends ChartController
         // TODO: There is a better way to do this, but we can optimize later
         for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
             // Could also be an array_push if using an array rather than a collection.
-            $users[] = User::whereDate('created_at', today()->subDays($days_backwards))
-        ->count();
+            $users[] = User::whereDate(
+                'created_at',
+                today()->subDays($days_backwards)
+            )->count();
         }
 
         $this->chart->dataset('Users', 'line', $users)
-        ->color('rgb(77, 189, 116)')
-        ->backgroundColor('rgba(77, 189, 116, 0.4)');
+            ->color('rgb(77, 189, 116)')
+            ->backgroundColor('rgba(77, 189, 116, 0.4)');
     }
 }
