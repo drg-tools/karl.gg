@@ -8,5 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Character::class, function (Faker $faker) {
     return [
         'name' => 'Engineer',
+	'image' => '50px-E_icon'
     ];
 });

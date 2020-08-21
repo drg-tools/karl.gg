@@ -10,5 +10,6 @@ $factory->define(Gun::class, function (Faker $faker) {
         'name' => 'Warthog Auth 210',
         'character_slot' => 1,
         'character_id' => 1,
+	'image' => 'E_P1_Warthog'
     ];
 });
