@@ -296,7 +296,7 @@
     }
 
     .buttonText {
-        color: #000000;
+        color: #000000!important;
         font-size: 1.6rem;
         letter-spacing: 0.05rem;
         font-weight: bold;
