@@ -363,6 +363,10 @@
 </script>
 
 <style scoped>
+    .statsDisplay {
+        font-family: "Avenir", Helvetica, Arial, sans-serif;
+    }
+
     h2 {
         /*text-transform: uppercase;*/
         /*font-size: 1rem;*/
