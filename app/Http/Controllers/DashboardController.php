@@ -9,22 +9,21 @@ class DashboardController extends Controller
 {
     public function index()
     {
-	$loadouts = collect();
-	$characterIds = Character::pluck('id')->sortBy('id');
+        $loadouts = collect();
+        $characterIds = Character::pluck('id')->sortBy('id');
 
-	foreach ($characterIds as $characterId) {
-	    $characterLoadouts = Loadout::where('character_id', $characterId)
-		->withCount('votes')
-		->with('character', 'creator', 'mods.gun')
-		->orderBy('votes_count', 'desc')
-		->take(3)
-		->get();
-	    $loadouts->push($characterLoadouts);
-	}
-
+        foreach ($characterIds as $characterId) {
+            $characterLoadouts = Loadout::where('character_id', $characterId)
+        ->withCount('votes')
+        ->with('character', 'creator', 'mods.gun')
+        ->orderBy('votes_count', 'desc')
+        ->take(3)
+        ->get();
+            $loadouts->push($characterLoadouts);
+        }
 
         return view('dashboard.index', [
-	    'loadouts' => $loadouts,
+            'loadouts' => $loadouts,
         ]);
     }
 }

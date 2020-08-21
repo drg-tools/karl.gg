@@ -18,8 +18,8 @@ Route::middleware(['auth'])->group(function () {
 
     // TODO: need to review this
     Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')
-	->name('user.profile.update')
-	->where('id', '[0-9]+');
+    ->name('user.profile.update')
+    ->where('id', '[0-9]+');
 });
 
 Route::middleware(['role:super-admin'])->group(function () {
