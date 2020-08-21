@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Character;
 use App\Loadout;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $engiLoadouts = Loadout::where('character_id', 1)->withCount('votes')->orderBy('votes_count',
-            'desc')->take(3)->get();
-        $scoutLoadouts = Loadout::where('character_id', 2)->withCount('votes')->orderBy('votes_count',
-            'desc')->take(3)->get();
-        $drillerLoadouts = Loadout::where('character_id', 3)->withCount('votes')->orderBy('votes_count',
-            'desc')->take(3)->get();
-        $gunnerLoadouts = Loadout::where('character_id', 4)->withCount('votes')->orderBy('votes_count',
-            'desc')->take(3)->get();
+	$loadouts = collect();
+	$characterIds = Character::pluck('id')->sortBy('id');
+
+	foreach ($characterIds as $characterId) {
+	    $characterLoadouts = Loadout::where('character_id', $characterId)
+		->withCount('votes')
+		->with('character', 'creator', 'mods.gun')
+		->orderBy('votes_count', 'desc')
+		->take(3)
+		->get();
+	    $loadouts->push($characterLoadouts);
+	}
+
 
         return view('dashboard.index', [
-            'engiLoadouts' => $engiLoadouts,
-            'scoutLoadouts' => $scoutLoadouts,
-            'drillerLoadouts' => $drillerLoadouts,
-            'gunnerLoadouts' => $gunnerLoadouts,
+	    'loadouts' => $loadouts,
         ]);
     }
 }

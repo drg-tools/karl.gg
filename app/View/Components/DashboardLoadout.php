@@ -20,28 +20,20 @@ class DashboardLoadout extends Component
         $this->loadout = $loadout;
     }
 
-    public function firstWeaponImage()
+    public function weaponImages($index)
     {
-        $possibleGunIds = $this->loadout->mods->groupBy('gun_id')->keys();
-        $gunId = Arr::get($possibleGunIds, 0);
+        $groupedByGun = $this->loadout->mods->groupBy('gun_id');
+        $images = [];
 
-        if (! $gunId) {
-            return null;
+        foreach ($groupedByGun as $gunId => $mods) {
+            $images[] = $mods->first()->gun->image;
         }
 
-        return Gun::find($gunId)->image;
-    }
-
-    public function secondWeaponImage()
-    {
-        $possibleGunIds = $this->loadout->mods->groupBy('gun_id')->keys();
-        $gunId = Arr::get($possibleGunIds, 1);
-
-        if (! $gunId) {
-            return null;
+        if (array_key_exists($index, $images)) {
+            return $images[$index];
         }
 
-        return Gun::find($gunId)->image;
+        return null;
     }
 
     /**

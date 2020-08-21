@@ -16,26 +16,13 @@
     <div class="featuredLoadoutsContainer">
         <h1 class="uppercase">Most Popular Loadouts</h1>
         <div class="cardGroups">
-            <div class="loadoutCards">
-                @foreach($engiLoadouts as $loadout)
-                    <x-dashboard-loadout :loadout="$loadout" />
-                @endforeach
-            </div>
-            <div class="loadoutCards">
-                @foreach($scoutLoadouts as $loadout)
-                    <x-dashboard-loadout :loadout="$loadout" />
-                @endforeach
-            </div>
-            <div class="loadoutCards">
-                @foreach($drillerLoadouts as $loadout)
-                    <x-dashboard-loadout :loadout="$loadout" />
-                @endforeach
-            </div>
-            <div class="loadoutCards">
-                @foreach($gunnerLoadouts as $loadout)
-                    <x-dashboard-loadout :loadout="$loadout" />
-                @endforeach
-            </div>
+	    @foreach($loadouts as $characterLoadouts)
+		<div class="loadoutCards">
+		    @foreach($characterLoadouts as $loadout)
+			<x-dashboard-loadout :loadout="$loadout"/>
+		    @endforeach
+		</div>
+	    @endforeach
         </div>
     </div>
 
