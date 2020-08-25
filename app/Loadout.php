@@ -55,7 +55,7 @@ class Loadout extends Model
     }
 
     /**
-     * We don't have a native relationship to guns, so we must traverse the mods to derive primary weapon
+     * We don't have a native relationship to guns, so we must traverse the mods to derive primary weapon.
      *
      * @return |null
      */
@@ -65,8 +65,6 @@ class Loadout extends Model
     }
 
     /**
-     *
-     *
      * @return |null
      */
     public function getSecondaryGunAttribute()
@@ -75,7 +73,7 @@ class Loadout extends Model
     }
 
     /**
-     * We don't have a native relationship to guns, so we must traverse the mods to derive weapon
+     * We don't have a native relationship to guns, so we must traverse the mods to derive weapon.
      *
      * @param $slot
      * @return mixed
@@ -87,7 +85,7 @@ class Loadout extends Model
             ->values() // re-index array
             ->get($slot); // Get nth item
 
-        if (!$grouped || !$grouped->first()) {
+        if (! $grouped || ! $grouped->first()) {
             return null;
         }
 
