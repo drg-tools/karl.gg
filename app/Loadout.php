@@ -14,7 +14,8 @@ class Loadout extends Model
 {
     use Favoriteable, Filterable, CrudTrait, Votable, Likeable, Sortable;
 
-    public $sortable = ['name', 'description', 'character_id', 'throwable_id'];
+    public $sortable = ['name', 'description', 'character_id', 'throwable_id', 'created_at', 'updated_at'];
+
     protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
 
     public function creator()
