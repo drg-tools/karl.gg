@@ -1,21 +1,35 @@
 // Browse Components
+
 .tableContainer {
 
-    .classFilter {
+    .classFilterContainer {
+        border-top: 5px solid #fc9e00;
         display: flex;
-        align-items: center;
-        cursor: pointer;
+        flex-wrap: wrap;
+        justify-content: space-around;
 
-        img {
-            opacity: 0.4;
+        & > h1 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-right: 2rem
         }
-    }
 
-    .classFilterActive {
-        color: $white;
+        .classFilter {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
 
-        img {
-            opacity: 1;
+            img {
+                opacity: 0.4;
+            }
+        }
+
+        .classFilterActive {
+            color: $white;
+
+            img {
+                opacity: 1;
+            }
         }
     }
 
@@ -62,6 +76,7 @@
                     padding-bottom: 1.25rem;
                 }
             }
+
             tr:hover {
                 background: $orange;
 
