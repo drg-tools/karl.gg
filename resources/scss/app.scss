@@ -1,8 +1,11 @@
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
+
+//@import 'utilities.scss';
+@import 'variables';
+@import 'dashboard';
+@import 'browse';
 
 /*todo: only three different font sizes!*/
 /*todo: web fonts*/
@@ -10,7 +13,11 @@
 @font-face {
     font-family: 'BebasNeue';
     src: url('../fonts/BebasNeue.eot'); /* IE9 Compat Modes */
-    src: url('../fonts/BebasNeue.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/BebasNeue.woff2') format('woff2'), /* Super Modern Browsers */ url('../fonts/BebasNeue.woff') format('woff'), /* Pretty Modern Browsers */ url('../fonts/BebasNeue.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/BebasNeue.svg#svgFontName') format('svg'); /* Legacy iOS */
+    src: url('../fonts/BebasNeue.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/BebasNeue.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/BebasNeue.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../fonts/BebasNeue.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/BebasNeue.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
 #character-selections input[type="radio"] {
@@ -28,17 +35,17 @@ body {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#322c20+0,5f5137+100 */
     background: #322c20; /* Old browsers */
     background-repeat: no-repeat;
-    background: -moz-linear-gradient(-45deg, #322c20 0%, #5f5137 100%) fixed; /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #322c20 0%, #5f5137 100%) fixed; /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #322c20 0%, #5f5137 100%) fixed; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#322c20', endColorstr='#5f5137', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+    background: -moz-linear-gradient(-45deg, #322c20 0%, $brown 100%) fixed; /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #322c20 0%, $brown 100%) fixed; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #322c20 0%, $brown 100%) fixed; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#322c20', endColorstr='$brown', GradientType=1); /* IE6-9 fallback on horizontal gradient */
     height: 100%;
     font-family: BebasNeue, sans-serif;
     //font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 
 h1 {
-    color: #fc9e00;
+    color: $orange;
     display: block;
     font-size: 2rem;
     letter-spacing: 0.1rem;
@@ -62,7 +69,7 @@ h2 {
 }
 
 h3 {
-    color: #fc9e00;
+    color: $orange;
     display: block;
     font-size: 1.4rem;
     font-weight: normal;
@@ -223,7 +230,7 @@ svg > a:hover {
 
 .loginPage label, .loginPage p {
     font-size: 1.5rem;
-    color: #ADA195;
+    color: $light-brown;
 }
 
 .loginPage a {
@@ -246,11 +253,11 @@ svg > a:hover {
     /*width: 8rem;*/
     padding-left: 10%;
     padding-right: 10%;
-    background: linear-gradient(90deg, #fc9e00 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #fc9e00 0.6rem, #fc9e00 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #fc9e00 calc(100% - 0.3rem));
+    background: linear-gradient(90deg, $orange 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, $orange 0.6rem, $orange calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), $orange calc(100% - 0.3rem));
 }
 
 .loginPage button:hover {
-    background: linear-gradient(90deg, #ffd200 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, #ffd200 0.6rem, #ffd200 calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), #ffd200 calc(100% - 0.3rem));
+    background: linear-gradient(90deg, $yellow 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, $yellow 0.6rem, $yellow calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), $yellow calc(100% - 0.3rem));
 }
 
 .loginPage input {
@@ -265,8 +272,8 @@ svg > a:hover {
 
 .loginPage input.form-checkbox:focus {
     outline: none;
-    box-shadow: 0 0 0 3px #FC9E00;
-    border-color: #ffd200;
+    box-shadow: 0 0 0 3px $orange;
+    border-color: $yellow;
     color: rgba(53, 46, 30, 0.5)
 }
 
@@ -282,22 +289,22 @@ svg > a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #fc9e00;
+    background-color: $orange;
     border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #ffffff;
+    background-color: $white;
     border-radius: 0px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #352e1e;
+    background-color: $off-black;
     border-radius: 0px;
 }
 
 ::-webkit-scrollbar-track:hover {
-    background-color: #352e1e;
+    background-color: $off-black;
     border-radius: 0px;
 }
 
@@ -310,12 +317,12 @@ svg > a:hover {
 .profileHeaderBackground {
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%)
+    background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, $off-black 100%)
 }
 
 .profileHeaderContainer {
     /* height: 20rem; */
-    background-color: #352e1e;
+    background-color: $off-black;
     margin-bottom: 2rem;
     background-blend-mode: overlay;
     display: flex;
@@ -375,7 +382,7 @@ svg > a:hover {
 }
 
 .authorLink {
-    color: #fc9e00;
+    color: $orange;
 }
 
 .authorLink:hover {
@@ -389,7 +396,7 @@ svg > a:hover {
 }
 
 .body__privacy_policy h2 {
-    color: #fc9e00;
+    color: $orange;
 }
 
 .vm--modal {
@@ -398,154 +405,7 @@ svg > a:hover {
     justify-content: space-between;
 }
 
-// Home Page Featured Area
-.featuredLoadoutsContainer {
-    width: 100%;
-    border-top: 5px solid #fc9e00;
-    background-color: #352E1E;
-    margin-bottom: 0.5rem;
 
-    h1 {
-         color: #fc9e00;
-     }
-
-    .cardGroups {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-        /* todo: fix */
-        .loadoutCards {
-            width: 48%;
-            display: flex;
-            flex-wrap: wrap;
-            align-content: flex-start;
-            padding-bottom: 1rem;
-        }
-    }
-    .loadoutCardContainer {
-        display: flex;
-        flex-wrap: nowrap;
-        width: 100%;
-        height: 5.3rem;
-        flex-direction: column;
-        border-top: 5px solid #fc9e00;
-        background-color: #5C4F35;
-        margin-bottom: 0.5rem;
-        cursor: pointer;
-    }
-
-    .loadoutCardContainer:hover {
-        background-color: #fc9e00;
-
-        .weaponContainer img {
-            filter: invert(100%) sepia(0%) saturate(2181%) hue-rotate(317deg) brightness(116%) contrast(100%);
-        }
-    }
-
-    /* todo: make responsive */
-    .myLoadoutsContainer > .loadoutCardContainer {
-        width: 28rem;
-    }
-
-    .titleRow {
-        display: flex;
-        height: 2.5rem;
-        align-items: center;
-        justify-content: space-between;
-        background: rgb(26, 85, 176);
-        background: linear-gradient(90deg, rgba(26, 85, 176, 1) 10%, rgba(0, 0, 0, 0) 100%);
-    }
-
-    .subtitleRow {
-        display: flex;
-        height: 2.5rem;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(0, 0, 0, 0.6);
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0) 100%);
-    }
-
-    .titleContentLeft {
-        display: flex;
-        align-items: center;
-    }
-
-    .titleContentRight {
-        display: flex;
-        align-items: center;
-    }
-
-    .classIcon {
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-
-    .buildName {
-        margin: 0 0 0 0.5rem;
-    }
-
-    .salutes {
-        width: 2.5rem;
-        text-align: center;
-        color: #FC9E00;
-    }
-
-    .author {
-        margin: 0 0 0 0.5rem;
-    }
-
-    .titleContentLeft {
-        display: flex;
-    }
-
-    .weaponContainer {
-        /*width: 50%;*/
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 2.5rem;
-    }
-
-    .weaponContainer > img {
-        margin: 0.5rem;
-        width: 50px;
-        filter: invert(67%) sepia(10%) saturate(379%) hue-rotate(349deg) brightness(96%) contrast(86%);
-    }
-
-    /* todo: make responsive */
-    .myLoadoutsContainer {
-        display: flex;
-        flex-wrap: wrap;
-        align-content: start;
-        padding-bottom: 0.5rem;
-        //width: 60%;
-        justify-content: space-between;
-        margin: auto;
-    }
-
-    /* todo: re-work css for loadout cards so it behaves properly in featured loadouts and profile view. kinda messed up now */
-    .body__home .myLoadoutsContainer {
-        width: 100%;
-    }
-
-    .buttonColumn {
-        width: 20%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .button {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0 0.5rem 1rem;
-        min-width: 8rem;
-        height: 2.2rem;
-        background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
-    }
-}
 
 @media (max-width: 770px) {
     .loadoutCards {

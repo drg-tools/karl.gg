@@ -1,0 +1,74 @@
+// Browse Components
+.tableContainer {
+
+    .classFilter {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        img {
+            opacity: 0.4;
+        }
+    }
+
+    .classFilterActive {
+        color: $white;
+
+        img {
+            opacity: 1;
+        }
+    }
+
+    .table {
+
+        width: 100%;
+
+        tr {
+            cursor: pointer;
+
+            td, th {
+                padding-right: .5rem;
+                padding-left: .5rem;
+            }
+        }
+
+        td.weapon img {
+            margin: 0.5rem;
+            width: 50px;
+            filter: $img-filter-off-white;
+        }
+
+        thead {
+            tr {
+                background: $orange;
+            }
+
+            th {
+                text-align: left;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: $brown-border;
+            }
+        }
+
+        tbody {
+            tr {
+                background: $off-black;
+                color: $white;
+                border-bottom: $brown-border;
+
+                td {
+                    padding-top: 1.25rem;
+                    padding-bottom: 1.25rem;
+                }
+            }
+            tr:hover {
+                background: $orange;
+
+                td.weapon img {
+                    filter: $img-filter-white;
+                }
+            }
+        }
+    }
+}
