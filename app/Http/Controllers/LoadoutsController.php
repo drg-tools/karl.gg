@@ -18,7 +18,7 @@ class LoadoutsController extends Controller
 
         return view('loadouts.index', [
             'loadouts' => $loadouts,
-            'characters' => $characters
+            'characters' => $characters,
         ]);
     }
 }
