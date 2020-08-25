@@ -34,7 +34,7 @@
                 <tr onclick="window.location = '{{ route('preview.show', $loadout->id) }}'">
                     <td><img src="/assets/img/{{ $loadout->character->image }}-hex.png"></td>
                     <td class="text-xl">{{ Str::limit($loadout->name, 50) }}</td>
-                    <td class="text-xl">{{ $loadout->creator->name }}</td>
+                    <td class="text-xl">{{ $loadout->creator->name ?? 'Anonymous' }}</td>
                     <td class="weapon">
                         @if($loadout->primaryGun)
                             <img src="/assets/{{ $loadout->primaryGun->image }}.svg">
