@@ -35,18 +35,8 @@
 
         @include('layouts.nav')
 
-        <!--<header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold leading-tight text-gray-900">
-                    @yield('title')
-                </h1>
-            </div>
-        </header>-->
-        <main>
-            <div class="max-w-7xl mx-auto">
-                @yield('content')
-            </div>
-        </main>
+        @yield('content')
+
         <!-- todo: footer -->
         <footer class='footerBorder w-full text-center border-t border-grey p-4 pin-b mt-4 text-gray-500 flex flex-1 justify-center'>
             <div class="p-2 mr-2" id="copyright">Copyright @ {{ \Carbon\Carbon::today()->year }} karl.gg</div>

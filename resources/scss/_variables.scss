@@ -14,7 +14,7 @@ $gunner-green: #407734;
 $engineer-red: #FD1400;
 $scout-blue: #2566FD;
 
-$brown-border: 3px solid #4d422e;
+$brown-border: 3px solid $brown;
 
 // Used for svg images that are in default (non-hover state)
 $img-filter-off-white: invert(67%) sepia(10%) saturate(379%) hue-rotate(349deg) brightness(96%) contrast(86%);

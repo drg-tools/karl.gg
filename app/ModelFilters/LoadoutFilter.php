@@ -19,7 +19,7 @@ class LoadoutFilter extends ModelFilter
         $this->where('character_id', $id);
     }
 
-    public function name($name)
+    public function search($name)
     {
         $this->whereLike('name', $name);
     }

@@ -13,6 +13,7 @@ class LoadoutsController extends Controller
         $loadouts = Loadout::sortable(['votes'])
             ->filter($request->all())
             ->with('mods', 'mods.gun', 'character', 'creator')
+            ->withCount('votes')
             ->paginate();
         $characters = Character::all();
 

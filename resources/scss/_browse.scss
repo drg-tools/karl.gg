@@ -9,8 +9,6 @@
         justify-content: space-around;
 
         & > h1 {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
             padding-right: 2rem
         }
 
@@ -30,6 +28,38 @@
             img {
                 opacity: 1;
             }
+        }
+    }
+
+    .searchContainer form {
+        display: flex;
+        flex-direction: row;
+        background-color: $orange;
+        margin-bottom: 3px;
+        padding: 2px 2px 2px 16px;
+
+        span {
+            float: left;
+
+            i {
+                margin-top: 8px;
+                margin-right: 12px;
+                font-weight: 700;
+            }
+        }
+
+        input {
+            flex: 1;
+            background-color: $brown;
+            color: $white;
+            border-color: $orange;
+            border-radius: 0;
+            height: 32px;
+            line-height: 1;
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 6px 12px;
         }
     }
 

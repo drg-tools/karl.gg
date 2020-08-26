@@ -15,6 +15,7 @@ class Loadout extends Model
     use Favoriteable, Filterable, CrudTrait, Votable, Likeable, Sortable;
 
     public $sortable = ['name', 'description', 'character_id', 'throwable_id', 'created_at', 'updated_at'];
+    public $sortableAs = ['votes_count'];
 
     protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
 
