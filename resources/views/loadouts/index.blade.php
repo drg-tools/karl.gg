@@ -66,7 +66,7 @@
             @endforeach
             </tbody>
         </table>
-        {{ $loadouts->appends(\Request::except('page'))->render() }}
+        {{ $loadouts->withQueryString()->render() }}
     </div>
 
 @endsection

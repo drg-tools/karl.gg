@@ -84,16 +84,31 @@ h4 {
     margin-inline-end: 0px;
 }
 
-span {
-    line-height: 1.2
-}
-
 #app {
     //font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin-top: 1rem;
     width: 1000px;
+}
+
+.pagination {
+    color: $black;
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+
+    li {
+        span, a {
+            border: 1px solid $orange;
+            color: $white;
+            background-color: $off-black;
+        }
+        span.current, a:hover {
+            background-color: $orange;
+            color: $black;
+            font-weight: bold;
+        }
+    }
 }
 
 @media (max-width: 1024px) {
