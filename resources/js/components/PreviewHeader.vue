@@ -144,7 +144,6 @@
 <style scoped>
     .previewHeaderBackground {
         width: 100%;
-        height: 100%;
         background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%)
     }
 
