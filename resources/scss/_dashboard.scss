@@ -1,6 +1,5 @@
 // Home Page Featured Area
 .featuredLoadoutsContainer {
-    width: 100%;
     border-top: 5px solid #fc9e00;
     background-color: #352E1E;
     margin-bottom: 0.5rem;
@@ -10,13 +9,8 @@
     }
 
     .cardGroups {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
 
-        /* todo: fix */
         .loadoutCards {
-            width: 48%;
             display: flex;
             flex-wrap: wrap;
             align-content: flex-start;
@@ -42,11 +36,6 @@
         .weaponContainer img {
             filter: $img-filter-white;
         }
-    }
-
-    /* todo: make responsive */
-    .myLoadoutsContainer > .loadoutCardContainer {
-        width: 28rem;
     }
 
     .titleRow {
@@ -101,7 +90,6 @@
     }
 
     .weaponContainer {
-        /*width: 50%;*/
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -120,7 +108,6 @@
         flex-wrap: wrap;
         align-content: start;
         padding-bottom: 0.5rem;
-        //width: 60%;
         justify-content: space-between;
         margin: auto;
     }

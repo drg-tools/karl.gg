@@ -15,14 +15,14 @@
 
     <div class="featuredLoadoutsContainer">
         <h1 class="uppercase">Most Popular Loadouts</h1>
-        <div class="cardGroups">
-	    @foreach($loadouts as $characterLoadouts)
-		<div class="loadoutCards">
-		    @foreach($characterLoadouts as $loadout)
-			<x-dashboard-loadout :loadout="$loadout"/>
-		    @endforeach
-		</div>
-	    @endforeach
+        <div class="cardGroups flex flex-wrap mb-4 -mx-1">
+            @foreach($loadouts as $characterLoadouts)
+            <div class="loadoutCards sm:w-full lg:w-1/2 px-1">
+                @foreach($characterLoadouts as $loadout)
+                <x-dashboard-loadout :loadout="$loadout"/>
+                @endforeach
+            </div>
+            @endforeach
         </div>
     </div>
 
