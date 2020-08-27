@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 //@import 'utilities.scss';
 @import 'variables';
@@ -94,6 +94,7 @@ h4 {
             color: $white;
             background-color: $off-black;
         }
+
         span.current, a:hover {
             background-color: $orange;
             color: $black;
@@ -332,28 +333,28 @@ svg > a:hover {
 }
 
 .profileImageD {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-D_image.png");
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-D_image.png");
     background-repeat: no-repeat;
     background-size: 45%;
     background-position: right -10% top -10%;
 }
 
 .profileImageE {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-E_image.png");
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-E_image.png");
     background-repeat: no-repeat;
     background-size: 35%;
     background-position: right -5% top -10%;
 }
 
 .profileImageG {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-G_image.png");
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-G_image.png");
     background-repeat: no-repeat;
     background-size: 45%;
     background-position: right -10% top -10%;
 }
 
 .profileImageS {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-S_image.png");
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-S_image.png");
     background-repeat: no-repeat;
     background-size: 35%;
     background-position: right -5% top -10%;

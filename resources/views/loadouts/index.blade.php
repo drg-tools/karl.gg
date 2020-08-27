@@ -9,7 +9,7 @@
             <span class="mr-4 font-bold">Filter by class:</span>
             <div class="flex justify-evenly flex-auto flex-wrap">
                 @foreach($characters as $character)
-                    <div class="text-center sm:w-1/2 lg:w-1/4">
+                    <div class="text-center w-1/2 lg:w-1/4">
                         <a class="classFilter items-center flex {{ \Request::get('character') == $character->id ? 'classFilterActive' : null}}"
                            @if(\Request::get('character') == $character->id)
                            href="{{ route('loadout.index') }}"
