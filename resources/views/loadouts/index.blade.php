@@ -6,7 +6,7 @@
 
     <div id="browse">
         <div class="classFilterContainer flex items-center py-2 flex-wrap">
-            <span class="mr-4">Filter by class:</span>
+            <span class="mr-4 flex-initial">Filter by class:</span>
             <div class="flex justify-evenly flex-1 flex-wrap">
                 @foreach($characters as $character)
                     <div class="text-center sm:w-1/2 lg:w-1/4">
