@@ -1,29 +1,36 @@
 // Browse Components
 
-.tableContainer {
+#browse {
 
     .classFilterContainer {
         border-top: 5px solid #fc9e00;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
 
-        & > h1 {
-            padding-right: 2rem
+        span {
+            color: $orange;
+            font-weight: bold;
+            font-size: 2rem;
         }
 
         .classFilter {
-            display: flex;
-            align-items: center;
             cursor: pointer;
 
             img {
                 opacity: 0.4;
+                width: 50px;
+                height: 50px;
+            }
+
+            span {
+                color: $off-white;
+                font-size: 1.6rem;
             }
         }
 
         .classFilterActive {
-            color: $white;
+
+            span {
+                color: $white;
+            }
 
             img {
                 opacity: 1;
@@ -65,11 +72,9 @@
 
     .table {
 
-        width: 100%;
+        //width: 100%;
 
         tr {
-            cursor: pointer;
-
             td, th {
                 padding-right: .5rem;
                 padding-left: .5rem;
@@ -100,6 +105,7 @@
                 background: $off-black;
                 color: $white;
                 border-bottom: $brown-border;
+                cursor: pointer;
 
                 td {
                     padding-top: 1.25rem;

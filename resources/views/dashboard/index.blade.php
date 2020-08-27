@@ -14,7 +14,7 @@
     </div>
 
     <div class="featuredLoadoutsContainer">
-        <h1 class="uppercase">Most Popular Loadouts</h1>
+        <h1 class="uppercase text-center">Most Popular Loadouts</h1>
         <div class="cardGroups flex flex-wrap mb-4 -mx-1">
             @foreach($loadouts as $characterLoadouts)
             <div class="loadoutCards sm:w-full lg:w-1/2 px-1">

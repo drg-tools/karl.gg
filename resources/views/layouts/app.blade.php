@@ -30,7 +30,7 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-none @yield('body_class')">
+<body class="max-w-screen-lg mx-auto bg-gray-100 h-screen antialiased leading-none @yield('body_class')">
     <div id="app">
 
         @include('layouts.nav')

@@ -84,14 +84,6 @@ h4 {
     margin-inline-end: 0px;
 }
 
-#app {
-    //font-family: "Avenir", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin-top: 1rem;
-    width: 1000px;
-}
-
 .pagination {
     color: $black;
     margin-top: .2rem;
@@ -114,13 +106,8 @@ h4 {
     h2 {
         font-size: 1.2rem;
     }
-
-    #app {
-        width: 95vw;
-    }
-
-    .linkArea {
-        width: 5rem;
+    .navMenu {
+        margin-bottom: 0;
     }
 }
 
