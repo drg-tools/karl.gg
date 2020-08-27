@@ -3,11 +3,10 @@
 #browse {
 
     .classFilterContainer {
-        border-top: 5px solid #fc9e00;
+        border-top: 5px solid $orange;
 
         span {
             color: $orange;
-            font-weight: bold;
             font-size: 2rem;
         }
 
