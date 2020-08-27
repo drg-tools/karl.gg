@@ -72,7 +72,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $loadouts->withQueryString()->render() }}
+
+        <div class="mt-2">
+            {{ $loadouts->withQueryString()->render() }}
+        </div>
     </div>
 
 @endsection
