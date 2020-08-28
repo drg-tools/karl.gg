@@ -14,7 +14,7 @@ class LoadoutsController extends Controller
             ->filter($request->all())
             ->with('mods', 'mods.gun', 'character', 'creator')
             ->withCount('votes')
-            ->paginate();
+            ->simplePaginate();
         $characters = Character::all();
 
         return view('loadouts.index', [

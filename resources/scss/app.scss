@@ -85,25 +85,7 @@ h4 {
 }
 
 .pagination {
-    color: $black;
-    margin-top: .2rem;
-    margin-bottom: .2rem;
-
-    li {
-        span, a {
-            color: $white;
-            background-color: $off-black;
-        }
-
-        span.current, a:hover {
-            background-color: $orange;
-            color: $black;
-        }
-
-        span.current {
-            font-weight: bold;
-        }
-    }
+    color: $orange;
 }
 
 @media (max-width: 1024px) {
