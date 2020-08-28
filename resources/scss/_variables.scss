@@ -1,0 +1,24 @@
+// Base Colors
+$orange: #FC9E00;
+$yellow: #FFD200;
+$black: #18110B;
+$off-black: #352E1E;
+$white: #FFFFFF;
+$off-white: #ADA195;
+$dark-brown: #5B402D;
+$brown: #5F5137;
+$light-brown: #ADA195;
+
+// Class specific colors (can be used elsewhere)
+$driller-yellow: #FDFA00;
+$gunner-green: #407734;
+$engineer-red: #FD1400;
+$scout-blue: #2566FD;
+
+$brown-border: 3px solid $brown;
+
+// Used for svg images that are in default (non-hover state)
+$img-filter-off-white: invert(67%) sepia(10%) saturate(379%) hue-rotate(349deg) brightness(96%) contrast(86%);
+
+// Used for svg images that are in a hover state
+$img-filter-white: invert(100%) sepia(0%) saturate(2181%) hue-rotate(317deg) brightness(116%) contrast(100%);

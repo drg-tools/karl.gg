@@ -1,4 +1,4 @@
-<a href="{{ route('preview.show', $loadout->id) }}">
+<a href="{{ route('preview.show', $loadout->id) }}" class="w-full">
     <div class="myLoadoutsContainer">
 	<div class="loadoutCardContainer">
 	    <div class="titleRow">

@@ -430,6 +430,7 @@
     .statsText {
         width: 55%;
         color: rgba(255, 251, 255, 1);
+        line-height: 1.2rem;
     }
 
     .statsValue {

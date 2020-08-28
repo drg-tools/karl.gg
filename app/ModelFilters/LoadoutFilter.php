@@ -4,7 +4,7 @@ namespace App\ModelFilters;
 
 use EloquentFilter\ModelFilter;
 
-class BuildFilter extends ModelFilter
+class LoadoutFilter extends ModelFilter
 {
     /**
      * Related Models that have ModelFilters as well as the method on the ModelFilter
@@ -19,7 +19,7 @@ class BuildFilter extends ModelFilter
         $this->where('character_id', $id);
     }
 
-    public function name($name)
+    public function search($name)
     {
         $this->whereLike('name', $name);
     }

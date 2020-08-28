@@ -1,0 +1,408 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+//@import 'utilities.scss';
+@import 'variables';
+@import 'dashboard';
+@import 'browse';
+
+/*todo: only three different font sizes!*/
+/*todo: web fonts*/
+
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('../fonts/BebasNeue.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/BebasNeue.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/BebasNeue.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/BebasNeue.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../fonts/BebasNeue.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/BebasNeue.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+#character-selections input[type="radio"] {
+    visibility: hidden;
+}
+
+
+html {
+    height: 100%;
+}
+
+body {
+    //display: flex;
+    justify-content: center;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#322c20+0,5f5137+100 */
+    background: #322c20; /* Old browsers */
+    background-repeat: no-repeat;
+    background: -moz-linear-gradient(-45deg, #322c20 0%, $brown 100%) fixed; /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #322c20 0%, $brown 100%) fixed; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #322c20 0%, $brown 100%) fixed; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#322c20', endColorstr='$brown', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+    height: 100%;
+    font-family: BebasNeue, sans-serif;
+    //font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    color: $orange;
+    display: block;
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+    font-weight: bold;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+h2 {
+    color: #fffbff;
+    display: block;
+    font-size: 1.6rem;
+    letter-spacing: 0.05rem;
+    font-weight: normal !important;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+h3 {
+    color: $orange;
+    display: block;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+h4 {
+    display: block;
+    font-weight: normal;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.pagination {
+    color: $black;
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+
+    li {
+        span, a {
+            color: $white;
+            background-color: $off-black;
+        }
+
+        span.current, a:hover {
+            background-color: $orange;
+            color: $black;
+            font-weight: bold;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    h2 {
+        font-size: 1.2rem;
+    }
+    .navMenu {
+        margin-bottom: 0;
+    }
+}
+
+.mainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    /*height: 5rem;*/
+}
+
+
+svg > a:hover {
+    text-decoration: none !important;
+}
+
+.navMenu {
+    background-color: rgb(24, 17, 11);
+    border-bottom: 5px solid rgb(252, 158, 0);
+    margin-bottom: 2rem;
+
+    text {
+        font-size: 34px;
+    }
+}
+
+.navButton, .navButtonActive {
+    margin-right: 1rem;
+}
+
+.navButton path {
+    stroke: none;
+}
+
+.navButton text {
+    fill: rgb(173, 161, 149);
+}
+
+.navButton:hover path {
+    stroke: rgb(255, 255, 255);
+}
+
+.navButton:hover text {
+    fill: rgb(255, 255, 255);
+}
+
+.navButtonActive path {
+    stroke: rgb(252, 158, 0);
+}
+
+.navButtonActive text {
+    fill: rgb(255, 255, 255);
+}
+
+.footerBorder {
+    border-top: 5px solid rgb(252, 158, 0)
+}
+
+.allCaps {
+    text-transform: uppercase;
+}
+
+.defaultBackground {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.costList {
+    display: flex;
+    flex-wrap: wrap;
+    color: #fffbff;
+    margin-top: 1.5rem;
+}
+
+.costListItem {
+    display: flex;
+    align-items: center;
+}
+
+.costListItem > img {
+    padding-right: 0.2rem;
+}
+
+.costListItem > span {
+    padding-right: 0.6rem;
+}
+
+.loadingIndicator {
+    width: 100%;
+    border-bottom: 5px solid rgb(252, 158, 0);
+}
+
+.loadingIndicator > img {
+    margin: auto;
+}
+
+.dropdown-overwrite .dropdown-menu {
+    display: none;
+}
+
+.dropdown-overwrite .dropdown-menu.show {
+    display: block;
+}
+
+/* todo: give stuff in login etc. classes and style here! */
+.loginPage {
+    padding: 1rem;
+    border-top: 5px solid rgb(252, 158, 0);
+    background-image: url("../js/assets/img/LootBug.png");
+    background-color: rgba(53, 46, 30, 1);
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% bottom -10%;
+}
+
+.loginPage div {
+    background-color: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: rgb(252, 158, 0);
+    box-shadow: none;
+}
+
+.loginPage label, .loginPage p {
+    font-size: 1.5rem;
+    color: $light-brown;
+}
+
+.loginPage a {
+    font-size: 1.5rem;
+    color: rgb(252, 158, 0);
+}
+
+.loginPage button {
+    color: #000000;
+    font-size: 1.6rem;
+    letter-spacing: 0.05rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    display: flex;
+    height: 2.2rem;
+    justify-content: center;
+    align-items: center;
+    /*width: 8rem;*/
+    padding-left: 10%;
+    padding-right: 10%;
+    background: linear-gradient(90deg, $orange 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, $orange 0.6rem, $orange calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), $orange calc(100% - 0.3rem));
+}
+
+.loginPage button:hover {
+    background: linear-gradient(90deg, $yellow 0.3rem, rgba(0, 0, 0, 0) 0.3rem, rgba(0, 0, 0, 0) 0.6rem, $yellow 0.6rem, $yellow calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.6rem), rgba(0, 0, 0, 0) calc(100% - 0.3rem), $yellow calc(100% - 0.3rem));
+}
+
+.loginPage input {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    color: #000000;
+}
+
+/* todo: style checkmark and inputs nicer in general  */
+.loginPage input.form-checkbox {
+    color: rgb(0, 0, 0)
+}
+
+.loginPage input.form-checkbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px $orange;
+    border-color: $yellow;
+    color: rgba(53, 46, 30, 0.5)
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+    height: 12px;
+    border-radius: 0px;
+    background-color: #aaa;
+}
+
+::-webkit-scrollbar-button:hover {
+    background-color: #aaa;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $orange;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: $white;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: $off-black;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: $off-black;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+/* Profile Styling */
+.profileHeaderBackground {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, $off-black 100%)
+}
+
+.profileHeaderContainer {
+    /* height: 20rem; */
+    background-color: $off-black;
+    margin-bottom: 2rem;
+    background-blend-mode: overlay;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profileImageD {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-D_image.png");
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% top -10%;
+}
+
+.profileImageE {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-E_image.png");
+    background-repeat: no-repeat;
+    background-size: 35%;
+    background-position: right -5% top -10%;
+}
+
+.profileImageG {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-G_image.png");
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% top -10%;
+}
+
+.profileImageS {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../js/assets/img/full-S_image.png");
+    background-repeat: no-repeat;
+    background-size: 35%;
+    background-position: right -5% top -10%;
+}
+
+.data-container {
+    padding: 5px;
+    border-radius: 3px;
+    background: rgba(24, 17, 11, .6);
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    font-size: 26px;
+}
+
+.data-container:first-child {
+    margin-right: 20px;
+}
+
+.profileFooter {
+    display: flex;
+    padding: 20px;
+}
+
+.profileBtnContainer {
+    width: 20%;
+}
+
+.authorLink {
+    color: $orange;
+}
+
+.authorLink:hover {
+    text-decoration: underline;
+}
+
+/* Privacy policy */
+.body__privacy_policy p {
+    margin: 20px 0;
+    color: #FFF;
+}
+
+.body__privacy_policy h2 {
+    color: $orange;
+}
+
+.vm--modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

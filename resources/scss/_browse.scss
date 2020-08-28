@@ -1,0 +1,124 @@
+// Browse Components
+
+#browse {
+
+    .classFilterContainer {
+        border-top: 5px solid $orange;
+
+        span {
+            color: $orange;
+            font-size: 2rem;
+        }
+
+        .classFilter {
+            cursor: pointer;
+
+            img {
+                opacity: 0.4;
+                width: 50px;
+                height: 50px;
+            }
+
+            span {
+                color: $off-white;
+                font-size: 1.6rem;
+            }
+        }
+
+        .classFilterActive {
+
+            span {
+                color: $white;
+            }
+
+            img {
+                opacity: 1;
+            }
+        }
+    }
+
+    .searchContainer form {
+        display: flex;
+        flex-direction: row;
+        background-color: $orange;
+        margin-bottom: 3px;
+        padding: 2px 2px 2px 16px;
+
+        span {
+            float: left;
+
+            i {
+                margin-top: 8px;
+                margin-right: 12px;
+                font-weight: 700;
+            }
+        }
+
+        input {
+            flex: 1;
+            background-color: $brown;
+            color: $white;
+            border-color: $orange;
+            border-radius: 0;
+            height: 32px;
+            line-height: 1;
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 6px 12px;
+        }
+    }
+
+    .table {
+
+        //width: 100%;
+
+        tr {
+            td, th {
+                padding-right: .5rem;
+                padding-left: .5rem;
+            }
+        }
+
+        td.weapon img {
+            margin: 0.5rem;
+            width: 50px;
+            filter: $img-filter-off-white;
+        }
+
+        thead {
+            tr {
+                background: $orange;
+            }
+
+            th {
+                text-align: left;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: $brown-border;
+            }
+        }
+
+        tbody {
+            tr {
+                background: $off-black;
+                color: $white;
+                border-bottom: $brown-border;
+                cursor: pointer;
+
+                td {
+                    padding-top: 1.25rem;
+                    padding-bottom: 1.25rem;
+                }
+            }
+
+            tr:hover {
+                background: $orange;
+
+                td.weapon img {
+                    filter: $img-filter-white;
+                }
+            }
+        }
+    }
+}
