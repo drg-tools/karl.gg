@@ -10,7 +10,7 @@ class LoadoutsController extends Controller
 {
     public function index(Request $request)
     {
-        $loadouts = Loadout::sortable(['votes'])
+        $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
             ->with('mods', 'mods.gun', 'character', 'creator')
             ->withCount('votes')
