@@ -98,6 +98,9 @@ h4 {
         span.current, a:hover {
             background-color: $orange;
             color: $black;
+        }
+
+        span.current {
             font-weight: bold;
         }
     }
