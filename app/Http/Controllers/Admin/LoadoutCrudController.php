@@ -27,7 +27,39 @@ class LoadoutCrudController extends CrudController
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        $this->crud->addColumns(['name']); // make these the only columns in the table
+        // '','gun_id'
+        $this->crud->addColumn([
+            'name' => 'creator', // The db column name
+            'label' => 'creator', // Table column heading
+            'type' => 'relationship',
+            'entity' => 'user', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model' => App\User::class, // foreign key model
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('user', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
+                });
+            },
+        ]);
+        $this->crud->addColumn([
+            'name' => 'character', // The db column name
+            'label' => 'Character', // Table column heading
+            'type' => 'relationship',
+            'entity' => 'character', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model' => App\Character::class, // foreign key model
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('character', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%'.$searchTerm.'%');
+                });
+            },
+        ]);
+        $this->crud->addColumn([   // DateTime
+            'name'  => 'created_at',
+            'label' => 'Created',
+            'type'  => 'datetime'
+        ]);
     }
 
     protected function setupCreateOperation()
