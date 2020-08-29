@@ -26,8 +26,7 @@ class PatchCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        $this->crud->addColumns(['patch_num','patch_num_dev','patch_title']); 
     }
 
     protected function setupCreateOperation()
@@ -35,7 +34,23 @@ class PatchCrudController extends CrudController
         $this->crud->setValidation(PatchRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+        // $this->crud->setFromDb();
+        // $this->crud->addField(['patch_num','patch_num_dev','patch_title']);
+        $this->crud->addField([   // Number
+            'name' => 'patch_title',
+            'label' => 'Patch Title',
+            'type' => 'text',
+        ]);
+        $this->crud->addField([   // Number
+            'name' => 'patch_num',
+            'label' => 'Patch Number',
+            'type' => 'text',
+        ]);
+        $this->crud->addField([   // Number
+            'name' => 'patch_num_dev',
+            'label' => 'Patch Number Dev',
+            'type' => 'text',
+        ]);
     }
 
     protected function setupUpdateOperation()
