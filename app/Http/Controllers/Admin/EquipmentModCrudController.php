@@ -114,7 +114,7 @@ class EquipmentModCrudController extends CrudController
             'entity' => 'equipment', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Equipment", // foreign key model
-            'tab' => 'Base Info'
+            'tab' => 'Base Info',
         ]);
 
         $this->crud->addField([   // select_from_array
