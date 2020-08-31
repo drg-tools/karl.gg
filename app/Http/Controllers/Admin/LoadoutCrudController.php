@@ -56,81 +56,81 @@ class LoadoutCrudController extends CrudController
         $this->crud->addColumn([   // DateTime
             'name'  => 'created_at',
             'label' => 'Created',
-            'type'  => 'datetime'
+            'type'  => 'datetime',
         ]);
     }
 
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(LoadoutRequest::class);
-        $this->crud->addFields(['name','description']); 
+        $this->crud->addFields(['name', 'description']);
         $this->crud->addField([  // relationship
-            'type' => "select2",
+            'type' => 'select2',
             'name' => 'creator', // the method on your model that defines the relationship
-            'label' => "User",
-            'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+            'label' => 'User',
+            'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'creator', // the method that defines the relationship in your Model
             'model' => "App\User", // foreign key Eloquent model
-            'placeholder' => "Select user", // placeholder for the select2 input
-         ]);
-         $this->crud->addField([  // relationship
-            'type' => "select2",
+            'placeholder' => 'Select user', // placeholder for the select2 input
+        ]);
+        $this->crud->addField([  // relationship
+            'type' => 'select2',
             'name' => 'character_id', // the method on your model that defines the relationship
-            'label' => "Character",
-            'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+            'label' => 'Character',
+            'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'character', // the method that defines the relationship in your Model
             'model' => "App\Character", // foreign key Eloquent model
-            'placeholder' => "Select character", // placeholder for the select2 input
-         ]);
+            'placeholder' => 'Select character', // placeholder for the select2 input
+        ]);
     }
 
     protected function setupUpdateOperation()
     {
-        $this->crud->addFields(['name','description']); 
+        $this->crud->addFields(['name', 'description']);
         $this->crud->addField([  // relationship
-            'type' => "select2",
+            'type' => 'select2',
             'name' => 'creator', // the method on your model that defines the relationship
-            'label' => "User",
-            'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+            'label' => 'User',
+            'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'creator', // the method that defines the relationship in your Model
             'model' => "App\User", // foreign key Eloquent model
-            'placeholder' => "Select user", // placeholder for the select2 input
-         ]);
+            'placeholder' => 'Select user', // placeholder for the select2 input
+        ]);
         $this->crud->addField([  // relationship
-            'type' => "select2_multiple",
+            'type' => 'select2_multiple',
             'name' => 'mods', // the method on your model that defines the relationship
-            'label' => "Mods",
-            'attribute' => "mod_name", // foreign key attribute that is shown to user (identifiable attribute)
+            'label' => 'Mods',
+            'attribute' => 'mod_name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'mods', // the method that defines the relationship in your Model
             'model' => "App\Mod", // foreign key Eloquent model
-            'placeholder' => "Select mods", // placeholder for the select2 input
-         ]);
-         $this->crud->addField([  // relationship
-            'type' => "select2_multiple",
+            'placeholder' => 'Select mods', // placeholder for the select2 input
+        ]);
+        $this->crud->addField([  // relationship
+            'type' => 'select2_multiple',
             'name' => 'overclocks', // the method on your model that defines the relationship
-            'label' => "Overclocks",
-            'attribute' => "overclock_name", // foreign key attribute that is shown to user (identifiable attribute)
+            'label' => 'Overclocks',
+            'attribute' => 'overclock_name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'overclocks', // the method that defines the relationship in your Model
             'model' => "App\Overclock", // foreign key Eloquent model
-            'placeholder' => "Select overclocks", // placeholder for the select2 input
-         ]);
-         $this->crud->addField([  // relationship
-            'type' => "select2_multiple",
+            'placeholder' => 'Select overclocks', // placeholder for the select2 input
+        ]);
+        $this->crud->addField([  // relationship
+            'type' => 'select2_multiple',
             'name' => 'equipment_mods', // the method on your model that defines the relationship
-            'label' => "Equipment Mods",
-            'attribute' => "mod_name", // foreign key attribute that is shown to user (identifiable attribute)
+            'label' => 'Equipment Mods',
+            'attribute' => 'mod_name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'equipment_mods', // the method that defines the relationship in your Model
             'model' => "App\EquipmentMod", // foreign key Eloquent model
-            'placeholder' => "Select Equipment Mods", // placeholder for the select2 input
-         ]);
-         $this->crud->addField([  // relationship
-            'type' => "select2",
+            'placeholder' => 'Select Equipment Mods', // placeholder for the select2 input
+        ]);
+        $this->crud->addField([  // relationship
+            'type' => 'select2',
             'name' => 'character', // the method on your model that defines the relationship
-            'label' => "Character",
-            'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+            'label' => 'Character',
+            'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'character', // the method that defines the relationship in your Model
             'model' => "App\Character", // foreign key Eloquent model
-            'placeholder' => "Select character", // placeholder for the select2 input
-         ]);
+            'placeholder' => 'Select character', // placeholder for the select2 input
+        ]);
     }
 }

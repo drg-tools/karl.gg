@@ -26,7 +26,7 @@ class PatchCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        $this->crud->addColumns(['patch_num','patch_num_dev','patch_title']); 
+        $this->crud->addColumns(['patch_num', 'patch_num_dev', 'patch_title']);
     }
 
     protected function setupCreateOperation()
