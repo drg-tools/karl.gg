@@ -6,7 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Character
+ * App\Character.
  *
  * @property int $id
  * @property string $name

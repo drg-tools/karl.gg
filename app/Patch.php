@@ -7,7 +7,7 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Patch
+ * App\Patch.
  *
  * @property int $id
  * @property string $patch_num
