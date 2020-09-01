@@ -7,7 +7,7 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Throwable
+ * App\Throwable.
  *
  * @property int $id
  * @property int $character_id

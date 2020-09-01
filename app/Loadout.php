@@ -11,7 +11,7 @@ use Nagy\LaravelRating\Traits\Like\Likeable;
 use Nagy\LaravelRating\Traits\Vote\Votable;
 
 /**
- * App\Loadout
+ * App\Loadout.
  *
  * @property int $id
  * @property string $name

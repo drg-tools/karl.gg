@@ -13,7 +13,7 @@ use Nagy\LaravelRating\Traits\Vote\CanVote;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\User
+ * App\User.
  *
  * @property int $id
  * @property string $name

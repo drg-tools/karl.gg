@@ -7,7 +7,7 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Gun
+ * App\Gun.
  *
  * @property int $id
  * @property string $name
