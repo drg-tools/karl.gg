@@ -33,6 +33,7 @@
     "require-dev": {
         "backpack/generators": "^3.1",
         "barryvdh/laravel-debugbar": "^3.4",
+	"barryvdh/laravel-ide-helper": "^2.8",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "haydenpierce/class-finder": "^0.4.2",
@@ -82,6 +83,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+	],
+	"post-update-cmd": [
+	    "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+	    "@php artisan ide-helper:generate",
+	    "@php artisan ide-helper:meta"
         ]
     }
 }

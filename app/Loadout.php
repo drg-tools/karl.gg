@@ -10,6 +10,56 @@ use Kyslik\ColumnSortable\Sortable;
 use Nagy\LaravelRating\Traits\Like\Likeable;
 use Nagy\LaravelRating\Traits\Vote\Votable;
 
+/**
+ * App\Loadout
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $description
+ * @property int|null $user_id
+ * @property int $character_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $patch_id
+ * @property int|null $throwable_id
+ * @property-read \App\Character $character
+ * @property-read \App\User|null $creator
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\EquipmentMod[] $equipment_mods
+ * @property-read int|null $equipment_mods_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ChristianKuri\LaravelFavorite\Models\Favorite[] $favorites
+ * @property-read int $favorites_count
+ * @property-read null $primary_gun
+ * @property-read null $secondary_gun
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $likes
+ * @property-read int|null $likes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Mod[] $mods
+ * @property-read int|null $mods_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Overclock[] $overclocks
+ * @property-read int|null $overclocks_count
+ * @property-read \App\Throwable|null $throwable
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $votes
+ * @property-read int|null $votes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout filter($input = [], $filter = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout paginateFilter($perPage = null, $columns = [], $pageName = 'page', $page = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout simplePaginateFilter($perPage = null, $columns = [], $pageName = 'page', $page = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout sortable($defaultParameters = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereBeginsWith($column, $value, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereCharacterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereEndsWith($column, $value, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereLike($column, $value, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout wherePatchId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereThrowableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Loadout extends Model
 {
     use Favoriteable, Filterable, CrudTrait, Votable, Likeable, Sortable;
