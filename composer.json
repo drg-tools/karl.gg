@@ -28,6 +28,7 @@
         "nagy/laravel-rating": "^1.4",
         "nuwave/lighthouse": "^4.14",
         "rollbar/rollbar-laravel": "^6.0",
+        "spatie/laravel-backup": "^6.11",
         "tucker-eric/eloquentfilter": "^2.3"
     },
     "require-dev": {
