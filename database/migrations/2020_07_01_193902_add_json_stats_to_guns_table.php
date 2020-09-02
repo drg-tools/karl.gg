@@ -26,7 +26,7 @@ class AddJsonStatsToGunsTable extends Migration
     public function down()
     {
         Schema::table('guns', function (Blueprint $table) {
-            $table->dropColumn('json_stats', 1000);
+            $table->dropColumn('json_stats');
         });
     }
 }

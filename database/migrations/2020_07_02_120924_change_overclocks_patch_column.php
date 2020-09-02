@@ -26,7 +26,7 @@ class ChangeOverclocksPatchColumn extends Migration
     public function down()
     {
         Schema::table('overclocks', function (Blueprint $table) {
-            $table->renameColumn('patch_number_index', 'patch_id');
+            $table->renameColumn('patch_id', 'patch_number_index');
         });
     }
 }
