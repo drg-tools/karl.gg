@@ -23,7 +23,6 @@ class AddIndexesToLoadoutMods extends Migration
                 ->references('id')
                 ->on('mods')
                 ->onDelete('cascade');
-
         });
     }
 
