@@ -102,7 +102,7 @@ return [
              */
             'disks' => [
                 'local',
-                's3'
+                's3',
             ],
         ],
 
