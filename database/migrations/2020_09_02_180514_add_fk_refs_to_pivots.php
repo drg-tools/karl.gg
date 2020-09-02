@@ -23,7 +23,6 @@ class AddFkRefsToPivots extends Migration
                 ->references('id')
                 ->on('equipment_mods')
                 ->onDelete('cascade');
-
         });
 
         Schema::table('loadout_overclock', function (Blueprint $table) {
@@ -36,7 +35,6 @@ class AddFkRefsToPivots extends Migration
                 ->references('id')
                 ->on('overclocks')
                 ->onDelete('cascade');
-
         });
     }
 
