@@ -23,6 +23,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "mll-lab/graphql-php-scalars": "^3.1",
         "mll-lab/laravel-graphql-playground": "^2.1",
         "nagy/laravel-rating": "^1.4",
