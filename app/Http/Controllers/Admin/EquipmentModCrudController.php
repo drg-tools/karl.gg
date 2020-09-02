@@ -136,7 +136,7 @@ class EquipmentModCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'text_description',
+            'name' => 'description',
             'label' => 'Text Description',
             'type' => 'text',
             'tab' => 'Base Info',
@@ -263,7 +263,7 @@ class EquipmentModCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'text_description',
+            'name' => 'description',
             'label' => 'Text Description',
             'type' => 'text',
             'tab' => 'Base Info',
