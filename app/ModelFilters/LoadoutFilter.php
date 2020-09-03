@@ -21,6 +21,6 @@ class LoadoutFilter extends ModelFilter
 
     public function search($name)
     {
-        $this->whereLike('name', $name);
+        $this->whereLike('loadouts.name', $name);
     }
 }
