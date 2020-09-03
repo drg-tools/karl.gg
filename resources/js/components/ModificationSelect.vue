@@ -35,8 +35,8 @@
         </div>
         <div class="overclockContainer" v-if="selectedEquipmentType !== 'equipments'">
             <h2>Overclock</h2>
-            <!-- todo: For the OC selection, I think the choosen OC icon should be a bit lighter -->
-            <div class="overclockDisplay">
+            <div class="overclockDisplay"
+                 v-on:mouseover="hoverOverclock(selectedClassId, selectedEquipmentId, getSelectedOverclockId(computedState))">
                 <!--todo: show name of selected overclock on hover?-->
                 <svg v-popover:overclocks.top
                      viewBox="0 0 80 80"
@@ -156,7 +156,7 @@
                 </div>
             </popover>
         </div>
-        <div class="modTextBox" v-if="!!hoveredMod.mod_name || !!hoveredMod.overclock_name">
+        <div class="modTextBox" v-if="hoveredMod ? (!!hoveredMod.mod_name || !!hoveredMod.overclock_name) : false ">
             <div class="modTextBoxHeader">
                 <div class="modTextBoxIcon">
                     <svg viewBox="0 0 80 50" height="100%" class="modPadding modBackgroundActiveNoStroke">
@@ -319,6 +319,13 @@
                 // combine icon from path with icon border!
                 return store.state.icons.mods[iconPath];
             },
+            getSelectedOverclockId: function (state) {
+                let weapons = state.loadoutCreator.baseData[this.selectedClassId][this.selectedEquipmentType];
+                let selectedWeapon = weapons.filter(weapon => weapon.id === this.selectedEquipmentId);
+                let selectedOverclock = selectedWeapon[0].overclocks.filter(overclock => overclock.selected);
+                let selectedOverclockId = selectedOverclock[0] ? selectedOverclock[0].id : null;
+                return this.availableOverclocks.findIndex(overclock => overclock.id === selectedOverclockId);
+            },
             getSelectedOverclockIcon: function (state) {
                 let weapons = state.loadoutCreator.baseData[this.selectedClassId][this.selectedEquipmentType];
                 let selectedWeapon = weapons.filter(weapon => weapon.id === this.selectedEquipmentId);
@@ -474,7 +481,7 @@
 
     .overclockBackgroundActive {
         fill: #fc9e00;
-        stroke: #fffbff;
+        /*stroke: #fffbff;*/
         stroke-width: 2px;
     }
 
@@ -528,12 +535,12 @@
         width: 6rem;
     }
 
-    .modDisplay:hover .modBackground {
+    .modDisplay:hover .modBackground, .modDisplay:hover .overclockBackground, .modDisplay:hover .overclockBackgroundActive, .overclockDisplay:hover .overclockBackground {
         stroke: #fffbff;
     }
 
-    .modDisplay:hover .overclockBackground {
-        stroke: #fffbff;
+    .modDisplay:hover .modBackgroundActive {
+        fill: #fccc00;
     }
 
     .modTextBox {

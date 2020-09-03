@@ -11,7 +11,11 @@
         </div>
         <div class="modMatrixContainer">
             <div v-for="(tier, tierId) in getModMatrix" :key="tierId" class="modMatrixRow">
-                <div v-for="(mod, modId) in tier" :key="modId" class="mod">
+                <div v-for="(mod, modId) in tier" :key="modId" class="mod" v-tooltip="{
+                  content: mod ? getModMatrixTooltipContent(mod) : null,
+                  placement: 'right',
+                  trigger: 'hover'
+                }">
                     <svg viewBox="0 0 80 50"
                          height="100%"
                          :class="[mod ? 'modActive' : 'modInactive']">
@@ -20,7 +24,11 @@
                     </svg>
                 </div>
             </div>
-            <div class="overclockContainer" v-if="getOverclockData">
+            <div class="overclockContainer" v-if="getOverclockData" v-tooltip="{
+                  content: getOverclockData ? getOverclockTooltipContent : null,
+                  placement: 'right',
+                  trigger: 'hover'
+                }">
                 <svg v-if="isCleanOverclock" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
@@ -130,6 +138,13 @@
             },
             getUnstableDisplayByOverclock: function (overclock) {
                 return overclock.type === 'Unstable' ? 'inherit' : 'none';
+            },
+            getModMatrixTooltipContent: function (mod) {
+                let description = mod.description ? mod.description : mod.text_description;
+                return `<h3>${mod.mod_name}</h3><br><span>${description}</span>`;
+            },
+            getOverclockTooltipContent: function () {
+                return `<h3>${this.overclock.overclock_type}</h3><br><span>${this.overclock.text_description}</span>`;
             }
         }
     };

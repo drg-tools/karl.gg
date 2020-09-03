@@ -1143,7 +1143,8 @@ export default new Vuex.Store({
                         modMatrix[availableMod.mod_tier - 1] = [];
                     }
                     let isModInLoadout = equipmentItem.mods.find(mod => mod.mod_index === availableMod.mod_index && mod.mod_tier === availableMod.mod_tier);
-                    modMatrix[availableMod.mod_tier - 1][charToId[availableMod.mod_index]] = !!isModInLoadout;
+                    let modMatrixValue = !!isModInLoadout ? isModInLoadout : false;
+                    modMatrix[availableMod.mod_tier - 1][charToId[availableMod.mod_index]] = modMatrixValue;
                 }
                 return modMatrix;
 
