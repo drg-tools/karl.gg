@@ -169,13 +169,12 @@
         let modifiedValue = stat.value;
         let originalValue = stat.value;
         let statsPrecision = precisionCalc(modifiedValue);
-        let basePrecision = precisionCalc(originalValue);
-        let precision;
+        let precision = precisionCalc(originalValue);
 
         for (let upgradeElement of upgradesForStat) {
             let upgradePrecision = precisionCalc(upgradeElement.value);
             let precisionTemp = statsPrecision > upgradePrecision ? statsPrecision : upgradePrecision;
-            precision = basePrecision > precisionTemp ? basePrecision : precisionTemp;
+            precision = precision > precisionTemp ? precision : precisionTemp;
 
             if (precision > 1) {
                 precision = 1;
@@ -306,8 +305,8 @@
                 let results = getModifiedStats(this.baseStats, aSelectedUpgrades);
                 let stats = results.stats;
                 let costs = results.costs;
-
-                let calculateDamage = store.state.missingBackendWeaponData[this.selectedEquipmentId].calculateDamage;
+                // only look for temporary calc damage function if weapon, not for equipment
+                let calculateDamage = this.equipment.eq_type ? undefined : store.state.missingBackendWeaponData[this.selectedEquipmentId].calculateDamage;
 
                 let damage = calculateDamage ? calculateDamage(stats) : _calculateDamage(stats);
 
