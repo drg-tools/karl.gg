@@ -5,21 +5,21 @@ namespace App\Http\Controllers;
 use App\Character;
 use App\Loadout;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $allTimeTopLoadouts = Cache::remember('users', 1800, function () {
+        $allTimeTopLoadouts = Cache::remember('allTimeTopLoadouts', 1800, function () {
             return $this->getTopLoadoutsAllTime();
         });
-        $recentTopLoadouts = Cache::remember('users', 1800, function () {
+        $recentTopLoadouts = Cache::remember('recentTopLoadouts', 1800, function () {
             return $this->getRecentTopLoadouts();
         });
-        $latestLoadouts = Cache::remember('users', 1800, function () {
+        $latestLoadouts = Cache::remember('latestLoadouts', 1800, function () {
             return $this->getLatestLoadouts();
         });
-        
 
         return view('dashboard.index', [
             'allTimeTopLoadouts' => $allTimeTopLoadouts,
@@ -77,6 +77,7 @@ class DashboardController extends Controller
                     ['character_id', $characterId],
                     ['created_at', '>', Carbon::now()->subDays(14)] // Loadouts created in the past 2 weeks
                 ])
+                ->withCount('votes')
                 ->with('character', 'creator', 'mods.gun')
                 ->orderBy('created_at', 'desc')
                 ->take(4)
