@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\Loadout;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
