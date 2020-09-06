@@ -19,7 +19,6 @@ class DashboardController extends Controller
         $latestLoadouts = Cache::remember('users', 1800, function () {
             return $this->getLatestLoadouts();
         });
-        
 
         return view('dashboard.index', [
             'allTimeTopLoadouts' => $allTimeTopLoadouts,
@@ -45,7 +44,7 @@ class DashboardController extends Controller
 
         return $loadouts;
     }
-      
+
     private function getRecentTopLoadouts()
     {
         $loadouts = collect();
@@ -53,9 +52,9 @@ class DashboardController extends Controller
 
         foreach ($characterIds as $characterId) {
             $characterLoadouts = Loadout::where([
-                    ['character_id', $characterId],
-                    ['created_at', '>', Carbon::now()->subDays(14)] // Loadouts created in the past 2 weeks
-                ])
+                ['character_id', $characterId],
+                ['created_at', '>', Carbon::now()->subDays(14)], // Loadouts created in the past 2 weeks
+            ])
                 ->withCount('votes')
                 ->with('character', 'creator', 'mods.gun')
                 ->orderBy('votes_count', 'desc')
@@ -74,9 +73,9 @@ class DashboardController extends Controller
 
         foreach ($characterIds as $characterId) {
             $characterLoadouts = Loadout::where([
-                    ['character_id', $characterId],
-                    ['created_at', '>', Carbon::now()->subDays(14)] // Loadouts created in the past 2 weeks
-                ])
+                ['character_id', $characterId],
+                ['created_at', '>', Carbon::now()->subDays(14)], // Loadouts created in the past 2 weeks
+            ])
                 ->with('character', 'creator', 'mods.gun')
                 ->orderBy('created_at', 'desc')
                 ->take(4)
