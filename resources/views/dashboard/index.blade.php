@@ -14,9 +14,34 @@
     </div>
 
     <div class="featuredLoadoutsContainer">
-        <h1 class="uppercase text-center">Most Popular Loadouts</h1>
+        <h1 class="uppercase text-center">Top Loadouts in Past 2 Weeks</h1>
         <div class="cardGroups flex flex-wrap mb-4 -mx-1">
-            @foreach($loadouts as $characterLoadouts)
+            @foreach($recentTopLoadouts as $characterLoadouts)
+            <div class="loadoutCards w-full lg:w-1/2 px-1">
+                @foreach($characterLoadouts as $loadout)
+                <x-dashboard-loadout :loadout="$loadout"/>
+                @endforeach
+            </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="featuredLoadoutsContainer">
+        <h1 class="uppercase text-center">Newest Loadouts</h1>
+        <div class="cardGroups flex flex-wrap mb-4 -mx-1">
+            @foreach($latestLoadouts as $characterLoadouts)
+            <div class="loadoutCards w-full lg:w-1/2 px-1">
+                @foreach($characterLoadouts as $loadout)
+                <x-dashboard-loadout :loadout="$loadout"/>
+                @endforeach
+            </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="featuredLoadoutsContainer">
+        <h1 class="uppercase text-center">Most Popular Loadouts -- All Time</h1>
+        <div class="cardGroups flex flex-wrap mb-4 -mx-1">
+            @foreach($allTimeTopLoadouts as $characterLoadouts)
             <div class="loadoutCards w-full lg:w-1/2 px-1">
                 @foreach($characterLoadouts as $loadout)
                 <x-dashboard-loadout :loadout="$loadout"/>
