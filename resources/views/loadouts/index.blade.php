@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                 @foreach($loadouts as $loadout)
-                    <tr onclick="window.location = '{{ route('preview.show', $loadout->id) }}'">
+                    <tr onclick="window.open('{{ route('preview.show', $loadout->id) }}','_blank')">
                         <td><img src="/assets/img/{{ $loadout->character->image }}-hex.png"></td>
                         <td class="text-xl">{{ Str::limit($loadout->name, 50) }}</td>
                         <td class="text-xl">{{ $loadout->creator->name ?? 'Anonymous' }}</td>
