@@ -59,7 +59,7 @@ class DashboardController extends Controller
                 ->withCount('votes')
                 ->with('character', 'creator', 'mods.gun')
                 ->orderBy('votes_count', 'desc')
-                ->take(5)
+                ->take(3)
                 ->get();
             $loadouts->push($characterLoadouts);
         }
@@ -77,9 +77,10 @@ class DashboardController extends Controller
                 ['character_id', $characterId],
                 ['created_at', '>', Carbon::now()->subDays(14)], // Loadouts created in the past 2 weeks
             ])
+                ->withCount('votes')
                 ->with('character', 'creator', 'mods.gun')
                 ->orderBy('created_at', 'desc')
-                ->take(4)
+                ->take(3)
                 ->get();
             $loadouts->push($characterLoadouts);
         }
