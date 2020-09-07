@@ -43,8 +43,7 @@
         height: 2.5rem;
         align-items: center;
         justify-content: space-between;
-        background: rgb(26, 85, 176);
-        background: linear-gradient(90deg, rgba(26, 85, 176, 1) 10%, rgba(0, 0, 0, 0) 100%);
+        background: rgba(0, 0, 0, 0.6);
     }
 
     .subtitleRow {
@@ -53,7 +52,9 @@
         align-items: center;
         justify-content: space-between;
         background: rgba(0, 0, 0, 0.6);
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0) 100%);
+        h2 {
+            font-size: 1.2rem
+        }
     }
 
     .titleContentLeft {

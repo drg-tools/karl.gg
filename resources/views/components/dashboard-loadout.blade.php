@@ -1,7 +1,7 @@
 <a href="{{ route('preview.show', $loadout->id) }}" class="w-full">
     <div class="myLoadoutsContainer">
 	<div class="loadoutCardContainer">
-	    <div class="titleRow">
+	<div class="titleRow">
 		<div class="titleContentLeft">
 		    <img src="/assets/img/{{ $loadout->character->image }}.png" class="classIcon"/>
 		    <h2 class="buildName">{{ Str::limit($loadout->name, 30) }}</h2>
