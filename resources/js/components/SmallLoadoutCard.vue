@@ -139,22 +139,22 @@
         }
     };
 </script>
-<!-- todo: screw the border or make the whole card svg-->
 <style scoped>
+    /* todo: move all this out into scss? */
     .loadoutCardContainer {
         display: flex;
         flex-wrap: nowrap;
         width: 100%;
         height: 5.3rem;
         flex-direction: column;
-        border-top: 5px solid #fc9e00;
-        background-color: #5C4F35;
+        border-top: 5px solid #FC9E00;
+        background-color: #5F5137;
         margin-bottom: 0.5rem;
         cursor: pointer;
     }
 
     .loadoutCardContainer:hover {
-        background-color: #fc9e00;
+        background-color: #FC9E00;
     }
 
     .loadoutCardContainer:hover svg {
@@ -171,8 +171,8 @@
         height: 2.5rem;
         align-items: center;
         justify-content: space-between;
-        background: rgb(26, 85, 176);
-        background: linear-gradient(90deg, rgba(26, 85, 176, 1) 10%, rgba(0, 0, 0, 0) 100%);
+        background: rgb(37, 102, 253);
+        background: linear-gradient(90deg, rgba(37, 102, 253, 1) 10%, rgba(0, 0, 0, 0) 100%);
     }
 
     .subtitleRow {
@@ -180,8 +180,8 @@
         height: 2.5rem;
         align-items: center;
         justify-content: space-between;
-        background: rgba(0, 0, 0, 0.6);
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0) 100%);
+        background: rgb(53, 46, 30);
+        background: linear-gradient(90deg, rgb(53, 46, 30) 10%, rgba(0, 0, 0, 0) 100%);
     }
 
     .titleContentLeft {
