@@ -14,7 +14,7 @@ class DashboardController extends Controller
         $allTimeTopLoadouts = Cache::remember('allTimeTopLoadouts', 1800, function () {
             return $this->getTopLoadoutsAllTime();
         });
-        $recentTopLoadouts =  $this->getRecentTopLoadouts();
+        $recentTopLoadouts = $this->getRecentTopLoadouts();
         $latestLoadouts = $this->getLatestLoadouts();
 
         return view('dashboard.index', [
