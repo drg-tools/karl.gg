@@ -14,12 +14,8 @@ class DashboardController extends Controller
         $allTimeTopLoadouts = Cache::remember('allTimeTopLoadouts', 1800, function () {
             return $this->getTopLoadoutsAllTime();
         });
-        $recentTopLoadouts = Cache::remember('recentTopLoadouts', 1800, function () {
-            return $this->getRecentTopLoadouts();
-        });
-        $latestLoadouts = Cache::remember('latestLoadouts', 1800, function () {
-            return $this->getLatestLoadouts();
-        });
+        $recentTopLoadouts =  $this->getRecentTopLoadouts();
+        $latestLoadouts = $this->getLatestLoadouts();
 
         return view('dashboard.index', [
             'allTimeTopLoadouts' => $allTimeTopLoadouts,
@@ -48,43 +44,26 @@ class DashboardController extends Controller
 
     private function getRecentTopLoadouts()
     {
-        $loadouts = collect();
-        $characterIds = Character::pluck('id')->sortBy('id');
+        // TODO: Extract to helper / model function
+        $recentTopLoadouts = Loadout::where('created_at', '>', Carbon::now()->subDays(14))
+            ->withCount('votes')
+            ->with('character', 'creator', 'mods.gun')
+            ->orderBy('votes_count', 'desc')
+            ->take(12)
+            ->get();
 
-        foreach ($characterIds as $characterId) {
-            $characterLoadouts = Loadout::where([
-                ['character_id', $characterId],
-                ['created_at', '>', Carbon::now()->subDays(14)], // Loadouts created in the past 2 weeks
-            ])
-                ->withCount('votes')
-                ->with('character', 'creator', 'mods.gun')
-                ->orderBy('votes_count', 'desc')
-                ->take(3)
-                ->get();
-            $loadouts->push($characterLoadouts);
-        }
-
-        return $loadouts;
+        return $recentTopLoadouts;
     }
 
     private function getLatestLoadouts()
     {
-        $loadouts = collect();
-        $characterIds = Character::pluck('id')->sortBy('id');
+        $latestLoadouts = Loadout::where('created_at', '>', Carbon::now()->subDays(14))
+            ->withCount('votes')
+            ->with('character', 'creator', 'mods.gun')
+            ->latest()
+            ->take(12)
+            ->get();
 
-        foreach ($characterIds as $characterId) {
-            $characterLoadouts = Loadout::where([
-                ['character_id', $characterId],
-                ['created_at', '>', Carbon::now()->subDays(14)], // Loadouts created in the past 2 weeks
-            ])
-                ->withCount('votes')
-                ->with('character', 'creator', 'mods.gun')
-                ->latest()
-                ->take(3)
-                ->get();
-            $loadouts->push($characterLoadouts);
-        }
-
-        return $loadouts;
+        return $latestLoadouts;
     }
 }
