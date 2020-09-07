@@ -79,7 +79,7 @@ class DashboardController extends Controller
             ])
                 ->withCount('votes')
                 ->with('character', 'creator', 'mods.gun')
-                ->orderBy('created_at', 'desc')
+                ->latest()
                 ->take(3)
                 ->get();
             $loadouts->push($characterLoadouts);
