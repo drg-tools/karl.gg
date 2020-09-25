@@ -659,6 +659,11 @@ export default new Vuex.Store({
                             dpsStats.chargeAmmoUse = parseFloat(stat.value);
                         } else if (stat.name === 'Charge Speed') {
                             dpsStats.chargeSpeed = parseFloat(stat.value);
+							// If this were changed to percentage modifier like coolingRate/cooldownTime:
+							/*
+							dpsStats.chargeSpeed = parseFloat(stat.value);
+							dpsStats.chargeDuration = 1.5 * 100 / dpsStats.chargeSpeed;
+							*/
                         } else if (stat.name === 'Rate of Fire') {
                             dpsStats.rateOfFire = parseFloat(stat.value);
                         } else if (stat.name === 'Reload Time') {
@@ -667,12 +672,13 @@ export default new Vuex.Store({
                             dpsStats.maxAmmo = parseFloat(stat.value);
                         } else if (stat.name === 'Cooling Rate') {
                             dpsStats.coolingRate = parseFloat(stat.value);
-                            dpsStats.cooldownTime = 2.5 * dpsStats.coolingRate / 100;
+                            dpsStats.cooldownTime = 2.5 * 100 / dpsStats.coolingRate;
                         }
                     }
                     // get damage time for single and charge shots
                     let timePerChargedShot = dpsStats.chargeSpeed;
-                    let chargedRateOfFire = 1 / timePerChargedShot;
+					let cooldownAfterChargedShot = dpsStats.cooldownTime;
+                    let chargedRateOfFire = 1 / (timePerChargedShot + cooldownAfterChargedShot);
 
                     // get single and charge shot damage
                     directDamagePerBullet = parseFloat(dpsStats.directDamage).toFixed(0);
