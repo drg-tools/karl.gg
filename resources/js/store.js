@@ -677,6 +677,7 @@ export default new Vuex.Store({
                     }
                     // get damage time for single and charge shots
                     let timePerChargedShot = dpsStats.chargeSpeed;
+					// let timePerChargedShot = dpsStats.chargeDuration;
 					let cooldownAfterChargedShot = dpsStats.cooldownTime;
                     let chargedRateOfFire = 1 / (timePerChargedShot + cooldownAfterChargedShot);
 
