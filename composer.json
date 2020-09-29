@@ -17,7 +17,7 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "kyslik/column-sortable": "^6.3",
+        "kyslik/column-sortable": "^6.4",
         "laravel/framework": "^8.3",
         "laravel/passport": "^10.0",
         "laravel/tinker": "^2.0",
@@ -27,7 +27,7 @@
         "mll-lab/graphql-php-scalars": "^3.1",
         "mll-lab/laravel-graphql-playground": "^2.1",
         "nagy/laravel-rating": "^1.4",
-        "nuwave/lighthouse": "dev-master",
+        "nuwave/lighthouse": "^4.16.0",
         "rollbar/rollbar-laravel": "^7.0",
         "spatie/laravel-backup": "^6.11",
         "tucker-eric/eloquentfilter": "^2.3"
@@ -42,7 +42,7 @@
         "laracasts/generators": "^2.0",
         "laravel-frontend-presets/tailwindcss": "^4.3",
         "laravel/homestead": "^10.8",
-        "matt-allan/laravel-code-style": "^0.5.1",
+        "matt-allan/laravel-code-style": "^0.6.0",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3"
