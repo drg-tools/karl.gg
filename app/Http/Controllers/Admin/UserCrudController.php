@@ -19,7 +19,7 @@ class UserCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\User');
+        $this->crud->setModel(\App\User::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/user');
         $this->crud->setEntityNameStrings('user', 'users');
     }

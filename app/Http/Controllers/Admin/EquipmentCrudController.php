@@ -20,7 +20,7 @@ class EquipmentCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Equipment');
+        $this->crud->setModel(\App\Equipment::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/equipment');
         $this->crud->setEntityNameStrings('equipment', 'equipment');
     }

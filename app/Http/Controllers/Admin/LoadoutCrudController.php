@@ -19,7 +19,7 @@ class LoadoutCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Loadout');
+        $this->crud->setModel(\App\Loadout::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/loadout');
         $this->crud->setEntityNameStrings('loadout', 'loadouts');
     }
@@ -70,7 +70,7 @@ class LoadoutCrudController extends CrudController
             'label' => 'User',
             'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'creator', // the method that defines the relationship in your Model
-            'model' => "App\User", // foreign key Eloquent model
+            'model' => \App\User::class, // foreign key Eloquent model
             'placeholder' => 'Select user', // placeholder for the select2 input
         ]);
         $this->crud->addField([  // relationship
@@ -79,7 +79,7 @@ class LoadoutCrudController extends CrudController
             'label' => 'Character',
             'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'character', // the method that defines the relationship in your Model
-            'model' => "App\Character", // foreign key Eloquent model
+            'model' => \App\Character::class, // foreign key Eloquent model
             'placeholder' => 'Select character', // placeholder for the select2 input
         ]);
     }
@@ -93,7 +93,7 @@ class LoadoutCrudController extends CrudController
             'label' => 'User',
             'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'creator', // the method that defines the relationship in your Model
-            'model' => "App\User", // foreign key Eloquent model
+            'model' => \App\User::class, // foreign key Eloquent model
             'placeholder' => 'Select user', // placeholder for the select2 input
         ]);
         $this->crud->addField([  // relationship
@@ -102,7 +102,7 @@ class LoadoutCrudController extends CrudController
             'label' => 'Mods',
             'attribute' => 'mod_name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'mods', // the method that defines the relationship in your Model
-            'model' => "App\Mod", // foreign key Eloquent model
+            'model' => \App\Mod::class, // foreign key Eloquent model
             'placeholder' => 'Select mods', // placeholder for the select2 input
         ]);
         $this->crud->addField([  // relationship
@@ -111,7 +111,7 @@ class LoadoutCrudController extends CrudController
             'label' => 'Overclocks',
             'attribute' => 'overclock_name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'overclocks', // the method that defines the relationship in your Model
-            'model' => "App\Overclock", // foreign key Eloquent model
+            'model' => \App\Overclock::class, // foreign key Eloquent model
             'placeholder' => 'Select overclocks', // placeholder for the select2 input
         ]);
         $this->crud->addField([  // relationship
@@ -120,7 +120,7 @@ class LoadoutCrudController extends CrudController
             'label' => 'Equipment Mods',
             'attribute' => 'mod_name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'equipment_mods', // the method that defines the relationship in your Model
-            'model' => "App\EquipmentMod", // foreign key Eloquent model
+            'model' => \App\EquipmentMod::class, // foreign key Eloquent model
             'placeholder' => 'Select Equipment Mods', // placeholder for the select2 input
         ]);
         $this->crud->addField([  // relationship
@@ -129,7 +129,7 @@ class LoadoutCrudController extends CrudController
             'label' => 'Character',
             'attribute' => 'name', // foreign key attribute that is shown to user (identifiable attribute)
             'entity' => 'character', // the method that defines the relationship in your Model
-            'model' => "App\Character", // foreign key Eloquent model
+            'model' => \App\Character::class, // foreign key Eloquent model
             'placeholder' => 'Select character', // placeholder for the select2 input
         ]);
     }
