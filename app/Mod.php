@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -64,7 +64,6 @@ use Illuminate\Database\Eloquent\Model;
 class Mod extends Model
 {
     use HasFactory;
-
     use Filterable, CrudTrait;
 
     public $identifiableAttribute = 'name';

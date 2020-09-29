@@ -1,11 +1,9 @@
 <?php
 
-
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Build;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BuildFactory extends Factory
 {
@@ -24,9 +22,9 @@ class BuildFactory extends Factory
     public function definition()
     {
         return [
-        'name' => 'Super Awesome Build',
-        'user_id' => 1,
-        'character_id' => 1,
-    ];
+            'name' => 'Super Awesome Build',
+            'user_id' => 1,
+            'character_id' => 1,
+        ];
     }
 }
