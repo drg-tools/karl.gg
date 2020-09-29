@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,6 +38,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Character extends Model
 {
+    use HasFactory;
+
     use CrudTrait;
 
     public function guns()

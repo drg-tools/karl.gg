@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -60,6 +61,8 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
+    use HasFactory;
+
     use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanVote, CanRate, CanLike;
 
     /**
