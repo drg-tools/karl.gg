@@ -1,11 +1,9 @@
 <?php
 
-
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Loadout;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LoadoutFactory extends Factory
 {
@@ -24,13 +22,13 @@ class LoadoutFactory extends Factory
     public function definition()
     {
         return [
-        'name' => $this->faker->name,
-        'description' => $this->faker->sentence,
-        'user_id' => 1,
-        'character_id' => $this->faker->numberBetween(1, 4),
-        'created_at' => now(),
-        'patch_id' => 5,
-        'throwable_id' => 12,
-    ];
+            'name' => $this->faker->name,
+            'description' => $this->faker->sentence,
+            'user_id' => 1,
+            'character_id' => $this->faker->numberBetween(1, 4),
+            'created_at' => now(),
+            'patch_id' => 5,
+            'throwable_id' => 12,
+        ];
     }
 }

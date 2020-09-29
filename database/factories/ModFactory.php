@@ -1,11 +1,9 @@
 <?php
 
-
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Mod;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModFactory extends Factory
 {
@@ -24,12 +22,12 @@ class ModFactory extends Factory
     public function definition()
     {
         return [
-        'name' => $this->faker->name,
-        'effect' => '+1.0 Rate of Fire',
-        'description' => $this->faker->sentence,
-        'row' => 1,
-        'column' => 1,
-        'gun_id' => 1,
-    ];
+            'name' => $this->faker->name,
+            'effect' => '+1.0 Rate of Fire',
+            'description' => $this->faker->sentence,
+            'row' => 1,
+            'column' => 1,
+            'gun_id' => 1,
+        ];
     }
 }
