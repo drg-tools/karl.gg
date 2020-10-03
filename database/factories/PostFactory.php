@@ -10,6 +10,6 @@ $factory->define(Post::class, function (Faker $faker) {
         'title' => $faker->sentence,
         'content' => $faker->paragraphs(6, true),
         'user_id' => 1,
-        'published_at' => $faker->dateTimeThisYear
+        'published_at' => $faker->dateTimeThisYear,
     ];
 });

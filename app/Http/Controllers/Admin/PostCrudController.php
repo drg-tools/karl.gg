@@ -8,8 +8,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Carbon\Carbon;
 
 /**
- * Class PostCrudController
- * @package App\Http\Controllers\Admin
+ * Class PostCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class PostCrudController extends CrudController
@@ -59,7 +58,7 @@ class PostCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'published_at',
             'label' => 'Published Date',
-            'type' => 'datetime'
+            'type' => 'datetime',
         ]);
     }
 
@@ -78,7 +77,7 @@ class PostCrudController extends CrudController
         $this->crud->addField([
             'name' => 'content',
             'label' => 'Content',
-            'type' => 'wysiwyg'
+            'type' => 'wysiwyg',
         ]);
 
         $this->crud->addField([
@@ -89,7 +88,7 @@ class PostCrudController extends CrudController
             // optional:
             'datetime_picker_options' => [
                 'format' => 'MM/DD/YYYY HH:mm',
-//                'language' => 'fr'
+                //                'language' => 'fr'
             ],
             'allows_null' => true,
             'default' => Carbon::now(),
