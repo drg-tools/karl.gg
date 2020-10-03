@@ -41,7 +41,6 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#322c20', endColorstr='$brown', GradientType=1); /* IE6-9 fallback on horizontal gradient */
     height: 100%;
     font-family: BebasNeue, sans-serif;
-    //font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 
 h1 {
@@ -84,7 +83,11 @@ h4 {
     margin-inline-end: 0px;
 }
 
-.pagination {
+article, p {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+
+.text-orange {
     color: $orange;
 }
 
