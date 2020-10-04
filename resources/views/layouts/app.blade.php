@@ -17,7 +17,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Karl: Born Ready') }} - @yield('title')</title>
+    {!! SEO::generate() !!}
     @auth
     <meta name="user-id" content="{{ (Auth::user()->id) }}">
     @endauth

@@ -6,11 +6,14 @@ use App\Character;
 use App\Loadout;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use SEOMeta;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        SEOMeta::setTitle('Dashboard');
+
         $allTimeTopLoadouts = Cache::remember('allTimeTopLoadouts', 1800, function () {
             return $this->getTopLoadoutsAllTime();
         });

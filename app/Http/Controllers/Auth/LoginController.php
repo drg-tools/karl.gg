@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,6 +36,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        SEOTools::setTitle('Login');
+
         $this->middleware('guest')->except('logout');
     }
 }

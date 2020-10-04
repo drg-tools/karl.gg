@@ -23,4 +23,5 @@ Route::group([
     Route::crud('character', 'CharacterCrudController');
     Route::get('charts/daily-users', 'Charts\DailyUsersChartController@response')->name('charts.daily-users.index');
     Route::get('charts/daily-loadouts', 'Charts\DailyLoadoutsChartController@response')->name('charts.daily-loadouts.index');
+    Route::crud('post', 'PostCrudController');
 }); // this should be the absolute last line of this file

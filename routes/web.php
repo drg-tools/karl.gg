@@ -28,10 +28,11 @@ Route::middleware(['role:super-admin'])->group(function () {
 
 Route::get('/', 'DashboardController@index');
 Route::get('browse', 'LoadoutsController@index')->name('loadout.index');
+Route::resource('blog', 'PostController')->only(['index', 'show']);
 
-Route::view('preview/{loadoutId}', 'loadouts.preview')->name('preview.show');
-Route::view('build', 'loadouts.create');
-Route::view('build/{loadoutId}', 'loadouts.create');
+Route::get('preview/{loadoutId}', 'LoadoutsController@preview')->name('preview.show');
+Route::get('build', 'LoadoutsController@build');
+Route::get('build/{loadoutId}', 'LoadoutsController@build');
 Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('profile/{id}', 'ProfileController@index')->name('user.profile')->where('id', '[0-9]+');
 Auth::routes();
