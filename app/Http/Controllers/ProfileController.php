@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Loadout;
 use App\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
