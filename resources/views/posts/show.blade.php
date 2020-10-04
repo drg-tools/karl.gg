@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
+    <div id="blog" class="p-4">
         <div class="text-sm underline"><a href="{{ route('blog.index') }}">Back</a></div>
         <h2 class="text-orange mb-0">{{ $post->title }}</h2>
         <div class="mb-4 text-white">{{ $post->published_at->diffForHumans() }}</div>

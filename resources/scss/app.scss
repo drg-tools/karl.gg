@@ -6,6 +6,7 @@
 @import 'variables';
 @import 'dashboard';
 @import 'browse';
+@import 'blog';
 
 /*todo: only three different font sizes!*/
 /*todo: web fonts*/
@@ -81,10 +82,6 @@ h4 {
     margin-block-end: 1.33em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-}
-
-article, p {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 
 .text-orange {

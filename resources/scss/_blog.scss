@@ -1,0 +1,16 @@
+#blog {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    color: white;
+    background-color: $off-black;
+
+    b, strong {
+        color: white;
+    }
+
+    a, a:visited {
+        color: $orange;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}
