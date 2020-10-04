@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use SEOMeta;
 use App\Character;
 use App\Loadout;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use SEOMeta;
 
 class DashboardController extends Controller
 {

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Str;
 use App\Post;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Str;
 
 class PostController extends Controller
 {
@@ -29,7 +29,7 @@ class PostController extends Controller
         SEOTools::opengraph()->setArticle([
             'published_time' => $post->published_at->toW3CString(),
             'modified_time' => $post->updated_at->toW3CString(),
-            'tag' => 'Deep Rock Galactic News'
+            'tag' => 'Deep Rock Galactic News',
         ]);
 
         SEOTools::jsonLd()->setType('Article');

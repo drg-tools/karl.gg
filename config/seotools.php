@@ -9,7 +9,7 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "Karl.gg", // set false to total remove
+            'title'        => 'Karl.gg', // set false to total remove
             'titleBefore'  => true, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
             'description'  => 'Best builds for the best game. Your go to partner for Deep Rock Galactic builds and content.', // set false to total remove
             'separator'    => ' - ',

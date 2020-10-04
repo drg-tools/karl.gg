@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Loadout;
 use App\Character;
-use Illuminate\Http\Request;
+use App\Loadout;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Http\Request;
 
 class LoadoutsController extends Controller
 {
@@ -40,7 +40,7 @@ class LoadoutsController extends Controller
         SEOTools::setTitle($loadout->name);
         SEOTools::setDescription($loadout->description);
         SEOTools::metatags()->addKeyword([
-            "{$loadout->character->name} build", 'Deep Rock Galactic builds', 'drg builds'
+            "{$loadout->character->name} build", 'Deep Rock Galactic builds', 'drg builds',
         ]);
 
         return view('loadouts.preview');
