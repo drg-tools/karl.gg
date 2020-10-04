@@ -6,6 +6,7 @@ use App\Character;
 use App\Loadout;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
+use Str;
 
 class LoadoutsController extends Controller
 {
@@ -38,7 +39,7 @@ class LoadoutsController extends Controller
         $loadout = Loadout::findOrFail($id);
 
         SEOTools::setTitle($loadout->name);
-        SEOTools::setDescription($loadout->description);
+        SEOTools::setDescription(Str::limit($loadout->description, 100));
         SEOTools::metatags()->addKeyword([
             "{$loadout->character->name} build", 'Deep Rock Galactic builds', 'drg builds',
         ]);
