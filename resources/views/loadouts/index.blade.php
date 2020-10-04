@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Browse')
-
 @section('content')
 
     <div id="browse">

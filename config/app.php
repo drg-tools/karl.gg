@@ -229,7 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
-
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ],
 
 ];

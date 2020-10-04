@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section('title', $user->name . ' - Profile')
 @section('content')
 
 <div class="profileHeaderBackground">
@@ -7,7 +6,7 @@
         <h1>{{$user->name}}</h1>
 
         @if (Request()->id == Auth::id())
-        <div class="profileBtnContainer"> 
+        <div class="profileBtnContainer">
             <a href="/profile/{{Auth::id()}}/edit">
                 <div class="button">
                     <h1 class="buttonText">EDIT PROFILE</h1>
@@ -15,8 +14,8 @@
             </a>
         </div>
         @endif
-        
-        
+
+
         <div class="profileFooter">
             <div class="data-container">
                 <h3>Loadouts</h3>

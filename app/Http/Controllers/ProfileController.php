@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Loadout;
 use App\User;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -17,6 +18,8 @@ class ProfileController extends Controller
      */
     public function index($id)
     {
+        SEOTools::setTitle('Profile');
+
         $loadouts = $this->getLoadoutsForUser($id);
         $loadoutCount = $this->getLoadoutCount($id);
         $salutesCount = $this->getVoteCount($id);
@@ -35,6 +38,8 @@ class ProfileController extends Controller
      */
     public function editProfile(Request $request, $id)
     {
+        SEOTools::setTitle('Profile');
+
         $authUserId = \Auth::id();
         if ($authUserId == $id) {
             // You are authenticated and trying to edit your profile
@@ -88,20 +93,6 @@ class ProfileController extends Controller
         } else {
             // Do not allow a user to edit someone else's profile
             return response()->view('errors.'.'403', [], 403);
-        }
-    }
-
-    public function deleteLoadout(Request $request, $id)
-    {
-        $authUserId = \Auth::id();
-        $loadout = Loadout::find($id);
-        // dd($loadout);
-        if ($authUserId == null) {
-            return response()->view('errors.'.'403', [], 403);
-        } elseif ($authUserId == $loadout->user_id) {
-            Loadout::destroy($id);
-
-            return redirect('profile/'.$authUserId);
         }
     }
 

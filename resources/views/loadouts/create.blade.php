@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Create a Loadout')
-
 @section('content')
 
     <loadout-buttons></loadout-buttons>
