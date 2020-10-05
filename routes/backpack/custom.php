@@ -25,3 +25,13 @@ Route::group([
     Route::get('charts/daily-loadouts', 'Charts\DailyLoadoutsChartController@response')->name('charts.daily-loadouts.index');
     Route::crud('post', 'PostCrudController');
 }); // this should be the absolute last line of this file
+
+Route::group([
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['role:super-admin'],
+    'namespace' => '\Backpack\PermissionManager\app\Http\Controllers',
+], function () {
+    Route::crud('permission', 'PermissionCrudController');
+    Route::crud('role', 'RoleCrudController');
+    Route::crud('user', 'UserCrudController');
+});
