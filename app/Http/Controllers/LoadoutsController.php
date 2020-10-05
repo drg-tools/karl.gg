@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Character;
+use App\Gun;
 use App\Loadout;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
@@ -36,9 +37,19 @@ class LoadoutsController extends Controller
 
     public function preview($id)
     {
-        $loadout = Loadout::findOrFail($id);
+        $loadout = Loadout::with('mods')
+            ->findOrFail($id);
 
-        SEOTools::setTitle($loadout->name);
+        $gunIds = $loadout->mods->pluck('gun_id')->unique();
+        $gunNames = Gun::whereIn('id', $gunIds)->pluck('name');
+
+        $gunNames->each(function ($name) {
+            SEOTools::metatags()->addKeyword([
+                "{$name} build",
+            ]);
+        });
+
+        SEOTools::setTitle("{$loadout->character->name} - {$loadout->name}");
         SEOTools::setDescription(Str::limit($loadout->description, 100));
         SEOTools::metatags()->addKeyword([
             "{$loadout->character->name} build", 'Deep Rock Galactic builds', 'drg builds',

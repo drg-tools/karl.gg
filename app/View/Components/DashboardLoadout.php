@@ -30,8 +30,6 @@ class DashboardLoadout extends Component
         if (array_key_exists($index, $images)) {
             return $images[$index];
         }
-
-        return null;
     }
 
     /**

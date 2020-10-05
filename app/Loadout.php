@@ -138,7 +138,7 @@ class Loadout extends Model
             ->get($slot); // Get nth item
 
         if (! $grouped || ! $grouped->first()) {
-            return null;
+            return;
         }
 
         return $grouped->first()->gun;
