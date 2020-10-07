@@ -3,8 +3,8 @@
     color: white;
     background-color: $off-black;
 
-    article {
-        b, strong, h1, h2, h3, h4, h5, h6 {
+    .prose {
+        b, strong, h1, h2, h3, h4, h5, h6, thead, tbody, tr, th, td {
             color: white;
         }
     }
