@@ -3,8 +3,10 @@
     color: white;
     background-color: $off-black;
 
-    b, strong {
-        color: white;
+    article {
+        b, strong, h1, h2, h3, h4, h5, h6 {
+            color: white;
+        }
     }
 
     a, a:visited {
