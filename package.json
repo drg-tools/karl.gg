@@ -29,6 +29,7 @@
     "dependencies": {
         "@tailwindcss/typography": "^0.2.0",
         "@tailwindcss/ui": "^0.5.0",
+        "@toast-ui/vue-editor": "^2.4.0",
         "apollo-boost": "^0.4.9",
         "apollo-cache-inmemory": "latest",
         "apollo-link": "latest",
