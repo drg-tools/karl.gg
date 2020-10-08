@@ -14,8 +14,7 @@
                 <div class="error" v-if="!$v.description.maxLength">Max {{$v.description.$params.maxLength.max}}
                     characters.
                 </div>
-                <textarea v-model="$v.description.$model" rows="15" class="modalDescriptionInput"
-                          placeholder="Deep Rock really need to invest in some better equipment."></textarea>
+                <MarkdownEditor :guide.sync="$v.description.$model"></MarkdownEditor>
             </div>
             <!-- todo: disable buttons while data is loading! -->
             <div class="buttonContainer">
@@ -57,9 +56,11 @@
     import store from '../store';
     import gql from 'graphql-tag';
     import {required, maxLength} from 'vuelidate/lib/validators';
+    import MarkdownEditor from './MarkdownEditor.vue';
 
     export default {
         name: 'LoadoutButtons',
+        components: {MarkdownEditor},
         data: () => {
             return {
                 name: '',
