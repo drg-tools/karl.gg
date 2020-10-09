@@ -18,17 +18,17 @@ class DashboardLoadout extends Component
         $this->loadout = $loadout;
     }
 
-    public function weaponImages($index)
+    public function weapons($index)
     {
         $groupedByGun = $this->loadout->mods->groupBy('gun_id');
-        $images = [];
+        $weapons = [];
 
         foreach ($groupedByGun as $gunId => $mods) {
-            $images[] = $mods->first()->gun->image;
+            $weapons[] = $mods->first()->gun;
         }
 
-        if (array_key_exists($index, $images)) {
-            return $images[$index];
+        if (array_key_exists($index, $weapons)) {
+            return $weapons[$index];
         }
     }
 
