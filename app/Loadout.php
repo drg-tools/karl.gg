@@ -20,7 +20,6 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @property int $character_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $patch_id
  * @property int|null $throwable_id
  * @property-read \App\Character $character
  * @property-read \App\User|null $creator
@@ -54,7 +53,6 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereLike($column, $value, $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Loadout wherePatchId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereThrowableId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUserId($value)

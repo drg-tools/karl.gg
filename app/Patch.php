@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patch wherePatchTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $launched_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Patch whereLaunchedAt($value)
  */
 class Patch extends Model
 {

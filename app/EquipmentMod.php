@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $jadiz_cost
  * @property string $icon
  * @property string $mod_type
- * @property int $patch_id
  * @property string|null $created_at
  * @property string|null $updated_at
  * @property-read \App\Character $character
@@ -59,7 +58,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereModName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereModTier($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereModType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod wherePatchId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereUmaniteCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereUpdatedAt($value)
  * @mixin \Eloquent

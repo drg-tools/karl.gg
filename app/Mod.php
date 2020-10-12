@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $json_stats
  * @property string $icon
  * @property string $mod_type
- * @property int $patch_id
  * @property-read \App\Character $character
  * @property-read \App\Gun $gun
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
@@ -55,7 +54,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereModName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereModTier($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereModType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mod wherePatchId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereTextDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereUmaniteCost($value)
  * @mixin \Eloquent
