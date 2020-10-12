@@ -85,13 +85,6 @@ class EquipmentCrudController extends CrudController
         ]);
 
         $this->crud->addFields(['icon', 'eq_type']);
-
-        $this->crud->addField([
-            'type' => 'number',
-            'name' => 'patch_id',
-            'label' => 'Patch',
-            'default' => 1,
-        ]);
     }
 
     protected function setupUpdateOperation()

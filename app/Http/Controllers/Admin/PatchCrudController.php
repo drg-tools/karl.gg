@@ -27,30 +27,39 @@ class PatchCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->addColumns(['patch_num', 'patch_num_dev', 'patch_title']);
+        $this->crud->addColumn([
+            'name' => 'launched_at',
+            'label' => 'Launch Date',
+            'type' => 'datetime',
+        ]);
     }
 
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(PatchRequest::class);
 
-        // TODO: remove setFromDb() and manually define Fields
-        // $this->crud->setFromDb();
-        // $this->crud->addField(['patch_num','patch_num_dev','patch_title']);
-        $this->crud->addField([   // Number
+        $this->crud->addField([
             'name' => 'patch_title',
             'label' => 'Patch Title',
             'type' => 'text',
         ]);
-        $this->crud->addField([   // Number
+        $this->crud->addField([
             'name' => 'patch_num',
             'label' => 'Patch Number',
             'type' => 'text',
         ]);
-        $this->crud->addField([   // Number
+        $this->crud->addField([
             'name' => 'patch_num_dev',
             'label' => 'Patch Number Dev',
             'type' => 'text',
         ]);
+        $this->crud->addField([
+            'name' => 'launched_at',
+            'label' => 'Launch Date',
+            'type' => 'datetime',
+        ]);
+
+
     }
 
     protected function setupUpdateOperation()
