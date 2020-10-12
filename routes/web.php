@@ -29,6 +29,8 @@ Route::middleware(['role:super-admin'])->group(function () {
 Route::get('/', 'DashboardController@index');
 Route::get('browse', 'LoadoutsController@index')->name('loadout.index');
 Route::resource('blog', 'PostController')->only(['index', 'show']);
+Route::resource('character', 'CharacterController')->only(['index', 'show']);
+Route::get('gear', 'GearController@index');
 
 Route::get('preview/{loadoutId}', 'LoadoutsController@preview')->name('preview.show');
 Route::get('build', 'LoadoutsController@build');
