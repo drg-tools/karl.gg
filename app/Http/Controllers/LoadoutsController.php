@@ -13,7 +13,7 @@ class LoadoutsController extends Controller
 {
     public function index(Request $request)
     {
-        SEOTools::setTitle('Loadouts');
+        SEOTools::setTitle('Deep Rock Galactic Loadouts');
 
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
@@ -30,7 +30,7 @@ class LoadoutsController extends Controller
 
     public function build()
     {
-        SEOTools::setTitle('Build a Loadout');
+        SEOTools::setTitle('Build a Deep Rock Galactic Loadout');
 
         return view('loadouts.create');
     }
