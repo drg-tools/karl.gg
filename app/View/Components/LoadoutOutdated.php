@@ -12,7 +12,6 @@ class LoadoutOutdated extends Component
      */
     private $patch;
 
-
     public $loadout;
 
     /**
@@ -34,8 +33,9 @@ class LoadoutOutdated extends Component
     public function render()
     {
         $outdated = $this->loadout->patch_id !== $this->patch->current()->id;
+
         return view('components.loadout-outdated', [
-            'outdated' => $outdated
+            'outdated' => $outdated,
         ]);
     }
 }
