@@ -10,6 +10,6 @@ $factory->define(Patch::class, function (Faker $faker) {
         'patch_num' => $faker->numberBetween(100, 100000),
         'patch_num_dev' => $faker->numberBetween(100, 100000),
         'patch_title' => $faker->title,
-        'launched_at' => $faker->dateTimeThisMonth
+        'launched_at' => $faker->dateTimeThisMonth,
     ];
 });

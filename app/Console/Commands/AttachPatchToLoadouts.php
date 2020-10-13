@@ -54,7 +54,7 @@ class AttachPatchToLoadouts extends Command
         $loadouts = $this->loadout->all();
         $patches = $this->patch->latest('launched_at')->get();
 
-        foreach($loadouts as $loadout) {
+        foreach ($loadouts as $loadout) {
             $patch = $patches->firstWhere('launched_at', '<', $loadout->updated_at);
 
             if ($patch && $loadout->patch_id !== $patch->id) {

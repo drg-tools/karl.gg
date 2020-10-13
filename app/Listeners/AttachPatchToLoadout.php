@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\LoadoutSaving;
 use App\Patch;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class AttachPatchToLoadout
 {

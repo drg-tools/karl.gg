@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Post
+ * App\Post.
  *
  * @property int $id
  * @property int $user_id

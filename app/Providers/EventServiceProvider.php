@@ -21,8 +21,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         LoadoutSaving::class => [
-            AttachPatchToLoadout::class
-        ]
+            AttachPatchToLoadout::class,
+        ],
     ];
 
     /**

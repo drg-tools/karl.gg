@@ -153,7 +153,7 @@ class Loadout extends Model
             ->values() // re-index array
             ->get($slot); // Get nth item
 
-        if (!$grouped || !$grouped->first()) {
+        if (! $grouped || ! $grouped->first()) {
             return;
         }
 
@@ -161,7 +161,7 @@ class Loadout extends Model
     }
 
     /**
-     * Saves the model without running any model events
+     * Saves the model without running any model events.
      *
      * @param  array  $options
      * @return bool

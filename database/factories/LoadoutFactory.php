@@ -6,7 +6,6 @@ use App\Loadout;
 use Faker\Generator as Faker;
 
 $factory->define(Loadout::class, function (Faker $faker) {
-
     $createdAt = $faker->dateTimeThisYear;
 
     return [

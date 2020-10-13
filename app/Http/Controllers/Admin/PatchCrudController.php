@@ -58,8 +58,6 @@ class PatchCrudController extends CrudController
             'label' => 'Launch Date',
             'type' => 'datetime',
         ]);
-
-
     }
 
     protected function setupUpdateOperation()
