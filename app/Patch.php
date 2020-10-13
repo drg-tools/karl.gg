@@ -41,4 +41,6 @@ class Patch extends Model
     protected $dates = [
         'launched_at',
     ];
+
+    protected $guarded = [];
 }
