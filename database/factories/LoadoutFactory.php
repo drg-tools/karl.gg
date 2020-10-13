@@ -13,6 +13,7 @@ $factory->define(Loadout::class, function (Faker $faker) {
         'description' => $faker->sentence,
         'user_id' => 1,
         'character_id' => $faker->numberBetween(1, 4),
+        'patch_id' => 1,
         'created_at' => $createdAt,
         'updated_at' => $createdAt,
         'throwable_id' => 12,
