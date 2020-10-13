@@ -13,14 +13,7 @@ class UpdatePatchesTable extends Migration
      */
     public function up()
     {
-        Schema::table('patches', function (Blueprint $table) {
-            $table->dropColumn('id');
-        });
-
-        Schema::table('patches', function (Blueprint $table) {
-            $table->timestamp('launched_at')->nullable();
-            $table->bigIncrements('id');
-        });
+        Schema::drop('patches');
 
         Schema::table('equipment', function (Blueprint $table) {
             $table->dropColumn('patch_id');
@@ -46,12 +39,12 @@ class UpdatePatchesTable extends Migration
      */
     public function down()
     {
-        Schema::table('patches', function (Blueprint $table) {
-            $table->dropColumn('launched_at');
-            $table->dropColumn('id');
-        });
-        Schema::table('patches', function (Blueprint $table) {
+        Schema::create('patches', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
+            $table->string('patch_num', 10);
+            $table->string('patch_num_dev', 20);
+            $table->string('patch_title', 100);
+            $table->timestamps();
         });
 
         Schema::table('equipment', function (Blueprint $table) {
