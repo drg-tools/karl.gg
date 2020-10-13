@@ -43,4 +43,12 @@ class Patch extends Model
     ];
 
     protected $guarded = [];
+
+    /**
+     * @return Patch|\Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public function current()
+    {
+        return static::latest('launched_at')->first();
+    }
 }
