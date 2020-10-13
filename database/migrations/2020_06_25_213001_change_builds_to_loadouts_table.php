@@ -17,7 +17,7 @@ class ChangeBuildsToLoadoutsTable extends Migration
         Schema::rename('builds', 'loadouts');
         Schema::table('loadouts', function (Blueprint $table) {
             // TODO: wire the connection to patches table. This is the interim sol'n
-            $table->unsignedBigInteger('patch_id');
+            $table->unsignedBigInteger('patch_id')->default(0);
         });
     }
 
