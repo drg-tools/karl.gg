@@ -38,5 +38,7 @@ class Patch extends Model
 {
     use Filterable, CrudTrait;
 
-    protected $primaryKey = 'id';
+    protected $dates = [
+        'launched_at',
+    ];
 }

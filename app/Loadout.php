@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\LoadoutSaving;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use EloquentFilter\Filterable;
@@ -67,6 +68,15 @@ class Loadout extends Model
 
     protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
 
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saving' => LoadoutSaving::class,
+    ];
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -95,6 +105,11 @@ class Loadout extends Model
     public function throwable()
     {
         return $this->hasOne(Throwable::class, 'id', 'throwable_id');
+    }
+
+    public function patch()
+    {
+        return $this->belongsTo(Patch::class);
     }
 
     public static function getUpvotesCount($id)
@@ -135,10 +150,23 @@ class Loadout extends Model
             ->values() // re-index array
             ->get($slot); // Get nth item
 
-        if (! $grouped || ! $grouped->first()) {
+        if (!$grouped || !$grouped->first()) {
             return;
         }
 
         return $grouped->first()->gun;
+    }
+
+    /**
+     * Saves the model without running any model events
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function saveQuietly(array $options = [])
+    {
+        return static::withoutEvents(function () use ($options) {
+            return $this->save($options);
+        });
     }
 }

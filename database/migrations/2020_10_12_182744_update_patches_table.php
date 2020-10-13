@@ -14,16 +14,18 @@ class UpdatePatchesTable extends Migration
     public function up()
     {
         Schema::table('patches', function (Blueprint $table) {
+            $table->dropColumn('id');
+        });
+
+        Schema::table('patches', function (Blueprint $table) {
             $table->timestamp('launched_at')->nullable();
+            $table->bigIncrements('id');
         });
 
         Schema::table('equipment', function (Blueprint $table) {
             $table->dropColumn('patch_id');
         });
         Schema::table('equipment_mods', function (Blueprint $table) {
-            $table->dropColumn('patch_id');
-        });
-        Schema::table('loadouts', function (Blueprint $table) {
             $table->dropColumn('patch_id');
         });
         Schema::table('mods', function (Blueprint $table) {
@@ -46,15 +48,16 @@ class UpdatePatchesTable extends Migration
     {
         Schema::table('patches', function (Blueprint $table) {
             $table->dropColumn('launched_at');
+            $table->dropColumn('id');
+        });
+        Schema::table('patches', function (Blueprint $table) {
+            $table->unsignedBigInteger('id');
         });
 
         Schema::table('equipment', function (Blueprint $table) {
             $table->unsignedBigInteger('patch_id')->default(0);
         });
         Schema::table('equipment_mods', function (Blueprint $table) {
-            $table->unsignedBigInteger('patch_id')->default(0);
-        });
-        Schema::table('loadouts', function (Blueprint $table) {
             $table->unsignedBigInteger('patch_id')->default(0);
         });
         Schema::table('mods', function (Blueprint $table) {
