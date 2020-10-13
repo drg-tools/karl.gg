@@ -16,7 +16,7 @@ class LoadoutTest extends TestCase
     public function testLoadoutGetsLatestPatchWhenCreated()
     {
         $patch = factory(Patch::class)->create([
-           'launched_at' => Carbon::now()->subYear(),
+            'launched_at' => Carbon::now()->subYear(),
         ]);
 
         $loadout = factory(Loadout::class)->create();
