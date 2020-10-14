@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $enor_pearl_cost
  * @property int $jadiz_cost
  * @property string $icon
- * @property int $patch_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Character $character
@@ -48,7 +47,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereLike($column, $value, $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereMagniteCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Throwable wherePatchId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereUmaniteCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereUpdatedAt($value)
  * @mixin \Eloquent

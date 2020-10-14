@@ -85,12 +85,6 @@ class ThrowableCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'patch_id',
-            'label' => 'Patch Number Index',
-            'type' => 'text',
-            'tab' => 'Base Info',
-        ]);
-        $this->crud->addField([
             'name' => 'credits_cost',
             'label' => 'Credits Cost',
             'type' => 'number',

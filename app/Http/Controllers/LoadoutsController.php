@@ -55,6 +55,6 @@ class LoadoutsController extends Controller
             "{$loadout->character->name} build", 'Deep Rock Galactic builds', 'drg builds',
         ]);
 
-        return view('loadouts.preview');
+        return view('loadouts.preview')->withLoadout($loadout);
     }
 }

@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $json_stats
  * @property string $icon
  * @property string $eq_type
- * @property int $patch_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Character $character
@@ -39,7 +38,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment whereJsonStats($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment whereLike($column, $value, $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Equipment wherePatchId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -55,7 +53,6 @@ class Equipment extends Model
         'json_stats',
         'icon',
         'eq_type',
-        'patch_id',
     ];
 
     public function character()

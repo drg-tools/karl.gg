@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $text_description
  * @property string $json_stats
  * @property string $icon
- * @property int $patch_id
  * @property-read \App\Character $character
  * @property-read \App\Gun $gun
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
@@ -53,7 +52,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereOverclockIndex($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereOverclockName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereOverclockType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Overclock wherePatchId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereTextDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereUmaniteCost($value)
  * @mixin \Eloquent

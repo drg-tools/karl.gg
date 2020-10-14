@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\LoadoutSaving;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use EloquentFilter\Filterable;
@@ -20,7 +21,6 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @property int $character_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $patch_id
  * @property int|null $throwable_id
  * @property-read \App\Character $character
  * @property-read \App\User|null $creator
@@ -54,11 +54,13 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereLike($column, $value, $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Loadout wherePatchId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereThrowableId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUserId($value)
  * @mixin \Eloquent
+ * @property int $patch_id
+ * @property-read \App\Patch $patch
+ * @method static \Illuminate\Database\Eloquent\Builder|Loadout wherePatchId($value)
  */
 class Loadout extends Model
 {
@@ -68,6 +70,15 @@ class Loadout extends Model
     public $sortableAs = ['votes_count'];
 
     protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saving' => LoadoutSaving::class,
+    ];
 
     public function creator()
     {
@@ -97,6 +108,11 @@ class Loadout extends Model
     public function throwable()
     {
         return $this->hasOne(Throwable::class, 'id', 'throwable_id');
+    }
+
+    public function patch()
+    {
+        return $this->belongsTo(Patch::class);
     }
 
     public static function getUpvotesCount($id)
@@ -142,5 +158,18 @@ class Loadout extends Model
         }
 
         return $grouped->first()->gun;
+    }
+
+    /**
+     * Saves the model without running any model events.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function saveQuietly(array $options = [])
+    {
+        return static::withoutEvents(function () use ($options) {
+            return $this->save($options);
+        });
     }
 }

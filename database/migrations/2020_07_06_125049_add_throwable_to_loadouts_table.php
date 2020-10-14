@@ -14,7 +14,7 @@ class AddThrowableToLoadoutsTable extends Migration
     public function up()
     {
         Schema::table('loadouts', function (Blueprint $table) {
-            $table->unsignedBigInteger('throwable_id');
+            $table->unsignedBigInteger('throwable_id')->nullable();
         });
     }
 

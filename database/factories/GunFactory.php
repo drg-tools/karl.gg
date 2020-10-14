@@ -11,5 +11,6 @@ $factory->define(Gun::class, function (Faker $faker) {
         'character_slot' => 1,
         'character_id' => 1,
         'image' => 'E_P1_Warthog',
+        'json_stats' => '',
     ];
 });

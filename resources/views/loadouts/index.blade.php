@@ -43,6 +43,7 @@
                     <th>@sortablelink('character_id', 'Class')</th>
                     <th>@sortablelink('name')</th>
                     <th>@sortablelink('creator.name', 'Author')</th>
+                    <th>@sortablelink('patch.launched_at', 'Patch')</th>
                     <th>Primary</th>
                     <th>Secondary</th>
                     <th>@sortablelink('votes_count', 'Salutes')</th>
@@ -55,6 +56,7 @@
                         <td><img src="/assets/img/{{ $loadout->character->image }}-hex.png" alt="{{ $loadout->character->name }} icon"></td>
                         <td class="text-xl">{{ Str::limit($loadout->name, 50) }}</td>
                         <td class="text-xl">{{ $loadout->creator->name ?? 'Anonymous' }}</td>
+                        <td class="text-xl">{{ $loadout->patch->patch_num ?? '' }}</td>
                         <td class="weapon">
                             @if($loadout->primaryGun)
                                 <img src="/assets/{{ $loadout->primaryGun->image }}.svg" alt="{{ $loadout->primaryGun->name }} icon">
