@@ -43,6 +43,4 @@ jobs:
             - node_modules
       # prepare the database
       - run: cp .env.example .env
-      - run: touch storage/testing.sqlite
-      - run: php artisan migrate --env=testing --database=sqlite_testing --force
       - run: ./vendor/bin/phpunit
