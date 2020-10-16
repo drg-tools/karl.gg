@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mod;
-use Illuminate\Http\Request;
 
 class ModController extends Controller
 {
-
     public function index()
     {
         $mods = Mod::with('gun')->simplePaginate();

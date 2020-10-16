@@ -7,7 +7,6 @@ use Illuminate\View\Component;
 
 class ModImage extends Component
 {
-
     /**
      * @var Mod
      */
