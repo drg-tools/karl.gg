@@ -29,7 +29,10 @@ Route::middleware(['role:super-admin'])->group(function () {
 Route::get('/', 'DashboardController@index');
 Route::get('browse', 'LoadoutsController@index')->name('loadout.index');
 Route::resource('blog', 'PostController')->only(['index', 'show']);
-Route::resource('character', 'CharacterController')->only(['index', 'show']);
+Route::resource('characters', 'CharacterController')->only(['index', 'show']);
+Route::resource('character-loadouts', 'CharacterLoadoutsController')->only(['index']);
+Route::resource('guns', 'GunController')->only(['index', 'show']);
+Route::resource('mods', 'ModController')->only(['index', 'show']);
 Route::get('gear', 'GearController@index');
 
 Route::get('preview/{loadoutId}', 'LoadoutsController@preview')->name('preview.show');

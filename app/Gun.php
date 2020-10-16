@@ -50,6 +50,10 @@ class Gun extends Model
     use Filterable, CrudTrait;
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'json_stats' => 'json'
+    ];
+
     public function mods()
     {
         return $this->hasMany(Mod::class);

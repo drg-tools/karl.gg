@@ -11,6 +11,6 @@ class CharacterController extends Controller
     {
         $characters = Character::with('guns')->get();
 
-        return view('character.index')->withCharacters($characters);
+        return view('characters.index')->withCharacters($characters);
     }
 }
