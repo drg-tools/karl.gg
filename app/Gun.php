@@ -51,7 +51,7 @@ class Gun extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'json_stats' => 'json'
+        'json_stats' => 'json',
     ];
 
     public function mods()

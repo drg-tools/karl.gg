@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\Loadout;
-use Illuminate\Http\Request;
 
 class CharacterLoadoutsController extends Controller
 {

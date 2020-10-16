@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Artesaos\SEOTools\Traits\SEOTools;
-use Illuminate\Http\Request;
 
 class GearController extends Controller
 {

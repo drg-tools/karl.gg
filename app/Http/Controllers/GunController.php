@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Gun;
-use Illuminate\Http\Request;
 
 class GunController extends Controller
 {

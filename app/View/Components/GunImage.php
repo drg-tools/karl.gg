@@ -7,7 +7,6 @@ use Illuminate\View\Component;
 
 class GunImage extends Component
 {
-
     /**
      * @var Gun
      */
