@@ -8,6 +8,7 @@
         @change="onEditorChange"
         @stateChange="onEditorStateChange"
         initialEditType="wysiwyg"
+        :initialValue="editorText"
         :options="editorOptions"
     />
 
@@ -23,7 +24,8 @@
 	export default {
 		name: 'MarkdownEditor',
         props: {
-            guide: String
+            guide: String,
+            loadoutDescription: String
         },
 
         components: {
@@ -50,9 +52,10 @@
         data() {
 
             // this.$emit('update:guide', getMarkdown());
-		    /* getMarkdown() */
+            /* getMarkdown() */
+            console.log('Description' + JSON.stringify(this.loadoutDescription));
             return {
-                editorText: 'This is initialValue.',
+                editorText: this.loadoutDescription,
                 editorOptions: {
                     hideModeSwitch: true,
 
