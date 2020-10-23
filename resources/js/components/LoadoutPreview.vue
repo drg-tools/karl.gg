@@ -30,7 +30,7 @@
         </EquipmentCard>
         </div>
         <div class="guideAccordion" @click="guideIsOpen = !guideIsOpen">
-            <h1>Loadout Guide</h1>
+            <h1>Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
             <collapse-transition>
                 <div v-show="guideIsOpen">
                     <viewer :initialValue="loadoutDetails.description" />
@@ -153,6 +153,9 @@
         background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
         /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
+    }
+    .invertIcon {
+        transform: rotate(180deg);
     }
 
 

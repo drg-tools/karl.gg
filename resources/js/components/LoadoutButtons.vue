@@ -1,51 +1,51 @@
 <template>
-    <div class="buttonContainer">
-        <!-- todo: show loading spinner in modals -->
-        <!-- <modal name="loadoutNameModal" class="loadoutModal" :adaptive="true" :height="500"> -->
-            
-            <!-- todo: disable buttons while data is loading! -->
-            <!-- <div class="buttonContainer">
-                <div class="button" v-on:click="onAcceptSave">
-                    <span class="buttonText">SAVE</span>
+    <div v-if="!dataReady" class="loadingIndicator">
+        <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
+    </div>
+    <div v-else-if="dataReady">
+        <modal name="loadingModal" class="loadoutModal" :adaptive="true" :height="250">
+                <div class="contentContainer">
+                    <h1>Saving Loadout...FOR KARL!</h1>
+                    <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
                 </div>
-                <div class="button" v-on:click="onCancelSave">
-                    <span class="buttonText">CANCEL</span>
-                </div>
-            </div>
-        </modal> -->
-        <modal name="messageModal" class="loadoutModal" :adaptive="true" :height="250">
-            <div class="contentContainer">
-                <h1 class="modalTitle">{{messageTitle}}</h1>
-                <h2>{{messageText}}</h2>
-            </div>
-            <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
-            <div class="buttonContainer">
-                <div class="button guest-btn" v-on:click="onGuestSave">
-                    <span class="buttonText">SAVE AS GUEST</span>
-                </div>
-                <div class="button" v-on:click="onCloseMessageModal">
-                    <span class="buttonText">CLOSE</span>
-                </div>
-            </div>
+                
         </modal>
-        <div class="container">
-                <h2>Loadout Name</h2>
-                <div class="error" v-if="!$v.name.required">Field is required</div>
-                <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
+        <div class="buttonContainer">
+            
+            <modal name="messageModal" class="loadoutModal" :adaptive="true" :height="250">
+                <div class="contentContainer">
+                    <h1 class="modalTitle">{{messageTitle}}</h1>
+                    <h2>{{messageText}}</h2>
+                </div>
+                <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
+                <div class="buttonContainer">
+                    <div class="button guest-btn" v-on:click="onGuestSave">
+                        <span class="buttonText">SAVE AS GUEST</span>
+                    </div>
+                    <div class="button" v-on:click="onCloseMessageModal">
+                        <span class="buttonText">CLOSE</span>
+                    </div>
+                </div>
+            </modal>
+            <div class="container">
+                    <h2>Loadout Name</h2>
+                    <div class="error" v-if="!$v.name.required">Field is required</div>
+                    <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
 
-                <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout"
-                       :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
-                <h2>Description</h2>
-                <MarkdownEditor :guide.sync="$v.description"></MarkdownEditor>
+                    <input v-model="$v.name.$model" class="nameInput" placeholder="Karl's amazing loadout"
+                        :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
+                    <h2>Description</h2>
+                    <MarkdownEditor :guide.sync="description" :loadoutDescription="loadoutDescription" class="guideField"></MarkdownEditor>
+                </div>
+            <!-- todo: show loadout name to the left of there buttons if build belongs to user, show 'new loadout' if not -->
+            <div class="button" v-on:click="onSaveClick">
+                <span class="buttonText">SAVE</span>
             </div>
-        <!-- todo: show loadout name to the left of there buttons if build belongs to user, show 'new loadout' if not -->
-        <div class="button" v-on:click="onSaveClick">
-            <span class="buttonText">SAVE</span>
+            <!-- todo: hide this on edit for now. We do not have a mechanism to share while editing. -->
+            <!-- <div class="button" v-on:click="onShareClick">
+                <h1 class="buttonText">SHARE</h1>
+            </div> -->
         </div>
-        <!-- todo: hide this on edit for now. We do not have a mechanism to share while editing. -->
-        <!-- <div class="button" v-on:click="onShareClick">
-            <h1 class="buttonText">SHARE</h1>
-        </div> -->
     </div>
 </template>
 
@@ -57,17 +57,20 @@
     import MarkdownEditor from './MarkdownEditor.vue';
 
     export default {
-        name: 'LoadoutButtons',
+        name: 'LoadoutButtonsPoc',
         components: {MarkdownEditor},
         data: () => {
             return {
                 name: '',
                 description: '',
+                loadoutDescription: '',
                 messageTitle: '',
                 messageText: '',
+                creatorId: '',
                 update: false,
                 guest: false,
-                submitStatus: null
+                submitStatus: null,
+                dataReady: false
             };
         },
         validations: {
@@ -82,56 +85,49 @@
                 this.name = value;
                 this.$v.name.$touch();
             },
-            loadoutDetails() {
-                console.log('YOW' + store.state.loadoutDetails);
-                return store.state.loadoutDetails;
-            },
-            onLoadHydrate() {
-                // Hydrate the frontend directly on page load
-                // Since we no longer hide this behind a modal, do this once mounted.
-                
-                // If False, I do not own
-                console.log('loadoutDetails');
-                console.log(store.state.loadoutDetails.name);
-                let getOwnerStatus = get(this.loadoutDetails, 'authorId', false) === this.$userId;
-                if (getOwnerStatus) {
-                    console.log('Loadout name to pre-fill: ' + store.state.loadoutDetails.name);
-                    console.log('Loadout description to pre-fill: ' + store.state.loadoutDetails.description);
-                    this.name = store.state.loadoutDetails.name;
-                    this.description = store.state.loadoutDetails.description;
-                    this.update = true;
-                } else {
-                    console.warn('no logged in user');
+            onLoadHydrate(loadoutEditingId) {
+                //let's just query the DB to get our loadout details when we edit a loadout
+                const response = this.$apollo.query({
+                    query: gql`query {
+                      loadout(id: ${loadoutEditingId}) {
+                                id
+                                name
+                                description
+                                creator {
+                                    id
+                                }
+                            }
+                   }`
+                }).then(response => {
+                    let hydrateData = response.data.loadout;
+                    this.name = hydrateData.name;
+                    this.description = hydrateData.description;
+                    // loadoutDescription is our initial value for editing. There may be a better way to do this.
+                    this.loadoutDescription = hydrateData.description;
+                    // let's just grab the creator ID instead of relying on a store query
+                    this.creatorId = hydrateData.creator.id
+                    this.dataReady = true;
+                });
+
+            },         
+            onSaveClick() {
+                // User clicked SAVE
+                // Do a quick check if you're logged in or a guest
+                // Set update to true if you're logged in & author
+                // Fire the onAcceptSave at the proper time.
+                this.getLoggedInUser().then(response => {
+                    let loggedInUserId = response;
+                    if (this.creatorId === loggedInUserId) {
+                        // We know you are the creator, so you are allowed to update this existing build.
+                        this.update = true;
+                    }
+                    this.$modal.show('loadingModal');
+                    this.onAcceptSave();
+                }).catch(err => {
+                    console.warn('no logged in user', err);
                     this.messageTitle = 'Not logged in :(';
                     this.messageText = 'You can save your loadout anonymously or log in first. PLEASE NOTE: You will not be able to edit your build later. Only registered users can edit their builds.';
                     this.guest = true;
-                }
-                
-                    
-                
-            },
-            onSaveClick() {
-                // save loadout to backend
-                // Set this.name & description
-                this.getLoggedInUser().then(response => {
-                    let loadoutAuthorId = store.state.loadoutDetails.authorId;
-                    let loggedInUserId = response;
-                    if (loadoutAuthorId === loggedInUserId) {
-                        console.log('You are this id: ' + loggedInUserId + ' and you are editing a loadout by: ' + loadoutAuthorId);
-                        console.log('You are about to submit with this name: ' + store.state.loadoutDetails.name);
-                        console.log('You are about to submit with this Description: ' + store.state.loadoutDetails.description);
-                        this.name = store.state.loadoutDetails.name;
-                        this.description = store.state.loadoutDetails.description;
-                        // this.update = true;
-                    }
-                    console.log('accept save should fire');
-                    this.onAcceptSave();
-                }).catch(err => {
-                    console.log('onsaveclick guest fired');
-                    // console.warn('no logged in user', err);
-                    // this.messageTitle = 'Not logged in :(';
-                    // this.messageText = 'You can save your loadout anonymously or log in first. PLEASE NOTE: You will not be able to edit your build later. Only registered users can edit their builds.';
-                    // this.guest = true;
                     this.$modal.show('messageModal');
                     /* todo: keep loadout in local storage so his stuff is not lost when he goes to create an account.. */
                 });
@@ -139,10 +135,8 @@
             },
             onGuestSave() {
                 this.$modal.hide('messageModal');
-                this.$modal.show('loadoutNameModal');
-            },
-            onShareClick() {
-                // todo: generate share link without saving
+                this.$modal.show('loadingModal');
+                this.onAcceptSave();
             },
             async getLoggedInUser() {
                 const response = await this.$apollo.query({
@@ -162,30 +156,34 @@
                 }
             },
             onAcceptSave() {
-                if (!!this.name) {
-                    let loadoutData = store.getters.getLoadoutForUpdate();
-                    loadoutData.name = this.name;
-                    loadoutData.description = this.description;
-                    this.$v.$touch();
-                    if (this.$v.$invalid) {
-                        this.submitStatus = 'ERROR';
+                // TODO: Rework this function? Why are we doing this?
+                let loadoutData = store.getters.getLoadoutForUpdate();
+
+                // Our props hold the latest values, so let's grab those
+                loadoutData.name = this.name;
+                loadoutData.description = this.description;
+
+                // Vuelidate form validation code; checks status of our form validation
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    // Vuelidate errors detected, do not submit.
+                    this.submitStatus = 'ERROR';
+                } else {
+                    if (this.update) {
+                        // current user created the loadout, so let him update it instead of creating a new one
+                        this.updateLoadout(loadoutData).then(result => {
+                            let redirId = result.data.updateLoadout.id;
+                            this.$modal.hide('loadingModal');
+                            window.location.href = `/preview/${redirId}`;
+                        });
                     } else {
-                        if (this.update) {
-                            // this user created the loadout, so let him update it instead of creating a new one
-                            this.updateLoadout(loadoutData).then(result => {
-                                let redirId = result.data.updateLoadout.id;
-                                window.location.href = `/preview/${redirId}`;
-                                /* todo: show success messages and redirect to loadout preview */
-                            });
-                        } else {
-                            // create fresh loadout
-                            this.createLoadout(loadoutData).then(result => {
-                                // Get the new loadout id
-                                let redirId = result.data.createLoadout.id;
-                                window.location.href = `/preview/${redirId}`;
-                                /* todo: show success messages and redirect to loadout preview */
-                            });
-                        }
+                        // create fresh loadout
+                        this.createLoadout(loadoutData).then(result => {
+                            // Get the new loadout id
+                            let redirId = result.data.createLoadout.id;
+                            this.$modal.hide('loadingModal');
+                            window.location.href = `/preview/${redirId}`;
+                        });
                     }
                 }
             },
@@ -279,10 +277,21 @@
                 return result;
             }
         },
-        mounted: function () {
-            this.loadoutDetails();
+        created: function () {
+            console.log("I have created thee");
+            // TODO: Find a more stable way to get LoadoutId...
+            // This just grabs the id from /build/{id} 
+            // Could easily be fudged?
+            let path = window.location.pathname.split('/');
+            let loadoutId = path[path.length - 1];
+            if(loadoutId !== 'build') {
+                // we are editing a build
+                this.onLoadHydrate(loadoutId);
+            } else {
+                // go ahead and load the page, we are doing a new buid
+                this.dataReady = true;
+            }
         }
-
     };
 </script>
 
@@ -337,10 +346,18 @@
         margin-bottom: 0;
     }
 
-    .modalDescriptionInput, .modalNameInput {
+    .modalDescriptionInput  {
         width: 100%
     }
-
+    .modalNameInput {
+        padding: 2px;
+        width: 100%;
+        font-size: 1.15em;
+    }
+    .guideField {
+      margin-bottom: 2.75%;  
+    }
+    
     .error {
         font-size: 1.3rem;
         font-weight: normal;

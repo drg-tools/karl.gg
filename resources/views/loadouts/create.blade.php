@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <loadout-buttons-poc></loadout-buttons-poc>
+    <loadout-buttons></loadout-buttons>
     <class-select></class-select>
     <equipment-select></equipment-select>
     <div class="mainContainer">
