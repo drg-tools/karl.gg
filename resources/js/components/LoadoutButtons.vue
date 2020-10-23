@@ -348,7 +348,7 @@
     .modalDescriptionInput  {
         width: 100%
     }
-    .modalNameInput {
+    .nameInput {
         padding: 2px;
         width: 100%;
         font-size: 1.15em;
