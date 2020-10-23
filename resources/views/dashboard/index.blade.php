@@ -8,7 +8,7 @@
 
     <div class="uppercase text-center mb-2 mt-2 whitespace-pre-line">
         <h1>Karls Advanced Remote Loadout</h1>
-        <h2 class="pr-4 pl-4">lets you create custom loadout builds to share with your fellow employees.
+        <h2 class="pr-4 pl-4">lets you build custom deep rock galactic loadouts to share with your fellow employees.
             Get started by selecting a class above or choose a popular loadout below.</h2>
     </div>
     <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top Loadouts in Past 2 Weeks" />

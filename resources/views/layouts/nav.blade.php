@@ -177,8 +177,6 @@
                                 <img class="h-8 w-8 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
                                      alt=""/>
                             </button>
-                            {{-- <img class="h-10 w-10 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}" --}}
-                            {{-- alt=""/> --}}
 
                             <div
                                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu"

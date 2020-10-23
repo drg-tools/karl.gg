@@ -1,6 +1,7 @@
 
 ## DRG Builds
 [![StyleCI](https://github.styleci.io/repos/260825558/shield?branch=master)](https://github.styleci.io/repos/260825558)
+[![CircleCI](https://circleci.com/gh/drg-tools/karl.gg.svg?style=svg)](https://circleci.com/gh/drg-tools/karl.gg)
 
 ### Requirements
 

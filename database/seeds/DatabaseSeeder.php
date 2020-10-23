@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EquipmentSeeder::class);
         $this->call(EquipmentModSeeder::class);
         $this->call(ThrowableSeeder::class);
+        $this->call(PatchSeeder::class);
         $this->call(LoadoutSeeder::class);
         $this->call(PostSeeder::class);
     }

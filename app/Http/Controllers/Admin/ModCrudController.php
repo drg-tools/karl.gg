@@ -159,12 +159,6 @@ class ModCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'patch_id',
-            'label' => 'Patch Number Index',
-            'type' => 'text',
-            'tab' => 'Base Info',
-        ]);
-        $this->crud->addField([
             'name' => 'credits_cost',
             'label' => 'Credits Cost',
             'type' => 'number',
@@ -281,12 +275,6 @@ class ModCrudController extends CrudController
         $this->crud->addField([
             'name' => 'mod_type',
             'label' => 'Mod Type',
-            'type' => 'text',
-            'tab' => 'Base Info',
-        ]);
-        $this->crud->addField([
-            'name' => 'patch_id',
-            'label' => 'Patch Number Index',
             'type' => 'text',
             'tab' => 'Base Info',
         ]);

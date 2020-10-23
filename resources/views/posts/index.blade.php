@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="blog">
+    <div class="content-container">
         @foreach($posts as $post)
             <div class="mb-8 p-4">
                 <h2 class="text-orange my-0"><a href="{{ route('blog.show', $post->id) }}">{{ $post->title }}</a></h2>
