@@ -1,5 +1,7 @@
 <template>
     <div v-if="dataReady" class="equipmentCards">
+        
+        <div class="equipmentSection">
         <EquipmentCard v-if="loadoutDetails.primaryWeapons[0]"
                        :classId="loadoutDetails.classId"
                        :equipmentId="loadoutDetails.primaryWeapons[0].id"
@@ -26,6 +28,16 @@
                        :modMatrix="equipment.modMatrix"
                        :build="equipment.modString.join('')">
         </EquipmentCard>
+        </div>
+        <div class="guideAccordion" @click="guideIsOpen = !guideIsOpen">
+            <h1>Loadout Guide</h1>
+            <collapse-transition>
+                <div v-show="guideIsOpen">
+                    <viewer :initialValue="loadoutDetails.description" />
+                </div>
+            </collapse-transition>
+        </div>
+        
     </div>
 </template>
 
@@ -34,11 +46,21 @@
     import apolloQueries from '../apolloQueries';
     import gql from 'graphql-tag';
     import EquipmentCard from './EquipmentCard.vue';
+    import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+    import { Viewer } from '@toast-ui/vue-editor';
+    import { CollapseTransition } from "@ivanv/vue-collapse-transition"
 
     export default {
         name: 'LoadoutPreview',
         components: {
-            EquipmentCard
+            EquipmentCard,
+            viewer: Viewer,
+            CollapseTransition,
+        },
+        data() {
+            return {
+                guideIsOpen: false, // closed by default
+            }
         },
         computed: {
             dataReady() {
@@ -49,6 +71,7 @@
             }
         },
         methods: {
+            
             async getLoadoutDetails(loadoutId) {
                 if (store.state.loadoutDetails.length > 0) {
                     return store.state.loadoutDetails;
@@ -112,7 +135,7 @@
 </script>
 
 <style scoped>
-    .equipmentCards {
+    .equipmentSection {
         width: 100%;
         display: flex;
         justify-content: space-evenly;
@@ -124,6 +147,14 @@
         /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
     }
+    .guideAccordion {
+        width: 100%;
+        border-top: 5px solid #fc9e00;
+        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
+        /*background-color: #352e1e;*/
+        margin-bottom: 0.5rem;
+    }
+
 
     @media (max-width: 770px) {
         .equipmentCards {
