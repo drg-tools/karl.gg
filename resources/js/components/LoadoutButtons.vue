@@ -278,7 +278,6 @@
             }
         },
         created: function () {
-            console.log("I have created thee");
             // TODO: Find a more stable way to get LoadoutId...
             // This just grabs the id from /build/{id} 
             // Could easily be fudged?
