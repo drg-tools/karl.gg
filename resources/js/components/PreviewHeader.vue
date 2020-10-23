@@ -8,8 +8,6 @@
             <!-- todo: style this! -->
             <h2>by <a class="authorLink" :href="'/profile/' + loadoutDetails.authorId">{{loadoutDetails.author}}</a> on
                 {{loadoutDetails.lastUpdate}}</h2>
-
-            <viewer :initialValue="loadoutDetails.description" height="500px" />
             <div class="previewFooter">
                 <!-- todo: tooltip on salutes container! -->
                 <div v-on:click="onToggleVote" class="salutes-container">
@@ -33,6 +31,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- todo: style modals nicely -->
         <modal name="upvoteMessageModal" class="loadoutModal" :adaptive="true" :height="250">
             <div class="contentContainer">
@@ -46,21 +45,18 @@
             </div>
         </modal>
     </div>
+    
 </template>
 
 <script>
     import store from '../store';
     import gql from 'graphql-tag';
     import {get} from 'lodash';
-    import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-    import { Viewer } from '@toast-ui/vue-editor';
+    
 
     export default {
         name: 'PreviewHeader',
         props: ['pageUrl'],
-        components: {
-            viewer: Viewer
-        },
         data: function () {
             return {
                 messageTitle: '',
@@ -150,7 +146,7 @@
 <style scoped>
     .previewHeaderBackground {
         width: 100%;
-        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%)
+        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
     }
 
     .previewHeaderContainer {
