@@ -3,6 +3,13 @@
         <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
     </div>
     <div v-else-if="dataReady">
+        <modal name="loadingModal" class="loadoutModal" :adaptive="true" :height="250">
+                <div class="contentContainer">
+                    <h1>Saving Loadout...FOR KARL!</h1>
+                    <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
+                </div>
+                
+        </modal>
         <div class="buttonContainer">
             
             <modal name="messageModal" class="loadoutModal" :adaptive="true" :height="250">
@@ -26,7 +33,7 @@
                     <div class="error" v-if="!$v.name.maxLength">Max {{$v.name.$params.maxLength.max}} characters.</div>
 
                     <input v-model="$v.name.$model" class="modalNameInput" placeholder="Karl's amazing loadout"
-                        :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)" ref="loadout_name">
+                        :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
                     <h2>Description</h2>
                     <MarkdownEditor :guide.sync="description" :loadoutDescription="loadoutDescription"></MarkdownEditor>
                 </div>
@@ -92,28 +99,32 @@
                             }
                    }`
                 }).then(response => {
-                    // console.log('YaYEET'+ JSON.stringify(response.data.loadout));
                     let hydrateData = response.data.loadout;
                     this.name = hydrateData.name;
                     this.description = hydrateData.description;
+                    // loadoutDescription is our initial value for editing. There may be a better way to do this.
                     this.loadoutDescription = hydrateData.description;
+                    // let's just grab the creator ID instead of relying on a store query
                     this.creatorId = hydrateData.creator.id
                     this.dataReady = true;
                 });
 
             },         
             onSaveClick() {
-                // save loadout to backend
-                // Set this.name & description
+                // User clicked SAVE
+                // Do a quick check if you're logged in or a guest
+                // Set update to true if you're logged in & author
+                // Fire the onAcceptSave at the proper time.
                 this.getLoggedInUser().then(response => {
                     let loggedInUserId = response;
                     if (this.creatorId === loggedInUserId) {
                         console.log('You are this id: ' + loggedInUserId + ' and you are editing a loadout by: ' + this.creatorId);
-                        this.name = store.state.loadoutDetails.name;
-                        this.description = store.state.loadoutDetails.description;
+                        // We know you are the creator, so you are allowed to update this existing build.
                         this.update = true;
+                        // console.log('Update: ' + this.update);
                     }
                     console.log('accept save should fire');
+                    this.$modal.show('loadingModal');
                     this.onAcceptSave();
                 }).catch(err => {
                     console.log('onsaveclick guest fired');
@@ -128,6 +139,8 @@
             },
             onGuestSave() {
                 this.$modal.hide('messageModal');
+                this.$modal.show('loadingModal');
+                this.onAcceptSave();
             },
             async getLoggedInUser() {
                 const response = await this.$apollo.query({
@@ -147,33 +160,40 @@
                 }
             },
             onAcceptSave() {
-                if (!!this.name) {
-                    let loadoutData = store.getters.getLoadoutForUpdate();
-                    console.log('loadoutData garbage');
-                    console.log(loadoutData);
-                    console.log(this.$refs.loadout_name.value);
-                    loadoutData.name = this.name;
-                    loadoutData.description = this.description;
-                    this.$v.$touch();
-                    if (this.$v.$invalid) {
-                        this.submitStatus = 'ERROR';
+                // TODO: Rework this function? Why are we doing this?
+                let loadoutData = store.getters.getLoadoutForUpdate();
+                // console.log(loadoutData);
+
+                console.log('This name:' + this.name);
+                console.log('This description:' + this.description);
+
+                // Our props hold the latest values, so let's grab those
+                loadoutData.name = this.name;
+                loadoutData.description = this.description;
+
+                // Vuelidate form validation code; checks status of our form validation
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    // Vuelidate errors detected, do not submit.
+                    this.submitStatus = 'ERROR';
+                } else {
+                    if (this.update) {
+                        // this user created the loadout, so let him update it instead of creating a new one
+                        this.updateLoadout(loadoutData).then(result => {
+                            let redirId = result.data.updateLoadout.id;
+                            this.$modal.hide('loadingModal');
+                            window.location.href = `/preview/${redirId}`;
+                            /* todo: show success messages and redirect to loadout preview */
+                        });
                     } else {
-                        if (this.update) {
-                            // this user created the loadout, so let him update it instead of creating a new one
-                            this.updateLoadout(loadoutData).then(result => {
-                                let redirId = result.data.updateLoadout.id;
-                                window.location.href = `/preview/${redirId}`;
-                                /* todo: show success messages and redirect to loadout preview */
-                            });
-                        } else {
-                            // create fresh loadout
-                            this.createLoadout(loadoutData).then(result => {
-                                // Get the new loadout id
-                                let redirId = result.data.createLoadout.id;
-                                window.location.href = `/preview/${redirId}`;
-                                /* todo: show success messages and redirect to loadout preview */
-                            });
-                        }
+                        // create fresh loadout
+                        this.createLoadout(loadoutData).then(result => {
+                            // Get the new loadout id
+                            let redirId = result.data.createLoadout.id;
+                            this.$modal.hide('loadingModal');
+                            window.location.href = `/preview/${redirId}`;
+                            /* todo: show success messages and redirect to loadout preview */
+                        });
                     }
                 }
             },
