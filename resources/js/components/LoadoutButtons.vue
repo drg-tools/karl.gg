@@ -105,7 +105,12 @@
                     // loadoutDescription is our initial value for editing. There may be a better way to do this.
                     this.loadoutDescription = hydrateData.description;
                     // let's just grab the creator ID instead of relying on a store query
-                    this.creatorId = hydrateData.creator.id
+                    // assume guest by default, ID 0
+                    this.creatorId = 0;
+                    if(hydrateData.creator) {
+                        this.creatorId = hydrateData.creator.id;
+                    }
+                
                     this.dataReady = true;
                 });
 

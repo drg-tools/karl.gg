@@ -50,10 +50,6 @@
             }
         },
         data() {
-
-            // this.$emit('update:guide', getMarkdown());
-            /* getMarkdown() */
-            console.log('Description' + JSON.stringify(this.loadoutDescription));
             return {
                 editorText: this.loadoutDescription,
                 editorOptions: {
