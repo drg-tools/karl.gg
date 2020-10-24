@@ -60,7 +60,26 @@
                     hideModeSwitch: true,
 
                     useDefaultHTMLSanitizer: true,
-                    usageStatistics: false
+                    usageStatistics: false,
+                    toolbarItems: [
+                        'heading',
+                        'bold',
+                        'italic',
+                        'strike',
+                        'divider',
+                        'hr',
+                        'quote',
+                        'divider',
+                        'ul',
+                        'ol',
+                        'task',
+                        'indent',
+                        'outdent',
+                        'divider',
+                        'table',
+                        'link',
+                        'divider',
+                    ]
                 }
             };
         }
