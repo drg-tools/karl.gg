@@ -54,7 +54,6 @@
                 editorText: this.loadoutDescription,
                 editorOptions: {
                     hideModeSwitch: true,
-
                     useDefaultHTMLSanitizer: true,
                     usageStatistics: false,
                     toolbarItems: [
@@ -90,5 +89,14 @@
 .te-ww-container {
     background-color: #5F5137!important;
     color: white!important;
+}
+.tui-editor-defaultUI-toolbar {
+    background: #18110bba;
+}
+.tui-editor-defaultUI-toolbar button {
+    background-color:#fc9e00;
+}
+.tui-toolbar-icons {
+    background:none; /* Remove default png sprite icons */
 }
 </style>
