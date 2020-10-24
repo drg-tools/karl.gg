@@ -200,6 +200,11 @@
         /* todo: homebrew explosive is getting too many digits :( */
         modifiedValue = (parseFloat(modifiedValue)).toFixed(precision);
         let difference = (parseFloat(modifiedValue) - parseFloat(originalValue)).toFixed(precision);
+        if (stat.name === "Magazine Size") {
+            // make sure magazine size is always an even number
+            difference = Math.ceil(difference);
+            modifiedValue = Math.floor(modifiedValue);
+        }
         stat.modifier = `${difference < 0 ? '' : '+'}${difference}${stat.percent ? '%' : ''}`;
         stat.modified = true;
         stat.value = modifiedValue;
@@ -338,6 +343,7 @@
                         visible: visible
                     };
                 }
+                console.log("stats", stats);
                 return {
                     stats: stats,
                     cost: totalCost,
