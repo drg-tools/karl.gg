@@ -29,8 +29,8 @@
                        :build="equipment.modString.join('')">
         </EquipmentCard>
         </div>
-        <div class="guideAccordion" @click="guideIsOpen = !guideIsOpen">
-            <h1>Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
+        <div class="guideAccordion">
+            <h1 @click="guideIsOpen = !guideIsOpen">Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
             <collapse-transition>
                 <div v-show="guideIsOpen">
                     <viewer :initialValue="loadoutDetails.description" />
