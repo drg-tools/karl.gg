@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Str;
-use App\Gun;
 use App\Character;
+use App\Gun;
 use App\Loadout;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
+use Str;
 
 class LoadoutsController extends Controller
 {
