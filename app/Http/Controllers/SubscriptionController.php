@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
@@ -15,6 +14,5 @@ class SubscriptionController extends Controller
         $user->save();
 
         return view('subscription.unsubscribed');
-
     }
 }
