@@ -214,6 +214,7 @@ export default {
                         mods {
                           id
                           mod_name
+                          text_description
                           mod_tier
                           mod_index
                           mod_type
@@ -229,6 +230,7 @@ export default {
                         overclocks {
                           id
                           overclock_name
+                          text_description
                           overclock_index
                           overclock_type
                           gun {
@@ -243,6 +245,7 @@ export default {
                         equipment_mods {
                           id
                           mod_name
+                          description
                           mod_tier
                           mod_index
                           equipment {
