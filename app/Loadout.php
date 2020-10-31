@@ -120,6 +120,7 @@ class Loadout extends Model
     public function scopeOnOlderPatch(Builder $query)
     {
         $currentPatch = Patch::current();
+
         return $query->whereHas('patch', function ($patch) use ($currentPatch) {
             $patch->where('id', '!=', $currentPatch->id);
         });

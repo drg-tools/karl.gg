@@ -7,7 +7,6 @@ use Illuminate\View\Component;
 
 class LoadoutOutdated extends Component
 {
-
     public $loadout;
 
     /**
