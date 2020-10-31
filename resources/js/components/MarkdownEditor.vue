@@ -53,7 +53,7 @@
             return {
                 editorText: this.loadoutDescription,
                 editorOptions: {
-                    hideModeSwitch: true,
+                    hideModeSwitch: false,
                     useDefaultHTMLSanitizer: true,
                     usageStatistics: false,
                     toolbarItems: [
@@ -86,7 +86,7 @@
     color: #000000;
 }
 
-.te-ww-container {
+.te-ww-container, .te-mode-switch-section {
     background-color: #5F5137!important;
     color: white!important;
 }
@@ -98,5 +98,8 @@
 }
 .tui-toolbar-icons {
     background:none; /* Remove default png sprite icons */
+}
+.tui-editor-defaultUI button.tui-scrollsync, .tui-editor-defaultUI button.tui-scrollsync.active {
+    color: #000000;
 }
 </style>
