@@ -18,9 +18,13 @@
                 }">
                     <svg viewBox="0 0 80 50"
                          height="100%"
-                         :class="[mod ? 'modActive' : 'modInactive']">
+                         role="img"
+                         :class="[mod ? 'modActive' : 'modInactive']"
+                    >
+                        <title>{{ mod.mod_name }}</title>
+                        <desc>{{ mod.text_description }}</desc>
                         <path
-                            d="M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826 L 0.3679663,25"/>
+                            d=" M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826L 0.3679663,25"/>
                     </svg>
                 </div>
             </div>
@@ -32,6 +36,8 @@
                 <svg v-if="isCleanOverclock" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
+                    <title>{{ overclock.overclock_name }}</title>
+                    <desc>{{ overclock.text_description }}</desc>
                     <g>
                         <g> <!-- background layer -->
                             <path
@@ -49,6 +55,8 @@
                 <svg v-if="isBalancedOverclock" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
+                    <title>{{ overclock.overclock_name }}</title>
+                    <desc>{{ overclock.text_description }}</desc>
                     <g>
                         <g>
                             <path
@@ -66,6 +74,8 @@
                 <svg v-if="isUnstableOverclock" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
+                    <title>{{ overclock.overclock_name }}</title>
+                    <desc>{{ overclock.text_description }}</desc>
                     <g>
                         <g>
                             <path
@@ -87,141 +97,141 @@
 </template>
 
 <script>
-    import store from '../store';
+import store from '../store';
 
-    export default {
-        name: 'EquipmentCard',
-        props: {
-            build: String,
-            classId: String,
-            equipmentId: String,
-            equipmentName: String,
-            icon: String,
-            modMatrix: Array,
-            overclock: Object
+export default {
+    name: 'EquipmentCard',
+    props: {
+        build: String,
+        classId: String,
+        equipmentId: String,
+        equipmentName: String,
+        icon: String,
+        modMatrix: Array,
+        overclock: Object
+    },
+    computed: {
+        getIconFromPath: function () {
+            return store.state.icons.equipment[this.icon];
         },
-        computed: {
-            getIconFromPath: function () {
-                return store.state.icons.equipment[this.icon];
-            },
-            getEquipmentName: function () {
-                return this.equipmentName;
-            },
-            getModMatrix: function () {
-                return this.modMatrix;
-            },
-            getOverclockData: function () {
-                if (!this.overclock) {
-                    return;
-                }
-                return this.overclock;
-            },
-            isCleanOverclock: function () {
-                return this.getOverclockData.overclock_type === 'Clean';
-            },
-            isBalancedOverclock: function () {
-                return this.getOverclockData.overclock_type === 'Balanced';
-            },
-            isUnstableOverclock: function () {
-                return this.getOverclockData.overclock_type === 'Unstable';
-            }
+        getEquipmentName: function () {
+            return this.equipmentName;
         },
-        methods: {
-            navToBuildView() {
-                // todo: nav to build view with {classID: this.classId, equipmentId: this.equipmentId}?
-            },
-            getCleanDisplayByOverclock: function (overclock) {
-                return overclock.type === 'Clean' ? 'inherit' : 'none';
-            },
-            getBalancedDisplayByOverclock: function (overclock) {
-                return overclock.type === 'Balanced' ? 'inherit' : 'none';
-            },
-            getUnstableDisplayByOverclock: function (overclock) {
-                return overclock.type === 'Unstable' ? 'inherit' : 'none';
-            },
-            getModMatrixTooltipContent: function (mod) {
-                let description = mod.description ? mod.description : mod.text_description;
-                return `<h3>${mod.mod_name}</h3><br><span>${description}</span>`;
-            },
-            getOverclockTooltipContent: function () {
-                return `<h3>${this.overclock.overclock_type}</h3><br><span>${this.overclock.text_description}</span>`;
+        getModMatrix: function () {
+            return this.modMatrix;
+        },
+        getOverclockData: function () {
+            if (!this.overclock) {
+                return;
             }
+            return this.overclock;
+        },
+        isCleanOverclock: function () {
+            return this.getOverclockData.overclock_type === 'Clean';
+        },
+        isBalancedOverclock: function () {
+            return this.getOverclockData.overclock_type === 'Balanced';
+        },
+        isUnstableOverclock: function () {
+            return this.getOverclockData.overclock_type === 'Unstable';
         }
-    };
+    },
+    methods: {
+        navToBuildView() {
+            // todo: nav to build view with {classID: this.classId, equipmentId: this.equipmentId}?
+        },
+        getCleanDisplayByOverclock: function (overclock) {
+            return overclock.type === 'Clean' ? 'inherit' : 'none';
+        },
+        getBalancedDisplayByOverclock: function (overclock) {
+            return overclock.type === 'Balanced' ? 'inherit' : 'none';
+        },
+        getUnstableDisplayByOverclock: function (overclock) {
+            return overclock.type === 'Unstable' ? 'inherit' : 'none';
+        },
+        getModMatrixTooltipContent: function (mod) {
+            let description = mod.description ? mod.description : mod.text_description;
+            return `<h3>${mod.mod_name}</h3><br><span>${description}</span>`;
+        },
+        getOverclockTooltipContent: function () {
+            return `<h3>${this.overclock.overclock_type}</h3><br><span>${this.overclock.text_description}</span>`;
+        }
+    }
+};
 </script>
 
 <style scoped>
-    .equipmentCardContainer {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        width: 10rem;
-    }
+.equipmentCardContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 10rem;
+}
 
-    .equipmentCardTitle {
-        text-align: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.equipmentCardTitle {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-    .flexboxWeaponSelect {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 4rem;
-    }
+.flexboxWeaponSelect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+}
 
-    .equipmentIcon {
-        fill: #ada195;
-    }
+.equipmentIcon {
+    fill: #ada195;
+}
 
-    .flexboxWeaponSelect > svg {
-        margin: 0.5rem;
-    }
+.flexboxWeaponSelect > svg {
+    margin: 0.5rem;
+}
 
-    .overclockContainer {
-        display: flex;
-    }
+.overclockContainer {
+    display: flex;
+}
 
-    .overclockName {
-        margin-left: 0.4rem;
-    }
+.overclockName {
+    margin-left: 0.4rem;
+}
 
-    .modMatrixContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 1rem;
-    }
+.modMatrixContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
 
-    .modMatrixRow {
-        display: flex;
-        height: 1rem;
-        width: 6rem;
-        margin-bottom: 0.3rem;
-        /*justify-content: start;*/
-        /*align-items: center;*/
-    }
+.modMatrixRow {
+    display: flex;
+    height: 1rem;
+    width: 6rem;
+    margin-bottom: 0.3rem;
+    /*justify-content: start;*/
+    /*align-items: center;*/
+}
 
-    .mod {
-        width: 2rem;
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
+.mod {
+    width: 2rem;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 
-    .modActive {
-        stroke: #fc9e00;
-        opacity: 100%;
-        fill: #fc9e00;
-        stroke-width: 5px;
-    }
+.modActive {
+    stroke: #fc9e00;
+    opacity: 100%;
+    fill: #fc9e00;
+    stroke-width: 5px;
+}
 
-    .modInactive {
-        stroke: #fc9e00;
-        opacity: 50%;
-        fill: transparent;
-        stroke-width: 5px;
-    }
+.modInactive {
+    stroke: #fc9e00;
+    opacity: 50%;
+    fill: transparent;
+    stroke-width: 5px;
+}
 
 </style>
