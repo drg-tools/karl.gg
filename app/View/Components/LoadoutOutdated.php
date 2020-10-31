@@ -7,21 +7,16 @@ use Illuminate\View\Component;
 
 class LoadoutOutdated extends Component
 {
-    /**
-     * @var Patch
-     */
-    private $patch;
 
     public $loadout;
 
     /**
      * Create a new component instance.
      *
-     * @return void
+     * @param $loadout
      */
-    public function __construct(Patch $patch, $loadout)
+    public function __construct($loadout)
     {
-        $this->patch = $patch;
         $this->loadout = $loadout;
     }
 
@@ -32,7 +27,7 @@ class LoadoutOutdated extends Component
      */
     public function render()
     {
-        $outdated = $this->loadout->patch_id !== $this->patch->current()->id;
+        $outdated = $this->loadout->patch_id !== Patch::current()->id;
 
         return view('components.loadout-outdated', [
             'outdated' => $outdated,
