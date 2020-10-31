@@ -53,7 +53,6 @@ import VModal from 'vue-js-modal';
 import VueApollo from 'vue-apollo';
 import VueClipboard from 'vue-clipboard2';
 import Vuelidate from 'vuelidate';
-/* todo: replace VPopover with VTooltip in overclock selection as it is easier to style! */
 
 Vue.use(VueClipboard);
 Vue.config.productionTip = false;
