@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
+use Str;
 use App\Gun;
+use App\Character;
 use App\Loadout;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
-use Str;
 
 class LoadoutsController extends Controller
 {
@@ -40,6 +40,16 @@ class LoadoutsController extends Controller
         $loadout = Loadout::with('mods')
             ->findOrFail($id);
 
+        $this->generateSeo($loadout);
+
+        return view('loadouts.preview')->withLoadout($loadout);
+    }
+
+    /**
+     * @param  \Illuminate\Database\Eloquent\Collection|null  $loadout
+     */
+    protected function generateSeo($loadout): void
+    {
         $gunIds = $loadout->mods->pluck('gun_id')->unique();
         $gunNames = Gun::whereIn('id', $gunIds)->pluck('name');
 
@@ -49,12 +59,13 @@ class LoadoutsController extends Controller
             ]);
         });
 
+        $modDescription = $loadout->mods->isEmpty() ? 'no mods' : $loadout->mods->pluck('mod_name')->join(' mod, ');
+        $description = "{$loadout->character->name} build with {$modDescription}";
+
         SEOTools::setTitle("{$loadout->character->name} - {$loadout->name}");
-        SEOTools::setDescription(Str::limit($loadout->description, 100));
+        SEOTools::setDescription(Str::limit($description, 150));
         SEOTools::metatags()->addKeyword([
             "{$loadout->character->name} build", 'Deep Rock Galactic builds', 'drg builds',
         ]);
-
-        return view('loadouts.preview')->withLoadout($loadout);
     }
 }
