@@ -56,13 +56,13 @@ class LoadoutsController extends Controller
         $gunNames->each(function ($name) {
             SEOTools::metatags()->addKeyword([
                 // Remove quotes from gun names
-                str_replace('"', "", "{$name} build"),
+                str_replace('"', '', "{$name} build"),
             ]);
         });
         $loadout->mods->each(function ($l) {
             SEOTools::metatags()->addKeyword([
                 // Remove quotes from mod names
-                str_replace('"', "", "{$l->mod_name} build"),
+                str_replace('"', '', "{$l->mod_name} build"),
             ]);
         });
 
