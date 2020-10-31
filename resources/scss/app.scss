@@ -110,6 +110,16 @@ h4 {
     color: $orange;
 }
 
+.bg-light-brown {
+    background-color: $light-brown;
+}
+.bg-brown {
+    background-color: $brown;
+}
+.bg-off-black {
+    background-color: $off-black;
+}
+
 .img-filter-white {
     filter: $img-filter-white;
 }
@@ -547,7 +557,7 @@ svg > a:hover {
     border-color: #000;
 }
 
-.tui-toolbar-icons {    
+.tui-toolbar-icons {
     &::before {
       font: normal normal normal 14px/1 FontAwesome;
       color: #000;

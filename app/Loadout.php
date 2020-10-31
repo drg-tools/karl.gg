@@ -6,6 +6,7 @@ use App\Events\LoadoutSaving;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Nagy\LaravelRating\Traits\Like\Likeable;
@@ -61,6 +62,7 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @property int $patch_id
  * @property-read \App\Patch $patch
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout wherePatchId($value)
+ * @method static Builder|Loadout onOlderPatch()
  */
 class Loadout extends Model
 {
@@ -115,6 +117,15 @@ class Loadout extends Model
         return $this->belongsTo(Patch::class);
     }
 
+    public function scopeOnOlderPatch(Builder $query)
+    {
+        $currentPatch = Patch::current();
+
+        return $query->whereHas('patch', function ($patch) use ($currentPatch) {
+            $patch->where('id', '!=', $currentPatch->id);
+        });
+    }
+
     public static function getUpvotesCount($id)
     {
         $loadout = Loadout::findOrFail($id);
@@ -133,7 +144,7 @@ class Loadout extends Model
     }
 
     /**
-     * @return |null
+     * @return mixed |null
      */
     public function getSecondaryGunAttribute()
     {
