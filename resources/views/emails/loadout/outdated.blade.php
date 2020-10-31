@@ -16,6 +16,10 @@ are no changes needed for a particular loadout, simply open it up and re-save it
 - [{{ $loadout->name }}]({{ route('build.show', $loadout->id) }})
 @endforeach
 
+@slot('unsubscribeLink')
+{{ $unsubscribeLink }}
+@endslot
+
 
 Rock and Stone, Miner!<br>
 Your karl.gg crew

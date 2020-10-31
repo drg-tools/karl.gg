@@ -7,6 +7,7 @@ use App\Mail\LoadoutOutdated;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class NewPatchEmail extends Command
 {
@@ -54,7 +55,8 @@ class NewPatchEmail extends Command
             $user = User::find($userId);
 
             if ($user) {
-                Mail::to($user)->send(new LoadoutOutdated($loadouts));
+                $unsubLink = URL::signedRoute('unsubscribe', ['user' => $user->id]);
+                Mail::to($user)->send(new LoadoutOutdated($loadouts, $unsubLink));
             }
             $bar->advance();
         }
