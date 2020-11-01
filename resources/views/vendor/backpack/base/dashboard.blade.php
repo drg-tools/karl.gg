@@ -9,7 +9,7 @@
 
                 // OPTIONALS
                 'class'   => 'card mb-2',
-                'wrapper' => ['class'=> 'col-md-6'] ,
+                'wrapper' => ['class'=> 'col-md-4'] ,
                 'content' => [
                      'header' => 'New Users (last 30)'
                  ],
@@ -20,9 +20,20 @@
 
                 // OPTIONALS
                 'class'   => 'card mb-2',
-                'wrapper' => ['class'=> 'col-md-6'] ,
+                'wrapper' => ['class'=> 'col-md-4'] ,
                 'content' => [
                      'header' => 'New Loadouts (last 30)'
+                 ],
+            ]),
+            Backpack\CRUD\app\Library\Widget::make([
+                'type'       => 'chart',
+                'controller' => \App\Http\Controllers\Admin\Charts\DailyUpdatedLoadoutsChartController::class,
+
+                // OPTIONALS
+                'class'   => 'card mb-2',
+                'wrapper' => ['class'=> 'col-md-4'] ,
+                'content' => [
+                     'header' => 'Updated Loadouts (last 30)'
                  ],
             ])
         ]);
