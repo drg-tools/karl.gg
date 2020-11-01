@@ -21,7 +21,7 @@
 {{-- Footer --}}
 @slot('footer')
 @component('mail::footer')
-    © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.') | [Unsubscribe]({{ $unsubscribeLink }})
+    © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')@isset($unsubscribeLink) | [Unsubscribe]({{ $unsubscribeLink }})@endisset
 @endcomponent
 @endslot
 @endcomponent
