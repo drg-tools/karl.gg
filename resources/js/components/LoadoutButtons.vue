@@ -8,7 +8,7 @@
                     <h1>Saving Loadout...FOR KARL!</h1>
                     <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
                 </div>
-                
+
         </modal>
         <div class="buttonContainer">
             <div class="button" v-on:click="onSaveClick">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="buttonContainer">
-            
+
             <modal name="messageModal" class="loadoutModal" :adaptive="true" :height="250">
                 <div class="contentContainer">
                     <h1 class="modalTitle">{{messageTitle}}</h1>
@@ -32,10 +32,10 @@
                     </div>
                 </div>
             </modal>
-            
+
             <div class="container">
                     <h2 class="loadoutNameHeading">Loadout Name</h2>
-                   
+
 
                     <input v-model="$v.name.$model" class="nameInput" placeholder="Karl's amazing loadout"
                         :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
@@ -43,9 +43,9 @@
                     <div class="error" v-if="!$v.name.required">Field is required</div>
                     <h2>Description</h2>
                     <MarkdownEditor :guide.sync="description" :loadoutDescription="loadoutDescription" class="guideField"></MarkdownEditor>
-                
+
                     <!-- todo: show loadout name to the left of there buttons if build belongs to user, show 'new loadout' if not -->
-                    
+
             </div>
             <!-- todo: hide this on edit for now. We do not have a mechanism to share while editing. -->
             <!-- <div class="button" v-on:click="onShareClick">
@@ -85,7 +85,7 @@
                 maxLength: maxLength(255)
             }
         },
-        
+
         methods: {
             setName(value) {
                 this.name = value;
@@ -116,11 +116,11 @@
                     if(hydrateData.creator) {
                         this.creatorId = hydrateData.creator.id;
                     }
-                
+
                     this.dataReady = true;
                 });
 
-            },         
+            },
             onSaveClick() {
                 // User clicked SAVE
                 // Do a quick check if you're logged in or a guest
@@ -290,7 +290,7 @@
         },
         created: function () {
             // TODO: Find a more stable way to get LoadoutId...
-            // This just grabs the id from /build/{id} 
+            // This just grabs the id from /build/{id}
             // Could easily be fudged?
             let path = window.location.pathname.split('/');
             let loadoutId = path[path.length - 1];
@@ -365,9 +365,9 @@
         font-size: 1.15em;
     }
     .guideField {
-      margin-bottom: 2.75%;  
+      margin-bottom: 2.75%;
     }
-    
+
     .error {
         font-size: 1.1em;
         font-weight: normal;
@@ -381,7 +381,7 @@
 
         /* input fields */
     /* form starting stylings ------------------------------- */
-    .group {
+    /*.group {
         position: relative;
         margin: 0.5rem 0 0.5rem 0;
     }
@@ -402,7 +402,7 @@
     .form-group--error {
         border-bottom: 1px solid #FD1400;
     }
-    /* LABEL ======================================= */
+    !* LABEL ======================================= *!
     label {
         color: #ADA195;
         font-size: 18px;
@@ -415,14 +415,14 @@
         -moz-transition: 0.2s ease all;
         -webkit-transition: 0.2s ease all;
     }
-    /* active state */
+    !* active state *!
     input:focus ~ label {
         color: #FC9E00;
     }
     .errorLabel {
         color: #FD1400;
     }
-    /* BOTTOM BARS ================================= */
+    !* BOTTOM BARS ================================= *!
     .bar {
         position: relative;
         display: block;
@@ -445,11 +445,11 @@
     .bar:after {
         right: 50%;
     }
-    /* active state */
+    !* active state *!
     input:focus ~ .bar:before, input:focus ~ .bar:after {
         width: 50%;
     }
-    /* HIGHLIGHTER ================================== */
+    !* HIGHLIGHTER ================================== *!
     .highlight {
         position: absolute;
         height: 60%;
@@ -459,13 +459,13 @@
         pointer-events: none;
         opacity: 0.5;
     }
-    /* active state */
+    !* active state *!
     input:focus ~ .highlight {
         -webkit-animation: inputHighlighter 0.3s ease;
         -moz-animation: inputHighlighter 0.3s ease;
         animation: inputHighlighter 0.3s ease;
     }
-    /* ANIMATIONS ================ */
+    !* ANIMATIONS ================ *!
     @-webkit-keyframes inputHighlighter {
         from {
             background: #FC9E00;
@@ -492,5 +492,5 @@
             width: 0;
             background: transparent;
         }
-    }
+    }*/
 </style>
