@@ -1,6 +1,6 @@
 <template>
     <div v-if="dataReady" class="equipmentCards">
-        
+
         <div class="equipmentSection">
         <EquipmentCard v-if="loadoutDetails.primaryWeapons[0]"
                        :classId="loadoutDetails.classId"
@@ -37,7 +37,7 @@
                 </div>
             </collapse-transition>
         </div>
-        
+
     </div>
 </template>
 
@@ -71,7 +71,7 @@
             }
         },
         methods: {
-            
+
             async getLoadoutDetails(loadoutId) {
                 if (store.state.loadoutDetails.length > 0) {
                     return store.state.loadoutDetails;
@@ -138,6 +138,7 @@
     .equipmentSection {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-evenly;
         -webkit-overflow-scrolling: touch;
         -ms-overflow-style: -ms-autohiding-scrollbar;
