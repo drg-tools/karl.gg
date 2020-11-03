@@ -8,7 +8,7 @@
                     <h1>Saving Loadout...FOR KARL!</h1>
                     <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
                 </div>
-                
+
         </modal>
         <div class="buttonContainer">
             <div class="button" v-on:click="onSaveClick">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="buttonContainer">
-            
+
             <modal name="messageModal" class="loadoutModal" :adaptive="true" :height="250">
                 <div class="contentContainer">
                     <h1 class="modalTitle">{{messageTitle}}</h1>
@@ -32,10 +32,10 @@
                     </div>
                 </div>
             </modal>
-            
+
             <div class="container">
                     <h2 class="loadoutNameHeading">Loadout Name</h2>
-                   
+
 
                     <input v-model="$v.name.$model" class="nameInput" placeholder="Karl's amazing loadout"
                         :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
@@ -43,9 +43,9 @@
                     <div class="error" v-if="!$v.name.required">Field is required</div>
                     <h2>Description</h2>
                     <MarkdownEditor :guide.sync="description" :loadoutDescription="loadoutDescription" class="guideField"></MarkdownEditor>
-                
+
                     <!-- todo: show loadout name to the left of there buttons if build belongs to user, show 'new loadout' if not -->
-                    
+
             </div>
             <!-- todo: hide this on edit for now. We do not have a mechanism to share while editing. -->
             <!-- <div class="button" v-on:click="onShareClick">
@@ -85,7 +85,7 @@
                 maxLength: maxLength(255)
             }
         },
-        
+
         methods: {
             setName(value) {
                 this.name = value;
@@ -116,11 +116,11 @@
                     if(hydrateData.creator) {
                         this.creatorId = hydrateData.creator.id;
                     }
-                
+
                     this.dataReady = true;
                 });
 
-            },         
+            },
             onSaveClick() {
                 // User clicked SAVE
                 // Do a quick check if you're logged in or a guest
@@ -290,7 +290,7 @@
         },
         created: function () {
             // TODO: Find a more stable way to get LoadoutId...
-            // This just grabs the id from /build/{id} 
+            // This just grabs the id from /build/{id}
             // Could easily be fudged?
             let path = window.location.pathname.split('/');
             let loadoutId = path[path.length - 1];
@@ -365,9 +365,9 @@
         font-size: 1.15em;
     }
     .guideField {
-      margin-bottom: 2.75%;  
+      margin-bottom: 2.75%;
     }
-    
+
     .error {
         font-size: 1.1em;
         font-weight: normal;
@@ -379,118 +379,4 @@
         margin-top: 1%;
     }
 
-        /* input fields */
-    /* form starting stylings ------------------------------- */
-    .group {
-        position: relative;
-        margin: 0.5rem 0 0.5rem 0;
-    }
-    input {
-        font-size: 18px;
-        padding: 10px 10px 10px 5px;
-        display: block;
-        width: 300px;
-        border: none;
-        border-bottom: 1px solid #ADA195;
-        background-color: #5F5137;
-        color: #FFFFFF;
-    }
-    input:focus {
-        outline: none;
-        background-color: #352E1E;
-    }
-    .form-group--error {
-        border-bottom: 1px solid #FD1400;
-    }
-    /* LABEL ======================================= */
-    label {
-        color: #ADA195;
-        font-size: 18px;
-        font-weight: normal;
-        position: absolute;
-        pointer-events: none;
-        left: 5px;
-        top: -20px;
-        transition: 0.2s ease all;
-        -moz-transition: 0.2s ease all;
-        -webkit-transition: 0.2s ease all;
-    }
-    /* active state */
-    input:focus ~ label {
-        color: #FC9E00;
-    }
-    .errorLabel {
-        color: #FD1400;
-    }
-    /* BOTTOM BARS ================================= */
-    .bar {
-        position: relative;
-        display: block;
-        width: 300px;
-    }
-    .bar:before, .bar:after {
-        content: '';
-        height: 2px;
-        width: 0;
-        bottom: 1px;
-        position: absolute;
-        background: #FC9E00;
-        transition: 0.2s ease all;
-        -moz-transition: 0.2s ease all;
-        -webkit-transition: 0.2s ease all;
-    }
-    .bar:before {
-        left: 50%;
-    }
-    .bar:after {
-        right: 50%;
-    }
-    /* active state */
-    input:focus ~ .bar:before, input:focus ~ .bar:after {
-        width: 50%;
-    }
-    /* HIGHLIGHTER ================================== */
-    .highlight {
-        position: absolute;
-        height: 60%;
-        width: 100px;
-        top: 25%;
-        left: 0;
-        pointer-events: none;
-        opacity: 0.5;
-    }
-    /* active state */
-    input:focus ~ .highlight {
-        -webkit-animation: inputHighlighter 0.3s ease;
-        -moz-animation: inputHighlighter 0.3s ease;
-        animation: inputHighlighter 0.3s ease;
-    }
-    /* ANIMATIONS ================ */
-    @-webkit-keyframes inputHighlighter {
-        from {
-            background: #FC9E00;
-        }
-        to {
-            width: 0;
-            background: transparent;
-        }
-    }
-    @-moz-keyframes inputHighlighter {
-        from {
-            background: #FC9E00;
-        }
-        to {
-            width: 0;
-            background: transparent;
-        }
-    }
-    @keyframes inputHighlighter {
-        from {
-            background: #FC9E00;
-        }
-        to {
-            width: 0;
-            background: transparent;
-        }
-    }
 </style>
