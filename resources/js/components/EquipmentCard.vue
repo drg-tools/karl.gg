@@ -222,14 +222,12 @@ export default {
 
 .modActive {
     stroke: #fc9e00;
-    opacity: 1;
     fill: #fc9e00;
     stroke-width: 5px;
 }
 
 .modInactive {
     stroke: #fc9e00;
-    opacity: .5;
     fill: transparent;
     stroke-width: 5px;
 }
