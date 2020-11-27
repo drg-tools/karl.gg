@@ -22,10 +22,15 @@ class BuildMetricController extends Controller
             ['build_combination','=', $combo]
         ])->get();
 
+        $build_gun = Gun::where('id',$gun)->get();
+        $build_character = Character::where('id',$class)->get();
+
 
 
         return view('asv.index', [
-            'build' => $build,
+            'build'     => $build,
+            'gun'       => $build_gun,
+            'character' => $build_character,
         ]);
     }
 }
