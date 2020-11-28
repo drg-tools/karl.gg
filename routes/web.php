@@ -39,6 +39,7 @@ Route::get('preview/{loadoutId}', 'LoadoutsController@preview')->name('preview.s
 Route::get('build', 'LoadoutsController@build');
 Route::get('build/{loadoutId}', 'LoadoutsController@build')->name('build.show');
 Route::view('/privacy-policy', 'privacy-policy.index');
+// TODO: Regex on each part of the URL to ensure proper syntax
 Route::get('asv/{character}/{gun}/{combo}', 'BuildMetricController@index')->name('asv.index');
 Route::get('profile/{id}', 'ProfileController@index')->name('user.profile')->where('id', '[0-9]+');
 Auth::routes();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\Gun;
+use App\Mod;
 use App\Loadout;
 use App\BuildMetric;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -25,12 +26,35 @@ class BuildMetricController extends Controller
         $build_gun = Gun::where('id',$gun)->get();
         $build_character = Character::where('id',$class)->get();
 
-
-
+        // TODO: Get Mod Matrix
+        // TODO: Get Overclock based on combo
+        $mod_matrix = $this->getModMatrix($gun,$combo);
         return view('asv.index', [
             'build'     => $build,
             'gun'       => $build_gun,
             'character' => $build_character,
+            'modMatrix' => $mod_matrix,
         ]);
+    }
+
+    private function getModMatrix($gun,$combo) 
+    {
+        $selected_index = [];
+        $gun_object = Gun::find($gun);
+        $gun_mods = $gun_object->mods->groupBy('mod_tier');
+        
+        $combo_array = str_split($combo);
+        
+        foreach($combo_array as $key => $tier) {
+            $selected = false;
+            if($tier != '-') {
+                $selected = true;
+            }
+            // dd($tier);
+            $selected_index[$key+1] = array('value' => $tier, 'selected' => $selected );
+        }
+        $matrixArray = compact('gun_mods','selected_index');
+
+        return $matrixArray;
     }
 }

@@ -3,19 +3,24 @@
 @section('content')
 
     <div class="featuredLoadoutsContainer">
-        {{var_dump($build)}}
-
-        {{-- HIIIIIIIIIII
-        {{var_dump($character[0]->id)}} --}}
-        <equipment-card
-                       :classId="'{{$character[0]->id}}'"
-                       :equipmentId="'{{$gun[0]->id}}'"
-                       :equipmentName="'{{$gun[0]->name}}'"
-                       :icon="'{{$gun[0]->image}}'"
-                       {{-- :overclock="loadoutDetails.primaryWeapons[0].overclocks[0]" --}}
-                       {{-- :modMatrix="loadoutDetails.primaryWeapons[0].modMatrix" --}}
-                       {{-- :build="loadoutDetails.primaryWeapons[0].modString.join('')" --}}
-                        >
+        {{-- {{var_dump($build)}} --}}
+        @foreach ($modMatrix['gun_mods'] as $key => $mod_tier)
+        <p>
+            {{$key}}
+            @foreach ($mod_tier as $mod)
+                @if($modMatrix['selected_index'][$key]['selected'])
+                    @if ($modMatrix['selected_index'][$key]['value'] == $mod->mod_index)
+                        TRUE
+                        @else
+                        FALSE
+                    @endif
+                @else
+                FALSE
+                @endif
+            @endforeach
+        </p>
+        @endforeach
+        
          </equipment-card> 
     </div>
 
