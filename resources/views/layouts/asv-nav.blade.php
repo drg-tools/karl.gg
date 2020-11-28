@@ -14,14 +14,12 @@
                             Equipment
                             @endif
                         </h3>
-                        <h3 class="combo">
+                        <h3 class="combo-main">
                             {{$combo}}
-                        </h3>
                         @if($modMatrix['selected_index'][6]['selected'])
-                        <h3 class="combo">
-                            OC NAME HERE
-                        </h3>
+                            / {{$overclock[0]->overclock_name}}
                         @endif
+                        </h3>
 
 
                     </div>  

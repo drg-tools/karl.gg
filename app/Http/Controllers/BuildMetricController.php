@@ -6,6 +6,7 @@ use App\Character;
 use App\Gun;
 use App\Mod;
 use App\Loadout;
+use App\Overclock;
 use App\BuildMetric;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
@@ -16,8 +17,7 @@ class BuildMetricController extends Controller
     public function index(Request $request,$class,$gun,$combo)
     {
         // SEOTools::setTitle('Deep Rock Galactic Loadouts');
-
-        //TODO: Equipment handling
+        // TODO: SEO
 
         $build = BuildMetric::where([
             ['character_id','=', $class],
@@ -27,12 +27,13 @@ class BuildMetricController extends Controller
 
         $build_gun = Gun::where('id',$gun)->get();
         $gun_icon = asset('/assets/'.$build_gun[0]->image.'.svg');
-        // dd($gun_icon);
-         $build_character = Character::where('id',$class)->get();
+        $build_character = Character::where('id',$class)->get();
 
-        // TODO: Get Mod Matrix
-        // TODO: Get Overclock based on combo
         $mod_matrix = $this->getModMatrix($gun,$combo);
+        $combo_array = str_split($combo);
+        if($combo_array[5] != "-") {
+            $overclock = $this->getOverclock($gun,$combo_array[5]);
+        }
         
         return view('asv.index', [
             'buildMetrics'  => $build,
@@ -41,6 +42,7 @@ class BuildMetricController extends Controller
             'character'     => $build_character,
             'modMatrix'     => $mod_matrix,
             'combo'         => $combo,
+            'overclock'     => $overclock ? $overclock : '',
         ]);
     }
 
@@ -63,5 +65,17 @@ class BuildMetricController extends Controller
         $matrixArray = compact('gun_mods','selected_index');
 
         return $matrixArray;
+    }
+
+    private function getOverclock($gun, $index)
+    {
+        $gun_object = Gun::find($gun);
+        $overclock = Overclock::where([
+            ['character_id','=', $gun_object->character_id],
+            ['gun_id','=', $gun_object->id],
+            ['overclock_index','=', $index]
+        ])->get();
+
+        return $overclock;
     }
 }
