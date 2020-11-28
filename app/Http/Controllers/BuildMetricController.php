@@ -17,6 +17,8 @@ class BuildMetricController extends Controller
     {
         // SEOTools::setTitle('Deep Rock Galactic Loadouts');
 
+        //TODO: Equipment handling
+
         $build = BuildMetric::where([
             ['character_id','=', $class],
             ['gun_id','=', $gun],
@@ -24,14 +26,18 @@ class BuildMetricController extends Controller
         ])->get();
 
         $build_gun = Gun::where('id',$gun)->get();
-        $build_character = Character::where('id',$class)->get();
+        $gun_icon = asset('/assets/'.$build_gun[0]->image.'.svg');
+        // dd($gun_icon);
+         $build_character = Character::where('id',$class)->get();
 
         // TODO: Get Mod Matrix
         // TODO: Get Overclock based on combo
         $mod_matrix = $this->getModMatrix($gun,$combo);
+        
         return view('asv.index', [
             'build'     => $build,
             'gun'       => $build_gun,
+            'gunIcon'   => $gun_icon,
             'character' => $build_character,
             'modMatrix' => $mod_matrix,
         ]);

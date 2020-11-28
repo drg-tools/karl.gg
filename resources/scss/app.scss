@@ -673,3 +673,27 @@ svg > a:hover {
     fill: transparent;
     stroke-width: 5px;
 }
+
+
+.flexboxWeaponSelect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+}
+
+.asvIcon {
+    fill: #ada195;
+}
+
+.flexboxWeaponSelect > svg {
+    margin: 0.5rem;
+}
+
+.overclockContainer {
+    display: flex;
+}
+
+.overclockName {
+    margin-left: 0.4rem;
+}
