@@ -636,3 +636,40 @@ svg > a:hover {
       content: '\f031';
     }
 }
+/**
+* Equipment Card Component
+* */
+.modMatrixContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.modMatrixRow {
+    display: flex;
+    height: 1rem;
+    width: 6rem;
+    margin-bottom: 0.3rem;
+    /*justify-content: start;*/
+    /*align-items: center;*/
+}
+
+.mod {
+    width: 2rem;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modActive {
+    stroke: #fc9e00;
+    fill: #fc9e00;
+    stroke-width: 5px;
+}
+
+.modInactive {
+    stroke: #fc9e00;
+    fill: transparent;
+    stroke-width: 5px;
+}
