@@ -639,6 +639,13 @@ svg > a:hover {
 /**
 * Equipment Card Component
 * */
+.asvEquipmentCardContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 10rem;
+    padding: 10px;
+}
 .modMatrixContainer {
     display: flex;
     flex-direction: column;
@@ -673,8 +680,11 @@ svg > a:hover {
     fill: transparent;
     stroke-width: 5px;
 }
-
-
+.equipmentCardTitle {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .flexboxWeaponSelect {
     display: flex;
     align-items: center;
@@ -684,6 +694,7 @@ svg > a:hover {
 
 .asvIcon {
     fill: #ada195;
+    width: 180px;
 }
 
 .flexboxWeaponSelect > svg {
@@ -696,4 +707,16 @@ svg > a:hover {
 
 .overclockName {
     margin-left: 0.4rem;
+}
+
+h1.asvItemTitle {
+    color: $orange;
+}
+h3.asvItemType {
+    color: $off-white;
+    margin-left: 10px;
+}
+h3.combo {
+    color: $off-white;
+    margin-left: 20px;
 }

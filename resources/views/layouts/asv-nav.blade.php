@@ -3,7 +3,27 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline">
+                    <div class="flex items-baseline">
+                        <h1 class="asvItemTitle">{{ $gun[0]->name }}</h2>
+                        <h3 class="asvItemType">
+                            @if($gun[0]->character_slot == 1)
+                            Primary Weapon
+                            @elseif($gun[0]->character_slot == 2)
+                            Secondary Weapon
+                            @else 
+                            Equipment
+                            @endif
+                        </h3>
+                        <h3 class="combo">
+                            {{$combo}}
+                        </h3>
+                        @if($modMatrix['selected_index'][6]['selected'])
+                        <h3 class="combo">
+                            OC NAME HERE
+                        </h3>
+                        @endif
+
+
                     </div>  
                 </div>
             </div>
@@ -29,70 +49,5 @@
             </div>
         </div>
     </div>
-    <!--
-          Mobile menu, toggle classes based on menu state.
-
-          Open: "block", closed: "hidden"
-        -->
-    <div class="hidden md:hidden block" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 sm:px-3">
-            <a href="/"
-               class="{{ \Request::is('/') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Home</a>
-            <a href="/browse"
-               class="{{  \Request::is('browse') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Browse</a>
-            <a href="/build"
-               class="{{ \Request::is('build')  || \Request::is('preview/*') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Build</a>
-            <a href="/blog"
-               class="{{ \Request::is('blog')  || \Request::is('blog/*') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Blog</a>
-            @hasrole('super-admin')
-            <a href="/admin"
-               class="{{ \Request::is('admin') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Admin</a>
-            @endhasrole
-        </div>
-        <div class="pt-4 pb-3 border-t border-gray-700">
-            @auth
-                <div class="flex items-center px-5">
-                    <div class="flex-shrink-0">
-                        <div class="dropdown dropdown-overwrite">
-                            <button
-                                class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid dropdown-toggle"
-                                type="button" id="user-mobile-menu" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <img class="h-8 w-8 rounded-full" src="{{ \Gravatar::get(auth()->user()->email) }}"
-                                     alt=""/>
-                            </button>
-
-                            <div
-                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 rounded-md bg-white shadow-xs dropdown-menu"
-                                aria-labelledby="user-mobile-menu">
-                                <a href="{{ route('user.profile', ['id' => Auth::id()]) }}"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
-                                   role="menuitem">Your Profile</a>
-                                @hasrole('super-admin')
-                                <a href="{{ route('settings.tokens') }}"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
-                                   role="menuitem">Settings</a>
-                                @endhasrole
-                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dropdown-item"
-                                   href="{{ route('logout') }}" role="menuitem"
-                                   onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                    {{ __('Sign out') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endauth
-            @guest
-                <a href="/login"
-                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Login</a>
-            @endguest
-        </div>
-    </div>
+    
 </nav>
