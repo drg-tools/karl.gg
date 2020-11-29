@@ -644,7 +644,6 @@ svg > a:hover {
     flex-direction: column;
     flex-wrap: nowrap;
     width: 10rem;
-    padding: 10px;
 }
 .modMatrixContainer {
     display: flex;
@@ -703,10 +702,18 @@ svg > a:hover {
 
 .overclockContainer {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .overclockName {
     margin-left: 0.4rem;
+}
+
+.asvCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 h1.asvItemTitle {
