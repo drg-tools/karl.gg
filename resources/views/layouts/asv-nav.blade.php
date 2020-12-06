@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div>
-                <a class="button px-5" href="/">
+                <a class="button px-5" href="{{url()->previous()}}">
                     <span class="buttonText">BACK TO KARL</span>
                 </a>
                 <div class="-mr-2 flex md:hidden text-white">

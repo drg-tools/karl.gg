@@ -94,7 +94,7 @@
             </div>
         </div>
         <div v-if="this.equipmentType =='primary' || this.equipmentType =='secondary'">
-            <a class="baseButton px-5" :href='"/asv/"+this.getClassIntId(classId)+"/"+equipmentId+"/"+build' target="_blank">
+            <a class="baseButton px-5" :href='"/asv/"+this.getClassIntId(classId)+"/"+equipmentId+"/"+build'>
                 <span class="baseButtonText text-sm">ADVANCED STATS</span>
             </a>
             
