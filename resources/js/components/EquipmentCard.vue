@@ -93,6 +93,12 @@
                 <h3 class="overclockName">{{ getOverclockData.overclock_name }}</h3>
             </div>
         </div>
+        <div v-if="this.equipmentType =='primary' || this.equipmentType =='secondary'">
+            <a class="baseButton px-5" :href='"/asv/"+this.getClassIntId(classId)+"/"+equipmentId+"/"+build' target="_blank">
+                <span class="baseButtonText text-sm">ADVANCED STATS</span>
+            </a>
+            
+        </div>
     </div>
 </template>
 
@@ -108,7 +114,8 @@ export default {
         equipmentName: String,
         icon: String,
         modMatrix: Array,
-        overclock: Object
+        overclock: Object,
+        equipmentType: String
     },
     computed: {
         getIconFromPath: function () {
@@ -155,6 +162,25 @@ export default {
         },
         getOverclockTooltipContent: function () {
             return `<h3>${this.overclock.overclock_type}</h3><br><span>${this.overclock.text_description}</span>`;
+        },
+        getClassIntId: function (classId) {
+            switch (classId) {
+                case 'E':
+                    return 1;
+                    break;
+                case 'S':
+                    return 2;
+                    break;
+                case 'D':
+                    return 3;
+                    break;
+                case 'G':
+                    return 4;
+                    break;
+            
+                default:
+                    break;
+            }
         }
     }
 };

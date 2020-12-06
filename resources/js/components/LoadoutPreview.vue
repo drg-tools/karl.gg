@@ -9,7 +9,8 @@
                        :icon="loadoutDetails.primaryWeapons[0].icon"
                        :overclock="loadoutDetails.primaryWeapons[0].overclocks[0]"
                        :modMatrix="loadoutDetails.primaryWeapons[0].modMatrix"
-                       :build="loadoutDetails.primaryWeapons[0].modString.join('')">
+                       :build="loadoutDetails.primaryWeapons[0].modString.join('')"
+                       :equipmentType="'primary'">
         </EquipmentCard>
         <EquipmentCard v-if="loadoutDetails.secondaryWeapons[0]"
                        :classId="loadoutDetails.classId"
@@ -18,7 +19,8 @@
                        :icon="loadoutDetails.secondaryWeapons[0].icon"
                        :overclock="loadoutDetails.secondaryWeapons[0].overclocks[0]"
                        :modMatrix="loadoutDetails.secondaryWeapons[0].modMatrix"
-                       :build="loadoutDetails.secondaryWeapons[0].modString.join('')">
+                       :build="loadoutDetails.secondaryWeapons[0].modString.join('')"
+                       :equipmentType="'secondary'">
         </EquipmentCard>
         <EquipmentCard v-for="(equipment, equipmentId) in loadoutDetails.equipments" :key="equipmentId"
                        :classId="loadoutDetails.classId"

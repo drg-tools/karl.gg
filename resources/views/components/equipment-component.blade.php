@@ -2,12 +2,12 @@
     <div class="flexboxWeaponSelect">
         @svg($gun[0]->image, 'asvIcon')
     </div>
-    <div class="modMatrixContainer">
+    <div class="asvModMatrixContainer">
         
         @foreach ($modMatrix['gun_mods'] as $key => $mod_tier)
-        <div class="modMatrixRow">
+        <div class="asvModMatrixRow">
             @foreach ($mod_tier as $mod)
-            <div class="mod" v-tooltip="{
+            <div class="asvMod" v-tooltip="{
                 content:'<h3>{{$mod->mod_name}}</h3><br><span>{{addslashes($mod->text_description)}}</span></p>',
                 placement: 'right',
                 trigger: 'hover'
@@ -17,7 +17,7 @@
                             <svg viewBox="0 0 80 50"
                                     height="100%"
                                     role="img"
-                                    class="modActive"
+                                    class="asvModActive"
                             >
                                 <path
                                     d=" M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826L 0.3679663,25"/>
@@ -26,10 +26,8 @@
                 <svg viewBox="0 0 80 50"
                                     height="100%"
                                     role="img"
-                                    class="modInactive"
+                                    class="asvModInactive"
                             >
-                                {{-- <title>{{ mod.mod_name }}</title> --}}
-                                {{-- <desc>{{ mod.text_description }}</desc> --}}
                                 <path
                                     d=" M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826L 0.3679663,25"/>
                             </svg>
