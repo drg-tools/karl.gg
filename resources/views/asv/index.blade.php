@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="featuredLoadoutsContainer pb-20 pt-3">
-        <div class="flex flex-row justify-start flex-wrap pl-10">                        
+        <div class="flex flex-row lg:justify-start flex-wrap pl-10">                        
             <x-equipment-component 
                 :gun="$gun" 
                 :gunIcon="$gunIcon" 
@@ -13,7 +13,7 @@
                 class="asvCol">
             </x-equipment-component>
 
-            <div class="pl-20 asvCol">
+            <div class="md:pl-20 lg:pl-20 asvCol">
                 <h3>Burst DPS</h3>
                 <p>Ideal: {{$buildMetrics[0]->ideal_burst_dps}}</p>
                 <p>Weakpoint: {{$buildMetrics[0]->burst_dps_wp}}</p>
@@ -25,7 +25,7 @@
                 <p>All three opt-in flags enabled: {{$buildMetrics[0]->burst_dps_wp_acc_aw}}</p>
             </div>
 
-            <div class="pl-20 asvCol">
+            <div class="md:pl-20 lg:pl-20 asvCol">
                 <h3>Sustained DPS</h3>
                 <p>Ideal: {{$buildMetrics[0]->ideal_sustained_dps}}</p>
                 <p>Weakpoint: {{$buildMetrics[0]->sustained_dps_wp}}</p>
