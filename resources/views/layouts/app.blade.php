@@ -3,6 +3,8 @@
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165794980-1"></script>
+    <script data-ad-client="ca-pub-3760169257343113" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -57,10 +59,6 @@
     src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
     crossorigin="anonymous"></script>
-<script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="karlgg"
-        data-description="Support me on Buy me a coffee!"
-        data-message="Want to support? Buy the team a beer!" data-color="#FFDD00"
-        data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 <script>
     $(function () {
         $('#mobile-menu-button').on('click', function () {
