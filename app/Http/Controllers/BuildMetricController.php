@@ -31,6 +31,7 @@ class BuildMetricController extends Controller
 
         $mod_matrix = $this->getModMatrix($gun,$combo);
         $combo_array = str_split($combo);
+        $overclock = false;
         if($combo_array[5] != "-") {
             $overclock = $this->getOverclock($gun,$combo_array[5]);
         }
