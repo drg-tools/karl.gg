@@ -151,22 +151,22 @@ return [
                 'types' => ['SELECT'],     // // workaround ['SELECT'] only. https://github.com/barryvdh/laravel-debugbar/issues/888 ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
             ],
             'hints'             => false,    // Show hints for common mistakes
-    ],
-    'mail' => [
-        'full_log' => false,
-    ],
-    'views' => [
-        'data' => false,    //Note: Can slow down the application, because the data can be quite large..
-    ],
-    'route' => [
-        'label' => true,  // show complete route on bar
-    ],
-    'logs' => [
-        'file' => null,
-    ],
-    'cache' => [
-        'values' => true, // collect cache values
-    ],
+        ],
+        'mail' => [
+            'full_log' => false,
+        ],
+        'views' => [
+            'data' => false,    //Note: Can slow down the application, because the data can be quite large..
+        ],
+        'route' => [
+            'label' => true,  // show complete route on bar
+        ],
+        'logs' => [
+            'file' => null,
+        ],
+        'cache' => [
+            'values' => true, // collect cache values
+        ],
     ],
 
     /*

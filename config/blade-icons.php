@@ -16,7 +16,7 @@ return [
     'sets' => [
 
         'default' => [
-        
+
             /*
             |-----------------------------------------------------------------
             | Icons Path
@@ -27,9 +27,9 @@ return [
             | so there's no need to list every sub-directory.
             |
             */
-        
+
             'path' => 'resources/js/assets',
-        
+
             /*
             |--------------------------------------------------------------------------
             | Default Prefix
@@ -40,9 +40,9 @@ return [
             | to every icon name. It's required and needs to be unique.
             |
             */
-        
+
             'prefix' => 'kicon',
-        
+
             /*
             |--------------------------------------------------------------------------
             | Default Set Class
@@ -52,9 +52,9 @@ return [
             | will be applied to all icons by default within this set.
             |
             */
-        
+
             'class' => '',
-        
+
         ],
 
     ],

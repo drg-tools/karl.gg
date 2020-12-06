@@ -9,6 +9,7 @@ class BuildMetric extends Model
 {
     use CrudTrait;
     protected $guarded = ['id'];
+
     public function gun()
     {
         return $this->belongsTo(Gun::class, 'gun_id');
@@ -18,9 +19,9 @@ class BuildMetric extends Model
     {
         return $this->belongsTo(Character::class, 'character_id');
     }
+
     public function patch()
     {
         return $this->belongsTo(Patch::class);
     }
-    
 }
