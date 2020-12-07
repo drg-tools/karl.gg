@@ -1,0 +1,123 @@
+/**
+* Equipment Card Component
+* */
+.asvEquipmentCardContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 10rem;
+}
+.asvModMatrixContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.asvModMatrixRow {
+    display: flex;
+    height: 1rem;
+    width: 6rem;
+    margin-bottom: 0.3rem;
+    /*justify-content: start;*/
+    /*align-items: center;*/
+}
+
+.asvMod {
+    width: 2rem;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.asvModActive {
+    stroke: #fc9e00;
+    fill: #fc9e00;
+    stroke-width: 5px;
+}
+
+.asvModInactive {
+    stroke: #fc9e00;
+    fill: transparent;
+    stroke-width: 5px;
+}
+.equipmentCardTitle {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.flexboxWeaponSelect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+}
+
+.asvIcon {
+    fill: #ada195;
+    width: 180px;
+}
+
+.flexboxWeaponSelect > svg {
+    margin: 0.5rem;
+}
+
+.overclockContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overclockName {
+    margin-left: 0.4rem;
+}
+
+.asvCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1.asvItemTitle {
+    color: $orange;
+}
+h3.asvItemType {
+    color: $off-white;
+    margin-left: 10px;
+}
+h3.combo-main {
+    color: $off-white;
+    margin-left: 20px;
+}
+.asvCol h3 {
+    color: $white;
+}
+.asvCol p {
+    color: $off-white;
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.baseButton {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0 0.5rem 1rem;
+    min-width: 8rem;
+    height: 2.2rem;
+    background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
+}
+/* todo: base all hover effects on this one, like buttons ingame */
+.baseButton:hover {
+    background: linear-gradient(90deg, #ffd200 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #ffd200 8%, #ffd200 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #ffd200 96%);
+}
+
+.baseButtonText {
+    color: #000000;
+    // font-size: 1.6rem;
+    letter-spacing: 0.05rem;
+    font-weight: bold;
+    font-family: BebasNeue, sans-serif;
+}
