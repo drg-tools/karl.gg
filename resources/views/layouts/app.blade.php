@@ -37,7 +37,12 @@
 <body class="max-w-screen-lg mx-auto bg-gray-100 h-screen antialiased leading-none @yield('body_class')">
 <div id="app">
 
-@include('layouts.nav')
+@if(\Request::is('asv/*'))
+@include('layouts.asv-nav' )
+@else 
+@include('layouts.nav' )
+@endif
+
 
 @yield('content')
 
