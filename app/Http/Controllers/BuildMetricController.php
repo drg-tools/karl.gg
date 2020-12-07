@@ -21,7 +21,7 @@ class BuildMetricController extends Controller
             ['build_combination', '=', $combo],
         ])->firstOrFail();
 
-        $build_gun = Gun::where('id', $gun)->firstOrFail();
+        $build_gun = $build->gun;
         $gun_icon = asset('/assets/'.$build_gun['image'].'.svg');
 
         $mod_matrix = $this->getModMatrix($gun, $combo);
@@ -34,7 +34,6 @@ class BuildMetricController extends Controller
         return view('asv.index', [
             'buildMetrics'  => $build,
             'gun'           => $build_gun,
-            'gunIcon'       => $gun_icon,
             'modMatrix'     => $mod_matrix,
             'combo'         => $combo,
             'overclock'     => $overclock ? $overclock : '',
