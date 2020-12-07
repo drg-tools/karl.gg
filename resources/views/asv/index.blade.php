@@ -6,8 +6,6 @@
         <div class="flex flex-row lg:justify-start flex-wrap pl-10">                        
             <x-equipment-component 
                 :gun="$gun" 
-                :gunIcon="$gunIcon" 
-                :character="$character" 
                 :modMatrix="$modMatrix" 
                 :overclock="$overclock"
                 class="asvCol">

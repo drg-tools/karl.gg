@@ -11,20 +11,18 @@ use Illuminate\Http\Request;
 
 class BuildMetricController extends Controller
 {
-    public function index(Request $request, $class, $gun, $combo)
+    public function index(Request $request, $gun, $combo)
     {
         // SEOTools::setTitle('Deep Rock Galactic Loadouts');
         // TODO: SEO
 
         $build = BuildMetric::where([
-            ['character_id', '=', $class],
             ['gun_id', '=', $gun],
             ['build_combination', '=', $combo],
         ])->firstOrFail();
 
         $build_gun = Gun::where('id', $gun)->firstOrFail();
         $gun_icon = asset('/assets/'.$build_gun['image'].'.svg');
-        $build_character = Character::where('id', $class)->firstOrFail();
 
         $mod_matrix = $this->getModMatrix($gun, $combo);
         $combo_array = str_split($combo);
@@ -37,7 +35,6 @@ class BuildMetricController extends Controller
             'buildMetrics'  => $build,
             'gun'           => $build_gun,
             'gunIcon'       => $gun_icon,
-            'character'     => $build_character,
             'modMatrix'     => $mod_matrix,
             'combo'         => $combo,
             'overclock'     => $overclock ? $overclock : '',
