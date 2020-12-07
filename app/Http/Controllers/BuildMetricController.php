@@ -22,7 +22,6 @@ class BuildMetricController extends Controller
         ])->firstOrFail();
 
         $build_gun = $build->gun;
-        $gun_icon = asset('/assets/'.$build_gun['image'].'.svg');
 
         $mod_matrix = $this->getModMatrix($gun, $combo);
         $combo_array = str_split($combo);
