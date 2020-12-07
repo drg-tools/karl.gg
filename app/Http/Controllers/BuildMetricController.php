@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\BuildMetric;
-use App\Character;
-use App\Gun;
-use App\Overclock;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 
@@ -38,5 +35,4 @@ class BuildMetricController extends Controller
             'overclock'     => $overclock ? $overclock : '',
         ]);
     }
-
 }
