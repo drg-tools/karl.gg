@@ -23,7 +23,7 @@ class BuildMetricController extends Controller
 
         $build_gun = $build->gun;
 
-        $mod_matrix = $this->getModMatrix($gun, $combo);
+        $mod_matrix = $this->getModMatrix($build_gun, $combo);
         $combo_array = str_split($combo);
         $overclock = false;
         if ($combo_array[5] != '-') {
@@ -42,7 +42,7 @@ class BuildMetricController extends Controller
     private function getModMatrix($gun, $combo)
     {
         $selected_index = [];
-        $gun_object = Gun::findOrFail($gun);
+        $gun_object = $gun;
         $gun_mods = $gun_object->mods->groupBy('mod_tier');
 
         $combo_array = str_split($combo);
