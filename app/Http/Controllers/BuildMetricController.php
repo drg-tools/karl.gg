@@ -20,11 +20,11 @@ class BuildMetricController extends Controller
             ['character_id', '=', $class],
             ['gun_id', '=', $gun],
             ['build_combination', '=', $combo],
-        ])->get();
+        ])->firstOrFail();
 
-        $build_gun = Gun::where('id', $gun)->get();
-        $gun_icon = asset('/assets/'.$build_gun[0]->image.'.svg');
-        $build_character = Character::where('id', $class)->get();
+        $build_gun = Gun::where('id', $gun)->firstOrFail();
+        $gun_icon = asset('/assets/'.$build_gun['image'].'.svg');
+        $build_character = Character::where('id', $class)->firstOrFail();
 
         $mod_matrix = $this->getModMatrix($gun, $combo);
         $combo_array = str_split($combo);
@@ -47,7 +47,7 @@ class BuildMetricController extends Controller
     private function getModMatrix($gun, $combo)
     {
         $selected_index = [];
-        $gun_object = Gun::find($gun);
+        $gun_object = Gun::findOrFail($gun);
         $gun_mods = $gun_object->mods->groupBy('mod_tier');
 
         $combo_array = str_split($combo);
@@ -67,12 +67,12 @@ class BuildMetricController extends Controller
 
     private function getOverclock($gun, $index)
     {
-        $gun_object = Gun::find($gun);
+        $gun_object = Gun::findOrFail($gun);
         $overclock = Overclock::where([
             ['character_id', '=', $gun_object->character_id],
             ['gun_id', '=', $gun_object->id],
             ['overclock_index', '=', $index],
-        ])->get();
+        ])->firstOrFail();
 
         return $overclock;
     }

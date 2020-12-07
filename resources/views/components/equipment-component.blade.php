@@ -1,6 +1,6 @@
 <div class="asvEquipmentCardContainer">
     <div class="flexboxWeaponSelect">
-        @svg($gun[0]->image, 'asvIcon')
+        @svg($gun['image'], 'asvIcon')
     </div>
     <div class="asvModMatrixContainer">
         
@@ -40,13 +40,13 @@
         @if($overclock != '')
             <div class="overclockContainer"
                 v-tooltip="{
-                    content: '<h3>{{$overclock[0]->overclock_name}}</h3><br><span>{{addslashes($overclock[0]->text_description)}}</span></p>',
+                    content: '<h3>{{$overclock['overclock_name']}}</h3><br><span>{{addslashes($overclock['text_description'])}}</span></p>',
                     placement: 'right',
                     trigger: 'hover'
                 }"
                 >
 
-                @if($overclock[0]->overclock_type == 'Clean')   
+                @if($overclock['overclock_type'] == 'Clean')   
                 <svg viewBox="0 0 80 80"
                     height="6rem"
                     class="mod overclockBackground">
@@ -64,7 +64,7 @@
                     </g>
                 </g>
             </svg>
-            @elseif($overclock[0]->overclock_type == 'Balanced')
+            @elseif($overclock['overclock_type'] == 'Balanced')
             <svg viewBox="0 0 80 80"
                 height="6rem"
                 class="mod overclockBackground">
@@ -83,7 +83,7 @@
                 </g>
             </svg>
 
-            @elseif($overclock[0]->overclock_type == 'Unstable')
+            @elseif($overclock['overclock_type'] == 'Unstable')
                 <svg viewBox="0 0 80 80"
                         height="6rem"
                         class="mod overclockBackground">
@@ -102,7 +102,7 @@
                     </g>
                 </svg>
             @endif
-            <h3 class="overclockName">{{ $overclock[0]->overclock_name }}</h3>
+            <h3 class="overclockName">{{ $overclock['overclock_name'] }}</h3>
         </div><!-- end overclock container -->
         @endif
 

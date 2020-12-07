@@ -4,11 +4,11 @@
             <div class="flex items-center">
                 <div class="hidden md:block">
                     <div class="flex items-baseline">
-                        <h1 class="asvItemTitle">{{ $gun[0]->name }}</h2>
+                        <h1 class="asvItemTitle">{{ $gun['name'] }}</h2>
                         <h3 class="asvItemType">
-                            @if($gun[0]->character_slot == 1)
+                            @if($gun['character_slot'] == 1)
                             Primary Weapon
-                            @elseif($gun[0]->character_slot == 2)
+                            @elseif($gun['character_slot'] == 2)
                             Secondary Weapon
                             @else 
                             Equipment
@@ -17,7 +17,7 @@
                         <h3 class="combo-main">
                             {{$combo}}
                         @if($modMatrix['selected_index'][6]['selected'])
-                            / {{$overclock[0]->overclock_name}}
+                            / {{$overclock['overclock_name']}}
                         @endif
                         </h3>
 
@@ -55,11 +55,11 @@
     </div>
     <div class="hidden md:hidden block" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 sm:px-3">
-            <h1 class="asvItemTitle">{{ $gun[0]->name }}</h2>
+            <h1 class="asvItemTitle">{{ $gun['name'] }}</h2>
                 <h3 class="asvItemType">
-                    @if($gun[0]->character_slot == 1)
+                    @if($gun['character_slot'] == 1)
                     Primary Weapon
-                    @elseif($gun[0]->character_slot == 2)
+                    @elseif($gun['character_slot'] == 2)
                     Secondary Weapon
                     @else 
                     Equipment
@@ -68,7 +68,7 @@
                 <h3 class="combo-main">
                     {{$combo}}
                 @if($modMatrix['selected_index'][6]['selected'])
-                    / {{$overclock[0]->overclock_name}}
+                    / {{$overclock['overclock_name']}}
                 @endif
                 </h3>
         </div>
