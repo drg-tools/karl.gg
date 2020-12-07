@@ -57,5 +57,4 @@ class BuildMetric extends Model
 
         return $overclock;
     }
-
 }
