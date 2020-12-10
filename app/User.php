@@ -57,6 +57,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $can_email
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanEmail($value)
  */
 class User extends Authenticatable
 {

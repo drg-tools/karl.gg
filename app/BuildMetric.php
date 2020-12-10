@@ -2,9 +2,98 @@
 
 namespace App;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
+/**
+ * App\BuildMetric
+ *
+ * @property int $id
+ * @property int $character_id
+ * @property int $gun_id
+ * @property string $weapon_short_name
+ * @property string $build_combination
+ * @property float $ideal_burst_dps
+ * @property float $burst_dps_wp
+ * @property float $burst_dps_acc
+ * @property float $burst_dps_aw
+ * @property float $burst_dps_wp_acc
+ * @property float $burst_dps_wp_aw
+ * @property float $burst_dps_acc_aw
+ * @property float $burst_dps_wp_acc_aw
+ * @property float $ideal_sustained_dps
+ * @property float $sustained_dps_wp
+ * @property float $sustained_dps_acc
+ * @property float $sustained_dps_aw
+ * @property float $sustained_dps_wp_acc
+ * @property float $sustained_dps_wp_aw
+ * @property float $sustained_dps_acc_aw
+ * @property float $sustained_dps_wp_acc_aw
+ * @property float $ideal_additional_target_dps
+ * @property float $max_num_targets_per_shot
+ * @property float $max_multi_target_damage
+ * @property float $ammo_efficiency
+ * @property float $damage_wasted_by_armor
+ * @property float $general_accuracy
+ * @property float $weakpoint_accuracy
+ * @property float $firing_duration
+ * @property float $average_time_to_kill
+ * @property float $average_overkill
+ * @property float $breakpoints
+ * @property float $utility
+ * @property float $average_time_to_ignite_or_freeze
+ * @property float $damage_per_magazine
+ * @property float $time_to_fire_magazine
+ * @property int $patch_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Character $character
+ * @property-read \App\Gun $gun
+ * @property-read \App\Patch $patch
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric query()
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereAmmoEfficiency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereAverageOverkill($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereAverageTimeToIgniteOrFreeze($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereAverageTimeToKill($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBreakpoints($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBuildCombination($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBurstDpsAcc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBurstDpsAccAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBurstDpsAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBurstDpsWp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBurstDpsWpAcc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBurstDpsWpAccAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereBurstDpsWpAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereCharacterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereDamagePerMagazine($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereDamageWastedByArmor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereFiringDuration($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereGeneralAccuracy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereGunId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereIdealAdditionalTargetDps($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereIdealBurstDps($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereIdealSustainedDps($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereMaxMultiTargetDamage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereMaxNumTargetsPerShot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric wherePatchId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereSustainedDpsAcc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereSustainedDpsAccAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereSustainedDpsAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereSustainedDpsWp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereSustainedDpsWpAcc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereSustainedDpsWpAccAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereSustainedDpsWpAw($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereTimeToFireMagazine($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereUtility($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereWeakpointAccuracy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereWeaponShortName($value)
+ * @mixin \Eloquent
+ */
 class BuildMetric extends Model
 {
     use CrudTrait;
@@ -66,7 +155,6 @@ class BuildMetric extends Model
 
     public function getOverclock($gun, $index)
     {
-        // $gun_object = Gun::findOrFail($gun);
         $overclock = Overclock::where([
             ['gun_id', '=', $gun->id],
             ['overclock_index', '=', $index],
