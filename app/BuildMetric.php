@@ -31,11 +31,11 @@ class BuildMetric extends Model
         $selected_index = [];
 
         // Mods for our gun, nicely grouped into their proper tiers.
-        // It just happens to be in the right order, so we don't need to do any further transformation 
+        // It just happens to be in the right order, so we don't need to do any further transformation
         // We will cross-index this with out selected_index
         $gun_mods = $gun->mods->groupBy('mod_tier');
 
-        // Let's break our Combo String into an actual array that we can work with. 
+        // Let's break our Combo String into an actual array that we can work with.
         // Allows us to check for selected items
         $combo_array = str_split($combo);
 
@@ -44,7 +44,7 @@ class BuildMetric extends Model
         foreach ($combo_array as $key => $tier) {
             // By default, assume the tier is empty
             $selected = false;
-            
+
             // If our combo string is NOT '-' we have something selected
             if ($tier != '-') {
                 $selected = true;
