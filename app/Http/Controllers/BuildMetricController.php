@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\BuildMetric;
-use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class BuildMetricController extends Controller
 {
     public function show(Request $request, $gun, $combo)
     {
-        // SEOTools::setTitle('Deep Rock Galactic Loadouts');
-        // TODO: SEO
 
         $build = BuildMetric::where([
             ['gun_id', '=', $gun],
@@ -19,6 +17,8 @@ class BuildMetricController extends Controller
         ])->firstOrFail();
 
         $build_gun = $build->gun;
+
+        SEOTools::setTitle(str_replace('"', '', "{$build_gun->name} {$combo} Advanced Statistics"));
 
         $mod_matrix = $build->getModMatrix($build_gun, $combo);
         $combo_array = str_split($combo);
