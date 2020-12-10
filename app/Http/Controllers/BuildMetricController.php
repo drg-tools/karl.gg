@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class BuildMetricController extends Controller
 {
-    public function index(Request $request, $gun, $combo)
+    public function show(Request $request, $gun, $combo)
     {
         // SEOTools::setTitle('Deep Rock Galactic Loadouts');
         // TODO: SEO
@@ -24,10 +24,10 @@ class BuildMetricController extends Controller
         $combo_array = str_split($combo);
         $overclock = false;
         if ($combo_array[5] != '-') {
-            $overclock = $build->getOverclock($gun, $combo_array[5]);
+            $overclock = $build->getOverclock($build_gun, $combo_array[5]);
         }
 
-        return view('asv.index', [
+        return view('asv.show', [
             'buildMetrics'  => $build,
             'gun'           => $build_gun,
             'modMatrix'     => $mod_matrix,

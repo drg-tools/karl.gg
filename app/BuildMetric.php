@@ -66,10 +66,9 @@ class BuildMetric extends Model
 
     public function getOverclock($gun, $index)
     {
-        $gun_object = Gun::findOrFail($gun);
+        // $gun_object = Gun::findOrFail($gun);
         $overclock = Overclock::where([
-            ['character_id', '=', $gun_object->character_id],
-            ['gun_id', '=', $gun_object->id],
+            ['gun_id', '=', $gun->id],
             ['overclock_index', '=', $index],
         ])->firstOrFail();
 
