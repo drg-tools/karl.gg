@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\BuildMetric;
-use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Http\Request;
 
 class BuildMetricController extends Controller
 {
     public function show(Request $request, $gun, $combo)
     {
-
         $build = BuildMetric::where([
             ['gun_id', '=', $gun],
             ['build_combination', '=', $combo],

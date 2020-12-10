@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\BuildMetric
+ * App\BuildMetric.
  *
  * @property int $id
  * @property int $character_id
