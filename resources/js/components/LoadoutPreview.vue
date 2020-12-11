@@ -135,7 +135,7 @@
                 if(oc) {
                     ocString = oc.overclock_index;
                 }
-                // Let's iterate 0 - 4 to add our mod tier valyes
+                // Let's iterate 0 - 4 to add our mod tier values
                 for (let i = 0; i < 5; i++) {
                     if(build[i] != null) {
                         buildString[i] = build[i];
