@@ -9,7 +9,7 @@
                        :icon="loadoutDetails.primaryWeapons[0].icon"
                        :overclock="loadoutDetails.primaryWeapons[0].overclocks[0]"
                        :modMatrix="loadoutDetails.primaryWeapons[0].modMatrix"
-                       :build="loadoutDetails.primaryWeapons[0].modString.join('')"
+                       :build="getBuildString(loadoutDetails.primaryWeapons[0].modString,loadoutDetails.primaryWeapons[0].overclocks[0])"
                        :equipmentType="'primary'">
         </EquipmentCard>
         <EquipmentCard v-if="loadoutDetails.secondaryWeapons[0]"
@@ -19,7 +19,7 @@
                        :icon="loadoutDetails.secondaryWeapons[0].icon"
                        :overclock="loadoutDetails.secondaryWeapons[0].overclocks[0]"
                        :modMatrix="loadoutDetails.secondaryWeapons[0].modMatrix"
-                       :build="loadoutDetails.secondaryWeapons[0].modString.join('')"
+                       :build="getBuildString(loadoutDetails.secondaryWeapons[0].modString,loadoutDetails.secondaryWeapons[0].overclocks[0])"
                        :equipmentType="'secondary'">
         </EquipmentCard>
         <EquipmentCard v-for="(equipment, equipmentId) in loadoutDetails.equipments" :key="equipmentId"
@@ -122,8 +122,35 @@
                 });
                 let allBaseMods = await Promise.all([...baseModWeaponQueries, ...baseModEquipmentQueries]);
                 store.commit('setLoadoutDetailModMatrix', {baseMods: allBaseMods});
+
+
                 return store.state.loadoutDetails;
-            }
+            },
+            getBuildString(build,oc) {
+                // Empty array to hold our proper string
+                let buildString = [];
+                // Equivalent of null default value
+                let ocString = '-';
+                // Check if our OC object exists. Otherwise, return the dash
+                if(oc) {
+                    ocString = oc.overclock_index;
+                }
+                // Let's iterate 0 - 4 to add our mod tier values
+                for (let i = 0; i < 5; i++) {
+                    if(build[i] != null) {
+                        buildString[i] = build[i];
+                    } else {
+                        buildString[i] = '-';
+                    }
+                }
+
+                // Add the OC value on the end
+                buildString[5] = ocString;
+                
+                // Return a string from our array we have been working with
+                // Pass this to our equipmentCard
+                return buildString.join('');
+            },
         },
         mounted: function () {
             // get loadout id from url

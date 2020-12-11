@@ -97,7 +97,6 @@
             <a class="baseButton px-5" :href='"/asv/"+equipmentId+"/"+build'>
                 <span class="baseButtonText text-sm">ADVANCED STATS</span>
             </a>
-            
         </div>
     </div>
 </template>
