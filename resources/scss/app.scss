@@ -5,6 +5,7 @@
 @import 'variables';
 @import 'dashboard';
 @import 'browse';
+@import 'equipmentCard';
 
 /*todo: only three different font sizes!*/
 /*todo: web fonts*/
@@ -108,6 +109,9 @@ h4 {
 
 .text-orange {
     color: $orange;
+}
+.text-off-white {
+    color: $off-white;
 }
 
 .bg-light-brown {

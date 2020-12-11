@@ -39,7 +39,7 @@
 <body class="max-w-screen-lg mx-auto bg-gray-100 h-screen antialiased leading-none @yield('body_class')">
 <div id="app">
 
-@include('layouts.nav')
+@include('layouts.nav' )
 
 @yield('content')
 

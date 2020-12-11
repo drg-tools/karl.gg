@@ -39,5 +39,6 @@ Route::get('preview/{loadoutId}', 'LoadoutsController@preview')->name('preview.s
 Route::get('build', 'LoadoutsController@build');
 Route::get('build/{loadoutId}', 'LoadoutsController@build')->name('build.show');
 Route::view('/privacy-policy', 'privacy-policy.index');
+Route::get('asv/{gun}/{combo}', 'BuildMetricController@show')->name('asv.show')->where('gun', '[0-9]+');
 Route::get('profile/{id}', 'ProfileController@index')->name('user.profile')->where('id', '[0-9]+');
 Auth::routes();
