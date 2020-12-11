@@ -127,11 +127,15 @@
                 return store.state.loadoutDetails;
             },
             getBuildString(build,oc) {
+                // Empty array to hold our proper string
                 let buildString = [];
+                // Equivalent of null default value
                 let ocString = '-';
+                // Check if our OC object exists. Otherwise, return the dash
                 if(oc) {
                     ocString = oc.overclock_index;
                 }
+                // Let's iterate 0 - 4 to add our mod tier valyes
                 for (let i = 0; i < 5; i++) {
                     if(build[i] != null) {
                         buildString[i] = build[i];
@@ -139,8 +143,12 @@
                         buildString[i] = '-';
                     }
                 }
+
+                // Add the OC value on the end
                 buildString[5] = ocString;
                 
+                // Return a string from our array we have been working with
+                // Pass this to our equipmentCard
                 return buildString.join('');
             },
         },
