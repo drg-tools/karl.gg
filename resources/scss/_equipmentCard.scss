@@ -19,8 +19,6 @@
     height: 1rem;
     width: 6rem;
     margin-bottom: 0.3rem;
-    /*justify-content: start;*/
-    /*align-items: center;*/
 }
 
 .asvMod {
@@ -41,11 +39,7 @@
     fill: transparent;
     stroke-width: 5px;
 }
-.equipmentCardTitle {
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+
 .flexboxWeaponSelect {
     display: flex;
     align-items: center;
@@ -70,33 +64,6 @@
 
 .overclockName {
     margin-left: 0.4rem;
-}
-
-.asvCol {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-h1.asvItemTitle {
-    color: $orange;
-}
-h3.asvItemType {
-    color: $off-white;
-    margin-left: 10px;
-}
-h3.combo-main {
-    color: $off-white;
-    margin-left: 20px;
-}
-.asvCol h3 {
-    color: $white;
-}
-.asvCol p {
-    color: $off-white;
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
 }
 
 .baseButton {

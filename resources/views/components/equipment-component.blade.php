@@ -3,7 +3,7 @@
         @svg($gun['image'], 'asvIcon')
     </div>
     <div class="asvModMatrixContainer">
-        
+
         @foreach ($modMatrix['gun_mods'] as $key => $mod_tier)
         <div class="asvModMatrixRow">
             @foreach ($mod_tier as $mod)
@@ -12,7 +12,7 @@
                 placement: 'right',
                 trigger: 'hover'
             }">
-                
+
                     @if ($modMatrix['selected_index'][$key]['value'] == $mod->mod_index)
                             <svg viewBox="0 0 80 50"
                                     height="100%"
@@ -36,7 +36,7 @@
             @endforeach
             </div><!-- end mod matrix row -->
         @endforeach
-        {{-- {{$overclock[0]}} --}}
+
         @if($overclock != '')
             <div class="overclockContainer"
                 v-tooltip="{
@@ -46,7 +46,7 @@
                 }"
                 >
 
-                @if($overclock['overclock_type'] == 'Clean')   
+                @if($overclock['overclock_type'] == 'Clean')
                 <svg viewBox="0 0 80 80"
                     height="6rem"
                     class="mod overclockBackground">
@@ -106,6 +106,6 @@
         </div><!-- end overclock container -->
         @endif
 
-        
+
     </div><!-- end mod matrix container -->
 </div><!-- end asvEquipmentCardContainer -->
