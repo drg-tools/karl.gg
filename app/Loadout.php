@@ -90,7 +90,7 @@ class Loadout extends Model
      */
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = \ConsoleTVs\Profanity\Builder::blocker($value)->filter();;
+        $this->attributes['name'] = \ConsoleTVs\Profanity\Builder::blocker($value)->filter();
     }
 
     /**
@@ -101,7 +101,7 @@ class Loadout extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = \ConsoleTVs\Profanity\Builder::blocker($value)->filter();;
+        $this->attributes['description'] = \ConsoleTVs\Profanity\Builder::blocker($value)->filter();
     }
 
     public function creator()
