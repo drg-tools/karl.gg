@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f3b40de921dd15b3d0e7524bcd0afad",
+    "content-hash": "ab937e54fdaf448e17b1b09fd737a259",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -645,6 +645,56 @@
                 }
             ],
             "time": "2020-03-03T23:16:14+00:00"
+        },
+        {
+            "name": "consoletvs/profanity",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ConsoleTVs/Profanity.git",
+                "reference": "908bc15401aeb271ac19cf4eae2705a524972dfc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ConsoleTVs/Profanity/zipball/908bc15401aeb271ac19cf4eae2705a524972dfc",
+                "reference": "908bc15401aeb271ac19cf4eae2705a524972dfc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*|8.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ConsoleTVs\\Profanity\\ProfanityServiceProvider"
+                    ],
+                    "aliases": {
+                        "Profanity": "ConsoleTVs\\Profanity\\Facades\\Profanity"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ConsoleTVs\\Profanity\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erik Campobadal",
+                    "email": "ConsoleTVs@gmail.com"
+                }
+            ],
+            "description": "PHP library to block bad words in a string",
+            "support": {
+                "issues": "https://github.com/ConsoleTVs/Profanity/issues",
+                "source": "https://github.com/ConsoleTVs/Profanity/tree/3.0.2"
+            },
+            "time": "2020-11-20T05:01:29+00:00"
         },
         {
             "name": "creativeorange/gravatar",
@@ -11030,5 +11080,5 @@
         "php": "^7.2.5"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
