@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="content-container pb-20 text-white">
-
+        @include('components.asv-alert')
         <div class="flex flex-col md:flex-row justify-between">
             <div class="mx-4 pt-2">
                 <h1 class="mr-4">{{ $gun['name'] }}</h1>
