@@ -143,11 +143,19 @@
                         </tr>
                         <tr>
                             <td>General Accuracy percentage</td>
-                            <td class="font-medium text-right">{{round($buildMetrics->general_accuracy, 4)}}</td>
+                            @if($buildMetrics->general_accuracy == -1)
+                                <td class="font-medium text-sm text-right">Manually Aimed</td>
+                            @else
+                                <td class="font-medium text-right">{{round($buildMetrics->general_accuracy, 4)}}</td>
+                            @endif
                         </tr>
                         <tr>
                             <td>Weakpoint Accuracy Percentage</td>
-                            <td class="font-medium text-right">{{round($buildMetrics->weakpoint_accuracy, 4)}}</td>
+                            @if($buildMetrics->weakpoint_accuracy == -1)
+                                <td class="font-medium text-sm text-right">Manually Aimed</td>
+                            @else
+                                <td class="font-medium text-right">{{round($buildMetrics->weakpoint_accuracy, 4)}}</td>
+                            @endif
                         </tr>
                         <tr>
                             <td>How long it takes to expend all ammo</td>
@@ -162,16 +170,12 @@
                             <td class="font-medium text-right">{{round($buildMetrics->average_overkill, 4)}}</td>
                         </tr>
                         <tr>
-                            <td>Breakpoints Sum</td>
-                            <td class="font-medium text-right">{{round($buildMetrics->breakpoints, 4)}}</td>
-                        </tr>
-                        <tr>
-                            <td>Utility score</td>
-                            <td class="font-medium text-right">{{round($buildMetrics->utility, 4)}}</td>
-                        </tr>
-                        <tr>
                             <td>Average time to ignite or freeze</td>
-                            <td class="font-medium text-right">{{round($buildMetrics->average_time_to_ignite_or_freeze, 4)}}</td>
+                            @if($buildMetrics->average_time_to_ignite_or_freeze == -1)
+                                <td class="font-medium text-sm text-right">N/A</td>
+                            @else
+                                <td class="font-medium text-right">{{round($buildMetrics->average_time_to_ignite_or_freeze, 4)}}</td>
+                            @endif
                         </tr>
                         <tr>
                             <td>Damage Per Magazine</td>
