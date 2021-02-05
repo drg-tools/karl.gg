@@ -640,3 +640,48 @@ svg > a:hover {
       content: '\f031';
     }
 }
+/**
+New Dash
+*/
+.dashD {
+    background: #FFF200;
+}
+.dashImageD {
+    background-image: url("../js/assets/img/full-D_image.png");
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% top -10%;
+}
+.dashE {
+    background: #ED2024;
+}
+.dashImageE {
+    background-image: url("../js/assets/img/full-E_image.png");
+    background-repeat: no-repeat;
+    background-size: 35%;
+    background-position: right -5% top -10%;
+}
+.dashG {
+    background: #3F7939;
+}
+.dashImageG {
+    background-image: url("../js/assets/img/full-G_image.png");
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: right -10% top -10%;
+}
+.dashS {
+    background: #4168B1;
+}
+.dashImageS {
+    background-image: url("../js/assets/img/full-S_image.png");
+    background-repeat: no-repeat;
+    background-size: 35%;
+    background-position: right -5% top -10%;
+}
+.dashImageD:hover,
+.dashImageE:hover,
+.dashImageG:hover,
+.dashImageS:hover {
+    opacity: .6;
+}

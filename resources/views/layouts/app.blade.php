@@ -35,6 +35,7 @@
     <script src="https://kit.fontawesome.com/87ca57c51d.js" crossorigin="anonymous"></script>
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
 <body class="max-w-screen-lg mx-auto bg-gray-100 h-screen antialiased leading-none @yield('body_class')">
 <div id="app">

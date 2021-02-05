@@ -27,6 +27,23 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function indexNew()
+    {
+        SEOMeta::setTitle('Dashboard');
+
+        $allTimeTopLoadouts = Cache::remember('allTimeTopLoadouts', 1800, function () {
+            return $this->getTopLoadoutsAllTime();
+        });
+        $recentTopLoadouts = $this->getRecentTopLoadouts();
+        $latestLoadouts = $this->getLatestLoadouts();
+
+        return view('dashboard.new-index', [
+            'allTimeTopLoadouts' => $allTimeTopLoadouts,
+            'recentTopLoadouts' => $recentTopLoadouts,
+            'latestLoadouts' => $latestLoadouts,
+        ]);
+    }
+
     private function getTopLoadoutsAllTime()
     {
         $loadouts = collect();
