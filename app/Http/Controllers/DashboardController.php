@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\Loadout;
+use App\Post;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use SEOMeta;
@@ -31,16 +32,14 @@ class DashboardController extends Controller
     {
         SEOMeta::setTitle('Dashboard');
 
-        $allTimeTopLoadouts = Cache::remember('allTimeTopLoadouts', 1800, function () {
-            return $this->getTopLoadoutsAllTime();
-        });
         $recentTopLoadouts = $this->getRecentTopLoadouts();
         $latestLoadouts = $this->getLatestLoadouts();
+        $posts = $this->getLatestPosts();
 
         return view('dashboard.new-index', [
-            'allTimeTopLoadouts' => $allTimeTopLoadouts,
             'recentTopLoadouts' => $recentTopLoadouts,
             'latestLoadouts' => $latestLoadouts,
+            'latestPosts' => $posts
         ]);
     }
 
@@ -69,7 +68,7 @@ class DashboardController extends Controller
             ->withCount('votes')
             ->with('character', 'creator', 'mods.gun')
             ->orderBy('votes_count', 'desc')
-            ->take(12)
+            ->take(3)
             ->get();
 
         return $recentTopLoadouts;
@@ -81,9 +80,16 @@ class DashboardController extends Controller
             ->withCount('votes')
             ->with('character', 'creator', 'mods.gun')
             ->latest()
-            ->take(12)
+            ->take(3)
             ->get();
 
         return $latestLoadouts;
+    }
+
+    private function getLatestPosts() 
+    {
+        $latestPosts = Post::orderBy('created_at', 'desc')->take(3)->get();
+        
+        return $latestPosts;
     }
 }
