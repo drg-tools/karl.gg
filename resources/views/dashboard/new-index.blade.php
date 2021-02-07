@@ -12,16 +12,16 @@
     <div class="flex flex-row mb-5">
         <div class="flex flex-col w-2/3">
             <div class="flex flex-row">
-                <a href="/browse?character=3" class="flex w-1/4 px-4 py-4 dashImageD dashD mx-1">
+                <a href="/browse?character=3" class="flex w-1/4 px-4 py-8 dashImageD dashD mx-1 align-middle">
                         Driller
                 </a>
-                <a href="/browse?character=1" class="flex w-1/4 px-4 py-4 dashImageE dashE mx-1">
+                <a href="/browse?character=1" class="flex w-1/4 px-4 py-8 dashImageE dashE mx-1 align-middle">
                     Engineer
                 </a>
-                <a href="/browse?character=4" class="flex w-1/4 px-4 py-4 dashImageG dashG mx-1">
+                <a href="/browse?character=4" class="flex w-1/4 px-4 py-8 dashImageG dashG mx-1 align-middle">
                     Gunner
                 </a>
-                <a href="/browse?character=2" class="flex w-1/4 px-4 py-4 dashImageS dashS mx-1">
+                <a href="/browse?character=2" class="flex w-1/4 px-4 py-8 dashImageS dashS mx-1 align-middle">
                     Scout
                 </a>
             </div>
