@@ -32,7 +32,6 @@ Route::get('unsubscribe/{user}', 'SubscriptionController@unsubscribe')
     ->middleware('signed');
 
 Route::get('/', 'DashboardController@index');
-Route::get('/new', 'DashboardController@indexNew');
 Route::get('browse', 'LoadoutsController@index')->name('loadout.index');
 Route::resource('blog', 'PostController')->only(['index', 'show']);
 

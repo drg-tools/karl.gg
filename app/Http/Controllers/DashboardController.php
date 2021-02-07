@@ -11,24 +11,8 @@ use SEOMeta;
 
 class DashboardController extends Controller
 {
+
     public function index()
-    {
-        SEOMeta::setTitle('Dashboard');
-
-        $allTimeTopLoadouts = Cache::remember('allTimeTopLoadouts', 1800, function () {
-            return $this->getTopLoadoutsAllTime();
-        });
-        $recentTopLoadouts = $this->getRecentTopLoadouts();
-        $latestLoadouts = $this->getLatestLoadouts();
-
-        return view('dashboard.index', [
-            'allTimeTopLoadouts' => $allTimeTopLoadouts,
-            'recentTopLoadouts' => $recentTopLoadouts,
-            'latestLoadouts' => $latestLoadouts,
-        ]);
-    }
-
-    public function indexNew()
     {
         SEOMeta::setTitle('Dashboard');
 
@@ -36,7 +20,7 @@ class DashboardController extends Controller
         $latestLoadouts = $this->getLatestLoadouts();
         $posts = $this->getLatestPosts();
 
-        return view('dashboard.new-index', [
+        return view('dashboard.index', [
             'recentTopLoadouts' => $recentTopLoadouts,
             'latestLoadouts' => $latestLoadouts,
             'latestPosts' => $posts
