@@ -6,12 +6,10 @@ use App\Character;
 use App\Loadout;
 use App\Post;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 use SEOMeta;
 
 class DashboardController extends Controller
 {
-
     public function index()
     {
         SEOMeta::setTitle('Dashboard');
@@ -23,7 +21,7 @@ class DashboardController extends Controller
         return view('dashboard.index', [
             'recentTopLoadouts' => $recentTopLoadouts,
             'latestLoadouts' => $latestLoadouts,
-            'latestPosts' => $posts
+            'latestPosts' => $posts,
         ]);
     }
 
@@ -70,10 +68,10 @@ class DashboardController extends Controller
         return $latestLoadouts;
     }
 
-    private function getLatestPosts() 
+    private function getLatestPosts()
     {
         $latestPosts = Post::orderBy('created_at', 'desc')->take(3)->get();
-        
+
         return $latestPosts;
     }
 }
