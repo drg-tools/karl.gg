@@ -70,7 +70,7 @@ class DashboardController extends Controller
 
     private function getLatestPosts()
     {
-        $latestPosts = Post::orderBy('created_at', 'desc')->take(3)->get();
+        $latestPosts = Post::latest()->take(3)->get();
 
         return $latestPosts;
     }
