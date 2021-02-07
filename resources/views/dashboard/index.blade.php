@@ -45,7 +45,7 @@
         @foreach ($latestPosts as $post)
             <div class="my-5">
                 <a href="/blog/{{$post->id}}" class="hover:underline"><h3>{{$post->title}}</h3></a>
-                <p class="dashPost">{{Str::words($post->content, 50, '...') }}</p>
+                <p class="dashPost">{!! Str::words($post->content, 50, '...') !!}</p>
                 <a class="dashButton px-3 w-4 ml-0 mt-1" href="/blog/{{$post->id}}">
                     <span class=" text-black">READ MORE</span>
                 </a>
