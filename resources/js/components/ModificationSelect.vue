@@ -379,6 +379,7 @@
 
     .modSelection {
         flex: 1;
+        min-height: 800px; /* Prevent jumping of page layout */
         height: 100%;
         width: 100%;
         padding-left: 1rem;
