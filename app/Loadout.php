@@ -82,28 +82,6 @@ class Loadout extends Model
         'saving' => LoadoutSaving::class,
     ];
 
-    /**
-     * Set the loadout's name with profanity filter.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = \ConsoleTVs\Profanity\Builder::blocker($value)->filter();
-    }
-
-    /**
-     * Set the loadout's description with profanity filter.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setDescriptionAttribute($value)
-    {
-        $this->attributes['description'] = \ConsoleTVs\Profanity\Builder::blocker($value)->filter();
-    }
-
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');

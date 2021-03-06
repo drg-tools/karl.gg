@@ -35,8 +35,8 @@ type Query {
 
 type Mutation {
     createLoadout(
-        name: String!
-        description: String
+        name: String! @rules(apply: ["profane"])
+        description: String @rules(apply: ["profane"])
         character_id: Int!
         mods: [Int!]!
         overclocks: [Int!]!
@@ -46,8 +46,8 @@ type Mutation {
 
     updateLoadout(
         id: Int!
-        name: String!
-        description: String
+        name: String! @rules(apply: ["profane"])
+        description: String @rules(apply: ["profane"])
         character_id: Int!
         mods: [Int!]!
         overclocks: [Int!]!
