@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.18.0.
+ * Generated for Laravel 7.30.4.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -800,6 +800,17 @@
                         return $instance->getLocale();
         }
                     /**
+         * Get the current application fallback locale.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getFallbackLocale()
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->getFallbackLocale();
+        }
+                    /**
          * Set the current application locale.
          *
          * @param string $locale
@@ -810,6 +821,18 @@
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         $instance->setLocale($locale);
+        }
+                    /**
+         * Set the current application fallback locale.
+         *
+         * @param string $fallbackLocale
+         * @return void 
+         * @static 
+         */ 
+        public static function setFallbackLocale($fallbackLocale)
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->setFallbackLocale($fallbackLocale);
         }
                     /**
          * Determine if application locale is the given locale.
@@ -2440,6 +2463,17 @@
                         return \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($value);
         }
                     /**
+         * Compile an end-once block into valid PHP.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function compileEndOnce()
+        {
+                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+                        return $instance->compileEndOnce();
+        }
+                    /**
          * Compile Blade echos into valid PHP.
          *
          * @param string $value
@@ -2489,7 +2523,7 @@
          * Begin broadcasting an event.
          *
          * @param mixed|null $event
-         * @return \Illuminate\Broadcasting\PendingBroadcast|void 
+         * @return \Illuminate\Broadcasting\PendingBroadcast 
          * @static 
          */ 
         public static function event($event = null)
@@ -4955,7 +4989,7 @@
                         $instance->assertDispatched($event, $callback);
         }
                     /**
-         * Assert if a event was dispatched a number of times.
+         * Assert if an event was dispatched a number of times.
          *
          * @param string $event
          * @param int $times
@@ -5970,6 +6004,7 @@
      * @method static \Illuminate\Http\Client\PendingRequest asJson()
      * @method static \Illuminate\Http\Client\PendingRequest asMultipart()
      * @method static \Illuminate\Http\Client\PendingRequest attach(string $name, string $contents, string|null $filename = null, array $headers = [])
+     * @method static \Illuminate\Http\Client\PendingRequest baseUrl(string $url)
      * @method static \Illuminate\Http\Client\PendingRequest beforeSending(callable $callback)
      * @method static \Illuminate\Http\Client\PendingRequest bodyFormat(string $format)
      * @method static \Illuminate\Http\Client\PendingRequest contentType(string $contentType)
@@ -5977,6 +6012,7 @@
      * @method static \Illuminate\Http\Client\PendingRequest stub(callable $callback)
      * @method static \Illuminate\Http\Client\PendingRequest timeout(int $seconds)
      * @method static \Illuminate\Http\Client\PendingRequest withBasicAuth(string $username, string $password)
+     * @method static \Illuminate\Http\Client\PendingRequest withBody(resource|string $content, string $contentType)
      * @method static \Illuminate\Http\Client\PendingRequest withCookies(array $cookies, string $domain)
      * @method static \Illuminate\Http\Client\PendingRequest withDigestAuth(string $username, string $password)
      * @method static \Illuminate\Http\Client\PendingRequest withHeaders(array $headers)
@@ -6107,7 +6143,7 @@
                     /**
          * Assert how many requests have been recorded.
          *
-         * @param $count
+         * @param int $count
          * @return void 
          * @static 
          */ 
@@ -6566,7 +6602,7 @@
                     /**
          * Unset the given channel instance.
          *
-         * @param string|null $name
+         * @param string|null $driver
          * @return \Illuminate\Log\LogManager 
          * @static 
          */ 
@@ -6963,7 +6999,7 @@
                     /**
          * Queue a new e-mail message for sending.
          *
-         * @param string|array $view
+         * @param \Illuminate\Contracts\Mail\Mailable|string|array $view
          * @param string|null $queue
          * @return mixed 
          * @static 
@@ -7266,6 +7302,11 @@
      *
      * @method static mixed reset(array $credentials, \Closure $callback)
      * @method static string sendResetLink(array $credentials)
+     * @method static \Illuminate\Contracts\Auth\CanResetPassword getUser(array $credentials)
+     * @method static string createToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
+     * @method static void deleteToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
+     * @method static bool tokenExists(\Illuminate\Contracts\Auth\CanResetPassword $user, string $token)
+     * @method static \Illuminate\Auth\Passwords\TokenRepositoryInterface getRepository()
      * @see \Illuminate\Auth\Passwords\PasswordBroker
      */ 
         class Password {
@@ -8626,7 +8667,6 @@
          *
          * @param array $proxies A list of trusted proxies, the string 'REMOTE_ADDR' will be replaced with $_SERVER['REMOTE_ADDR']
          * @param int $trustedHeaderSet A bit field of Request::HEADER_*, to set which headers to trust from your proxies
-         * @throws \InvalidArgumentException When $trustedHeaderSet is invalid
          * @static 
          */ 
         public static function setTrustedProxies($proxies, $trustedHeaderSet)
@@ -9296,7 +9336,6 @@
          *
          * @param bool $asResource If true, a resource will be returned
          * @return string|resource The request body content or a resource to read the body stream
-         * @throws \LogicException
          * @static 
          */ 
         public static function getContent($asResource = false)
@@ -9398,7 +9437,7 @@
                         return $instance->getAcceptableContentTypes();
         }
                     /**
-         * Returns true if the request is a XMLHttpRequest.
+         * Returns true if the request is an XMLHttpRequest.
          * 
          * It works if your JavaScript library sets an X-Requested-With HTTP header.
          * It is known to work with common JavaScript frameworks:
@@ -9696,6 +9735,19 @@
                         return $instance->hasAny($keys);
         }
                     /**
+         * Apply the callback if the request contains the given input item key.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @return $this|mixed 
+         * @static 
+         */ 
+        public static function whenHas($key, $callback)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->whenHas($key, $callback);
+        }
+                    /**
          * Determine if the request contains a non-empty value for an input item.
          *
          * @param string|array $key
@@ -9708,6 +9760,18 @@
                         return $instance->filled($key);
         }
                     /**
+         * Determine if the request contains an empty value for an input item.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function isNotFilled($key)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->isNotFilled($key);
+        }
+                    /**
          * Determine if the request contains a non-empty value for any of the given inputs.
          *
          * @param string|array $keys
@@ -9718,6 +9782,19 @@
         {
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->anyFilled($keys);
+        }
+                    /**
+         * Apply the callback if the request contains a non-empty value for the given input item key.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @return $this|mixed 
+         * @static 
+         */ 
+        public static function whenFilled($key, $callback)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->whenFilled($key, $callback);
         }
                     /**
          * Determine if the request is missing a given input item key.
@@ -9932,6 +10009,9 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
+         * @param array $rules
+         * @param mixed $params
          * @static 
          */ 
         public static function validate($rules, ...$params)
@@ -9941,6 +10021,10 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
+         * @param string $errorBag
+         * @param array $rules
+         * @param mixed $params
          * @static 
          */ 
         public static function validateWithBag($errorBag, $rules, ...$params)
@@ -9950,6 +10034,8 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
+         * @param mixed $absolute
          * @static 
          */ 
         public static function hasValidSignature($absolute = true)
@@ -9959,6 +10045,8 @@
                     /**
          * 
          *
+         * @see \Kyslik\ColumnSortable\ColumnSortableServiceProvider::boot()
+         * @param array $keys
          * @static 
          */ 
         public static function allFilled($keys)
@@ -11004,6 +11092,17 @@
                         $instance->setCompiledRoutes($routes);
         }
                     /**
+         * Remove any duplicate middleware from the given array.
+         *
+         * @param array $middleware
+         * @return array 
+         * @static 
+         */ 
+        public static function uniqueMiddleware($middleware)
+        {
+                        return \Illuminate\Routing\Router::uniqueMiddleware($middleware);
+        }
+                    /**
          * Register a custom macro.
          *
          * @param string $name
@@ -11056,6 +11155,9 @@
                     /**
          * 
          *
+         * @see \Backpack\CRUD\BackpackServiceProvider::addRouteMacro()
+         * @param mixed $name
+         * @param mixed $controller
          * @static 
          */ 
         public static function crud($name, $controller)
@@ -11065,6 +11167,8 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::auth()
+         * @param mixed $options
          * @static 
          */ 
         public static function auth($options = [])
@@ -11074,6 +11178,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::resetPassword()
          * @static 
          */ 
         public static function resetPassword()
@@ -11083,6 +11188,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::confirmPassword()
          * @static 
          */ 
         public static function confirmPassword()
@@ -11092,6 +11198,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::emailVerification()
          * @static 
          */ 
         public static function emailVerification()
@@ -11571,7 +11678,7 @@
          * Get the value of a given key and then forget it.
          *
          * @param string $key
-         * @param string|null $default
+         * @param mixed $default
          * @return mixed 
          * @static 
          */ 
@@ -12245,7 +12352,7 @@
          *
          * @param string $path
          * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
-         * @param array $options
+         * @param mixed $options
          * @return string|false 
          * @static 
          */ 
@@ -12260,7 +12367,7 @@
          * @param string $path
          * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
          * @param string $name
-         * @param array $options
+         * @param mixed $options
          * @return string|false 
          * @static 
          */ 
@@ -12690,7 +12797,7 @@
          * Create a signed route URL for a named route.
          *
          * @param string $name
-         * @param array $parameters
+         * @param mixed $parameters
          * @param \DateTimeInterface|\DateInterval|int|null $expiration
          * @param bool $absolute
          * @return string 
@@ -12877,7 +12984,7 @@
                     /**
          * Force the scheme for URLs.
          *
-         * @param string $scheme
+         * @param string|null $scheme
          * @return void 
          * @static 
          */ 
@@ -12889,7 +12996,7 @@
                     /**
          * Set the forced root URL.
          *
-         * @param string $root
+         * @param string|null $root
          * @return void 
          * @static 
          */ 
@@ -13331,6 +13438,30 @@
         {
                         /** @var \Illuminate\View\Factory $instance */
                         return $instance->doneRendering();
+        }
+                    /**
+         * Determine if the given once token has been rendered.
+         *
+         * @param string $id
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasRenderedOnce($id)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        return $instance->hasRenderedOnce($id);
+        }
+                    /**
+         * Mark the given once token as having been rendered.
+         *
+         * @param string $id
+         * @return void 
+         * @static 
+         */ 
+        public static function markAsRenderedOnce($id)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        $instance->markAsRenderedOnce($id);
         }
                     /**
          * Add a location to the array of view locations.
@@ -13803,6 +13934,18 @@
                         return $instance->hasSection($name);
         }
                     /**
+         * Check if section does not exist.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function sectionMissing($name)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        return $instance->sectionMissing($name);
+        }
+                    /**
          * Get the contents of a section.
          *
          * @param string $name
@@ -14010,6 +14153,23 @@
         class Str {
          
     }
+            /**
+     * 
+     *
+     */ 
+        class Collection {
+                    /**
+         * 
+         *
+         * @see \Barryvdh\Debugbar\ServiceProvider::register()
+         * @static 
+         */ 
+        public static function debug()
+        {
+                        return \Illuminate\Support\Collection::debug();
+        }
+         
+    }
      
 }
 
@@ -14017,6 +14177,7 @@
             /**
      * 
      *
+     * @see \Creativeorange\Gravatar\Gravatar
      */ 
         class Gravatar {
                     /**
@@ -14037,7 +14198,7 @@
                     /**
          * Check if Gravatar has an avatar for the given email address
          *
-         * @param $email
+         * @param string $email
          * @return bool 
          * @throws InvalidEmailException
          * @static 
@@ -14050,7 +14211,7 @@
                     /**
          * Get the gravatar url
          *
-         * @param $email
+         * @param string $email
          * @param string $configGroup
          * @return string 
          * @throws InvalidEmailException
@@ -15038,6 +15199,17 @@
                     /**
          * 
          *
+         * @return string[]|string[][] 
+         * @static 
+         */ 
+        public static function convertToArray()
+        {
+                        /** @var \Artesaos\SEOTools\JsonLd $instance */
+                        return $instance->convertToArray();
+        }
+                    /**
+         * 
+         *
          * @param string $key
          * @param string|array $value
          * @return static 
@@ -15213,6 +15385,17 @@
         {
                         /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
                         return $instance->getModel();
+        }
+                    /**
+         * Get SQL driver list.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getSqlDriverList()
+        {
+                        /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
+                        return $instance->getSqlDriverList();
         }
                     /**
          * Set the route for this CRUD.
@@ -15625,9 +15808,7 @@
                     /**
          * Specify array of available page lengths on the list view.
          *
-         * @param array $menu 1d array of page length values,
-         *                    or 2d array (first array: page length values, second array: page length labels)
-         *                    More at: https://datatables.net/reference/option/lengthMenu
+         * @param array|int $menu https://backpackforlaravel.com/docs/4.1/crud-cheat-sheet#page-length
          * @static 
          */ 
         public static function setPageLengthMenu($menu)
@@ -15827,6 +16008,19 @@
                         return $instance->getEntriesAsJsonForDatatables($entries, $totalRows, $filteredRows, $startIndex);
         }
                     /**
+         * Return the column attribute (column in database) prefixed with table to use in search.
+         *
+         * @param \Illuminate\Database\Eloquent\Builder $query
+         * @param string $column
+         * @return string 
+         * @static 
+         */ 
+        public static function getColumnWithTableNamePrefixed($query, $column)
+        {
+                        /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
+                        return $instance->getColumnWithTableNamePrefixed($query, $column);
+        }
+                    /**
          * Update a row in the database.
          *
          * @param int $id The entity's id
@@ -15987,7 +16181,7 @@
                     /**
          * Set an operation as having access using the Settings API.
          *
-         * @param string $operation
+         * @param array $operation
          * @return bool 
          * @static 
          */ 
@@ -15999,7 +16193,7 @@
                     /**
          * Disable the access to a certain operation, or the current one.
          *
-         * @param bool $operation [description]
+         * @param array $operation [description]
          * @return \Backpack\CRUD\app\Library\CrudPanel\[type] [description]
          * @static 
          */ 
@@ -16343,6 +16537,20 @@
         {
                         /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
                         return $instance->makeSureColumnHasNeededAttributes($column);
+        }
+                    /**
+         * Count the number of columns added so far.
+         * 
+         * It will not take into account the action
+         * columns (columns with buttons, checkbox).
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function countColumnsWithoutActions()
+        {
+                        /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
+                        return $instance->countColumnsWithoutActions();
         }
                     /**
          * Create and return a CrudColumn object for that column name.
@@ -16922,6 +17130,16 @@
         {
                         /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
                         return $instance->count();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function orderByWithPrefix($column_name, $column_direction = 'ASC')
+        {
+                        /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
+                        return $instance->orderByWithPrefix($column_name, $column_direction);
         }
                     /**
          * Order the CRUD buttons. If certain button names are missing from the given order array
@@ -18647,13 +18865,13 @@
          * From the field entity we get the relation instance.
          *
          * @param array $entity
-         * @return void 
+         * @return object 
          * @static 
          */ 
         public static function getRelationInstance($field)
         {
                         /** @var \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $instance */
-                        $instance->getRelationInstance($field);
+                        return $instance->getRelationInstance($field);
         }
                     /**
          * Grabs an relation instance and returns the class name of the related model.
@@ -18788,15 +19006,15 @@
             /**
      * 
      *
-     * @method static void alert(string $message)
-     * @method static void critical(string $message)
-     * @method static void debug(string $message)
-     * @method static void emergency(string $message)
-     * @method static void error(string $message)
-     * @method static void info(string $message)
-     * @method static void log(string $message)
-     * @method static void notice(string $message)
-     * @method static void warning(string $message)
+     * @method static void alert(mixed $message)
+     * @method static void critical(mixed $message)
+     * @method static void debug(mixed $message)
+     * @method static void emergency(mixed $message)
+     * @method static void error(mixed $message)
+     * @method static void info(mixed $message)
+     * @method static void log(mixed $message)
+     * @method static void notice(mixed $message)
+     * @method static void warning(mixed $message)
      * @see \Barryvdh\Debugbar\LaravelDebugbar
      */ 
         class Facade {
@@ -21090,6 +21308,180 @@
      
 }
 
+    namespace Illuminate\Http { 
+            /**
+     * 
+     *
+     */ 
+        class Request {
+                    /**
+         * 
+         *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
+         * @param array $rules
+         * @param mixed $params
+         * @static 
+         */ 
+        public static function validate($rules, ...$params)
+        {
+                        return \Illuminate\Http\Request::validate($rules, ...$params);
+        }
+                    /**
+         * 
+         *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
+         * @param string $errorBag
+         * @param array $rules
+         * @param mixed $params
+         * @static 
+         */ 
+        public static function validateWithBag($errorBag, $rules, ...$params)
+        {
+                        return \Illuminate\Http\Request::validateWithBag($errorBag, $rules, ...$params);
+        }
+                    /**
+         * 
+         *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
+         * @param mixed $absolute
+         * @static 
+         */ 
+        public static function hasValidSignature($absolute = true)
+        {
+                        return \Illuminate\Http\Request::hasValidSignature($absolute);
+        }
+                    /**
+         * 
+         *
+         * @see \Kyslik\ColumnSortable\ColumnSortableServiceProvider::boot()
+         * @param array $keys
+         * @static 
+         */ 
+        public static function allFilled($keys)
+        {
+                        return \Illuminate\Http\Request::allFilled($keys);
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Routing { 
+            /**
+     * 
+     *
+     * @mixin \Illuminate\Routing\RouteRegistrar
+     */ 
+        class Router {
+                    /**
+         * 
+         *
+         * @see \Backpack\CRUD\BackpackServiceProvider::addRouteMacro()
+         * @param mixed $name
+         * @param mixed $controller
+         * @static 
+         */ 
+        public static function crud($name, $controller)
+        {
+                        return \Illuminate\Routing\Router::crud($name, $controller);
+        }
+                    /**
+         * 
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::auth()
+         * @param mixed $options
+         * @static 
+         */ 
+        public static function auth($options = [])
+        {
+                        return \Illuminate\Routing\Router::auth($options);
+        }
+                    /**
+         * 
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::resetPassword()
+         * @static 
+         */ 
+        public static function resetPassword()
+        {
+                        return \Illuminate\Routing\Router::resetPassword();
+        }
+                    /**
+         * 
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::confirmPassword()
+         * @static 
+         */ 
+        public static function confirmPassword()
+        {
+                        return \Illuminate\Routing\Router::confirmPassword();
+        }
+                    /**
+         * 
+         *
+         * @see \Laravel\Ui\AuthRouteMethods::emailVerification()
+         * @static 
+         */ 
+        public static function emailVerification()
+        {
+                        return \Illuminate\Routing\Router::emailVerification();
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Route {
+                    /**
+         * 
+         *
+         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
+         * @param mixed $roles
+         * @static 
+         */ 
+        public static function role($roles = [])
+        {
+                        return \Illuminate\Routing\Route::role($roles);
+        }
+                    /**
+         * 
+         *
+         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
+         * @param mixed $permissions
+         * @static 
+         */ 
+        public static function permission($permissions = [])
+        {
+                        return \Illuminate\Routing\Route::permission($permissions);
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Console { 
+            /**
+     * 
+     *
+     */ 
+        class Command {
+                    /**
+         * 
+         *
+         * @see \LaravelFrontendPresets\TailwindCssPreset\TailwindCssPresetServiceProvider::boot()
+         * @param mixed $command
+         * @static 
+         */ 
+        public static function tailwindcss($command)
+        {
+                        return \Illuminate\Console\Command::tailwindcss($command);
+        }
+         
+    }
+     
+}
+
 
 namespace  { 
             class App extends \Illuminate\Support\Facades\App {}
@@ -21199,7 +21591,7 @@ namespace  {
                 /**
              * Add a basic where clause to the query.
              *
-             * @param \Closure|string|array $column
+             * @param \Closure|string|array|\Illuminate\Database\Query\Expression $column
              * @param mixed $operator
              * @param mixed $value
              * @param string $boolean
@@ -21215,7 +21607,7 @@ namespace  {
                 /**
              * Add a basic where clause to the query, and return the first result.
              *
-             * @param \Closure|string|array $column
+             * @param \Closure|string|array|\Illuminate\Database\Query\Expression $column
              * @param mixed $operator
              * @param mixed $value
              * @param string $boolean
@@ -21231,7 +21623,7 @@ namespace  {
                 /**
              * Add an "or where" clause to the query.
              *
-             * @param \Closure|array|string $column
+             * @param \Closure|array|string|\Illuminate\Database\Query\Expression $column
              * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -21246,7 +21638,7 @@ namespace  {
                 /**
              * Add an "order by" clause for a timestamp to the query.
              *
-             * @param string $column
+             * @param string|\Illuminate\Database\Query\Expression $column
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */ 
@@ -21259,7 +21651,7 @@ namespace  {
                 /**
              * Add an "order by" clause for a timestamp to the query.
              *
-             * @param string $column
+             * @param string|\Illuminate\Database\Query\Expression $column
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */ 
@@ -21426,7 +21818,7 @@ namespace  {
                 /**
              * Get a single column's value from the first result of a query.
              *
-             * @param string $column
+             * @param string|\Illuminate\Database\Query\Expression $column
              * @return mixed 
              * @static 
              */ 
@@ -21490,7 +21882,7 @@ namespace  {
                 /**
              * Get an array with the values of a given column.
              *
-             * @param string $column
+             * @param string|\Illuminate\Database\Query\Expression $column
              * @param string|null $key
              * @return \Illuminate\Support\Collection 
              * @static 
@@ -22711,6 +23103,22 @@ namespace  {
             }
              
                 /**
+             * Add a where between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @param string $boolean
+             * @param bool $not
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function whereBetweenColumns($column, $values, $boolean = 'and', $not = false)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereBetweenColumns($column, $values, $boolean, $not);
+            }
+             
+                /**
              * Add an or where between statement to the query.
              *
              * @param string $column
@@ -22722,6 +23130,20 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->orWhereBetween($column, $values);
+            }
+             
+                /**
+             * Add an or where between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function orWhereBetweenColumns($column, $values)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereBetweenColumns($column, $values);
             }
              
                 /**
@@ -22740,6 +23162,21 @@ namespace  {
             }
              
                 /**
+             * Add a where not between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function whereNotBetweenColumns($column, $values, $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereNotBetweenColumns($column, $values, $boolean);
+            }
+             
+                /**
              * Add an or where not between statement to the query.
              *
              * @param string $column
@@ -22751,6 +23188,20 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->orWhereNotBetween($column, $values);
+            }
+             
+                /**
+             * Add an or where not between statement using columns to the query.
+             *
+             * @param string $column
+             * @param array $values
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function orWhereNotBetweenColumns($column, $values)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereNotBetweenColumns($column, $values);
             }
              
                 /**
@@ -22950,7 +23401,7 @@ namespace  {
                 /**
              * Add another query builder as a nested where to the query builder.
              *
-             * @param $this $query
+             * @param \Illuminate\Database\Query\Builder $query
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -23050,7 +23501,7 @@ namespace  {
             }
              
                 /**
-             * Adds a or where condition using row values.
+             * Adds an or where condition using row values.
              *
              * @param array $columns
              * @param string $operator
@@ -23081,7 +23532,7 @@ namespace  {
             }
              
                 /**
-             * Add a "or where JSON contains" clause to the query.
+             * Add an "or where JSON contains" clause to the query.
              *
              * @param string $column
              * @param mixed $value
@@ -23110,7 +23561,7 @@ namespace  {
             }
              
                 /**
-             * Add a "or where JSON not contains" clause to the query.
+             * Add an "or where JSON not contains" clause to the query.
              *
              * @param string $column
              * @param mixed $value
@@ -23140,7 +23591,7 @@ namespace  {
             }
              
                 /**
-             * Add a "or where JSON length" clause to the query.
+             * Add an "or where JSON length" clause to the query.
              *
              * @param string $column
              * @param mixed $operator
@@ -23212,7 +23663,7 @@ namespace  {
             }
              
                 /**
-             * Add a "or having" clause to the query.
+             * Add an "or having" clause to the query.
              *
              * @param string $column
              * @param string|null $operator
@@ -23425,6 +23876,8 @@ namespace  {
                 /**
              * Remove all existing orders and optionally add a new order.
              *
+             * @param string|null $column
+             * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */ 
