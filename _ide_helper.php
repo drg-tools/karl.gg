@@ -19539,30 +19539,6 @@
      
 }
 
-    namespace ConsoleTVs\Profanity\Facades { 
-            /**
-     * This is the profanity facade class.
-     *
-     * @author Erik Campobadal <soc@erik.cat>
-     */ 
-        class Profanity {
-                    /**
-         * Return a new chart instance.
-         *
-         * @param string $type
-         * @param string $library
-         * @return \ConsoleTVs\Profanity\Classes\Blocker 
-         * @static 
-         */ 
-        public static function blocker($text, $blocker = '****')
-        {
-                        return \ConsoleTVs\Profanity\Builder::blocker($text, $blocker);
-        }
-         
-    }
-     
-}
-
     namespace Facade\Ignition\Facades { 
             /**
      * Class Flare.
@@ -24465,7 +24441,6 @@ namespace  {
             class CRUD extends \Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade {}
             class Widget extends \Backpack\CRUD\app\Library\Widget {}
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
-            class Profanity extends \ConsoleTVs\Profanity\Facades\Profanity {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Form extends \Collective\Html\FormFacade {}
             class Html extends \Collective\Html\HtmlFacade {}

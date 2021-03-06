@@ -4,8 +4,60 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab937e54fdaf448e17b1b09fd737a259",
+    "content-hash": "3e6ba22c8aafb082e48231585990df5e",
     "packages": [
+        {
+            "name": "arandilopez/laravel-profane",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arandilopez/laravel-profane.git",
+                "reference": "71ec6a88764a2f355ba2135d3475fb8d3d5754a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arandilopez/laravel-profane/zipball/71ec6a88764a2f355ba2135d3475fb8d3d5754a2",
+                "reference": "71ec6a88764a2f355ba2135d3475fb8d3d5754a2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.2|^6.0|^7.0|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "phpunit/phpunit": "^8.0|^8.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelProfane\\ProfaneServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelProfane\\": "src/",
+                    "LaravelProfaneTests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arandi Lopez",
+                    "email": "arandilopez.93@gmail.com"
+                }
+            ],
+            "description": "Laravel Profanity Valitador",
+            "support": {
+                "issues": "https://github.com/arandilopez/laravel-profane/issues",
+                "source": "https://github.com/arandilopez/laravel-profane/tree/v0.5.0"
+            },
+            "time": "2021-01-11T05:09:35+00:00"
+        },
         {
             "name": "artesaos/seotools",
             "version": "v0.19.1",
@@ -771,56 +823,6 @@
                 }
             ],
             "time": "2020-09-10T14:20:26+00:00"
-        },
-        {
-            "name": "consoletvs/profanity",
-            "version": "3.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ConsoleTVs/Profanity.git",
-                "reference": "908bc15401aeb271ac19cf4eae2705a524972dfc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ConsoleTVs/Profanity/zipball/908bc15401aeb271ac19cf4eae2705a524972dfc",
-                "reference": "908bc15401aeb271ac19cf4eae2705a524972dfc",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*|8.*"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ConsoleTVs\\Profanity\\ProfanityServiceProvider"
-                    ],
-                    "aliases": {
-                        "Profanity": "ConsoleTVs\\Profanity\\Facades\\Profanity"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ConsoleTVs\\Profanity\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Erik Campobadal",
-                    "email": "ConsoleTVs@gmail.com"
-                }
-            ],
-            "description": "PHP library to block bad words in a string",
-            "support": {
-                "issues": "https://github.com/ConsoleTVs/Profanity/issues",
-                "source": "https://github.com/ConsoleTVs/Profanity/tree/3.0.2"
-            },
-            "time": "2020-11-20T05:01:29+00:00"
         },
         {
             "name": "creativeorange/gravatar",
