@@ -5,6 +5,7 @@ module.exports = {
     purge: [
         './resources/views/**/*.blade.php',
         './resources/scss/**/*.scss',
+        './resources/js/**/*.js',
     ],
     theme: {
         extend: {}
