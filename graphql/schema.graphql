@@ -14,7 +14,7 @@ type Query {
     #    user(id: ID @eq): User @find
     characters: [Character!]! @paginate(defaultCount: 10)
     character(id: ID @eq): Character @find
-    loadouts: [Loadout!]! @all # @paginate(defaultCount: 10) TODO: Paginate this in the backend
+    loadouts: [Loadout!]! @paginate(defaultCount: 10)
     loadout(id: ID @eq): Loadout @find
     guns: [Gun!]! @paginate(defaultCount: 10)
     gun(id: ID @eq): Gun @find
