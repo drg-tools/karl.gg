@@ -1,7 +1,4 @@
 module.exports = {
-    future: {
-        removeDeprecatedGapUtilities: true,
-    },
     purge: [
         './resources/views/**/*.blade.php',
         './resources/scss/**/*.scss',

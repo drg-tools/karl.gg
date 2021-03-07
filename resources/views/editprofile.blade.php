@@ -11,7 +11,7 @@
                         </div>
 
                         <form class="w-full p-6" method="POST" action="{{ route('user.profile.update', $user->id) }}">
-                            @csrf      
+                            @csrf
                             <div class="flex flex-wrap mb-6">
                                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
                                     {{ __('Name') }}:
@@ -19,7 +19,7 @@
 
                                 <input id="name" type="text" class="form-input w-full" name="name" value="{{ $user->name }}" required>
 
-                            </div>                        
+                            </div>
                             <div class="flex flex-wrap mb-6">
                                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
                                     {{ __('E-Mail Address') }}:
@@ -41,7 +41,7 @@
                                         {{ $message }}
                                     </p>
                                 @enderror
-                            </div> 
+                            </div>
                             <div class="flex flex-wrap mb-6">
                                 <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">
                                     {{ __('Password Confirmation') }}:
@@ -54,18 +54,18 @@
                                         {{ $message }}
                                     </p>
                                 @enderror
-                            </div> 
+                            </div>
 
 
                             <div class="flex flex-wrap items-center">
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:ring">
                                     {{ __('Update Profile') }}
                                 </button>
 
-                            </div> 
+                            </div>
                         </form>
                     @endauth
-                    
+
                 </div>
             </div>
         </div>
