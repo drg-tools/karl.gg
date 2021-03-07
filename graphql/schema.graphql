@@ -12,21 +12,21 @@ scalar JSON
 type Query {
     #    users: [User!]! @paginate(defaultCount: 10)
     #    user(id: ID @eq): User @find
-    characters: [Character!]! @paginate(defaultCount: 10)
+    characters: [Character!]! @paginate(defaultCount: 10) @guard
     character(id: ID @eq): Character @find
-    loadouts: [Loadout!]! @paginate(defaultCount: 10)
+    loadouts: [Loadout!]! @paginate(defaultCount: 10) @guard
     loadout(id: ID @eq): Loadout @find
-    guns: [Gun!]! @paginate(defaultCount: 10)
+    guns: [Gun!]! @paginate(defaultCount: 10) @guard
     gun(id: ID @eq): Gun @find
-    equipments: [Equipment!]! @paginate(defaultCount: 20)
+    equipments: [Equipment!]! @paginate(defaultCount: 20) @guard
     equipment(id: ID @eq): Equipment @find
-    overclocks: [Overclock!]! @paginate(defaultCount: 10)
+    overclocks: [Overclock!]! @paginate(defaultCount: 10) @guard
     ocerclock(id: ID @eq): Overclock @find
-    equipment_mods: [EquipmentMod!]! @paginate(defaultCount: 10)
+    equipment_mods: [EquipmentMod!]! @paginate(defaultCount: 10) @guard
     equipment_mod(id: ID @eq): EquipmentMod @find
-    throwables: [Throwable!]! @paginate(defaultCount: 10)
+    throwables: [Throwable!]! @paginate(defaultCount: 10) @guard
     throwable(id: ID @eq): Throwable @find
-    mods: [Mod!]! @paginate(defaultCount: 10)
+    mods: [Mod!]! @paginate(defaultCount: 10) @guard
     mod(id: ID @eq): Mod @find
     me: User @auth
     getVoteStatus(id: Int! @eq): Int!

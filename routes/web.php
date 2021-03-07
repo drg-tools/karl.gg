@@ -22,7 +22,7 @@ Route::middleware(['auth'])->group(function () {
         ->where('id', '[0-9]+');
 });
 
-Route::middleware(['role:super-admin'])->group(function () {
+Route::middleware(['can:access-api'])->group(function () {
     Route::get('settings/tokens', 'SettingsController@tokens')->name('settings.tokens');
 });
 
