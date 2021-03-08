@@ -46,8 +46,8 @@ type Mutation {
 
     updateLoadout(
         id: Int!
-        name: String! @rules(apply: ["profane"])
-        description: String @rules(apply: ["profane"])
+        name: String! @rules(apply: ["strictly_profane"])
+        description: String @rules(apply: ["strictly_profane"])
         character_id: Int!
         mods: [Int!]!
         overclocks: [Int!]!
