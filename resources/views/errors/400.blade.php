@@ -13,7 +13,7 @@
 @section('after_styles')
     <style>
         body {
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -50%, rgba(255, 255, 255, 0) 50%), url("../assets/img/400.png");
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -50%, rgba(255, 255, 255, 0) 50%), url("/assets/img/400.png");
             background-color: #352e1e;
             background-blend-mode: overlay;
             background-repeat: no-repeat;

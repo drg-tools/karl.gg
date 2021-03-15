@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "@ivanv/vue-collapse-transition": "^0.2.1",
+        "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.4.0",
         "@toast-ui/vue-editor": "^2.5.1",
         "apollo-boost": "^0.4.9",
