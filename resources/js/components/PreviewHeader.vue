@@ -1,6 +1,6 @@
 <template>
     <div v-if="!dataReady" class="loadingIndicator">
-        <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
+        <img src="/assets/img/karl-spinner-free.gif" alt="loading...">
     </div>
     <div v-else-if="dataReady" class="previewHeaderBackground">
         <div class="previewHeaderContainer" :class="getHeaderImageClass">
@@ -12,7 +12,7 @@
                 <!-- todo: tooltip on salutes container! -->
                 <div v-on:click="onToggleVote" class="salutes-container">
                     <h3>Salutes</h3>
-                    <img src="../assets/img/bosco.png" :class="getUserVotedState" class="bosco-salute"/>
+                    <img src="/assets/img/bosco.png" :class="getUserVotedState" class="bosco-salute"/>
                     <span class="salute-count">{{ loadoutDetails.votes }}</span>
                 </div>
                 <div class="buttonContainer">
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- todo: style modals nicely -->
         <modal name="upvoteMessageModal" class="loadoutModal" :adaptive="true" :height="250">
             <div class="contentContainer">
@@ -45,14 +45,14 @@
             </div>
         </modal>
     </div>
-    
+
 </template>
 
 <script>
     import store from '../store';
     import gql from 'graphql-tag';
     import {get} from 'lodash';
-    
+
 
     export default {
         name: 'PreviewHeader',
@@ -165,28 +165,28 @@
     }
 
     .imageD {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-D_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-D_image.png");
         background-repeat: no-repeat;
         background-size: 45%;
         background-position: right -10% top -10%;
     }
 
     .imageE {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-E_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-E_image.png");
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: right -5% top -10%;
     }
 
     .imageG {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-G_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-G_image.png");
         background-repeat: no-repeat;
         background-size: 45%;
         background-position: right -10% top -10%;
     }
 
     .imageS {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("../assets/img/full-S_image.png");
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-S_image.png");
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: right -5% top -10%;

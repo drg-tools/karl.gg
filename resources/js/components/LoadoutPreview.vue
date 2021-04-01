@@ -33,11 +33,9 @@
         </div>
         <div class="guideAccordion">
             <h1 @click="guideIsOpen = !guideIsOpen">Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
-            <collapse-transition>
-                <div v-show="guideIsOpen">
-                    <viewer :initialValue="loadoutDetails.description" />
-                </div>
-            </collapse-transition>
+            <div v-show="guideIsOpen">
+                <viewer :initialValue="loadoutDetails.description" />
+            </div>
         </div>
 
     </div>
@@ -50,14 +48,12 @@
     import EquipmentCard from './EquipmentCard.vue';
     import '@toast-ui/editor/dist/toastui-editor-viewer.css';
     import { Viewer } from '@toast-ui/vue-editor';
-    import { CollapseTransition } from "@ivanv/vue-collapse-transition"
 
     export default {
         name: 'LoadoutPreview',
         components: {
             EquipmentCard,
             viewer: Viewer,
-            CollapseTransition,
         },
         data() {
             return {
@@ -146,7 +142,7 @@
 
                 // Add the OC value on the end
                 buildString[5] = ocString;
-                
+
                 // Return a string from our array we have been working with
                 // Pass this to our equipmentCard
                 return buildString.join('');

@@ -88,7 +88,7 @@
         components: {},
         computed: {
             getIconFromPath: function () {
-                return `../assets/img/50px-${this.classId}_icon.png`;
+                return `/assets/img/50px-${this.classId}_icon.png`;
             },
             getPrimaryIcon: function () {
                 return store.state.icons.equipment[this.primary];
@@ -234,7 +234,7 @@
     .myLoadoutsContainer {
         display: flex;
         flex-wrap: wrap;
-        align-content: start;
+        align-content: flex-start;
         padding-bottom: 0.5rem;
         width: 60%;
         justify-content: space-between;

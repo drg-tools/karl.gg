@@ -1,7 +1,4 @@
 module.exports = {
-    future: {
-        removeDeprecatedGapUtilities: true,
-    },
     purge: [
         './resources/views/**/*.blade.php',
         './resources/scss/**/*.scss',
@@ -13,7 +10,7 @@ module.exports = {
     },
     variants: {},
     plugins: [
-        require('@tailwindcss/ui'),
         require('@tailwindcss/typography'),
+        require('@tailwindcss/forms'),
     ]
 }

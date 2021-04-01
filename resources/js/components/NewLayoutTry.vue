@@ -24,7 +24,7 @@
         data() {
             return {
                 showSection: true, // Flag to show section
-                imageUrl: '"../assets/img/full-D_image.png"',
+                imageUrl: '"/assets/img/full-D_image.png"',
                 toggleIcon: '+'
             };
         }

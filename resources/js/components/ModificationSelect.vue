@@ -178,31 +178,31 @@
                     <p class="allCaps modificationName">{{ hoveredMod.mod_name || hoveredMod.overclock_name }}</p>
                     <p class="costList">
 						<span class="costListItem" v-if="hoveredMod.cost.credits > 0">
-							<img src="../assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
+							<img src="/assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
 							<span>{{ hoveredMod.cost.credits }}</span>
 						</span>
                         <span class="costListItem" v-if="hoveredMod.cost.bismor > 0">
-							<img src="../assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
+							<img src="/assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
 							<span>{{ hoveredMod.cost.bismor }}</span>
 						</span>
                         <span class="costListItem" v-if="hoveredMod.cost.croppa > 0">
-							<img src="../assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
+							<img src="/assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
 							<span>{{ hoveredMod.cost.croppa }}</span>
 						</span>
                         <span class="costListItem" v-if="hoveredMod.cost.enorPearl > 0">
-							<img src="../assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
+							<img src="/assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
 							<span>{{ hoveredMod.cost.enorPearl }}</span>
 						</span>
                         <span class="costListItem" v-if="hoveredMod.cost.jadiz > 0">
-							<img src="../assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
+							<img src="/assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
 							<span>{{ hoveredMod.cost.jadiz }}</span>
 						</span>
                         <span class="costListItem" v-if="hoveredMod.cost.magnite > 0">
-							<img src="../assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
+							<img src="/assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
 							<span>{{ hoveredMod.cost.magnite }}</span>
 						</span>
                         <span class="costListItem" v-if="hoveredMod.cost.umanite > 0">
-							<img src="../assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
+							<img src="/assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
 							<span>{{ hoveredMod.cost.umanite }}</span>
 						</span>
                     </p>
@@ -402,7 +402,7 @@
         display: flex;
         /*padding-top: 0.5rem;
 		padding-bottom: 0.5rem;*/
-        justify-content: start;
+        justify-content: flex-start;
         align-items: center;
         color: #282117;
     }
@@ -411,7 +411,7 @@
         display: flex;
         /*padding-top: 0.5rem;
 		padding-bottom: 0.5rem;*/
-        justify-content: start;
+        justify-content: flex-start;
         align-items: center;
         color: #282117;
     }
