@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
 use App\Loadout;
 use App\Post;
 use Illuminate\Support\Carbon;
