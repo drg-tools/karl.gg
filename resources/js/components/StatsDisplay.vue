@@ -65,31 +65,31 @@
             <h2 v-if="calcStats.visible">Total Costs:</h2>
             <p class="costList">
 				<span class="costListItem" v-if="calcStats.cost.credits > 0">
-					<img src="../assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
+					<img src="/assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
 					<span>{{ calcStats.cost.credits }}</span>
 				</span>
                 <span class="costListItem" v-if="calcStats.cost.bismor > 0">
-					<img src="../assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
+					<img src="/assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
 					<span>{{ calcStats.cost.bismor }}</span>
 				</span>
                 <span class="costListItem" v-if="calcStats.cost.croppa > 0">
-					<img src="../assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
+					<img src="/assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
 					<span>{{ calcStats.cost.croppa }}</span>
 				</span>
                 <span class="costListItem" v-if="calcStats.cost.enorPearl > 0">
-					<img src="../assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
+					<img src="/assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
 					<span>{{ calcStats.cost.enorPearl }}</span>
 				</span>
                 <span class="costListItem" v-if="calcStats.cost.jadiz > 0">
-					<img src="../assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
+					<img src="/assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
 					<span>{{ calcStats.cost.jadiz }}</span>
 				</span>
                 <span class="costListItem" v-if="calcStats.cost.magnite > 0">
-					<img src="../assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
+					<img src="/assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
 					<span>{{ calcStats.cost.magnite }}</span>
 				</span>
                 <span class="costListItem" v-if="calcStats.cost.umanite > 0">
-					<img src="../assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
+					<img src="/assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
 					<span>{{ calcStats.cost.umanite }}</span>
 				</span>
             </p>
@@ -429,7 +429,7 @@
     .statsValueContainer {
         width: 45%;
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     .statsText {

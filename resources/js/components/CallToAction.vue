@@ -3,24 +3,24 @@
         <!-- todo: only download the images needed for resolution -->
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              viewBox="0 0 900 363" preserveAspectRatio="xMinYMin meet" class="wideHero">
-            <image width="900" height="363" xlink:href="../assets/img/home-base.png">
+            <image width="900" height="363" xlink:href="/assets/img/home-base.png">
             </image>
-            <image width="900" height="363" xlink:href="../assets/img/home-logo.png">
+            <image width="900" height="363" xlink:href="/assets/img/home-logo.png">
             </image>
             <image width="900" height="363" :class="[classHovered.D ? 'classVisible' : 'classInvisible']"
-                   xlink:href="../assets/img/home-driller_alpha.png">
+                   xlink:href="/assets/img/home-driller_alpha.png">
             </image>
             <image width="900" height="363" :class="[classHovered.E ? 'classVisible' : 'classInvisible']"
-                   xlink:href="../assets/img/home-engineer_alpha.png">
+                   xlink:href="/assets/img/home-engineer_alpha.png">
             </image>
             <image width="900" height="363" :class="[classHovered.G ? 'classVisible' : 'classInvisible']"
-                   xlink:href="../assets/img/home-gunner_alpha.png">
+                   xlink:href="/assets/img/home-gunner_alpha.png">
             </image>
             <image width="900" height="363" :class="[classHovered.S ? 'classVisible' : 'classInvisible']"
-                   xlink:href="../assets/img/home-scout_alpha.png">
+                   xlink:href="/assets/img/home-scout_alpha.png">
             </image>
             <image width="900" height="363" :class="[classHovered.R ? 'classVisible' : 'classInvisible']"
-                   xlink:href="../assets/img/home-dice_alpha.png">
+                   xlink:href="/assets/img/home-dice_alpha.png">
             </image>
             <a xlink:href="/build/D" class="hoverEffect" v-on:mouseover="showChar('D')" v-on:mouseout="hideChar('D')">
                 <!-- todo: use dwarf outline path instead of rects -->
@@ -42,15 +42,15 @@
         <!-- todo: mobile CTA -->
         <!--<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              viewBox="0 0 450 500" preserveAspectRatio="xMinYMin meet" class="highHero">
-            <image width="450" height="500" xlink:href="../assets/img/karl-hero-high.png">
+            <image width="450" height="500" xlink:href="/assets/img/karl-hero-high.png">
             </image>
-            <image width="450" height="500" :class="[classHovered.D ? 'classVisible' : 'classInvisible']" xlink:href="../assets/img/karl-hero-high_overlay-D.png">
+            <image width="450" height="500" :class="[classHovered.D ? 'classVisible' : 'classInvisible']" xlink:href="/assets/img/karl-hero-high_overlay-D.png">
             </image>
-            <image width="450" height="500" :class="[classHovered.E ? 'classVisible' : 'classInvisible']" xlink:href="../assets/img/karl-hero-high_overlay-E.png">
+            <image width="450" height="500" :class="[classHovered.E ? 'classVisible' : 'classInvisible']" xlink:href="/assets/img/karl-hero-high_overlay-E.png">
             </image>
-            <image width="450" height="500" :class="[classHovered.G ? 'classVisible' : 'classInvisible']" xlink:href="../assets/img/karl-hero-high_overlay-G.png">
+            <image width="450" height="500" :class="[classHovered.G ? 'classVisible' : 'classInvisible']" xlink:href="/assets/img/karl-hero-high_overlay-G.png">
             </image>
-            <image width="450" height="500" :class="[classHovered.S ? 'classVisible' : 'classInvisible']" xlink:href="../assets/img/karl-hero-high_overlay-S.png">
+            <image width="450" height="500" :class="[classHovered.S ? 'classVisible' : 'classInvisible']" xlink:href="/assets/img/karl-hero-high_overlay-S.png">
             </image>
             <a xlink:href="/build/D" class="hoverEffect" v-on:mouseover="showChar('D')" v-on:mouseout="hideChar('D')">
                 <rect x="125" y="340" fill-opacity="0" stroke-opacity="1" stroke-width="4" width="70" height="150"></rect>

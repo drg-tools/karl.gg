@@ -1,5 +1,7 @@
 <template>
     <div v-if="dataReady" class="equipmentCards">
+
+        <div class="equipmentSection">
         <EquipmentCard v-if="loadoutDetails.primaryWeapons[0]"
                        :classId="loadoutDetails.classId"
                        :equipmentId="loadoutDetails.primaryWeapons[0].id"
@@ -7,7 +9,8 @@
                        :icon="loadoutDetails.primaryWeapons[0].icon"
                        :overclock="loadoutDetails.primaryWeapons[0].overclocks[0]"
                        :modMatrix="loadoutDetails.primaryWeapons[0].modMatrix"
-                       :build="loadoutDetails.primaryWeapons[0].modString.join('')">
+                       :build="getBuildString(loadoutDetails.primaryWeapons[0].modString,loadoutDetails.primaryWeapons[0].overclocks[0])"
+                       :equipmentType="'primary'">
         </EquipmentCard>
         <EquipmentCard v-if="loadoutDetails.secondaryWeapons[0]"
                        :classId="loadoutDetails.classId"
@@ -16,7 +19,8 @@
                        :icon="loadoutDetails.secondaryWeapons[0].icon"
                        :overclock="loadoutDetails.secondaryWeapons[0].overclocks[0]"
                        :modMatrix="loadoutDetails.secondaryWeapons[0].modMatrix"
-                       :build="loadoutDetails.secondaryWeapons[0].modString.join('')">
+                       :build="getBuildString(loadoutDetails.secondaryWeapons[0].modString,loadoutDetails.secondaryWeapons[0].overclocks[0])"
+                       :equipmentType="'secondary'">
         </EquipmentCard>
         <EquipmentCard v-for="(equipment, equipmentId) in loadoutDetails.equipments" :key="equipmentId"
                        :classId="loadoutDetails.classId"
@@ -26,6 +30,14 @@
                        :modMatrix="equipment.modMatrix"
                        :build="equipment.modString.join('')">
         </EquipmentCard>
+        </div>
+        <div class="guideAccordion">
+            <h1 @click="guideIsOpen = !guideIsOpen">Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
+            <div v-show="guideIsOpen">
+                <viewer :initialValue="loadoutDetails.description" />
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -34,11 +46,19 @@
     import apolloQueries from '../apolloQueries';
     import gql from 'graphql-tag';
     import EquipmentCard from './EquipmentCard.vue';
+    import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+    import { Viewer } from '@toast-ui/vue-editor';
 
     export default {
         name: 'LoadoutPreview',
         components: {
-            EquipmentCard
+            EquipmentCard,
+            viewer: Viewer,
+        },
+        data() {
+            return {
+                guideIsOpen: false, // closed by default
+            }
         },
         computed: {
             dataReady() {
@@ -49,6 +69,7 @@
             }
         },
         methods: {
+
             async getLoadoutDetails(loadoutId) {
                 if (store.state.loadoutDetails.length > 0) {
                     return store.state.loadoutDetails;
@@ -97,8 +118,35 @@
                 });
                 let allBaseMods = await Promise.all([...baseModWeaponQueries, ...baseModEquipmentQueries]);
                 store.commit('setLoadoutDetailModMatrix', {baseMods: allBaseMods});
+
+
                 return store.state.loadoutDetails;
-            }
+            },
+            getBuildString(build,oc) {
+                // Empty array to hold our proper string
+                let buildString = [];
+                // Equivalent of null default value
+                let ocString = '-';
+                // Check if our OC object exists. Otherwise, return the dash
+                if(oc) {
+                    ocString = oc.overclock_index;
+                }
+                // Let's iterate 0 - 4 to add our mod tier values
+                for (let i = 0; i < 5; i++) {
+                    if(build[i] != null) {
+                        buildString[i] = build[i];
+                    } else {
+                        buildString[i] = '-';
+                    }
+                }
+
+                // Add the OC value on the end
+                buildString[5] = ocString;
+
+                // Return a string from our array we have been working with
+                // Pass this to our equipmentCard
+                return buildString.join('');
+            },
         },
         mounted: function () {
             // get loadout id from url
@@ -112,11 +160,11 @@
 </script>
 
 <style scoped>
-    .equipmentCards {
+    .equipmentSection {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-evenly;
-        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border-top: 5px solid #fc9e00;
@@ -124,6 +172,17 @@
         /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
     }
+    .guideAccordion {
+        width: 100%;
+        border-top: 5px solid #fc9e00;
+        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
+        /*background-color: #352e1e;*/
+        margin-bottom: 0.5rem;
+    }
+    .invertIcon {
+        transform: rotate(180deg);
+    }
+
 
     @media (max-width: 770px) {
         .equipmentCards {

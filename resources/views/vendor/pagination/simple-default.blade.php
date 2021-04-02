@@ -12,7 +12,7 @@
                 <li>
                     <a href="{{ $paginator->previousPageUrl() }}"
                        rel="prev"
-                       class="px-4 py-3 block focus:outline-none focus:shadow-outline"
+                       class="px-4 py-3 block focus:outline-none focus:ring"
                     >
                         @lang('pagination.previous')
                     </a>
@@ -24,7 +24,7 @@
                 <li>
                     <a href="{{ $paginator->nextPageUrl() }}"
                        rel="next"
-                       class="px-4 py-3 block focus:outline-none focus:shadow-outline"
+                       class="px-4 py-3 block focus:outline-none focus:ring"
                     >
                         @lang('pagination.next')
                     </a>

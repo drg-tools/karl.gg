@@ -1,6 +1,6 @@
 <template>
     <div v-if="!dataReady" class="loadingIndicator">
-        <img src="../assets/img/karl-spinner-free.gif" alt="loading...">
+        <img src="/assets/img/karl-spinner-free.gif" alt="loading...">
     </div>
     <div v-else-if="dataReady" class="featuredLoadoutsContainer">
         <h1>MY LOADOUTS</h1>

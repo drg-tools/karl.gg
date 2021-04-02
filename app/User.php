@@ -4,6 +4,7 @@ namespace App;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -57,10 +58,12 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $can_email
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanEmail($value)
  */
 class User extends Authenticatable
 {
-    use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanVote, CanRate, CanLike;
+    use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanVote, CanRate, CanLike, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

@@ -3,22 +3,22 @@
         <h1>Select class:</h1>
         <div v-on:click="selectClass('D')" class="classSelect"
              :class="[selectedClass === 'D' ? 'classSelectActive' : '']">
-            <img src="../assets/img/50px-D_icon-hex.png" class="classIcon"/>
+            <img src="/assets/img/50px-D_icon-hex.png" class="classIcon"/>
             <h2>Driller</h2>
         </div>
         <div v-on:click="selectClass('E')" class="classSelect"
              :class="[selectedClass === 'E' ? 'classSelectActive' : '']">
-            <img src="../assets/img/50px-E_icon-hex.png" class="classIcon"/>
+            <img src="/assets/img/50px-E_icon-hex.png" class="classIcon"/>
             <h2>Engineer</h2>
         </div>
         <div v-on:click="selectClass('G')" class="classSelect"
              :class="[selectedClass === 'G' ? 'classSelectActive' : '']">
-            <img src="../assets/img/50px-G_icon-hex.png" class="classIcon"/>
+            <img src="/assets/img/50px-G_icon-hex.png" class="classIcon"/>
             <h2>Gunner</h2>
         </div>
         <div v-on:click="selectClass('S')" class="classSelect"
              :class="[selectedClass === 'S' ? 'classSelectActive' : '']">
-            <img src="../assets/img/50px-S_icon-hex.png" class="classIcon"/>
+            <img src="/assets/img/50px-S_icon-hex.png" class="classIcon"/>
             <h2>Scout</h2>
         </div>
     </div>
