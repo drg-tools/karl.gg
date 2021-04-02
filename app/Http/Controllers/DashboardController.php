@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ->withCount('votes')
             ->with('character', 'creator', 'mods.gun')
             ->orderBy('votes_count', 'desc')
-            ->take(6)
+            ->take(5)
             ->get();
 
         return $recentTopLoadouts;
@@ -44,7 +44,7 @@ class DashboardController extends Controller
             ->withCount('votes')
             ->with('character', 'creator', 'mods.gun')
             ->latest()
-            ->take(6)
+            ->take(5)
             ->get();
 
         return $latestLoadouts;
