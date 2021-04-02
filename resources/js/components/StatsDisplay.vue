@@ -343,7 +343,6 @@
                         visible: visible
                     };
                 }
-                console.log("stats", stats);
                 return {
                     stats: stats,
                     cost: totalCost,
