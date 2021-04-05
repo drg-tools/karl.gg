@@ -6,19 +6,28 @@
     <h1 class="ml-1">Find Loadouts by Class:</h2>
     <div class="flex flex-row mb-5">
         <div class="flex flex-col w-full">
-            <div class="flex flex-row">
-                <a href="/browse?character=3" class="flex w-1/4 px-4 py-8 dashImageD dashD mx-1 align-middle text-2xl">
+            <div class="flex flex-row flex-wrap lg:flex-nowrap md:flex-nowrap">
+                <div class="flex flex-col w-full md:w-1/4">
+                    <a href="/browse?character=3" class="px-4 py-8 dashImageD dashD mx-1 align-middle text-2xl">
                         Driller
-                </a>
-                <a href="/browse?character=1" class="flex w-1/4 px-4 py-8 dashImageE dashE mx-1 align-middle text-2xl">
-                    Engineer
-                </a>
-                <a href="/browse?character=4" class="flex w-1/4 px-4 py-8 dashImageG dashG mx-1 align-middle text-2xl">
-                    Gunner
-                </a>
-                <a href="/browse?character=2" class="flex w-1/4 px-4 py-8 dashImageS dashS mx-1 align-middle text-2xl">
-                    Scout
-                </a>
+                    </a>
+                </div>
+                <div class="flex flex-col w-full md:w-1/4">
+                    <a href="/browse?character=1" class="px-4 py-8 dashImageE dashE mx-1 align-middle text-2xl">
+                        Engineer
+                    </a>
+                </div>
+                <div class="flex flex-col w-full md:w-1/4">
+                    <a href="/browse?character=4" class="px-4 py-8 dashImageG dashG mx-1 align-middle text-2xl">
+                        Gunner
+                    </a>
+                </div>
+                <div class="flex flex-col w-full md:w-1/4">
+                    <a href="/browse?character=2" class="px-4 py-8 dashImageS dashS mx-1 align-middle text-2xl">
+                        Scout
+                    </a>
+                </div>
+                
             </div>
         </div>
         
@@ -26,11 +35,11 @@
     </div>
     
     <div class="featuredLoadoutsContainer">
-        <div class="flex flex-row">
-            <div class="flex flex-col w-1/2">
+        <div class="flex flex-row flex-wrap">
+            <div class="flex flex-col w-full md:w-1/2">
                 <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top Loadouts in Past 2 Weeks" />
             </div>
-            <div class="flex flex-col w-1/2">
+            <div class="flex flex-col w-full md:w-1/2">
                 <x-dashboard-listing :loadoutList="$latestLoadouts" title='Newest Loadouts' />
             </div>
         </div>

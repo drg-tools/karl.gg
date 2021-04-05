@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
 use App\Loadout;
 use App\Post;
 use Illuminate\Support\Carbon;
@@ -25,24 +24,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    private function getTopLoadoutsAllTime()
-    {
-        $loadouts = collect();
-        $characterIds = Character::pluck('id')->sortBy('id');
-
-        foreach ($characterIds as $characterId) {
-            $characterLoadouts = Loadout::where('character_id', $characterId)
-                ->withCount('votes')
-                ->with('character', 'creator', 'mods.gun')
-                ->orderBy('votes_count', 'desc')
-                ->take(3)
-                ->get();
-            $loadouts->push($characterLoadouts);
-        }
-
-        return $loadouts;
-    }
-
     private function getRecentTopLoadouts()
     {
         // TODO: Extract to helper / model function
@@ -50,7 +31,7 @@ class DashboardController extends Controller
             ->withCount('votes')
             ->with('character', 'creator', 'mods.gun')
             ->orderBy('votes_count', 'desc')
-            ->take(3)
+            ->take(5)
             ->get();
 
         return $recentTopLoadouts;
@@ -62,7 +43,7 @@ class DashboardController extends Controller
             ->withCount('votes')
             ->with('character', 'creator', 'mods.gun')
             ->latest()
-            ->take(3)
+            ->take(5)
             ->get();
 
         return $latestLoadouts;
