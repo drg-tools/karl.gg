@@ -9,16 +9,10 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
     theme: {
-        colors: {
-            transparent: 'transparent',
-            current: 'currentColor',
-            black: colors.black,
-            white: colors.white,
-            orange: colors.orange,
-            gray: colors.coolGray,
-            red: colors.red,
-            yellow: colors.amber,
-            blue: colors.blue
+        extend: {
+            colors: {
+                orange: colors.orange
+            }
         }
     },
     variants: {},
