@@ -3,7 +3,16 @@
 @section('body_class', 'body__home')
 
 @section('content')
-    <h1 class="ml-1">Find Loadouts by Class:</h2>
+    <div class="font-sans bg-orange-100 border-t-4 border-orange-500 rounded-b text-black px-4 py-3 shadow-md mb-2" role="alert">
+        <div class="flex">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-orange-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+            <div>
+                <p class="font-bold">Patch 34 Notice</p>
+                <p class="text-sm">Patch 34 is due out Thursday, April 22nd. During this time, we will be updating all of our weapon and mod data to match the new in game values. This very well could take a day or two, so please bare with us. Thanks!</p>
+            </div>
+        </div>
+    </div>
+    <h2 class="ml-1">Find Loadouts by Class:</h2>
     <div class="flex flex-row mb-5">
         <div class="flex flex-col w-full">
             <div class="flex flex-row flex-wrap lg:flex-nowrap md:flex-nowrap">
@@ -27,13 +36,13 @@
                         Scout
                     </a>
                 </div>
-                
+
             </div>
         </div>
-        
-        
+
+
     </div>
-    
+
     <div class="featuredLoadoutsContainer">
         <div class="flex flex-row flex-wrap">
             <div class="flex flex-col w-full md:w-1/2">
