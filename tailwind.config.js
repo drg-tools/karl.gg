@@ -10,7 +10,15 @@ module.exports = {
     ],
     theme: {
         colors: {
-            orange: colors.orange
+            transparent: 'transparent',
+            current: 'currentColor',
+            black: colors.black,
+            white: colors.white,
+            orange: colors.orange,
+            gray: colors.coolGray,
+            red: colors.red,
+            yellow: colors.amber,
+            blue: colors.blue
         }
     },
     variants: {},
