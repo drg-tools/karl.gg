@@ -99,6 +99,8 @@ class BuildMetric extends Model
     use CrudTrait;
     protected $guarded = ['id'];
 
+    public $timestamps = false;
+
     public function gun()
     {
         return $this->belongsTo(Gun::class, 'gun_id');
