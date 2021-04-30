@@ -6,7 +6,7 @@
 
 @section('content')
     <h2 class="text-gray-300">Find Loadouts by Class</h2>
-    <div class="my-5">
+    <div class="mb-5">
         <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
             <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-driller text-center">
                 Driller
