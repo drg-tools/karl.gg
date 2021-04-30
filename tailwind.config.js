@@ -11,7 +11,11 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                orange: colors.orange
+                orange: colors.orange,
+                driller: '#FDFA00',
+                gunner: '#407734',
+                engineer: '#FD1400',
+                scout: '#2566FD'
             }
         }
     },
