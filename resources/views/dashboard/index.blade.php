@@ -21,15 +21,14 @@
                 Engineer
             </a>
         </div>
-
-
     </div>
-        <div class="my-2">
-            <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
-                <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top Loadouts in Past 2 Weeks"/>
-                <x-dashboard-listing :loadoutList="$latestLoadouts" title='Newest Loadouts'/>
-            </div>
+
+    <div class="my-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
+            <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top Loadouts in Past 2 Weeks"/>
+            <x-dashboard-listing :loadoutList="$latestLoadouts" title='Newest Loadouts'/>
         </div>
+    </div>
 
     <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
         @foreach ($latestPosts as $post)
