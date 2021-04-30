@@ -14,7 +14,7 @@ module.exports = {
         options: {
             safelist: [/-driller/, /-gunner/, /-engineer/, /-scout/],
         },
-    }
+    },
     theme: {
         extend: {
             colors: {
