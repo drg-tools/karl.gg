@@ -39,6 +39,8 @@ npm run watch
 php artisan migrate --seed
 ```
 
+_Note: If you want the advanced weapon stats, you will need to import a raw sql file by exporting for our standalone [weapons calculator](https://github.com/drg-tools/drg-weapons-calculator)._
+
 - Install passport keys (run once)
 
 ```bash

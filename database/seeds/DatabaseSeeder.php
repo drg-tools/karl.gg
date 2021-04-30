@@ -23,6 +23,5 @@ class DatabaseSeeder extends Seeder
         $this->call(PatchSeeder::class);
         $this->call(LoadoutSeeder::class);
         $this->call(PostSeeder::class);
-        $this->call(BuildMetricSeederTableSeeder::class);
     }
 }
