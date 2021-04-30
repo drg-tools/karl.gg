@@ -8,10 +8,14 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <x-nav-link :active="true" title="Dashboard"/>
-                        <x-nav-link title="Browse"/>
-                        <x-nav-link title="Build"/>
-                        <x-nav-link title="Blog"/>
+                        <x-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
+                        <x-nav-link :active="\Request::is('browse')" link="/browse" title="Browse"/>
+                        <x-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
+                        <x-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
+
+                        @hasrole('super-admin')
+                        <x-nav-link link="/admin" title="Admin"/>
+                        @endhasrole
                     </div>
                 </div>
             </div>
@@ -119,10 +123,15 @@
         style="display:none;"
         class="md:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <x-mobile-nav-link :active="true" title="Dashboard"/>
-            <x-mobile-nav-link title="Browse"/>
-            <x-mobile-nav-link title="Build"/>
-            <x-mobile-nav-link title="Blog"/>
+            <x-mobile-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
+            <x-mobile-nav-link :active="\Request::is('browse')" link="/browse" title="Browse"/>
+            <x-mobile-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
+            <x-mobile-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
+
+            @hasrole('super-admin')
+            <x-mobile-nav-link link="/admin" title="Admin"/>
+            @endhasrole
+
         </div>
 
         <div class="pt-4 pb-3 border-t border-gray-700">
@@ -155,9 +164,19 @@
                     <x-mobile-nav-link link="/login" title="Login"/>
                 @endguest
                 @auth
-                    <x-mobile-nav-link link="/login" title="Your Profile" class="text-gray-400"/>
-                    <x-mobile-nav-link link="/login" title="Settings" class="text-gray-400"/>
-                    <x-mobile-nav-link link="/login" title="Sign Out" class="text-gray-400"/>
+                    <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" class="text-gray-400"/>
+                    <x-mobile-nav-link :link="route('settings.tokens')" title="Settings" class="text-gray-400"/>
+
+                    <a class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                       href="{{ route('logout') }}" role="menuitem"
+                       onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                        {{ __('Sign out') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                          style="display: none;">
+                        @csrf
+                    </form>
                 @endauth
             </div>
         </div>
