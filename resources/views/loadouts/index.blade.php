@@ -1,14 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.app-v2')
+
+@section('header')
+    Browse for Loadouts
+@endsection
 
 @section('content')
 
     <div id="browse">
-        <div class="classFilterContainer flex items-center py-2 flex-wrap">
+        <div class="flex items-center py-2 flex-wrap text-gray-300">
             <span class="mr-4 font-bold">Filter by class:</span>
             <div class="flex justify-evenly flex-auto flex-wrap">
                 @foreach($characters as $character)
                     <div class="text-center w-1/2 lg:w-1/4">
-                        <a class="classFilter items-center flex {{ \Request::get('character') == $character->id ? 'classFilterActive' : null}}"
+                        <a class="items-center flex {{ \Request::get('character') == $character->id ? 'classFilterActive' : null}}"
                            @if(\Request::get('character') == $character->id)
                            href="{{ route('loadout.index') }}"
                            @else
@@ -16,7 +20,7 @@
                             @endif
                         >
                             <img src="/assets/img/{{ $character->image }}-hex.png"
-                                 class="classIcon"
+                                 class=""
                                  alt="{{ $character->name }} icon"
                             />
                             <span class="align-middle">{{ $character->name }}</span>
@@ -28,56 +32,25 @@
 
         <div class="searchContainer">
             <form action="{{ route('loadout.index') }}" method="GET">
-                <span><i class="fas fa-search"></i></span>
                 @foreach(\Request::all() as $key => $val)
                     <input type="hidden" name="{{ $key }}" value="{{ $val }}">
                 @endforeach
-                <input type="search" value="{{ \Request::get('search') }}" name="search" placeholder="Search Loadouts">
+                <div>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <!-- Heroicon name: solid/mail -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <input type="search" value="{{ \Request::get('search') }}" name="search" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search Loadouts">
+                    </div>
+                </div>
             </form>
         </div>
 
-        <div class="w-full relative overflow-x-auto">
-            <table class="table w-full table-auto">
-                <thead>
-                <tr>
-                    <th>@sortablelink('character_id', 'Class')</th>
-                    <th>@sortablelink('name')</th>
-                    <th>@sortablelink('creator.name', 'Author')</th>
-                    <th>@sortablelink('patch.launched_at', 'Patch')</th>
-                    <th>Primary</th>
-                    <th>Secondary</th>
-                    <th>@sortablelink('votes_count', 'Salutes')</th>
-                    <th>@sortablelink('updated_at', 'Last Update')</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($loadouts as $loadout)
-                    <tr onclick="window.open('{{ route('preview.show', $loadout->id) }}','_blank')">
-                        <td><img src="/assets/img/{{ $loadout->character->image }}-hex.png" alt="{{ $loadout->character->name }} icon"></td>
-                        <td class="text-xl">{{ Str::limit($loadout->name, 50) }}</td>
-                        <td class="text-xl">{{ $loadout->creator->name ?? 'Anonymous' }}</td>
-                        <td class="text-xl">{{ $loadout->patch->patch_num ?? '' }}</td>
-                        <td class="weapon">
-                            @if($loadout->primaryGun)
-                                <img src="/assets/{{ $loadout->primaryGun->image }}.svg" alt="{{ $loadout->primaryGun->name }} icon">
-                            @endif
-                        </td>
-                        <td class="weapon">
-                            @if($loadout->secondaryGun)
-                                <img src="/assets/{{ $loadout->secondaryGun->image }}.svg" alt="{{ $loadout->secondaryGun->name }} icon">
-                            @endif
-                        </td>
-                        <td class="text-right">{{ $loadout->votes_count }}</td>
-                        <td class="text-sm">{{ $loadout->updated_at->diffForHumans() }}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
+        @include('loadouts.partials.table-v2', ['loadouts' => $loadouts])
 
-        <div class="mt-2 mb-2 text-lg">
-            {{ $loadouts->withQueryString()->render() }}
-        </div>
     </div>
 
 @endsection
