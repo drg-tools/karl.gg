@@ -17,6 +17,9 @@
             </div>
             <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">
+                    @guest
+                    <x-nav-link link="/login" title="Login"/>
+                    @endguest
 {{--                    <button--}}
 {{--                        class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">--}}
 {{--                        <span class="sr-only">View notifications</span>--}}
@@ -29,6 +32,7 @@
 {{--                    </button>--}}
 
                     <!-- Profile dropdown -->
+                    @auth
                     <div class="ml-3 relative">
                         <div @click="profileOpen = true">
                             <button type="button"
@@ -36,8 +40,8 @@
                                     id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="sr-only">Open user menu</span>
                                 <img class="h-8 w-8 rounded-full"
-                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=wjFP9aOMOa&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                     alt="">
+                                     src="{{ \Gravatar::get(auth()->user()->email) }}"
+                                     alt="{{ auth()->user()->email }}">
                             </button>
                         </div>
 
@@ -67,7 +71,9 @@
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                                id="user-menu-item-2">Sign out</a>
                         </div>
+
                     </div>
+                    @endauth
                 </div>
             </div>
             <div class="-mr-2 flex md:hidden">
@@ -118,16 +124,18 @@
             <x-mobile-nav-link title="Build"/>
             <x-mobile-nav-link title="Blog"/>
         </div>
+
         <div class="pt-4 pb-3 border-t border-gray-700">
+            @auth
             <div class="flex items-center px-5">
                 <div class="flex-shrink-0">
                     <img class="h-10 w-10 rounded-full"
-                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=wjFP9aOMOa&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                         alt="">
+                         src="{{ \Gravatar::get(auth()->user()->email) }}"
+                         alt="{{ auth()->user()->email }}">
                 </div>
                 <div class="ml-3">
-                    <div class="text-base font-medium text-white">Tom Cook</div>
-                    <div class="text-sm font-medium text-gray-400">tom@example.com</div>
+                    <div class="text-base font-medium text-white">{{ auth()->user()->name }}</div>
+                    <div class="text-sm font-medium text-gray-400">{{ auth()->user()->email }}</div>
                 </div>
 {{--                <button--}}
 {{--                    class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">--}}
@@ -140,17 +148,17 @@
 {{--                    </svg>--}}
 {{--                </button>--}}
             </div>
+            @endauth
+
             <div class="mt-3 px-2 space-y-1">
-                <a href="#"
-                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your
-                    Profile</a>
-
-                <a href="#"
-                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
-
-                <a href="#"
-                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign
-                    out</a>
+                @guest
+                    <x-mobile-nav-link link="/login" title="Login"/>
+                @endguest
+                @auth
+                    <x-mobile-nav-link link="/login" title="Your Profile" class="text-gray-400"/>
+                    <x-mobile-nav-link link="/login" title="Settings" class="text-gray-400"/>
+                    <x-mobile-nav-link link="/login" title="Sign Out" class="text-gray-400"/>
+                @endauth
             </div>
         </div>
     </div>
