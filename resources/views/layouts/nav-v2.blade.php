@@ -64,16 +64,24 @@
                             @click.away="profileOpen = false"
                             style="display:none;"
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                               id="user-menu-item-0">Your Profile</a>
+                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
+                        >
+                            <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" />
 
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                               id="user-menu-item-1">Settings</a>
+                            @can('access-api')
+                            <x-nav-dropdown-link :link="route('settings.tokens')" title="Settings" />
+                            @endcan
 
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                               id="user-menu-item-2">Sign out</a>
+                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+                               href="{{ route('logout') }}" role="menuitem"
+                               onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                {{ __('Sign out') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                  style="display: none;">
+                                @csrf
+                            </form>
                         </div>
 
                     </div>
@@ -164,8 +172,11 @@
                     <x-mobile-nav-link link="/login" title="Login"/>
                 @endguest
                 @auth
-                    <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" class="text-gray-400"/>
-                    <x-mobile-nav-link :link="route('settings.tokens')" title="Settings" class="text-gray-400"/>
+                    <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" />
+
+                    @can('access-api')
+                    <x-mobile-nav-link :link="route('settings.tokens')" title="Settings" />
+                    @endcan
 
                     <a class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                        href="{{ route('logout') }}" role="menuitem"
