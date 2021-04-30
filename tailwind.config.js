@@ -2,12 +2,19 @@ const colors = require('tailwindcss/colors')
 
 
 module.exports = {
-    purge: [
-        './resources/views/**/*.blade.php',
-        './resources/scss/**/*.scss',
-        './resources/js/**/*.js',
-        './resources/js/**/*.vue',
-    ],
+    purge: {
+        content: [
+            './resources/views/**/*.blade.php',
+            './resources/scss/**/*.scss',
+            './resources/js/**/*.js',
+            './resources/js/**/*.vue',
+        ],
+
+        // These options are passed through directly to PurgeCSS
+        options: {
+            safelist: [/-driller/, /-gunner/, /-engineer/, /-scout/],
+        },
+    }
     theme: {
         extend: {
             colors: {
