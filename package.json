@@ -30,6 +30,7 @@
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.4.0",
         "@toast-ui/vue-editor": "^2.5.1",
+        "alpinejs": "^2.8.2",
         "apollo-boost": "^0.4.9",
         "apollo-cache-inmemory": "latest",
         "apollo-link": "latest",

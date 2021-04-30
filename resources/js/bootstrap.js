@@ -1,4 +1,5 @@
 window._ = require('lodash');
+import 'alpinejs'
 
 /* todo: remove jquery and bootstrap */
 
