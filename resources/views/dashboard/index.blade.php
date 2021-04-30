@@ -8,16 +8,16 @@
     <h2 class="text-gray-300">Find Loadouts by Class</h2>
     <div class="mb-5">
         <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
-            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-driller text-center shadow sm:rounded">
+            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-driller hover:bg-driller-dark text-center shadow sm:rounded">
                 Driller
             </a>
-            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-scout text-center shadow sm:rounded">
+            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-scout hover:bg-scout-dark text-center shadow sm:rounded">
                 Scout
             </a>
-            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-gunner text-center shadow sm:rounded">
+            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-gunner hover:bg-gunner-dark text-center shadow sm:rounded">
                 Gunner
             </a>
-            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-engineer text-center shadow sm:rounded">
+            <a href="/browse?character=3" class="block text-2xl px-4 py-8 bg-engineer hover:bg-engineer-dark text-center shadow sm:rounded">
                 Engineer
             </a>
         </div>

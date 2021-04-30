@@ -19,10 +19,26 @@ module.exports = {
         extend: {
             colors: {
                 orange: colors.orange,
-                driller: '#FDFA00',
-                gunner: '#407734',
-                engineer: '#FD1400',
-                scout: '#2566FD'
+                driller: {
+                    light: '#fffc31',
+                    DEFAULT: '#fdfa00',
+                    dark: '#cac800',
+                },
+                gunner: {
+                    light: '#59a648',
+                    DEFAULT: '#407734',
+                    dark: '#335f29'
+                },
+                engineer: {
+                    light: '#ff4131',
+                    DEFAULT: '#fd1400',
+                    dark: '#ca1000',
+                },
+                scout: {
+                    light: '#5084fd',
+                    DEFAULT: '#2566fd',
+                    dark: '#0246e5',
+                }
             }
         }
     },
