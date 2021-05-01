@@ -91,3 +91,7 @@
         </div>
     </div>
 </div>
+
+<div class="mt-2 mb-2 text-lg text-white">
+    {{ $loadouts->withQueryString()->render() }}
+</div>
