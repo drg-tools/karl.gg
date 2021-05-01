@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="">
+        <div class="my-2">
             <form action="{{ route('loadout.index') }}" method="GET">
                 @foreach(\Request::all() as $key => $val)
                     <input type="hidden" name="{{ $key }}" value="{{ $val }}">
