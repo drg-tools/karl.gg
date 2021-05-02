@@ -17,6 +17,44 @@ module.exports = {
     },
     theme: {
         extend: {
+            typography: (theme) => ({
+                DEFAULT: {
+                    css: {
+                        color: theme('colors.gray.300'),
+                        strong: {
+                            color: theme('colors.white'),
+                        },
+                        '[class~="lead"]': {
+                            color: theme('colors.gray.300'),
+                        },
+                        blockquote: {
+                            color: theme('colors.gray.400'),
+                            borderLeftColor: theme('colors.gray.600'),
+                        },
+                        h1: {
+                            color: theme('colors.white'),
+                        },
+                        h2: {
+                            color: theme('colors.white'),
+                        },
+                        h3: {
+                            color: theme('colors.white'),
+                        },
+                        h4: {
+                            color: theme('colors.white'),
+                        },
+                        code: {
+                            color: theme('colors.gray.300'),
+                        },
+                        'a code': {
+                            color: theme('colors.gray.300'),
+                        },
+                        thead: {
+                            color: theme('colors.gray.300'),
+                        }
+                    },
+                },
+            }),
             colors: {
                 orange: colors.orange,
                 driller: {
