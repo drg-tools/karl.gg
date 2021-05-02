@@ -50,4 +50,9 @@ class Post extends Model
         return $query->where('published_at', '<', Carbon::now())
             ->whereNotNull('published_at');
     }
+
+    public function getStrippedContentAttribute()
+    {
+        return strip_tags($this->content);
+    }
 }
