@@ -6,12 +6,12 @@
 
 
 @section('content')
-    <div class="bg-gray-700 px-4 sm:py-6 sm:px-6 lg:px-8">
+    <div class="px-4 sm:py-6 sm:px-6 lg:px-8">
         <div class="relative max-w-lg mx-auto lg:max-w-7xl">
             <div class="mt-4 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
                 @foreach($posts as $post)
-                <div>
-                    <a href="{{ route('blog.show', $post->id) }}" class="block mt-4">
+                <div class="bg-gray-700 p-4 sm:p-6 sm:rounded">
+                    <a href="{{ route('blog.show', $post->id) }}" class="block">
                         <p class="text-xl font-semibold text-white">
                             {{ $post->title }}
                         </p>
