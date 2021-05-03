@@ -31,7 +31,7 @@
                             @enderror
                         </div>
 
-                        <div class="flex flex-wrap items-center">
+                        <div class="flex flex-wrap justify-center">
                             <button type="submit" class="bg-orange-500 hover:bg-orange-700 text-gray-100 font-bold  py-2 px-4 rounded focus:outline-none focus:ring">
                                 {{ __('Confirm Password') }}
                             </button>
