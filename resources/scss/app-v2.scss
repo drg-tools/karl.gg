@@ -5,6 +5,89 @@
 .tui-editor-contents * {
     color: white!important;
 }
+.tui-editor-defaultUI-toolbar button {
+    border-color: #000;
+}
+
+.tui-toolbar-icons {
+    &::before {
+        font: normal normal normal 14px/1 FontAwesome;
+        color: #000;
+    }
+
+    &.tui-heading::before {
+        content: '\f1dc';
+    }
+
+    &.tui-bold::before {
+        content: '\f032';
+    }
+
+    &.tui-italic::before {
+        content: '\f033';
+    }
+
+    &.tui-strike::before {
+        content: '\f0cc';
+    }
+
+    &.tui-hrline::before {
+        content: '\f068';
+    }
+
+    &.tui-quote::before {
+        content: '\f10d';
+    }
+
+    &.tui-ul::before {
+        content: '\f0ca';
+    }
+
+    &.tui-ol::before {
+        content: '\f0cb';
+    }
+
+    &.tui-task::before {
+        content: '\f046';
+    }
+
+    &.tui-indent::before {
+        content: '\f03c';
+    }
+
+    &.tui-outdent::before {
+        content: '\f03b';
+    }
+
+    &.tui-table::before {
+        content: '\f0ce';
+    }
+
+    &.tui-image::before {
+        content: '\f03e';
+    }
+
+    &.tui-link::before {
+        content: '\f0c1';
+    }
+
+    &.tui-code::before {
+        content: '\f121';
+    }
+
+    &.tui-codeblock::before {
+        content: 'CB';
+        font-family: monospace;
+    }
+
+    &.tui-more::before {
+        content: '\f141';
+    }
+
+    &.tui-color::before {
+        content: '\f031';
+    }
+}
 
 .tooltip {
     display: block !important;

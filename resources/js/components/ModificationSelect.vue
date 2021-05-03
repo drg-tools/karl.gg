@@ -2,9 +2,9 @@
     <div v-if="dataReady" class="modSelection">
         <h1 class="modSelectionTitle allCaps">Gear modifications</h1>
         <div v-for="(tier, tierId) in availableMods" :key="tierId" class="tierContainer">
-            <h2 v-if="selectedClassId !== 'R'">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator">Level
+            <h2 v-if="selectedClassId !== 'R'" class="text-white">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator text-gray-500">Level
                 {{tierId * 4}}</p></h2>
-            <h2 v-if="selectedClassId === 'R'">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator">Rank
+            <h2 v-if="selectedClassId === 'R'" class="text-white">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator text-gray-500">Rank
                 {{tierId + 1}}</p></h2>
             <div class="tierSubContainer"
                  :class="[tier.length === 1 ? '' : tier.length === 2 ? 'tierBackgroundGradientHalf' : 'tierBackgroundGradient']">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="overclockContainer" v-if="selectedEquipmentType !== 'equipments'">
-            <h2>Overclock</h2>
+            <h2 class="text-white">Overclock</h2>
             <div class="overclockDisplay"
                  v-on:mouseover="hoverOverclock(selectedClassId, selectedEquipmentId, getSelectedOverclockId(computedState))">
                 <!--todo: show name of selected overclock on hover?-->
@@ -374,7 +374,6 @@
         font-size: 1rem;
         font-style: normal;
         font-weight: normal;
-        color: rgba(255, 251, 255, 0.2);
     }
 
     .modSelection {

@@ -1,12 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.app-v2')
+
+@section('header')
+    Build a Loadout
+@endsection
 
 @section('content')
-    <loadout-buttons></loadout-buttons>
-    <class-select></class-select>
-    <equipment-select></equipment-select>
-    <div class="mainContainer">
-        <stats-display></stats-display>
-        <modification-select></modification-select>
+    <div class="bg-gray-700 text-gray-300 p-4">
+        <loadout-buttons></loadout-buttons>
+        <class-select></class-select>
+        <equipment-select></equipment-select>
+        <div class="flex flex-wrap">
+            <stats-display></stats-display>
+            <modification-select></modification-select>
+        </div>
     </div>
 
 @endsection
