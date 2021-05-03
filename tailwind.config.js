@@ -57,6 +57,9 @@ module.exports = {
             }),
             colors: {
                 orange: colors.orange,
+                'karl-orange': {
+                    DEFAULT: '#fc9e00'
+                },
                 driller: {
                     light: '#fffc31',
                     DEFAULT: '#fdfa00',

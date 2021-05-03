@@ -1,5 +1,5 @@
 <template>
-    <div v-if="dataReady" class="equipmentCards">
+    <div v-if="dataReady" class="equipmentCards text-gray-300">
 
         <div class="equipmentSection">
         <EquipmentCard v-if="loadoutDetails.primaryWeapons[0]"
@@ -31,9 +31,9 @@
                        :build="equipment.modString.join('')">
         </EquipmentCard>
         </div>
-        <div class="guideAccordion">
-            <h1 @click="guideIsOpen = !guideIsOpen">Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
-            <div v-show="guideIsOpen">
+        <div class="guideAccordion text-gray-300">
+            <h1 @click="guideIsOpen = !guideIsOpen" class="text-karl-orange text-xl uppercase p-4">Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
+            <div v-show="guideIsOpen" class="p-6">
                 <viewer :initialValue="loadoutDetails.description" />
             </div>
         </div>

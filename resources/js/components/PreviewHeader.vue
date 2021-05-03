@@ -1,49 +1,51 @@
 <template>
-    <div v-if="!dataReady" class="loadingIndicator">
-        <img src="/assets/img/karl-spinner-free.gif" alt="loading...">
-    </div>
-    <div v-else-if="dataReady" class="previewHeaderBackground">
-        <div class="previewHeaderContainer" :class="getHeaderImageClass">
-            <h1>{{loadoutDetails.name}}</h1>
-            <!-- todo: style this! -->
-            <h2>by <a class="authorLink" :href="'/profile/' + loadoutDetails.authorId">{{loadoutDetails.author}}</a> on
-                {{loadoutDetails.lastUpdate}}</h2>
-            <div class="previewFooter">
-                <!-- todo: tooltip on salutes container! -->
-                <div v-on:click="onToggleVote" class="salutes-container">
-                    <h3>Salutes</h3>
-                    <img src="/assets/img/bosco.png" :class="getUserVotedState" class="bosco-salute"/>
-                    <span class="salute-count">{{ loadoutDetails.votes }}</span>
+    <div>
+        <div v-if="!dataReady" class="flex justify-center">
+            <img src="/assets/img/karl-spinner-free.gif" alt="loading..." class="block">
+        </div>
+        <div v-else-if="dataReady" class="previewHeaderBackground text-gray-300">
+            <div class="previewHeaderContainer p-4" :class="getHeaderImageClass">
+                <h1 class="text-karl-orange text-xl uppercase">{{loadoutDetails.name}}</h1>
+                <h2>by <a class="text-karl-orange" :href="'/profile/' + loadoutDetails.authorId">{{loadoutDetails.author}}</a> on
+                    {{loadoutDetails.lastUpdate}}
+                </h2>
+                <div class="previewFooter mt-4">
+                    <!-- todo: tooltip on salutes container! -->
+                    <div v-on:click="onToggleVote" class="salutes-container">
+                        <h3>Salutes</h3>
+                        <img src="/assets/img/bosco.png" :class="getUserVotedState" class="bosco-salute"/>
+                        <span class="salute-count">{{ loadoutDetails.votes }}</span>
+                    </div>
+                    <div class="buttonContainer">
+                        <div class="button" v-on:click="onEditClick">
+                            <h1 class="buttonText" v-if="userOwnsLoadout">EDIT</h1>
+                            <h1 class="buttonText" v-else>COPY</h1>
+                        </div>
+                        <input type="hidden" v-model="this.pageUrl"/>
+                        <div class="button"
+                             v-clipboard:copy="pageUrl"
+                             v-clipboard:success="onCopy"
+                             v-clipboard:error="onError">
+                            <h1 class="buttonText">SHARE</h1>
+                        </div>
+                        <!-- todo: use texts from old karl and style toast messages -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- todo: style modals nicely -->
+            <modal name="upvoteMessageModal" class="loadoutModal" :adaptive="true" :height="250">
+                <div class="contentContainer">
+                    <h1 class="modalTitle">{{messageTitle}}</h1>
+                    <h2>{{messageText}}</h2>
                 </div>
                 <div class="buttonContainer">
-                    <div class="button" v-on:click="onEditClick">
-                        <h1 class="buttonText" v-if="userOwnsLoadout">EDIT</h1>
-                        <h1 class="buttonText" v-else>COPY</h1>
+                    <div class="button" v-on:click="onCloseMessageModal">
+                        <h1 class="buttonText">CLOSE</h1>
                     </div>
-                    <input type="hidden" v-model="this.pageUrl"/>
-                    <div class="button"
-                         v-clipboard:copy="pageUrl"
-                         v-clipboard:success="onCopy"
-                         v-clipboard:error="onError">
-                        <h1 class="buttonText">SHARE</h1>
-                    </div>
-                    <!-- todo: use texts from old karl and style toast messages -->
                 </div>
-            </div>
+            </modal>
         </div>
-
-        <!-- todo: style modals nicely -->
-        <modal name="upvoteMessageModal" class="loadoutModal" :adaptive="true" :height="250">
-            <div class="contentContainer">
-                <h1 class="modalTitle">{{messageTitle}}</h1>
-                <h2>{{messageText}}</h2>
-            </div>
-            <div class="buttonContainer">
-                <div class="button" v-on:click="onCloseMessageModal">
-                    <h1 class="buttonText">CLOSE</h1>
-                </div>
-            </div>
-        </modal>
     </div>
 
 </template>

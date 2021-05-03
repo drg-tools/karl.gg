@@ -25,6 +25,13 @@
 
     {!! SEO::generate() !!}
 
+    @auth
+        <meta name="user-id" content="{{ (Auth::user()->id) }}">
+    @endauth
+    @guest
+        <meta name="user-id" content="0">
+    @endguest
+
     <!-- Styles -->
     <script src="https://kit.fontawesome.com/87ca57c51d.js" crossorigin="anonymous"></script>
     <link href="{{ mix('css/app-v2.css') }}" rel="stylesheet">

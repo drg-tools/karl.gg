@@ -93,9 +93,9 @@
                 <h3 class="overclockName">{{ getOverclockData.overclock_name }}</h3>
             </div>
         </div>
-        <div v-if="this.equipmentType =='primary' || this.equipmentType =='secondary'">
-            <a class="baseButton px-5" :href='"/asv/"+equipmentId+"/"+build'>
-                <span class="baseButtonText text-sm">ADVANCED STATS</span>
+        <div v-if="this.equipmentType =='primary' || this.equipmentType =='secondary'" class="my-4 text-center">
+            <a class="text-karl-orange underline text-sm" :href='"/asv/"+equipmentId+"/"+build'>
+                Advanced Stats
             </a>
         </div>
     </div>
@@ -176,7 +176,7 @@ export default {
                 case 'G':
                     return 4;
                     break;
-            
+
                 default:
                     break;
             }
