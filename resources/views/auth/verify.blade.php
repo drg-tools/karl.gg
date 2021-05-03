@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-v2')
 
 @section('content')
     <div class="container mx-auto loginPage">
@@ -11,8 +11,8 @@
                     </div>
                 @endif
 
-                <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
-                    <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
+                <div class="flex flex-col break-words bg-gray-700 border border-2 border-gray-700 rounded shadow-md">
+                    <div class="font-semibold bg-gray-800 text-gray-300 py-3 px-6 mb-0">
                         {{ __('Verify Your Email Address') }}
                     </div>
 
@@ -22,7 +22,7 @@
                         </p>
 
                         <p class="leading-normal mt-6">
-                            {{ __('If you did not receive the email') }}, <a class="text-blue-500 hover:text-blue-700 no-underline" onclick="event.preventDefault(); document.getElementById('resend-verification-form').submit();">{{ __('click here to request another') }}</a>.
+                            {{ __('If you did not receive the email') }}, <a class="text-orange-500 hover:text-orange-700 no-underline" onclick="event.preventDefault(); document.getElementById('resend-verification-form').submit();">{{ __('click here to request another') }}</a>.
                         </p>
 
                         <form id="resend-verification-form" method="POST" action="{{ route('verification.resend') }}" class="hidden">
