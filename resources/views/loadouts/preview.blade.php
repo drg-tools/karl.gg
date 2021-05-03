@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('header')
+    {{ $loadout->name }}
+@endsection
+
 @section('content')
 
     <x-loadout-outdated :loadout="$loadout"></x-loadout-outdated>

@@ -5,7 +5,6 @@
         </div>
         <div v-else-if="dataReady" class="previewHeaderBackground text-gray-300">
             <div class="previewHeaderContainer p-4" :class="getHeaderImageClass">
-                <h1 class="text-karl-orange text-xl uppercase">{{loadoutDetails.name}}</h1>
                 <h2>by <a class="text-karl-orange" :href="'/profile/' + loadoutDetails.authorId">{{loadoutDetails.author}}</a> on
                     {{loadoutDetails.lastUpdate}}
                 </h2>
