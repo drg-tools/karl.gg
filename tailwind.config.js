@@ -27,6 +27,9 @@ module.exports = {
                         '[class~="lead"]': {
                             color: theme('colors.gray.300'),
                         },
+                        a: {
+                            color: theme('colors.orange.500'),
+                        },
                         blockquote: {
                             color: theme('colors.gray.400'),
                             borderLeftColor: theme('colors.gray.600'),
