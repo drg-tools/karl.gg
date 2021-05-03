@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="bg-gray-700 text-gray-300 p-4">
+    <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
         <loadout-buttons></loadout-buttons>
         <class-select></class-select>
         <equipment-select></equipment-select>
