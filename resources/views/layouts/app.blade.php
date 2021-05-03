@@ -38,7 +38,7 @@
     @yield('styles')
 </head>
 <body>
-<div id="app" class="bg-gray-900 min-h-screen">
+<div id="app" class="bg-gray-900 flex flex-col min-h-screen">
     @include('layouts.nav-v2')
 
     <header class="bg-gray-700 shadow-sm">
@@ -48,11 +48,13 @@
             </h1>
         </div>
     </header>
-    <main>
+    <main class="flex-grow mb-4">
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             @yield('content')
         </div>
     </main>
+
+    @include('layouts.footer')
 </div>
 
 <!-- Scripts -->
