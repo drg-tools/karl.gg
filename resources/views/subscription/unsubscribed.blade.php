@@ -1,4 +1,4 @@
-@extends('layouts.app-v2')
+@extends('layouts.app')
 
 @section('content')
     <div class="text-xl p-8 text-center bg-gray-700 text-gray-300 sm:rounded">

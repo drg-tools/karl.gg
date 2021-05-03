@@ -1,4 +1,4 @@
-@extends('layouts.app-v2')
+@extends('layouts.app')
 
 @section('content')
     <div class="flex flex-wrap justify-center">
