@@ -38,7 +38,7 @@
                     <!-- Profile dropdown -->
                     @auth
                     <div class="ml-3 relative">
-                        <div @click="profileOpen = true">
+                        <div x-on:click="profileOpen = true">
                             <button type="button"
                                     class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                                     id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -61,7 +61,7 @@
                         -->
                         <div
                             x-show.transition="profileOpen"
-                            @click.away="profileOpen = false"
+                            x-on:click.away="profileOpen = false"
                             style="display:none;"
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
@@ -90,7 +90,7 @@
             </div>
             <div class="-mr-2 flex md:hidden">
                 <!-- Mobile menu button -->
-                <button @click="mobileOpen = true"
+                <button x-on:click="mobileOpen = true"
                         type="button"
                         class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                         aria-controls="mobile-menu" aria-expanded="false">
@@ -127,7 +127,7 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div
         x-show.transition="mobileOpen"
-        @click.away="mobileOpen = false"
+        x-on:click.away="mobileOpen = false"
         style="display:none;"
         class="md:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
