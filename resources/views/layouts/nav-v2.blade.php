@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                    <img class="h-8 w-8" src="{{asset('assets/img/k-logo.svg')}}"
                          alt="Workflow">
                 </div>
                 <div class="hidden md:block">
