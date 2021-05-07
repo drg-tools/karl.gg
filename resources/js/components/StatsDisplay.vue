@@ -63,32 +63,32 @@
 
             <!--todo: add numbers for weakspot damage to all stats-->
             <span v-if="calcStats.visible" class="text-white text-lg block my-2">Total Costs:</span>
-            <p class="costList">
-				<span class="costListItem" v-if="calcStats.cost.credits > 0">
+            <p class="costList flex flex-wrap">
+				<span class="costListItem flex items-center pr-2" v-if="calcStats.cost.credits > 0">
 					<img src="/assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
 					<span>{{ calcStats.cost.credits }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.bismor > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.bismor > 0">
 					<img src="/assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
 					<span>{{ calcStats.cost.bismor }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.croppa > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.croppa > 0">
 					<img src="/assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
 					<span>{{ calcStats.cost.croppa }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.enorPearl > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.enorPearl > 0">
 					<img src="/assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
 					<span>{{ calcStats.cost.enorPearl }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.jadiz > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.jadiz > 0">
 					<img src="/assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
 					<span>{{ calcStats.cost.jadiz }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.magnite > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.magnite > 0">
 					<img src="/assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
 					<span>{{ calcStats.cost.magnite }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.umanite > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.umanite > 0">
 					<img src="/assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
 					<span>{{ calcStats.cost.umanite }}</span>
 				</span>
