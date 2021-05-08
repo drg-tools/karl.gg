@@ -3,8 +3,10 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img class="h-8 w-8" src="{{asset('assets/img/k-logo.svg')}}"
-                         alt="Workflow">
+                    <a href="/">
+                        <img class="h-8 w-8" src="{{ asset('assets/img/k-logo.svg') }}"
+                             alt="{{ config('app.name') }}">
+                    </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
