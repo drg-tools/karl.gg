@@ -15,7 +15,6 @@ mix.js('resources/js/app.js', 'public/js')
     .vue()
     .copy('resources/js/assets', 'public/assets')
     .copy('resources/fonts', 'public/fonts')
-    .sass('resources/scss/app.scss', 'public/css')
     .sass('resources/scss/app-v2.scss', 'public/css')
     .options({
         postCss: [
