@@ -1,6 +1,6 @@
 <li>
     <a href="{{ route('preview.show', $loadout->id) }}" class="block hover:bg-gray-800">
-        <div class="px-4 py-4 sm:px-6 border-l-2 border-{{ Str::lower($loadout->character->name) }}">
+        <div class="px-4 py-4 sm:px-6 border-l-4 border-{{ Str::lower($loadout->character->name) }}">
             <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-white truncate">
                     {{ Str::limit($loadout->name, 30) }}
