@@ -8,21 +8,21 @@
     <h2 class="text-gray-300">Find Loadouts by Class</h2>
     <div class="mb-5">
         <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
-            <a href="/browse?character=3" class="block px-4 py-8 bg-driller hover:bg-driller-dark flex items-center justify-around shadow sm:rounded">
-                <img src="{{ asset('assets/img/Driller_portrait.png') }}" class="w-24" alt="Driller Logo">
-                <span class="text-4xl font-bold">Driller</span>
+            <a href="/browse?character=3" class="block px-4 py-4 bg-driller hover:bg-driller-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img src="{{ asset('assets/img/Driller_portrait.png') }}" class="w-16 sm:w-24" alt="Driller Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Driller</span>
             </a>
-            <a href="/browse?character=2" class="block px-4 py-8 bg-scout hover:bg-scout-dark flex items-center justify-around shadow sm:rounded">
-                <img src="{{ asset('assets/img/Scout_portrait.png') }}" class="w-24" alt="Scout Logo">
-                <span class="text-4xl font-bold">Scout</span>
+            <a href="/browse?character=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img src="{{ asset('assets/img/Scout_portrait.png') }}" class="w-16 sm:w-24" alt="Scout Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Scout</span>
             </a>
-            <a href="/browse?character=4" class="block px-4 py-8 bg-gunner hover:bg-gunner-dark flex items-center justify-around shadow sm:rounded">
-                <img src="{{ asset('assets/img/Gunner_portrait.png') }}" class="w-24" alt="Gunner Logo">
-                <span class="text-4xl font-bold">Gunner</span>
+            <a href="/browse?character=4" class="block px-4 py-4 bg-gunner hover:bg-gunner-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img src="{{ asset('assets/img/Gunner_portrait.png') }}" class="w-16 sm:w-24" alt="Gunner Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Gunner</span>
             </a>
-            <a href="/browse?character=1" class="block px-4 py-8 bg-engineer hover:bg-engineer-dark flex items-center justify-around shadow sm:rounded">
-                <img src="{{ asset('assets/img/Engineer_portrait.png') }}" class="w-24" alt="Engineer Logo">
-                <span class="text-4xl font-bold">Engineer</span>
+            <a href="/browse?character=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img src="{{ asset('assets/img/Engineer_portrait.png') }}" class="w-16 sm:w-24" alt="Engineer Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Engineer</span>
             </a>
         </div>
     </div>
