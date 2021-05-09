@@ -42,7 +42,7 @@
                 <h2 class="loadoutNameHeading">Loadout Name</h2>
 
 
-                <input v-model="$v.name.$model" class="nameInput" placeholder="Karl's amazing loadout"
+                <input v-model="$v.name.$model" class="text-gray-900 shadow-sm outline-none block w-full sm:text-sm border-gray-300 rounded-md p-2 mb-2" placeholder="Karl's amazing loadout"
                        :class="{ 'form-group--error': $v.name.$error }" @input="setName($event.target.value)">
                 <div class="error" v-if="!$v.name.maxLength">Max {{ $v.name.$params.maxLength.max }} characters.</div>
                 <div class="error" v-if="!$v.name.required">Field is required</div>
@@ -392,12 +392,6 @@ export default {
 
 .modalDescriptionInput {
     width: 100%
-}
-
-.nameInput {
-    padding: 2px;
-    width: 100%;
-    font-size: 1.15em;
 }
 
 .guideField {
