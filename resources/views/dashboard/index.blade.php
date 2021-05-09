@@ -10,52 +10,30 @@
         <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
             <a href="/browse?character=3" class="block px-4 py-4 bg-driller hover:bg-driller-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
                 <img
-                    sizes="(max-width: 256px) 100vw, 256px"
-                    srcset="
-                        {{ asset('assets/img/Driller_portrait_mlj0mw_c_scale') }},w_20.png 20w,
-                        {{ asset('assets/img/Driller_portrait_mlj0mw_c_scale') }},w_137.png 137w,
-                        {{ asset('assets/img/Driller_portrait_mlj0mw_c_scale') }},w_206.png 206w,
-                        {{ asset('assets/img/Driller_portrait_mlj0mw_c_scale') }},w_256.png 256w"
-                    src="{{ asset('assets/img/Driller_portrait_mlj0mw_c_scale') }},w_256.png"
+                    src="{{ asset('assets/img/Driller_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
                     alt="Driller Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Driller</span>
             </a>
             <a href="/browse?character=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
                 <img
-                    sizes="(max-width: 256px) 100vw, 256px"
-                    srcset="
-                        {{ asset('assets/img/Scout_portrait_j9mova_c_scale') }},w_20.png 20w,
-                        {{ asset('assets/img/Scout_portrait_j9mova_c_scale') }},w_236.png 236w,
-                        {{ asset('assets/img/Scout_portrait_j9mova_c_scale') }},w_256.png 256w"
-                    src="{{ asset('assets/img/Scout_portrait_j9mova_c_scale') }},w_256.png"
+                    src="{{ asset('assets/img/Scout_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
                     alt="Scout Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Scout</span>
             </a>
             <a href="/browse?character=4" class="block px-4 py-4 bg-gunner hover:bg-gunner-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
                 <img
-                    sizes="(max-width: 256px) 100vw, 256px"
-                    srcset="
-                        {{ asset('assets/img/Gunner_portrait_vubzi7_c_scale') }},w_20.png 20w,
-                        {{ asset('assets/img/Gunner_portrait_vubzi7_c_scale') }},w_231.png 231w,
-                        {{ asset('assets/img/Gunner_portrait_vubzi7_c_scale') }},w_256.png 256w"
-                    src="{{ asset('assets/img/Gunner_portrait_vubzi7_c_scale') }},w_256.png"
+                    src="{{ asset('assets/img/Gunner_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
                     alt="Gunner Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Gunner</span>
             </a>
             <a href="/browse?character=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
                 <img
-                    sizes="(max-width: 256px) 100vw, 256px"
-                    srcset="
-                        {{ asset('assets/img/Engineer_portrait_vrzjvp_c_scale') }},w_20.png 20w,
-                        {{ asset('assets/img/Engineer_portrait_vrzjvp_c_scale') }},w_134.png 134w,
-                        {{ asset('assets/img/Engineer_portrait_vrzjvp_c_scale') }},w_203.png 203w,
-                        {{ asset('assets/img/Engineer_portrait_vrzjvp_c_scale') }},w_256.png 256w"
-                    src="{{ asset('assets/img/Engineer_portrait_vrzjvp_c_scale') }},w_256.png"
+                    src="{{ asset('assets/img/Engineer_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
-                    alt="Scout Logo">
+                    alt="Engineer Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Engineer</span>
             </a>
         </div>
