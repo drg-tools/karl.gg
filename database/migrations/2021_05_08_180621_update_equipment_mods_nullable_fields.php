@@ -17,12 +17,12 @@ class UpdateEquipmentModsNullableFields extends Migration
             $table->string('description', 1000)->nullable()->change();
             $table->string('json_stats', 1000)->nullable()->change();
             $table->unsignedSmallInteger('credits_cost')->nullable()->change();
-            $table->unsignedTinyInteger('magnite_cost')->nullable()->change();
-            $table->unsignedTinyInteger('bismor_cost')->nullable()->change();
-            $table->unsignedTinyInteger('umanite_cost')->nullable()->change();
-            $table->unsignedTinyInteger('croppa_cost')->nullable()->change();
-            $table->unsignedTinyInteger('enor_pearl_cost')->nullable()->change();
-            $table->unsignedTinyInteger('jadiz_cost')->nullable()->change();
+            $table->unsignedSmallInteger('magnite_cost')->nullable()->change();
+            $table->unsignedSmallInteger('bismor_cost')->nullable()->change();
+            $table->unsignedSmallInteger('umanite_cost')->nullable()->change();
+            $table->unsignedSmallInteger('croppa_cost')->nullable()->change();
+            $table->unsignedSmallInteger('enor_pearl_cost')->nullable()->change();
+            $table->unsignedSmallInteger('jadiz_cost')->nullable()->change();
         });
     }
 
