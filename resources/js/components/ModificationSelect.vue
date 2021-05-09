@@ -462,7 +462,7 @@
     }
 
     .modBackground {
-        fill: #000000;
+        fill: #111927;
         stroke: #fc9e00;
         stroke-width: 2px;
     }
@@ -491,7 +491,7 @@
     }
 
     .modIcon {
-        fill: #5b402d;
+        fill: #ada194;
         stroke: none;
     }
 
