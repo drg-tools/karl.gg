@@ -2,7 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.tui-editor-contents * {
+.te-preview .tui-editor-contents * {
     color: white!important;
 }
 .tui-editor-defaultUI-toolbar button {
