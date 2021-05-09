@@ -4,30 +4,32 @@
             <img src="/assets/img/karl-spinner-free.gif" alt="loading..." class="block">
         </div>
         <div v-else-if="dataReady" class="previewHeaderBackground text-gray-300">
-            <div class="previewHeaderContainer p-4" :class="getHeaderImageClass">
-                <h2>by <a class="text-karl-orange" :href="'/profile/' + loadoutDetails.authorId">{{loadoutDetails.author}}</a> on
+            <div class="flex justify-between items-center">
+                <h2 class="p-4">by <a class="text-karl-orange" :href="'/profile/' + loadoutDetails.authorId">{{loadoutDetails.author}}</a> on
                     {{loadoutDetails.lastUpdate}}
                 </h2>
+                <div class="flex">
+                    <div class="button" v-on:click="onEditClick">
+                        <span class="buttonText" v-if="userOwnsLoadout">EDIT</span>
+                        <span class="buttonText" v-else>COPY</span>
+                    </div>
+                    <input type="hidden" v-model="this.pageUrl"/>
+                    <div class="button"
+                         v-clipboard:copy="pageUrl"
+                         v-clipboard:success="onCopy"
+                         v-clipboard:error="onError">
+                        <h1 class="buttonText">SHARE</h1>
+                    </div>
+                </div>
+                <!-- todo: use texts from old karl and style toast messages -->
+            </div>
+            <div class="previewHeaderContainer p-4" :class="getHeaderImageClass">
                 <div class="previewFooter mt-4">
                     <!-- todo: tooltip on salutes container! -->
-                    <div v-on:click="onToggleVote" class="salutes-container">
-                        <h3>Salutes</h3>
+                    <div v-on:click="onToggleVote" class="bg-gray-900 font-bold sm:rounded text-center p-2 cursor-pointer hover:bg-gray-800">
+                        <span>Salutes</span>
                         <img src="/assets/img/bosco.png" :class="getUserVotedState" class="bosco-salute"/>
                         <span class="salute-count">{{ loadoutDetails.votes }}</span>
-                    </div>
-                    <div class="buttonContainer">
-                        <div class="button" v-on:click="onEditClick">
-                            <h1 class="buttonText" v-if="userOwnsLoadout">EDIT</h1>
-                            <h1 class="buttonText" v-else>COPY</h1>
-                        </div>
-                        <input type="hidden" v-model="this.pageUrl"/>
-                        <div class="button"
-                             v-clipboard:copy="pageUrl"
-                             v-clipboard:success="onCopy"
-                             v-clipboard:error="onError">
-                            <h1 class="buttonText">SHARE</h1>
-                        </div>
-                        <!-- todo: use texts from old karl and style toast messages -->
                     </div>
                 </div>
             </div>
@@ -147,12 +149,12 @@
 <style scoped>
     .previewHeaderBackground {
         width: 100%;
-        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
+        /*background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);*/
     }
 
     .previewHeaderContainer {
         /* height: 20rem; */
-        background-color: #352e1e;
+        /*background-color: #352e1e;*/
         margin-bottom: 2rem;
         background-blend-mode: overlay;
         display: flex;
@@ -166,46 +168,31 @@
     }
 
     .imageD {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-D_image.png");
+        background-image: url("/assets/img/full-D_image.png");
         background-repeat: no-repeat;
         background-size: 45%;
         background-position: right -10% top -10%;
     }
 
     .imageE {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-E_image.png");
+        background-image: url("/assets/img/full-E_image.png");
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: right -5% top -10%;
     }
 
     .imageG {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-G_image.png");
+        background-image: url("/assets/img/full-G_image.png");
         background-repeat: no-repeat;
         background-size: 45%;
         background-position: right -10% top -10%;
     }
 
     .imageS {
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) -25%, rgba(255, 255, 255, 0) 75%), url("/assets/img/full-S_image.png");
+        background-image: url("/assets/img/full-S_image.png");
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: right -5% top -10%;
-    }
-
-    .salutes-container {
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 3px;
-        background: rgba(24, 17, 11, .6);
-        color: #FFF;
-        font-weight: bold;
-        text-align: center;
-        font-size: 26px;
-    }
-
-    .salutes-container:hover > h3 {
-        text-decoration: underline;
     }
 
     .disabled {

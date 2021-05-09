@@ -168,15 +168,11 @@
         -webkit-overflow-scrolling: touch;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border-top: 5px solid #fc9e00;
-        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
-        /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
     }
     .guideAccordion {
         width: 100%;
         border-top: 5px solid #fc9e00;
-        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
-        /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
     }
     .invertIcon {
