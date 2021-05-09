@@ -5,7 +5,7 @@
     <div v-else-if="dataReady">
         <!-- driller -->
         <div v-if="selectedClass === 'D'" class="equipmentSelectContainer">
-            <div class="primariesContainer">
+            <div class="primariesContainer gap-2">
                 <!-- todo: icon missing from equipment backend.. get from store -->
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classPrimaries('D')"
@@ -17,7 +17,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="secondariesContainer">
+            <div class="secondariesContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classSecondaries('D')"
                     :key="equipmentId"
@@ -28,7 +28,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="equipmentContainer">
+            <div class="equipmentContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classEquipments('D')"
                     :key="equipmentId"
@@ -42,7 +42,7 @@
         </div>
         <!-- engineer -->
         <div v-if="selectedClass === 'E'" class="equipmentSelectContainer">
-            <div class="primariesContainer">
+            <div class="primariesContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classPrimaries('E')"
                     :key="equipmentId"
@@ -53,7 +53,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="secondariesContainer">
+            <div class="secondariesContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classSecondaries('E')"
                     :key="equipmentId"
@@ -64,7 +64,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="equipmentContainer">
+            <div class="equipmentContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classEquipments('E')"
                     :key="equipmentId"
@@ -78,7 +78,7 @@
         </div>
         <!-- gunner -->
         <div v-if="selectedClass === 'G'" class="equipmentSelectContainer">
-            <div class="primariesContainer">
+            <div class="primariesContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classPrimaries('G')"
                     :key="equipmentId"
@@ -89,7 +89,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="secondariesContainer">
+            <div class="secondariesContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classSecondaries('G')"
                     :key="equipmentId"
@@ -100,7 +100,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="equipmentContainer">
+            <div class="equipmentContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classEquipments('G')"
                     :key="equipmentId"
@@ -114,7 +114,7 @@
         </div>
         <!-- scout -->
         <div v-if="selectedClass === 'S'" class="equipmentSelectContainer">
-            <div class="primariesContainer">
+            <div class="primariesContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classPrimaries('S')"
                     :key="equipmentId"
@@ -125,7 +125,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="secondariesContainer">
+            <div class="secondariesContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classSecondaries('S')"
                     :key="equipmentId"
@@ -136,7 +136,7 @@
                     :equipmentId="equipment.id"
                 />
             </div>
-            <div class="equipmentContainer">
+            <div class="equipmentContainer gap-2">
                 <EquipmentComponent
                     v-for="(equipment, equipmentId) in classEquipments('S')"
                     :key="equipmentId"
@@ -221,7 +221,7 @@
         display: flex;
         width: 48%;
         border-top: 5px solid #fc9e00;
-        background-color: #352e1e;
+        background-color: #374251;
         margin-bottom: 0.5rem;
     }
 
@@ -235,7 +235,7 @@
         display: flex;
         width: 48%;
         border-top: 5px solid #fc9e00;
-        background-color: #352e1e;
+        background-color: #374251;
         margin-bottom: 0.5rem;
     }
 
@@ -253,7 +253,7 @@
         -ms-overflow-style: -ms-autohiding-scrollbar;
         width: 100%;
         border-bottom: 5px solid #fc9e00;
-        background-color: #352e1e;
+        background-color: #374251;
         margin-bottom: 0.5rem;
     }
 </style>

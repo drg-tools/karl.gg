@@ -404,6 +404,10 @@ export default {
     margin-bottom: 2.75%;
 }
 
+.guideField .tui-editor-defaultUI-toolbar {
+    background: #111927;
+}
+
 .error {
     font-size: 1.1em;
     font-weight: normal;
