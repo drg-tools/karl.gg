@@ -49,7 +49,7 @@
             </form>
         </div>
 
-        @include('loadouts.partials.table-v2', ['loadouts' => $loadouts])
+        @include('loadouts.partials.table', ['loadouts' => $loadouts])
 
     </div>
 
