@@ -60,6 +60,8 @@ class PostCrudController extends CrudController
             'label' => 'Published Date',
             'type' => 'datetime',
         ]);
+
+        $this->crud->orderBy('published_at', 'DESC');
     }
 
     /**
