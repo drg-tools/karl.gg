@@ -51,7 +51,7 @@
             <div class="my-5">
                 <a href="{{ route('blog.show', $post->id) }}" class="hover:underline text-white text-lg"><h3>{{$post->title}}</h3></a>
                 <div class="mt-2">
-                    {{ Str::words(strip_tags($post->content), 50, '...') }}
+                    {!! Str::words($post->strippedContent, 50, '...') !!}
                 </div>
                 <div class="text-right">
                     <a class="" href="{{ route('blog.show', $post->id) }}">

@@ -16,7 +16,7 @@
                             {{ $post->title }}
                         </p>
                         <p class="mt-3 text-base text-gray-300">
-                            {{ Str::limit($post->strippedContent, 200) }}
+                            {!! Str::limit($post->strippedContent, 200) !!}
                         </p>
                     </a>
                     <div class="mt-6 flex items-center">
