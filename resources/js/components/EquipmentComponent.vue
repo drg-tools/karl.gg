@@ -4,12 +4,12 @@
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 180 90"
                  :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']"
-                 :height="equipmentNameVisible ? '70%' : '50%'"
+                 height="50%"
                  preserveAspectRatio="xMidYMid meet"
                  v-html="getIconFromPath"></svg>
         </div>
         <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"><!-- v-if="equipmentNameVisible"-->
-            <h4 :class="[equipmentNameVisible ? 'largeText' : '']">{{ name }}</h4>
+            <h4>{{ name }}</h4>
         </div>
     </div>
 </template>
@@ -77,7 +77,7 @@
     }
 
     .equipment {
-        background-color: #5b402d;
+        background-color: #111927;
         color: #352e1e;
     }
 
@@ -107,7 +107,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: #352e1e;
+        background-color: #4B5563;
         color: #ada195;
     }
 
@@ -118,7 +118,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: #010103;
+        background-color: #111927;
         color: #fffbff;
     }
 

@@ -1,60 +1,63 @@
 @extends('layouts.app')
 
-@section('body_class', 'body__home')
+@section('header')
+    Dashboard
+@endsection
 
 @section('content')
-    <h2 class="ml-1">Find Loadouts by Class:</h2>
-    <div class="flex flex-row mb-5">
-        <div class="flex flex-col w-full">
-            <div class="flex flex-row flex-wrap lg:flex-nowrap md:flex-nowrap">
-                <div class="flex flex-col w-full md:w-1/4">
-                    <a href="/browse?character=3" class="px-4 py-8 dashImageD dashD mx-1 align-middle text-2xl">
-                        Driller
-                    </a>
-                </div>
-                <div class="flex flex-col w-full md:w-1/4">
-                    <a href="/browse?character=1" class="px-4 py-8 dashImageE dashE mx-1 align-middle text-2xl">
-                        Engineer
-                    </a>
-                </div>
-                <div class="flex flex-col w-full md:w-1/4">
-                    <a href="/browse?character=4" class="px-4 py-8 dashImageG dashG mx-1 align-middle text-2xl">
-                        Gunner
-                    </a>
-                </div>
-                <div class="flex flex-col w-full md:w-1/4">
-                    <a href="/browse?character=2" class="px-4 py-8 dashImageS dashS mx-1 align-middle text-2xl">
-                        Scout
-                    </a>
-                </div>
-
-            </div>
-        </div>
-
-
-    </div>
-
-    <div class="featuredLoadoutsContainer">
-        <div class="flex flex-row flex-wrap">
-            <div class="flex flex-col w-full md:w-1/2">
-                <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top Loadouts in Past 2 Weeks" />
-            </div>
-            <div class="flex flex-col w-full md:w-1/2">
-                <x-dashboard-listing :loadoutList="$latestLoadouts" title='Newest Loadouts' />
-            </div>
+    <h2 class="text-gray-300">Find Loadouts by Class</h2>
+    <div class="mb-5">
+        <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
+            <a href="/browse?character=3" class="block px-4 py-4 bg-driller hover:bg-driller-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img
+                    src="{{ asset('assets/img/Driller_portrait-128px.png') }}"
+                    class="w-16 sm:w-24"
+                    alt="Driller Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Driller</span>
+            </a>
+            <a href="/browse?character=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img
+                    src="{{ asset('assets/img/Scout_portrait-128px.png') }}"
+                    class="w-16 sm:w-24"
+                    alt="Scout Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Scout</span>
+            </a>
+            <a href="/browse?character=4" class="block px-4 py-4 bg-gunner hover:bg-gunner-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img
+                    src="{{ asset('assets/img/Gunner_portrait-128px.png') }}"
+                    class="w-16 sm:w-24"
+                    alt="Gunner Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Gunner</span>
+            </a>
+            <a href="/browse?character=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+                <img
+                    src="{{ asset('assets/img/Engineer_portrait-128px.png') }}"
+                    class="w-16 sm:w-24"
+                    alt="Engineer Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Engineer</span>
+            </a>
         </div>
     </div>
 
-    <div class="featuredLoadoutsContainer px-3 pb-2">
+    <div class="my-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
+            <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top Loadouts in Past 2 Weeks"/>
+            <x-dashboard-listing :loadoutList="$latestLoadouts" title='Newest Loadouts'/>
+        </div>
+    </div>
+
+    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
         @foreach ($latestPosts as $post)
             <div class="my-5">
-                <a href="{{ route('blog.show', $post->id) }}" class="hover:underline"><h3>{{$post->title}}</h3></a>
-                <div class="dashPost mt-2">
-                    {!! Str::words($post->content, 50, '...') !!}
+                <a href="{{ route('blog.show', $post->id) }}" class="hover:underline text-white text-lg"><h3>{{$post->title}}</h3></a>
+                <div class="mt-2">
+                    {{ Str::words(strip_tags($post->content), 50, '...') }}
                 </div>
-                <a class="dashButton px-3 w-4 ml-0 mt-2" href="{{ route('blog.show', $post->id) }}">
-                    <span class=" text-black">READ MORE</span>
-                </a>
+                <div class="text-right">
+                    <a class="" href="{{ route('blog.show', $post->id) }}">
+                        <span class="uppercase">Read more</span>
+                    </a>
+                </div>
             </div>
         @endforeach
     </div>

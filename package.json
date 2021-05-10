@@ -20,7 +20,7 @@
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.32.8",
         "sass-loader": "^8.0.0",
-        "tailwindcss": "^2.0.3",
+        "tailwindcss": "^2.1.2",
         "vue": "^2.6.12",
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.12"
@@ -30,6 +30,7 @@
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.4.0",
         "@toast-ui/vue-editor": "^2.5.1",
+        "alpinejs": "^2.8.2",
         "apollo-boost": "^0.4.9",
         "apollo-cache-inmemory": "latest",
         "apollo-link": "latest",

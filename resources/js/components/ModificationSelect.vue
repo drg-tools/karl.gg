@@ -2,9 +2,9 @@
     <div v-if="dataReady" class="modSelection">
         <h1 class="modSelectionTitle allCaps">Gear modifications</h1>
         <div v-for="(tier, tierId) in availableMods" :key="tierId" class="tierContainer">
-            <h2 v-if="selectedClassId !== 'R'">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator">Level
+            <h2 v-if="selectedClassId !== 'R'" class="text-white">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator text-gray-500">Level
                 {{tierId * 4}}</p></h2>
-            <h2 v-if="selectedClassId === 'R'">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator">Rank
+            <h2 v-if="selectedClassId === 'R'" class="text-white">Tier {{ tierId + 1 }}<p v-if="tierId > 0" class="levelIndicator text-gray-500">Rank
                 {{tierId + 1}}</p></h2>
             <div class="tierSubContainer"
                  :class="[tier.length === 1 ? '' : tier.length === 2 ? 'tierBackgroundGradientHalf' : 'tierBackgroundGradient']">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="overclockContainer" v-if="selectedEquipmentType !== 'equipments'">
-            <h2>Overclock</h2>
+            <h2 class="text-white">Overclock</h2>
             <div class="overclockDisplay"
                  v-on:mouseover="hoverOverclock(selectedClassId, selectedEquipmentId, getSelectedOverclockId(computedState))">
                 <!--todo: show name of selected overclock on hover?-->
@@ -176,32 +176,32 @@
                 <div class="modTextBoxTitle">
                     <p class="allCaps">{{ hoveredMod.mod_type || hoveredMod.overclock_type }}</p>
                     <p class="allCaps modificationName">{{ hoveredMod.mod_name || hoveredMod.overclock_name }}</p>
-                    <p class="costList">
-						<span class="costListItem" v-if="hoveredMod.cost.credits > 0">
+                    <p class="costList flex flex-wrap">
+						<span class="costListItem flex items-center pr-2 " v-if="hoveredMod.cost.credits > 0">
 							<img src="/assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
 							<span>{{ hoveredMod.cost.credits }}</span>
 						</span>
-                        <span class="costListItem" v-if="hoveredMod.cost.bismor > 0">
+                        <span class="costListItem flex items-center pr-2" v-if="hoveredMod.cost.bismor > 0">
 							<img src="/assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
 							<span>{{ hoveredMod.cost.bismor }}</span>
 						</span>
-                        <span class="costListItem" v-if="hoveredMod.cost.croppa > 0">
+                        <span class="costListItem flex items-center pr-2" v-if="hoveredMod.cost.croppa > 0">
 							<img src="/assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
 							<span>{{ hoveredMod.cost.croppa }}</span>
 						</span>
-                        <span class="costListItem" v-if="hoveredMod.cost.enorPearl > 0">
+                        <span class="costListItem flex items-center pr-2" v-if="hoveredMod.cost.enorPearl > 0">
 							<img src="/assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
 							<span>{{ hoveredMod.cost.enorPearl }}</span>
 						</span>
-                        <span class="costListItem" v-if="hoveredMod.cost.jadiz > 0">
+                        <span class="costListItem flex items-center pr-2" v-if="hoveredMod.cost.jadiz > 0">
 							<img src="/assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
 							<span>{{ hoveredMod.cost.jadiz }}</span>
 						</span>
-                        <span class="costListItem" v-if="hoveredMod.cost.magnite > 0">
+                        <span class="costListItem flex items-center pr-2" v-if="hoveredMod.cost.magnite > 0">
 							<img src="/assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
 							<span>{{ hoveredMod.cost.magnite }}</span>
 						</span>
-                        <span class="costListItem" v-if="hoveredMod.cost.umanite > 0">
+                        <span class="costListItem flex items-center pr-2" v-if="hoveredMod.cost.umanite > 0">
 							<img src="/assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
 							<span>{{ hoveredMod.cost.umanite }}</span>
 						</span>
@@ -374,7 +374,6 @@
         font-size: 1rem;
         font-style: normal;
         font-weight: normal;
-        color: rgba(255, 251, 255, 0.2);
     }
 
     .modSelection {
@@ -463,7 +462,7 @@
     }
 
     .modBackground {
-        fill: #000000;
+        fill: #111927;
         stroke: #fc9e00;
         stroke-width: 2px;
     }
@@ -492,7 +491,7 @@
     }
 
     .modIcon {
-        fill: #5b402d;
+        fill: #ada194;
         stroke: none;
     }
 

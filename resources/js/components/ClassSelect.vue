@@ -1,25 +1,27 @@
 <template>
-    <div class="classSelectContainer">
+    <div class="classSelectContainer my-2">
         <h1>Select class:</h1>
-        <div v-on:click="selectClass('D')" class="classSelect"
-             :class="[selectedClass === 'D' ? 'classSelectActive' : '']">
-            <img src="/assets/img/50px-D_icon-hex.png" class="classIcon"/>
-            <h2>Driller</h2>
-        </div>
-        <div v-on:click="selectClass('E')" class="classSelect"
-             :class="[selectedClass === 'E' ? 'classSelectActive' : '']">
-            <img src="/assets/img/50px-E_icon-hex.png" class="classIcon"/>
-            <h2>Engineer</h2>
-        </div>
-        <div v-on:click="selectClass('G')" class="classSelect"
-             :class="[selectedClass === 'G' ? 'classSelectActive' : '']">
-            <img src="/assets/img/50px-G_icon-hex.png" class="classIcon"/>
-            <h2>Gunner</h2>
-        </div>
-        <div v-on:click="selectClass('S')" class="classSelect"
-             :class="[selectedClass === 'S' ? 'classSelectActive' : '']">
-            <img src="/assets/img/50px-S_icon-hex.png" class="classIcon"/>
-            <h2>Scout</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 w-full mb-4">
+            <div v-on:click="selectClass('D')" class="classSelect px-4 py-2"
+                 :class="[selectedClass === 'D' ? 'classSelectActive' : '']">
+                <img src="/assets/img/50px-D_icon-hex.png" class="classIcon"/>
+                <h2>Driller</h2>
+            </div>
+            <div v-on:click="selectClass('E')" class="classSelect px-4 py-2"
+                 :class="[selectedClass === 'E' ? 'classSelectActive' : '']">
+                <img src="/assets/img/50px-E_icon-hex.png" class="classIcon"/>
+                <h2>Engineer</h2>
+            </div>
+            <div v-on:click="selectClass('G')" class="classSelect px-4 py-2"
+                 :class="[selectedClass === 'G' ? 'classSelectActive' : '']">
+                <img src="/assets/img/50px-G_icon-hex.png" class="classIcon"/>
+                <h2>Gunner</h2>
+            </div>
+            <div v-on:click="selectClass('S')" class="classSelect px-4 py-2"
+                 :class="[selectedClass === 'S' ? 'classSelectActive' : '']">
+                <img src="/assets/img/50px-S_icon-hex.png" class="classIcon"/>
+                <h2>Scout</h2>
+            </div>
         </div>
     </div>
 </template>

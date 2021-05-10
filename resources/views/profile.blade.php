@@ -1,33 +1,33 @@
 @extends('layouts.app')
+
+@section('header')
+    {{ $user->name }}
+@endsection
+
 @section('content')
 
-<div class="profileHeaderBackground">
-    <div class="profileHeaderContainer {{$profileImgClass}}">
-        <h1>{{$user->name}}</h1>
-
-        @if (Request()->id == Auth::id())
-        <div class="profileBtnContainer">
-            <a href="/profile/{{Auth::id()}}/edit">
-                <div class="button">
-                    <h1 class="buttonText">EDIT PROFILE</h1>
+    <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
+        <div class="">
+            @if (Request()->id == Auth::id())
+                <div class="flex justify-end">
+                    <a href="/profile/{{Auth::id()}}/edit" class="hover:underline text-gray-300">Edit Profile</a>
                 </div>
-            </a>
-        </div>
-        @endif
+            @endif
 
 
-        <div class="profileFooter">
-            <div class="data-container">
-                <h3>Loadouts</h3>
-                <span>{{ $loadoutCount }}</span>
-            </div>
-            <div class="data-container">
-                <h3>Salutes</h3>
-                <span>{{ $salutesCount }}</span>
+            <div class="flex gap-4 mb-2 sm:mb-4">
+                <div class="flex flex-col p-4 text-center">
+                    <div class="text-xl text-karl-orange">{{ $loadoutCount }}</div>
+                    <div class="text-sm">Loadouts</div>
+                </div>
+                <div class="flex flex-col p-4 text-center">
+                    <div class="text-xl text-karl-orange">{{ $salutesCount }}</div>
+                    <div class="text-sm">Salutes</div>
+                </div>
             </div>
         </div>
+
+        <profile-listing :user-id={{$user->id}}></profile-listing>
     </div>
-</div>
-<profile-listing :user-id={{$user->id}}></profile-listing>
 
 @endsection

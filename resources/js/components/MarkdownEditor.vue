@@ -85,11 +85,6 @@
 .tui-editor-defaultUI h1, .tui-editor-defaultUI h2, .tui-editor-defaultUI h3, .tui-editor-defaultUI h4 {
     color: #000000;
 }
-
-.te-ww-container, .te-mode-switch-section {
-    background-color: #5F5137!important;
-    color: white!important;
-}
 .tui-editor-defaultUI-toolbar {
     background: #18110bba;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="dataReady" class="equipmentCards">
+    <div v-if="dataReady" class="equipmentCards text-gray-300">
 
         <div class="equipmentSection">
         <EquipmentCard v-if="loadoutDetails.primaryWeapons[0]"
@@ -31,9 +31,9 @@
                        :build="equipment.modString.join('')">
         </EquipmentCard>
         </div>
-        <div class="guideAccordion">
-            <h1 @click="guideIsOpen = !guideIsOpen">Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
-            <div v-show="guideIsOpen">
+        <div class="guideAccordion text-gray-300">
+            <h1 @click="guideIsOpen = !guideIsOpen" class="text-karl-orange text-xl uppercase p-4">Loadout Guide <i :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h1>
+            <div v-show="guideIsOpen" class="p-6">
                 <viewer :initialValue="loadoutDetails.description" />
             </div>
         </div>
@@ -168,15 +168,11 @@
         -webkit-overflow-scrolling: touch;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border-top: 5px solid #fc9e00;
-        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
-        /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
     }
     .guideAccordion {
         width: 100%;
         border-top: 5px solid #fc9e00;
-        background: linear-gradient(0deg, rgba(34, 193, 195, 0) 0%, #352e1e 100%);
-        /*background-color: #352e1e;*/
         margin-bottom: 0.5rem;
     }
     .invertIcon {

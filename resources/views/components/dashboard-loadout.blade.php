@@ -1,34 +1,35 @@
-<a href="{{ route('preview.show', $loadout->id) }}" class="w-full">
-    <div class="myLoadoutsContainer">
-        <div class="loadoutCardContainer">
-            <div class="titleRow">
-                <div class="titleContentLeft">
-                    <img src="/assets/img/{{ $loadout->character->image }}.png" class="classIcon"
-                         alt="{{ $loadout->character->name }} icon"/>
-                    <h2 class="buildName text-lg">{{ Str::limit($loadout->name, 30) }}</h2>
-                </div>
-                <div class="titleContentRight">
-                    <div class="weaponContainer">
-                        @if($weapons(0))
-                            <img src="/assets/{{ $weapons(0)->image }}.svg" alt="{{ $weapons(0)->name }} icon" />
-                        @endif
-                    </div>
+<li>
+    <a href="{{ route('preview.show', $loadout->id) }}" class="block hover:bg-gray-800">
+        <div class="px-4 py-4 sm:px-6 border-l-4 border-{{ Str::lower($loadout->character->name) }}">
+            <div class="flex items-center justify-between">
+                <p class="text-sm font-medium text-white truncate">
+                    {{ Str::limit($loadout->name, 30) }}
+                </p>
+                <div class="ml-2 flex-shrink-0 flex">
+                    <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-300 text-gray-900">
+                        {{ $loadout->votes_count }}
+                    </p>
                 </div>
             </div>
-            <div class="subtitleRow">
-                <div class="titleContentLeft">
-                    <h2 class="salutes">{{ $loadout->votes_count }}</h2>
-                    <h2 class="author text-sm">{{ $loadout->creator->name ?? 'Anonymous' }}</h2>
+            <div class="mt-2 sm:flex sm:justify-between">
+                <div class="sm:flex">
+                    <p class="flex items-center text-sm text-gray-300">
+                        {{ $loadout->creator->name ?? 'Anonymous' }}
+                    </p>
                 </div>
-                <div class="titleContentRight">
-                    <div class="weaponContainer">
-                        @if($weapons(1))
-                            <img src="/assets/{{ $weapons(1)->image }}.svg" alt="{{ $weapons(1)->name }} icon" />
-                        @endif
-                    </div>
+                <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                    @if($weapons(0))
+                        <img
+                            class="w-10 filter invert"
+                            src="/assets/{{ $weapons(0)->image }}.svg" alt="{{ $weapons(0)->name }} icon"/>
+                    @endif
+                    @if($weapons(1))
+                        <img
+                            class="w-10 ml-2 filter invert"
+                            src="/assets/{{ $weapons(1)->image }}.svg" alt="{{ $weapons(1)->name }} icon"/>
+                    @endif
                 </div>
-
             </div>
         </div>
-    </div>
-</a>
+    </a>
+</li>

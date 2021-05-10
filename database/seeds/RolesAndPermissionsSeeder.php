@@ -13,6 +13,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // create permissions
         Permission::create(['name' => 'Admin Panel Access']);
+        Permission::create(['name' => 'access-api']);
         // create roles and assign created permissions
 
         // this can be done as separate statements

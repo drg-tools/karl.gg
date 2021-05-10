@@ -17,78 +17,78 @@
                 </div>
             </div>
             <!-- todo: different color for dps numbers -->
-            <h2 v-if="calcStats.dps && calcStats.dps !== 'NaN'">DPS: {{ calcStats.dps }}</h2>
+            <span v-if="calcStats.dps && calcStats.dps !== 'NaN'" class="text-white text-lg block my-2">DPS: {{ calcStats.dps }}</span>
             <span v-if="!!calcStats.dps && calcStats.dps !== 'NaN'" class="inactiveStat">
 				<i>Theoretical</i> damage per second, ignoring armor break and weakspot bonuses.
 			</span>
 
-            <h2 v-if="calcStats.dpb">Damage per shot: {{ calcStats.dpb }}</h2> <!-- damage per bullet -->
+            <span v-if="calcStats.dpb" class="text-white text-lg block my-2">Damage per shot: {{ calcStats.dpb }}</span> <!-- damage per bullet -->
 
-            <h2 v-if="calcStats.wpd">Weakpoint Damage: {{ `(1x: ${calcStats.wpd} / 2x: ${(calcStats.wpd * 2).toFixed(2)}
-                / 3x: ${(calcStats.wpd * 3).toFixed(2)})` }}</h2>
+            <span v-if="calcStats.wpd" class="text-white text-lg block my-2">Weakpoint Damage: {{ `(1x: ${calcStats.wpd} / 2x: ${(calcStats.wpd * 2).toFixed(2)}
+                / 3x: ${(calcStats.wpd * 3).toFixed(2)})` }}</span>
             <span v-if="calcStats.wpd" class="inactiveStat">
 				<i>Important,</i> 1x damage is applied to praetorians and oppressors. 2x damage is applied to all grunts and most enemies. 3x is applied to bulks, breeders, mactera, etc.
 			</span>
 
-            <h2 v-if="calcStats.dpm">Magazine damage: {{ calcStats.dpm }}<span v-if="calcStats.tte"> / Time to empty mag: {{ calcStats.tte }}S</span>
-            </h2>
+            <span v-if="calcStats.dpm" class="text-white text-lg block my-2">Magazine damage: {{ calcStats.dpm }}<span v-if="calcStats.tte"> / Time to empty mag: {{ calcStats.tte }}S</span>
+            </span>
             <span v-if="calcStats.dpm" class="inactiveStat">
 				<i>Theoretical</i> damage per magazine and how long it takes to empty it.
 			</span>
 
-            <h2 v-if="calcStats.dpa">Total damage: {{ calcStats.dpa }}</h2>
+            <span v-if="calcStats.dpa" class="text-white text-lg block my-2">Total damage: {{ calcStats.dpa }}</span>
             <span v-if="calcStats.dpa" class="inactiveStat">
 				<i>Theoretical</i> total damage available with initial ammunition.
 			</span>
 
-            <h2 v-if="calcStats.ex1">Total lighting time: {{ calcStats.ex1 }} minutes</h2>
+            <span v-if="calcStats.ex1" class="text-white text-lg block my-2">Total lighting time: {{ calcStats.ex1 }} minutes</span>
             <span v-if="calcStats.ex1" class="inactiveStat">
 				<i>Theoretical</i> total lighting time available with initial ammunition.
 			</span>
 
-            <h2 v-if="calcStats.dpsplasma && calcStats.dpsplasma !== 'NaN'">Normal shot DPS: {{ calcStats.dpsplasma }}
-                <br/>Charged shot DPS: {{ calcStats.dpscharged }}</h2>
+            <span v-if="calcStats.dpsplasma && calcStats.dpsplasma !== 'NaN'" class="text-white text-lg block my-2">Normal shot DPS: {{ calcStats.dpsplasma }}
+                <br/>Charged shot DPS: {{ calcStats.dpscharged }}</span>
             <span v-if="!!calcStats.dpsplasma && calcStats.dpsplasma !== 'NaN'" class="inactiveStat">
 				<i>Theoretical</i> damage per second without taking overheat into account, ignoring armor break and weakspot bonuses.
 			</span>
 
-            <h2 v-if="calcStats.dpbplasma">Damage per normal shot: {{ calcStats.dpbplasma }}
-                <br/>Damage per charged shot: {{ calcStats.dpbcharged}}</h2>
+            <span v-if="calcStats.dpbplasma" class="text-white text-lg block my-2">Damage per normal shot: {{ calcStats.dpbplasma }}
+                <br/>Damage per charged shot: {{ calcStats.dpbcharged}}</span>
 
-            <h2 v-if="calcStats.dpaplasma">Total damage for normal shots: {{ calcStats.dpaplasma }}
-                <br/>Total damage for charged shots: {{ calcStats.dpacharged }}</h2>
+            <span v-if="calcStats.dpaplasma" class="text-white text-lg block my-2">Total damage for normal shots: {{ calcStats.dpaplasma }}
+                <br/>Total damage for charged shots: {{ calcStats.dpacharged }}</span>
             <span v-if="calcStats.dpaplasma" class="inactiveStat">
 				<i>Theoretical</i> total damage available with initial ammunition.
 			</span>
 
             <!--todo: add numbers for weakspot damage to all stats-->
-            <h2 v-if="calcStats.visible">Total Costs:</h2>
-            <p class="costList">
-				<span class="costListItem" v-if="calcStats.cost.credits > 0">
+            <span v-if="calcStats.visible" class="text-white text-lg block my-2">Total Costs:</span>
+            <p class="costList flex flex-wrap">
+				<span class="costListItem flex items-center pr-2" v-if="calcStats.cost.credits > 0">
 					<img src="/assets/img/20px-Credit.png" alt="Credits" title="Credits"/>
 					<span>{{ calcStats.cost.credits }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.bismor > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.bismor > 0">
 					<img src="/assets/img/Bismor_icon.png" alt="Bismor" title="Bismor"/>
 					<span>{{ calcStats.cost.bismor }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.croppa > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.croppa > 0">
 					<img src="/assets/img/Croppa_icon.png" alt="Croppa" title="Croppa"/>
 					<span>{{ calcStats.cost.croppa }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.enorPearl > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.enorPearl > 0">
 					<img src="/assets/img/Enor_pearl_icon.png" alt="Enor Pearl" title="Enor Pearl"/>
 					<span>{{ calcStats.cost.enorPearl }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.jadiz > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.jadiz > 0">
 					<img src="/assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz"/>
 					<span>{{ calcStats.cost.jadiz }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.magnite > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.magnite > 0">
 					<img src="/assets/img/Magnite_icon.png" alt="Magnite" title="Magnite"/>
 					<span>{{ calcStats.cost.magnite }}</span>
 				</span>
-                <span class="costListItem" v-if="calcStats.cost.umanite > 0">
+                <span class="costListItem flex items-center pr-2" v-if="calcStats.cost.umanite > 0">
 					<img src="/assets/img/Umanite_icon.png" alt="Umanite" title="Umanite"/>
 					<span>{{ calcStats.cost.umanite }}</span>
 				</span>
@@ -452,6 +452,6 @@
     }
 
     .inactiveStat {
-        color: rgba(255, 251, 255, 0.2);
+        color: rgba(107, 114, 128, var(--tw-text-opacity));
     }
 </style>

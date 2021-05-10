@@ -12,7 +12,7 @@ class PostController extends Controller
     {
         SEOTools::setTitle('Blog');
 
-        $posts = Post::published()->latest('published_at')->paginate();
+        $posts = Post::published()->latest('published_at')->paginate(9);
 
         return view('posts.index')->withPosts($posts);
     }
