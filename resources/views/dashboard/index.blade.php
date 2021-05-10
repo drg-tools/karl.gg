@@ -15,12 +15,12 @@
                     alt="Driller Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Driller</span>
             </a>
-            <a href="/browse?character=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+            <a href="/browse?character=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
                 <img
-                    src="{{ asset('assets/img/Scout_portrait-128px.png') }}"
+                    src="{{ asset('assets/img/Engineer_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
-                    alt="Scout Logo">
-                <span class="text-lg sm:text-3xl font-semibold">Scout</span>
+                    alt="Engineer Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Engineer</span>
             </a>
             <a href="/browse?character=4" class="block px-4 py-4 bg-gunner hover:bg-gunner-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
                 <img
@@ -29,12 +29,12 @@
                     alt="Gunner Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Gunner</span>
             </a>
-            <a href="/browse?character=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+            <a href="/browse?character=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
                 <img
-                    src="{{ asset('assets/img/Engineer_portrait-128px.png') }}"
+                    src="{{ asset('assets/img/Scout_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
-                    alt="Engineer Logo">
-                <span class="text-lg sm:text-3xl font-semibold">Engineer</span>
+                    alt="Scout Logo">
+                <span class="text-lg sm:text-3xl font-semibold">Scout</span>
             </a>
         </div>
     </div>
