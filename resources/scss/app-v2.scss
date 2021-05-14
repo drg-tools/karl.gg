@@ -163,3 +163,31 @@
         }
     }
 }
+
+.profileButton {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    min-width: 8rem;
+    height: 2.2rem;
+    background: linear-gradient(90deg, #fc9e00 4%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0) 8%, #fc9e00 8%, #fc9e00 92%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 96%, #fc9e00 96%);
+}
+
+@media screen and (max-width: 768px) {
+    .profileButton .buttonText {
+        font-size: .8rem;
+    }
+    .profileButton {
+        min-width: 6rem;
+    }
+}
+@media screen and (max-width: 600px) {
+    .profileButton .buttonText {
+        font-size: .6rem;
+    }
+    .profileButton {
+        min-width: 4rem;
+    }
+}

@@ -26,8 +26,8 @@
             </div>
         </div>
 
-        <div class="w-6/12 mx-auto">
-            <x-profile-listing :loadoutList="$loadouts" title='Newest Loadouts'/>
+        <div class="w-8/12 mx-auto">
+            <x-profile-listing :loadoutList="$loadouts" title='My Loadouts'/>
         </div>
 
 @endsection
