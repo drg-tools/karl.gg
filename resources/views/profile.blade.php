@@ -27,7 +27,7 @@
         </div>
 
         <div class="w-6/12 mx-auto">
-            <x-dashboard-listing :loadoutList="$loadouts" title='Newest Loadouts'/>
+            <x-profile-listing :loadoutList="$loadouts" title='Newest Loadouts'/>
         </div>
 
 @endsection
