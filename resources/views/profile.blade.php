@@ -7,7 +7,6 @@
 @section('content')
 
     <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
-        <div class="">
             @if (Request()->id == Auth::id())
                 <div class="flex justify-end">
                     <a href="/profile/{{Auth::id()}}/edit" class="hover:underline text-gray-300">Edit Profile</a>
@@ -27,7 +26,8 @@
             </div>
         </div>
 
-        <profile-listing :user-id={{$user->id}}></profile-listing>
-    </div>
+        <div class="w-6/12 mx-auto">
+            <x-dashboard-listing :loadoutList="$loadouts" title='Newest Loadouts'/>
+        </div>
 
 @endsection
