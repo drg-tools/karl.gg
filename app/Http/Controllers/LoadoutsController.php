@@ -51,12 +51,13 @@ class LoadoutsController extends Controller
         $authUserId = \Auth::id();
         $loadout = Loadout::findOrFail($id);
 
-        if($loadout->creator->id == $authUserId) {
+        if ($loadout->creator->id == $authUserId) {
             $loadout->delete();
+
             return redirect('profile/'.$authUserId);
         } else {
             // Do not allow a user to delete someone else's loadout
-            return response()->view('errors.'.'403', [], 403); 
+            return response()->view('errors.'.'403', [], 403);
         }
     }
 
