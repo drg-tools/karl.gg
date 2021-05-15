@@ -21,7 +21,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('user.profile.update')
         ->where('id', '[0-9]+');
 
-    Route::delete('build/{id}', 'ProfileController@deleteLoadoutProfile');
+    Route::delete('build/delete/{id}', 'LoadoutsController@delete');
 });
 
 Route::middleware(['can:access-api'])->group(function () {

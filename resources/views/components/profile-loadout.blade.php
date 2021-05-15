@@ -52,9 +52,14 @@
         </a>
         @auth
         @if($loadout->creator->id == auth()->user()->id)
-            <a class="profileButton" href="">
-                <span class="buttonText">DELETE</span>
-            </a>
+            <form method="POST" action="/build/delete/{{$loadout->id}}">
+                @method('DELETE')
+                @csrf
+                <button class="profileButton" type="submit">
+                    <span class="buttonText">DELETE</span>
+                </button>
+            </form>
+            
             @endif
         @endauth
         

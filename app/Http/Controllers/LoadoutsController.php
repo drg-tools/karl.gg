@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Character;
 use App\Gun;
 use App\Loadout;
+use App\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Str;
@@ -43,6 +44,20 @@ class LoadoutsController extends Controller
         $this->generateSeo($loadout);
 
         return view('loadouts.preview')->withLoadout($loadout);
+    }
+
+    public function delete($id)
+    {
+        $authUserId = \Auth::id();
+        $loadout = Loadout::findOrFail($id);
+
+        if($loadout->creator->id == $authUserId) {
+            $loadout->delete();
+            return redirect('profile/'.$authUserId);
+        } else {
+            // Do not allow a user to delete someone else's loadout
+            return response()->view('errors.'.'403', [], 403); 
+        }
     }
 
     /**
