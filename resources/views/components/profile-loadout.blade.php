@@ -35,7 +35,7 @@
         </a>
     </div>
     <div class="flex flex-col">
-        <div class="profileButton">
+        <a class="profileButton" href="/build/{{$loadout->id}}">
             <span class="buttonText">
                 @guest
                     COPY
@@ -49,10 +49,14 @@
                 @endauth
                 
             </span>
-        </div>
-    
-        <div class="profileButton">
-            <span class="buttonText">DELETE</span>
-        </div>
+        </a>
+        @auth
+        @if($loadout->creator->id == auth()->user()->id)
+            <a class="profileButton" href="">
+                <span class="buttonText">DELETE</span>
+            </a>
+            @endif
+        @endauth
+        
     </div>
 </li>

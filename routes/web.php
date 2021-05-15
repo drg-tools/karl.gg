@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('profile/{id}/edit/update', 'ProfileController@editProfileSave')
         ->name('user.profile.update')
         ->where('id', '[0-9]+');
+
+    Route::delete('build/{id}', 'ProfileController@deleteLoadoutProfile');
 });
 
 Route::middleware(['can:access-api'])->group(function () {
