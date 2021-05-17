@@ -46,19 +46,18 @@ class LoadoutsController extends Controller
         return view('loadouts.preview')->withLoadout($loadout);
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
-        $authUserId = \Auth::id();
         $loadout = Loadout::findOrFail($id);
 
-        if ($loadout->creator->id == $authUserId) {
-            $loadout->delete();
-
-            return redirect('profile/'.$authUserId);
-        } else {
-            // Do not allow a user to delete someone else's loadout
-            return response()->view('errors.'.'403', [], 403);
+        if ($request->user()->cannot('delete', $loadout)) {
+            abort(403);
         }
+
+        $loadout->delete();
+        
+        // Currently you can only delete from user profile, so redirect there
+        return redirect('profile/'.$request->user()->id);
     }
 
     /**
