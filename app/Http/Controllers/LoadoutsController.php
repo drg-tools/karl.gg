@@ -55,7 +55,7 @@ class LoadoutsController extends Controller
         }
 
         $loadout->delete();
-        
+
         // Currently you can only delete from user profile, so redirect there
         return redirect('profile/'.$request->user()->id);
     }
