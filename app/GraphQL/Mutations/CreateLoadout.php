@@ -32,6 +32,10 @@ class CreateLoadout
         $loadout->mods()->sync(Arr::flatten($args['mods']));
         $loadout->equipment_mods()->sync(Arr::flatten($args['equipment_mods']));
         $loadout->overclocks()->sync(Arr::flatten($args['overclocks']));
+        // User upvotes their loadout on initial save
+        if($context->user() != null) {
+            $context->user()->upVote($loadout);
+        }
 
         return $loadout;
     }
