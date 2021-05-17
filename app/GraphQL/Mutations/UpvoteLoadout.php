@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Loadout;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class UpvoteLoadout
