@@ -35,7 +35,7 @@
         </a>
     </div>
     <div class="flex flex-col">
-        <a class="px-6 py-1 bg-yellow-400 text-gray-800 text-center font-bold" href="/build/{{$loadout->id}}">
+        <a class="px-6 py-1 bg-yellow-400 text-gray-800 text-center font-bold sm:rounded" href="/build/{{$loadout->id}}">
                 @guest
                     COPY
                 @endguest
@@ -52,7 +52,7 @@
             <form method="POST" action="/build/delete/{{$loadout->id}}">
                 @method('DELETE')
                 @csrf
-                <button class="mt-4 px-6 py-1 bg-yellow-400 text-gray-800 text-center font-bold" type="submit">
+                <button class="mt-4 px-6 py-1 bg-yellow-400 text-gray-800 text-center font-bold sm:rounded" type="submit">
                     DELETE
                 </button>
             </form>
