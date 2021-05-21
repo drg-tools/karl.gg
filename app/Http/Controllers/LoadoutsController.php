@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Character;
 use App\Gun;
 use App\Loadout;
+use App\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Str;
@@ -21,11 +22,22 @@ class LoadoutsController extends Controller
             ->withCount('votes')
             ->paginate();
         $characters = Character::orderBy('name')->get();
+        $primaries = Gun::where('character_slot',1)->orderBy('name')->get();
+        $secondaries = Gun::where('character_slot',2)->orderBy('name')->get();
 
         return view('loadouts.index', [
             'loadouts' => $loadouts,
             'characters' => $characters,
+            'primaries' => $primaries,
+            'secondaries' => $secondaries,
         ]);
+    }
+
+    public function getUsersForSearch(Request $request)
+    {
+        $users = User::getUsers($request);
+
+        return $users;
     }
 
     public function build()

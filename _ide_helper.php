@@ -9323,7 +9323,7 @@
          * if the proxy is trusted (see "setTrustedProxies()"), otherwise it returns
          * the latter (from the "SERVER_PROTOCOL" server parameter).
          *
-         * @return string 
+         * @return string|null 
          * @static 
          */ 
         public static function getProtocolVersion()
@@ -16560,7 +16560,7 @@
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          * - CRUD::column('price')->type('number');
          * 
-         * And if the developer uses the CrudColumn object as Column in his CrudController:
+         * And if the developer uses the CrudColumn object as Column in their CrudController:
          * - Column::name('price')->type('number');
          *
          * @param string $name The name of the column in the db, or model attribute.
@@ -16941,7 +16941,7 @@
          * - CRUD::addField(['name' => 'price', 'type' => 'number']);
          * - CRUD::field('price')->type('number');
          * 
-         * And if the developer uses the CrudField object as Field in his CrudController:
+         * And if the developer uses the CrudField object as Field in their CrudController:
          * - Field::name('price')->type('number');
          *
          * @param string $name The name of the column in the db, or model attribute.
@@ -17132,8 +17132,11 @@
                         return $instance->count();
         }
                     /**
-         * 
+         * Apply table prefix in the order clause if the query contains JOINS clauses.
          *
+         * @param string $column_name
+         * @param string $column_direction
+         * @return \Illuminate\Database\Eloquent\Builder 
          * @static 
          */ 
         public static function orderByWithPrefix($column_name, $column_direction = 'ASC')
@@ -17765,7 +17768,7 @@
          * - CRUD::addFilter(['name' => 'price', 'type' => 'range'], false, function($value) {});
          * - CRUD::filter('price')->type('range')->whenActive(function($value) {});
          * 
-         * And if the developer uses the CrudField object as Field in his CrudController:
+         * And if the developer uses the CrudField object as Field in their CrudController:
          * - Filter::name('price')->type('range')->whenActive(function($value) {});
          *
          * @param string $name The name of the column in the db, or model attribute.
@@ -18951,7 +18954,7 @@
         }
                     /**
          * In addition to registering the macro, throw an error if the method already exists on the object
-         * so the developer knows why his macro is not being registered.
+         * so the developer knows why their macro is not being registered.
          *
          * @param string $name
          * @param object|callable $macro
@@ -19560,6 +19563,47 @@
          *
          * @static 
          */ 
+        public static function determineVersionUsing($determineVersionCallable)
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->determineVersionUsing($determineVersionCallable);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function reportErrorLevels($reportErrorLevels)
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->reportErrorLevels($reportErrorLevels);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function filterExceptionsUsing($filterExceptionsCallable)
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->filterExceptionsUsing($filterExceptionsCallable);
+        }
+                    /**
+         * 
+         *
+         * @return null|string 
+         * @static 
+         */ 
+        public static function version()
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->version();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
         public static function getMiddleware()
         {
                         /** @var \Facade\FlareClient\Flare $instance */
@@ -19704,6 +19748,16 @@
         {
                         /** @var \Facade\FlareClient\Flare $instance */
                         return $instance->anonymizeIp();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function censorRequestBodyFields($fieldNames)
+        {
+                        /** @var \Facade\FlareClient\Flare $instance */
+                        return $instance->censorRequestBodyFields($fieldNames);
         }
                     /**
          * 
