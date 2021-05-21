@@ -35,9 +35,7 @@ class LoadoutsController extends Controller
 
     public function getUsersForSearch(Request $request)
     {
-        $users = User::getUsers($request);
-
-        return $users;
+        return  User::getUsers($request);
     }
 
     public function build()

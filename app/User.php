@@ -12,6 +12,7 @@ use Nagy\LaravelRating\Traits\Like\CanLike;
 use Nagy\LaravelRating\Traits\Rate\CanRate;
 use Nagy\LaravelRating\Traits\Vote\CanVote;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Http\Request;
 
 /**
  * App\User.
@@ -99,7 +100,7 @@ class User extends Authenticatable
         return $this->hasMany(Loadout::class);
     }
 
-    public function getUsers(Request $request) 
+    public static function getUsers(Request $request) 
     {
         $search = $request->search;
 
