@@ -32,7 +32,7 @@ class ProfileController extends Controller
             'loadouts' => $loadoutsWithSalutes,
             'loadoutCount' => $loadoutCount,
             'salutesCount' => $salutesCount,
-            'profileImgClass' => $profileImgClass
+            'profileImgClass' => $profileImgClass,
         ]);
     }
 
