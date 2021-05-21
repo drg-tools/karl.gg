@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Character;
 use App\Gun;
 use App\Loadout;
+use App\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Str;
@@ -43,6 +44,20 @@ class LoadoutsController extends Controller
         $this->generateSeo($loadout);
 
         return view('loadouts.preview')->withLoadout($loadout);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $loadout = Loadout::findOrFail($id);
+
+        if ($request->user()->cannot('delete', $loadout)) {
+            abort(403);
+        }
+
+        $loadout->delete();
+
+        // Currently you can only delete from user profile, so redirect there
+        return redirect('profile/'.$request->user()->id);
     }
 
     /**
