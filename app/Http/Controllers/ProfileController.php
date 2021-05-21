@@ -19,8 +19,10 @@ class ProfileController extends Controller
     {
         SEOTools::setTitle('Profile');
 
-        $loadouts = $request->user()->loadouts()->paginate();
-        $loadoutCount = $request->user()->loadouts->count();
+        $user = User::findOrFail($id);
+
+        $loadouts = $user->loadouts()->paginate();
+        $loadoutCount = $user->loadouts->count();
 
         $salutesCount = $this->getVoteCount($id);
         $loadoutsWithSalutes = $this->addSalutesToLoadoutsCollection($loadouts);
