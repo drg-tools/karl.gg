@@ -169,9 +169,8 @@
 }
 
 .choices__list--multiple .choices__item {
-    background-color: #fc9e00!important;
-    border:1px solid #18110B!important;
-    color: #000!important;
+    background-color: rgba(75, 85, 99, 1)!important;
+    border:1px solid rgba(17, 24, 39, 1)!important;
 }
 
 .choices__input,
@@ -183,4 +182,9 @@
 .choices__input[type="text"] {
   outline: 0!important;
   box-shadow: none!important;
+}
+
+.choices__inner {
+    padding: 0px!important;
+    min-height: unset!important;
 }
