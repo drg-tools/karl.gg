@@ -1,13 +1,23 @@
 <div class="mb-4">
-    <div class="flex-row">
-        <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+    <div class="flex flex-row">
+        <div class="mt-1 relative rounded-md shadow-sm flex flex-col w-1/2 mr-4">
+            <label for="choices-multiple-characters">Loadout Name</label>
+            <div class="absolute inset-y-12 left-0 pl-3 flex items-center pointer-events-none">
                 <!-- Heroicon name: solid/mail -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
-            <input type="search" value="{{ \Request::get('search') }}" name="search" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search by Loadout Name">
+            <input type="search" value="{{ \Request::get('search') }}" name="search" class="focus:ring-gray-500 focus:border-gray-500 block pl-10 sm:text-sm border-gray-300" placeholder="Search by Loadout Name">
+        </div>
+        <div class="w-1/4 flex flex-col">
+            <label for="choices-multiple-characters" class="mb-2.5">Characters</label>
+            <select class="form-control" data-trigger name="choices-multiple-characters" id="choices-multiple-characters" placeholder="Select Characters" multiple>
+                <option value="3">Driller</option>
+                <option value="1">Engineer</option>
+                <option value="4">Gunner</option>
+                <option value="2">Scout</option>
+            </select>
         </div>
     </div>
 
@@ -44,7 +54,7 @@
     <div class="flex flex-row">
         <div class="w-2/6 mr-3">
             <label for="choices-multiple-primaries">Primaries</label>
-            <select class="form-control" name="choices-multiple-primaries" id="choices-multiple-primaries" placeholder="This is a placeholder" multiple>
+            <select class="form-control" name="choices-multiple-primaries" id="choices-multiple-primaries" placeholder="Select Primary Weapons" multiple>
                 @foreach ($primaries as $weapon)
                     <option value="{{$weapon->id}}">{{$weapon->name}}</option>
                 @endforeach
@@ -54,7 +64,7 @@
         </div>
         <div class="w-2/6 mr-3">
             <label for="choices-multiple-secondaries">Secondaries</label>
-            <select class="form-control" name="choices-multiple-secondaries" id="choices-multiple-secondaries" placeholder="This is a placeholder" multiple>
+            <select class="form-control" name="choices-multiple-secondaries" id="choices-multiple-secondaries" placeholder="Select Secondary Weapons" multiple>
                 @foreach ($secondaries as $gun)
                     <option value="{{$gun->id}}">{{$gun->name}}</option>
                 @endforeach
@@ -102,6 +112,10 @@
             removeItemButton: true,
           }
         );
+        var multipleDefault = new Choices(
+          document.getElementById('choices-multiple-characters')
+        );
+
     });
     </script>
 
