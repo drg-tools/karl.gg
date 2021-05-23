@@ -34,7 +34,7 @@ Route::get('unsubscribe/{user}', 'SubscriptionController@unsubscribe')
 Route::get('/', 'DashboardController@index');
 Route::get('browse', 'LoadoutsController@index')->name('loadout.index');
 Route::resource('blog', 'PostController')->only(['index', 'show']);
-Route::post('/user/getUsers','LoadoutsController@getUsersForSearch')->name('users.getUsers');
+Route::get('/user/getUsers','LoadoutsController@getUsersForSearch')->name('users.getUsers');
 
 Route::get('preview/{loadoutId}', 'LoadoutsController@preview')->name('preview.show');
 Route::get('build', 'LoadoutsController@build');
