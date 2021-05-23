@@ -178,3 +178,9 @@
 .choices__input--cloned {
     color: #333
 }
+
+
+.choices__input[type="text"] {
+  outline: 0!important;
+  box-shadow: none!important;
+}
