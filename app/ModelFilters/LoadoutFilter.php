@@ -3,6 +3,7 @@
 namespace App\ModelFilters;
 
 use EloquentFilter\ModelFilter;
+use App\User;
 
 class LoadoutFilter extends ModelFilter
 {
@@ -12,7 +13,9 @@ class LoadoutFilter extends ModelFilter
      *
      * @var array
      */
-    public $relations = [];
+    public $relations = [
+        'creator' => ['user_id']
+    ];
 
     public function character($id)
     {
@@ -22,5 +25,13 @@ class LoadoutFilter extends ModelFilter
     public function search($name)
     {
         $this->whereLike('loadouts.name', $name);
+    }
+
+    public function creator($creator)
+    {
+        $this->whereHas('creator', function($creator) {
+            $innerQuery->where('name', 'LIKE', $creator[0]);
+        });
+        
     }
 }

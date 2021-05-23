@@ -8,11 +8,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
-            <input type="search" value="{{ \Request::get('search') }}" name="search" class="focus:ring-gray-500 focus:border-gray-500 block pl-10 sm:text-sm border-gray-300" placeholder="Search by Loadout Name">
+            <input type="search" value="{{ \Request::get('search') }}" name="search" class="focus:ring-gray-500 focus:border-gray-500 block pl-10 sm:text-sm border-gray-300 text-gray-900" placeholder="Search by Loadout Name">
         </div>
         <div class="w-1/4 flex flex-col">
-            <label for="choices-multiple-characters" class="mb-2.5">Characters</label>
-            <select class="form-control" data-trigger name="choices-multiple-characters" id="choices-multiple-characters" placeholder="Select Characters" multiple>
+            <label for="characters" class="mb-2.5">Characters</label>
+            <select class="form-control" data-trigger name="characters[]" id="characters" placeholder="Select Characters" multiple>
                 <option value="3">Driller</option>
                 <option value="1">Engineer</option>
                 <option value="4">Gunner</option>
@@ -25,36 +25,33 @@
         <div class="w-1/6 mr-3">
             <label class="block">
                 <span class="text-gray-300">Overclocks?</span>
-                <select class="form-select mt-1 block w-full text-gray-800">
+                <select class="form-select mt-1 block w-full text-gray-800" name="overclocks">
                     <option>--</option>
-                    <option>Yes</option>
-                    <option>No</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                 </select>
             </label>
         </div>
         <div class="w-1/6 mr-3">
             <label class="block">
-                <span class="text-gray-300">Loadout Guide?</span>
+                <span class="text-gray-300" name="guide">Loadout Guide?</span>
                 <select class="form-select mt-1 block w-full text-gray-800">
                     <option>--</option>
-                    <option>Yes</option>
-                    <option>No</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                 </select>
             </label>
         </div>
         <div class="w-1/6 mr-3">
             <!-- For defining autocomplete -->
-            <label for="choices-multiple-remote-fetch" class="block mb-1.5">Creator Name</label>
-            <select class="form-control text-gray-800" name="choices-multiple-remote-fetch" id="choices-multiple-remote-fetch" multiple></select>
-                
-
-
+            <label for="creator" class="block mb-1.5">Creator Name</label>
+            <select class="form-control text-gray-800" name="creator[]" id="creator" multiple></select>
         </div>
     </div>
     <div class="flex flex-row">
         <div class="w-2/6 mr-3">
-            <label for="choices-multiple-primaries">Primaries</label>
-            <select class="form-control" name="choices-multiple-primaries" id="choices-multiple-primaries" placeholder="Select Primary Weapons" multiple>
+            <label for="primaries">Primaries</label>
+            <select class="form-control" name="primaries[]" id="primaries" placeholder="Select Primary Weapons" multiple>
                 @foreach ($primaries as $weapon)
                     <option value="{{$weapon->id}}">{{$weapon->name}}</option>
                 @endforeach
@@ -63,8 +60,8 @@
 
         </div>
         <div class="w-2/6 mr-3">
-            <label for="choices-multiple-secondaries">Secondaries</label>
-            <select class="form-control" name="choices-multiple-secondaries" id="choices-multiple-secondaries" placeholder="Select Secondary Weapons" multiple>
+            <label for="secondaries">Secondaries</label>
+            <select class="form-control" name="secondaries[]" id="secondaries" placeholder="Select Secondary Weapons" multiple>
                 @foreach ($secondaries as $gun)
                     <option value="{{$gun->id}}">{{$gun->name}}</option>
                 @endforeach
@@ -82,7 +79,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-        var multipleFetch = new Choices('#choices-multiple-remote-fetch', {
+        var multipleFetch = new Choices('#creator', {
           placeholder: true,
           placeholderValue: 'Search Creators',
           maxItemCount: 5,
@@ -101,19 +98,19 @@
         });
 
         var multipleCancelButton = new Choices(
-          '#choices-multiple-primaries',
+          '#primaries',
           {
             removeItemButton: true,
           }
         );
         var multipleCancelButton = new Choices(
-          '#choices-multiple-secondaries',
+          '#secondaries',
           {
             removeItemButton: true,
           }
         );
         var multipleDefault = new Choices(
-          document.getElementById('choices-multiple-characters')
+          document.getElementById('characters')
         );
 
     });

@@ -70,6 +70,14 @@ class Loadout extends Model
 
     public $sortable = ['name', 'description', 'character_id', 'throwable_id', 'created_at', 'updated_at'];
     public $sortableAs = ['votes_count'];
+    private static $whiteListFilter = [
+        'creator',
+        'name',
+        'description',
+        'character_id',
+        'created_at',
+        'updated_at',
+    ];
 
     protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
 
