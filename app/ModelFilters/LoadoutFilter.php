@@ -26,12 +26,4 @@ class LoadoutFilter extends ModelFilter
     {
         $this->whereLike('loadouts.name', $name);
     }
-
-    public function creator($creator)
-    {
-        $this->whereHas('creator', function($creator) {
-            $innerQuery->where('name', 'LIKE', $creator[0]);
-        });
-        
-    }
 }
