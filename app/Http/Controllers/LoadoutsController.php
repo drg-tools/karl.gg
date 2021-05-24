@@ -21,8 +21,8 @@ class LoadoutsController extends Controller
             ->withCount('votes')
             ->paginate();
         $characters = Character::orderBy('name')->get();
-        $primaries = Gun::where('character_slot',1)->orderBy('name')->get();
-        $secondaries = Gun::where('character_slot',2)->orderBy('name')->get();
+        $primaries = Gun::where('character_slot', 1)->orderBy('name')->get();
+        $secondaries = Gun::where('character_slot', 2)->orderBy('name')->get();
 
         return view('loadouts.index', [
             'loadouts' => $loadouts,
