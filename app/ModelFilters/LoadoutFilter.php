@@ -3,7 +3,6 @@
 namespace App\ModelFilters;
 
 use EloquentFilter\ModelFilter;
-use App\User;
 
 class LoadoutFilter extends ModelFilter
 {
@@ -14,7 +13,7 @@ class LoadoutFilter extends ModelFilter
      * @var array
      */
     public $relations = [
-        'creator' => ['user_id']
+        'creator' => ['user_id'],
     ];
 
     public function character($id)
