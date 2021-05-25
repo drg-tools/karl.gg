@@ -25,4 +25,12 @@ class LoadoutFilter extends ModelFilter
     {
         $this->whereLike('loadouts.name', $name);
     }
+
+    public function creator($ids)
+    {
+        return $this->whereHas('creator', function($query) use ($ids)
+        {
+            return $query->whereIn('name', $ids);
+        });
+    }
 }
