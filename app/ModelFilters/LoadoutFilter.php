@@ -30,7 +30,7 @@ class LoadoutFilter extends ModelFilter
     {
         return $this->whereHas('creator', function($query) use ($ids)
         {
-            return $query->whereIn('name', $ids);
+            return $query->whereIn('id', $ids);
         });
     }
 }

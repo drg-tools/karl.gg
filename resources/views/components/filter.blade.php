@@ -76,9 +76,9 @@
 </div>
 
 @section('scripts')
-    <script>
+    <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
-
+        
         var multipleFetch = new Choices('#creator', {
           placeholder: true,
           placeholderValue: 'Search Creators',
@@ -92,11 +92,14 @@
             })
             .then(function(data) {
               return data.map(function(user) {
-                return { value: user.text, label: user.text };
+                return { value: user.id, label: user.text };
               });
             });
         });
-
+        @if( request()->get('creator') )
+            // this.multipleFetch.setChoiceByValue(request);
+            console.log( String {{json_decode(request()->get('creator'))}}  )
+        @endif
         var multipleCancelButton = new Choices(
           '#primaries',
           {

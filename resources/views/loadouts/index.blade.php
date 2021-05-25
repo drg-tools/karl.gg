@@ -25,10 +25,11 @@
 
         <div class="my-2">
             <form action="{{ route('loadout.index') }}" method="GET">
-{{--                 
-                @foreach(\Request::all() as $key => $val)
+
+                      {{-- {{dd(Request::all())}} --}}
+                {{-- @foreach(\Request::all() as $key => $val)
                     <input type="hidden" name="{{ $key }}" value="{{ is_array($val) ? json_encode($val) : $val }}">
-                @endforeach --}}
+                @endforeach  --}}
                 
                 <x-filter :primaries="$primaries" :secondaries="$secondaries" />
             </form>
