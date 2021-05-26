@@ -1,18 +1,17 @@
 @extends('layouts.app')
 
 @section('styles')
-<!-- Include base CSS (optional) -->
+{{-- <!-- Include base CSS (optional) -->
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/base.min.css"
-/>
+/> --}}
 
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
 />
-<!-- Include Choices JavaScript (latest) -->
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
 @endsection
 
 @section('header')

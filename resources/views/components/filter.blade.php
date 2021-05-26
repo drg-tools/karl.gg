@@ -77,12 +77,16 @@
 
 @section('scripts')
     <script type="text/javascript">
+    
         document.addEventListener('DOMContentLoaded', function() {
         
         var multipleFetch = new Choices('#creator', {
           placeholder: true,
           placeholderValue: 'Search Creators',
           maxItemCount: 5,
+          @if( request()->get('creator') )  
+          items: {!! json_encode(request()->get('creator'))!!},
+          @endif
         }).setChoices(function() {
           return fetch(
             '/user/getUsers'
@@ -91,15 +95,21 @@
               return response.json();
             })
             .then(function(data) {
-              return data.map(function(user) {
-                return { value: user.id, label: user.text };
+              return data.map(function(user, index) {
+                return { value: user.id, label: user.text};
               });
             });
         });
-        @if( request()->get('creator') )
-            // this.multipleFetch.setChoiceByValue(request);
-            console.log( String {{json_decode(request()->get('creator'))}}  )
-        @endif
+       
+        
+        // let boolSelected = false;
+        //         @if( request()->get('creator') )  
+        //         let creatorArray = {!! json_encode(request()->get('creator'))!!};
+        //         if(creatorArray.includes(user.id)) {
+        //             boolSelected = true;
+        //         }
+        //         @endif
+        
         var multipleCancelButton = new Choices(
           '#primaries',
           {
