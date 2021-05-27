@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('styles')
-{{-- <!-- Include base CSS (optional) -->
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/base.min.css"
-/> --}}
-
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
