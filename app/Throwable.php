@@ -54,7 +54,7 @@ use Illuminate\Database\Eloquent\Model;
 class Throwable extends Model
 {
     use Filterable, CrudTrait;
-    
+
     protected $guarded = ['id'];
 
     public function character()
