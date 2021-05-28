@@ -75,7 +75,7 @@ class ThrowableCrudController extends CrudController
         $this->crud->addField([
             'name' => 'description',
             'label' => 'Text Description',
-            'type' => 'text',
+            'type' => 'textarea',
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -136,6 +136,81 @@ class ThrowableCrudController extends CrudController
 
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        $this->crud->setValidation(ThrowableRequest::class);
+
+        $this->crud->addField([
+            'name' => 'name',
+            'label' => 'Throwable Name',
+            'type' => 'text',
+            'tab' => 'Base Info',
+        ]);
+        $this->crud->addField([
+            'type' => 'select',
+            'name' => 'character_id', // the relationship name in your Model
+            'entity' => 'character', // the relationship name in your Model
+            'attribute' => 'name', // attribute on Article that is shown to admin
+            'model' => "App\Character",
+            'tab' => 'Base Info',
+        ]);
+        $this->crud->addField([
+            'name' => 'description',
+            'label' => 'Text Description',
+            'type' => 'textarea',
+            'tab' => 'Base Info',
+        ]);
+        $this->crud->addField([
+            'name' => 'icon',
+            'label' => 'Icon',
+            'type' => 'text',
+            'tab' => 'Base Info',
+        ]);
+        $this->crud->addField([
+            'name' => 'credits_cost',
+            'label' => 'Credits Cost',
+            'type' => 'number',
+            'tab' => 'Cost',
+        ]);
+        $this->crud->addField([
+            'name' => 'magnite_cost',
+            'label' => 'Magnite Cost',
+            'type' => 'number',
+            'tab' => 'Cost',
+        ]);
+        $this->crud->addField([
+            'name' => 'bismor_cost',
+            'label' => 'Bismor Cost',
+            'type' => 'number',
+            'tab' => 'Cost',
+        ]);
+        $this->crud->addField([
+            'name' => 'umanite_cost',
+            'label' => 'Umanite Cost',
+            'type' => 'number',
+            'tab' => 'Cost',
+        ]);
+        $this->crud->addField([
+            'name' => 'croppa_cost',
+            'label' => 'Croppa Cost',
+            'type' => 'number',
+            'tab' => 'Cost',
+        ]);
+        $this->crud->addField([
+            'name' => 'enor_pearl_cost',
+            'label' => 'Enor Pearl Cost',
+            'type' => 'number',
+            'tab' => 'Cost',
+        ]);
+        $this->crud->addField([
+            'name' => 'jadiz_cost',
+            'label' => 'Jadiz Cost',
+            'type' => 'number',
+            'tab' => 'Cost',
+        ]);
+        $this->crud->addField([
+            'name' => 'json_stats',
+            'label' => 'JSON Stats',
+            'type' => 'textarea',
+            'tab' => 'Stats',
+        ]);
     }
 }

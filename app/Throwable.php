@@ -55,6 +55,8 @@ class Throwable extends Model
 {
     use Filterable, CrudTrait;
 
+    protected $guarded = ['id'];
+
     public function character()
     {
         return $this->belongsTo(Character::class);
