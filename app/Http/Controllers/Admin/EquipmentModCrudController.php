@@ -108,7 +108,7 @@ class EquipmentModCrudController extends CrudController
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
-            'name' => 'equipment', // The db column name
+            'name' => 'equipment_id', // The db column name
             'label' => 'Equipment', // Table column heading
             'type' => 'relationship',
             'entity' => 'equipment', // the method that defines the relationship in your Model
