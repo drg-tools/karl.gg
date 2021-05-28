@@ -19,10 +19,10 @@
             <select class="form-control" data-trigger name="characters[]" id="characters"
                 placeholder="Select Characters" multiple>
                 <option value="">Characters</option>
-                <option value="Driller">Driller</option>
-                <option value="Engineer">Engineer</option>
-                <option value="Gunner">Gunner</option>
-                <option value="Scout">Scout</option>
+                <option value="3">Driller</option>
+                <option value="1">Engineer</option>
+                <option value="4">Gunner</option>
+                <option value="2">Scout</option>
             </select>
         </div>
     </div>
@@ -105,12 +105,14 @@
             '#overclocks',
             {
                 searchEnabled: false,
+                removeItemButton: true,
             }
         );
         var guideSelectSingle = new Choices(
             '#guide',
             {
                 searchEnabled: false,
+                removeItemButton: true,
             }
         );
         @if( request()->get('characters') )  

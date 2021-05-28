@@ -12,13 +12,13 @@ class LoadoutFilter extends ModelFilter
      *
      * @var array
      */
-    public $relations = [
-        'creator' => ['user_id'],
-    ];
+    public $relations = [];
 
-    public function character($id)
+    public function characters($charIds)
     {
-        $this->where('character_id', $id);
+        return $this->whereHas('character', function ($query) use ($charIds) {
+            return $query->whereIn('id', $charIds);
+        });
     }
 
     public function search($name)
@@ -26,10 +26,34 @@ class LoadoutFilter extends ModelFilter
         $this->whereLike('loadouts.name', $name);
     }
 
-    public function creator($ids)
+    public function overclocks($ocVal)
     {
-        return $this->whereHas('creator', function ($query) use ($ids) {
-            return $query->whereIn('id', $ids);
-        });
-    }
+        if($ocVal === null) {
+            return;
+        } else if($ocVal == "Yes") {
+            return $this->whereHas('overclocks');
+        } else {
+            return $this->whereDoesntHave('overclocks');
+        }
+    }    
+    public function guide($guideVal)
+    {
+        if($guideVal === null) {
+            return;
+        } else if($guideVal == "Yes") {
+            return $this->where('description', "!=", null);
+        } else {
+            return $this->where('description', null);
+        }
+    } 
+    public function primaries($primaryIds)
+    {        
+        
+    }   
+    // public function secondaries($secondaryIds)
+    // {
+    //     return $this->whereHas('character', function ($query) use ($secondaryIds) {
+    //         return $query->whereIn('id', $secondaryIds);
+    //     });
+    // }   
 }
