@@ -1,7 +1,7 @@
 <div class="mb-4">
     <div class="flex flex-row">
         <div class="mt-1 relative rounded-md shadow-sm flex flex-col w-1/2 mr-4">
-            <label for="choices-multiple-characters">Loadout Name</label>
+            <label for="choices-multiple-characters" class="mb-2.5 text-gray-300">Loadout Name</label>
             <div class="absolute inset-y-12 left-0 pl-3 flex items-center pointer-events-none">
                 <!-- Heroicon name: solid/mail -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24"
