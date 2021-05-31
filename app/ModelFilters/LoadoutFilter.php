@@ -28,32 +28,34 @@ class LoadoutFilter extends ModelFilter
 
     public function overclocks($ocVal)
     {
-        if($ocVal === null) {
+        if ($ocVal === null) {
             return;
-        } else if($ocVal == "Yes") {
+        } elseif ($ocVal == 'Yes') {
             return $this->whereHas('overclocks');
         } else {
             return $this->whereDoesntHave('overclocks');
         }
-    }    
+    }
+
     public function guide($guideVal)
     {
-        if($guideVal === null) {
+        if ($guideVal === null) {
             return;
-        } else if($guideVal == "Yes") {
-            return $this->where('description', "!=", null);
+        } elseif ($guideVal == 'Yes') {
+            return $this->where('description', '!=', null);
         } else {
             return $this->where('description', null);
         }
-    } 
+    }
+
     public function primaries($primaryIds)
-    {        
-        
-    }   
+    {
+    }
+
     // public function secondaries($secondaryIds)
     // {
     //     return $this->whereHas('character', function ($query) use ($secondaryIds) {
     //         return $query->whereIn('id', $secondaryIds);
     //     });
-    // }   
+    // }
 }
