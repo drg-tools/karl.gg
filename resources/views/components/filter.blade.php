@@ -1,8 +1,7 @@
 <div class="mb-4">
     <div class="flex flex-row">
         <div class="mt-1 relative rounded-md shadow-sm flex flex-col w-1/2 mr-4">
-            <label for="choices-multiple-characters" class="mb-2.5 text-gray-300">Loadout Name</label>
-            <div class="absolute inset-y-12 left-0 pl-3 flex items-center pointer-events-none">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <!-- Heroicon name: solid/mail -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -14,8 +13,7 @@
                 class="focus:ring-gray-500 focus:border-gray-500 block pl-10 sm:text-sm border-gray-300 text-gray-900"
                 placeholder="Search by Loadout Name">
         </div>
-        <div class="w-1/4 flex flex-col">
-            <label for="characters" class="mb-2.5 text-gray-300">Characters</label>
+        <div class="w-1/4 flex flex-col mt-1">
             <select class="form-control" data-trigger name="characters[]" id="characters"
                 placeholder="Select Characters" multiple>
                 <option value="">Characters</option>
@@ -50,8 +48,7 @@
         </div>
     </div>
     <div class="flex flex-row">
-        <div class="w-2/6 mr-3">
-            <label for="primaries" class="text-gray-300">Primaries</label>
+        <div class="w-2/6 mr-3 mt-3">
             <select class="form-control" name="primaries[]" id="primaries" placeholder="Select Primary Weapons"
                 multiple>
                 <option value="">Primaries</option>
@@ -62,8 +59,7 @@
 
 
         </div>
-        <div class="w-2/6 mr-3">
-            <label for="secondaries" class="text-gray-300">Secondaries</label>
+        <div class="w-2/6 mr-3 mt-3">
             <select class="form-control" name="secondaries[]" id="secondaries" placeholder="Select Secondary Weapons"
                 multiple>
                 <option value="">Secondaries</option>
@@ -73,7 +69,7 @@
             </select>
 
         </div>
-        <button class="ml-2 mt-7 px-6 py-1 bg-karl-orange text-gray-800 text-center font-bold sm:rounded max-h-10"
+        <button class="ml-2 mt-3 px-6 py-1 bg-karl-orange text-gray-800 text-center font-bold sm:rounded max-h-10"
             type="submit">
             Submit
         </button>
@@ -115,6 +111,7 @@
                 removeItemButton: true,
             }
         );
+        // Pre-fill selected values conditionally
         @if( request()->get('characters') )  
             characterSelectMultiple.setChoiceByValue({!! json_encode(request()->get('characters'))!!});
         @endif
