@@ -14,6 +14,7 @@ class LoadoutFilter extends ModelFilter
      */
     public $relations = [
         'mods' => ['mods'], // Added so we can grab our weapon_id's
+        'overclocks' => ['overclocks'], // Added so we can grab our overclocks
     ];
 
     public function characters($charIds)
@@ -28,7 +29,7 @@ class LoadoutFilter extends ModelFilter
         $this->whereLike('loadouts.name', $name);
     }
 
-    public function overclocks($ocVal)
+    public function ocBool($ocVal)
     {
         // Users requested an ability to filter out loadouts with overclocks, as they may be new to the game and don't have the $$ for the OC's yet
         if ($ocVal === null) {
@@ -38,6 +39,13 @@ class LoadoutFilter extends ModelFilter
         } else {
             return $this->whereDoesntHave('overclocks');
         }
+    }
+
+    public function overclocks($ocIds)
+    {
+        return $this->whereHas('overclocks', function ($query) use ($ocIds) {
+            return $query->whereIn('overclock_id', $ocIds);
+        });
     }
 
     public function guide($guideVal)

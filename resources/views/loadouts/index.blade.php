@@ -24,7 +24,7 @@
                     <input type="hidden" name="{{ $key }}" value="{{ is_array($val) ? json_encode($val) : $val }}">
                 @endforeach  --}}
                 
-                <x-filter :primaries="$primaries" :secondaries="$secondaries" />
+                <x-filter :primaries="$primaries" :secondaries="$secondaries" :overclocks="$overclocks" />
             </form>
         </div>
 

@@ -6,6 +6,7 @@ use App\Character;
 use App\Gun;
 use App\Loadout;
 use App\User;
+use App\Overclock;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Str;
@@ -22,6 +23,7 @@ class LoadoutsController extends Controller
             ->withCount('votes')
             ->paginate();
         $characters = Character::orderBy('name')->get();
+        $overclocks = Overclock::orderBy('overclock_name')->get();
         $primaries = Gun::where('character_slot', 1)->orderBy('name')->get();
         $secondaries = Gun::where('character_slot', 2)->orderBy('name')->get();
 
@@ -30,6 +32,7 @@ class LoadoutsController extends Controller
             'characters' => $characters,
             'primaries' => $primaries,
             'secondaries' => $secondaries,
+            'overclocks' => $overclocks,
         ]);
     }
 

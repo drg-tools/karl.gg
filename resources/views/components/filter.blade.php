@@ -24,10 +24,32 @@
             </select>
         </div>
     </div>
+    <div class="flex flex-row">
+        <div class="w-2/6 mr-3 mt-4">
+            <select class="form-control" name="primaries[]" id="primaries" placeholder="Select Primary Weapons"
+                multiple>
+                <option value="">Primaries</option>
+                @foreach ($primaries as $weapon)
+                    <option value="{{ $weapon->id }}">{{ $weapon->name }}</option>
+                @endforeach
+            </select>
 
+
+        </div>
+        <div class="w-2/6 mr-3 mt-4">
+            <select class="form-control" name="secondaries[]" id="secondaries" placeholder="Select Secondary Weapons"
+                multiple>
+                <option value="">Secondaries</option>
+                @foreach ($secondaries as $gun)
+                    <option value="{{ $gun->id }}">{{ $gun->name }}</option>
+                @endforeach
+            </select>
+
+        </div>
+    </div>
     <div class="my-2 flex sm:flex-row flex-wrap">
         <div class="w-1/6 mr-3 mt-3">
-                <select class=" mt-1 block w-full text-gray-800" name="overclocks" id="overclocks">
+                <select class=" mt-1 block w-full text-gray-800" name="ocBool" id="ocBool">
                     <option value="">Overclocks?</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -40,29 +62,17 @@
                     <option value="No">No</option>
                 </select>
         </div>
+        <div class="w-2/6 mr-3 mt-3">
+            <div class="">
+                <select class="form-control block" data-trigger name="overclocks[]" id="overclocks"
+                    placeholder="Select Overclocks" multiple>
+                <option value="">OC Names</option>
+                @foreach ($overclocks as $oc)
+                    <option value="{{ $oc->id }}">{{ $oc->overclock_name }}</option>
+                @endforeach
+            </select> 
+        </div>
     </div>
-    <div class="flex flex-row">
-        <div class="w-2/6 mr-3 mt-3">
-            <select class="form-control" name="primaries[]" id="primaries" placeholder="Select Primary Weapons"
-                multiple>
-                <option value="">Primaries</option>
-                @foreach ($primaries as $weapon)
-                    <option value="{{ $weapon->id }}">{{ $weapon->name }}</option>
-                @endforeach
-            </select>
-
-
-        </div>
-        <div class="w-2/6 mr-3 mt-3">
-            <select class="form-control" name="secondaries[]" id="secondaries" placeholder="Select Secondary Weapons"
-                multiple>
-                <option value="">Secondaries</option>
-                @foreach ($secondaries as $gun)
-                    <option value="{{ $gun->id }}">{{ $gun->name }}</option>
-                @endforeach
-            </select>
-
-        </div>
         <button class="ml-2 mt-3 px-6 py-1 bg-karl-orange text-gray-800 text-center font-bold sm:rounded max-h-10"
             type="submit">
             Submit
@@ -88,11 +98,17 @@
             removeItemButton: true,
         }
         );
+        var overclocksSelectMultiple = new Choices(
+        '#overclocks',
+        {
+            removeItemButton: true,
+        }
+        );
         var characterSelectMultiple = new Choices(
             '#characters',
         );
-        var overclocksSelectSingle = new Choices(
-            '#overclocks',
+        var ocBoolSelectSingle = new Choices(
+            '#ocBool',
             {
                 searchEnabled: false,
                 removeItemButton: true,
@@ -110,7 +126,10 @@
             characterSelectMultiple.setChoiceByValue({!! json_encode(request()->get('characters'))!!});
         @endif
         @if( request()->get('overclocks') )  
-            overclocksSelectSingle.setChoiceByValue({!! json_encode(request()->get('overclocks'))!!});
+            overclocksSelectMultiple.setChoiceByValue({!! json_encode(request()->get('overclocks'))!!});
+        @endif
+        @if( request()->get('ocBool') )  
+            ocBoolSelectSingle.setChoiceByValue({!! json_encode(request()->get('ocBool'))!!});
         @endif
         @if( request()->get('guide') )  
             guideSelectSingle.setChoiceByValue({!! json_encode(request()->get('guide'))!!});
