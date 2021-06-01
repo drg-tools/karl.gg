@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class DashboardLoadout extends Component
+class ClickableLoadout extends Component
 {
     public $loadout;
 
@@ -39,6 +39,6 @@ class DashboardLoadout extends Component
      */
     public function render()
     {
-        return view('components.dashboard-loadout');
+        return view('components.clickable-loadout');
     }
 }

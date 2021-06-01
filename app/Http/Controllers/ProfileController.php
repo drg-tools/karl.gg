@@ -15,34 +15,41 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return View
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
         SEOTools::setTitle('Profile');
 
-        $loadouts = $this->getLoadoutsForUser($id);
-        $loadoutCount = $this->getLoadoutCount($id);
+        $user = User::findOrFail($id);
+
+        $loadouts = $user->loadouts()->paginate();
+        $loadoutCount = $user->loadouts->count();
+
         $salutesCount = $this->getVoteCount($id);
         $loadoutsWithSalutes = $this->addSalutesToLoadoutsCollection($loadouts);
         $profileImgClassArray = ['profileImageS', 'profileImageD', 'profileImageE', 'profileImageG'];
         $profileImgClass = Arr::random($profileImgClassArray);
 
-        return view('profile', ['user' => User::findOrFail($id), 'loadouts' => $loadoutsWithSalutes, 'loadoutCount' => $loadoutCount, 'salutesCount' => $salutesCount, 'profileImgClass' => $profileImgClass]);
+        return view('profile.show', [
+            'user' => User::findOrFail($id),
+            'loadouts' => $loadoutsWithSalutes,
+            'loadoutCount' => $loadoutCount,
+            'salutesCount' => $salutesCount,
+            'profileImgClass' => $profileImgClass,
+        ]);
     }
 
     /**
      * Allow the current user to edit their current profile.
-     *
-     * @param  int  $id
-     * @return View
      */
     public function editProfile(Request $request, $id)
     {
+        // TODO: make this a static path rather than by ID, then we can remove a lot of this logic
         SEOTools::setTitle('Profile');
 
         $authUserId = \Auth::id();
         if ($authUserId == $id) {
             // You are authenticated and trying to edit your profile
-            return view('editprofile', ['user' => User::findOrFail($id)]);
+            return view('profile.edit', ['user' => $request->user()]);
         } else {
             // Do not allow a user to edit someone else's profile
             return response()->view('errors.'.'403', [], 403);
@@ -57,6 +64,7 @@ class ProfileController extends Controller
      */
     public function editProfileSave(Request $request, $id)
     {
+        // TODO: simplify this
         $authUserId = \Auth::id();
         if ($authUserId == $id) {
             $user = User::find($id);
@@ -95,22 +103,6 @@ class ProfileController extends Controller
         }
     }
 
-    private function getLoadoutsForUser($userId)
-    {
-        $user = User::findOrFail($userId);
-        $loadouts = $user->loadouts->all();
-
-        return $loadouts;
-    }
-
-    private function getLoadoutCount($userId)
-    {
-        $user = User::findOrFail($userId);
-        $loadoutCount = $user->loadouts->count();
-
-        return $loadoutCount;
-    }
-
     private function getVoteCount($userId)
     {
         $user = User::findOrFail($userId);
@@ -129,7 +121,7 @@ class ProfileController extends Controller
     private function addSalutesToLoadoutsCollection($loadouts)
     {
         foreach ($loadouts as $key => $loadout) {
-            $loadout->salutes = $loadout->upVotesCount();
+            $loadout->votes_count = $loadout->upVotesCount();
         }
 
         return $loadouts;

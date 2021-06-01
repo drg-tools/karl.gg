@@ -58,6 +58,20 @@ class LoadoutsController extends Controller
         return view('loadouts.preview')->withLoadout($loadout);
     }
 
+    public function delete(Request $request, $id)
+    {
+        $loadout = Loadout::findOrFail($id);
+
+        if ($request->user()->cannot('delete', $loadout)) {
+            abort(403);
+        }
+
+        $loadout->delete();
+
+        // Currently you can only delete from user profile, so redirect there
+        return redirect('profile/'.$request->user()->id);
+    }
+
     /**
      * @param  \Illuminate\Database\Eloquent\Collection|null  $loadout
      */
