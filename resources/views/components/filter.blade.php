@@ -26,25 +26,19 @@
     </div>
 
     <div class="my-2 flex sm:flex-row flex-wrap">
-        <div class="w-1/6 mr-3">
-            <label class="block">
-                <span class="text-gray-300">Overclocks?</span>
+        <div class="w-1/6 mr-3 mt-3">
                 <select class=" mt-1 block w-full text-gray-800" name="overclocks" id="overclocks">
-                    <option value="">Select Option</option>
+                    <option value="">Overclocks?</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
-            </label>
         </div>
-        <div class="w-1/6 mr-3">
-            <label class="block">
-                <span class="text-gray-300">Loadout Guide?</span>
+        <div class="w-1/6 mr-3 mt-3">
                 <select class="form-select mt-1 block w-full text-gray-800" name="guide" id="guide">
-                    <option value="">Select Option</option>
+                    <option value="">Loadout Guide?</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
-            </label>
         </div>
     </div>
     <div class="flex flex-row">
