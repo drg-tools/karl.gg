@@ -1,6 +1,6 @@
 <div class="mb-4">
-    <div class="flex flex-row">
-        <div class="mt-1 relative rounded-md shadow-sm flex flex-col w-1/2 mr-4">
+    <div class="flex flex-wrap">
+        <div class="mt-1 relative rounded-md shadow-sm flex flex-col w-full md:w-1/2 mr-4">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <!-- Heroicon name: solid/mail -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24"
@@ -13,7 +13,7 @@
                 class="focus:ring-gray-500 focus:border-gray-500 block pl-10 sm:text-sm border-gray-300 text-gray-900"
                 placeholder="Search by Loadout Name">
         </div>
-        <div class="w-1/4 flex flex-col mt-1">
+        <div class="w-1/2 flex flex-col mt-3 md:w-1/4 md:mt-1">
             <select class="form-control" data-trigger name="characters[]" id="characters"
                 placeholder="Select Characters" multiple>
                 <option value="">Characters</option>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="flex flex-row">
-        <div class="w-2/6 mr-3 mt-4">
+        <div class="w-1/2 md:w-2/6 mr-3 mt-4">
             <select class="form-control" name="primaries[]" id="primaries" placeholder="Select Primary Weapons"
                 multiple>
                 <option value="">Primaries</option>
@@ -36,7 +36,7 @@
 
 
         </div>
-        <div class="w-2/6 mr-3 mt-4">
+        <div class="w-1/2 md:w-2/6 mr-3 mt-4">
             <select class="form-control" name="secondaries[]" id="secondaries" placeholder="Select Secondary Weapons"
                 multiple>
                 <option value="">Secondaries</option>
@@ -48,21 +48,21 @@
         </div>
     </div>
     <div class="my-2 flex sm:flex-row flex-wrap">
-        <div class="w-1/6 mr-3 mt-3">
+        <div class="w-1/3 md:w-1/6 mr-3 mt-3">
                 <select class=" mt-1 block w-full text-gray-800" name="ocBool" id="ocBool">
                     <option value="">Overclocks?</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
         </div>
-        <div class="w-1/6 mr-3 mt-3">
+        <div class="w-1/3 md:w-1/6 mr-3 mt-3">
                 <select class="form-select mt-1 block w-full text-gray-800" name="guide" id="guide">
                     <option value="">Loadout Guide?</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
         </div>
-        <div class="w-2/6 mr-3 mt-3">
+        <div class="w-1/2 md:w-2/6 mr-3 mt-3">
             <div class="">
                 <select class="form-control block" data-trigger name="overclocks[]" id="overclocks"
                     placeholder="Select Overclocks" multiple>
