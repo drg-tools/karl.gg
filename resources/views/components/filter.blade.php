@@ -49,14 +49,14 @@
     </div>
     <div class="my-2 flex sm:flex-row flex-wrap">
         <div class="w-1/3 md:w-1/6 mr-3 mt-3">
-                <select class=" mt-1 block w-full text-gray-800" name="ocBool" id="ocBool">
+                <select class=" mt-1 block w-full text-gray-800" name="hasOverclock" id="hasOverclock">
                     <option value="">Overclocks?</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
         </div>
         <div class="w-1/3 md:w-1/6 mr-3 mt-3">
-                <select class="form-select mt-1 block w-full text-gray-800" name="guide" id="guide">
+                <select class="form-select mt-1 block w-full text-gray-800" name="hasGuide" id="hasGuide">
                     <option value="">Loadout Guide?</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -68,7 +68,7 @@
                     placeholder="Select Overclocks" multiple>
                 <option value="">OC Names</option>
                 @foreach ($overclocks as $key => $oc)
-                    <option value="{{ $oc }}">{{ $oc }}</option>
+                    <option value="{{ $key }}">{{ $oc }}</option>
                 @endforeach
             </select> 
         </div>
@@ -107,15 +107,15 @@
         var characterSelectMultiple = new Choices(
             '#characters',
         );
-        var ocBoolSelectSingle = new Choices(
-            '#ocBool',
+        var hasOverclockSelectSingle = new Choices(
+            '#hasOverclock',
             {
                 searchEnabled: false,
                 removeItemButton: true,
             }
         );
-        var guideSelectSingle = new Choices(
-            '#guide',
+        var hasGuideSelectSingle = new Choices(
+            '#hasGuide',
             {
                 searchEnabled: false,
                 removeItemButton: true,
@@ -128,11 +128,11 @@
         @if( request()->get('overclocks') )  
             overclocksSelectMultiple.setChoiceByValue({!! json_encode(request()->get('overclocks'))!!});
         @endif
-        @if( request()->get('ocBool') )  
-            ocBoolSelectSingle.setChoiceByValue({!! json_encode(request()->get('ocBool'))!!});
+        @if( request()->get('hasOverclock') )  
+            hasOverclockSelectSingle.setChoiceByValue({!! json_encode(request()->get('hasOverclock'))!!});
         @endif
-        @if( request()->get('guide') )  
-            guideSelectSingle.setChoiceByValue({!! json_encode(request()->get('guide'))!!});
+        @if( request()->get('hasGuide') )  
+            hasGuideSelectSingle.setChoiceByValue({!! json_encode(request()->get('hasGuide'))!!});
         @endif
         @if( request()->get('primaries') )  
             primarySelectMultiple.setChoiceByValue({!! json_encode(request()->get('primaries'))!!});
