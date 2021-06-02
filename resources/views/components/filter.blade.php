@@ -117,7 +117,9 @@
         );
         var characterSelectMultiple = new Choices(
             '#characters',
-            removeItemButton: true,
+            {
+                removeItemButton: true,
+            }
         );
         var hasOverclockSelectSingle = new Choices(
             '#hasOverclock',
