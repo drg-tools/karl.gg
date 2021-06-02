@@ -35,11 +35,6 @@ class LoadoutsController extends Controller
         ]);
     }
 
-    public function getUsersForSearch(Request $request)
-    {
-        return  User::getUsers($request);
-    }
-
     public function build()
     {
         SEOTools::setTitle('Build a Deep Rock Galactic Loadout');

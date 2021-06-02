@@ -29,7 +29,7 @@ class LoadoutFilter extends ModelFilter
         $this->whereLike('loadouts.name', $name);
     }
 
-    public function ocBool($ocVal)
+    public function hasOverclock($ocVal)
     {
         // Users requested an ability to filter out loadouts with overclocks, as they may be new to the game and don't have the $$ for the OC's yet
         if ($ocVal === null) {
@@ -48,7 +48,7 @@ class LoadoutFilter extends ModelFilter
         });
     }
 
-    public function guide($guideVal)
+    public function hasGuide($guideVal)
     {
         // Users requested an ability to filter out loadouts without guides, especially for new players
         if ($guideVal === null) {

@@ -100,24 +100,4 @@ class User extends Authenticatable
         return $this->hasMany(Loadout::class);
     }
 
-    public static function getUsers(Request $request)
-    {
-        $search = $request->search;
-
-        if ($search == '') {
-            $users = User::orderby('name', 'asc')->select('id', 'name')->limit(5)->get();
-        } else {
-            $users = User::orderby('name', 'asc')->select('id', 'name')->where('name', 'like', '%'.$search.'%')->limit(5)->get();
-        }
-
-        $response = [];
-        foreach ($users as $user) {
-            $response[] = [
-                'id'=>$user->id,
-                'text'=>$user->name,
-            ];
-        }
-
-        return response()->json($response);
-    }
 }
