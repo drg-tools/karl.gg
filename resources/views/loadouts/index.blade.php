@@ -18,12 +18,6 @@
 
         <div class="my-2">
             <form action="{{ route('loadout.index') }}" method="GET">
-
-                      {{-- {{dd(Request::all())}} --}}
-                {{-- @foreach(\Request::all() as $key => $val)
-                    <input type="hidden" name="{{ $key }}" value="{{ is_array($val) ? json_encode($val) : $val }}">
-                @endforeach  --}}
-                
                 <x-filter :primaries="$primaries" :secondaries="$secondaries" :overclocks="$overclocks" />
             </form>
         </div>
