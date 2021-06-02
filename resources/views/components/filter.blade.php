@@ -1,4 +1,5 @@
 <div class="mb-4">
+
     <div class="flex flex-wrap">
         <div class="mt-1 relative rounded-md shadow-sm flex flex-col w-full md:w-1/2 mr-4">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -29,19 +30,18 @@
             <select class="form-control" name="primaries[]" id="primaries" placeholder="Select Primary Weapons"
                 multiple>
                 <option value="">Primaries</option>
-                @foreach ($primaries as $weapon)
-                    <option value="{{ $weapon->id }}">{{ $weapon->name }}</option>
+                @foreach ($primaries as $key => $weapon)
+                    <option value="{{ $key }}">{{ $weapon }}</option>
                 @endforeach
             </select>
-
 
         </div>
         <div class="w-1/2 md:w-2/6 mr-3 mt-4">
             <select class="form-control" name="secondaries[]" id="secondaries" placeholder="Select Secondary Weapons"
                 multiple>
                 <option value="">Secondaries</option>
-                @foreach ($secondaries as $gun)
-                    <option value="{{ $gun->id }}">{{ $gun->name }}</option>
+                @foreach ($secondaries as $key => $gun)
+                    <option value="{{ $key }}">{{ $gun }}</option>
                 @endforeach
             </select>
 
@@ -67,8 +67,8 @@
                 <select class="form-control block" data-trigger name="overclocks[]" id="overclocks"
                     placeholder="Select Overclocks" multiple>
                 <option value="">OC Names</option>
-                @foreach ($overclocks as $oc)
-                    <option value="{{ $oc->id }}">{{ $oc->overclock_name }}</option>
+                @foreach ($overclocks as $key => $oc)
+                    <option value="{{ $oc }}">{{ $oc }}</option>
                 @endforeach
             </select> 
         </div>
