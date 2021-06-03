@@ -21,7 +21,7 @@ class LoadoutsController extends Controller
             ->with('mods', 'mods.gun', 'character', 'creator')
             ->withCount('votes')
             ->paginate();
-        $characters = Character::orderBy('name')->get();
+        $characters = Character::orderBy('name')->pluck('name','id');
         $overclocks = Overclock::orderBy('overclock_name')->pluck('overclock_name', 'id');
         $primaries = Gun::where('character_slot', 1)->orderBy('name')->pluck('name', 'id');
         $secondaries = Gun::where('character_slot', 2)->orderBy('name')->pluck('name', 'id');
