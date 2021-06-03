@@ -33,7 +33,7 @@
         <div x-show="show" style="display:none;" class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
 
             <div>
-                <select class="form-control" name="primaries[]" id="primaries" placeholder="Select Primary Weapons"
+                <select class="form-control" name="primaries[]" id="primaries"
                         multiple>
                     <option value="">Primaries</option>
                     @foreach ($primaries as $key => $weapon)
@@ -67,8 +67,7 @@
                 </select>
             </div>
             <div>
-                <select class="form-control block" data-trigger name="overclocks[]" id="overclocks"
-                        placeholder="Select Overclocks" multiple>
+                <select class="form-control block" data-trigger name="overclocks[]" id="overclocks" multiple>
                     <option value="">Overclocks</option>
                     @foreach ($overclocks as $key => $oc)
                         <option value="{{ $key }}">{{ $oc }}</option>
