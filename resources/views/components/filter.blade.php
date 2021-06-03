@@ -13,13 +13,13 @@
                 </div>
                 <input type="text" value="{{ \Request::get('search') }}" name="search" id="search"
                        placeholder="Search by Loadout Name"
-                       class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md">
+                       class="focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md">
             </div>
         </div>
 
         <div>
             <select
-                class="focus:ring-indigo-500 focus:border-indigo-500 relative block w-full rounded-none rounded-t-md focus:z-10 sm:text-sm border-gray-300"
+                class="focus:ring-orange-500 focus:border-orange-500 relative block w-full rounded-none rounded-t-md focus:z-10 sm:text-sm border-gray-300"
                 data-trigger name="characters[]" id="characters" multiple>
                 <option value="">Characters</option>
                 @foreach($characters as $id => $character)
