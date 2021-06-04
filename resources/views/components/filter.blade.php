@@ -29,7 +29,12 @@
         </div>
     </div>
 
-    <div x-data="{ show:false }">
+    @php
+        $showFilters = request()->hasAny(['primaries', 'secondaries', 'overclocks']) ||
+            request()->filled('hasGuide') || request()->filled('hasOverclock')
+                ? 'true' : 'false';
+    @endphp
+    <div x-data="{ show: {{ $showFilters }} }">
         <div x-show="show" style="display:none;" class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
 
             <div>
