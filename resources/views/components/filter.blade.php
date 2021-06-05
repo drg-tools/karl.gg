@@ -28,7 +28,7 @@
                 <select
                     class="focus:ring-orange-500 focus:border-orange-500 relative block w-full rounded-none rounded-t-md focus:z-10 sm:text-sm border-gray-300"
                     data-trigger name="characters[]" id="characters" multiple>
-                    <option value="">Characters</option>
+                    <option value="">Classes</option>
                     @foreach($characters as $id => $character)
                         <option value="{{ $id }}">{{ $character }}</option>
                     @endforeach
