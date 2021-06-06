@@ -79,9 +79,9 @@
             </div>
             <div class="flex items-center">
                 <span class="text-white mr-1 ml-5">Current Patch Only?</span>
-                {{-- It's fucking broken --}}
-                 {{-- {!! Form::checkbox('isCurrentPatch', 0, false) !!} --}}
-            </div>
+                {{-- A working checkbox will go here at some point --}}
+                
+                </div>
         </div>
         <div class="flex justify-center gap-2 mt-2">
             <button type="button" x-on:click.prevent="show=!show"
@@ -107,18 +107,21 @@
                 '#primaries',
                 {
                     removeItemButton: true,
+                    itemSelectText: 'Click to select',
                 }
             );
             var secondarySelectMultiple = new Choices(
                 '#secondaries',
                 {
                     removeItemButton: true,
+                    itemSelectText: 'Click to select',
                 }
             );
             var overclocksSelectMultiple = new Choices(
                 '#overclocks',
                 {
                     removeItemButton: true,
+                    itemSelectText: 'Click to select',
                     searchFields: ['label', 'value', 'customProperties'],
                 }
             );
@@ -126,6 +129,7 @@
                 '#characters',
                 {
                     removeItemButton: true,
+                    itemSelectText: 'Click to select',
                 }
             );
             var hasOverclockSelectSingle = new Choices(
@@ -133,6 +137,7 @@
                 {
                     searchEnabled: false,
                     removeItemButton: true,
+                    itemSelectText: 'Click to select',
                 }
             );
             var hasGuideSelectSingle = new Choices(
@@ -140,6 +145,7 @@
                 {
                     searchEnabled: false,
                     removeItemButton: true,
+                    itemSelectText: 'Click to select',
                 }
             );
             // Pre-fill selected values conditionally

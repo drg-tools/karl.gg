@@ -33,7 +33,6 @@ class LoadoutsController extends Controller
             'primaries' => $primaries,
             'secondaries' => $secondaries,
             'overclocks' => $overclocks,
-            'isCurrentPatch' => 0,
         ]);
     }
 
