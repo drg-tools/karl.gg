@@ -79,8 +79,8 @@
             </div>
             <div class="flex items-center">
                 <span class="text-white mr-1 ml-5">Current Patch Only?</span>
-                {{ Form::checkbox('isCurrentPatch') }}
-                {{-- <input name="isCurrentPatch" type="checkbox" value="{!! !empty($isCurrentPatch) ? $isCurrentPatch : 0 !!}"> --}}
+                {{-- It's fucking broken --}}
+                 {{-- {!! Form::checkbox('isCurrentPatch', 0, false) !!} --}}
             </div>
         </div>
         <div class="flex justify-center gap-2 mt-2">
