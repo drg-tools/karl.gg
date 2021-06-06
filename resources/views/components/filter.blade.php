@@ -1,4 +1,4 @@
-<div class="mb-4 bg-gray-700 rounded-sm p-4">
+<div class="mb-4 bg-gray-700 p-4 sm:rounded-lg">
     <div>
         <label for="search" class="sr-only">Search</label>
         <div class="relative rounded-md shadow-sm">
