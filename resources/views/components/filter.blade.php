@@ -123,6 +123,27 @@
                     removeItemButton: true,
                     itemSelectText: 'Click to select',
                     searchFields: ['label', 'value', 'customProperties'],
+                    callbackOnCreateTemplates: function(template) {
+                        return {
+                        choice: (classNames, data) => {
+                            return template(`
+                            <div class="${classNames.item} ${classNames.itemChoice} ${
+                            data.disabled ? classNames.itemDisabled : classNames.itemSelectable
+                            }
+                            " data-select-text="${this.config.itemSelectText}" data-choice ${
+                            data.disabled
+                                ? 'data-choice-disabled aria-disabled="true"'
+                                : 'data-choice-selectable'
+                            } data-id="${data.id}" data-value="${data.value}" ${
+                            data.groupId > 0 ? 'role="treeitem"' : 'role="option"'
+                            }>
+                                ${data.label} <br />
+                                <sup>${data.customProperties}</sup>
+                            </div>
+                            `);
+                        },
+                        };
+                    },
                 }
             );
             var characterSelectMultiple = new Choices(
