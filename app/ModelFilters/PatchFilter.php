@@ -14,8 +14,8 @@ class PatchFilter extends ModelFilter
      */
     public $relations = [];
 
-    public function latest() 
+    public function latest()
     {
-        return $this->where('id','current.id')->pluck('id');
+        return $this->where('id', 'current.id')->pluck('id');
     }
 }
