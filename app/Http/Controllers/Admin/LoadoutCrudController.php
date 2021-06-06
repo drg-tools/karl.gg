@@ -31,7 +31,7 @@ class LoadoutCrudController extends CrudController
             'name' => 'creator', // The db column name
             'label' => 'creator', // Table column heading
             'type' => 'relationship',
-            'entity' => 'user', // the method that defines the relationship in your Model
+            'entity' => 'creator', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => App\User::class, // foreign key model
             'searchLogic' => function ($query, $column, $searchTerm) {

@@ -15,6 +15,7 @@ class LoadoutFilter extends ModelFilter
     public $relations = [
         'mods' => ['mods'], // Added so we can grab our weapon_id's
         'overclocks' => ['overclocks'], // Added so we can grab our overclocks
+        'patches' => ['latest'], // Added for patch filter
     ];
 
     public function characters($charIds)
@@ -78,5 +79,14 @@ class LoadoutFilter extends ModelFilter
         return $this->whereHas('mods', function ($query) use ($secondaryIds) {
             return $query->whereIn('gun_id', $secondaryIds);
         });
+    }
+
+    public function isCurrentPatch($currentPatch)
+    {
+        if ($currentPatch == 0) {
+            return;
+        } else {
+            return $this->related('patch', 'id', '=', 'patch_id');
+        }
     }
 }

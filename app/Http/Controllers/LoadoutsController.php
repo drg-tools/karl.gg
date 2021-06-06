@@ -15,6 +15,7 @@ class LoadoutsController extends Controller
 {
     public function index(Request $request)
     {
+        // dd($request);
         SEOTools::setTitle('Deep Rock Galactic Loadouts');
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())

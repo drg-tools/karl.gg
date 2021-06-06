@@ -18,7 +18,7 @@
 
     @php
         $showFilters = request()->hasAny(['primaries', 'secondaries', 'overclocks', 'characters']) ||
-            request()->filled('hasGuide') || request()->filled('hasOverclock')
+            request()->filled('hasGuide') || request()->filled('hasOverclock') || request()->filled('isCurrentPatch')
                 ? 'true' : 'false';
     @endphp
     <div x-data="{ show: {{ $showFilters }} }">
@@ -76,6 +76,11 @@
                         <option value="{{ $oc->id }}" data-custom-properties="{{ $oc->character->name }}">{{ $oc->overclock_name }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="flex items-center">
+                <span class="text-white mr-1 ml-5">Current Patch Only?</span>
+                {{ Form::checkbox('isCurrentPatch') }}
+                {{-- <input name="isCurrentPatch" type="checkbox" value="{!! !empty($isCurrentPatch) ? $isCurrentPatch : 0 !!}"> --}}
             </div>
         </div>
         <div class="flex justify-center gap-2 mt-2">
