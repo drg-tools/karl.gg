@@ -133,7 +133,7 @@ class OverclockCrudController extends CrudController
         $this->crud->addField([
             'name' => 'text_description',
             'label' => 'Text Description',
-            'type' => 'text',
+            'type' => 'textarea',
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -244,7 +244,7 @@ class OverclockCrudController extends CrudController
         $this->crud->addField([
             'name' => 'text_description',
             'label' => 'Text Description',
-            'type' => 'text',
+            'type' => 'textarea',
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
