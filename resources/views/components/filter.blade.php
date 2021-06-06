@@ -1,4 +1,4 @@
-<div class="mb-4">
+<div class="mb-4 bg-gray-700 rounded-sm p-4">
     <div>
         <label for="search" class="sr-only">Search</label>
         <div class="relative rounded-md shadow-sm">
@@ -17,8 +17,8 @@
     </div>
 
     @php
-        $showFilters = request()->hasAny(['primaries', 'secondaries', 'overclocks', 'characters']) ||
-            request()->filled('hasGuide') || request()->filled('hasOverclock') || request()->filled('isCurrentPatch')
+        $showFilters = request()->hasAny(['primaries', 'secondaries', 'overclocks', 'characters', 'isCurrentPatch']) ||
+            request()->filled('hasGuide') || request()->filled('hasOverclock')
                 ? 'true' : 'false';
     @endphp
     <div x-data="{ show: {{ $showFilters }} }">
@@ -77,15 +77,20 @@
                     @endforeach
                 </select>
             </div>
-            <div class="flex items-center">
-                <span class="text-white mr-1 ml-5">Current Patch Only?</span>
-                {{-- A working checkbox will go here at some point --}}
-                
+            <div class="relative flex items-center p-4 rounded-sm">
+                <div class="flex items-center h-5">
+                    <input id="isCurrentPatch" name="isCurrentPatch" type="checkbox" value="1"
+                           @if(request()->has('isCurrentPatch'))checked="checked"@endif
+                           class="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded">
                 </div>
+                <div class="ml-3 text-sm">
+                    <label for="isCurrentPatch" class="font-medium text-gray-100">Current Patch Only</label>
+                </div>
+            </div>
         </div>
         <div class="flex justify-center gap-2 mt-2">
             <button type="button" x-on:click.prevent="show=!show"
-                    class="inline-flex items-center text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 w-full md:w-auto">
+                    class="inline-flex items-center text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 w-full md:w-auto">
                 Show/Hide Filters
             </button>
             <button
