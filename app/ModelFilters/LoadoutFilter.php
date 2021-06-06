@@ -86,7 +86,7 @@ class LoadoutFilter extends ModelFilter
         if ($currentPatch == 0) {
             return;
         } else {
-            return $this->related('patch', 'id', '=', 'patch_id');
+            return $this->where('patch_id', \App\Patch::current()->id);
         }
     }
 }
