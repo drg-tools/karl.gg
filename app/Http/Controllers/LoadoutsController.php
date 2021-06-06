@@ -19,7 +19,7 @@ class LoadoutsController extends Controller
         SEOTools::setTitle('Deep Rock Galactic Loadouts');
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
-            ->with('mods', 'mods.gun', 'character', 'creator')
+            ->with('mods', 'mods.gun', 'character', 'creator', 'patch')
             ->withCount('votes')
             ->paginate();
         $characters = Character::orderBy('name')->pluck('name', 'id');
