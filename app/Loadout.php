@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Events\LoadoutSaving;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Nagy\LaravelRating\Traits\Like\Likeable;
@@ -68,7 +68,6 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
 class Loadout extends Model
 {
     use HasFactory;
-
     use Favoriteable, Filterable, CrudTrait, Votable, Likeable, Sortable;
 
     public $sortable = ['name', 'description', 'character_id', 'throwable_id', 'created_at', 'updated_at'];

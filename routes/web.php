@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\BuildMetricController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoadoutsController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubscriptionController;

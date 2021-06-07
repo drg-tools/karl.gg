@@ -1,11 +1,9 @@
 <?php
 
-
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Gun;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GunFactory extends Factory
 {
@@ -24,11 +22,11 @@ class GunFactory extends Factory
     public function definition()
     {
         return [
-        'name' => 'Warthog Auth 210',
-        'character_slot' => 1,
-        'character_id' => 1,
-        'image' => 'E_P1_Warthog',
-        'json_stats' => '',
-    ];
+            'name' => 'Warthog Auth 210',
+            'character_slot' => 1,
+            'character_id' => 1,
+            'image' => 'E_P1_Warthog',
+            'json_stats' => '',
+        ];
     }
 }

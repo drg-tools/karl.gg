@@ -1,11 +1,9 @@
 <?php
 
-
-
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Character;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CharacterFactory extends Factory
 {
@@ -24,8 +22,8 @@ class CharacterFactory extends Factory
     public function definition()
     {
         return [
-        'name' => 'Engineer',
-        'image' => '50px-E_icon',
-    ];
+            'name' => 'Engineer',
+            'image' => '50px-E_icon',
+        ];
     }
 }
