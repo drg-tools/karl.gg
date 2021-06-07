@@ -15,7 +15,6 @@ class LoadoutsController extends Controller
 {
     public function index(Request $request)
     {
-        // dd($request);
         SEOTools::setTitle('Deep Rock Galactic Loadouts');
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
@@ -24,8 +23,8 @@ class LoadoutsController extends Controller
             ->paginate();
         $characters = Character::orderBy('name')->pluck('name', 'id');
         $overclocks = Overclock::orderBy('overclock_name')->with('character')->get();
-        $primaries = Gun::where('character_slot', 1)->orderBy('name')->pluck('name', 'id');
-        $secondaries = Gun::where('character_slot', 2)->orderBy('name')->pluck('name', 'id');
+        $primaries = Gun::where('character_slot', 1)->orderBy('name')->with('character')->get();
+        $secondaries = Gun::where('character_slot', 2)->orderBy('name')->with('character')->get();
 
         return view('loadouts.index', [
             'loadouts' => $loadouts,

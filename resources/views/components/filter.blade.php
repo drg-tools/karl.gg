@@ -39,8 +39,9 @@
                 <select class="form-control" name="primaries[]" id="primaries"
                         multiple>
                     <option value="">Primaries</option>
-                    @foreach ($primaries as $key => $weapon)
-                        <option value="{{ $key }}">{{ $weapon }}</option>
+                    
+                    @foreach ($primaries as $weapon)
+                        <option value="{{ $weapon->id }}" data-custom-properties="{{ $weapon->character->name}}">{{ $weapon->name }}</option>
                     @endforeach
                 </select>
 
@@ -49,8 +50,8 @@
                 <select class="form-control" name="secondaries[]" id="secondaries"
                         multiple>
                     <option value="">Secondaries</option>
-                    @foreach ($secondaries as $key => $gun)
-                        <option value="{{ $key }}">{{ $gun }}</option>
+                    @foreach ($secondaries as $gun)
+                        <option value="{{ $gun->id }}" data-custom-properties="{{ $gun->character->name}}">{{ $gun->name }}</option>
                     @endforeach
                 </select>
 
@@ -113,6 +114,27 @@
                 {
                     removeItemButton: true,
                     itemSelectText: 'Click to select',
+                    callbackOnCreateTemplates: function(template) {
+                        return {
+                        choice: (classNames, data) => {
+                            return template(`
+                            <div class="${classNames.item} ${classNames.itemChoice} ${
+                            data.disabled ? classNames.itemDisabled : classNames.itemSelectable
+                            }
+                            " data-select-text="${this.config.itemSelectText}" data-choice ${
+                            data.disabled
+                                ? 'data-choice-disabled aria-disabled="true"'
+                                : 'data-choice-selectable'
+                            } data-id="${data.id}" data-value="${data.value}" ${
+                            data.groupId > 0 ? 'role="treeitem"' : 'role="option"'
+                            }>
+                                ${data.label} <br />
+                                <sup>${data.customProperties}</sup>
+                            </div>
+                            `);
+                        },
+                        };
+                    },
                 }
             );
             var secondarySelectMultiple = new Choices(
@@ -120,6 +142,27 @@
                 {
                     removeItemButton: true,
                     itemSelectText: 'Click to select',
+                    callbackOnCreateTemplates: function(template) {
+                        return {
+                        choice: (classNames, data) => {
+                            return template(`
+                            <div class="${classNames.item} ${classNames.itemChoice} ${
+                            data.disabled ? classNames.itemDisabled : classNames.itemSelectable
+                            }
+                            " data-select-text="${this.config.itemSelectText}" data-choice ${
+                            data.disabled
+                                ? 'data-choice-disabled aria-disabled="true"'
+                                : 'data-choice-selectable'
+                            } data-id="${data.id}" data-value="${data.value}" ${
+                            data.groupId > 0 ? 'role="treeitem"' : 'role="option"'
+                            }>
+                                ${data.label} <br />
+                                <sup>${data.customProperties}</sup>
+                            </div>
+                            `);
+                        },
+                        };
+                    },
                 }
             );
             var overclocksSelectMultiple = new Choices(
