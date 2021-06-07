@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Charts;
+use Illuminate\Support\Facades\Route;
+
 // --------------------------
 // Custom Backpack Routes
 // --------------------------
@@ -23,9 +26,9 @@ Route::group([
     Route::crud('character', 'CharacterCrudController');
     Route::crud('post', 'PostCrudController');
 
-    Route::get('charts/daily-users', 'Charts\DailyUsersChartController@response')->name('charts.daily-users.index');
-    Route::get('charts/daily-loadouts', 'Charts\DailyLoadoutsChartController@response')->name('charts.daily-loadouts.index');
-    Route::get('charts/daily-updated-loadouts', 'Charts\DailyUpdatedLoadoutsChartController@response')->name('charts.daily-updated-loadouts.index');
+    Route::get('charts/daily-users', [Charts\DailyUsersChartController::class, 'response'])->name('charts.daily-users.index');
+    Route::get('charts/daily-loadouts', [Charts\DailyLoadoutsChartController::class, 'response'])->name('charts.daily-loadouts.index');
+    Route::get('charts/daily-updated-loadouts', [Charts\DailyUpdatedLoadoutsChartController::class, 'response'])->name('charts.daily-updated-loadouts.index');
 }); // this should be the absolute last line of this file
 
 Route::group([
