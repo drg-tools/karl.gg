@@ -15,11 +15,11 @@ class LoadoutNewPatchTest extends TestCase
 
     public function testLoadoutGetsLatestPatchWhenCreated()
     {
-        $patch = factory(Patch::class)->create([
+        $patch = Patch::factory()->create([
             'launched_at' => Carbon::now()->subYear(),
         ]);
 
-        $loadout = factory(Loadout::class)->create();
+        $loadout = Loadout::factory()->create();
 
         $this->assertEquals($loadout->patch_id, $patch->id);
         $this->assertEquals($loadout->patch->patch_title, $patch->patch_title);
@@ -27,11 +27,11 @@ class LoadoutNewPatchTest extends TestCase
 
     public function testLoadoutGetsLatestPatchWhenUpdating()
     {
-        $oldPatch = factory(Patch::class)->create([
+        $oldPatch = Patch::factory()->create([
             'launched_at' => Carbon::now()->subYear(),
         ]);
 
-        $loadout = factory(Loadout::class)->create([
+        $loadout = Loadout::factory()->create([
             'patch_id' => $oldPatch->id,
         ]);
 
@@ -39,7 +39,7 @@ class LoadoutNewPatchTest extends TestCase
         $this->assertEquals($loadout->patch->patch_title, $oldPatch->patch_title);
 
         // Create new patch and update
-        $newPatch = factory(Patch::class)->create([
+        $newPatch = Patch::factory()->create([
             'launched_at' => Carbon::now(),
         ]);
 

@@ -1,15 +1,33 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Patch;
-use Faker\Generator as Faker;
 
-$factory->define(Patch::class, function (Faker $faker) {
-    return [
-        'patch_num' => $faker->numberBetween(100, 100000),
-        'patch_num_dev' => $faker->numberBetween(100, 100000),
-        'patch_title' => $faker->title,
-        'launched_at' => $faker->dateTimeThisMonth,
+class PatchFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Patch::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'patch_num' => $this->faker->numberBetween(100, 100000),
+        'patch_num_dev' => $this->faker->numberBetween(100, 100000),
+        'patch_title' => $this->faker->title,
+        'launched_at' => $this->faker->dateTimeThisMonth,
     ];
-});
+    }
+}

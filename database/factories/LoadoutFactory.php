@@ -1,21 +1,39 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Loadout;
-use Faker\Generator as Faker;
 
-$factory->define(Loadout::class, function (Faker $faker) {
-    $createdAt = $faker->dateTimeThisYear;
+class LoadoutFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Loadout::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $createdAt = $this->faker->dateTimeThisYear;
 
     return [
-        'name' => $faker->name,
-        'description' => $faker->sentence,
+        'name' => $this->faker->name,
+        'description' => $this->faker->sentence,
         'user_id' => 1,
-        'character_id' => $faker->numberBetween(1, 4),
+        'character_id' => $this->faker->numberBetween(1, 4),
         'patch_id' => 1,
         'created_at' => $createdAt,
         'updated_at' => $createdAt,
         'throwable_id' => 12,
     ];
-});
+    }
+}
