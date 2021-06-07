@@ -35,9 +35,8 @@ class Post extends Model
     use CrudTrait;
 
     protected $guarded = [];
-
-    protected $dates = [
-        'published_at',
+    protected $casts = [
+        'published_at' => 'datetime',
     ];
 
     public function user()

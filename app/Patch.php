@@ -37,9 +37,8 @@ use Illuminate\Database\Eloquent\Model;
 class Patch extends Model
 {
     use Filterable, CrudTrait;
-
-    protected $dates = [
-        'launched_at',
+    protected $casts = [
+        'launched_at' => 'datetime',
     ];
 
     protected $guarded = [];
