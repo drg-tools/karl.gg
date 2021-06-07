@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Equipment;
 use App\Gun;
 use App\Loadout;

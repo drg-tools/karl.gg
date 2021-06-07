@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Throwable;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
