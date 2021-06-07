@@ -39,7 +39,7 @@
                 <select class="form-control" name="primaries[]" id="primaries"
                         multiple>
                     <option value="">Primaries</option>
-                    
+
                     @foreach ($primaries as $weapon)
                         <option value="{{ $weapon->id }}" data-custom-properties="{{ $weapon->character->name}}">{{ $weapon->name }}</option>
                     @endforeach
@@ -50,8 +50,8 @@
                 <select class="form-control" name="secondaries[]" id="secondaries"
                         multiple>
                     <option value="">Secondaries</option>
-                    @foreach ($secondaries as $gun)
-                        <option value="{{ $gun->id }}" data-custom-properties="{{ $gun->character->name}}">{{ $gun->name }}</option>
+                    @foreach ($secondaries as $weapon)
+                        <option value="{{ $weapon->id }}" data-custom-properties="{{ $weapon->character->name}}">{{ $weapon->name }}</option>
                     @endforeach
                 </select>
 
@@ -114,6 +114,7 @@
                 {
                     removeItemButton: true,
                     itemSelectText: 'Click to select',
+                    searchFields: ['label', 'value', 'customProperties'],
                     callbackOnCreateTemplates: function(template) {
                         return {
                         choice: (classNames, data) => {
@@ -142,6 +143,7 @@
                 {
                     removeItemButton: true,
                     itemSelectText: 'Click to select',
+                    searchFields: ['label', 'value', 'customProperties'],
                     callbackOnCreateTemplates: function(template) {
                         return {
                         choice: (classNames, data) => {
