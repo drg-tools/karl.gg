@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Character;
 use App\Gun;
 use App\Loadout;
+use App\Overclock;
 use App\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
@@ -15,17 +16,22 @@ class LoadoutsController extends Controller
     public function index(Request $request)
     {
         SEOTools::setTitle('Deep Rock Galactic Loadouts');
-
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
-            ->with('mods', 'mods.gun', 'character', 'creator')
+            ->with('mods', 'mods.gun', 'character', 'creator', 'patch')
             ->withCount('votes')
             ->paginate();
-        $characters = Character::orderBy('name')->get();
+        $characters = Character::orderBy('name')->pluck('name', 'id');
+        $overclocks = Overclock::orderBy('overclock_name')->with('character')->get();
+        $primaries = Gun::where('character_slot', 1)->orderBy('name')->with('character')->get();
+        $secondaries = Gun::where('character_slot', 2)->orderBy('name')->with('character')->get();
 
         return view('loadouts.index', [
             'loadouts' => $loadouts,
             'characters' => $characters,
+            'primaries' => $primaries,
+            'secondaries' => $secondaries,
+            'overclocks' => $overclocks,
         ]);
     }
 

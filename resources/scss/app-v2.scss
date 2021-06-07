@@ -163,3 +163,25 @@
         }
     }
 }
+
+.choices__list--dropdown {
+    color: #333;
+}
+
+.choices__inner {
+    border-radius: 5px !important;
+}
+
+.choices__list--multiple .choices__item {
+    background-color: rgba(249, 115, 22) !important;
+    border: 1px solid rgba(17, 24, 39, 1) !important;
+}
+
+.choices__input,
+.choices__input--cloned {
+    color: #333
+}
+
+.choices__placeholder {
+    margin: 2px 0 2px;
+}
