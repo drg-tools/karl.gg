@@ -168,8 +168,8 @@
     color: #333;
 }
 
-.choices__list--single, .choices__list--multiple {
-    padding: 8px 12px 8px 4px !important;
+.choices__inner {
+    border-radius: 5px !important;
 }
 
 .choices__list--multiple .choices__item {
@@ -182,14 +182,6 @@
     color: #333
 }
 
-
-.choices__input[type="text"] {
-  outline: 0!important;
-  box-shadow: none!important;
-}
-
-.choices__inner {
-    border-radius: 0.375rem !important;
-    padding: 0 !important;
-    min-height: unset !important;
+.choices__placeholder {
+    margin: 2px 0 2px;
 }
