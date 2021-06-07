@@ -19,7 +19,7 @@ class CharacterCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Character');
+        $this->crud->setModel(\App\Character::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/character');
         $this->crud->setEntityNameStrings('character', 'characters');
     }
