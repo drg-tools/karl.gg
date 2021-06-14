@@ -11,6 +11,8 @@ class AddTypeColumnToRatingsTable extends Migration
         Schema::table('ratings', function (Blueprint $table) {
             $table->string('type')->nullable();
         });
+
+        \Nagy\LaravelRating\Models\Rating::query()->update(['type' => 'vote']);
     }
 
     public function down()
