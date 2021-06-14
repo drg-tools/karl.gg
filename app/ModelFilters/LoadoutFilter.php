@@ -18,6 +18,11 @@ class LoadoutFilter extends ModelFilter
         'patches' => ['latest'], // Added for patch filter
     ];
 
+    public function character($id)
+    {
+        $this->where('character_id', $id);
+    }
+
     public function characters($charIds)
     {
         return $this->whereHas('character', function ($query) use ($charIds) {
