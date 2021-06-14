@@ -121,6 +121,7 @@
                 });
             },
             async setVotes(loadoutId) {
+
                 try {
                     const result = await this.$apollo.mutate({
                         mutation: gql`mutation upVoteLoadout($id: Int!)
@@ -131,7 +132,7 @@
                             }
                             `,
                         variables: {
-                            id: loadoutId
+                            id: parseInt(loadoutId)
                         }
                     });
                     return result.data.upVoteLoadout.votes;
