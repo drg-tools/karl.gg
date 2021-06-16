@@ -19,7 +19,7 @@ class PatchCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Patch');
+        $this->crud->setModel(\App\Patch::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/patch');
         $this->crud->setEntityNameStrings('patch', 'patches');
     }

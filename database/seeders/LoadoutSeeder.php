@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Equipment;
 use App\Gun;
 use App\Loadout;
@@ -11,7 +13,7 @@ class LoadoutSeeder extends Seeder
     public function run()
     {
         // Creates n (5 in this case) number of loadouts with random guns / equipment and mods
-        $loadouts = factory(Loadout::class, 50)->create()->each(function ($loadout) {
+        $loadouts = Loadout::factory()->count(50)->create()->each(function ($loadout) {
             $availableGuns = Gun::where('character_id', $loadout->character_id)->with('mods')->get();
             $availableEquipment = Equipment::where('character_id', $loadout->character_id)->with('equipment_mods')->get();
 

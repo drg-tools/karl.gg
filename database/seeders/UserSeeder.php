@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -11,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class)->create([
+        \App\User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@test.com',
             'password' => bcrypt('adminadmin'),

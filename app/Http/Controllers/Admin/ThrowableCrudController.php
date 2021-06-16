@@ -19,7 +19,7 @@ class ThrowableCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Throwable');
+        $this->crud->setModel(\App\Throwable::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/throwable');
         $this->crud->setEntityNameStrings('throwable', 'throwables');
     }
@@ -69,7 +69,7 @@ class ThrowableCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -149,7 +149,7 @@ class ThrowableCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([

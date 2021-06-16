@@ -87,7 +87,7 @@
                             }
                             `,
                         variables: {
-                            id: loadoutId
+                            id: parseInt(loadoutId)
                         }
                     });
                     // getVoteStatus

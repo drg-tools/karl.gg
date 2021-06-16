@@ -19,7 +19,7 @@ class GunCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Gun');
+        $this->crud->setModel(\App\Gun::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/gun');
         $this->crud->setEntityNameStrings('gun', 'guns');
     }
@@ -96,7 +96,7 @@ class GunCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
         ]);
     }
 
@@ -148,7 +148,7 @@ class GunCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
         ]);
         $this->crud->addField([
             'name' => 'mod_id', // name of relationship method in the model
@@ -156,7 +156,7 @@ class GunCrudController extends CrudController
             'label' => 'Mods', // Table column heading
             'entity' => 'mods', // the relationship name in your Model
             'attribute' => 'mod_name', // attribute on Article that is shown to admin
-            'model' => "App\Mod",
+            'model' => \App\Mod::class,
         ], );
         $this->crud->addField([
             'name' => 'overclock_id', // name of relationship method in the model
@@ -164,7 +164,7 @@ class GunCrudController extends CrudController
             'label' => 'Overclocks', // Table column heading
             'entity' => 'overclocks', // the relationship name in your Model
             'attribute' => 'overclock_name', // attribute on Article that is shown to admin
-            'model' => "App\Overclock",
+            'model' => \App\Overclock::class,
         ], );
     }
 }

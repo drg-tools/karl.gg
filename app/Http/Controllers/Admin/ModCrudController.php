@@ -19,7 +19,7 @@ class ModCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Mod');
+        $this->crud->setModel(\App\Mod::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/mod');
         $this->crud->setEntityNameStrings('mod', 'mods');
     }
@@ -110,7 +110,7 @@ class ModCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -118,7 +118,7 @@ class ModCrudController extends CrudController
             'name' => 'gun_id', // the relationship name in your Model
             'entity' => 'gun', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Gun",
+            'model' => \App\Gun::class,
             'tab' => 'Base Info',
         ]);
 
@@ -230,7 +230,7 @@ class ModCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -238,7 +238,7 @@ class ModCrudController extends CrudController
             'name' => 'gun_id', // the relationship name in your Model
             'entity' => 'gun', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Gun",
+            'model' => \App\Gun::class,
             'tab' => 'Base Info',
         ]);
 

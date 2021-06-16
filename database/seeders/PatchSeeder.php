@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class PatchSeeder extends Seeder
@@ -11,6 +13,6 @@ class PatchSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Patch::class, 20)->create();
+        \App\Patch::factory()->count(20)->create();
     }
 }

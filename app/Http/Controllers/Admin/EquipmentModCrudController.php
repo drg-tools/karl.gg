@@ -19,7 +19,7 @@ class EquipmentModCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\EquipmentMod');
+        $this->crud->setModel(\App\EquipmentMod::class);
         $this->crud->setRoute(config('backpack.base.route_prefix').'/equipment-mod');
         $this->crud->setEntityNameStrings('equipment mod', 'equipment mods');
     }
@@ -104,7 +104,7 @@ class EquipmentModCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -113,7 +113,7 @@ class EquipmentModCrudController extends CrudController
             'type' => 'relationship',
             'entity' => 'equipment', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Equipment", // foreign key model
+            'model' => \App\Equipment::class, // foreign key model
             'tab' => 'Base Info',
         ]);
 
@@ -225,7 +225,7 @@ class EquipmentModCrudController extends CrudController
             'name' => 'character_id', // the relationship name in your Model
             'entity' => 'character', // the relationship name in your Model
             'attribute' => 'name', // attribute on Article that is shown to admin
-            'model' => "App\Character",
+            'model' => \App\Character::class,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -234,7 +234,7 @@ class EquipmentModCrudController extends CrudController
             'type' => 'relationship',
             'entity' => 'equipment', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Equipment", // foreign key model
+            'model' => \App\Equipment::class, // foreign key model
             'tab' => 'Base Info',
         ]);
 

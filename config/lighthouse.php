@@ -33,9 +33,10 @@ return [
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class.':api',
+            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
 
-            //            'auth:api'
+            // Logs every incoming GraphQL query.
+            // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
         ],
 
         /*
@@ -53,7 +54,6 @@ return [
     | The guard to use for authenticating GraphQL requests, if needed.
     | This setting is used whenever Lighthouse looks for an authenticated user, for example in directives
     | such as `@guard` and when applying the `AttemptAuthentication` middleware.
-    | TODO this setting will default to 'api' in v5
     |
     */
 
@@ -85,8 +85,24 @@ return [
     */
 
     'cache' => [
+        /*
+         * Setting to true enables schema caching.
+         */
         'enable' => env('LIGHTHOUSE_CACHE_ENABLE', env('APP_ENV') !== 'local'),
+
+        /*
+         * The name of the cache item for the schema cache.
+         */
         'key' => env('LIGHTHOUSE_CACHE_KEY', 'lighthouse-schema'),
+
+        /*
+         * Allows using a specific cache store, uses the app's default if set to null.
+         */
+        'store' => env('LIGHTHOUSE_CACHE_STORE', null),
+
+        /*
+         * Duration in seconds the schema should remain cached, null means forever.
+         */
         'ttl' => env('LIGHTHOUSE_CACHE_TTL', null),
     ],
 
@@ -110,6 +126,7 @@ return [
         'unions' => 'App\\GraphQL\\Unions',
         'scalars' => 'App\\GraphQL\\Scalars',
         'directives' => ['App\\GraphQL\\Directives'],
+        'validators' => ['App\\GraphQL\\Validators'],
     ],
 
     /*
@@ -118,7 +135,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Control how Lighthouse handles security related query validation.
-    | Read more at http://webonyx.github.io/graphql-php/security/
+    | Read more at https://webonyx.github.io/graphql-php/security/
     |
     */
 
@@ -143,54 +160,44 @@ return [
          * Allow clients to query paginated lists without specifying the amount of items.
          * Setting this to `null` means clients have to explicitly ask for the count.
          */
-        'default_count' => 100,
+        'default_count' => null,
 
         /*
          * Limit the maximum amount of items that clients can request from paginated lists.
          * Setting this to `null` means the count is unrestricted.
          */
-        'max_count' => 1000,
+        'max_count' => null,
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Pagination Amount Argument
-    |--------------------------------------------------------------------------
-    |
-    | Set the name to use for the generated argument on paginated fields
-    | that controls how many results are returned.
-    |
-    | DEPRECATED This setting will be removed in v5.
-    |
-    */
-
-    'pagination_amount_argument' => 'first',
-
-    /*
-    |--------------------------------------------------------------------------
-    | @orderBy input name
-    |--------------------------------------------------------------------------
-    |
-    | Set the name to use for the generated argument on the
-    | OrderByClause used for the @orderBy directive.
-    |
-    | DEPRECATED This setting will be removed in v5.
-    |
-    */
-
-    'orderBy' => 'field',
 
     /*
     |--------------------------------------------------------------------------
     | Debug
     |--------------------------------------------------------------------------
     |
-    | Control the debug level as described in http://webonyx.github.io/graphql-php/error-handling/
+    | Control the debug level as described in https://webonyx.github.io/graphql-php/error-handling/
     | Debugging is only applied if the global Laravel debug config is set to true.
+    |
+    | When you set this value through an environment variable, use the following reference table:
+    |  0 => INCLUDE_NONE
+    |  1 => INCLUDE_DEBUG_MESSAGE
+    |  2 => INCLUDE_TRACE
+    |  3 => INCLUDE_TRACE | INCLUDE_DEBUG_MESSAGE
+    |  4 => RETHROW_INTERNAL_EXCEPTIONS
+    |  5 => RETHROW_INTERNAL_EXCEPTIONS | INCLUDE_DEBUG_MESSAGE
+    |  6 => RETHROW_INTERNAL_EXCEPTIONS | INCLUDE_TRACE
+    |  7 => RETHROW_INTERNAL_EXCEPTIONS | INCLUDE_TRACE | INCLUDE_DEBUG_MESSAGE
+    |  8 => RETHROW_UNSAFE_EXCEPTIONS
+    |  9 => RETHROW_UNSAFE_EXCEPTIONS | INCLUDE_DEBUG_MESSAGE
+    | 10 => RETHROW_UNSAFE_EXCEPTIONS | INCLUDE_TRACE
+    | 11 => RETHROW_UNSAFE_EXCEPTIONS | INCLUDE_TRACE | INCLUDE_DEBUG_MESSAGE
+    | 12 => RETHROW_UNSAFE_EXCEPTIONS | RETHROW_INTERNAL_EXCEPTIONS
+    | 13 => RETHROW_UNSAFE_EXCEPTIONS | RETHROW_INTERNAL_EXCEPTIONS | INCLUDE_DEBUG_MESSAGE
+    | 14 => RETHROW_UNSAFE_EXCEPTIONS | RETHROW_INTERNAL_EXCEPTIONS | INCLUDE_TRACE
+    | 15 => RETHROW_UNSAFE_EXCEPTIONS | RETHROW_INTERNAL_EXCEPTIONS | INCLUDE_TRACE | INCLUDE_DEBUG_MESSAGE
     |
     */
 
-    'debug' => \GraphQL\Error\Debug::INCLUDE_DEBUG_MESSAGE | \GraphQL\Error\Debug::INCLUDE_TRACE,
+    'debug' => env('LIGHTHOUSE_DEBUG', \GraphQL\Error\DebugFlag::INCLUDE_DEBUG_MESSAGE | \GraphQL\Error\DebugFlag::INCLUDE_TRACE),
 
     /*
     |--------------------------------------------------------------------------
@@ -206,6 +213,26 @@ return [
     'error_handlers' => [
         \Nuwave\Lighthouse\Execution\ExtensionErrorHandler::class,
         \Nuwave\Lighthouse\Execution\ReportingErrorHandler::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Field Middleware
+    |--------------------------------------------------------------------------
+    |
+    | Register global field middleware directives that wrap around every field.
+    | Execution happens in the defined order, before other field middleware.
+    | The classes must implement \Nuwave\Lighthouse\Support\Contracts\FieldMiddleware
+    |
+    */
+
+    'field_middleware' => [
+        \Nuwave\Lighthouse\Schema\Directives\TrimDirective::class,
+        \Nuwave\Lighthouse\Schema\Directives\SanitizeDirective::class,
+        \Nuwave\Lighthouse\Validation\ValidateDirective::class,
+        \Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective::class,
+        \Nuwave\Lighthouse\Schema\Directives\SpreadDirective::class,
+        \Nuwave\Lighthouse\Schema\Directives\RenameArgsDirective::class,
     ],
 
     /*
@@ -253,11 +280,9 @@ return [
     | a model with arguments in mutation directives. Since GraphQL constrains
     | allowed inputs by design, mass assignment protection is not needed.
     |
-    | Will default to true in v5.
-    |
     */
 
-    'force_fill' => false,
+    'force_fill' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -276,7 +301,7 @@ return [
     | GraphQL Subscriptions
     |--------------------------------------------------------------------------
     |
-    | Here you can define GraphQL subscription "broadcasters" and "storage" drivers
+    | Here you can define GraphQL subscription broadcaster and storage drivers
     | as well their required configuration options.
     |
     */
@@ -325,7 +350,25 @@ return [
                 'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
+            'echo' => [
+                'driver' => 'echo',
+                'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
+                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
+            ],
         ],
+
+        /*
+         * Controls the format of the extensions response.
+         * Allowed values: 1, 2
+         */
+        'version' => env('LIGHTHOUSE_SUBSCRIPTION_VERSION', 1),
+
+        /*
+         * Should the subscriptions extension be excluded when the response has no subscription channel?
+         * This optimizes performance by sending less data, but clients must anticipate this appropriately.
+         * Will default to true in v6 and be removed in v7.
+         */
+        'exclude_empty' => env('LIGHTHOUSE_SUBSCRIPTION_EXCLUDE_EMPTY', false),
     ],
 
     /*
@@ -351,6 +394,22 @@ return [
          * 0 means unlimited.
          */
         'max_execution_ms' => 0,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Apollo Federation
+    |--------------------------------------------------------------------------
+    |
+    | Lighthouse can act as a federated service: https://www.apollographql.com/docs/federation/federation-spec.
+    |
+    */
+
+    'federation' => [
+        /*
+         * Location of resolver classes when resolving the `_entities` field.
+         */
+        'entities_resolver_namespace' => 'App\\GraphQL\\Entities',
     ],
 
 ];

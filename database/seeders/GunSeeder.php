@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Gun;
 use Illuminate\Database\Seeder;
 
@@ -48,7 +50,7 @@ class GunSeeder extends Seeder
         foreach ($characterGuns as $character_id => $character) {
             foreach ($character as $gun) {
                 $attrs = array_merge($gun, ['character_id' => $character_id]);
-                factory(Gun::class)->create($attrs);
+                Gun::factory()->create($attrs);
             }
         }
     }
