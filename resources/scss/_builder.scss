@@ -1,0 +1,60 @@
+// Builder Re-work
+
+#loadout-builder {
+    .classSelectContainer {
+        border-top: 5px solid #fc9e00;
+        display: flex;
+        flex-wrap: wrap;
+
+        h1 {
+            margin: 0;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-right: 2rem;
+        }
+
+        .classSelect {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            &:hover {
+                background: #fc9e00;
+            }
+            h2 {
+                color: #ada195;
+                padding-left: 1rem;
+                padding-right: 2rem;
+                margin-block-start: 0;
+                margin-block-end: 0;
+                margin-inline-start: 0;
+                margin-inline-end: 0;
+            }
+            img {
+                opacity: 0.4;
+            }
+        }
+
+        .classSelectActive {
+            h2 {
+                color: #ffffff;
+            }
+            img {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 770px) {
+            h1 {
+                width: 100%;
+            }
+
+            .classSelect {
+                width: 50%;
+                .classIcon {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+    }
+}
