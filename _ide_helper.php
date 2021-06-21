@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.46.0.
+ * Generated for Laravel 8.47.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1090,6 +1090,32 @@
                         $instance->singletonIf($abstract, $concrete);
         }
                     /**
+         * Register a scoped binding in the container.
+         *
+         * @param string $abstract
+         * @param \Closure|string|null $concrete
+         * @return void 
+         * @static 
+         */ 
+        public static function scoped($abstract, $concrete = null)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->scoped($abstract, $concrete);
+        }
+                    /**
+         * Register a scoped binding if it hasn't already been registered.
+         *
+         * @param string $abstract
+         * @param \Closure|string|null $concrete
+         * @return void 
+         * @static 
+         */ 
+        public static function scopedIf($abstract, $concrete = null)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->scopedIf($abstract, $concrete);
+        }
+                    /**
          * "Extend" an abstract type in the container.
          *
          * @param string $abstract
@@ -1360,6 +1386,17 @@
         {            //Method inherited from \Illuminate\Container\Container         
                         /** @var \Illuminate\Foundation\Application $instance */
                         $instance->forgetInstances();
+        }
+                    /**
+         * Clear all of the scoped instances from the container.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function forgetScopedInstances()
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->forgetScopedInstances();
         }
                     /**
          * Get the globally available instance of the container.
@@ -4301,141 +4338,6 @@
             /**
      * 
      *
-     * @see https://carbon.nesbot.com/docs/
-     * @see https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Factory.php
-     * @method static \Illuminate\Support\Carbon create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
-     * @method static \Illuminate\Support\Carbon createFromDate($year = null, $month = null, $day = null, $tz = null)
-     * @method static \Illuminate\Support\Carbon createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)
-     * @method static \Illuminate\Support\Carbon createFromTimeString($time, $tz = null)
-     * @method static \Illuminate\Support\Carbon createFromTimestamp($timestamp, $tz = null)
-     * @method static \Illuminate\Support\Carbon createFromTimestampMs($timestamp, $tz = null)
-     * @method static \Illuminate\Support\Carbon createFromTimestampUTC($timestamp)
-     * @method static \Illuminate\Support\Carbon createMidnightDate($year = null, $month = null, $day = null, $tz = null)
-     * @method static \Illuminate\Support\Carbon disableHumanDiffOption($humanDiffOption)
-     * @method static \Illuminate\Support\Carbon enableHumanDiffOption($humanDiffOption)
-     * @method static \Illuminate\Support\Carbon fromSerialized($value)
-     * @method static \Illuminate\Support\Carbon getLastErrors()
-     * @method static \Illuminate\Support\Carbon getTestNow()
-     * @method static \Illuminate\Support\Carbon instance($date)
-     * @method static \Illuminate\Support\Carbon isMutable()
-     * @method static \Illuminate\Support\Carbon maxValue()
-     * @method static \Illuminate\Support\Carbon minValue()
-     * @method static \Illuminate\Support\Carbon now($tz = null)
-     * @method static \Illuminate\Support\Carbon parse($time = null, $tz = null)
-     * @method static \Illuminate\Support\Carbon setHumanDiffOptions($humanDiffOptions)
-     * @method static \Illuminate\Support\Carbon setTestNow($testNow = null)
-     * @method static \Illuminate\Support\Carbon setUtf8($utf8)
-     * @method static \Illuminate\Support\Carbon today($tz = null)
-     * @method static \Illuminate\Support\Carbon tomorrow($tz = null)
-     * @method static \Illuminate\Support\Carbon useStrictMode($strictModeEnabled = true)
-     * @method static \Illuminate\Support\Carbon yesterday($tz = null)
-     * @method static \Illuminate\Support\Carbon|false createFromFormat($format, $time, $tz = null)
-     * @method static \Illuminate\Support\Carbon|false createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
-     * @method static \Illuminate\Support\Carbon|null make($var)
-     * @method static \Symfony\Component\Translation\TranslatorInterface getTranslator()
-     * @method static array getAvailableLocales()
-     * @method static array getDays()
-     * @method static array getIsoUnits()
-     * @method static array getWeekendDays()
-     * @method static bool hasFormat($date, $format)
-     * @method static bool hasMacro($name)
-     * @method static bool hasRelativeKeywords($time)
-     * @method static bool hasTestNow()
-     * @method static bool isImmutable()
-     * @method static bool isModifiableUnit($unit)
-     * @method static bool isStrictModeEnabled()
-     * @method static bool localeHasDiffOneDayWords($locale)
-     * @method static bool localeHasDiffSyntax($locale)
-     * @method static bool localeHasDiffTwoDayWords($locale)
-     * @method static bool localeHasPeriodSyntax($locale)
-     * @method static bool localeHasShortUnits($locale)
-     * @method static bool setLocale($locale)
-     * @method static bool shouldOverflowMonths()
-     * @method static bool shouldOverflowYears()
-     * @method static int getHumanDiffOptions()
-     * @method static int getMidDayAt()
-     * @method static int getWeekEndsAt()
-     * @method static int getWeekStartsAt()
-     * @method static mixed executeWithLocale($locale, $func)
-     * @method static string getLocale()
-     * @method static string pluralUnit(string $unit)
-     * @method static string singularUnit(string $unit)
-     * @method static void macro($name, $macro)
-     * @method static void mixin($mixin)
-     * @method static void resetMonthsOverflow()
-     * @method static void resetToStringFormat()
-     * @method static void resetYearsOverflow()
-     * @method static void serializeUsing($callback)
-     * @method static void setMidDayAt($hour)
-     * @method static void setToStringFormat($format)
-     * @method static void setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator)
-     * @method static void setWeekEndsAt($day)
-     * @method static void setWeekStartsAt($day)
-     * @method static void setWeekendDays($days)
-     * @method static void useMonthsOverflow($monthsOverflow = true)
-     * @method static void useYearsOverflow($yearsOverflow = true)
-     */ 
-        class Date {
-                    /**
-         * Use the given handler when generating dates (class name, callable, or factory).
-         *
-         * @param mixed $handler
-         * @return mixed 
-         * @throws \InvalidArgumentException
-         * @static 
-         */ 
-        public static function use($handler)
-        {
-                        return \Illuminate\Support\DateFactory::use($handler);
-        }
-                    /**
-         * Use the default date class when generating dates.
-         *
-         * @return void 
-         * @static 
-         */ 
-        public static function useDefault()
-        {
-                        \Illuminate\Support\DateFactory::useDefault();
-        }
-                    /**
-         * Execute the given callable on each date creation.
-         *
-         * @param callable $callable
-         * @return void 
-         * @static 
-         */ 
-        public static function useCallable($callable)
-        {
-                        \Illuminate\Support\DateFactory::useCallable($callable);
-        }
-                    /**
-         * Use the given date type (class) when generating dates.
-         *
-         * @param string $dateClass
-         * @return void 
-         * @static 
-         */ 
-        public static function useClass($dateClass)
-        {
-                        \Illuminate\Support\DateFactory::useClass($dateClass);
-        }
-                    /**
-         * Use the given Carbon factory when generating dates.
-         *
-         * @param object $factory
-         * @return void 
-         * @static 
-         */ 
-        public static function useFactory($factory)
-        {
-                        \Illuminate\Support\DateFactory::useFactory($factory);
-        }
-         
-    }
-            /**
-     * 
-     *
      * @see \Illuminate\Database\DatabaseManager
      * @see \Illuminate\Database\Connection
      */ 
@@ -4915,6 +4817,18 @@
         {            //Method inherited from \Illuminate\Database\Connection         
                         /** @var \Illuminate\Database\MySqlConnection $instance */
                         $instance->recordsHaveBeenModified($value);
+        }
+                    /**
+         * Set the record modification state.
+         *
+         * @param bool $value
+         * @return \Illuminate\Database\MySqlConnection 
+         * @static 
+         */ 
+        public static function setRecordModificationState($value)
+        {            //Method inherited from \Illuminate\Database\Connection         
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->setRecordModificationState($value);
         }
                     /**
          * Reset the record modification state.
@@ -22725,7 +22639,6 @@ namespace  {
             class Config extends \Illuminate\Support\Facades\Config {}
             class Cookie extends \Illuminate\Support\Facades\Cookie {}
             class Crypt extends \Illuminate\Support\Facades\Crypt {}
-            class Date extends \Illuminate\Support\Facades\Date {}
             class DB extends \Illuminate\Support\Facades\DB {}
             class Eloquent extends \Illuminate\Database\Eloquent\Model {             
                 /**

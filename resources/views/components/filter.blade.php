@@ -113,7 +113,7 @@
                 '#primaries',
                 {
                     removeItemButton: true,
-                    itemSelectText: 'Click to select',
+                    itemSelectText: ' ',
                     searchFields: ['label', 'value', 'customProperties'],
                     callbackOnCreateTemplates: function(template) {
                         return {
@@ -142,7 +142,7 @@
                 '#secondaries',
                 {
                     removeItemButton: true,
-                    itemSelectText: 'Click to select',
+                    itemSelectText: ' ',
                     searchFields: ['label', 'value', 'customProperties'],
                     callbackOnCreateTemplates: function(template) {
                         return {
@@ -171,7 +171,7 @@
                 '#overclocks',
                 {
                     removeItemButton: true,
-                    itemSelectText: 'Click to select',
+                    itemSelectText: ' ',
                     searchFields: ['label', 'value', 'customProperties'],
                     callbackOnCreateTemplates: function(template) {
                         return {
@@ -200,7 +200,7 @@
                 '#characters',
                 {
                     removeItemButton: true,
-                    itemSelectText: 'Click to select',
+                    itemSelectText: ' ',
                 }
             );
             var hasOverclockSelectSingle = new Choices(
@@ -208,7 +208,7 @@
                 {
                     searchEnabled: false,
                     removeItemButton: true,
-                    itemSelectText: 'Click to select',
+                    itemSelectText: ' ',
                 }
             );
             var hasGuideSelectSingle = new Choices(
@@ -216,7 +216,7 @@
                 {
                     searchEnabled: false,
                     removeItemButton: true,
-                    itemSelectText: 'Click to select',
+                    itemSelectText: ' ',
                 }
             );
             // Pre-fill selected values conditionally
