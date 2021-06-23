@@ -47,6 +47,7 @@ export default {
 
   data() {
     return {
+      sharedState: this.$store.state,
       name: '',
       description: "",
       loadoutDescription: "",

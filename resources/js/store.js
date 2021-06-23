@@ -119,17 +119,18 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
     plugins: [vuexPersist.plugin],
     state: {
-        debug: true,
         selectedClass: '', // We may need to store a user's loadout on all classes, but use selected class to know which one to save.
+        loadoutName: '',
     },
     mutations: {
         setSelectedClass(state, newValue) {
-            if (state.debug) console.log('setSelectedClassAction triggered with', newValue)
             state.selectedClass = newValue
         },
-        clearSelectedClass(state, newValue) {
-            if (state.debug) console.log('cleared selected class')
+        clearSelectedClass(state) {
             state.selectedClass = ''
+        },
+        setLoadoutName(state, newValue) {
+            state.loadoutName = newValue
         },
     },
 })
