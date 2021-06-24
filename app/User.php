@@ -4,6 +4,7 @@ namespace App;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +13,6 @@ use Nagy\LaravelRating\Traits\Like\CanLike;
 use Nagy\LaravelRating\Traits\Rate\CanRate;
 use Nagy\LaravelRating\Traits\Vote\CanVote;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\User.
