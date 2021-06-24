@@ -14,7 +14,7 @@ class OverclockSeeder extends Seeder
      */
     public function run()
     {
-        $sql = file_get_contents(database_path().'/seeds/overclocks_stats_import.sql');
+        $sql = file_get_contents(database_path().'/seeders/overclocks_stats_import.sql');
 
         DB::statement($sql);
     }

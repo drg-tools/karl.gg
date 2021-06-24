@@ -12,6 +12,7 @@ use Nagy\LaravelRating\Traits\Like\CanLike;
 use Nagy\LaravelRating\Traits\Rate\CanRate;
 use Nagy\LaravelRating\Traits\Vote\CanVote;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\User.
@@ -63,6 +64,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
+    use HasFactory;
     use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanVote, CanRate, CanLike, SoftDeletes;
 
     /**
