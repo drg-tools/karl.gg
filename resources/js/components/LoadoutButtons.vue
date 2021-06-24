@@ -276,7 +276,7 @@ export default {
         },
         async updateLoadout(params) {
             let variables = {
-                id: params.loadout_id,
+                id: parseInt(params.loadout_id),
                 name: params.name,
                 description: params.description,
                 character_id: params.character_id,
