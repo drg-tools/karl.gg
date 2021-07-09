@@ -45,8 +45,8 @@ export default {
     },
   },
   methods: {
-    setLoadoutName: function (loadoutDescription) {
-      this.$store.commit('setLoadoutName', loadoutDescription);
+    setLoadoutName: function (loadoutName) {
+      this.$store.commit('setLoadoutName', loadoutName);
     },
     setName(value) {
       this.name = value;

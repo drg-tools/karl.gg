@@ -57,4 +57,20 @@
             }
         }
     }
+
+    .tui-editor-defaultUI h1, .tui-editor-defaultUI h2, .tui-editor-defaultUI h3, .tui-editor-defaultUI h4 {
+        color: #000000;
+    }
+    .tui-editor-defaultUI-toolbar {
+        background: #18110bba;
+    }
+    .tui-editor-defaultUI-toolbar button {
+        background-color:#fc9e00;
+    }
+    .tui-toolbar-icons {
+        background:none; /* Remove default png sprite icons */
+    }
+    .tui-editor-defaultUI button.tui-scrollsync, .tui-editor-defaultUI button.tui-scrollsync.active {
+        color: #000000;
+    }
 }

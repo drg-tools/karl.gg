@@ -3,13 +3,13 @@
     <LoadoutName />
     <ClassSelect />
     <h2>Description</h2>
+    <!-- Note: When we account for the editing of loadouts, we will need to figure that out -->
+    <!-- We will have to pull the loadout and then hydrate the store once we load an edit -->
     <MarkdownEditor
-      :guide.sync="description"
-      :loadoutDescription="loadoutDescription"
+      :v-model="this.$store.state.loadoutDescription"
       class="guideField"
     ></MarkdownEditor>
 
-    <!-- todo: show loadout name to the left of there buttons if build belongs to user, show 'new loadout' if not -->
   </div>
 </template>
 
@@ -18,12 +18,6 @@ import ClassSelect from "./ClassSelect.vue";
 import MarkdownEditor from "./MarkdownEditor.vue";
 export default {
   components: { ClassSelect, MarkdownEditor },
-
-  data() {
-    return {
-      sharedState: this.$store.state,
-    };
-  },
   
 };
 </script>
