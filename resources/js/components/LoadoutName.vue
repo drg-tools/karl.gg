@@ -35,9 +35,7 @@ export default {
   name: "ClassSelect",
   data() {
     return {
-      sharedState: this.$store.state,
-      loadoutName: '',
-      loadoutDescription: '',
+      name: this.$store.state.loadoutName
     };
   },
   validations: {
@@ -52,6 +50,7 @@ export default {
     },
     setName(value) {
       this.name = value;
+      this.setLoadoutName(value); // Commit name to store when validating
       this.$v.name.$touch();
     },
   },
