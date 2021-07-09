@@ -100,12 +100,6 @@ import Icon_Overclock_SmallBullets from './assets/mods/Icon_Overclock_SmallBulle
 import Icon_Overclock_Special_Magazine from './assets/mods/Icon_Overclock_Special_Magazine.js';
 import Icon_Overclock_Spinning_Linecutter from './assets/mods/Icon_Overclock_Spinning_Linecutter.js';
 
-
-
-
-const characterIdToChar = ['', 'E', 'S', 'D', 'G'];
-const charToCharacterId = { E: 1, S: 2, D: 3, G: 4 };
-
 Vue.use(Vuex);
 
 // Persist storage while you still browse with us
@@ -121,6 +115,7 @@ export default new Vuex.Store({
     state: {
         selectedClass: '', // We may need to store a user's loadout on all classes, but use selected class to know which one to save.
         loadoutName: '',
+        loadoutDescription: '',
     },
     mutations: {
         setSelectedClass(state, newValue) {
@@ -131,6 +126,15 @@ export default new Vuex.Store({
         },
         setLoadoutName(state, newValue) {
             state.loadoutName = newValue
+        },
+        clearLoadoutName(state) {
+            state.LoadoutName = ''
+        },
+        setLoadoutDescription(state, newValue) {
+            state.loadoutDescription = newValue
+        },
+        clearLoadoutDescription(state) {
+            state.LoadoutDescription = ''
         },
     },
 })

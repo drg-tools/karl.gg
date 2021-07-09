@@ -43,10 +43,6 @@
 </template>
 
 <script>
-
-
-const charToModId = { A: 0, B: 1, C: 2 };
-
 export default {
   name: "ClassSelect",
   data() {
@@ -55,17 +51,12 @@ export default {
     };
   },
   methods: {
-    // I need to select a class
-    // I should be able to click on a class and select that. Let's keep that in our shared store
-    // Other components may want to know what our selection is
     setSelectedClass: function (classId) {
       this.$store.commit('setSelectedClass', classId);
     },
     getSelected: function () {
       return this.sharedState.selectedClass;
     }
-
-    // We may need to store a user's loadout on all classes, but use selected class to know which one to save.
   },
 };
 </script>
