@@ -14,7 +14,7 @@ class ModStatSeeder extends Seeder
      */
     public function run()
     {
-        $sql = file_get_contents(database_path().'/seeds/mods_stats_import.sql');
+        $sql = file_get_contents(database_path().'/seeders/mods_stats_import.sql');
 
         DB::statement($sql);
     }
