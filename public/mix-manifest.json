@@ -64,5 +64,6 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
+    "/assets/IconImports.js": "/assets/IconImports.js"
 }
