@@ -4,9 +4,8 @@
   <!-- TODO: Conditially show/hide equipment if all equipment is selected ONLY -->
   <div class="flex flex-col">
       <h2>Select a Primary</h2>
-      <a
-        href="#"
-        class="
+      <router-link to="/primary-builder"
+      class="
           inline-flex
           items-center
           text-center
@@ -27,7 +26,7 @@
         "
       >
       Select
-      </a>
+      </router-link>
     </div>
 
 <div class="flex flex-col">
@@ -87,10 +86,7 @@
       </a>
     </div>
 
-
   </div>
-
-
 
 </template>
 
@@ -99,7 +95,9 @@ export default {
   name: "SelectContainer",
   
   methods: {
-    
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+    }
   },
 };
 </script>
