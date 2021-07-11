@@ -22,6 +22,21 @@
         "
       >Back
     </router-link>
+    <div class="weaponSelectContainer" v-on:click="selectEquipment()">
+        <div class="flexboxWeaponSelect" :class="[getSelected ? 'equipmentActive' : 'equipment']">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 180 90"
+                 :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']"
+                 height="50%"
+                 preserveAspectRatio="xMidYMid meet"
+                 v-html="getIconFromPath"></svg>
+        </div>
+        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"><!-- v-if="equipmentNameVisible"-->
+            <h4>{{ name }}</h4>
+        </div>
+    </div>
+
+
     <h2>Primary Builder: -selected weapon name- / select weapon</h2>
     Weapon selector has to be here
     then mod matrix
@@ -42,3 +57,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+</style>
