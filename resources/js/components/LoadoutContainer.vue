@@ -3,7 +3,6 @@
         
     <LoadoutName />
     <ClassSelect />
-    <!-- <SelectContainer /> -->
     <router-view></router-view>
 
 

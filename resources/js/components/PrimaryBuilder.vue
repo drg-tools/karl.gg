@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-row justify-between my-5">
-    <router-link to="/"
-    class="
+    <div class="flex">
+      <router-link
+        to="/"
+        class="
           inline-flex
           items-center
           text-center
@@ -20,44 +22,107 @@
           w-full
           md:w-auto
         "
-      >Back
-    </router-link>
-    <div class="weaponSelectContainer" v-on:click="selectEquipment()">
-        <div class="flexboxWeaponSelect" :class="[getSelected ? 'equipmentActive' : 'equipment']">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 180 90"
-                 :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']"
-                 height="50%"
-                 preserveAspectRatio="xMidYMid meet"
-                 v-html="getIconFromPath"></svg>
-        </div>
-        <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"><!-- v-if="equipmentNameVisible"-->
-            <h4>{{ name }}</h4>
-        </div>
+        >Back
+      </router-link>
     </div>
-
-
-    <h2>Primary Builder: -selected weapon name- / select weapon</h2>
-    Weapon selector has to be here
-    then mod matrix
-    then cost metrics
-      
+    <!-- driller -->
+    <div class="equipmentSelectContainer">
+      <div class="primariesContainer gap-2">
+        <!-- todo: icon missing from equipment backend.. get from store -->
+        <PrimaryFlamethrower />
+      </div>
+    </div>
   </div>
-
-
-
 </template>
 
 <script>
+import PrimaryFlamethrower from "./driller/Primary_Flamethrower.vue";
 export default {
   name: "PrimaryBuilder",
-  
-  methods: {
-    
-  },
+  components: { PrimaryFlamethrower },
+
+  methods: {},
 };
 </script>
 
 <style scoped>
+/* todo: proper styles for this stuff, it's messy atm */
+h4 {
+  white-space: nowrap;
+}
 
+.equipmentActive {
+  background-color: #fc9e00;
+  color: #352e1e;
+}
+
+.equipment {
+  background-color: #111927;
+  color: #352e1e;
+}
+
+.equipmentIcon {
+  fill: #ada195;
+}
+
+.equipmentIconActive {
+  fill: #fffbff;
+}
+
+h4 {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.largeText {
+  font-size: 1.4rem;
+}
+
+.equipmentText {
+  flex: auto;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #4b5563;
+  color: #ada195;
+}
+
+.equipmentTextActive {
+  flex: auto;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #111927;
+  color: #fffbff;
+}
+
+.weaponSelectContainer {
+  flex: auto;
+  display: flex;
+  cursor: pointer;
+}
+
+.weaponSelectContainer:hover .equipmentText {
+  color: #fffbff;
+}
+
+.weaponSelectContainer:hover .equipmentIcon {
+  fill: #fffbff;
+}
+
+.flexboxWeaponSelect {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+}
+
+.flexboxWeaponSelect > svg {
+  margin: 0.5rem;
+}
 </style>

@@ -37,6 +37,7 @@
     "/assets/G_S1_Bulldog.svg": "/assets/G_S1_Bulldog.svg",
     "/assets/G_S2_Burst.js": "/assets/G_S2_Burst.js",
     "/assets/G_S2_Burst.svg": "/assets/G_S2_Burst.svg",
+    "/assets/logo.png": "/assets/logo.png",
     "/assets/R_P1_Bosco.js": "/assets/R_P1_Bosco.js",
     "/assets/R_P1_Bosco.svg": "/assets/R_P1_Bosco.svg",
     "/assets/S_E_Flare.js": "/assets/S_E_Flare.js",
@@ -59,11 +60,9 @@
     "/assets/X_E_Grenade.svg": "/assets/X_E_Grenade.svg",
     "/assets/X_E_Pickaxe.js": "/assets/X_E_Pickaxe.js",
     "/assets/X_E_Pickaxe.svg": "/assets/X_E_Pickaxe.svg",
-    "/assets/logo.png": "/assets/logo.png",
     "/fonts/BebasNeue.eot": "/fonts/BebasNeue.eot",
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
-    "/assets/IconImports.js": "/assets/IconImports.js"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
 }
