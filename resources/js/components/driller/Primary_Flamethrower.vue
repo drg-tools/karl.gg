@@ -1,4 +1,6 @@
 <template>
+<!-- TODO: Add state for selected on these guys -->
+    <!-- TODO: Add components for all weapons/classes -->
     <div class="weaponSelectContainer" v-on:click="selectEquipment()">
         <div class="flexboxWeaponSelect equipment">
             <!-- :class="[getSelected ? 'equipmentActive' : 'equipment']" -->
@@ -21,39 +23,9 @@
     export default {
         name: 'PrimaryFlamethrower',
         props: {
-            iconPath: String,
-            name: String,
-            classId: String,
-            character_slot: Number,
-            equipmentId: String
+            selected: Boolean
         },
-        computed: {
-            getSelected: function () {
-                if (this.character_slot) {
-                    return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
-                        && store.state.loadoutCreator.selectedEquipmentType.includes('Weapons');
-                } else {
-                    return store.state.loadoutCreator.selectedEquipmentId === this.equipmentId
-                        && store.state.loadoutCreator.selectedEquipmentType === 'equipments';
-                }
-            },
-            equipmentNameVisible: function () {
-                if (this.character_slot === 1) {
-                    return store.state.loadoutCreator.chosenPrimaryId === this.equipmentId;
-                } else if (this.character_slot === 2) {
-                    return store.state.loadoutCreator.chosenSecondaryId === this.equipmentId;
-                }
-                return true;
-            }
-        },
-        methods: {
-            selectEquipment() {
-                store.commit('selectLoadoutEquipment', {
-                    equipmentId: this.equipmentId,
-                    character_slot: this.character_slot
-                });
-            }
-        }
+        
     };
 </script>
 
