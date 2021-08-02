@@ -30,6 +30,7 @@
         "apollo-boost": "^0.4.9",
         "apollo-cache-inmemory": "latest",
         "apollo-link": "latest",
+        "apollo-link-context": "^1.0.20",
         "apollo-link-error": "latest",
         "apollo-link-http": "latest",
         "autoprefixer": "^10.2.6",

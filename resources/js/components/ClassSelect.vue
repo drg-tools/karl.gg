@@ -45,17 +45,12 @@
 <script>
 export default {
   name: "ClassSelect",
-  data() {
-    return {
-      sharedState: this.$store.state,
-    };
-  },
   methods: {
-    setSelectedClass: function (classId) {
-      this.$store.commit('setSelectedClass', classId);
+    setSelectedClass: function (className) {
+      this.$store.dispatch('setSelectedClass', className);
     },
     getSelected: function () {
-      return this.sharedState.selectedClass;
+      return this.$store.state.selectedClass;
     }
   },
 };
