@@ -89,6 +89,7 @@ export default new Vuex.Store({
             return Apollo.query({
                 query: gql`${apolloQueries.characterByName(selectedClassName)}`
             }).then(result => {
+                return result.data.characterByName;
                 // console.log(result.data.characterByName);
                 //  result.data.characterByName;
             }).catch(err => {
@@ -127,15 +128,15 @@ export default new Vuex.Store({
             switch (newClass) {
                 case 'driller':
                     console.log('driller will now be loaded and is new selected class')
-                    let data = await dispatch('getClassData', {
+                    let drillerClassData = await dispatch('getClassData', {
                         className: 'driller'
                     }).then(result =>{
                         console.log('driller should now be set to:')
                         console.log(result)
+                        commit('setDrillerData', result)
+                        console.log('driller should now be set to:')
+                        console.log(state.driller)
                     })
-                    commit('setDrillerData', data.characterByName)
-                    console.log('driller should now be set to:')
-                    console.log(state.driller)
                     break;
                 case 'engineer':
                     console.log('engineer will now be loaded and is new selected class')
