@@ -95,10 +95,20 @@ export default new Vuex.Store({
             }).catch(err => {
                 throw err;
             });
-
-            
         },
-        async setSelectedClass({ commit,dispatch, state }, newClass) {
+        async hydrateClassData({commit, dispatch}, newClassName) {
+            console.log('driller will now be loaded and is new selected class')
+            let drillerClassData = await dispatch('getClassData', {
+                className: 'driller'
+            }).then(result =>{
+                console.log('driller should now be set to:')
+                console.log(result)
+                commit('setDrillerData', result);
+            }).catch(err => {
+                throw err;
+            });
+        },
+        async setSelectedClass({ commit,dispatch, state }, newClassNameInput) {
             // clear the previously selected class
             switch (state.selectedClass) {
                 case 'driller':
@@ -125,18 +135,9 @@ export default new Vuex.Store({
             
             
             // Use our data response to hydrate all needed class data
-            switch (newClass) {
+            switch (newClassNameInput) {
                 case 'driller':
-                    console.log('driller will now be loaded and is new selected class')
-                    let drillerClassData = await dispatch('getClassData', {
-                        className: 'driller'
-                    }).then(result =>{
-                        console.log('driller should now be set to:')
-                        console.log(result)
-                        commit('setDrillerData', result)
-                        console.log('driller should now be set to:')
-                        console.log(state.driller)
-                    })
+                    dispatch('hydrateClassData', newClassNameInput);
                     break;
                 case 'engineer':
                     console.log('engineer will now be loaded and is new selected class')
@@ -156,7 +157,7 @@ export default new Vuex.Store({
             // Set newly selected class only after we have:
             // 1. Deleted old class data
             // 2. Hydrated new class data
-            commit('setSelectedClass', newClass)
+            commit('setSelectedClass', newClassNameInput)
         }
     },
 })
