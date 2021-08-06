@@ -1,6 +1,6 @@
 export default {
     characterByName: (name) => `query {
-                      characterByName(name: ${name}) {
+                      characterByName(name: "${name}") {
                         name
                         id
                         guns {
