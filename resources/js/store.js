@@ -20,7 +20,7 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
     plugins: [vuexPersist.plugin],
     state: {
-        selectedClass: '', // We may need to store a user's loadout on all classes, but use selected class to know which one to save.
+        selectedClass: '',
         loadoutName: '',
         loadoutDescription: '',
         loadoutClassData: ''
@@ -56,30 +56,21 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        // set the latest class select by user
-        // also hydrate the newly selected class for them
-        // ensure you clear the previously selected class
-        // Theory: users don't need to hold all 4 classes in their store synchronously
         async getClassData({state}, className) {
-            // might need to do this in the indivudual components. Vuex not playing nice
-            console.log('classname to be: ' + JSON.stringify(className.className));
-            let selectedClassName = String(JSON.stringify(className.className));
-            console.log('classname to be: ' + selectedClassName);
+            // Parsing a response 
+            let selectedClassName = className;
             return Apollo.query({
                 query: gql`${apolloQueries.characterByName(selectedClassName)}`
             }).then(result => {
                 return result.data.characterByName;
-                // console.log(result.data.characterByName);
-                //  result.data.characterByName;
             }).catch(err => {
                 throw err;
             });
         },
         async hydrateClassData({commit, dispatch}, newClassName) {
-            let classData = await dispatch('getClassData', {
-                className: newClassName
-            }).then(result =>{
+            let classData = await dispatch('getClassData', newClassName).then(result =>{
                 // Use our data response to hydrate all needed class data
+                // Commit this directly to store, called each time you select a class
                 commit('setloadoutClassData', result);
             }).catch(err => {
                 throw err;
@@ -89,6 +80,7 @@ export default new Vuex.Store({
             // clear the previously selected class
             commit('clearloadoutClassData')
 
+            // dispatch an action which will commit our new class data to store
             dispatch('hydrateClassData', newClassNameInput);
             
             // Set newly selected class only after we have:
