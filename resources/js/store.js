@@ -23,10 +23,7 @@ export default new Vuex.Store({
         selectedClass: '', // We may need to store a user's loadout on all classes, but use selected class to know which one to save.
         loadoutName: '',
         loadoutDescription: '',
-        driller: '',
-        engineer: '',
-        gunner: '',
-        scout: '',
+        loadoutClassData: ''
 
     },
     mutations: {
@@ -51,29 +48,11 @@ export default new Vuex.Store({
         setSelectedClass(state, newValue) {
             state.selectedClass = newValue
         },
-        setDrillerData(state, drillerData) {
-            state.driller = drillerData
+        setloadoutClassData(state, classData) {
+            state.loadoutClassData = classData
         },
-        clearDrillerData(state) {
-            state.driller = ''
-        },
-        setEngineerData(state, engineerData) {
-            state.engineer = engineerData
-        },
-        clearEngineerData(state) {
-            state.engineer = ''
-        },
-        setGunnerData(state, gunnerData) {
-            state.gunner = gunnerData
-        },
-        clearGunnerData(state) {
-            state.gunner = ''
-        },
-        setScoutData(state, scoutData) {
-            state.scout = scoutData
-        },
-        clearScoutData(state) {
-            state.scout = ''
+        clearloadoutClassData(state) {
+            state.loadoutClassData = ''
         },
     },
     actions: {
@@ -97,62 +76,20 @@ export default new Vuex.Store({
             });
         },
         async hydrateClassData({commit, dispatch}, newClassName) {
-            console.log('driller will now be loaded and is new selected class')
-            let drillerClassData = await dispatch('getClassData', {
-                className: 'driller'
+            let classData = await dispatch('getClassData', {
+                className: newClassName
             }).then(result =>{
-                console.log('driller should now be set to:')
-                console.log(result)
-                commit('setDrillerData', result);
+                // Use our data response to hydrate all needed class data
+                commit('setloadoutClassData', result);
             }).catch(err => {
                 throw err;
             });
         },
         async setSelectedClass({ commit,dispatch, state }, newClassNameInput) {
             // clear the previously selected class
-            switch (state.selectedClass) {
-                case 'driller':
-                    console.log('driller was previously and will be cleared')
-                    commit('clearDrillerData')
-                    break;
-                case 'engineer':
-                    console.log('engineer was previously and will be cleared')
-                    commit('clearEngineerData')
-                    break;
-                case 'gunner':
-                    console.log('gunner was previously and will be cleared')
-                    commit('clearGunnerData')
-                    break;
-                case 'scout':
-                    console.log('scout was previously and will be cleared')
-                    commit('clearScoutData')
-                    break;
+            commit('clearloadoutClassData')
 
-                default:
-                    break;
-            }
-
-            
-            
-            // Use our data response to hydrate all needed class data
-            switch (newClassNameInput) {
-                case 'driller':
-                    dispatch('hydrateClassData', newClassNameInput);
-                    break;
-                case 'engineer':
-                    console.log('engineer will now be loaded and is new selected class')
-                    break;
-                case 'gunner':
-                    console.log('gunner will now be loaded and is new selected class')
-                    break;
-                case 'scout':
-                    console.log('scout will now be loaded and is new selected class')
-                    break;
-
-                default:
-                    break;
-            }
-
+            dispatch('hydrateClassData', newClassNameInput);
             
             // Set newly selected class only after we have:
             // 1. Deleted old class data
