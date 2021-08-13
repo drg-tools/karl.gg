@@ -9,22 +9,31 @@
                  class="equipmentIcon"
                  height="50%"
                  preserveAspectRatio="xMidYMid meet"
-                 v-html="this.$store.state.icons.primaries.D_P1_CRSPR"></svg>
+                 v-html="gunIcon"></svg>
         </div>
         <!-- :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']" -->
         <!-- <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"> -->
         <div class="equipmentText">
-            <h4>{{ name }}</h4>
+            <h4>{{ gunData.name }}</h4>
         </div>
     </div>
 </template>
 <!-- todo: differentiate selected primary and secondary weapons visibly hide text from not-selected weapon atm -->
-<script>
+<script> 
     export default {
         name: 'PrimaryFlamethrower',
         props: {
             selected: Boolean
         },
+        data: function () {
+            return {
+                gunData: '',
+                gunIcon: this.$store.state.icons.D_P1_CRSPR_SVG,
+            }
+        },
+        mounted () {
+            this.gunData = this.$store.getters.getLoadoutClassWeaponByName("CRSPR Flamethrower")
+        }
         
     };
 </script>

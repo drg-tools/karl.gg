@@ -28,8 +28,9 @@
     <!-- driller -->
     <div class="equipmentSelectContainer">
       <div class="primariesContainer gap-2">
-        <!-- todo: icon missing from equipment backend.. get from store -->
-        <PrimaryFlamethrower />
+        <!-- TODO: Refresh Primaries on fresh class Selection -->
+        <!-- TODO: Load folder of components based on selected class, make this guy clean -->
+        <PrimaryFlamethrower :selected="false"/>
       </div>
     </div>
   </div>

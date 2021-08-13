@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
-import IconList from './IconsList';
 import gql from 'graphql-tag';
 import apolloQueries from './apolloQueries';
 import { Apollo } from './apollo';
+import * as IconList from './IconsList';
+
 
 
 Vue.use(Vuex);
@@ -23,8 +24,8 @@ export default new Vuex.Store({
         selectedClass: '',
         loadoutName: '',
         loadoutDescription: '',
-        loadoutClassData: ''
-
+        loadoutClassData: '',
+        icons: IconList,
     },
     mutations: {
         setSelectedClass(state, newValue) {
@@ -89,4 +90,12 @@ export default new Vuex.Store({
             commit('setSelectedClass', newClassNameInput)
         }
     },
+    getters: {
+        getLoadoutClassWeaponByName: (state) => (weaponName) => { 
+            // Pull the requested class weapon by name, which is stored in components
+            return state.loadoutClassData.guns.filter(function (el) {
+                return el.name == weaponName
+            })
+        },
+    }
 })
