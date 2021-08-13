@@ -30,6 +30,7 @@
       <div class="primariesContainer gap-2">
         <!-- TODO: Refresh Primaries on fresh class Selection -->
         <!-- TODO: Load folder of components based on selected class, make this guy clean -->
+        <!-- TODO: Make class components for each folder, import that here based on selected class -->
         <PrimaryFlamethrower :selected="false"/>
       </div>
     </div>
