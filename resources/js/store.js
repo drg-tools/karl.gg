@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { Store } from 'vuex';
 import VuexPersist from 'vuex-persist';
 import gql from 'graphql-tag';
 import apolloQueries from './apolloQueries';
@@ -26,6 +26,7 @@ export default new Vuex.Store({
         loadoutDescription: '',
         loadoutClassData: '',
         icons: IconList,
+        selectedPrimary: '',
     },
     mutations: {
         setSelectedClass(state, newValue) {
@@ -55,6 +56,12 @@ export default new Vuex.Store({
         clearloadoutClassData(state) {
             state.loadoutClassData = ''
         },
+        setSelectedPrimary(state, newValues) {
+            state.selectedPrimary = newValues
+        },
+        clearSelectedPrimary(state) {
+            state.selectedPrimary = ''
+        }
     },
     actions: {
         async getClassData({state}, className) {
@@ -88,6 +95,16 @@ export default new Vuex.Store({
             // 1. Deleted old class data
             // 2. Hydrated new class data
             commit('setSelectedClass', newClassNameInput)
+        },
+        setSelectedPrimary({commit, state}, newLoadoutItem) {
+            
+            // TODO: For equipments only, do not clear their array in the store when a new one is added
+            //           If it's a primary or secondary, wipe the existing and save the new one
+            let selectedItem = state.loadoutClassData.guns.filter(items => items.name == newLoadoutItem.itemName)
+            
+            commit('clearSelectedPrimary')
+            commit('setSelectedPrimary', selectedItem)
+           
         }
     },
     getters: {
@@ -97,5 +114,8 @@ export default new Vuex.Store({
                 return el.name == weaponName
             })
         },
+        getIsSelectedPrimary: (state) => (weaponName) => {
+            return state.selectedPrimary[0].name === weaponName
+        }
     }
 })

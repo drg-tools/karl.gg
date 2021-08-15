@@ -3,7 +3,7 @@
         
     <LoadoutName />
     <ClassSelect />
-    <router-view></router-view>
+    <router-view v-if="this.$store.state.selectedClass"></router-view>
 
 
     <h2>Description</h2>
