@@ -17,16 +17,26 @@ const vuexPersist = new VuexPersist({
     storage: window.sessionStorage
 })
 
+/** 
+ * For Reference:
+ *      1 = Engineer
+ *      2 = Scout
+ *      3 = Driller
+ *      4 = Gunner
+ * For Characters. We leverage everything off that
+ */
+
 
 export default new Vuex.Store({
-    plugins: [vuexPersist.plugin],
+    // plugins: [vuexPersist.plugin], // Disable when debugging locally
     state: {
         selectedClass: '',
-        loadoutName: '',
-        loadoutDescription: '',
-        loadoutClassData: '',
+        loadoutName: '', // TODO: In the component Debounce on this
+        loadoutDescription: '', // TODO: In the component Debounce on this
+        loadoutClassData: '', // Use this as source of truth, only call this. Save ID's in other manipulators
         icons: IconList,
-        selectedPrimary: '',
+        selectedPrimary: '', // Make this an ID only
+        // Array of ID's on the selected mods
     },
     mutations: {
         setSelectedClass(state, newValue) {
@@ -56,27 +66,27 @@ export default new Vuex.Store({
         clearloadoutClassData(state) {
             state.loadoutClassData = ''
         },
-        setSelectedPrimary(state, newValues) {
-            state.selectedPrimary = newValues
+        setSelectedPrimary(state, newValue) {
+            state.selectedPrimary = newValue
         },
         clearSelectedPrimary(state) {
             state.selectedPrimary = ''
         }
     },
     actions: {
-        async getClassData({state}, className) {
+        async getClassData({state}, classId) {
             // Parsing a response 
-            let selectedClassName = className;
+            let selectedClassId = classId;
             return Apollo.query({
-                query: gql`${apolloQueries.characterByName(selectedClassName)}`
+                query: gql`${apolloQueries.character(selectedClassId)}`
             }).then(result => {
-                return result.data.characterByName;
+                return result.data.character;
             }).catch(err => {
                 throw err;
             });
         },
-        async hydrateClassData({commit, dispatch}, newClassName) {
-            let classData = await dispatch('getClassData', newClassName).then(result =>{
+        async hydrateClassData({commit, dispatch}, newClassId) {
+            let classData = await dispatch('getClassData', newClassId).then(result =>{
                 // Use our data response to hydrate all needed class data
                 // Commit this directly to store, called each time you select a class
                 commit('setloadoutClassData', result);
@@ -84,38 +94,40 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        async setSelectedClass({ commit,dispatch, state }, newClassNameInput) {
+        async setSelectedClass({ commit,dispatch, state }, newClassIdInput) {
             // clear the previously selected class
             commit('clearloadoutClassData')
 
             // dispatch an action which will commit our new class data to store
-            dispatch('hydrateClassData', newClassNameInput);
+            dispatch('hydrateClassData', newClassIdInput);
             
             // Set newly selected class only after we have:
             // 1. Deleted old class data
             // 2. Hydrated new class data
-            commit('setSelectedClass', newClassNameInput)
+            commit('setSelectedClass', newClassIdInput)
         },
         setSelectedPrimary({commit, state}, newLoadoutItem) {
             
             // TODO: For equipments only, do not clear their array in the store when a new one is added
             //           If it's a primary or secondary, wipe the existing and save the new one
-            let selectedItem = state.loadoutClassData.guns.filter(items => items.name == newLoadoutItem.itemName)
+            // TODO: Make this ID's
             
             commit('clearSelectedPrimary')
-            commit('setSelectedPrimary', selectedItem)
+            commit('setSelectedPrimary', newLoadoutItem)
            
         }
     },
     getters: {
+        // This should be by ID
         getLoadoutClassWeaponByName: (state) => (weaponName) => { 
             // Pull the requested class weapon by name, which is stored in components
             return state.loadoutClassData.guns.filter(function (el) {
                 return el.name == weaponName
             })
         },
-        getIsSelectedPrimary: (state) => (weaponName) => {
-            return state.selectedPrimary[0].name === weaponName
+        // This should be by ID
+        getIsSelectedPrimary: (state) => (weaponId) => {
+            return state.selectedPrimary === weaponId
         }
     }
 })

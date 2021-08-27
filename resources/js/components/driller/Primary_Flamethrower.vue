@@ -2,18 +2,18 @@
 <!-- TODO: Add state for selected on these guys -->
     <!-- TODO: Add components for all weapons/classes -->
     <div class="weaponSelectContainer" v-on:click="selectEquipment()">
-        <div class="flexboxWeaponSelect" :class="[getIsSelected ? 'equipmentActive' : 'equipment']">
+        <div class="flexboxWeaponSelect" :class="[getIsSelected() ? 'equipmentActive' : 'equipment']">
             <!-- :class="[getSelected ? 'equipmentActive' : 'equipment']" -->
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 180 90"
-                 :class="[getIsSelected ? 'equipmentIconActive' : 'equipmentIcon']"
+                 :class="[getIsSelected() ? 'equipmentIconActive' : 'equipmentIcon']"
                  height="50%"
                  preserveAspectRatio="xMidYMid meet"
                  v-html="gunIcon"></svg>
         </div>
         <!-- :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']" -->
         <!-- <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"> -->
-        <div :class="[getIsSelected ? 'equipmentTextActive' : 'equipmentText']">
+        <div :class="[getIsSelected() ? 'equipmentTextActive' : 'equipmentText']">
             <h4>CRSPR Flamethrower</h4>
         </div>
     </div>
@@ -30,15 +30,13 @@
         methods: {
             selectEquipment() {
                 // Select this particular equipment by sending the store our weapon's data to select
-                // Maybe just send it the name, and then let the store pass the data around
-                let selectedItem = { 
-                    itemName: "CRSPR Flamethrower",
-                }
-                this.$store.dispatch('setSelectedPrimary', selectedItem);
+                // Maybe just send it the id, and then let the store pass the data around
+                
+                this.$store.dispatch('setSelectedPrimary', "9");
             },
             getIsSelected() {
-                console.log(this.$store.getters.getIsSelectedPrimary("CRSPR Flamethrower"))
-                return this.$store.getters.getIsSelectedPrimary("CRSPR Flamethrower");
+                console.log(this.$store.getters.getIsSelectedPrimary("9"))
+                return this.$store.getters.getIsSelectedPrimary("9");
             }
         },
     };
