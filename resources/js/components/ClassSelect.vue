@@ -1,4 +1,8 @@
 <template>
+
+    <!-- TODO: Handle the loading state of class select -->
+    <!-- TODO: We currently have a loading state issue if you load the primary before the GQL finishes -->
+
   <div class="classSelectContainer my-2">
     <h1>Select class:</h1>
     <div class="grid grid-cols-2 sm:grid-cols-4 w-full mb-4">
