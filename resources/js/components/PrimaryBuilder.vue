@@ -32,6 +32,7 @@
         <!-- TODO: Load folder of components based on selected class, make this guy clean -->
         <!-- TODO: Make class components for each folder, import that here based on selected class -->
         <PrimaryFlamethrower />
+        <ModMatrix />
       </div>
     </div>
   </div>
@@ -39,9 +40,10 @@
 
 <script>
 import PrimaryFlamethrower from "./driller/Primary_Flamethrower.vue";
+import ModMatrix from './ModMatrix.vue';
 export default {
   name: "PrimaryBuilder",
-  components: { PrimaryFlamethrower },
+  components: { PrimaryFlamethrower,ModMatrix },
 
   methods: {},
 };

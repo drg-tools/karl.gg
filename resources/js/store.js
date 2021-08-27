@@ -128,6 +128,9 @@ export default new Vuex.Store({
         // This should be by ID
         getIsSelectedPrimary: (state) => (weaponId) => {
             return state.selectedPrimary === weaponId
+        },
+        getIconByName: (state) => (iconName) => {
+            return state.icons.default[iconName]
         }
     }
 })
