@@ -51,7 +51,7 @@
         :key="overclockIndex"
         class="tooltip-target modDisplay"
       >
-      <OverclockIcon :icon="getIconPath(overclock.icon)"/>
+      <OverclockIcon :icon="getIconPath(overclock.icon)" :ocType="overclock.overclock_type" />
         
       </div>
     </popover>

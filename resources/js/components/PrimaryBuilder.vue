@@ -34,6 +34,8 @@
         <!-- TODO: Load folder of components based on selected class, make this guy clean -->
         <!-- TODO: Make class components for each folder, import that here based on selected class -->
         <PrimaryFlamethrower />
+        
+        <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
         <ModMatrix />
       </div>
     </div>
