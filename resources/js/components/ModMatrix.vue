@@ -10,7 +10,14 @@
       class="tierContainer"
       :key="modTier"
     >
-      <h2 class="text-white">Tier {{ modTier }}</h2>
+      <h2 class="text-white">
+        Tier {{ modTier }}
+        <!-- If we're not on the first tier, show the level indicator -->
+        <p v-if="modTier > 1" class="levelIndicator text-gray-500">
+          Level {{ modTier * 4 }}
+        </p>
+      </h2>
+
       <!-- Mod Sub Container Start -->
       <!-- TODO: Call Stats here -->
       <div
@@ -45,11 +52,14 @@
               ></svg>
             </g>
           </svg>
-        </div> <!-- End individual mod -->
+        </div>
+        <!-- End individual mod -->
         <!-- If we don't have 3 mods, put a fake one on the end -->
         <div v-if="mod.length === 2" class="pseudoModDisplay"></div>
-      </div> <!-- End Mod Sub Container -->
-    </div> <!-- End Tier Row --> 
+      </div>
+      <!-- End Mod Sub Container -->
+    </div>
+    <!-- End Tier Row -->
   </div>
 </template>
 
