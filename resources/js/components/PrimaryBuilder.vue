@@ -1,7 +1,6 @@
 <template>
   <div class="flex flex-row justify-between my-5">
-    <div class="flex">
-      <router-link
+    <router-link
         to="/"
         class="
           inline-flex
@@ -24,7 +23,6 @@
         "
         >Back
       </router-link>
-    </div>
     <!-- driller -->
     <div class="equipmentSelectContainer">
       <div class="primariesContainer gap-2">
