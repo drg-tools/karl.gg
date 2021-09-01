@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between my-5">
+  <div class="flex justify-evenly my-5">
     <div class="flex flex-row">
       <router-link
         to="/"

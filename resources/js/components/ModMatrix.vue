@@ -12,6 +12,7 @@
     >
       <h2 class="text-white">Tier {{ modTier }}</h2>
       <!-- Mod Sub Container Start -->
+      <!-- TODO: Call Stats here -->
       <div
         class="tierSubContainer"
         :class="[
