@@ -1,6 +1,7 @@
 <template>
-  <div class="flex flex-row justify-between my-5">
-    <router-link
+  <div class="flex justify-between my-5">
+    <div class="flex flex-row">
+      <router-link
         to="/"
         class="
           inline-flex
@@ -20,11 +21,14 @@
           focus:ring-2 focus:ring-offset-2 focus:ring-orange-500
           w-full
           md:w-auto
+          h-12
         "
         >Back
       </router-link>
+    </div>
+    
     <!-- driller -->
-    <div class="equipmentSelectContainer">
+    <div class="equipmentSelectContainer flex flex-row">
       <div class="primariesContainer gap-2">
         <!-- TODO: Refresh Primaries on fresh class Selection -->
         <!-- TODO: Load folder of components based on selected class, make this guy clean -->
