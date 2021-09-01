@@ -35,7 +35,6 @@
                 this.$store.dispatch('setSelectedPrimary', "9");
             },
             getIsSelected() {
-                console.log(this.$store.getters.getIsSelectedPrimary("9"))
                 return this.$store.getters.getIsSelectedPrimary("9");
             }
         },
