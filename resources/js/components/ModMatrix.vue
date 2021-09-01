@@ -60,13 +60,18 @@
       <!-- End Mod Sub Container -->
     </div>
     <!-- End Tier Row -->
+    <OverclockSelect />
+
   </div>
 </template>
 
 <!--todo: reset button-->
 <script>
+import OverclockSelect from './OverclockSelect.vue';
+
 export default {
   name: "ModMatrix",
+  components: { OverclockSelect },
   data() {
     return {
       flameThrowerMods: "",

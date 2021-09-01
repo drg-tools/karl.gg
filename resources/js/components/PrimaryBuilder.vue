@@ -45,7 +45,7 @@ import PrimaryFlamethrower from "./driller/Primary_Flamethrower.vue";
 import ModMatrix from './ModMatrix.vue';
 export default {
   name: "PrimaryBuilder",
-  components: { PrimaryFlamethrower,ModMatrix, OverclockSelect },
+  components: { PrimaryFlamethrower,ModMatrix },
 
   methods: {},
 };
