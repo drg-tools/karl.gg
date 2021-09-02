@@ -36,6 +36,8 @@ export default new Vuex.Store({
         loadoutClassData: '', // Use this as source of truth, only call this. Save ID's in other manipulators
         icons: IconList,
         selectedPrimary: '', // Make this an ID only
+        selectedMods: '',
+        selectedOverclocks: '',
         // Array of ID's on the selected mods
     },
     mutations: {
@@ -74,7 +76,7 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        async getClassData({state}, classId) {
+        getClassData({state}, classId) {
             // Parsing a response 
             let selectedClassId = classId;
             return Apollo.query({
@@ -85,8 +87,8 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        async hydrateClassData({commit, dispatch}, newClassId) {
-            let classData = await dispatch('getClassData', newClassId).then(result =>{
+        hydrateClassData({commit, dispatch}, newClassId) {
+            let classData = dispatch('getClassData', newClassId).then(result =>{
                 // Use our data response to hydrate all needed class data
                 // Commit this directly to store, called each time you select a class
                 commit('setloadoutClassData', result);
@@ -94,9 +96,12 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        async setSelectedClass({ commit,dispatch, state }, newClassIdInput) {
+        setSelectedClass({ commit,dispatch, state }, newClassIdInput) {
             // clear the previously selected class
             commit('clearloadoutClassData')
+            // also clear the previously selected data
+            commit('clearSelectedPrimary')
+
 
             // dispatch an action which will commit our new class data to store
             dispatch('hydrateClassData', newClassIdInput);
