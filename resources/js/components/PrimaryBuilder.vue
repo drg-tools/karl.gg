@@ -26,17 +26,24 @@
         >Back
       </router-link>
     </div>
-    
+
     <!-- driller -->
-    <div class="equipmentSelectContainer flex flex-row">
+    <div class="equipmentSelectContainer">
       <div class="primariesContainer gap-2">
         <!-- TODO: Refresh Primaries on fresh class Selection -->
         <!-- TODO: Load folder of components based on selected class, make this guy clean -->
         <!-- TODO: Make class components for each folder, import that here based on selected class -->
-        <PrimaryFlamethrower />
-        
-        <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
+        <div class="flex flex-row">
+          <PrimaryFlamethrower />
+        </div>
+      </div>
+
+      <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
+      <div class="flex flex-row">
+        <div class="flex flex-col">
         <ModMatrix />
+        <OverclockSelect />
+        </div>
       </div>
     </div>
   </div>
@@ -44,10 +51,12 @@
 
 <script>
 import PrimaryFlamethrower from "./driller/Primary_Flamethrower.vue";
-import ModMatrix from './ModMatrix.vue';
+import ModMatrix from "./ModMatrix.vue";
+import OverclockSelect from "./OverclockSelect.vue";
+
 export default {
   name: "PrimaryBuilder",
-  components: { PrimaryFlamethrower,ModMatrix },
+  components: { PrimaryFlamethrower, ModMatrix, OverclockSelect },
 
   methods: {},
 };

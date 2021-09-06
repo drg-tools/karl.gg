@@ -26,6 +26,15 @@ const vuexPersist = new VuexPersist({
  * For Characters. We leverage everything off that
  */
 
+/**
+ * Note about state logic:
+ *  You should not have nested state objects
+ *      It won't work anyways, but it's an anti-pattern as well
+ *  If you are thinking you need a nested state placeholder, find a way to split it
+ *  State objects should be single-layer
+ *      You can store objects within state, but each state placeholder should be single-layer
+ */
+
 
 export default new Vuex.Store({
     // plugins: [vuexPersist.plugin], // Disable when debugging locally
@@ -36,8 +45,8 @@ export default new Vuex.Store({
         loadoutClassData: '', // Use this as source of truth, only call this. Save ID's in other manipulators
         icons: IconList,
         selectedPrimary: '', // Make this an ID only
-        selectedMods: '',
-        selectedOverclocks: '',
+        selectedPrimaryMods: '',
+        selectedPrimaryOverclock: '',
         // Array of ID's on the selected mods
     },
     mutations: {
@@ -73,7 +82,19 @@ export default new Vuex.Store({
         },
         clearSelectedPrimary(state) {
             state.selectedPrimary = ''
-        }
+        },
+        setSelectedPrimaryMods(state, newValue) {
+            state.selectedPrimaryMods = newValue
+        },
+        clearSelectedPrimaryMods(state) {
+            state.selectedPrimaryMods = ''
+        },
+        setSelectedPrimaryOverclock(state, newValue) {
+            state.selectedPrimaryOverclock = newValue
+        },
+        clearSelectedPrimaryOverclock(state) {
+            state.selectedPrimaryOverclock = ''
+        },
     },
     actions: {
         getClassData({state}, classId) {
@@ -96,7 +117,7 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        setSelectedClass({ commit,dispatch, state }, newClassIdInput) {
+        setSelectedClass({ commit,dispatch }, newClassIdInput) {
             // clear the previously selected class
             commit('clearloadoutClassData')
             // also clear the previously selected data
@@ -111,7 +132,7 @@ export default new Vuex.Store({
             // 2. Hydrated new class data
             commit('setSelectedClass', newClassIdInput)
         },
-        setSelectedPrimary({commit, state}, newLoadoutItem) {
+        setSelectedPrimary({commit}, newLoadoutItem) {
             
             // TODO: For equipments only, do not clear their array in the store when a new one is added
             //           If it's a primary or secondary, wipe the existing and save the new one
@@ -120,6 +141,31 @@ export default new Vuex.Store({
             commit('clearSelectedPrimary')
             commit('setSelectedPrimary', newLoadoutItem)
            
+        },
+        setSelectedMod({commit, state}, selectedMod) {
+            // Expect to only receive 1 ID at a time
+            // we'll fire this when you click on something
+            // Issue: Keeping track of mod tiers?
+            
+            // When you select a mod, we will try to push it to the array of mods
+            // We will quickly check to see if there's any other selected mods in this tier for your weapon
+
+            // TODO: Do for primary, secondary, etc. I think we have to keep them separate 
+        
+            
+
+            // We will group the object like this to keep track of all the tiers
+            // Since you can only have 1 item selected per tier, we have to clear the previous one
+            // This will also allow our frontend to keep track of how to display them
+
+            let selectedModTier = selectedMod.mod_tier
+
+            if( state.selectedMods[selectedModTier] != null ) {
+                // If we have a mod in this tier already,
+                // clear the mod before committing our new one
+            } 
+
+            commit('setSelectedMods', )
         }
     },
     getters: {
@@ -136,6 +182,12 @@ export default new Vuex.Store({
         },
         getIconByName: (state) => (iconName) => {
             return state.icons.default[iconName]
-        }
+        },
+        getOcDataById: (state) => (ocId, gunId) => {
+            let ocWeapon = state.loadoutClassData.guns.filter(gun => gun.id === gunId);
+            let ocData = ocWeapon[0].overclocks.filter(oc => oc.id === ocId);
+
+            return ocData;
+        },
     }
 })
