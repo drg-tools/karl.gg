@@ -12,9 +12,9 @@
       class="overclockDisplay"
     >
       <OverclockIcon
+        v-popover:overclocks.top
         :icon="getIconPath(selectedOverclock[0].icon)"
         :ocType="selectedOverclock[0].overclock_type"
-        v-popover:overclocks.top
       />
     </div>
     <div class="overclockDisplay" v-else>
@@ -78,7 +78,8 @@ export default {
   data() {
     return {
       flameThrowerOverclocks: "",
-      selectedOverclock: "",
+      selectedOverclockIcon: "",
+      selectedOverclockType: "",
     };
   },
   created() {
@@ -87,7 +88,7 @@ export default {
     this.hydrateData();
     // TODO: Make this part of our hydrate data?
     // Happens if you navigate away and come back
-    this.selectedOc();
+    // this.selectedOc();
   },
   methods: {
     hydrateData() {
@@ -107,6 +108,7 @@ export default {
       let selectedObject = this.flameThrowerOverclocks.filter(
         (oc) => oc.id === this.$store.state.selectedPrimaryOverclock
       );
+      console.log(selectedObject);
       this.selectedOverclock = selectedObject;
     },
   },
