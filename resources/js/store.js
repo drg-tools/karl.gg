@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import apolloQueries from './apolloQueries';
 import { Apollo } from './apollo';
 import * as IconList from './IconsList';
+import { sortedLastIndexOf } from 'lodash';
 
 
 
@@ -45,7 +46,7 @@ export default new Vuex.Store({
         loadoutClassData: '', // Use this as source of truth, only call this. Save ID's in other manipulators
         icons: IconList,
         selectedPrimary: '', // Make this an ID only
-        selectedPrimaryMods: '',
+        selectedPrimaryMods: [],
         selectedPrimaryOverclock: '',
         // Array of ID's on the selected mods
     },
@@ -83,11 +84,11 @@ export default new Vuex.Store({
         clearSelectedPrimary(state) {
             state.selectedPrimary = ''
         },
-        setSelectedPrimaryMods(state, newValue) {
-            state.selectedPrimaryMods = newValue
+        setSelectedPrimaryMod(state, newValue) {
+            state.selectedPrimaryMods.push(newValue)
         },
-        clearSelectedPrimaryMods(state) {
-            state.selectedPrimaryMods = ''
+        clearSelectedPrimaryMod(state, modTier) {
+            state.selectedPrimaryMods = state.selectedPrimaryMods.filter(mod => mod.selectedModTier !== modTier)
         },
         setSelectedPrimaryOverclock(state, newValue) {
             state.selectedPrimaryOverclock = newValue
@@ -147,7 +148,7 @@ export default new Vuex.Store({
             commit('setSelectedPrimary', newLoadoutItem)
            
         },
-        setSelectedMod({commit, state}, selectedMod) {
+        setSelectedPrimaryMod({commit, state}, selectedModObject) {
             // Expect to only receive 1 ID at a time
             // we'll fire this when you click on something
             // Issue: Keeping track of mod tiers?
@@ -159,15 +160,34 @@ export default new Vuex.Store({
             // We will group the object like this to keep track of all the tiers
             // Since you can only have 1 item selected per tier, we have to clear the previous one
             // This will also allow our frontend to keep track of how to display them
+            console.log(selectedModObject)
+            console.log(selectedModObject.selectedModTier)
 
-            let selectedModTier = selectedMod.mod_tier
+            // if( state.selectedPrimaryMods != null ) {
+            //     // If we have a mod in this tier already,
+            //     // clear the mod before committing our new one
+            //     commit('clearSelectedPrimaryMod', selectedModObject[1])
+            // } 
 
-            if( state.selectedMods[selectedModTier] != null ) {
-                // If we have a mod in this tier already,
-                // clear the mod before committing our new one
-            } 
+            if(state.selectedPrimaryMods.length != 0 ) {
+                // We have selected mods
+                console.log('you have selected mods')
+                let currentTierSelection = state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
+                if(currentTierSelection.length != 0) {
+                    console.log('current tier selection')
+                    console.log(currentTierSelection)
+                    commit('clearSelectedPrimaryMod', selectedModObject.selectedModTier)
+                }
+            
+            }
+            // console.log(state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier))
 
-            commit('setSelectedMods', )
+
+
+            commit('setSelectedPrimaryMod', {
+                selectedModId: selectedModObject.selectedModId, 
+                selectedModTier: selectedModObject.selectedModTier
+            })
         }
     },
     getters: {
@@ -190,6 +210,11 @@ export default new Vuex.Store({
             let ocData = ocWeapon[0].overclocks.filter(oc => oc.id === ocId);
 
             return ocData;
+        },
+        getIsSelectedMod: (state) => (modId) => {
+            if(state.selectedPrimaryMods.filter(mod => mod.selectedModId === modId).length != 0)
+                return true
+            return false
         },
     }
 })

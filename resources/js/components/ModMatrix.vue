@@ -35,8 +35,11 @@
           v-for="(modData, modIndex) in mod"
           :key="modIndex"
           class="modDisplay"
+          v-on:click="selectMod(modData.id, modData.mod_tier)"
         >
-          <svg viewBox="0 0 80 50" height="100%" class="mod modBackground">
+          <svg viewBox="0 0 80 50" height="100%" class="mod"
+          :class="[modSelected(modData.id) ? 'modBackgroundActive' : 'modBackground']">
+          
             <path
               d="M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826 L 0.3679663,25"
             />
@@ -45,7 +48,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 y="10%"
                 viewBox="0 0 80 50"
-                class="modIcon"
+                :class="[modSelected(modData.id) ? 'modIconActive' : 'modIcon']"
                 height="80%"
                 preserveAspectRatio="xMidYMid meet"
                 v-html="getIconPath(modData.icon)"
@@ -84,6 +87,15 @@ export default {
     getIconPath(iconName) {
       return this.$store.getters.getIconByName(iconName);
     },
+    selectMod(modId, modTier) {
+      this.$store.dispatch("setSelectedPrimaryMod", {
+          "selectedModId": modId, 
+          "selectedModTier": modTier
+      });
+    },
+    modSelected(modId) {
+      return this.$store.getters.getIsSelectedMod(modId);
+    }
   },
   computed: {
     modMatrixTiers() {
