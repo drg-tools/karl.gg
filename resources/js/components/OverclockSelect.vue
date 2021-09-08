@@ -14,7 +14,7 @@
     >
       <OverclockIcon
         :icon="selectedOverclockIcon"
-        :ocType="selectedOverclock[0].overclock_type"
+        :ocType="selectedOverclockType"
       />
     </div>
     <div class="overclockDisplay" v-else>
@@ -88,7 +88,7 @@ export default {
     this.hydrateData();
     // TODO: Make this part of our hydrate data?
     // Happens if you navigate away and come back
-    // this.selectedOc();
+    this.selectedOc();
   },
   methods: {
     hydrateData() {
@@ -108,12 +108,13 @@ export default {
       let selectedObject = this.flameThrowerOverclocks.filter(
         (oc) => oc.id === this.$store.state.selectedPrimaryOverclock
       );
-      console.log('877 need cash now');
-      console.log(selectedObject);
-      this.selectedOverclock = selectedObject;
-      this.selectedOverclockIcon = this.getIconPath(selectedObject[0].icon);
-      console.log('banana time')
-      console.log(this.selectedOverclockIcon)
+      if(selectedObject.length === 0) {
+        return;
+      } else {
+        this.selectedOverclockIcon = this.getIconPath(selectedObject[0].icon);
+        this.selectedOverclockType = selectedObject[0].overclock_type;
+      }
+      
     },
   },
 };
