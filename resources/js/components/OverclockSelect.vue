@@ -7,15 +7,17 @@
     encapsulate the icon/border select in the popover -->
   <div class="overclockContainer">
     <h2 class="text-white">Overclock</h2>
-    <div v-if="this.$store.state.selectedPrimaryOverclock != ''" class="overclockDisplay">
-      OC is selected
-      {{selectedOverclock}}
-      <!-- <OverclockIcon :icon="getIconPath(overclock.icon)" :ocType="overclock.overclock_type" /> -->
-    </div>
     <div
+      v-if="this.$store.state.selectedPrimaryOverclock != ''"
       class="overclockDisplay"
-      v-else
     >
+      <OverclockIcon
+        :icon="getIconPath(selectedOverclock[0].icon)"
+        :ocType="selectedOverclock[0].overclock_type"
+        v-popover:overclocks.top
+      />
+    </div>
+    <div class="overclockDisplay" v-else>
       <!--todo: show name of selected overclock on hover?-->
       <svg
         v-popover:overclocks.top
@@ -49,7 +51,7 @@
             />
           </g>
         </g>
-        </svg>
+      </svg>
     </div>
     <popover name="overclocks" class="overclockGrid">
       <div
@@ -58,8 +60,10 @@
         v-on:click="selectOverclock(overclock.id)"
         class="tooltip-target modDisplay"
       >
-      <OverclockIcon :icon="getIconPath(overclock.icon)" :ocType="overclock.overclock_type" />
-        
+        <OverclockIcon
+          :icon="getIconPath(overclock.icon)"
+          :ocType="overclock.overclock_type"
+        />
       </div>
     </popover>
   </div>
@@ -70,7 +74,7 @@
 import OverclockIcon from "./OverclockIcon.vue";
 export default {
   name: "OverclockSelect",
-  components: {OverclockIcon},
+  components: { OverclockIcon },
   data() {
     return {
       flameThrowerOverclocks: "",
@@ -81,27 +85,31 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.hydrateData();
+    // TODO: Make this part of our hydrate data?
+    // Happens if you navigate away and come back
+    this.selectedOc();
   },
   methods: {
     hydrateData() {
       this.flameThrowerOverclocks =
         this.$store.state.loadoutClassData.guns[0].overclocks;
-        console.log(this.flameThrowerOverclocks);
     },
     getIconPath(iconName) {
       return this.$store.getters.getIconByName(iconName);
     },
     selectOverclock(overclockId) {
-      this.$store.commit('clearSelectedPrimaryOverclock');
-      this.$store.commit('setSelectedPrimaryOverclock', overclockId);
-      selectedOc();
+      this.$store.commit("clearSelectedPrimaryOverclock");
+      this.$store.commit("setSelectedPrimaryOverclock", overclockId);
+      this.selectedOc();
     },
     selectedOc() {
-      let selectedObject = this.flameThrowerOverclocks.filter(oc => oc.id === this.$store.state.selectedPrimaryOverclock);
+      // TODO: Make this a store getter?
+      let selectedObject = this.flameThrowerOverclocks.filter(
+        (oc) => oc.id === this.$store.state.selectedPrimaryOverclock
+      );
       this.selectedOverclock = selectedObject;
-    }
+    },
   },
-    
 };
 </script>
 

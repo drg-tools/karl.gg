@@ -2,7 +2,7 @@
   <!-- TODO: Add overclock selection  -->
   <!-- TODO: Selected overclock status -->
 
-  <svg viewBox="0 0 80 80" height="6rem" class="mod overclockBackground">
+  <svg viewBox="0 0 80 80" height="6rem" class="mod overclockBackground hundredPercent">
     <!-- OC Background by Type start -->
     <!-- Start Clean OC -->
     <g v-if="ocType === 'Clean'" display="inherit">

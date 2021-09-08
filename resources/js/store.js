@@ -124,6 +124,11 @@ export default new Vuex.Store({
             commit('clearSelectedPrimary')
 
 
+            // TODO: Clear button to allow you to clear the whole current state
+            // TODO: On initial class select, select a specific primary.
+            //      Maybe on component load for primary etc.
+
+
             // dispatch an action which will commit our new class data to store
             dispatch('hydrateClassData', newClassIdInput);
             
@@ -148,10 +153,7 @@ export default new Vuex.Store({
             // Issue: Keeping track of mod tiers?
             
             // When you select a mod, we will try to push it to the array of mods
-            // We will quickly check to see if there's any other selected mods in this tier for your weapon
-
-            // TODO: Do for primary, secondary, etc. I think we have to keep them separate 
-        
+            // We will quickly check to see if there's any other selected mods in this tier for your weapon        
             
 
             // We will group the object like this to keep track of all the tiers
