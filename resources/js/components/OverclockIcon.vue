@@ -91,7 +91,7 @@
         class="modIcon"
         height="70%"
         preserveAspectRatio="xMidYMid meet"
-        v-html="overclockIcon"
+        v-html="icon"
       ></svg>
     </g>
   </svg>
@@ -104,12 +104,6 @@ export default {
   props: {
     icon: String,
     ocType: String,
-  },
-  data() {
-    return {
-      overclockIcon: this.icon,
-      overclockType: this.ocType,
-    };
   },
 };
 </script>

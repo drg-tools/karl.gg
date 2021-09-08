@@ -10,10 +10,10 @@
     <div
       v-if="this.$store.state.selectedPrimaryOverclock != ''"
       class="overclockDisplay"
+      v-popover:overclocks.top
     >
       <OverclockIcon
-        v-popover:overclocks.top
-        :icon="getIconPath(selectedOverclock[0].icon)"
+        :icon="selectedOverclockIcon"
         :ocType="selectedOverclock[0].overclock_type"
       />
     </div>
@@ -108,8 +108,12 @@ export default {
       let selectedObject = this.flameThrowerOverclocks.filter(
         (oc) => oc.id === this.$store.state.selectedPrimaryOverclock
       );
+      console.log('877 need cash now');
       console.log(selectedObject);
       this.selectedOverclock = selectedObject;
+      this.selectedOverclockIcon = this.getIconPath(selectedObject[0].icon);
+      console.log('banana time')
+      console.log(this.selectedOverclockIcon)
     },
   },
 };
