@@ -27,6 +27,12 @@
                 gunIcon: this.$store.state.icons.default.D_P1_CRSPR_SVG,
             }
         },
+        created() {
+            // Set this guy to selected by default
+            // Only do this on the first primary of all selected class
+            // This just keeps everything working smoothly
+            this.$store.dispatch('setSelectedPrimary', "9");
+        },
         methods: {
             selectEquipment() {
                 // Select this particular equipment by sending the store our weapon's data to select
