@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $mods_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Overclock[] $overclocks
  * @property-read int|null $overclocks_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Gun filter($input = [], $filter = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Gun newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Gun newQuery()

@@ -17,7 +17,6 @@ class CheckIfAdmin
      * is an admin, and not a regular user.
      *
      * @param [type] $user [description]
-     *
      * @return bool [description]
      */
     private function checkIfUserIsAdmin($user)
@@ -33,7 +32,6 @@ class CheckIfAdmin
      * Answer to unauthorized access request.
      *
      * @param [type] $request [description]
-     *
      * @return [type] [description]
      */
     private function respondToUnauthorizedRequest($request)
@@ -50,7 +48,6 @@ class CheckIfAdmin
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     *
      * @return mixed
      */
     public function handle($request, Closure $next)

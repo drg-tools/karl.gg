@@ -41,6 +41,7 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @property-read \App\Throwable|null $throwable
  * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $votes
  * @property-read int|null $votes_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout filter($input = [], $filter = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout newQuery()
@@ -60,8 +61,10 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUserId($value)
  * @mixin \Eloquent
+ *
  * @property int $patch_id
  * @property-read \App\Patch $patch
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout wherePatchId($value)
  * @method static Builder|Loadout onOlderPatch()
  */

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $patch_title
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Patch filter($input = [], $filter = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Patch newQuery()
@@ -32,7 +33,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patch wherePatchTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
  * @property string|null $launched_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Patch whereLaunchedAt($value)
  */
 class Patch extends Model
