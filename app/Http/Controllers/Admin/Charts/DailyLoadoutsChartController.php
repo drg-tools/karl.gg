@@ -8,6 +8,7 @@ use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
 /**
  * Class DailyLoadoutsChartController.
+ *
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class DailyLoadoutsChartController extends ChartController

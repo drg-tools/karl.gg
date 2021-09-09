@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $equipment_mods_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
  * @property-read int|null $loadouts_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment filter($input = [], $filter = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment newQuery()
