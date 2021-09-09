@@ -92,6 +92,14 @@ export default {
     props: {
         mods: Array,
     },
+    created() {
+        // fetch the data when the view is created and the data is
+        // already being observed
+        this.hydrateData();
+        // TODO: Make this part of our hydrate data?
+        // Happens if you navigate away and come back
+        this.selectedOc();
+    },
     methods: {
         setSelectedClass: function (classId) {
             this.$store.dispatch("setSelectedClass", classId);
@@ -118,6 +126,18 @@ export default {
             let jadizCost = mods
                 .map((mod) => mod.jadiz_cost)
                 .reduce((prev, curr) => prev + curr, 0);
+
+            let totalCreditsCost = creditsCost + magniteCost + bismorCost + umaniteCost + enorCost + jadizCost;
+            let costObject = {
+                totalCost: totalCreditsCost,
+                magniteCost: magniteCost,
+                bismorCost: bismorCost,
+                umaniteCost: umaniteCost,
+                enorCost: enorCost,
+                jadizCost: jadizCost,
+            };
+
+            return costObject;
         },
     },
 };
