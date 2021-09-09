@@ -43,6 +43,7 @@
         <div class="flex flex-col">
         <ModMatrix />
         <OverclockSelect />
+        <CreditsCalculator :mods="this.$store.state.selectedPrimaryMods" />
         </div>
       </div>
     </div>
@@ -53,10 +54,11 @@
 import PrimaryFlamethrower from "./driller/Primary_Flamethrower.vue";
 import ModMatrix from "./ModMatrix.vue";
 import OverclockSelect from "./OverclockSelect.vue";
+import CreditsCalculator from "./CreditsCalculator.vue";
 
 export default {
   name: "PrimaryBuilder",
-  components: { PrimaryFlamethrower, ModMatrix, OverclockSelect },
+  components: { PrimaryFlamethrower, ModMatrix, OverclockSelect, CreditsCalculator },
 
   methods: {},
 };
