@@ -8,6 +8,7 @@ use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
 /**
  * Class WeeklyUsersChartController.
+ *
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class DailyUsersChartController extends ChartController

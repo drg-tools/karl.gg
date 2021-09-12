@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $overclocks_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Throwable[] $throwables
  * @property-read int|null $throwables_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Character newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Character newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Character query()
