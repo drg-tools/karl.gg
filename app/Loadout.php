@@ -150,7 +150,7 @@ class Loadout extends Model
      */
     public function getPrimaryGunAttribute()
     {
-        return $this->getGunFromMods(0);
+        return $this->getGunFromMods(1);
     }
 
     /**
@@ -158,7 +158,7 @@ class Loadout extends Model
      */
     public function getSecondaryGunAttribute()
     {
-        return $this->getGunFromMods(1);
+        return $this->getGunFromMods(2);
     }
 
     /**
@@ -169,13 +169,11 @@ class Loadout extends Model
      */
     private function getGunFromMods($slot)
     {
-        $grouped = $this->mods->groupBy('gun_id')
-            ->sortKeys() // sort by gun_id (primary should now be first)
-            ->values() // re-index array
-            ->get($slot); // Get nth item
+        $grouped = $this->mods->groupBy('gun.character_slot')
+            ->get($slot);
 
         if (! $grouped || ! $grouped->first()) {
-            return;
+            return null;
         }
 
         return $grouped->first()->gun;
