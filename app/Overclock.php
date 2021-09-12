@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Gun $gun
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
  * @property-read int|null $loadouts_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock filter($input = [], $filter = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock newQuery()

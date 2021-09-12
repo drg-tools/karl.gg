@@ -50,6 +50,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Character $character
  * @property-read \App\Gun $gun
  * @property-read \App\Patch $patch
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric query()
