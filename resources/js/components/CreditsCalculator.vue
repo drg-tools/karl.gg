@@ -1,85 +1,85 @@
 <template>
     <div>
-        <span v-if="calcStats.visible" class="text-white text-lg block my-2"
+        <span v-if="costObject.visible" class="text-white text-lg block my-2"
             >Total Costs:</span
         >
         <p class="costList flex flex-wrap">
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="calcStats.cost.credits > 0"
+                v-if="costObject.creditsCost > 0"
             >
                 <img
                     src="/assets/img/20px-Credit.png"
                     alt="Credits"
                     title="Credits"
                 />
-                <span>{{ calcStats.cost.credits }}</span>
+                <span>{{ costObject.creditsCost }}</span>
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="calcStats.cost.bismor > 0"
+                v-if="costObject.bismorCost > 0"
             >
                 <img
                     src="/assets/img/Bismor_icon.png"
                     alt="Bismor"
                     title="Bismor"
                 />
-                <span>{{ calcStats.cost.bismor }}</span>
+                <span>{{ costObject.bismorCost }}</span>
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="calcStats.cost.croppa > 0"
+                v-if="costObject.croppaCost > 0"
             >
                 <img
                     src="/assets/img/Croppa_icon.png"
                     alt="Croppa"
                     title="Croppa"
                 />
-                <span>{{ calcStats.cost.croppa }}</span>
+                <span>{{ costObject.croppaCost }}</span>
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="calcStats.cost.enorPearl > 0"
+                v-if="costObject.enorCost > 0"
             >
                 <img
                     src="/assets/img/Enor_pearl_icon.png"
                     alt="Enor Pearl"
                     title="Enor Pearl"
                 />
-                <span>{{ calcStats.cost.enorPearl }}</span>
+                <span>{{ costObject.enorCost }}</span>
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="calcStats.cost.jadiz > 0"
+                v-if="costObject.jadizCost > 0"
             >
                 <img
                     src="/assets/img/Jadiz_icon.png"
                     alt="Jadiz"
                     title="Jadiz"
                 />
-                <span>{{ calcStats.cost.jadiz }}</span>
+                <span>{{ costObject.jadizCost }}</span>
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="calcStats.cost.magnite > 0"
+                v-if="costObject.magniteCost > 0"
             >
                 <img
                     src="/assets/img/Magnite_icon.png"
                     alt="Magnite"
                     title="Magnite"
                 />
-                <span>{{ calcStats.cost.magnite }}</span>
+                <span>{{ costObject.magniteCost }}</span>
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="calcStats.cost.umanite > 0"
+                v-if="costObject.umaniteCost > 0"
             >
                 <img
                     src="/assets/img/Umanite_icon.png"
                     alt="Umanite"
                     title="Umanite"
                 />
-                <span>{{ calcStats.cost.umanite }}</span>
+                <span>{{ costObject.umaniteCost }}</span>
             </span>
         </p>
     </div>
@@ -92,52 +92,48 @@ export default {
     props: {
         mods: Array,
     },
+    data: function () {
+        return {
+            costObject: '',
+        }
+    },
     created() {
-        // fetch the data when the view is created and the data is
-        // already being observed
-        this.hydrateData();
-        // TODO: Make this part of our hydrate data?
-        // Happens if you navigate away and come back
-        this.selectedOc();
+        
+        this.computeSumOfCost();
+        
     },
     methods: {
-        setSelectedClass: function (classId) {
-            this.$store.dispatch("setSelectedClass", classId);
-        },
-        getSelected: function () {
-            return this.$store.state.selectedClass;
-        },
         computeSumOfCost() {
-            let creditsCost = mods
+            let creditsCost = this.mods
                 .map((mod) => mod.credits_cost)
                 .reduce((prev, curr) => prev + curr, 0);
-            let magniteCost = mods
+            let magniteCost = this.mods
                 .map((mod) => mod.magnite_cost)
                 .reduce((prev, curr) => prev + curr, 0);
-            let bismorCost = mods
+            let bismorCost = this.mods
                 .map((mod) => mod.bismor_cost)
                 .reduce((prev, curr) => prev + curr, 0);
-            let umaniteCost = mods
+            let umaniteCost = this.mods
                 .map((mod) => mod.umanite_cost)
                 .reduce((prev, curr) => prev + curr, 0);
-            let enorCost = mods
+            let enorCost = this.mods
                 .map((mod) => mod.enor_pearl_cost)
                 .reduce((prev, curr) => prev + curr, 0);
-            let jadizCost = mods
+            let jadizCost = this.mods
                 .map((mod) => mod.jadiz_cost)
                 .reduce((prev, curr) => prev + curr, 0);
 
-            let totalCreditsCost = creditsCost + magniteCost + bismorCost + umaniteCost + enorCost + jadizCost;
             let costObject = {
-                totalCost: totalCreditsCost,
+                creditsCost: creditsCost,
                 magniteCost: magniteCost,
                 bismorCost: bismorCost,
                 umaniteCost: umaniteCost,
                 enorCost: enorCost,
                 jadizCost: jadizCost,
             };
-
-            return costObject;
+            console.log(this.mods);
+            console.log(costObject);
+            this.costObject = costObject;
         },
     },
 };

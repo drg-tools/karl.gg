@@ -216,5 +216,10 @@ export default new Vuex.Store({
                 return true
             return false
         },
+        getSelectedModCosts: (state) => {
+            // filter selected mods for our mod ids
+            // filter selected primary mods 
+            // just send those costs on an object for each one
+        },
     }
 })
