@@ -218,8 +218,58 @@ export default new Vuex.Store({
         },
         getSelectedModCosts: (state) => {
             // filter selected mods for our mod ids
+            let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
+            // maybe just send the mods??
+
+            // hardcoded for now
+            let itemMods = state.loadoutClassData.guns.filter(gun => gun.id === 9);
+
             // filter selected primary mods 
+            let selectedModArray = []
+
+            // I'll need to figure out which weapon we're picking
+            // maybe send primary or secondary? 
+            // Won't work for equipment
+            // Probably need to pass the gun or equipment ID
+            // use like item ID or something
+
+            itemMods.forEach(element => {
+                // iterate over the current gun's mods
+                console.log(element);
+            });
+
             // just send those costs on an object for each one
+
+            // let creditsCost = 'add mod array here'
+            //     .map((mod) => mod.credits_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let magniteCost = 'add mod array here'
+            //     .map((mod) => mod.magnite_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let bismorCost = 'add mod array here'
+            //     .map((mod) => mod.bismor_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let umaniteCost = 'add mod array here'
+            //     .map((mod) => mod.umanite_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let enorCost = 'add mod array here'
+            //     .map((mod) => mod.enor_pearl_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let jadizCost = 'add mod array here'
+            //     .map((mod) => mod.jadiz_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+
+            // let costObject = {
+            //     creditsCost: creditsCost,
+            //     magniteCost: magniteCost,
+            //     bismorCost: bismorCost,
+            //     umaniteCost: umaniteCost,
+            //     enorCost: enorCost,
+            //     jadizCost: jadizCost,
+            // };
+            // console.log(this.mods);
+            // console.log(costObject);
+            // this.costObject = costObject;
         },
     }
 })

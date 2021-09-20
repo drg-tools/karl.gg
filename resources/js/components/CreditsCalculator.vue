@@ -102,38 +102,45 @@ export default {
         this.computeSumOfCost();
         
     },
+    mounted() {
+        
+        this.computeSumOfCost();
+        
+    },
     methods: {
         computeSumOfCost() {
-            let creditsCost = this.mods
-                .map((mod) => mod.credits_cost)
-                .reduce((prev, curr) => prev + curr, 0);
-            let magniteCost = this.mods
-                .map((mod) => mod.magnite_cost)
-                .reduce((prev, curr) => prev + curr, 0);
-            let bismorCost = this.mods
-                .map((mod) => mod.bismor_cost)
-                .reduce((prev, curr) => prev + curr, 0);
-            let umaniteCost = this.mods
-                .map((mod) => mod.umanite_cost)
-                .reduce((prev, curr) => prev + curr, 0);
-            let enorCost = this.mods
-                .map((mod) => mod.enor_pearl_cost)
-                .reduce((prev, curr) => prev + curr, 0);
-            let jadizCost = this.mods
-                .map((mod) => mod.jadiz_cost)
-                .reduce((prev, curr) => prev + curr, 0);
+            // let creditsCost = this.mods
+            //     .map((mod) => mod.credits_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let magniteCost = this.mods
+            //     .map((mod) => mod.magnite_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let bismorCost = this.mods
+            //     .map((mod) => mod.bismor_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let umaniteCost = this.mods
+            //     .map((mod) => mod.umanite_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let enorCost = this.mods
+            //     .map((mod) => mod.enor_pearl_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
+            // let jadizCost = this.mods
+            //     .map((mod) => mod.jadiz_cost)
+            //     .reduce((prev, curr) => prev + curr, 0);
 
-            let costObject = {
-                creditsCost: creditsCost,
-                magniteCost: magniteCost,
-                bismorCost: bismorCost,
-                umaniteCost: umaniteCost,
-                enorCost: enorCost,
-                jadizCost: jadizCost,
-            };
-            console.log(this.mods);
-            console.log(costObject);
-            this.costObject = costObject;
+            // let costObject = {
+            //     creditsCost: creditsCost,
+            //     magniteCost: magniteCost,
+            //     bismorCost: bismorCost,
+            //     umaniteCost: umaniteCost,
+            //     enorCost: enorCost,
+            //     jadizCost: jadizCost,
+            // };
+            // console.log(this.mods);
+            // console.log(costObject);
+            // this.costObject = costObject;
+            console.log('sum of cost ran');
+            console.log(this.$store.getters.getSelectedModCosts);
         },
     },
 };
