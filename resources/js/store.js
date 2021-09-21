@@ -234,11 +234,12 @@ export default new Vuex.Store({
             
             // hardcoded for now
             if(state.loadoutClassData != '') {
-                let itemMods = state.loadoutClassData.guns.filter(gun => gun.id == 9);
+                let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);
+                let itemMods = mainItem.mods;
                 // filter selected primary mods 
                 let selectedModArray = []
-                console.log('itemmods')
-                console.log(itemMods)
+                console.log('itemmods');
+                console.log(itemMods);
                 
                 let isFounded = itemMods.filter(item => selectedModIds.includes(item));
                 console.log('isFounded')
