@@ -109,6 +109,17 @@ export default new Vuex.Store({
                 throw err;
             });
         },
+        getClassData({state}, classId) {
+            // Parsing a response 
+            let selectedClassId = classId;
+            return Apollo.query({
+                query: gql`${apolloQueries.character(selectedClassId)}`
+            }).then(result => {
+                return result.data.character;
+            }).catch(err => {
+                throw err;
+            });
+        },
         hydrateClassData({commit, dispatch}, newClassId) {
             let classData = dispatch('getClassData', newClassId).then(result =>{
                 // Use our data response to hydrate all needed class data
@@ -220,23 +231,30 @@ export default new Vuex.Store({
             // filter selected mods for our mod ids
             let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
             // maybe just send the mods??
-
+            
             // hardcoded for now
-            let itemMods = state.loadoutClassData.guns.filter(gun => gun.id === 9);
+            if(state.loadoutClassData != '') {
+                let itemMods = state.loadoutClassData.guns.filter(gun => gun.id == 9);
+                // filter selected primary mods 
+                let selectedModArray = []
+                console.log('itemmods')
+                console.log(itemMods)
+                
+                let isFounded = itemMods.filter(item => selectedModIds.includes(item));
+                console.log('isFounded')
+                console.log(isFounded)
+                // I'll need to figure out which weapon we're picking
+                // maybe send primary or secondary? 
+                // Won't work for equipment
+                // Probably need to pass the gun or equipment ID
+                // use like item ID or something
 
-            // filter selected primary mods 
-            let selectedModArray = []
+               
+            
+            
+            }
 
-            // I'll need to figure out which weapon we're picking
-            // maybe send primary or secondary? 
-            // Won't work for equipment
-            // Probably need to pass the gun or equipment ID
-            // use like item ID or something
-
-            itemMods.forEach(element => {
-                // iterate over the current gun's mods
-                console.log(element);
-            });
+            
 
             // just send those costs on an object for each one
 

@@ -1,8 +1,6 @@
 <template>
     <div>
-        <span v-if="costObject.visible" class="text-white text-lg block my-2"
-            >Total Costs:</span
-        >
+        <span class="text-white text-lg block my-2">Total Costs:</span>
         <p class="costList flex flex-wrap">
             <span
                 class="costListItem flex items-center pr-2"
@@ -94,19 +92,20 @@ export default {
     },
     data: function () {
         return {
-            costObject: '',
-        }
+            costObject: "",
+        };
     },
     created() {
-        
         this.computeSumOfCost();
-        
     },
-    mounted() {
-        
-        this.computeSumOfCost();
-        
+    updated() {
+        this.$nextTick(function () {
+            // Code that will run only after the
+            // entire view has been re-rendered
+            this.computeSumOfCost();
+        });
     },
+
     methods: {
         computeSumOfCost() {
             // let creditsCost = this.mods
@@ -139,7 +138,7 @@ export default {
             // console.log(this.mods);
             // console.log(costObject);
             // this.costObject = costObject;
-            console.log('sum of cost ran');
+            console.log("sum of cost ran");
             console.log(this.$store.getters.getSelectedModCosts);
         },
     },

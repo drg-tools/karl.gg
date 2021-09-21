@@ -43,7 +43,7 @@
         <div class="flex flex-col">
         <ModMatrix />
         <OverclockSelect />
-        <CreditsCalculator :mods="this.$store.state.selectedPrimaryMods" />
+        <CreditsCalculator v-if="this.$store.state.selectedPrimaryMods != []" :mods="this.$store.state.selectedPrimaryMods" />
         </div>
       </div>
     </div>
