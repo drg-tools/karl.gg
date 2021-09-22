@@ -87,59 +87,30 @@
 <script>
 export default {
     name: "CreditsCalculator",
-    props: {
-        mods: Array,
-    },
     data: function () {
         return {
             costObject: "",
         };
     },
     created() {
-        this.computeSumOfCost();
-    },
-    updated() {
-        this.$nextTick(function () {
-            // Code that will run only after the
-            // entire view has been re-rendered
-            this.computeSumOfCost();
-        });
-    },
+    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'setSelectedPrimaryMod') {
+        console.log(`Updating costs`);
 
+        // Do whatever makes sense now
+        this.computeSumOfCost();
+      }
+    });
+  },
+  beforeDestroy() {
+    this.unsubscribe();
+  },
     methods: {
         computeSumOfCost() {
-            // let creditsCost = this.mods
-            //     .map((mod) => mod.credits_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let magniteCost = this.mods
-            //     .map((mod) => mod.magnite_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let bismorCost = this.mods
-            //     .map((mod) => mod.bismor_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let umaniteCost = this.mods
-            //     .map((mod) => mod.umanite_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let enorCost = this.mods
-            //     .map((mod) => mod.enor_pearl_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let jadizCost = this.mods
-            //     .map((mod) => mod.jadiz_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
 
-            // let costObject = {
-            //     creditsCost: creditsCost,
-            //     magniteCost: magniteCost,
-            //     bismorCost: bismorCost,
-            //     umaniteCost: umaniteCost,
-            //     enorCost: enorCost,
-            //     jadizCost: jadizCost,
-            // };
-            // console.log(this.mods);
-            // console.log(costObject);
-            // this.costObject = costObject;
             console.log("sum of cost ran");
             console.log(this.$store.getters.getSelectedModCosts);
+            this.costObject = this.$store.getters.getSelectedModCosts;
         },
     },
 };

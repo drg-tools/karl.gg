@@ -41,9 +41,9 @@
       <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
       <div class="flex flex-row">
         <div class="flex flex-col">
-        <ModMatrix />
+        <ModMatrix/>
         <OverclockSelect />
-        <CreditsCalculator v-if="this.$store.state.selectedPrimaryMods != []" v-bind:mods="this.$store.state.selectedPrimaryMods" />
+        <CreditsCalculator v-if="this.$store.state.selectedPrimaryMods != []" />
         </div>
       </div>
     </div>

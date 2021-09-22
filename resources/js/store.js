@@ -98,7 +98,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        getClassData({state}, classId) {
+        getClassData({ state }, classId) {
             // Parsing a response 
             let selectedClassId = classId;
             return Apollo.query({
@@ -109,7 +109,7 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        getClassData({state}, classId) {
+        getClassData({ state }, classId) {
             // Parsing a response 
             let selectedClassId = classId;
             return Apollo.query({
@@ -120,8 +120,8 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        hydrateClassData({commit, dispatch}, newClassId) {
-            let classData = dispatch('getClassData', newClassId).then(result =>{
+        hydrateClassData({ commit, dispatch }, newClassId) {
+            let classData = dispatch('getClassData', newClassId).then(result => {
                 // Use our data response to hydrate all needed class data
                 // Commit this directly to store, called each time you select a class
                 commit('setloadoutClassData', result);
@@ -129,7 +129,7 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        setSelectedClass({ commit,dispatch }, newClassIdInput) {
+        setSelectedClass({ commit, dispatch }, newClassIdInput) {
             // clear the previously selected class
             commit('clearloadoutClassData')
             // also clear the previously selected data
@@ -143,30 +143,30 @@ export default new Vuex.Store({
 
             // dispatch an action which will commit our new class data to store
             dispatch('hydrateClassData', newClassIdInput);
-            
+
             // Set newly selected class only after we have:
             // 1. Deleted old class data
             // 2. Hydrated new class data
             commit('setSelectedClass', newClassIdInput)
         },
-        setSelectedPrimary({commit}, newLoadoutItem) {
-            
+        setSelectedPrimary({ commit }, newLoadoutItem) {
+
             // TODO: For equipments only, do not clear their array in the store when a new one is added
             //           If it's a primary or secondary, wipe the existing and save the new one
             // TODO: Make this ID's
-            
+
             commit('clearSelectedPrimary')
             commit('setSelectedPrimary', newLoadoutItem)
-           
+
         },
-        setSelectedPrimaryMod({commit, state}, selectedModObject) {
+        setSelectedPrimaryMod({ commit, state }, selectedModObject) {
             // Expect to only receive 1 ID at a time
             // we'll fire this when you click on something
             // Issue: Keeping track of mod tiers?
-            
+
             // When you select a mod, we will try to push it to the array of mods
             // We will quickly check to see if there's any other selected mods in this tier for your weapon        
-            
+
 
             // We will group the object like this to keep track of all the tiers
             // Since you can only have 1 item selected per tier, we have to clear the previous one
@@ -180,30 +180,30 @@ export default new Vuex.Store({
             //     commit('clearSelectedPrimaryMod', selectedModObject[1])
             // } 
 
-            if(state.selectedPrimaryMods.length != 0 ) {
+            if (state.selectedPrimaryMods.length != 0) {
                 // We have selected mods
                 console.log('you have selected mods')
                 let currentTierSelection = state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
-                if(currentTierSelection.length != 0) {
+                if (currentTierSelection.length != 0) {
                     console.log('current tier selection')
                     console.log(currentTierSelection)
                     commit('clearSelectedPrimaryMod', selectedModObject.selectedModTier)
                 }
-            
+
             }
             // console.log(state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier))
 
 
 
             commit('setSelectedPrimaryMod', {
-                selectedModId: selectedModObject.selectedModId, 
+                selectedModId: selectedModObject.selectedModId,
                 selectedModTier: selectedModObject.selectedModTier
             })
         }
     },
     getters: {
         // This should be by ID
-        getLoadoutClassWeaponByName: (state) => (weaponName) => { 
+        getLoadoutClassWeaponByName: (state) => (weaponName) => {
             // Pull the requested class weapon by name, which is stored in components
             return state.loadoutClassData.guns.filter(function (el) {
                 return el.name == weaponName
@@ -223,7 +223,7 @@ export default new Vuex.Store({
             return ocData;
         },
         getIsSelectedMod: (state) => (modId) => {
-            if(state.selectedPrimaryMods.filter(mod => mod.selectedModId === modId).length != 0)
+            if (state.selectedPrimaryMods.filter(mod => mod.selectedModId === modId).length != 0)
                 return true
             return false
         },
@@ -231,64 +231,68 @@ export default new Vuex.Store({
             // filter selected mods for our mod ids
             let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
             // maybe just send the mods??
-            
+
             // hardcoded for now
-            if(state.loadoutClassData != '') {
+            if (state.loadoutClassData != '') {
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);
-                let itemMods = mainItem.mods;
+                let itemMods = mainItem[0].mods;
                 // filter selected primary mods 
-                let selectedModArray = []
+                let selectedModArray = [];
                 console.log('itemmods');
                 console.log(itemMods);
-                
-                let isFounded = itemMods.filter(item => selectedModIds.includes(item));
-                console.log('isFounded')
-                console.log(isFounded)
+
+                selectedModIds.forEach(function (modId) {
+                    itemMods.forEach(mod => {
+                        if (mod.id == modId) {
+                            selectedModArray.push(mod)
+                        }
+                    });
+                });
+                console.log('selectedModArray')
+                console.log(selectedModArray)
                 // I'll need to figure out which weapon we're picking
                 // maybe send primary or secondary? 
                 // Won't work for equipment
                 // Probably need to pass the gun or equipment ID
                 // use like item ID or something
+                let creditsCost = selectedModArray
+                    .map((mod) => mod.credits_cost)
+                    .reduce((prev, curr) => prev + curr, 0);
+                let magniteCost = selectedModArray
+                    .map((mod) => mod.magnite_cost)
+                    .reduce((prev, curr) => prev + curr, 0);
+                let bismorCost = selectedModArray
+                    .map((mod) => mod.bismor_cost)
+                    .reduce((prev, curr) => prev + curr, 0);
+                let umaniteCost = selectedModArray
+                    .map((mod) => mod.umanite_cost)
+                    .reduce((prev, curr) => prev + curr, 0);
+                let enorCost = selectedModArray
+                    .map((mod) => mod.enor_pearl_cost)
+                    .reduce((prev, curr) => prev + curr, 0);
+                let jadizCost = selectedModArray
+                    .map((mod) => mod.jadiz_cost)
+                    .reduce((prev, curr) => prev + curr, 0);
 
-               
-            
-            
+                let costObject = {
+                    creditsCost: creditsCost,
+                    magniteCost: magniteCost,
+                    bismorCost: bismorCost,
+                    umaniteCost: umaniteCost,
+                    enorCost: enorCost,
+                    jadizCost: jadizCost,
+                };
+                console.log(costObject);
+                return costObject;
+
+
             }
 
-            
+
 
             // just send those costs on an object for each one
 
-            // let creditsCost = 'add mod array here'
-            //     .map((mod) => mod.credits_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let magniteCost = 'add mod array here'
-            //     .map((mod) => mod.magnite_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let bismorCost = 'add mod array here'
-            //     .map((mod) => mod.bismor_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let umaniteCost = 'add mod array here'
-            //     .map((mod) => mod.umanite_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let enorCost = 'add mod array here'
-            //     .map((mod) => mod.enor_pearl_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
-            // let jadizCost = 'add mod array here'
-            //     .map((mod) => mod.jadiz_cost)
-            //     .reduce((prev, curr) => prev + curr, 0);
 
-            // let costObject = {
-            //     creditsCost: creditsCost,
-            //     magniteCost: magniteCost,
-            //     bismorCost: bismorCost,
-            //     umaniteCost: umaniteCost,
-            //     enorCost: enorCost,
-            //     jadizCost: jadizCost,
-            // };
-            // console.log(this.mods);
-            // console.log(costObject);
-            // this.costObject = costObject;
         },
     }
 })
