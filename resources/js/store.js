@@ -232,6 +232,7 @@ export default new Vuex.Store({
             let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
             // maybe just send the mods??
 
+            // Need to do a check for gun or equipment...we may pass that in as a prop to this getter
             // hardcoded for now
             if (state.loadoutClassData != '') {
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);

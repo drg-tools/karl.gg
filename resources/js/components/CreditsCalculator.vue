@@ -94,10 +94,9 @@ export default {
     },
     created() {
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
+      // TODO: make this handle equipment as well as primary and secondary
       if (mutation.type === 'setSelectedPrimaryMod') {
         console.log(`Updating costs`);
-
-        // Do whatever makes sense now
         this.computeSumOfCost();
       }
     });
