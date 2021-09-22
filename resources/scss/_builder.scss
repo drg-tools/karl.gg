@@ -328,4 +328,86 @@
     .tui-editor-defaultUI button.tui-scrollsync.active {
         color: #000000;
     }
+
+
+    /** Weapon Selector */
+    /* todo: proper styles for this stuff, it's messy atm */
+    h4 {
+        white-space: nowrap;
+    }
+
+    .equipmentActive {
+        background-color: #fc9e00;
+        color: #352e1e;
+    }
+
+    .equipment {
+        background-color: #111927;
+        color: #352e1e;
+    }
+
+    .equipmentIcon {
+        fill: #ada195;
+    }
+
+    .equipmentIconActive {
+        fill: #fffbff;
+    }
+
+    h4 {
+        margin: 0;
+        white-space: pre-wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .largeText {
+        font-size: 1.4rem;
+    }
+
+    .equipmentText {
+        flex: auto;
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #4B5563;
+        color: #ada195;
+    }
+
+    .equipmentTextActive {
+        flex: auto;
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #111927;
+        color: #fffbff;
+    }
+
+    .weaponSelectContainer {
+        flex: auto;
+        display: flex;
+        cursor: pointer;
+    }
+
+    .weaponSelectContainer:hover .equipmentText {
+        color: #fffbff;
+    }
+
+    .weaponSelectContainer:hover .equipmentIcon {
+        fill: #fffbff;
+    }
+
+    .flexboxWeaponSelect {
+        display: flex;
+        align-items: center;
+        height: 4rem;
+    }
+
+    .flexboxWeaponSelect > svg {
+        margin: 0.5rem;
+    }
 }
