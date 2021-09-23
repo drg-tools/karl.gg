@@ -3,7 +3,7 @@
     <!-- TODO: Add components for all weapons/classes -->
     <div class="weaponSelectContainer" v-on:click="selectEquipment()">
         <div class="flexboxWeaponSelect" :class="[getIsSelected() ? 'equipmentActive' : 'equipment']">
-            <!-- :class="[getSelected ? 'equipmentActive' : 'equipment']" -->
+           
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 180 90"
                  :class="[getIsSelected() ? 'equipmentIconActive' : 'equipmentIcon']"
@@ -11,8 +11,7 @@
                  preserveAspectRatio="xMidYMid meet"
                  v-html="gunIcon"></svg>
         </div>
-        <!-- :class="[getSelected ? 'equipmentIconActive' : 'equipmentIcon']" -->
-        <!-- <div :class="[getSelected ? 'equipmentTextActive' : 'equipmentText']"> -->
+       
         <div :class="[getIsSelected() ? 'equipmentTextActive' : 'equipmentText']">
             <h4>CRSPR Flamethrower</h4>
         </div>
