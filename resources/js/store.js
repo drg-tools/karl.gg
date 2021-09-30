@@ -230,13 +230,19 @@ export default new Vuex.Store({
         getSelectedModCosts: (state) => {
             // filter selected mods for our mod ids
             let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
+            let selectedOcId = null;
             // maybe just send the mods??
-
+            if(state.selectedPrimaryOverclock != '') {
+                selectedOcId = state.selectedPrimaryOverclock;
+            }
             // Need to do a check for gun or equipment...we may pass that in as a prop to this getter
             // hardcoded for now
             if (state.loadoutClassData != '') {
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);
                 let itemMods = mainItem[0].mods;
+                if(selectedOcId) {
+                    // get the cost
+                }
                 // filter selected primary mods 
                 let selectedModArray = [];
                 console.log('itemmods');
