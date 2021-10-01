@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import apolloQueries from './apolloQueries';
 import { Apollo } from './apollo';
 import * as IconList from './IconsList';
-import { sortedLastIndexOf } from 'lodash';
+import { over, sortedLastIndexOf } from 'lodash';
 
 
 
@@ -228,21 +228,21 @@ export default new Vuex.Store({
             return false
         },
         getSelectedModCosts: (state) => {
-            // filter selected mods for our mod ids
-            let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
-            let selectedOcId = null;
-            // maybe just send the mods??
-            if(state.selectedPrimaryOverclock != '') {
-                selectedOcId = state.selectedPrimaryOverclock;
-            }
+            
             // Need to do a check for gun or equipment...we may pass that in as a prop to this getter
             // hardcoded for now
             if (state.loadoutClassData != '') {
+                // filter selected mods for our mod ids
+                let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
+                let selectedOcId = null;
+                // maybe just send the mods??
+                if (state.selectedPrimaryOverclock != '') {
+                    selectedOcId = state.selectedPrimaryOverclock;
+                    console.log('Selected OC ID' + selectedOcId)
+                }
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);
                 let itemMods = mainItem[0].mods;
-                if(selectedOcId) {
-                    // get the cost
-                }
+
                 // filter selected primary mods 
                 let selectedModArray = [];
                 console.log('itemmods');
@@ -280,6 +280,21 @@ export default new Vuex.Store({
                 let jadizCost = selectedModArray
                     .map((mod) => mod.jadiz_cost)
                     .reduce((prev, curr) => prev + curr, 0);
+
+
+                if (selectedOcId) {
+                    // get the cost
+                    let overclockObject = mainItem[0].overclocks.filter(overclock => overclock.id == selectedOcId);
+            
+                    creditsCost += overclockObject[0].credits_cost;
+                    magniteCost += overclockObject[0].magnite_cost;
+                    bismorCost  += overclockObject[0].bismor_cost;
+                    umaniteCost += overclockObject[0].umanite_cost;
+                    enorCost    += overclockObject[0].enorCost_cost;
+                    jadizCost   += overclockObject[0].jadiz_cost;
+                }
+
+
 
                 let costObject = {
                     creditsCost: creditsCost,

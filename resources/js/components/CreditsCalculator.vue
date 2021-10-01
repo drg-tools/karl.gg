@@ -72,7 +72,7 @@ export default {
     this.computeSumOfCost();
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       // TODO: make this handle equipment as well as primary and secondary
-      if (mutation.type === "setSelectedPrimaryMod") {
+      if (mutation.type === "setSelectedPrimaryMod" || mutation.type === "setSelectedPrimaryOverclock") {
         console.log(`Updating costs`);
         this.computeSumOfCost();
       }

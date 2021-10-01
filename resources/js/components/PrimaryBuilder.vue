@@ -43,7 +43,9 @@
         <div class="flex flex-col">
         <ModMatrix/>
         <OverclockSelect />
-        <CreditsCalculator v-if="this.$store.state.selectedPrimaryMods != []" />
+        <!-- TODO: Make a getter to determine if we should show the credits calculator -->
+        <!--       It should check for all the if attributes we would need here -->
+        <CreditsCalculator v-if="this.$store.state.selectedPrimaryMods != [] || this.$store.state.setSelectedPrimaryOverclock != '' " />
         </div>
       </div>
     </div>
