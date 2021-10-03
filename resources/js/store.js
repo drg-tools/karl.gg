@@ -160,32 +160,14 @@ export default new Vuex.Store({
 
         },
         setSelectedPrimaryMod({ commit, state }, selectedModObject) {
-            // Expect to only receive 1 ID at a time
-            // we'll fire this when you click on something
-            // Issue: Keeping track of mod tiers?
-
-            // When you select a mod, we will try to push it to the array of mods
-            // We will quickly check to see if there's any other selected mods in this tier for your weapon        
-
-
-            // We will group the object like this to keep track of all the tiers
-            // Since you can only have 1 item selected per tier, we have to clear the previous one
-            // This will also allow our frontend to keep track of how to display them
             
-            // if( state.selectedPrimaryMods != null ) {
-            //     // If we have a mod in this tier already,
-            //     // clear the mod before committing our new one
-            //     commit('clearSelectedPrimaryMod', selectedModObject[1])
-            // } 
             let currentTierSelection = state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
             let sameSelection = false;
             if (state.selectedPrimaryMods.length != 0) {
                 // We have selected mods
-                console.log('you have selected mods')
                 if (currentTierSelection.length != 0) {
                    
                     commit('clearSelectedPrimaryMod', selectedModObject.selectedModTier)
-                    console.log(currentTierSelection[0].selectedModId)
                     if(currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
                         sameSelection = true
                     }
@@ -236,9 +218,13 @@ export default new Vuex.Store({
                 let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
                 let selectedOcId = null;
                 // maybe just send the mods??
+
+                // TODO: Make this dynamic -- potentially send an OC object as an optional param
                 if (state.selectedPrimaryOverclock != '') {
                     selectedOcId = state.selectedPrimaryOverclock;
                 }
+
+                // TODO: Make this dynamic -- GUN ID
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);
                 let itemMods = mainItem[0].mods;
 
@@ -278,8 +264,9 @@ export default new Vuex.Store({
                     .reduce((prev, curr) => prev + curr, 0);
 
 
+                // This is an internal function variable, so we will always be able to trust this block
+                // It will be established based on the param in the first few lines of the function
                 if (selectedOcId) {
-                    // get the cost
                     let overclockObject = mainItem[0].overclocks.filter(overclock => overclock.id == selectedOcId);
             
                     creditsCost += overclockObject[0].credits_cost;
