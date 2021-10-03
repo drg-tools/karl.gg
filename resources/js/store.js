@@ -171,34 +171,34 @@ export default new Vuex.Store({
             // We will group the object like this to keep track of all the tiers
             // Since you can only have 1 item selected per tier, we have to clear the previous one
             // This will also allow our frontend to keep track of how to display them
-            console.log(selectedModObject)
-            console.log(selectedModObject.selectedModTier)
-
+            
             // if( state.selectedPrimaryMods != null ) {
             //     // If we have a mod in this tier already,
             //     // clear the mod before committing our new one
             //     commit('clearSelectedPrimaryMod', selectedModObject[1])
             // } 
-
+            let currentTierSelection = state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
+            let sameSelection = false;
             if (state.selectedPrimaryMods.length != 0) {
                 // We have selected mods
                 console.log('you have selected mods')
-                let currentTierSelection = state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
                 if (currentTierSelection.length != 0) {
-                    console.log('current tier selection')
-                    console.log(currentTierSelection)
+                   
                     commit('clearSelectedPrimaryMod', selectedModObject.selectedModTier)
+                    console.log(currentTierSelection[0].selectedModId)
+                    if(currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
+                        sameSelection = true
+                    }
                 }
 
             }
-            // console.log(state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier))
-
-
-
-            commit('setSelectedPrimaryMod', {
-                selectedModId: selectedModObject.selectedModId,
-                selectedModTier: selectedModObject.selectedModTier
-            })
+            if(!sameSelection) {
+                commit('setSelectedPrimaryMod', {
+                    selectedModId: selectedModObject.selectedModId,
+                    selectedModTier: selectedModObject.selectedModTier
+                })
+            }
+            
         }
     },
     getters: {
@@ -238,15 +238,12 @@ export default new Vuex.Store({
                 // maybe just send the mods??
                 if (state.selectedPrimaryOverclock != '') {
                     selectedOcId = state.selectedPrimaryOverclock;
-                    console.log('Selected OC ID' + selectedOcId)
                 }
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);
                 let itemMods = mainItem[0].mods;
 
                 // filter selected primary mods 
                 let selectedModArray = [];
-                console.log('itemmods');
-                console.log(itemMods);
 
                 selectedModIds.forEach(function (modId) {
                     itemMods.forEach(mod => {
@@ -255,8 +252,7 @@ export default new Vuex.Store({
                         }
                     });
                 });
-                console.log('selectedModArray')
-                console.log(selectedModArray)
+
                 // I'll need to figure out which weapon we're picking
                 // maybe send primary or secondary? 
                 // Won't work for equipment
@@ -304,7 +300,6 @@ export default new Vuex.Store({
                     enorCost: enorCost,
                     jadizCost: jadizCost,
                 };
-                console.log(costObject);
                 return costObject;
 
 
