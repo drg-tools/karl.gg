@@ -149,27 +149,27 @@ export default new Vuex.Store({
 
         },
         setSelectedPrimaryMod({ commit, state }, selectedModObject) {
-            
+
             let currentTierSelection = state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
             let sameSelection = false;
             if (state.selectedPrimaryMods.length != 0) {
                 // We have selected mods
                 if (currentTierSelection.length != 0) {
-                   
+
                     commit('clearSelectedPrimaryMod', selectedModObject.selectedModTier)
-                    if(currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
+                    if (currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
                         sameSelection = true
                     }
                 }
 
             }
-            if(!sameSelection) {
+            if (!sameSelection) {
                 commit('setSelectedPrimaryMod', {
                     selectedModId: selectedModObject.selectedModId,
                     selectedModTier: selectedModObject.selectedModTier
                 })
             }
-            
+
         }
     },
     getters: {
@@ -199,7 +199,7 @@ export default new Vuex.Store({
             return false
         },
         getSelectedModCosts: (state) => {
-            
+
             // Need to do a check for gun or equipment...we may pass that in as a prop to this getter
             // hardcoded for now
             if (state.loadoutClassData != '') {
@@ -257,13 +257,13 @@ export default new Vuex.Store({
                 // It will be established based on the param in the first few lines of the function
                 if (selectedOcId) {
                     let overclockObject = mainItem[0].overclocks.filter(overclock => overclock.id == selectedOcId);
-            
+
                     creditsCost += overclockObject[0].credits_cost;
                     magniteCost += overclockObject[0].magnite_cost;
-                    bismorCost  += overclockObject[0].bismor_cost;
+                    bismorCost += overclockObject[0].bismor_cost;
                     umaniteCost += overclockObject[0].umanite_cost;
-                    enorCost    += overclockObject[0].enorCost_cost;
-                    jadizCost   += overclockObject[0].jadiz_cost;
+                    enorCost += overclockObject[0].enorCost_cost;
+                    jadizCost += overclockObject[0].jadiz_cost;
                 }
 
 
@@ -280,12 +280,6 @@ export default new Vuex.Store({
 
 
             }
-
-
-
-            // just send those costs on an object for each one
-
-
         },
     }
 })
