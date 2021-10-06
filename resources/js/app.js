@@ -82,6 +82,7 @@ import LoadoutBuilder from './components/LoadoutBuilder.vue'
 import LoadoutContainer from './components/LoadoutContainer.vue'
 import SelectContainer from './components/SelectContainer.vue'
 import PrimaryBuilder from './components/PrimaryBuilder.vue'
+import SecondaryBuilder from './components/SecondaryBuilder.vue'
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -97,6 +98,7 @@ const routes = [
                 children: [
                     { path: '', component: SelectContainer },
                     { path: '/primary-builder', component: PrimaryBuilder },
+                    { path: '/secondary-builder', component: SecondaryBuilder },
                 ]
             },
 

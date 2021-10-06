@@ -81,6 +81,7 @@ export default {
     this.checkMods();
   },
   methods: {
+    // todo: this should be props or something
     checkMods() {
       this.flameThrowerMods = this.$store.state.loadoutClassData.guns[0].mods;
     },

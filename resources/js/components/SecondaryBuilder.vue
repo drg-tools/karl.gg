@@ -29,12 +29,12 @@
 
     <!-- driller -->
     <div class="equipmentSelectContainer">
-      <div class="primariesContainer gap-2">
+      <div class="secondariesContainer gap-2">
         <!-- TODO: Refresh Primaries on fresh class Selection -->
         <!-- TODO: Load folder of components based on selected class, make this guy clean -->
         <!-- TODO: Make class components for each folder, import that here based on selected class -->
         <div class="flex flex-row">
-          <PrimaryFlamethrower />
+          <SecondarySubata />
         </div>
       </div>
 
@@ -42,10 +42,10 @@
       <div class="flex flex-row">
         <div class="flex flex-col">
         <ModMatrix/>
-        <OverclockSelect primaryOrSecondary="Primary" />
+        <OverclockSelect primaryOrSecondary="Secondary" />
         <!-- TODO: Make a getter to determine if we should show the credits calculator -->
         <!--       It should check for all the if attributes we would need here -->
-        <CreditsCalculator v-if="this.$store.state.selectedPrimaryMods != [] || this.$store.state.setSelectedPrimaryOverclock != '' " />
+        <CreditsCalculator v-if="this.$store.state.selectedSecondaryMods != [] || this.$store.state.setSelectedSecondaryOverclock != '' " />
         </div>
       </div>
     </div>
@@ -53,15 +53,15 @@
 </template>
 
 <script>
-import PrimaryFlamethrower from "./driller/Primary_Flamethrower.vue";
+import SecondarySubata from "./driller/Secondary_Subata.vue";
 import ModMatrix from "./ModMatrix.vue";
 import OverclockSelect from "./OverclockSelect.vue";
 import CreditsCalculator from "./CreditsCalculator.vue";
 
 export default {
-  name: "PrimaryBuilder",
-  components: { PrimaryFlamethrower, ModMatrix, OverclockSelect, CreditsCalculator },
+  name: "SecondaryBuilder",
+  components: { SecondarySubata, ModMatrix, OverclockSelect, CreditsCalculator },
 
-  methods: {},
 };
 </script>
+

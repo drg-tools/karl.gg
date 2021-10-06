@@ -45,10 +45,12 @@ export default new Vuex.Store({
         loadoutDescription: '', // TODO: In the component Debounce on this
         loadoutClassData: '', // Use this as source of truth, only call this. Save ID's in other manipulators
         icons: IconList,
-        selectedPrimary: '', // Make this an ID only
+        selectedPrimary: '',
         selectedPrimaryMods: [],
         selectedPrimaryOverclock: '',
-        // Array of ID's on the selected mods
+        selectedSecondary: '',
+        selectedSecondaryMods: [],
+        selectedSecondaryOverclock: '',
     },
     mutations: {
         setSelectedClass(state, newValue) {
@@ -96,9 +98,27 @@ export default new Vuex.Store({
         clearSelectedPrimaryOverclock(state) {
             state.selectedPrimaryOverclock = ''
         },
+        setSelectedSecondary(state, newValue) {
+            state.selectedSecondary = newValue
+        },
+        clearSelectedSecondary(state) {
+            state.selectedSecondary = ''
+        },
+        setSelectedSecondaryMod(state, newValue) {
+            state.selectedSecondaryMods.push(newValue)
+        },
+        clearSelectedSecondaryMod(state, modTier) {
+            state.selectedSecondaryMods = state.selectedSecondaryMods.filter(mod => mod.selectedModTier !== modTier)
+        },
+        setSelectedSecondaryOverclock(state, newValue) {
+            state.selectedSecondaryOverclock = newValue
+        },
+        clearSelectedSecondaryOverclock(state) {
+            state.selectedSecondaryOverclock = ''
+        },
     },
     actions: {
-        getClassData(classId) {
+        getClassData({ state }, classId) {
             // Parsing a response 
             let selectedClassId = classId;
             return Apollo.query({
@@ -170,7 +190,40 @@ export default new Vuex.Store({
                 })
             }
 
-        }
+        },
+        setSelectedSecondary({ commit }, newLoadoutItem) {
+
+            // TODO: For equipments only, do not clear their array in the store when a new one is added
+            //           If it's a Secondary or secondary, wipe the existing and save the new one
+            // TODO: Make this ID's
+
+            commit('clearSelectedSecondary')
+            commit('setSelectedSecondary', newLoadoutItem)
+
+        },
+        setSelectedSecondaryMod({ commit, state }, selectedModObject) {
+
+            let currentTierSelection = state.selectedSecondaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
+            let sameSelection = false;
+            if (state.selectedSecondaryMods.length != 0) {
+                // We have selected mods
+                if (currentTierSelection.length != 0) {
+
+                    commit('clearSelectedSecondaryMod', selectedModObject.selectedModTier)
+                    if (currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
+                        sameSelection = true
+                    }
+                }
+
+            }
+            if (!sameSelection) {
+                commit('setSelectedSecondaryMod', {
+                    selectedModId: selectedModObject.selectedModId,
+                    selectedModTier: selectedModObject.selectedModTier
+                })
+            }
+
+        },
     },
     getters: {
         // This should be by ID
@@ -183,6 +236,9 @@ export default new Vuex.Store({
         // This should be by ID
         getIsSelectedPrimary: (state) => (weaponId) => {
             return state.selectedPrimary === weaponId
+        },
+        getIsSelectedSecondary: (state) => (weaponId) => {
+            return state.selectedSecondary === weaponId
         },
         getIconByName: (state) => (iconName) => {
             return state.icons.default[iconName]

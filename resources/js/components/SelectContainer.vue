@@ -31,8 +31,7 @@
 
 <div class="flex flex-col">
       <h2>Select a Secondary</h2>
-      <a
-        href="#"
+      <router-link to="/secondary-builder"
         class="
           inline-flex
           items-center
@@ -54,7 +53,7 @@
         "
       >
       Select
-      </a>
+      </router-link>
     </div>
 
 

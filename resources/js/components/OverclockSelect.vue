@@ -75,6 +75,9 @@ import OverclockIcon from "./OverclockIcon.vue";
 export default {
   name: "OverclockSelect",
   components: { OverclockIcon },
+  props: {
+    primaryOrSecondary: String,
+  },
   data() {
     return {
       flameThrowerOverclocks: "",
@@ -99,14 +102,20 @@ export default {
       return this.$store.getters.getIconByName(iconName);
     },
     selectOverclock(overclockId) {
-      this.$store.commit("clearSelectedPrimaryOverclock");
-      this.$store.commit("setSelectedPrimaryOverclock", overclockId);
+      this.$store.commit("clearSelected"+ primaryOrSecondary + "Overclock");
+      this.$store.commit("setSelected"+ primaryOrSecondary + "Overclock", overclockId);
       this.selectedOc();
     },
     selectedOc() {
       // TODO: Make this a store getter?
+      let selectedOcState = null;
+      if(this.primaryOrSecondary == "Primary") {
+        selectedOcState = this.$store.state.selectedPrimaryOverclock
+      } else if(this.primaryOrSecondary == "Secondary") {
+        selectedOcState = this.$store.state.selectedSecondaryOverclock
+      }
       let selectedObject = this.flameThrowerOverclocks.filter(
-        (oc) => oc.id === this.$store.state.selectedPrimaryOverclock
+        (oc) => oc.id === selectedOcState
       );
       if(selectedObject.length === 0) {
         return;
