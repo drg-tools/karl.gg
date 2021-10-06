@@ -98,18 +98,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        getClassData({ state }, classId) {
-            // Parsing a response 
-            let selectedClassId = classId;
-            return Apollo.query({
-                query: gql`${apolloQueries.character(selectedClassId)}`
-            }).then(result => {
-                return result.data.character;
-            }).catch(err => {
-                throw err;
-            });
-        },
-        getClassData({ state }, classId) {
+        getClassData(classId) {
             // Parsing a response 
             let selectedClassId = classId;
             return Apollo.query({
