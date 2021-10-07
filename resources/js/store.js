@@ -51,6 +51,12 @@ export default new Vuex.Store({
         selectedSecondary: '',
         selectedSecondaryMods: [],
         selectedSecondaryOverclock: '',
+        selectedEquipment1: '',
+        selectedEquipment1Mods: [],
+        selectedEquipment2: '',
+        selectedEquipment2Mods: [],
+        selectedEquipment3: '',
+        selectedEquipment3Mods: [],
     },
     mutations: {
         setSelectedClass(state, newValue) {
@@ -116,6 +122,42 @@ export default new Vuex.Store({
         clearSelectedSecondaryOverclock(state) {
             state.selectedSecondaryOverclock = ''
         },
+        setSelectedEquipment1(state, newValue) {
+            state.selectedEquipment1 = newValue
+        },
+        clearSelectedEquipment1(state) {
+            state.selectedEquipment1 = ''
+        },
+        setSelectedEquipment1Mod(state, newValue) {
+            state.selectedEquipment1Mods.push(newValue)
+        },
+        clearSelectedEquipment1Mod(state, modTier) {
+            state.selectedEquipment1Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
+        },
+        setSelectedEquipment2(state, newValue) {
+            state.selectedEquipment2 = newValue
+        },
+        clearSelectedEquipment2(state) {
+            state.selectedEquipment2 = ''
+        },
+        setSelectedEquipment2Mod(state, newValue) {
+            state.selectedEquipment2Mods.push(newValue)
+        },
+        clearSelectedEquipment2Mod(state, modTier) {
+            state.selectedEquipment1Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
+        },
+        setSelectedEquipment3(state, newValue) {
+            state.selectedEquipment3 = newValue
+        },
+        clearSelectedEquipment3(state) {
+            state.selectedEquipment3 = ''
+        },
+        setSelectedEquipment3Mod(state, newValue) {
+            state.selectedEquipment3Mods.push(newValue)
+        },
+        clearSelectedEquipment3Mod(state, modTier) {
+            state.selectedEquipment3Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
+        },
     },
     actions: {
         getClassData({ state }, classId) {
@@ -160,10 +202,6 @@ export default new Vuex.Store({
         },
         setSelectedPrimary({ commit }, newLoadoutItem) {
 
-            // TODO: For equipments only, do not clear their array in the store when a new one is added
-            //           If it's a primary or secondary, wipe the existing and save the new one
-            // TODO: Make this ID's
-
             commit('clearSelectedPrimary')
             commit('setSelectedPrimary', newLoadoutItem)
 
@@ -193,10 +231,6 @@ export default new Vuex.Store({
         },
         setSelectedSecondary({ commit }, newLoadoutItem) {
 
-            // TODO: For equipments only, do not clear their array in the store when a new one is added
-            //           If it's a Secondary or secondary, wipe the existing and save the new one
-            // TODO: Make this ID's
-
             commit('clearSelectedSecondary')
             commit('setSelectedSecondary', newLoadoutItem)
 
@@ -218,6 +252,35 @@ export default new Vuex.Store({
             }
             if (!sameSelection) {
                 commit('setSelectedSecondaryMod', {
+                    selectedModId: selectedModObject.selectedModId,
+                    selectedModTier: selectedModObject.selectedModTier
+                })
+            }
+
+        },
+        setSelectedEquipment1({ commit }, newLoadoutItem) {
+            
+            commit('clearSelectedEquipment1')
+            commit('setSelectedEquipment1', newLoadoutItem)
+
+        },
+        setSelectedEquipment1Mod({ commit, state }, selectedModObject) {
+
+            let currentTierSelection = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
+            let sameSelection = false;
+            if (state.selectedEquipment1Mods.length != 0) {
+                // We have selected mods
+                if (currentTierSelection.length != 0) {
+
+                    commit('clearSelectedEquipment1Mod', selectedModObject.selectedModTier)
+                    if (currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
+                        sameSelection = true
+                    }
+                }
+
+            }
+            if (!sameSelection) {
+                commit('setSelectedEquipment1Mod', {
                     selectedModId: selectedModObject.selectedModId,
                     selectedModTier: selectedModObject.selectedModTier
                 })
