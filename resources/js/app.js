@@ -83,6 +83,7 @@ import LoadoutContainer from './components/LoadoutContainer.vue'
 import SelectContainer from './components/SelectContainer.vue'
 import PrimaryBuilder from './components/PrimaryBuilder.vue'
 import SecondaryBuilder from './components/SecondaryBuilder.vue'
+import EquipmentBuilder from './components/EquipmentBuilder.vue'
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -99,6 +100,7 @@ const routes = [
                     { path: '', component: SelectContainer },
                     { path: '/primary-builder', component: PrimaryBuilder },
                     { path: '/secondary-builder', component: SecondaryBuilder },
+                    { path: '/equipment-builder', component: EquipmentBuilder },
                 ]
             },
 

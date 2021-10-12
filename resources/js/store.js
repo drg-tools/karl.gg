@@ -303,6 +303,15 @@ export default new Vuex.Store({
         getIsSelectedSecondary: (state) => (weaponId) => {
             return state.selectedSecondary === weaponId
         },
+        getIsSelectedEquipment1: (state) => (equipmentId) => {
+            return state.selectedEquipment1 === equipmentId
+        },
+        getIsSelectedEquipment2: (state) => (equipmentId) => {
+            return state.selectedEquipment2 === equipmentId
+        },
+        getIsSelectedEquipment3: (state) => (equipmentId) => {
+            return state.selectedEquipment3 === equipmentId
+        },
         getIconByName: (state) => (iconName) => {
             return state.icons.default[iconName]
         },

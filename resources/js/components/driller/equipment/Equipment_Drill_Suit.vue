@@ -9,38 +9,31 @@
                  :class="[getIsSelected() ? 'equipmentIconActive' : 'equipmentIcon']"
                  height="50%"
                  preserveAspectRatio="xMidYMid meet"
-                 v-html="gunIcon"></svg>
+                 v-html="equipmentIcon"></svg>
         </div>
        
         <div :class="[getIsSelected() ? 'equipmentTextActive' : 'equipmentText']">
-            <h4>Subata 120</h4>
+            <h4>Heavy Drill Suit</h4>
         </div>
     </div>
 </template>
-<!-- todo: differentiate selected primary and secondary weapons visibly hide text from not-selected weapon atm -->
 <script> 
     export default {
-        name: 'SecondarySubata',
+        name: 'EquipmentDrillSuit',
         data: function () {
             return {
-                gunIcon: this.$store.state.icons.default.D_S1_Subata_SVG,
+                equipmentIcon: this.$store.state.icons.default.X_E_Armor_SVG,
             }
-        },
-        created() {
-            // Set this guy to selected by default
-            // Only do this on the first secondary of all selected class
-            // This just keeps everything working smoothly
-            this.$store.dispatch('setSelectedSecondary', "11");
         },
         methods: {
             selectEquipment() {
                 // Select this particular equipment by sending the store our weapon's data to select
                 // Maybe just send it the id, and then let the store pass the data around
                 
-                this.$store.dispatch('setSelectedSecondary', "11");
+                this.$store.dispatch('setSelectedEquipment3', "11");
             },
             getIsSelected() {
-                return this.$store.getters.getIsSelectedSecondary("11");
+                return this.$store.getters.getIsSelectedEquipment3("11");
             }
         },
     };

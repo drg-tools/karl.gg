@@ -59,8 +59,7 @@
 
     <div class="flex flex-col">
       <h2>Select Equipment</h2>
-      <a
-        href="#"
+      <router-link to="/equipment-builder"
         class="
           inline-flex
           items-center
@@ -82,7 +81,7 @@
         "
       >
       Select
-      </a>
+      </router-link>
     </div>
 
   </div>
