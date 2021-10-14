@@ -409,5 +409,8 @@ export default new Vuex.Store({
 
             }
         },
+        getModsForMatrix: (state) => (itemId, boolEquipment) => {
+            let isEquipment = false;
+        }
     }
 })
