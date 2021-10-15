@@ -13,7 +13,7 @@
         <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
         <div class="flex flex-row">
             <div class="flex flex-col">
-                <ModMatrix />
+                <ModMatrix v-if="this.$store.state.selectedPrimary != ''" v-bind:itemId="this.$store.state.selectedPrimary" />
                 <OverclockSelect primaryOrSecondary="Primary" />
                 
                 <CreditsCalculator

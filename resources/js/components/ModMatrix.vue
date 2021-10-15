@@ -73,6 +73,11 @@ export default {
   props: [
     'itemId'
   ],
+  data() {
+    return {
+      itemMods: ''
+    };
+  },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
@@ -81,10 +86,7 @@ export default {
   methods: {
     // todo: this should be props or something
     checkMods() {
-      
-      console.log('this.$store.getters.getModsForMatrix(this.itemId, false)');
-      console.log(this.$store.getters.getModsForMatrix(this.itemId, false));
-      return this.$store.getters.getModsForMatrix(this.itemId, false);
+      this.itemMods = this.$store.getters.getModsForMatrix(this.itemId, false);
     },
     getIconPath(iconName) {
       return this.$store.getters.getIconByName(iconName);
@@ -101,7 +103,7 @@ export default {
   },
   computed: {
     modMatrixTiers() {
-      return _.groupBy(this.flameThrowerMods, "mod_tier");
+      return _.groupBy(this.itemMods, "mod_tier");
     },
   },
 };

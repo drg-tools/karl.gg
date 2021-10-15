@@ -51,7 +51,14 @@ export default new Vuex.Store({
         selectedSecondary: '',
         selectedSecondaryMods: [],
         selectedSecondaryOverclock: '',
-        selectedEquipment1: '',
+        // TODO: Need to potentially rework the selected equipment methodology
+        //          This won't work with how the frontend is doing it
+        //          Plus, we need to be able to save multiple equipments at the same time
+        //          The existing methodology only allows for one at a time, which makes sense for primary and secondary
+        
+        
+        // Maybe do a 'currentlySelectedEquipment' and and then manage the rest like this 
+        selectedEquipment1: '', 
         selectedEquipment1Mods: [],
         selectedEquipment2: '',
         selectedEquipment2Mods: [],
@@ -478,17 +485,15 @@ export default new Vuex.Store({
             }
         },
         getModsForMatrix: (state) => (itemId, boolEquipment) => {
-            let itemObject = [];
-            let itemModArray = [];
-            console.log('bada bing');
-            console.log(itemId);
+            let itemObject = '';
+            let itemModArray = '';           
             
             if(boolEquipment === true) {
                 itemObject = state.loadoutClassData.equipments.filter(equipment => equipment.id == itemId);
-                itemModArray = itemObject.equipment_mods;
+                itemModArray = itemObject[0].equipment_mods;
             } else {
                 itemObject = state.loadoutClassData.guns.filter(gun => gun.id == itemId);
-                itemModArray = itemObject.mods;
+                itemModArray = itemObject[0].mods;
             }
 
             return itemModArray;
