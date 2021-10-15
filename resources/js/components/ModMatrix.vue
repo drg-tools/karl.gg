@@ -70,11 +70,9 @@
 <script>
 export default {
   name: "ModMatrix",
-  data() {
-    return {
-      flameThrowerMods: "",
-    };
-  },
+  props: [
+    'itemId'
+  ],
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
@@ -83,7 +81,10 @@ export default {
   methods: {
     // todo: this should be props or something
     checkMods() {
-      this.flameThrowerMods = this.$store.state.loadoutClassData.guns[0].mods;
+      
+      console.log('this.$store.getters.getModsForMatrix(this.itemId, false)');
+      console.log(this.$store.getters.getModsForMatrix(this.itemId, false));
+      return this.$store.getters.getModsForMatrix(this.itemId, false);
     },
     getIconPath(iconName) {
       return this.$store.getters.getIconByName(iconName);

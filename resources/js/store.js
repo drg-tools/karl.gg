@@ -158,6 +158,16 @@ export default new Vuex.Store({
         clearSelectedEquipment3Mod(state, modTier) {
             state.selectedEquipment3Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
         },
+        clearAllSelectedEquipment(state) {
+            state.selectedEquipment1 = '';
+            state.selectedEquipment2 = '';
+            state.selectedEquipment3 = '';
+        },
+        clearAllSelectedMods(state) {
+            state.selectedEquipment1Mods = '';
+            state.selectedEquipment2Mods = '';
+            state.selectedEquipment3Mods = '';
+        }
     },
     actions: {
         getClassData({ state }, classId) {
@@ -260,7 +270,7 @@ export default new Vuex.Store({
         },
         setSelectedEquipment1({ commit }, newLoadoutItem) {
             
-            commit('clearSelectedEquipment1')
+            commit('clearAllSelectedEquipment')
             commit('setSelectedEquipment1', newLoadoutItem)
 
         },
@@ -272,7 +282,7 @@ export default new Vuex.Store({
                 // We have selected mods
                 if (currentTierSelection.length != 0) {
 
-                    commit('clearSelectedEquipment1Mod', selectedModObject.selectedModTier)
+                    commit('clearAllSelectedEquipmentMod', selectedModObject.selectedModTier)
                     if (currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
                         sameSelection = true
                     }
@@ -281,6 +291,64 @@ export default new Vuex.Store({
             }
             if (!sameSelection) {
                 commit('setSelectedEquipment1Mod', {
+                    selectedModId: selectedModObject.selectedModId,
+                    selectedModTier: selectedModObject.selectedModTier
+                })
+            }
+
+        },
+        setSelectedEquipment2({ commit }, newLoadoutItem) {
+            
+            commit('clearAllSelectedEquipment')
+            commit('setSelectedEquipment2', newLoadoutItem)
+
+        },
+        setSelectedEquipment2Mod({ commit, state }, selectedModObject) {
+
+            let currentTierSelection = state.selectedEquipment2Mods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
+            let sameSelection = false;
+            if (state.selectedEquipment2Mods.length != 0) {
+                // We have selected mods
+                if (currentTierSelection.length != 0) {
+
+                    commit('clearAllSelectedEquipmentMod', selectedModObject.selectedModTier)
+                    if (currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
+                        sameSelection = true
+                    }
+                }
+
+            }
+            if (!sameSelection) {
+                commit('setSelectedEquipment2Mod', {
+                    selectedModId: selectedModObject.selectedModId,
+                    selectedModTier: selectedModObject.selectedModTier
+                })
+            }
+
+        },
+        setSelectedEquipment3({ commit }, newLoadoutItem) {
+            
+            commit('clearAllSelectedEquipment')
+            commit('setSelectedEquipment3', newLoadoutItem)
+
+        },
+        setSelectedEquipment3Mod({ commit, state }, selectedModObject) {
+
+            let currentTierSelection = state.selectedEquipment3Mods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
+            let sameSelection = false;
+            if (state.selectedEquipment3Mods.length != 0) {
+                // We have selected mods
+                if (currentTierSelection.length != 0) {
+
+                    commit('clearAllSelectedEquipmentMod', selectedModObject.selectedModTier)
+                    if (currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
+                        sameSelection = true
+                    }
+                }
+
+            }
+            if (!sameSelection) {
+                commit('setSelectedEquipment3Mod', {
                     selectedModId: selectedModObject.selectedModId,
                     selectedModTier: selectedModObject.selectedModTier
                 })
@@ -410,7 +478,21 @@ export default new Vuex.Store({
             }
         },
         getModsForMatrix: (state) => (itemId, boolEquipment) => {
-            let isEquipment = false;
+            let itemObject = [];
+            let itemModArray = [];
+            console.log('bada bing');
+            console.log(itemId);
+            
+            if(boolEquipment === true) {
+                itemObject = state.loadoutClassData.equipments.filter(equipment => equipment.id == itemId);
+                itemModArray = itemObject.equipment_mods;
+            } else {
+                itemObject = state.loadoutClassData.guns.filter(gun => gun.id == itemId);
+                itemModArray = itemObject.mods;
+            }
+
+            return itemModArray;
+
         }
     }
 })
