@@ -7,6 +7,7 @@
             <!-- TODO: Make class components for each folder, import that here based on selected class -->
             <div class="flex flex-row">
                 <SecondarySubata />
+                <SecondaryPlasma />
             </div>
         </div>
 
@@ -32,6 +33,7 @@
     </div>
 </template>
 <script>
+import SecondaryPlasma from "./secondaries/Secondary_Plasma.vue";
 import SecondarySubata from "./secondaries/Secondary_Subata.vue";
 import ModMatrix from "../ModMatrix.vue";
 import OverclockSelect from "../OverclockSelect.vue";
@@ -41,6 +43,7 @@ export default {
     name: "DrillerPrimaries",
     components: {
         SecondarySubata,
+        SecondaryPlasma,
         ModMatrix,
         OverclockSelect,
         CreditsCalculator,

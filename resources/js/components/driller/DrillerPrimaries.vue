@@ -7,6 +7,7 @@
             <!-- TODO: Make class components for each folder, import that here based on selected class -->
             <div class="flex flex-row">
                 <PrimaryFlamethrower />
+                <PrimaryCryo />
             </div>
         </div>
 
@@ -32,6 +33,7 @@
 </template>
 <script>
 import PrimaryFlamethrower from "./primaries/Primary_Flamethrower.vue";
+import PrimaryCryo from "./primaries/Primary_Cryo.vue";
 import ModMatrix from "../ModMatrix.vue";
 import OverclockSelect from "../OverclockSelect.vue";
 import CreditsCalculator from "../CreditsCalculator.vue";
@@ -40,6 +42,7 @@ export default {
     name: "DrillerPrimaries",
     components: {
         PrimaryFlamethrower,
+        PrimaryCryo,
         ModMatrix,
         OverclockSelect,
         CreditsCalculator,
