@@ -58,6 +58,7 @@ export default new Vuex.Store({
         
         
         // Maybe do a 'currentlySelectedEquipment' and and then manage the rest like this 
+        currentlySelectedEquipment: '',
         selectedEquipment1: '', 
         selectedEquipment1Mods: [],
         selectedEquipment2: '',
@@ -117,6 +118,12 @@ export default new Vuex.Store({
         clearSelectedSecondary(state) {
             state.selectedSecondary = ''
         },
+        setCurrentlySelectedEquipment(state, newValue) {
+            state.currentlySelectedEquipment = newValue
+        },
+        clearCurrentlySelectedEquipment(state) {
+            state.currentlySelectedEquipment = ''
+        },
         setSelectedSecondaryMod(state, newValue) {
             state.selectedSecondaryMods.push(newValue)
         },
@@ -165,16 +172,7 @@ export default new Vuex.Store({
         clearSelectedEquipment3Mod(state, modTier) {
             state.selectedEquipment3Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
         },
-        clearAllSelectedEquipment(state) {
-            state.selectedEquipment1 = '';
-            state.selectedEquipment2 = '';
-            state.selectedEquipment3 = '';
-        },
-        clearAllSelectedMods(state) {
-            state.selectedEquipment1Mods = '';
-            state.selectedEquipment2Mods = '';
-            state.selectedEquipment3Mods = '';
-        }
+        
     },
     actions: {
         getClassData({ state }, classId) {
@@ -277,7 +275,8 @@ export default new Vuex.Store({
         },
         setSelectedEquipment1({ commit }, newLoadoutItem) {
             
-            commit('clearAllSelectedEquipment')
+            commit('clearCurrentlySelectedEquipment')
+            commit('setCurrentlySelectedEquipment', newLoadoutItem)
             commit('setSelectedEquipment1', newLoadoutItem)
 
         },
@@ -289,6 +288,7 @@ export default new Vuex.Store({
                 // We have selected mods
                 if (currentTierSelection.length != 0) {
 
+                    //TODO: We need to clear the specific equipment for the specific tier here
                     commit('clearAllSelectedEquipmentMod', selectedModObject.selectedModTier)
                     if (currentTierSelection[0].selectedModId == selectedModObject.selectedModId) {
                         sameSelection = true
@@ -306,7 +306,8 @@ export default new Vuex.Store({
         },
         setSelectedEquipment2({ commit }, newLoadoutItem) {
             
-            commit('clearAllSelectedEquipment')
+            commit('clearCurrentlySelectedEquipment')
+            commit('setCurrentlySelectedEquipment', newLoadoutItem)
             commit('setSelectedEquipment2', newLoadoutItem)
 
         },
@@ -335,7 +336,8 @@ export default new Vuex.Store({
         },
         setSelectedEquipment3({ commit }, newLoadoutItem) {
             
-            commit('clearAllSelectedEquipment')
+            commit('clearCurrentlySelectedEquipment')
+            commit('setCurrentlySelectedEquipment', newLoadoutItem)
             commit('setSelectedEquipment3', newLoadoutItem)
 
         },
@@ -378,14 +380,8 @@ export default new Vuex.Store({
         getIsSelectedSecondary: (state) => (weaponId) => {
             return state.selectedSecondary === weaponId
         },
-        getIsSelectedEquipment1: (state) => (equipmentId) => {
-            return state.selectedEquipment1 === equipmentId
-        },
-        getIsSelectedEquipment2: (state) => (equipmentId) => {
-            return state.selectedEquipment2 === equipmentId
-        },
-        getIsSelectedEquipment3: (state) => (equipmentId) => {
-            return state.selectedEquipment3 === equipmentId
+        getIsCurrentlySelectedEquipment: (state) => (equipmentId) => {
+            return state.currentlySelectedEquipment === equipmentId
         },
         getIconByName: (state) => (iconName) => {
             return state.icons.default[iconName]
@@ -495,7 +491,8 @@ export default new Vuex.Store({
                 itemObject = state.loadoutClassData.guns.filter(gun => gun.id == itemId);
                 itemModArray = itemObject[0].mods;
             }
-
+            console.log('itemModArray');
+            console.log(itemModArray);
             return itemModArray;
 
         }

@@ -71,7 +71,8 @@
 export default {
   name: "ModMatrix",
   props: [
-    'itemId'
+    'itemId',
+    'boolEquipment'
   ],
   data() {
     return {
@@ -86,7 +87,7 @@ export default {
   methods: {
     // todo: this should be props or something
     checkMods() {
-      this.itemMods = this.$store.getters.getModsForMatrix(this.itemId, false);
+      this.itemMods = this.$store.getters.getModsForMatrix(this.itemId, this.boolEquipment);
     },
     getIconPath(iconName) {
       return this.$store.getters.getIconByName(iconName);

@@ -2,7 +2,7 @@
     <!-- driller -->
     <div class="equipmentSelectContainer">
         <div class="secondariesContainer gap-2">
-<!-- TODO: Make these spaced evenly -->
+            <!-- TODO: Make these spaced evenly -->
             <div class="flex flex-row content-evenly">
                 <EquipmentPowerDrill />
                 <EquipmentSatchelCharge />
@@ -13,14 +13,17 @@
         <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
         <div class="flex flex-row">
             <div class="flex flex-col">
-                <ModMatrix v-if="this.$store.state.selectedSecondary != ''" v-bind:itemId="this.$store.state.selectedSecondary"/>
-                <OverclockSelect primaryOrSecondary="Secondary" />
-                <!-- TODO: Make a getter to determine if we should show the credits calculator -->
-                <!--       It should check for all the if attributes we would need here -->
+                <ModMatrix
+                    v-if="this.$store.state.currentlySelectedEquipment != ''"
+                    v-bind:itemId="this.$store.state.currentlySelectedEquipment"
+                    :boolEquipment="true"
+                />
+
                 <CreditsCalculator
                     v-if="
-                        this.$store.state.selectedSecondaryMods != [] ||
-                        this.$store.state.setSelectedSecondaryOverclock != ''
+                        this.$store.state.selectedEquipment1Mods != [] ||
+                        this.$store.state.selectedEquipment2Mods != [] ||
+                        this.$store.state.selectedEquipment3Mods != []
                     "
                 />
             </div>

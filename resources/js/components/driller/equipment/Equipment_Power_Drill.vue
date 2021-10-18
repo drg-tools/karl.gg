@@ -39,7 +39,7 @@
                 this.$store.dispatch('setSelectedEquipment1', "1");
             },
             getIsSelected() {
-                return this.$store.getters.getIsSelectedEquipment1("1");
+                return this.$store.getters.getIsCurrentlySelectedEquipment("1");
             }
         },
     };

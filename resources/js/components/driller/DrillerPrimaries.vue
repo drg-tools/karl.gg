@@ -13,9 +13,13 @@
         <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
         <div class="flex flex-row">
             <div class="flex flex-col">
-                <ModMatrix v-if="this.$store.state.selectedPrimary != ''" v-bind:itemId="this.$store.state.selectedPrimary" />
+                <ModMatrix
+                    v-if="this.$store.state.selectedPrimary != ''"
+                    v-bind:itemId="this.$store.state.selectedPrimary"
+                    :boolEquipment="false"
+                />
                 <OverclockSelect primaryOrSecondary="Primary" />
-                
+
                 <CreditsCalculator
                     v-if="
                         this.$store.state.selectedPrimaryMods != [] ||

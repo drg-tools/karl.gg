@@ -34,7 +34,7 @@
                 this.$store.dispatch('setSelectedEquipment2', "2");
             },
             getIsSelected() {
-                return this.$store.getters.getIsSelectedEquipment2("2");
+                return this.$store.getters.getIsCurrentlySelectedEquipment("2");
             }
         },
     };

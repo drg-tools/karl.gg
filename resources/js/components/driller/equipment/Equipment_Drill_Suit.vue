@@ -33,7 +33,7 @@
                 this.$store.dispatch('setSelectedEquipment3', "11");
             },
             getIsSelected() {
-                return this.$store.getters.getIsSelectedEquipment3("11");
+                return this.$store.getters.getIsCurrentlySelectedEquipment("11");
             }
         },
     };
