@@ -386,9 +386,9 @@ export default new Vuex.Store({
         getIconByName: (state) => (iconName) => {
             return state.icons.default[iconName]
         },
-        getOcDataById: (state) => (ocId, gunId) => {
+        getOcDataByWeapon: (state) => (gunId) => {
             let ocWeapon = state.loadoutClassData.guns.filter(gun => gun.id === gunId);
-            let ocData = ocWeapon[0].overclocks.filter(oc => oc.id === ocId);
+            let ocData = ocWeapon[0].overclocks;
 
             return ocData;
         },

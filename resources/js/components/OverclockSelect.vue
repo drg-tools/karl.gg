@@ -55,7 +55,7 @@
     </div>
     <popover name="overclocks" class="overclockGrid">
       <div
-        v-for="(overclock, overclockIndex) in flameThrowerOverclocks"
+        v-for="(overclock, overclockIndex) in weaponOverclocks"
         :key="overclockIndex"
         v-on:click="selectOverclock(overclock.id)"
         class="tooltip-target modDisplay"
@@ -76,11 +76,12 @@ export default {
   name: "OverclockSelect",
   components: { OverclockIcon },
   props: {
-    primaryOrSecondary: String,
+    primary: Boolean,
+    weaponId: String,
   },
   data() {
     return {
-      flameThrowerOverclocks: "",
+      weaponOverclocks: "",
       selectedOverclockIcon: "",
       selectedOverclockType: "",
     };
@@ -95,26 +96,32 @@ export default {
   },
   methods: {
     hydrateData() {
-      this.flameThrowerOverclocks =
-        this.$store.state.loadoutClassData.guns[0].overclocks;
+      this.weaponOverclocks =
+        this.$store.getters.getOcDataByWeapon(this.weaponId);
     },
     getIconPath(iconName) {
       return this.$store.getters.getIconByName(iconName);
     },
     selectOverclock(overclockId) {
-      this.$store.commit("clearSelected"+ primaryOrSecondary + "Overclock");
-      this.$store.commit("setSelected"+ primaryOrSecondary + "Overclock", overclockId);
+      if(this.primary === true) {
+        this.$store.commit("clearSelectedPrimaryOverclock");
+        this.$store.commit("setSelectedPrimaryOverclock", overclockId);
+      } else {
+        this.$store.commit("clearSelectedSecondaryOverclock");
+        this.$store.commit("setSelectedSecondaryOverclock", overclockId);
+      }
+      
       this.selectedOc();
     },
     selectedOc() {
       // TODO: Make this a store getter?
       let selectedOcState = null;
-      if(this.primaryOrSecondary == "Primary") {
+      if(this.primary === true) {
         selectedOcState = this.$store.state.selectedPrimaryOverclock
-      } else if(this.primaryOrSecondary == "Secondary") {
+      } else {
         selectedOcState = this.$store.state.selectedSecondaryOverclock
       }
-      let selectedObject = this.flameThrowerOverclocks.filter(
+      let selectedObject = this.weaponOverclocks.filter(
         (oc) => oc.id === selectedOcState
       );
       if(selectedObject.length === 0) {

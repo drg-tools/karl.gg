@@ -1,7 +1,7 @@
 <template>
     <!-- driller -->
     <div class="equipmentSelectContainer">
-        <div class="primariesContainer ">
+        <div class="primariesContainer">
             <!-- TODO: Refresh Primaries on fresh class Selection -->
             <!-- TODO: Load folder of components based on selected class, make this guy clean -->
             <!-- TODO: Make class components for each folder, import that here based on selected class -->
@@ -19,7 +19,11 @@
                     :itemId="this.$store.state.selectedPrimary"
                     :boolEquipment="false"
                 />
-                <OverclockSelect primaryOrSecondary="Primary" />
+                <OverclockSelect
+                    :primary="true"
+                    v-if="this.$store.state.selectedPrimary != ''"
+                    :weaponId="this.$store.state.selectedPrimary"
+                />
 
                 <CreditsCalculator
                     v-if="
