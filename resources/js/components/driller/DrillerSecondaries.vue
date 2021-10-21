@@ -16,7 +16,7 @@
             <div class="flex flex-col">
                 <ModMatrix
                     v-if="this.$store.state.selectedSecondary != ''"
-                    v-bind:itemId="this.$store.state.selectedSecondary"
+                    :itemId="this.$store.state.selectedSecondary"
                     :boolEquipment="false"
                 />
                 <OverclockSelect primaryOrSecondary="Secondary" />

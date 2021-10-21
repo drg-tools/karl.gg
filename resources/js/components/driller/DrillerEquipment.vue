@@ -15,7 +15,7 @@
             <div class="flex flex-col">
                 <ModMatrix
                     v-if="this.$store.state.currentlySelectedEquipment != ''"
-                    v-bind:itemId="this.$store.state.currentlySelectedEquipment"
+                    :itemId="this.$store.state.currentlySelectedEquipment"
                     :boolEquipment="true"
                 />
 
