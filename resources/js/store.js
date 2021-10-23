@@ -40,6 +40,7 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
     // plugins: [vuexPersist.plugin], // Disable when debugging locally
     state: {
+        loadingStatus: false,
         selectedClass: '',
         loadoutName: '', // TODO: In the component Debounce on this
         loadoutDescription: '', // TODO: In the component Debounce on this
@@ -67,6 +68,9 @@ export default new Vuex.Store({
         selectedEquipment3Mods: [],
     },
     mutations: {
+        setLoadingStatus(state, newLoadingStatus) {
+            state.loadingStatus = newLoadingStatus;
+        },
         setSelectedClass(state, newValue) {
             state.selectedClass = newValue
         },
@@ -187,10 +191,12 @@ export default new Vuex.Store({
             });
         },
         hydrateClassData({ commit, dispatch }, newClassId) {
+            commit('setLoadingStatus', true)
             let classData = dispatch('getClassData', newClassId).then(result => {
                 // Use our data response to hydrate all needed class data
                 // Commit this directly to store, called each time you select a class
                 commit('setloadoutClassData', result);
+                commit('setLoadingStatus', false)
             }).catch(err => {
                 throw err;
             });
@@ -366,6 +372,9 @@ export default new Vuex.Store({
         },
     },
     getters: {
+        getLoadingStatus: (state) => {
+          return state.loadingStatus  
+        },
         // This should be by ID
         getLoadoutClassWeaponByName: (state) => (weaponName) => {
             // Pull the requested class weapon by name, which is stored in components
