@@ -30,7 +30,9 @@
             // Set this guy to selected by default
             // Only do this on the first primary of all selected class
             // This just keeps everything working smoothly
-            this.$store.dispatch('setSelectedPrimary', "9");
+            if(this.$store.state.selectedPrimary === '') {
+                this.$store.dispatch('setSelectedPrimary', "9");
+            }
         },
         methods: {
             selectEquipment() {
