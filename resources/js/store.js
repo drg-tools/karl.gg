@@ -110,6 +110,9 @@ export default new Vuex.Store({
         clearSelectedPrimaryMod(state, modTier) {
             state.selectedPrimaryMods = state.selectedPrimaryMods.filter(mod => mod.selectedModTier !== modTier)
         },
+        clearAllSelectedPrimaryMods(state, modTier) {
+            state.selectedPrimaryMods = []
+        },
         setSelectedPrimaryOverclock(state, newValue) {
             state.selectedPrimaryOverclock = newValue
         },
@@ -133,6 +136,9 @@ export default new Vuex.Store({
         },
         clearSelectedSecondaryMod(state, modTier) {
             state.selectedSecondaryMods = state.selectedSecondaryMods.filter(mod => mod.selectedModTier !== modTier)
+        },
+        clearAllSelectedSecondaryMods(state, modTier) {
+            state.selectedSecondaryMods = []
         },
         setSelectedSecondaryOverclock(state, newValue) {
             state.selectedSecondaryOverclock = newValue
@@ -206,11 +212,11 @@ export default new Vuex.Store({
             commit('clearloadoutClassData')
             // also clear the previously selected data
             commit('clearSelectedPrimary')
+           // TODO: Clear all previously selected data on class swap
+           // TODO: add a speed bump on the class selection if you have class data
 
 
             // TODO: Clear button to allow you to clear the whole current state
-            // TODO: On initial class select, select a specific primary.
-            //      Maybe on component load for primary etc.
 
 
             // dispatch an action which will commit our new class data to store
@@ -224,6 +230,8 @@ export default new Vuex.Store({
         setSelectedPrimary({ commit }, newLoadoutItem) {
 
             commit('clearSelectedPrimary')
+            commit('clearAllSelectedPrimaryMods')
+            commit('clearSelectedPrimaryOverclock')
             commit('setSelectedPrimary', newLoadoutItem)
 
         },
@@ -253,6 +261,8 @@ export default new Vuex.Store({
         setSelectedSecondary({ commit }, newLoadoutItem) {
 
             commit('clearSelectedSecondary')
+            commit('clearAllSelectedSecondaryMods')
+            commit('clearSelectedSecondaryOverclock')
             commit('setSelectedSecondary', newLoadoutItem)
 
         },
@@ -406,23 +416,40 @@ export default new Vuex.Store({
                 return true
             return false
         },
-        getSelectedModCosts: (state) => {
+        getSelectedModCosts: (state) => (itemType) => {
+            // TODO: Might need a whole-class version of this component
+            // TODO: Update to be whatever weapon we're on
 
             // Need to do a check for gun or equipment...we may pass that in as a prop to this getter
             // hardcoded for now
             if (state.loadoutClassData != '') {
                 // filter selected mods for our mod ids
-                let selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
+                let selectedModIds = [];
+                let selectedItemId = '';
+                switch (itemType) {
+                    case "primary":
+                        selectedModIds = state.selectedPrimaryMods.map(a => a.selectedModId);
+                        selectedItemId = state.selectedPrimary;
+                        break;
+                    case "secondary":
+                        selectedModIds = state.selectedSecondaryMods.map(a => a.selectedModId);
+                        selectedItemId = state.selectedSecondary;
+                        break;
+                    
+                
+                    default:
+                        break;
+                }
                 let selectedOcId = null;
-                // maybe just send the mods??
 
-                // TODO: Make this dynamic -- potentially send an OC object as an optional param
-                if (state.selectedPrimaryOverclock != '') {
+                if (state.selectedPrimaryOverclock != '' &&  itemType === "primary") {
                     selectedOcId = state.selectedPrimaryOverclock;
+                } else if (state.selectedSecondaryOverclock != '' &&  itemType === "secondary") {
+                    selectedOcId = state.selectedSecondaryOverclock;
                 }
 
                 // TODO: Make this dynamic -- GUN ID
-                let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == 9);
+                let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == selectedItemId);
                 let itemMods = mainItem[0].mods;
 
                 // filter selected primary mods 

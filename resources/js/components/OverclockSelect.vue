@@ -81,7 +81,7 @@ export default {
   },
   data() {
     return {
-      weaponOverclocks: "",
+      weaponOverclocks: [],
       selectedOverclockIcon: "",
       selectedOverclockType: "",
     };
@@ -133,6 +133,13 @@ export default {
       
     },
   },
+  watch: {
+        weaponId: function (newVal, oldVal) {
+            // watch it
+            console.log("Prop changed: ", newVal, " | was: ", oldVal);
+            this.hydrateData();
+        },
+    },
 };
 </script>
 

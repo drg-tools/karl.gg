@@ -19,7 +19,11 @@
                     :itemId="this.$store.state.selectedSecondary"
                     :boolEquipment="false"
                 />
-                <OverclockSelect primaryOrSecondary="Secondary" />
+                <OverclockSelect
+                    :primary="true"
+                    v-if="this.$store.state.selectedSecondary != ''"
+                    :weaponId="this.$store.state.selectedSecondary"
+                />
                 <!-- TODO: Make a getter to determine if we should show the credits calculator -->
                 <!--       It should check for all the if attributes we would need here -->
                 <CreditsCalculator
@@ -27,6 +31,7 @@
                         this.$store.state.selectedSecondaryMods != [] ||
                         this.$store.state.setSelectedSecondaryOverclock != ''
                     "
+                    itemType="secondary"
                 />
             </div>
         </div>

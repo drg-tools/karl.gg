@@ -30,6 +30,7 @@
                         this.$store.state.selectedPrimaryMods != [] ||
                         this.$store.state.setSelectedPrimaryOverclock != ''
                     "
+                    itemType="primary"
                 />
             </div>
         </div>
