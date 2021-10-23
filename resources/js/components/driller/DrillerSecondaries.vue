@@ -20,7 +20,7 @@
                     :boolEquipment="false"
                 />
                 <OverclockSelect
-                    :primary="true"
+                    :primary="false"
                     v-if="this.$store.state.selectedSecondary != ''"
                     :weaponId="this.$store.state.selectedSecondary"
                 />

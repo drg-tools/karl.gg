@@ -110,7 +110,7 @@ export default new Vuex.Store({
         clearSelectedPrimaryMod(state, modTier) {
             state.selectedPrimaryMods = state.selectedPrimaryMods.filter(mod => mod.selectedModTier !== modTier)
         },
-        clearAllSelectedPrimaryMods(state, modTier) {
+        clearAllSelectedPrimaryMods(state) {
             state.selectedPrimaryMods = []
         },
         setSelectedPrimaryOverclock(state, newValue) {
@@ -137,7 +137,7 @@ export default new Vuex.Store({
         clearSelectedSecondaryMod(state, modTier) {
             state.selectedSecondaryMods = state.selectedSecondaryMods.filter(mod => mod.selectedModTier !== modTier)
         },
-        clearAllSelectedSecondaryMods(state, modTier) {
+        clearAllSelectedSecondaryMods(state) {
             state.selectedSecondaryMods = []
         },
         setSelectedSecondaryOverclock(state, newValue) {
