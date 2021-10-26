@@ -30,7 +30,9 @@
             // Set this guy to selected by default
             // Only do this on the first secondary of all selected class
             // This just keeps everything working smoothly
-            this.$store.dispatch('setSelectedSecondary', "11");
+            if(this.$store.state.selectedSecondary === '') {
+                this.$store.dispatch('setSelectedSecondary', "11");
+            }
         },
         methods: {
             selectEquipment() {
