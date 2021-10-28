@@ -18,17 +18,17 @@
                     bg-orange-500
                     hover:bg-orange-700
                     focus:outline-none
-                    focus:ring-2 focus:ring-offset-2 focus:ring-orange-500
+                    focus:ring-2
+                    focus:ring-offset-2
+                    focus:ring-orange-500
                     w-full
                     md:w-auto
                     h-12
                 "
                 >Back
             </router-link>
-
         </div>
-                            <DrillerSecondaries />
-
+        <DrillerSecondaries />
     </div>
 </template>
 

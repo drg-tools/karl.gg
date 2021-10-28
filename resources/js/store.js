@@ -448,7 +448,7 @@ export default new Vuex.Store({
                     selectedOcId = state.selectedSecondaryOverclock;
                 }
 
-                // TODO: Make this dynamic -- GUN ID
+                // TODO: FIx for equipment
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == selectedItemId);
                 let itemMods = mainItem[0].mods;
 
