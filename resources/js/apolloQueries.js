@@ -1,5 +1,5 @@
 export default {
-    character: (id) => `query {
+  character: (id) => `query {
                   character(id: ${id}){
                     name
                     id
@@ -84,7 +84,7 @@ export default {
                     }
                   }
                 }`,
-    popularLoadouts: `query {
+  popularLoadouts: `query {
                       loadouts {
                           id
                           name
@@ -111,7 +111,7 @@ export default {
                         }
                       }`,
 
-    loadoutDetails: (id) => `query {
+  loadoutDetails: (id) => `query {
                       loadout(id: ${id}) {
                         id
                         name
@@ -175,7 +175,7 @@ export default {
                         }
                       }
                     }`,
-    getModsForGun: (id) => `query {
+  getModsForGun: (id) => `query {
                           gun(id: ${id}) {
                             id
                             mods {
@@ -185,7 +185,7 @@ export default {
                             }
                           }
                         }`,
-    getModsForEquipment: (id) => `query {
+  getModsForEquipment: (id) => `query {
                           equipment(id: ${id}) {
                             id
                             equipment_mods {
@@ -195,7 +195,7 @@ export default {
                             }
                           }
                         }`,
-    myLoadouts:     `query myLoadouts($userId: [Int!]) {
+  myLoadouts: `query myLoadouts($userId: [Int!]) {
                           myLoadouts(userId: $userId) {
                               id
                               name
@@ -221,4 +221,12 @@ export default {
                               }
                             }
                           }`,
+  me: `query:
+    {
+        me {
+            id
+            name
+        }
+    }
+    `
 };

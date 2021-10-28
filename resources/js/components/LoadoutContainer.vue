@@ -1,6 +1,6 @@
 <template>
   <div id="loadout-container">
-        
+    <LoadoutBuilderActions />    
     <LoadoutName />
     <ClassSelect />
     <router-view v-if="this.$store.state.selectedClass != ''"></router-view>
@@ -18,10 +18,11 @@
 </template>
 
 <script>
+import LoadoutBuilderActions from "./LoadoutBuilderActions.vue";
 import ClassSelect from "./ClassSelect.vue";
 import MarkdownEditor from "./MarkdownEditor.vue";
 import SelectContainer from "./SelectContainer.vue";
 export default {
-  components: { ClassSelect, MarkdownEditor, SelectContainer },
+  components: { LoadoutBuilderActions, ClassSelect, MarkdownEditor, SelectContainer },
 };
 </script>
