@@ -43,11 +43,11 @@ export default {
             // Set update to true if you're logged in & author
             // Fire the onAcceptSave at the proper time.
             this.getLoggedInUser().then(response => {
-                let loggedInUserId = response;
-                if (this.creatorId === loggedInUserId) {
-                    // We know you are the creator, so you are allowed to update this existing build.
-                    this.update = true;
-                }
+                // let loggedInUserId = response;
+                // if (this.creatorId === loggedInUserId) {
+                //     // We know you are the creator, so you are allowed to update this existing build.
+                //     this.update = true;
+                // }
                 this.$modal.show('loadingModal');
                 this.onAcceptSave();
             }).catch(err => {
@@ -60,6 +60,9 @@ export default {
             });
 
         },
+        getLoggedInUser() {
+            return this.$store.getters.getLoggedInUser;
+        }
     }
 };
 </script>
