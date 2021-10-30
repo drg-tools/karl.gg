@@ -125,6 +125,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Karl-specific Config
+    |--------------------------------------------------------------------------
+    |
+    | This section will host other app-specific config items that don't really
+    | require their own section.
+    |
+    */
+
+    // Enable Google Ads
+    'enable_ads' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
