@@ -1,0 +1,54 @@
+<template>
+    <!-- driller -->
+    <div class="equipmentSelectContainer">
+        <div class="primariesContainer">
+            <!-- TODO: Refresh Primaries on fresh class Selection -->
+            <!-- TODO: Load folder of components based on selected class, make this guy clean -->
+            <!-- TODO: Make class components for each folder, import that here based on selected class -->
+            <div class="flex flex-row">
+                <PrimaryWarthog />
+            </div>
+        </div>
+
+        <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
+        <div class="flex flex-row">
+            <div class="flex flex-col">
+                <ModMatrix
+                    v-if="this.$store.state.selectedPrimary != ''"
+                    :itemId="this.$store.state.selectedPrimary"
+                    :boolEquipment="false"
+                />
+                <OverclockSelect
+                    :primary="true"
+                    v-if="this.$store.state.selectedPrimary != ''"
+                    :weaponId="this.$store.state.selectedPrimary"
+                />
+
+                <CreditsCalculator
+                    v-if="
+                        this.$store.state.selectedPrimaryMods != [] ||
+                        this.$store.state.setSelectedPrimaryOverclock != ''
+                    "
+                    itemType="primary"
+                />
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import PrimaryWarthog from "./primaries/PrimaryWarthog";
+import ModMatrix from "../ModMatrix";
+import OverclockSelect from "../OverclockSelect";
+import CreditsCalculator from "../CreditsCalculator";
+
+export default {
+    name: "EngineerPrimaries",
+    components: {
+        PrimaryWarthog,
+        ModMatrix,
+        OverclockSelect,
+        CreditsCalculator,
+    },
+};
+</script>
+

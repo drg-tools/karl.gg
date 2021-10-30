@@ -1,12 +1,11 @@
 import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import Vuex, {Store} from 'vuex';
 import VuexPersist from 'vuex-persist';
 import gql from 'graphql-tag';
 import apolloQueries from './apolloQueries';
-import { Apollo } from './apollo';
+import {Apollo} from './apollo';
 import * as IconList from './IconsList';
-import { over, sortedLastIndexOf } from 'lodash';
-
+import {over, sortedLastIndexOf} from 'lodash';
 
 
 Vue.use(Vuex);
@@ -18,7 +17,7 @@ const vuexPersist = new VuexPersist({
     storage: window.sessionStorage
 })
 
-/** 
+/**
  * For Reference:
  *      1 = Engineer
  *      2 = Scout
@@ -57,11 +56,11 @@ export default new Vuex.Store({
         //          This won't work with how the frontend is doing it
         //          Plus, we need to be able to save multiple equipments at the same time
         //          The existing methodology only allows for one at a time, which makes sense for primary and secondary
-        
-        
-        // Maybe do a 'currentlySelectedEquipment' and and then manage the rest like this 
+
+
+        // Maybe do a 'currentlySelectedEquipment' and and then manage the rest like this
         currentlySelectedEquipment: '',
-        selectedEquipment1: '', 
+        selectedEquipment1: '',
         selectedEquipment1Mods: [],
         selectedEquipment2: '',
         selectedEquipment2Mods: [],
@@ -89,9 +88,6 @@ export default new Vuex.Store({
         },
         clearLoadoutDescription(state) {
             state.LoadoutDescription = ''
-        },
-        setSelectedClass(state, newValue) {
-            state.selectedClass = newValue
         },
         setloadoutClassData(state, classData) {
             state.loadoutClassData = classData
@@ -183,11 +179,11 @@ export default new Vuex.Store({
         clearSelectedEquipment3Mod(state, modTier) {
             state.selectedEquipment3Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
         },
-        
+
     },
     actions: {
-        getClassData({ state }, classId) {
-            // Parsing a response 
+        getClassData({state}, classId) {
+            // Parsing a response
             let selectedClassId = classId;
             return Apollo.query({
                 query: gql`${apolloQueries.character(selectedClassId)}`
@@ -197,7 +193,7 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        getLoggedInUser({ state }) {
+        getLoggedInUser({state}) {
             return Apollo.query({
                 query: gql`${apolloQueries.me}`
             }).then(result => {
@@ -206,7 +202,7 @@ export default new Vuex.Store({
                 throw new Error('Not logged in');
             });
         },
-        hydrateClassData({ commit, dispatch }, newClassId) {
+        hydrateClassData({commit, dispatch}, newClassId) {
             commit('setLoadingStatus', true)
             let classData = dispatch('getClassData', newClassId).then(result => {
                 // Use our data response to hydrate all needed class data
@@ -217,13 +213,13 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        setSelectedClass({ commit, dispatch }, newClassIdInput) {
+        setSelectedClass({commit, dispatch}, newClassIdInput) {
             // clear the previously selected class
             commit('clearloadoutClassData')
             // also clear the previously selected data
             commit('clearSelectedPrimary')
-           // TODO: Clear all previously selected data on class swap
-           // TODO: add a speed bump on the class selection if you have class data
+            // TODO: Clear all previously selected data on class swap
+            // TODO: add a speed bump on the class selection if you have class data
 
 
             // TODO: Clear button to allow you to clear the whole current state
@@ -237,7 +233,7 @@ export default new Vuex.Store({
             // 2. Hydrated new class data
             commit('setSelectedClass', newClassIdInput)
         },
-        setSelectedPrimary({ commit }, newLoadoutItem) {
+        setSelectedPrimary({commit}, newLoadoutItem) {
 
             commit('clearSelectedPrimary')
             commit('clearAllSelectedPrimaryMods')
@@ -245,7 +241,7 @@ export default new Vuex.Store({
             commit('setSelectedPrimary', newLoadoutItem)
 
         },
-        setSelectedPrimaryMod({ commit, state }, selectedModObject) {
+        setSelectedPrimaryMod({commit, state}, selectedModObject) {
 
             let currentTierSelection = state.selectedPrimaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
             let sameSelection = false;
@@ -268,7 +264,7 @@ export default new Vuex.Store({
             }
 
         },
-        setSelectedSecondary({ commit }, newLoadoutItem) {
+        setSelectedSecondary({commit}, newLoadoutItem) {
 
             commit('clearSelectedSecondary')
             commit('clearAllSelectedSecondaryMods')
@@ -276,7 +272,7 @@ export default new Vuex.Store({
             commit('setSelectedSecondary', newLoadoutItem)
 
         },
-        setSelectedSecondaryMod({ commit, state }, selectedModObject) {
+        setSelectedSecondaryMod({commit, state}, selectedModObject) {
 
             let currentTierSelection = state.selectedSecondaryMods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
             let sameSelection = false;
@@ -299,14 +295,14 @@ export default new Vuex.Store({
             }
 
         },
-        setSelectedEquipment1({ commit }, newLoadoutItem) {
-            
+        setSelectedEquipment1({commit}, newLoadoutItem) {
+
             commit('clearCurrentlySelectedEquipment')
             commit('setCurrentlySelectedEquipment', newLoadoutItem)
             commit('setSelectedEquipment1', newLoadoutItem)
 
         },
-        setSelectedEquipment1Mod({ commit, state }, selectedModObject) {
+        setSelectedEquipment1Mod({commit, state}, selectedModObject) {
 
             let currentTierSelection = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
             let sameSelection = false;
@@ -330,14 +326,14 @@ export default new Vuex.Store({
             }
 
         },
-        setSelectedEquipment2({ commit }, newLoadoutItem) {
-            
+        setSelectedEquipment2({commit}, newLoadoutItem) {
+
             commit('clearCurrentlySelectedEquipment')
             commit('setCurrentlySelectedEquipment', newLoadoutItem)
             commit('setSelectedEquipment2', newLoadoutItem)
 
         },
-        setSelectedEquipment2Mod({ commit, state }, selectedModObject) {
+        setSelectedEquipment2Mod({commit, state}, selectedModObject) {
 
             let currentTierSelection = state.selectedEquipment2Mods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
             let sameSelection = false;
@@ -360,14 +356,14 @@ export default new Vuex.Store({
             }
 
         },
-        setSelectedEquipment3({ commit }, newLoadoutItem) {
-            
+        setSelectedEquipment3({commit}, newLoadoutItem) {
+
             commit('clearCurrentlySelectedEquipment')
             commit('setCurrentlySelectedEquipment', newLoadoutItem)
             commit('setSelectedEquipment3', newLoadoutItem)
 
         },
-        setSelectedEquipment3Mod({ commit, state }, selectedModObject) {
+        setSelectedEquipment3Mod({commit, state}, selectedModObject) {
 
             let currentTierSelection = state.selectedEquipment3Mods.filter(mod => mod.selectedModTier === selectedModObject.selectedModTier)
             let sameSelection = false;
@@ -392,8 +388,11 @@ export default new Vuex.Store({
         },
     },
     getters: {
+        getSelectedClass: (state) => () => {
+            return state.selectedClass;
+        },
         getLoadingStatus: (state) => {
-          return state.loadingStatus  
+            return state.loadingStatus;
         },
         // This should be by ID
         getLoadoutClassWeaponByName: (state) => (weaponName) => {
@@ -445,16 +444,16 @@ export default new Vuex.Store({
                         selectedModIds = state.selectedSecondaryMods.map(a => a.selectedModId);
                         selectedItemId = state.selectedSecondary;
                         break;
-                    
-                
+
+
                     default:
                         break;
                 }
                 let selectedOcId = null;
 
-                if (state.selectedPrimaryOverclock != '' &&  itemType === "primary") {
+                if (state.selectedPrimaryOverclock != '' && itemType === "primary") {
                     selectedOcId = state.selectedPrimaryOverclock;
-                } else if (state.selectedSecondaryOverclock != '' &&  itemType === "secondary") {
+                } else if (state.selectedSecondaryOverclock != '' && itemType === "secondary") {
                     selectedOcId = state.selectedSecondaryOverclock;
                 }
 
@@ -462,7 +461,7 @@ export default new Vuex.Store({
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == selectedItemId);
                 let itemMods = mainItem[0].mods;
 
-                // filter selected primary mods 
+                // filter selected primary mods
                 let selectedModArray = [];
 
                 selectedModIds.forEach(function (modId) {
@@ -474,7 +473,7 @@ export default new Vuex.Store({
                 });
 
                 // I'll need to figure out which weapon we're picking
-                // maybe send primary or secondary? 
+                // maybe send primary or secondary?
                 // Won't work for equipment
                 // Probably need to pass the gun or equipment ID
                 // use like item ID or something
@@ -512,7 +511,6 @@ export default new Vuex.Store({
                 }
 
 
-
                 let costObject = {
                     creditsCost: creditsCost,
                     magniteCost: magniteCost,
@@ -528,9 +526,9 @@ export default new Vuex.Store({
         },
         getModsForMatrix: (state) => (itemId, boolEquipment) => {
             let itemObject = '';
-            let itemModArray = '';           
-            
-            if(boolEquipment === true) {
+            let itemModArray = '';
+
+            if (boolEquipment === true) {
                 itemObject = state.loadoutClassData.equipments.filter(equipment => equipment.id == itemId);
                 itemModArray = itemObject[0].equipment_mods;
             } else {

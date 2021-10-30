@@ -23,18 +23,25 @@
                     md:w-auto
                     h-12
                 "
-                >Back
+            >Back
             </router-link>
         </div>
-        <DrillerPrimaries />
+        <DrillerPrimaries v-if="selectedClass === 3"/>
+        <EngineerPrimaries v-if="selectedClass === 1"/>
     </div>
 </template>
 
 <script>
-import DrillerPrimaries from "./driller/DrillerPrimaries.vue";
+import DrillerPrimaries from "./driller/DrillerPrimaries";
+import EngineerPrimaries from "./engineer/EngineerPrimaries";
 
 export default {
     name: "PrimaryBuilder",
-    components: { DrillerPrimaries },
+    components: {DrillerPrimaries, EngineerPrimaries},
+    computed: {
+        selectedClass() {
+            return this.$store.getters.getSelectedClass();
+        }
+    },
 };
 </script>
