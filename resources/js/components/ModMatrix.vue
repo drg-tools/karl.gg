@@ -105,15 +105,26 @@ export default {
         },
         selectMod(modId, modTier) {
 
-            const action = this.boolEquipment ? 'setSelectedEquipmentMod' : 'setSelectedPrimaryMod';
-
-            this.$store.dispatch(action, {
-                selectedModId: modId,
-                selectedModTier: modTier,
-            });
+            // TODO: primary is handling secondary, that can just be for all "gun mods"
+            if (this.boolEquipment) {
+                this.$store.dispatch('setSelectedEquipmentMod', {
+                    modId,
+                    modTier,
+                });
+            } else {
+                this.$store.dispatch('setSelectedPrimaryMod', {
+                    selectedModId: modId,
+                    selectedModTier: modTier,
+                });
+            }
         },
         modSelected(modId) {
-            return this.$store.getters.getIsSelectedMod(modId);
+
+            if (this.boolEquipment) {
+                return this.$store.getters.getIsEquipmentModSelected(modId);
+            } else {
+                return this.$store.getters.getIsGunModSelected(modId);
+            }
         },
     },
     computed: {

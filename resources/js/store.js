@@ -182,11 +182,11 @@ export default new Vuex.Store({
         clearSelectedEquipment(state) {
             state.selectedEquipment = ''
         },
-        setSelectedEquipmentMod(state, newValue) {
-            state.selectedEquipmentMods.push(newValue)
+        setSelectedEquipmentMod(state, modId) {
+            state.selectedEquipmentMods.push(modId);
         },
-        clearSelectedEquipmentMod(state, modTier) {
-            state.selectedEquipmentMods = state.selectedEquipmentMods.filter(mod => mod.selectedModTier !== modTier)
+        clearSelectedEquipmentMod(state, modId) {
+            state.selectedEquipmentMods = state.selectedEquipmentMods.filter(mod => mod !== modId);
         },
 
     },
@@ -396,13 +396,24 @@ export default new Vuex.Store({
 
         },
 
-        setSelectedEquipment({commit}, newLoadoutItem) {
+        setSelectedEquipment({commit}, selected) {
             commit('clearSelectedEquipment')
-            commit('setSelectedEquipment', newLoadoutItem)
+            commit('setSelectedEquipment', selected)
         },
 
-        setSelectedEquipmentMod({commit, dispatch}, selectedModObject) {
-            console.log(selectedModObject);
+        setSelectedEquipmentMod({commit, dispatch, state}, selectedMod) {
+
+            // Do we have a mod id in this tier, for this equipment already? If so, let's remove all other mods on that tier from store.
+            const currentEquipmentId = state.selectedEquipment;
+            const currentEquipment = state.loadoutClassData?.equipments?.filter(e => e.id === currentEquipmentId);
+
+            if (currentEquipment[0]) {
+                currentEquipment[0].equipment_mods
+                    .filter(m => m.mod_tier === selectedMod.modTier)
+                    .map(m => commit('clearSelectedEquipmentMod', m.id));
+            }
+
+            commit('setSelectedEquipmentMod', selectedMod.modId);
         },
     },
     getters: {
@@ -456,10 +467,13 @@ export default new Vuex.Store({
 
             return ocData;
         },
-        getIsSelectedMod: (state) => (modId) => {
+        getIsGunModSelected: (state) => (modId) => {
             if (state.selectedPrimaryMods.filter(mod => mod.selectedModId === modId).length != 0)
                 return true
             return false
+        },
+        getIsEquipmentModSelected: (state) => (modId) => {
+            return state.selectedEquipmentMods.filter(mod => mod === modId).length !== 0
         },
         getSelectedModCosts: (state) => (itemType) => {
             // TODO: Might need a whole-class version of this component
