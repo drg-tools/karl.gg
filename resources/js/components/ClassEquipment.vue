@@ -32,7 +32,8 @@
         <div class="flex">
             <div v-for="(equipment, index) in loadoutClassEquipment" :key="equipment.id">
                 <div class="max-w-1/2">
-                    <EquipmentSelector :equipment="equipment" :equipment-slot="index + 1" />
+                    <EquipmentSelector :equipment="equipment" :equipment-slot="index + 1"
+                                       :set-selected="!getSelectedEquipment && index === 0"/>
                 </div>
             </div>
         </div>
@@ -40,16 +41,14 @@
         <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
         <div class="flex flex-col">
             <ModMatrix
-                v-if="this.$store.state.currentlySelectedEquipment != ''"
-                :itemId="this.$store.state.currentlySelectedEquipment"
+                v-if="getSelectedEquipment"
+                :itemId="getSelectedEquipment"
                 :boolEquipment="true"
             />
 
             <CreditsCalculator
                 v-if="
-                        this.$store.state.selectedEquipment1Mods != [] ||
-                        this.$store.state.selectedEquipment2Mods != [] ||
-                        this.$store.state.selectedEquipment3Mods != []
+                        this.$store.state.selectedEquipmentMods != []
                     "
             />
         </div>
@@ -75,6 +74,7 @@ export default {
     computed: {
         ...mapGetters([
             'loadoutClassEquipment',
+            'getSelectedEquipment'
         ])
     }
 };

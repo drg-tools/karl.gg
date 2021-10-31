@@ -59,13 +59,15 @@ export default new Vuex.Store({
 
 
         // Maybe do a 'currentlySelectedEquipment' and and then manage the rest like this
-        currentlySelectedEquipment: '',
-        selectedEquipment1: '',
-        selectedEquipment1Mods: [],
-        selectedEquipment2: '',
-        selectedEquipment2Mods: [],
-        selectedEquipment3: '',
-        selectedEquipment3Mods: [],
+        // currentlySelectedEquipment: '',
+        // selectedEquipment1: '',
+        // selectedEquipment1Mods: [],
+        // selectedEquipment2: '',
+        // selectedEquipment2Mods: [],
+        // selectedEquipment3: '',
+        // selectedEquipment3Mods: [],
+
+        selectedEquipment: '',
         selectedEquipmentMods: []
     },
     mutations: {
@@ -123,12 +125,6 @@ export default new Vuex.Store({
         clearSelectedSecondary(state) {
             state.selectedSecondary = ''
         },
-        setCurrentlySelectedEquipment(state, newValue) {
-            state.currentlySelectedEquipment = newValue
-        },
-        clearCurrentlySelectedEquipment(state) {
-            state.currentlySelectedEquipment = ''
-        },
         setSelectedSecondaryMod(state, newValue) {
             state.selectedSecondaryMods.push(newValue)
         },
@@ -179,6 +175,12 @@ export default new Vuex.Store({
         },
         clearSelectedEquipment3Mod(state, modTier) {
             state.selectedEquipment3Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
+        },
+        setSelectedEquipment(state, newValue) {
+            state.selectedEquipment = newValue
+        },
+        clearSelectedEquipment(state) {
+            state.selectedEquipment = ''
         },
         setSelectedEquipmentMod(state, newValue) {
             state.selectedEquipmentMods.push(newValue)
@@ -393,6 +395,12 @@ export default new Vuex.Store({
             }
 
         },
+
+        setSelectedEquipment({commit}, newLoadoutItem) {
+            commit('clearSelectedEquipment')
+            commit('setSelectedEquipment', newLoadoutItem)
+        },
+
         setSelectedEquipmentMod({commit, dispatch}, selectedModObject) {
             console.log(selectedModObject);
         },
@@ -412,6 +420,9 @@ export default new Vuex.Store({
         },
         getSelectedSecondary: (state) => {
             return state.selectedSecondary;
+        },
+        getSelectedEquipment: (state) => {
+            return state.selectedEquipment;
         },
         getSelectedClass: (state) => () => {
             return state.selectedClass;
@@ -433,8 +444,8 @@ export default new Vuex.Store({
         getIsSelectedSecondary: (state) => (weaponId) => {
             return state.selectedSecondary === weaponId
         },
-        getIsCurrentlySelectedEquipment: (state) => (equipmentId) => {
-            return state.currentlySelectedEquipment === equipmentId
+        getIsSelectedEquipment: (state) => (equipmentId) => {
+            return state.selectedEquipment === equipmentId
         },
         getIconByName: (state) => (iconName) => {
             return state.icons.default[iconName]
@@ -560,8 +571,6 @@ export default new Vuex.Store({
                 itemObject = state.loadoutClassData.guns.filter(gun => gun.id == itemId);
                 itemModArray = itemObject[0].mods;
             }
-            console.log('itemModArray');
-            console.log(itemModArray);
             return itemModArray;
 
         }

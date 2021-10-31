@@ -16,19 +16,18 @@
 <script>
 export default {
     name: "EquipmentSelector",
-    props: ['equipment', 'equipmentSlot'],
-    // created() {
-    //     if(this.setSelected) {
-    //         this.selectEquipment();
-    //     }
-    // },
+    props: ['equipment', 'equipmentSlot', 'setSelected'],
+    created() {
+        if(this.setSelected) {
+            this.selectEquipment();
+        }
+    },
     methods: {
         selectEquipment() {
-            // TODO: Store these differently, rather than interpolating :-/
-            this.$store.dispatch(`setSelectedEquipment${this.equipmentSlot}`, this.equipment.id);
+            this.$store.dispatch(`setSelectedEquipment`, this.equipment.id);
         },
         getIsSelected() {
-            return this.$store.getters.getIsCurrentlySelectedEquipment(this.equipment.id);
+            return this.$store.getters.getIsSelectedEquipment(this.equipment.id);
         }
     },
 }
