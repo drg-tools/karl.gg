@@ -66,6 +66,7 @@ export default new Vuex.Store({
         selectedEquipment2Mods: [],
         selectedEquipment3: '',
         selectedEquipment3Mods: [],
+        selectedEquipmentMods: []
     },
     mutations: {
         setLoadingStatus(state, newLoadingStatus) {
@@ -178,6 +179,12 @@ export default new Vuex.Store({
         },
         clearSelectedEquipment3Mod(state, modTier) {
             state.selectedEquipment3Mods = state.selectedEquipment1Mods.filter(mod => mod.selectedModTier !== modTier)
+        },
+        setSelectedEquipmentMod(state, newValue) {
+            state.selectedEquipmentMods.push(newValue)
+        },
+        clearSelectedEquipmentMod(state, modTier) {
+            state.selectedEquipmentMods = state.selectedEquipmentMods.filter(mod => mod.selectedModTier !== modTier)
         },
 
     },
@@ -386,8 +393,26 @@ export default new Vuex.Store({
             }
 
         },
+        setSelectedEquipmentMod({commit, dispatch}, selectedModObject) {
+            console.log(selectedModObject);
+        },
     },
     getters: {
+        loadoutClassPrimaries: (state) => {
+            return state.loadoutClassData?.guns?.filter(gun => gun.character_slot === 1);
+        },
+        loadoutClassSecondaries: (state) => {
+            return state.loadoutClassData?.guns?.filter(gun => gun.character_slot === 2);
+        },
+        loadoutClassEquipment: (state) => {
+            return state.loadoutClassData?.equipments;
+        },
+        getSelectedPrimary: (state) => {
+            return state.selectedPrimary;
+        },
+        getSelectedSecondary: (state) => {
+            return state.selectedSecondary;
+        },
         getSelectedClass: (state) => () => {
             return state.selectedClass;
         },

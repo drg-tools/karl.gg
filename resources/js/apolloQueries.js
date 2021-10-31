@@ -9,6 +9,7 @@ export default {
                       gun_class
                       character_slot
                       json_stats
+                      image
                       overclocks {
                         id
                         overclock_index

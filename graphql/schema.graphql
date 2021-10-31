@@ -86,6 +86,7 @@ type Gun {
     id: ID!
     name: String!
     gun_class: String!
+    image: String
     character_slot: Int!
     mods: [Mod]
     overclocks: [Overclock]

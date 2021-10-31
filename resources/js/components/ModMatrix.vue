@@ -104,7 +104,10 @@ export default {
             return this.$store.getters.getIconByName(iconName);
         },
         selectMod(modId, modTier) {
-            this.$store.dispatch("setSelectedPrimaryMod", {
+
+            const action = this.boolEquipment ? 'setSelectedEquipmentMod' : 'setSelectedPrimaryMod';
+
+            this.$store.dispatch(action, {
                 selectedModId: modId,
                 selectedModTier: modTier,
             });
