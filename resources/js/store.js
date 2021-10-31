@@ -467,10 +467,11 @@ export default new Vuex.Store({
 
             return ocData;
         },
-        getIsGunModSelected: (state) => (modId) => {
-            if (state.selectedPrimaryMods.filter(mod => mod.selectedModId === modId).length != 0)
-                return true
-            return false
+        getIsPrimaryModSelected: (state) => (modId) => {
+            return state.selectedPrimaryMods.filter(mod => mod.selectedModId === modId).length !== 0;
+        },
+        getIsSecondaryModSelected: (state) => (modId) => {
+            return state.selectedSecondaryMods.filter(mod => mod.selectedModId === modId).length !== 0;
         },
         getIsEquipmentModSelected: (state) => (modId) => {
             return state.selectedEquipmentMods.filter(mod => mod === modId).length !== 0
