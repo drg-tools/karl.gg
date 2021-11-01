@@ -194,6 +194,118 @@ export default new Vuex.Store({
 
     },
     actions: {
+        saveAnonymousLoadout({state,commit}) {
+            if(state.loadoutName === '') {
+                // loadout name can't be null
+                // TODO: return a more meaningful message
+                console.log('loadout name is requred')
+                return;
+            }
+            console.log('heres your current selected loadout data')
+            console.log(state.loadoutName);
+            console.log(state.loadoutDescription);
+            console.log(state.selectedPrimary);
+            console.log(state.selectedPrimaryMods);
+            console.log(state.selectedPrimaryOverclock);
+            console.log(state.selectedSecondary);
+            console.log(state.selectedSecondaryMods);
+            console.log(state.selectedSecondaryOverclock);
+            console.log(state.selectedEquipment);
+            console.log(state.selectedEquipmentMods);
+
+            // Here's what we need to save
+
+        },
+        async createLoadout(params) {
+            let variables = {
+                name: params.name,
+                description: params.description,
+                character_id: params.character_id,
+                mods: params.mods,
+                overclocks: params.overclocks,
+                equipment_mods: params.equipment_mods,
+                throwable_id: params.throwable_id
+            };
+
+            this.resetErrors();
+
+            // Call to the graphql mutation
+            /* todo: 'user_id' cannot be null when saving as a guest */
+            const result = await this.$apollo.mutate({
+                // Query
+                mutation: gql`mutation (
+                    $name: String!,
+                    $description: String,
+                    $character_id: Int!,
+                    $mods: [Int!]!,
+                    $overclocks: [Int!]!,
+                    $equipment_mods: [Int!]!,
+                    $throwable_id: Int!,
+                    ) {
+                        createLoadout(
+                            name: $name
+                            description: $description
+                            character_id: $character_id
+                            mods: $mods
+                            overclocks: $overclocks
+                            equipment_mods: $equipment_mods
+                            throwable_id: $throwable_id
+                          ) {
+                          id
+                          name
+                          description
+                        }
+                      }`,
+                // Parameters
+                variables: variables
+            });
+            return result;
+        },
+        async updateLoadout(params) {
+            let variables = {
+                id: parseInt(params.loadout_id),
+                name: params.name,
+                description: params.description,
+                character_id: params.character_id,
+                mods: params.mods,
+                overclocks: params.overclocks,
+                equipment_mods: params.equipment_mods,
+                throwable_id: params.throwable_id
+            };
+
+            // Call to the graphql mutation
+            const result = await this.$apollo.mutate({
+                // Query
+                mutation: gql`mutation (
+                    $id: Int!,
+                    $name: String!,
+                    $description: String,
+                    $character_id: Int!,
+                    $mods: [Int!]!,
+                    $overclocks: [Int!]!,
+                    $equipment_mods: [Int!]!,
+                    $throwable_id: Int!,
+                    ) {
+                        updateLoadout(
+                            id: $id
+                            name: $name
+                            description: $description
+                            character_id: $character_id
+                            mods: $mods
+                            overclocks: $overclocks
+                            equipment_mods: $equipment_mods
+                            throwable_id: $throwable_id
+                          ) {
+                          id
+                          name
+                          description
+                        }
+                      }`,
+                // Parameters
+                variables: variables
+            });
+            return result;
+        },
         getClassData({state}, classId) {
             // Parsing a response
             let selectedClassId = classId;
@@ -204,9 +316,6 @@ export default new Vuex.Store({
             }).catch(err => {
                 throw err;
             });
-        },
-        isLoggedIn({state}) {
-            return state.user !== null;
         },
         hydrateClassData({commit, dispatch}, newClassId) {
             commit('setLoadingStatus', true)
@@ -416,6 +525,9 @@ export default new Vuex.Store({
     getters: {
         loadoutClassPrimaries: (state) => {
             return state.loadoutClassData?.guns?.filter(gun => gun.character_slot === 1);
+        },
+        isLoggedIn: (state) => {
+            return state.user !== null;
         },
         loadoutClassSecondaries: (state) => {
             return state.loadoutClassData?.guns?.filter(gun => gun.character_slot === 2);
