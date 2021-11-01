@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import apolloQueries from './apolloQueries';
 import {Apollo} from './apollo';
 import * as IconList from './IconsList';
-import {over, sortedLastIndexOf} from 'lodash';
+import {concat, over, sortedLastIndexOf} from 'lodash';
 
 
 Vue.use(Vuex);
@@ -206,12 +206,36 @@ export default new Vuex.Store({
             console.log(state.loadoutDescription);
             console.log(state.selectedPrimary);
             console.log(state.selectedPrimaryMods);
-            console.log(state.selectedPrimaryOverclock);
+            console.log(state.selectedPrimaryOverclock); // need to do a check here
             console.log(state.selectedSecondary);
             console.log(state.selectedSecondaryMods);
-            console.log(state.selectedSecondaryOverclock);
+            console.log(state.selectedSecondaryOverclock); // Also need to do a check here
             console.log(state.selectedEquipment);
             console.log(state.selectedEquipmentMods);
+            // Throwable ID will just be null
+
+            let combinedModArray = [];
+            let combinedOverClocks = [];
+
+            combinedModArray = combinedModArray.concat(selectedPrimaryMods, selectedSecondaryMods, selectedEquipmentMods)
+            combinedOverClocks = combinedOverClocks.concat(state.selectedPrimaryOverclock, state.selectedSecondaryOverclock)
+
+            let parameters = {
+                name: state.loadoutName,
+                description: state.loadoutDescription, 
+                character_id: state.selectedClass,
+                mods: combinedModArray,
+                state.selectedPrimary,
+                state.selectedPrimaryMods,
+                state.selectedPrimaryOverclock,
+                state.selectedSecondary,
+                state.selectedSecondaryMods,
+                state.selectedSecondaryOverclock,
+                state.selectedEquipment,
+                state.selectedEquipmentMods,
+            }
+
+
 
             // Here's what we need to save
 
@@ -227,10 +251,7 @@ export default new Vuex.Store({
                 throwable_id: params.throwable_id
             };
 
-            this.resetErrors();
-
             // Call to the graphql mutation
-            /* todo: 'user_id' cannot be null when saving as a guest */
             const result = await this.$apollo.mutate({
                 // Query
                 mutation: gql`mutation (
