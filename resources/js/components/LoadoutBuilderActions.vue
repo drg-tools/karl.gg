@@ -34,34 +34,31 @@
 </template>
 
 <script>
+
 export default {
     name: "LoadoutBuilderActions",
+    
     methods: {
         onSaveClick() {
-            // User clicked SAVE
-            // Do a quick check if you're logged in or a guest
-            // Set update to true if you're logged in & author
-            // Fire the onAcceptSave at the proper time.
-            this.getLoggedInUser().then(response => {
-                // let loggedInUserId = response;
-                // if (this.creatorId === loggedInUserId) {
-                //     // We know you are the creator, so you are allowed to update this existing build.
-                //     this.update = true;
-                // }
-                this.$modal.show('loadingModal');
-                this.onAcceptSave();
-            }).catch(err => {
-                console.warn('no logged in user', err);
-                this.messageTitle = 'Not logged in :(';
-                this.messageText = 'You can save your loadout anonymously or log in first. PLEASE NOTE: You will not be able to edit your build later. Only registered users can edit their builds.';
-                this.guest = true;
-                this.$modal.show('messageModal');
-                /* todo: keep loadout in local storage so his stuff is not lost when he goes to create an account.. */
-            });
+           
+
+            let loggedInStatus = this.getIsLoggedIn();
+
+
+            if(loggedInStatus) {
+                console.log('logged in')
+                // TODO: Authenticated save
+                // Editing validation
+            } else {
+                console.log('guest detected');
+                // Do anonymous submit
+                // Start anonymous submit
+                this.$store.dispatch('saveAnonymousLoadout');
+            }
 
         },
-        getLoggedInUser() {
-            return this.$store.getters.getLoggedInUser;
+        getIsLoggedIn() {
+            return this.$store.getters.isLoggedIn;
         }
     }
 };

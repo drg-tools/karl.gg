@@ -222,12 +222,4 @@ export default {
                               }
                             }
                           }`,
-  me: `query:
-    {
-        me {
-            id
-            name
-        }
-    }
-    `
 };
