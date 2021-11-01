@@ -81,7 +81,7 @@
 <script>
 export default {
     name: "ModMatrix",
-    props: ["itemId", "boolEquipment"],
+    props: ["itemId"],
     data() {
         return {
             itemMods: "",
@@ -97,7 +97,7 @@ export default {
         checkMods() {
             this.itemMods = this.$store.getters.getModsForMatrix(
                 this.itemId,
-                this.boolEquipment
+                this.$route.path === "/equipment-builder" // TODO: refactor
             );
         },
         getIconPath(iconName) {
