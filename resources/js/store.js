@@ -40,7 +40,7 @@ export default new Vuex.Store({
     // plugins: [vuexPersist.plugin], // Disable when debugging locally
     state: {
         loadingStatus: false,
-        loggedInUserIs: '',
+        user: null,
         selectedClass: '',
         loadoutName: '', // TODO: In the component Debounce on this
         loadoutDescription: '', // TODO: In the component Debounce on this
@@ -73,6 +73,9 @@ export default new Vuex.Store({
     mutations: {
         setLoadingStatus(state, newLoadingStatus) {
             state.loadingStatus = newLoadingStatus;
+        },
+        setAuthUser(state, user) {
+            state.user = user;
         },
         setSelectedClass(state, newValue) {
             state.selectedClass = newValue
@@ -202,14 +205,8 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        getLoggedInUser({state}) {
-            return Apollo.query({
-                query: gql`${apolloQueries.me}`
-            }).then(result => {
-                return result.data.me.id;
-            }).catch(err => {
-                throw new Error('Not logged in');
-            });
+        isLoggedIn({state}) {
+            return state.user !== null;
         },
         hydrateClassData({commit, dispatch}, newClassId) {
             commit('setLoadingStatus', true)
