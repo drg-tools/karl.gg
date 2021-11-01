@@ -41,7 +41,6 @@
             <ModMatrix
                 v-if="this.$store.state.selectedSecondary != ''"
                 :itemId="this.$store.state.selectedSecondary"
-                :boolEquipment="false"
             />
             <OverclockSelect
                 :primary="false"
