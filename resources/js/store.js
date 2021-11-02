@@ -194,7 +194,7 @@ export default new Vuex.Store({
 
     },
     actions: {
-        saveAnonymousLoadout({state,commit}) {
+        saveAnonymousLoadout({state,commit, dispatch}) {
             if(state.loadoutName === '') {
                 // loadout name can't be null
                 // TODO: return a more meaningful message
@@ -215,30 +215,63 @@ export default new Vuex.Store({
             // Throwable ID will just be null
 
             let combinedModArray = [];
-            let combinedOverClocks = [];
+            let combinedOverClockIdArray = [];
 
-            combinedModArray = combinedModArray.concat(selectedPrimaryMods, selectedSecondaryMods, selectedEquipmentMods)
-            combinedOverClocks = combinedOverClocks.concat(state.selectedPrimaryOverclock, state.selectedSecondaryOverclock)
-
-            let parameters = {
-                name: state.loadoutName,
-                description: state.loadoutDescription, 
-                character_id: state.selectedClass,
-                mods: combinedModArray,
-                state.selectedPrimary,
-                state.selectedPrimaryMods,
-                state.selectedPrimaryOverclock,
-                state.selectedSecondary,
-                state.selectedSecondaryMods,
-                state.selectedSecondaryOverclock,
-                state.selectedEquipment,
-                state.selectedEquipmentMods,
+            combinedModArray = combinedModArray.concat(state.selectedPrimaryMods, state.selectedSecondaryMods)
+            
+            if(state.selectedPrimaryOverclock != '') {
+                combinedOverClockIdArray.push(state.selectedPrimaryOverclock);
             }
 
+            if(state.selectedSecondaryOverclock != '') {
+                combinedOverClockIdArray.push(state.selectedSecondaryOverclock);
+            }
 
+            console.log('combined mods:');
+            console.log(combinedModArray);
+            console.log('combined ocs:');
+            console.log(combinedOverClockIdArray);
+
+            let combinedModIdArray = combinedModArray.map(e => e.selectedModId);
+
+            console.log('combinedModIdArray');
+            console.log(combinedModIdArray);
+            // let parameters = {
+            //     name: state.loadoutName,
+            //     description: state.loadoutDescription, 
+            //     character_id: state.selectedClass,
+            //     mods: combinedModArray,
+            //     state.selectedPrimary,
+            //     state.selectedPrimaryMods,
+            //     state.selectedPrimaryOverclock,
+            //     state.selectedSecondary,
+            //     state.selectedSecondaryMods,
+            //     state.selectedSecondaryOverclock,
+            //     state.selectedEquipment,
+            //     state.selectedEquipmentMods,
+            // }
 
             // Here's what we need to save
+            let variables = {
+                name: state.loadoutName,
+                description: state.loadoutDescription,
+                character_id: state.selectedClass,
+                mods: combinedModIdArray,
+                overclocks: combinedOverClockIdArray,
+                equipment_mods: state.selectedEquipmentMods,
+                throwable_id: ''
+            };
 
+            console.log('variables');
+            console.log(variables);
+            dispatch('getClassData', variables).then(result => {
+                console.log('create loadout result');
+                console.log(result);
+            }).catch(err => {
+                console.log('err');
+                console.log(err);
+                throw err;
+            });
         },
         async createLoadout(params) {
             let variables = {
@@ -640,6 +673,7 @@ export default new Vuex.Store({
 
                 // TODO: FIx for equipment
                 let mainItem = state.loadoutClassData.guns.filter(gun => gun.id == selectedItemId);
+                // This is throwing an error on secondaries sometimes
                 let itemMods = mainItem[0].mods;
 
                 // filter selected primary mods
