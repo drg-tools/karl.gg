@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import apolloQueries from './apolloQueries';
 import {Apollo} from './apollo';
 import * as IconList from './IconsList';
-import {concat, over, sortedLastIndexOf} from 'lodash';
+import {concat, over, sortedLastIndexOf, toInteger} from 'lodash';
 
 
 Vue.use(Vuex);
@@ -233,6 +233,8 @@ export default new Vuex.Store({
             console.log(combinedOverClockIdArray);
 
             let combinedModIdArray = combinedModArray.map(e => e.selectedModId);
+            // Need to make array of strings ID's for gql
+            combinedModIdArray = combinedModIdArray.map(Number);
 
             console.log('combinedModIdArray');
             console.log(combinedModIdArray);
@@ -255,16 +257,16 @@ export default new Vuex.Store({
             let variables = {
                 name: state.loadoutName,
                 description: state.loadoutDescription,
-                character_id: state.selectedClass,
+                character_id: toInteger(state.selectedClass),
                 mods: combinedModIdArray,
                 overclocks: combinedOverClockIdArray,
                 equipment_mods: state.selectedEquipmentMods,
-                throwable_id: ''
+                throwable_id: 1
             };
 
             console.log('variables');
             console.log(variables);
-            dispatch('getClassData', variables).then(result => {
+            dispatch('createLoadout', variables).then(result => {
                 console.log('create loadout result');
                 console.log(result);
             }).catch(err => {
@@ -273,7 +275,10 @@ export default new Vuex.Store({
                 throw err;
             });
         },
-        async createLoadout(params) {
+        createLoadout({state}, params) {
+            console.log('createLoadout fired');
+            console.log('params');
+            console.log(params);
             let variables = {
                 name: params.name,
                 description: params.description,
@@ -283,9 +288,11 @@ export default new Vuex.Store({
                 equipment_mods: params.equipment_mods,
                 throwable_id: params.throwable_id
             };
+            console.log('gql params');
+            console.log(params);
 
             // Call to the graphql mutation
-            const result = await this.$apollo.mutate({
+            const result = Apollo.mutate({
                 // Query
                 mutation: gql`mutation (
                     $name: String!,
@@ -312,8 +319,13 @@ export default new Vuex.Store({
                       }`,
                 // Parameters
                 variables: variables
+            }).then(result => {
+                console.log('result of loadout CREATE');
+                console.log(result);
+                return result;
+            }).catch(err => {
+                throw err;
             });
-            return result;
         },
         async updateLoadout(params) {
             let variables = {
@@ -328,7 +340,7 @@ export default new Vuex.Store({
             };
 
             // Call to the graphql mutation
-            const result = await this.$apollo.mutate({
+            const result = Apollo.mutate({
                 // Query
                 mutation: gql`mutation (
                     $id: Int!,
@@ -357,8 +369,14 @@ export default new Vuex.Store({
                       }`,
                 // Parameters
                 variables: variables
+            }).then(result => {
+                console.log('result of loadout UPDATE');
+                console.log(result);
+                return result;
+            }).catch(err => {
+                throw err;
             });
-            return result;
+           
         },
         getClassData({state}, classId) {
             // Parsing a response
