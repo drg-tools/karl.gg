@@ -221,10 +221,14 @@ export default new Vuex.Store({
             
             if(state.selectedPrimaryOverclock != '') {
                 combinedOverClockIdArray.push(state.selectedPrimaryOverclock);
+                // Need to make array of strings ID's for gql
+                combinedOverClockIdArray = combinedOverClockIdArray.map(Number);
             }
 
             if(state.selectedSecondaryOverclock != '') {
                 combinedOverClockIdArray.push(state.selectedSecondaryOverclock);
+                // Need to make array of strings ID's for gql
+                combinedOverClockIdArray = combinedOverClockIdArray.map(Number);
             }
 
             console.log('combined mods:');
@@ -257,7 +261,7 @@ export default new Vuex.Store({
             let variables = {
                 name: state.loadoutName,
                 description: state.loadoutDescription,
-                character_id: toInteger(state.selectedClass),
+                character_id: state.selectedClass,
                 mods: combinedModIdArray,
                 overclocks: combinedOverClockIdArray,
                 equipment_mods: state.selectedEquipmentMods,
