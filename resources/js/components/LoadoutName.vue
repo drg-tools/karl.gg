@@ -38,6 +38,7 @@ export default {
       name: this.$store.state.loadoutName
     };
   },
+  // TODO: Validations need to be hooked up with the actual saving function. Look more at that in vuelidate docs
   validations: {
     name: {
       required,

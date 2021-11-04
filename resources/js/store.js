@@ -194,28 +194,19 @@ export default new Vuex.Store({
 
     },
     actions: {
-        saveAnonymousLoadout({state,commit, dispatch}) {
+        saveLoadout({state,commit, dispatch}) {
             if(state.loadoutName === '') {
                 // loadout name can't be null
                 // TODO: return a more meaningful message
                 console.log('loadout name is requred')
                 return;
             }
-            console.log('heres your current selected loadout data')
-            console.log(state.loadoutName);
-            console.log(state.loadoutDescription);
-            console.log(state.selectedPrimary);
-            console.log(state.selectedPrimaryMods);
-            console.log(state.selectedPrimaryOverclock); // need to do a check here
-            console.log(state.selectedSecondary);
-            console.log(state.selectedSecondaryMods);
-            console.log(state.selectedSecondaryOverclock); // Also need to do a check here
-            console.log(state.selectedEquipment);
-            console.log(state.selectedEquipmentMods);
-            // Throwable ID will just be null
-
+            
+           
+            // We need to flatten 
             let combinedModArray = [];
             let combinedOverClockIdArray = [];
+            let combinedEquipmentModArray = state.selectedEquipmentMods; // This will be empty array if null anyways
 
             combinedModArray = combinedModArray.concat(state.selectedPrimaryMods, state.selectedSecondaryMods)
             
@@ -239,24 +230,8 @@ export default new Vuex.Store({
             let combinedModIdArray = combinedModArray.map(e => e.selectedModId);
             // Need to make array of strings ID's for gql
             combinedModIdArray = combinedModIdArray.map(Number);
-
-            console.log('combinedModIdArray');
-            console.log(combinedModIdArray);
-            // let parameters = {
-            //     name: state.loadoutName,
-            //     description: state.loadoutDescription, 
-            //     character_id: state.selectedClass,
-            //     mods: combinedModArray,
-            //     state.selectedPrimary,
-            //     state.selectedPrimaryMods,
-            //     state.selectedPrimaryOverclock,
-            //     state.selectedSecondary,
-            //     state.selectedSecondaryMods,
-            //     state.selectedSecondaryOverclock,
-            //     state.selectedEquipment,
-            //     state.selectedEquipmentMods,
-            // }
-
+            combinedEquipmentModArray = combinedEquipmentModArray.map(Number);
+            
             // Here's what we need to save
             let variables = {
                 name: state.loadoutName,
@@ -264,15 +239,15 @@ export default new Vuex.Store({
                 character_id: state.selectedClass,
                 mods: combinedModIdArray,
                 overclocks: combinedOverClockIdArray,
-                equipment_mods: state.selectedEquipmentMods,
-                throwable_id: 1
+                equipment_mods: combinedEquipmentModArray,
+                throwable_id: 1 // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
             };
 
-            console.log('variables');
-            console.log(variables);
+            // This is where we actually save the loadout
             dispatch('createLoadout', variables).then(result => {
                 console.log('create loadout result');
                 console.log(result);
+                // TODO: Result, needs to redirect you to your newly saved loadout preview page
             }).catch(err => {
                 console.log('err');
                 console.log(err);
@@ -280,9 +255,6 @@ export default new Vuex.Store({
             });
         },
         createLoadout({state}, params) {
-            console.log('createLoadout fired');
-            console.log('params');
-            console.log(params);
             let variables = {
                 name: params.name,
                 description: params.description,
@@ -292,9 +264,7 @@ export default new Vuex.Store({
                 equipment_mods: params.equipment_mods,
                 throwable_id: params.throwable_id
             };
-            console.log('gql params');
-            console.log(params);
-
+            
             // Call to the graphql mutation
             const result = Apollo.mutate({
                 // Query
@@ -324,14 +294,12 @@ export default new Vuex.Store({
                 // Parameters
                 variables: variables
             }).then(result => {
-                console.log('result of loadout CREATE');
-                console.log(result);
                 return result;
             }).catch(err => {
                 throw err;
             });
         },
-        async updateLoadout(params) {
+        updateLoadout(params) {
             let variables = {
                 id: parseInt(params.loadout_id),
                 name: params.name,
