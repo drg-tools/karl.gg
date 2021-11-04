@@ -247,6 +247,7 @@ export default new Vuex.Store({
             dispatch('createLoadout', variables).then(result => {
                 console.log('create loadout result');
                 console.log(result);
+                return result;
                 // TODO: Result, needs to redirect you to your newly saved loadout preview page
             }).catch(err => {
                 console.log('err');

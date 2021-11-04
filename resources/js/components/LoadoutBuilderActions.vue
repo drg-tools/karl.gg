@@ -28,19 +28,59 @@
                 SAVE
             </div>
         </div>
+        <modal
+            name="loadingModal"
+            class="loadoutModal"
+            :adaptive="true"
+            :height="250"
+        >
+            <div class="contentContainer">
+                <h1>Saving Loadout...FOR KARL!</h1>
+                <img src="/assets/img/karl-spinner-free.gif" alt="loading..." />
+            </div>
+        </modal>
+
+        <modal
+            name="messageModal"
+            class="loadoutModal"
+            :adaptive="true"
+            :height="250"
+        >
+            <div class="contentContainer">
+                <h1 class="modalTitle">{{ messageTitle }}</h1>
+                <h2>{{ messageText }}</h2>
+            </div>
+            <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
+            <div class="buttonContainer">
+                <div class="button guest-btn" v-on:click="onGuestSave">
+                    <span class="buttonText">SAVE AS GUEST</span>
+                </div>
+                <div class="button" v-on:click="onCloseMessageModal">
+                    <span class="buttonText">CLOSE</span>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
 <script>
 export default {
     name: "LoadoutBuilderActions",
+    data: () => {
+        return {
+            messageTitle: "",
+            messageText: "",
+            update: false,
 
+        };
+    },
     methods: {
         onSaveClick() {
             let loggedInStatus = this.getIsLoggedIn();
-
-            this.$store.dispatch("saveLoadout");
+            this.$modal.show('loadingModal');
+            // this.$store.dispatch("saveLoadout");
         },
+        
         getIsLoggedIn() {
             return this.$store.getters.isLoggedIn;
         },
