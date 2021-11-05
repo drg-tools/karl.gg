@@ -125,6 +125,7 @@ export default {
             if (loggedInStatus) {
                 // User is logged in & GQL will save them with the right ID
                 this.$modal.show("loadingModal");
+                this.onAcceptSave();
             } else {
                 this.messageTitle = "Not logged in :(";
                 this.messageText =
