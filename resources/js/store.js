@@ -194,7 +194,7 @@ export default new Vuex.Store({
 
     },
     actions: {
-        saveLoadout({state,commit, dispatch}) {
+        async saveLoadout({state,commit, dispatch}) {
             if(state.loadoutName === '') {
                 // loadout name can't be null
                 // TODO: return a more meaningful message
@@ -242,20 +242,13 @@ export default new Vuex.Store({
                 equipment_mods: combinedEquipmentModArray,
                 throwable_id: 1 // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
             };
-
+            
             // This is where we actually save the loadout
-            dispatch('createLoadout', variables).then(result => {
-                console.log('create loadout result');
-                console.log(result);
-                return result;
-                // TODO: Result, needs to redirect you to your newly saved loadout preview page
-            }).catch(err => {
-                console.log('err');
-                console.log(err);
-                throw err;
-            });
+            let loadoutData = await dispatch('createLoadout', variables);
+            console.log(loadoutData);
+            return loadoutData;
         },
-        createLoadout({state}, params) {
+        async createLoadout({state}, params) {
             let variables = {
                 name: params.name,
                 description: params.description,
@@ -267,7 +260,7 @@ export default new Vuex.Store({
             };
             
             // Call to the graphql mutation
-            const result = Apollo.mutate({
+            let result = Apollo.mutate({
                 // Query
                 mutation: gql`mutation (
                     $name: String!,
@@ -294,11 +287,8 @@ export default new Vuex.Store({
                       }`,
                 // Parameters
                 variables: variables
-            }).then(result => {
-                return result;
-            }).catch(err => {
-                throw err;
             });
+            return result;
         },
         updateLoadout(params) {
             let variables = {

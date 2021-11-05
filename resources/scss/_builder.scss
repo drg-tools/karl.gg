@@ -269,6 +269,11 @@
         padding-top: 1rem;
     }
 
+    .loadoutModal .vm--modal {
+        background-color: #000;
+        padding: 1rem;
+    }
+
     @media (max-width: 770px) {
         .modSelection {
             flex: 0 0 100%;

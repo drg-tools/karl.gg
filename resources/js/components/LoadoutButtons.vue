@@ -285,10 +285,6 @@ export default {
     font-family: BebasNeue, sans-serif;
 }
 
-.loadoutModal .vm--modal {
-    background-color: #130e09;
-    padding: 1rem;
-}
 
 .loadoutModal .vm--modal h1.modalTitle {
     margin-top: 0;
