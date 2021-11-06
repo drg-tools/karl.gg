@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div v-for="equipment in loadoutClassEquipment" v-if="getSelectedEquipment">
+        <div v-for="equipment in loadoutClassEquipment" v-if="equipmentModIds.length > 0">
             <router-link
                 to="/equipment-builder">
                 <PreviewCard
@@ -49,7 +49,7 @@
             </router-link>
         </div>
 
-        <div class="text-center" v-if="!getSelectedEquipment">
+        <div class="text-center" v-if="equipmentModIds.length === 0">
             <h2>Select Equipment</h2>
             <RouterSelectButton routeTo="/equipment-builder"/>
         </div>
