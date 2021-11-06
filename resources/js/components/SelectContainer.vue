@@ -1,105 +1,70 @@
 <template>
-    <div v-if="loadingStatus" class="loadingIndicator">
-        <img src="/assets/img/karl-spinner-free.gif" alt="loading...">
+    <div v-if="getLoadingStatus" class="loadingIndicator">
+        <img src="/assets/img/karl-spinner-free.gif" alt="loading..."/>
     </div>
-    <div v-else class="flex flex-row justify-between my-5">
-        <!-- TODO: Conditially show/hide these if a primary OR secondary is selected ONLY -->
-        <!-- TODO: Conditially show/hide equipment if all equipment is selected ONLY -->
-        <div class="flex flex-col">
-            <h2>Select a Primary</h2>
+    <div v-else class="flex flex-row justify-around my-5">
+
+        <div>
             <router-link
-                to="/primary-builder"
-                class="
-                    inline-flex
-                    items-center
-                    text-center
-                    px-4
-                    py-2
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    shadow-sm
-                    text-white
-                    bg-orange-500
-                    hover:bg-orange-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-orange-500
-                    w-full
-                    md:w-auto
-                "
-            >
-                Select
+                to="/primary-builder">
+                <PreviewCard
+                    v-if="getSelectedPrimaryDetails"
+                    :equipment="getSelectedPrimaryDetails"
+                    :selected-mods="selectedPrimaryModIds"
+                    :selected-overclock-id="selectedPrimaryOverclockId"
+                />
+            </router-link>
+
+            <div class="text-center" v-if="!getSelectedPrimaryDetails">
+                <h2>Select a Primary</h2>
+                <RouterSelectButton routeTo="/primary-builder"/>
+            </div>
+        </div>
+
+        <div>
+
+            <router-link
+                to="/secondary-builder">
+                <PreviewCard
+                    v-if="getSelectedSecondaryDetails"
+                    :equipment="getSelectedSecondaryDetails"
+                    :selected-mods="selectedSecondaryModIds"
+                    :selected-overclock-id="selectedSecondaryOverclockId"
+                />
+            </router-link>
+
+            <div class="text-center" v-if="!getSelectedSecondaryDetails">
+                <h2>Select a Secondary</h2>
+                <RouterSelectButton routeTo="/secondary-builder"/>
+            </div>
+        </div>
+
+        <div v-for="equipment in loadoutClassEquipment" v-if="getSelectedEquipment">
+            <router-link
+                to="/equipment-builder">
+                <PreviewCard
+                    :equipment="equipment"
+                    :selected-mods="equipmentModIds"
+                />
             </router-link>
         </div>
 
-        <div class="flex flex-col">
-            <h2>Select a Secondary</h2>
-            <router-link
-                to="/secondary-builder"
-                class="
-                    inline-flex
-                    items-center
-                    text-center
-                    px-4
-                    py-2
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    shadow-sm
-                    text-white
-                    bg-orange-500
-                    hover:bg-orange-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-orange-500
-                    w-full
-                    md:w-auto
-                "
-            >
-                Select
-            </router-link>
-        </div>
-
-        <div class="flex flex-col">
+        <div class="text-center" v-if="!getSelectedEquipment">
             <h2>Select Equipment</h2>
-            <router-link
-                to="/equipment-builder"
-                class="
-                    inline-flex
-                    items-center
-                    text-center
-                    px-4
-                    py-2
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    shadow-sm
-                    text-white
-                    bg-orange-500
-                    hover:bg-orange-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-orange-500
-                    w-full
-                    md:w-auto
-                "
-            >
-                Select
-            </router-link>
+            <RouterSelectButton routeTo="/equipment-builder"/>
         </div>
+
     </div>
 </template>
 
 <script>
+import RouterSelectButton from "./RouterSelectButton";
+import PreviewCard from "./PreviewCard";
+import {mapGetters} from "vuex";
+
 export default {
     name: "SelectContainer",
+    components: {RouterSelectButton, PreviewCard},
 
     methods: {
         goBack() {
@@ -109,9 +74,18 @@ export default {
         },
     },
     computed: {
-      loadingStatus() {
-        return this.$store.getters.getLoadingStatus;
-      }
+        ...mapGetters([
+            'selectedPrimaryOverclockId',
+            'getSelectedPrimaryDetails',
+            'selectedPrimaryModIds',
+            'selectedSecondaryOverclockId',
+            'getSelectedSecondaryDetails',
+            'selectedSecondaryModIds',
+            'getLoadingStatus',
+            'loadoutClassEquipment',
+            'getSelectedEquipment',
+            'equipmentModIds'
+        ])
     },
 };
 </script>

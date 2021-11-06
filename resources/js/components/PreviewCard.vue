@@ -1,25 +1,23 @@
 <template>
-    <div class="equipmentCardContainer" v-on:click="navToBuildView()">
-        <h2 class="equipmentCardTitle">{{ getEquipmentName }}</h2>
-        <div class="flexboxWeaponSelect">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 180 90"
-                 class="equipmentIcon"
-                 height="90%"
-                 preserveAspectRatio="xMidYMid meet"
-                 v-html="getIconFromPath"></svg>
+    <div class="equipmentCardContainer">
+        <h3 class="equipmentCardTitle">{{ equipment.name }}</h3>
+        <div>
+            <img
+                class="w-24 p-4 filter invert"
+                :src="`/assets/${icon}.svg`" :alt="`${equipment.name} icon`"/>
         </div>
+
         <div class="modMatrixContainer">
-            <div v-for="(tier, tierId) in getModMatrix" :key="tierId" class="modMatrixRow">
+            <div v-for="(tier, tierId) in modMatrix" :key="tierId" class="modMatrixRow">
                 <div v-for="(mod, modId) in tier" :key="modId" class="mod" v-tooltip="{
-                  content: mod ? getModMatrixTooltipContent(mod) : null,
+                  content: mod ? getModTooltip(mod) : null,
                   placement: 'right',
                   trigger: 'hover'
                 }">
                     <svg viewBox="0 0 80 50"
                          height="100%"
                          role="img"
-                         :class="[mod ? 'modActive' : 'modInactive']"
+                         :class="[isActiveMod(mod) ? 'modActive' : 'modInactive']"
                     >
                         <title>{{ mod.mod_name }}</title>
                         <desc>{{ mod.text_description }}</desc>
@@ -28,12 +26,12 @@
                     </svg>
                 </div>
             </div>
-            <div class="overclockContainer" v-if="getOverclockData" v-tooltip="{
-                  content: getOverclockData ? getOverclockTooltipContent : null,
+            <div class="overclockContainer mt-2 text-center" v-if="selectedOverclockId" v-tooltip="{
+                  content: getOverclockTooltip(overclock),
                   placement: 'right',
                   trigger: 'hover'
                 }">
-                <svg v-if="isCleanOverclock" viewBox="0 0 80 80"
+                <svg v-if="overclock.overclock_type === 'Clean'" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
                     <title>{{ overclock.overclock_name }}</title>
@@ -52,7 +50,7 @@
                         </g>
                     </g>
                 </svg>
-                <svg v-if="isBalancedOverclock" viewBox="0 0 80 80"
+                <svg v-if="overclock.overclock_type === 'Balanced'" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
                     <title>{{ overclock.overclock_name }}</title>
@@ -71,7 +69,7 @@
                         </g>
                     </g>
                 </svg>
-                <svg v-if="isUnstableOverclock" viewBox="0 0 80 80"
+                <svg v-if="overclock.overclock_type === 'Unstable'" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
                     <title>{{ overclock.overclock_name }}</title>
@@ -90,99 +88,58 @@
                         </g>
                     </g>
                 </svg>
-                <h3 class="overclockName">{{ getOverclockData.overclock_name }}</h3>
             </div>
         </div>
-<!--        <div v-if="this.equipmentType =='primary' || this.equipmentType =='secondary'" class="my-4 text-center">-->
-<!--            <a class="text-karl-orange underline text-sm" :href='"/asv/"+equipmentId+"/"+build'>-->
-<!--                Advanced Stats-->
-<!--            </a>-->
-<!--        </div>-->
     </div>
 </template>
 
 <script>
-import store from '../store';
+
+import _ from 'lodash';
 
 export default {
-    name: 'EquipmentCard',
+    name: "PreviewCard",
     props: {
-        build: String,
-        classId: String,
-        equipmentId: String,
-        equipmentName: String,
-        icon: String,
-        modMatrix: Array,
-        overclock: Object,
-        equipmentType: String
-    },
-    computed: {
-        getIconFromPath: function () {
-            return store.state.icons.equipment[this.icon];
-        },
-        getEquipmentName: function () {
-            return this.equipmentName;
-        },
-        getModMatrix: function () {
-            return this.modMatrix;
-        },
-        getOverclockData: function () {
-            if (!this.overclock) {
-                return;
-            }
-            return this.overclock;
-        },
-        isCleanOverclock: function () {
-            return this.getOverclockData.overclock_type === 'Clean';
-        },
-        isBalancedOverclock: function () {
-            return this.getOverclockData.overclock_type === 'Balanced';
-        },
-        isUnstableOverclock: function () {
-            return this.getOverclockData.overclock_type === 'Unstable';
-        }
+        equipment: Object,
+        selectedMods: Array,
+        selectedOverclockId: String
     },
     methods: {
-        navToBuildView() {
-            // todo: nav to build view with {classID: this.classId, equipmentId: this.equipmentId}?
-        },
-        getCleanDisplayByOverclock: function (overclock) {
-            return overclock.type === 'Clean' ? 'inherit' : 'none';
-        },
-        getBalancedDisplayByOverclock: function (overclock) {
-            return overclock.type === 'Balanced' ? 'inherit' : 'none';
-        },
-        getUnstableDisplayByOverclock: function (overclock) {
-            return overclock.type === 'Unstable' ? 'inherit' : 'none';
-        },
-        getModMatrixTooltipContent: function (mod) {
+        getModTooltip(mod) {
             let description = mod.description ? mod.description : mod.text_description;
             return `<h3>${mod.mod_name}</h3><br><span>${description}</span>`;
         },
-        getOverclockTooltipContent: function () {
-            return `<h3>${this.overclock.overclock_type}</h3><br><span>${this.overclock.text_description}</span>`;
+        getOverclockTooltip(oc) {
+            if (!oc) {
+                return null;
+            }
+            return `<h3>${oc.overclock_type}</h3><br><span>${oc.text_description}</span>`;
         },
-        getClassIntId: function (classId) {
-            switch (classId) {
-                case 'E':
-                    return 1;
-                    break;
-                case 'S':
-                    return 2;
-                    break;
-                case 'D':
-                    return 3;
-                    break;
-                case 'G':
-                    return 4;
-                    break;
-
-                default:
-                    break;
+        isActiveMod(mod) {
+            if (this.equipment.__typename === "Equipment") {
+                return this.selectedMods.includes(mod.id);
+            } else {
+                return this.selectedMods.map(m => m.selectedModId).includes(mod.id);
             }
         }
+    },
+    computed: {
+        icon() {
+            return this.equipment.icon ?? this.equipment.image;
+        },
+        modMatrix() {
+            // TODO: combine this behavior by renaming fields
+            if (this.equipment.__typename === "Equipment") {
+                return _.groupBy(this.equipment.equipment_mods, 'mod_tier');
+            } else {
+                return _.groupBy(this.equipment.mods, 'mod_tier');
+            }
+        },
+        overclock() {
+            return this.equipment.overclocks.find(o => o.id === this.selectedOverclockId);
+        },
     }
-};
+}
 </script>
 
 <style scoped>
@@ -191,6 +148,7 @@ export default {
     flex-direction: column;
     flex-wrap: nowrap;
     width: 10rem;
+    align-items: center;
 }
 
 .equipmentCardTitle {
@@ -199,27 +157,8 @@ export default {
     text-overflow: ellipsis;
 }
 
-.flexboxWeaponSelect {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 4rem;
-}
-
-.equipmentIcon {
-    fill: #ada195;
-}
-
-.flexboxWeaponSelect > svg {
-    margin: 0.5rem;
-}
-
 .overclockContainer {
     display: flex;
-}
-
-.overclockName {
-    margin-left: 0.4rem;
 }
 
 .modMatrixContainer {
@@ -234,7 +173,7 @@ export default {
     height: 1rem;
     width: 6rem;
     margin-bottom: 0.3rem;
-    /*justify-content: start;*/
+    justify-content: center;
     /*align-items: center;*/
 }
 
@@ -256,5 +195,4 @@ export default {
     fill: transparent;
     stroke-width: 5px;
 }
-
 </style>
