@@ -46,63 +46,63 @@
             :adaptive="true"
             :height="250"
         >
-        <div class="mx-auto">
-            {{ messageTitle }} <br />
-            {{ messageText }}
-            <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
-            <div
-                class="
-                    mt-4
-                    inline-flex
-                    items-center
-                    text-center
-                    px-4
-                    py-2
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    shadow-sm
-                    text-white
-                    bg-orange-500
-                    hover:bg-orange-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-orange-500
-                    w-full
-                    md:w-auto
-                "
-                v-on:click="onGuestSave"
-            >
-               SAVE AS GUEST
-            </div>
-            <div
-                class="
-                    inline-flex
-                    items-center
-                    text-center
-                    px-4
-                    py-2
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    shadow-sm
-                    text-white
-                    bg-orange-500
-                    hover:bg-orange-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-orange-500
-                    w-full
-                    md:w-auto
-                "
-                v-on:click="onCloseMessageModal"
-            >
-                CLOSE
-            </div>
+            <div class="mx-auto">
+                {{ messageTitle }} <br />
+                {{ messageText }}
+                <!-- todo: buttons for save anonymously / log in / cancel / ...? -->
+                <div
+                    class="
+                        mt-4
+                        inline-flex
+                        items-center
+                        text-center
+                        px-4
+                        py-2
+                        border border-transparent
+                        text-sm
+                        font-medium
+                        rounded-md
+                        shadow-sm
+                        text-white
+                        bg-orange-500
+                        hover:bg-orange-700
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-offset-2
+                        focus:ring-orange-500
+                        w-full
+                        md:w-auto
+                    "
+                    v-on:click="onGuestSave"
+                >
+                    SAVE AS GUEST
+                </div>
+                <div
+                    class="
+                        inline-flex
+                        items-center
+                        text-center
+                        px-4
+                        py-2
+                        border border-transparent
+                        text-sm
+                        font-medium
+                        rounded-md
+                        shadow-sm
+                        text-white
+                        bg-orange-500
+                        hover:bg-orange-700
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-offset-2
+                        focus:ring-orange-500
+                        w-full
+                        md:w-auto
+                    "
+                    v-on:click="onCloseMessageModal"
+                >
+                    CLOSE
+                </div>
             </div>
         </modal>
     </div>
@@ -118,7 +118,50 @@ export default {
             update: false,
         };
     },
+    created() {
+        // TODO: Find a more stable way to get LoadoutId...
+        // This just grabs the id from /build/{id}
+        // Could easily be fudged?
+        let path = window.location.pathname.split("/");
+        let loadoutId = path[path.length - 1];
+        if (loadoutId !== "build") {
+            // we are editing a build
+            this.onLoadHydrate(loadoutId);
+            this.update = true;
+        }
+    },
     methods: {
+        async onLoadHydrate(loadoutEditingId) {
+            // //let's just query the DB to get our loadout details when we edit a loadout
+            // const response = this.$apollo
+            //     .query({
+            //         query: gql`query {
+            //           loadout(id: ${loadoutEditingId}) {
+            //                     id
+            //                     name
+            //                     description
+            //                     creator {
+            //                         id
+            //                     }
+            //                 }
+            //        }`,
+            //     })
+            //     .then((response) => {
+            //         let hydrateData = response.data.loadout;
+            //         console.log(hydrateData);
+            //     });
+
+            const response = await this.$store
+                .dispatch("getLoadoutData", loadoutEditingId)
+                .then((result) => {
+                    console.log(result);
+                    // dispatch the store hydrator here
+                    this.$store.dispatch('hydrateLoadoutEditData', result);
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        },
         onSaveClick() {
             let loggedInStatus = this.getIsLoggedIn();
             console.log(loggedInStatus);
@@ -158,7 +201,7 @@ export default {
                 // create fresh loadout
                 let loadoutReturn = await this.$store
                     .dispatch("saveLoadout")
-                    .then(result => {
+                    .then((result) => {
                         // Get the new loadout id
                         let redirId = result.data.createLoadout.id;
                         this.$modal.hide("loadingModal");
