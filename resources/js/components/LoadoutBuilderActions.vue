@@ -127,7 +127,7 @@ export default {
         if (loadoutId !== "build") {
             // we are editing a build
             this.onLoadHydrate(loadoutId);
-            this.update = true;
+            
         }
     },
     methods: {
