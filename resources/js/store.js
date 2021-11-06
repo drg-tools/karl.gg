@@ -389,6 +389,7 @@ export default new Vuex.Store({
             //       I think frontend icon isn't leveraging global state?
             dispatch('setSelectedClass', loadoutData.character.id);
 
+            // TODO: Need to do some if checks on anything except name & calass select
             console.log('loadoutName');
             console.log(loadoutData.name);
             commit('setLoadoutName', loadoutData.name);
@@ -408,12 +409,11 @@ export default new Vuex.Store({
             commit('setSelectedPrimary', primaryGunMods[0].gun.id);
             
             
-            
-            
+        
 
             console.log('selectedPrimaryMods');
-            // Flatten the array to just ID's
-            primaryGunMods = primaryGunMods.map(mod => mod.id);
+            // Map our mod array to the object structure needed by mod matrix
+            primaryGunMods = primaryGunMods.map(mod => ({selectedModId: mod.id, selectedModTier: mod.mod_tier}));
             commit('setAllSelectedPrimaryMods', primaryGunMods);
 
 
@@ -425,9 +425,9 @@ export default new Vuex.Store({
             
 
             console.log('selectedSecondaryMods');
-            secondaryGunMods = secondaryGunMods.map(mod => mod.id);
+            secondaryGunMods = secondaryGunMods.map(mod => ({selectedModId: mod.id, selectedModTier: mod.mod_tier}));
             console.log(secondaryGunMods);
-            commit('setSelectedSecondaryMod', secondaryGunMods);
+            commit('setAllSelectedSecondaryMods', secondaryGunMods);
 
             
 
@@ -450,17 +450,22 @@ export default new Vuex.Store({
             
 
 
-            let selectedEquipmentIds = [];
+            let selectedEquipmentId = '';
             let selectedEquipmentMods = [];
             
             // Map the equipment_mods by their equipment ID's to quickly grab that
-            selectedEquipmentIds = loadoutData.equipment_mods.map(mod => mod.equipment.id);
+            // NOTE: This ends up with a bunch of duplicate keys because of how we map
+            selectedEquipmentId = loadoutData.equipment_mods.map(mod => mod.equipment.id);
+            // Pull the first equipment ID and set it as selected
+            selectedEquipmentId = selectedEquipmentId[0];
+            
 
-            selectedEquipmentMods = loadoutData.equipment_mods.map(mod => mod.id);
+            selectedEquipmentMods = loadoutData.equipment_mods.map(mod =>  mod.id);
+
 
             console.log('equipment selected');
-            console.log(selectedEquipmentIds);
-            commit('setSelectedEquipment', selectedEquipmentIds);
+            console.log(selectedEquipmentId);
+            commit('setSelectedEquipment', selectedEquipmentId);
             
 
             console.log('equipment mods selected');
