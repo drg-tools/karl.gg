@@ -11,7 +11,7 @@
       <div
         v-on:click="setSelectedClass(3)"
         class="classSelect px-4 py-2"
-        v-bind:class="[getSelectedClass() === 3 ? 'classSelectActive' : '']"
+        v-bind:class="[getSelectedClass() == 3 ? 'classSelectActive' : '']"
         v-bind:key="3"
       >
         <img src="/assets/img/50px-D_icon-hex.png" class="classIcon" />
@@ -20,7 +20,7 @@
       <div
         v-on:click="setSelectedClass(1)"
         class="classSelect px-4 py-2"
-        v-bind:class="[getSelectedClass() === 1 ? 'classSelectActive' : '']"
+        v-bind:class="[getSelectedClass() == 1 ? 'classSelectActive' : '']"
         v-bind:key="1"
       >
         <img src="/assets/img/50px-E_icon-hex.png" class="classIcon" />
@@ -29,7 +29,7 @@
       <div
         v-on:click="setSelectedClass(4)"
         class="classSelect px-4 py-2"
-        v-bind:class="[getSelectedClass() === 4 ? 'classSelectActive' : '']"
+        v-bind:class="[getSelectedClass() == 4 ? 'classSelectActive' : '']"
         v-bind:key="4"
       >
         <img src="/assets/img/50px-G_icon-hex.png" class="classIcon" />
@@ -38,7 +38,7 @@
       <div
         v-on:click="setSelectedClass(2)"
         class="classSelect px-4 py-2"
-        v-bind:class="[getSelectedClass() === 2 ? 'classSelectActive' : '']"
+        v-bind:class="[getSelectedClass() == 2 ? 'classSelectActive' : '']"
         v-bind:key="2"
       >
         <img src="/assets/img/50px-S_icon-hex.png" class="classIcon" />

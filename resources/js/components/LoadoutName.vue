@@ -31,7 +31,7 @@
 import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
-    name: "ClassSelect",
+    name: "LoadoutName",
     
     data() {
         return {
