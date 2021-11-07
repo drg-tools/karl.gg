@@ -366,20 +366,20 @@ export default new Vuex.Store({
             commit("setLoadoutName", loadoutData.name);
 
             console.log("loadoutDescription");
-            console.log(loadoutData.description);
-            commit("setLoadoutDescription", loadoutData.description);
+            console.log(loadoutData?.description);
+            commit("setLoadoutDescription", loadoutData?.description);
 
-            let primaryGunMods = loadoutData.mods.filter(
+            let primaryGunMods = loadoutData?.mods.filter(
                 (mod) => mod.gun.character_slot == 1
             );
-            let secondaryGunMods = loadoutData.mods.filter(
+            let secondaryGunMods = loadoutData?.mods.filter(
                 (mod) => mod.gun.character_slot == 2
             );
             console.log("selectedPrimary");
             // As long as the pgm array is filtered correctly, this will always work.
             // Just take the first mod and pull the gun ID
-            console.log(primaryGunMods[0].gun.id);
-            commit("setSelectedPrimary", primaryGunMods[0].gun.id);
+            console.log(primaryGunMods[0]?.gun?.id);
+            commit("setSelectedPrimary", primaryGunMods[0]?.gun?.id);
 
             console.log("selectedPrimaryMods");
             // Map our mod array to the object structure needed by mod matrix
@@ -391,8 +391,8 @@ export default new Vuex.Store({
 
             console.log(primaryGunMods);
             console.log("selectedSecondary");
-            console.log(secondaryGunMods[0].gun.id);
-            commit("setSelectedSecondary", secondaryGunMods[0].gun.id);
+            console.log(secondaryGunMods[0]?.gun?.id);
+            commit("setSelectedSecondary", secondaryGunMods[0]?.gun?.id);
 
             console.log("selectedSecondaryMods");
             secondaryGunMods = secondaryGunMods.map((mod) => ({
@@ -413,17 +413,17 @@ export default new Vuex.Store({
             );
 
             console.log("selectedPrimaryOverclock");
-            console.log(selectedPrimaryOverclock[0].id);
+            console.log(selectedPrimaryOverclock[0]?.id);
             commit(
                 "setSelectedPrimaryOverclock",
-                selectedPrimaryOverclock[0].id
+                selectedPrimaryOverclock[0]?.id
             );
 
             console.log("selectedSecondaryOverclock");
-            console.log(selectedSecondaryOverclock[0].id);
+            console.log(selectedSecondaryOverclock[0]?.id);
             commit(
                 "setSelectedSecondaryOverclock",
-                selectedSecondaryOverclock[0].id
+                selectedSecondaryOverclock[0]?.id
             );
 
             let selectedEquipmentId = "";
@@ -431,13 +431,13 @@ export default new Vuex.Store({
 
             // Map the equipment_mods by their equipment ID's to quickly grab that
             // NOTE: This ends up with a bunch of duplicate keys because of how we map
-            selectedEquipmentId = loadoutData.equipment_mods.map(
+            selectedEquipmentId = loadoutData?.equipment_mods.map(
                 (mod) => mod.equipment.id
             );
             // Pull the first equipment ID and set it as selected
             selectedEquipmentId = selectedEquipmentId[0];
 
-            selectedEquipmentMods = loadoutData.equipment_mods.map(
+            selectedEquipmentMods = loadoutData?.equipment_mods.map(
                 (mod) => mod.id
             );
 
@@ -535,7 +535,7 @@ export default new Vuex.Store({
                 });
             }
         },
-        
+
         setSelectedEquipment({ commit }, selected) {
             commit("clearSelectedEquipment");
             commit("setSelectedEquipment", selected);
@@ -565,6 +565,9 @@ export default new Vuex.Store({
         },
         isLoggedIn: (state) => {
             return state.user !== null;
+        },
+        getLoggedInUserId: (state) => {
+            return state.user?.id;
         },
         loadoutClassSecondaries: (state) => {
             return state.loadoutClassData?.guns?.filter(

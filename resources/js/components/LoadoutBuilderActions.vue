@@ -116,6 +116,7 @@ export default {
             messageTitle: "",
             messageText: "",
             update: false,
+            loadoutCreatorId: "",
         };
     },
     created() {
@@ -127,36 +128,17 @@ export default {
         if (loadoutId !== "build") {
             // we are editing a build
             this.onLoadHydrate(loadoutId);
-            
         }
     },
     methods: {
         async onLoadHydrate(loadoutEditingId) {
-            // //let's just query the DB to get our loadout details when we edit a loadout
-            // const response = this.$apollo
-            //     .query({
-            //         query: gql`query {
-            //           loadout(id: ${loadoutEditingId}) {
-            //                     id
-            //                     name
-            //                     description
-            //                     creator {
-            //                         id
-            //                     }
-            //                 }
-            //        }`,
-            //     })
-            //     .then((response) => {
-            //         let hydrateData = response.data.loadout;
-            //         console.log(hydrateData);
-            //     });
-
             const response = await this.$store
                 .dispatch("getLoadoutData", loadoutEditingId)
                 .then((result) => {
+                    console.log('initial loadout editing');
                     console.log(result);
                     // dispatch the store hydrator here
-                    this.$store.dispatch('hydrateLoadoutEditData', result);
+                    this.$store.dispatch("hydrateLoadoutEditData", result);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -218,6 +200,9 @@ export default {
         },
         getIsLoggedIn() {
             return this.$store.getters.isLoggedIn;
+        },
+        getLoggedInUserId() {
+            return this.$store.getters.getLoggedInUserId;
         },
     },
 };
