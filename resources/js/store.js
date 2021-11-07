@@ -50,20 +50,6 @@ export default new Vuex.Store({
         selectedSecondary: "",
         selectedSecondaryMods: [],
         selectedSecondaryOverclock: "",
-        // TODO: Need to potentially rework the selected equipment methodology
-        //          This won't work with how the frontend is doing it
-        //          Plus, we need to be able to save multiple equipments at the same time
-        //          The existing methodology only allows for one at a time, which makes sense for primary and secondary
-
-        // Maybe do a 'currentlySelectedEquipment' and and then manage the rest like this
-        // currentlySelectedEquipment: '',
-        // selectedEquipment1: '',
-        // selectedEquipment1Mods: [],
-        // selectedEquipment2: '',
-        // selectedEquipment2Mods: [],
-        // selectedEquipment3: '',
-        // selectedEquipment3Mods: [],
-
         selectedEquipment: "",
         selectedEquipmentMods: [],
     },
@@ -149,48 +135,6 @@ export default new Vuex.Store({
         },
         clearSelectedSecondaryOverclock(state) {
             state.selectedSecondaryOverclock = "";
-        },
-        setSelectedEquipment1(state, newValue) {
-            state.selectedEquipment1 = newValue;
-        },
-        clearSelectedEquipment1(state) {
-            state.selectedEquipment1 = "";
-        },
-        setSelectedEquipment1Mod(state, newValue) {
-            state.selectedEquipment1Mods.push(newValue);
-        },
-        clearSelectedEquipment1Mod(state, modTier) {
-            state.selectedEquipment1Mods = state.selectedEquipment1Mods.filter(
-                (mod) => mod.selectedModTier !== modTier
-            );
-        },
-        setSelectedEquipment2(state, newValue) {
-            state.selectedEquipment2 = newValue;
-        },
-        clearSelectedEquipment2(state) {
-            state.selectedEquipment2 = "";
-        },
-        setSelectedEquipment2Mod(state, newValue) {
-            state.selectedEquipment2Mods.push(newValue);
-        },
-        clearSelectedEquipment2Mod(state, modTier) {
-            state.selectedEquipment1Mods = state.selectedEquipment1Mods.filter(
-                (mod) => mod.selectedModTier !== modTier
-            );
-        },
-        setSelectedEquipment3(state, newValue) {
-            state.selectedEquipment3 = newValue;
-        },
-        clearSelectedEquipment3(state) {
-            state.selectedEquipment3 = "";
-        },
-        setSelectedEquipment3Mod(state, newValue) {
-            state.selectedEquipment3Mods.push(newValue);
-        },
-        clearSelectedEquipment3Mod(state, modTier) {
-            state.selectedEquipment3Mods = state.selectedEquipment1Mods.filter(
-                (mod) => mod.selectedModTier !== modTier
-            );
         },
         setSelectedEquipment(state, newValue) {
             state.selectedEquipment = newValue;
