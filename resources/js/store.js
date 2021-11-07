@@ -155,7 +155,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async saveLoadout({ state, commit, dispatch }) {
+        async saveLoadout({ state, commit, dispatch }, updateId) {
             if (state.loadoutName === "") {
                 // loadout name can't be null
                 // TODO: return a more meaningful message
@@ -198,18 +198,40 @@ export default new Vuex.Store({
             combinedEquipmentModArray = combinedEquipmentModArray.map(Number);
 
             // Here's what we need to save
-            let variables = {
-                name: state.loadoutName,
-                description: state.loadoutDescription,
-                character_id: state.selectedClass,
-                mods: combinedModIdArray,
-                overclocks: combinedOverClockIdArray,
-                equipment_mods: combinedEquipmentModArray,
-                throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
-            };
-
+            let variables = '';
+            let loadoutData = '';
             // This is where we actually save the loadout
-            let loadoutData = await dispatch("createLoadout", variables);
+            if(updateId) {
+                // updating a loadout
+                console.log('updated id ');
+                console.log(updateId);
+                variables = {
+                    id: parseInt(updateId),
+                    name: state.loadoutName,
+                    description: state.loadoutDescription,
+                    character_id: parseInt(state.selectedClass),
+                    mods: combinedModIdArray,
+                    overclocks: combinedOverClockIdArray,
+                    equipment_mods: combinedEquipmentModArray,
+                    throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
+                };
+                console.log('edit vars');
+                console.log(variables);
+                loadoutData = await dispatch("updateLoadout", variables);
+            } else {
+                // creating a new loadout
+                variables = {
+                    name: state.loadoutName,
+                    description: state.loadoutDescription,
+                    character_id: state.selectedClass,
+                    mods: combinedModIdArray,
+                    overclocks: combinedOverClockIdArray,
+                    equipment_mods: combinedEquipmentModArray,
+                    throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
+                };
+                loadoutData = await dispatch("createLoadout", variables);
+
+            }
             console.log(loadoutData);
             return loadoutData;
         },
@@ -257,9 +279,11 @@ export default new Vuex.Store({
             });
             return result;
         },
-        updateLoadout(params) {
+        async updateLoadout({state}, params) {
+            console.log('edit params');
+            console.log(params);
             let variables = {
-                id: parseInt(params.loadout_id),
+                id: parseInt(params.id),
                 name: params.name,
                 description: params.description,
                 character_id: params.character_id,
@@ -301,15 +325,8 @@ export default new Vuex.Store({
                 `,
                 // Parameters
                 variables: variables,
-            })
-                .then((result) => {
-                    console.log("result of loadout UPDATE");
-                    console.log(result);
-                    return result;
-                })
-                .catch((err) => {
-                    throw err;
-                });
+            });
+            return result;
         },
         getClassData({ state }, classId) {
             // Parsing a response

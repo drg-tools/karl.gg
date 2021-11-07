@@ -93,6 +93,7 @@ export default {
     data: function () {
         return {
             costObject: "",
+            unsubscribe: ""
         };
     },
     created() {
@@ -111,9 +112,6 @@ export default {
                 this.computeSumOfCost();
             }
         });
-    },
-    beforeDestroy() {
-        this.unsubscribe();
     },
     methods: {
         computeSumOfCost() {

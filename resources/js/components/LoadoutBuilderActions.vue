@@ -116,7 +116,7 @@ export default {
             messageTitle: "",
             messageText: "",
             update: false,
-            loadoutCreatorId: "",
+            updateId: ""
         };
     },
     created() {
@@ -128,6 +128,7 @@ export default {
         if (loadoutId !== "build") {
             // we are editing a build
             this.onLoadHydrate(loadoutId);
+            this.loadoutCreatorId
         }
     },
     methods: {
@@ -137,6 +138,16 @@ export default {
                 .then((result) => {
                     console.log('initial loadout editing');
                     console.log(result);
+                    if(result.creator != null) {
+                        // loadout has creator id
+                        console.log('checking creator');
+                        if(result.creator.id == this.getLoggedInUserId()) {
+                            this.update = true;
+                            this.updateId = result.id;
+                            console.log(this.updateId);                        
+                            console.log('update is true now');
+                        }
+                    }
                     // dispatch the store hydrator here
                     this.$store.dispatch("hydrateLoadoutEditData", result);
                 })
@@ -165,6 +176,22 @@ export default {
         },
         async onAcceptSave() {
             if (this.update) {
+                console.log('update logic fired');
+                console.log('you will be updatating a loadout');
+                console.log('this.updateId for updating mutation');
+                console.log(this.updateId);
+                let loadoutReturn = await this.$store
+                    .dispatch("saveLoadout", this.updateId) // send additional attributes to signify edit
+                    .then((result) => {
+                        // Get the new loadout id
+                        let redirId = result.data.updateLoadout.id;
+                        this.$modal.hide("loadingModal");
+                        window.location.href = `/preview/${redirId}`;
+                    })
+                    .catch((e) => {
+                        this.$modal.hide("loadingModal");
+                        console.log(e);
+                });
                 // current user created the loadout, so let him update it instead of creating a new one
                 // this.updateLoadout(loadoutData)
                 //     .then(result => {
@@ -182,7 +209,7 @@ export default {
             } else {
                 // create fresh loadout
                 let loadoutReturn = await this.$store
-                    .dispatch("saveLoadout")
+                    .dispatch("saveLoadout", false)
                     .then((result) => {
                         // Get the new loadout id
                         let redirId = result.data.createLoadout.id;
@@ -202,6 +229,8 @@ export default {
             return this.$store.getters.isLoggedIn;
         },
         getLoggedInUserId() {
+            console.log('this.$store.getters.getLoggedInUserId');
+            console.log(this.$store.getters.getLoggedInUserId);
             return this.$store.getters.getLoggedInUserId;
         },
     },

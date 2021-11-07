@@ -15,6 +15,7 @@
                 mb-2
             "
             v-model="name"
+            v-on:input="debounceInput"
             placeholder="Karl's amazing loadout"
         />
 
@@ -32,20 +33,19 @@ import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
     name: "LoadoutName",
-    
+
     data() {
         return {
             name: "",
+            unsubscribe: "",
         };
     },
     created() {
         this.unsubscribe = this.$store.subscribe((mutation, state) => {
             // TODO: make this handle equipment as well as primary and secondary
-            if (
-                mutation.type === "setLoadoutName"
-            ) {
+            if (mutation.type === "setLoadoutName") {
                 console.log(`Updating loadoutname`);
-                this.name = this.$store.state.loadoutName;
+                this.name = state.loadoutName;
             }
         });
     },
@@ -60,21 +60,10 @@ export default {
         },
     },
     methods: {
-        setName(value) {
-            this.name = value;
-            this.setLoadoutName(value); // Commit name to store when validating
-            this.$v.name.$touch();
-        },
-    },
-    computed: {
-        message: {
-            get() {
-                return this.$store.state.loadoutName;
-            },
-            set(value) {
-                this.$store.commit("setLoadoutName", value);
-            },
-        },
+        debounceInput: _.debounce(function (e) {
+            // this.name = e.target.value;
+            this.$store.commit("setLoadoutName",  e.target.value);
+        }, 500),
     },
 };
 </script>
