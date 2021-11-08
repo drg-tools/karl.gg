@@ -7,12 +7,14 @@
         <div>
             <router-link
                 to="/primary-builder">
-                <PreviewCard
-                    v-if="getSelectedPrimaryDetails"
-                    :equipment="getSelectedPrimaryDetails"
-                    :selected-mods="selectedPrimaryModIds"
-                    :selected-overclock-id="selectedPrimaryOverclockId"
-                />
+                <div class="border-transparent border-2 p-4 hover:border-karl-orange">
+                    <PreviewCard
+                        v-if="getSelectedPrimaryDetails"
+                        :equipment="getSelectedPrimaryDetails"
+                        :selected-mods="selectedPrimaryModIds"
+                        :selected-overclock-id="selectedPrimaryOverclockId"
+                    />
+                </div>
             </router-link>
 
             <div class="text-center" v-if="!getSelectedPrimaryDetails">
@@ -25,12 +27,14 @@
 
             <router-link
                 to="/secondary-builder">
-                <PreviewCard
-                    v-if="getSelectedSecondaryDetails"
-                    :equipment="getSelectedSecondaryDetails"
-                    :selected-mods="selectedSecondaryModIds"
-                    :selected-overclock-id="selectedSecondaryOverclockId"
-                />
+                <div class="border-transparent border-2 p-4 hover:border-karl-orange">
+                    <PreviewCard
+                        v-if="getSelectedSecondaryDetails"
+                        :equipment="getSelectedSecondaryDetails"
+                        :selected-mods="selectedSecondaryModIds"
+                        :selected-overclock-id="selectedSecondaryOverclockId"
+                    />
+                </div>
             </router-link>
 
             <div class="text-center" v-if="!getSelectedSecondaryDetails">
@@ -42,10 +46,12 @@
         <div v-for="equipment in loadoutClassEquipment" v-if="equipmentModIds.length > 0">
             <router-link
                 to="/equipment-builder">
-                <PreviewCard
-                    :equipment="equipment"
-                    :selected-mods="equipmentModIds"
-                />
+                <div class="border-transparent border-2 p-4 hover:border-karl-orange">
+                    <PreviewCard
+                        :equipment="equipment"
+                        :selected-mods="equipmentModIds"
+                    />
+                </div>
             </router-link>
         </div>
 
