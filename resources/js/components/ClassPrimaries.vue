@@ -40,19 +40,20 @@
         <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
         <div class="flex flex-col">
             <ModMatrix
-                v-if="this.$store.state.selectedPrimary != ''"
-                :itemId="this.$store.state.selectedPrimary"
+                v-if="getSelectedPrimary !== ''"
+                :itemId="getSelectedPrimary"
             />
             <OverclockSelect
+                v-if="getSelectedPrimary !== ''"
                 :primary="true"
-                v-if="this.$store.state.selectedPrimary != ''"
-                :weaponId="this.$store.state.selectedPrimary"
+                :overclocks="getSelectedPrimaryDetails.overclocks"
+                :selected-id="selectedPrimaryOverclockId"
             />
 
             <CreditsCalculator
                 v-if="
-                        this.$store.state.selectedPrimaryMods != [] ||
-                        this.$store.state.setSelectedPrimaryOverclock != ''
+                        selectedPrimaryModIds.length === 0 ||
+                        selectedPrimaryOverclockId !== ''
                     "
                 itemType="primary"
             />
@@ -79,7 +80,10 @@ export default {
     computed: {
         ...mapGetters([
             'loadoutClassPrimaries',
-            'getSelectedPrimary'
+            'getSelectedPrimary',
+            'selectedPrimaryOverclockId',
+            'getSelectedPrimaryDetails',
+            'selectedPrimaryModIds'
         ])
     }
 };

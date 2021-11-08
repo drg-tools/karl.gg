@@ -39,19 +39,20 @@
         <!-- TODO: hover tooltips instead of the icon holder at the bottom -->
         <div class="flex flex-col">
             <ModMatrix
-                v-if="this.$store.state.selectedSecondary != ''"
-                :itemId="this.$store.state.selectedSecondary"
+                v-if="getSelectedSecondary !== ''"
+                :itemId="getSelectedSecondary"
             />
             <OverclockSelect
+                v-if="getSelectedSecondary !== ''"
                 :primary="false"
-                v-if="this.$store.state.selectedSecondary != ''"
-                :weaponId="this.$store.state.selectedSecondary"
+                :overclocks="getSelectedSecondaryDetails.overclocks"
+                :selected-id="selectedSecondaryOverclockId"
             />
 
             <CreditsCalculator
                 v-if="
-                        this.$store.state.selectedSecondaryMods != [] ||
-                        this.$store.state.setSelectedSecondaryOverclock != ''
+                        selectedSecondaryModIds.length === 0 ||
+                        getSelectedSecondary !== ''
                     "
                 itemType="primary"
             />
@@ -77,7 +78,10 @@ export default {
     computed: {
         ...mapGetters([
             'loadoutClassSecondaries',
-            'getSelectedSecondary'
+            'getSelectedSecondary',
+            'getSelectedSecondaryDetails',
+            'selectedSecondaryModIds',
+            'selectedSecondaryOverclockId'
         ])
     }
 };

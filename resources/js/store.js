@@ -666,12 +666,8 @@ export default new Vuex.Store({
             return state.icons.default[iconName];
         },
         getOcDataByWeapon: (state) => (gunId) => {
-            let ocWeapon = state.loadoutClassData.guns.filter(
-                (gun) => gun.id === gunId
-            );
-            let ocData = ocWeapon[0].overclocks;
-
-            return ocData;
+            return state.loadoutClassData.guns.find((gun) => gun.id === gunId)
+                .overclocks;
         },
         getIsPrimaryModSelected: (state) => (modId) => {
             return (
