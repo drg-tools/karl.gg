@@ -198,12 +198,12 @@ export default new Vuex.Store({
             combinedEquipmentModArray = combinedEquipmentModArray.map(Number);
 
             // Here's what we need to save
-            let variables = '';
-            let loadoutData = '';
+            let variables = "";
+            let loadoutData = "";
             // This is where we actually save the loadout
-            if(updateId) {
+            if (updateId) {
                 // updating a loadout
-                console.log('updated id ');
+                console.log("updated id ");
                 console.log(updateId);
                 variables = {
                     id: parseInt(updateId),
@@ -215,7 +215,7 @@ export default new Vuex.Store({
                     equipment_mods: combinedEquipmentModArray,
                     throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
                 };
-                console.log('edit vars');
+                console.log("edit vars");
                 console.log(variables);
                 loadoutData = await dispatch("updateLoadout", variables);
             } else {
@@ -223,14 +223,13 @@ export default new Vuex.Store({
                 variables = {
                     name: state.loadoutName,
                     description: state.loadoutDescription,
-                    character_id: state.selectedClass,
+                    character_id: parseInt(state.selectedClass),
                     mods: combinedModIdArray,
                     overclocks: combinedOverClockIdArray,
                     equipment_mods: combinedEquipmentModArray,
                     throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
                 };
                 loadoutData = await dispatch("createLoadout", variables);
-
             }
             console.log(loadoutData);
             return loadoutData;
@@ -279,8 +278,8 @@ export default new Vuex.Store({
             });
             return result;
         },
-        async updateLoadout({state}, params) {
-            console.log('edit params');
+        async updateLoadout({ state }, params) {
+            console.log("edit params");
             console.log(params);
             let variables = {
                 id: parseInt(params.id),
