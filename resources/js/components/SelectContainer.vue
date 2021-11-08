@@ -10,9 +10,11 @@
                 <div class="border-transparent border-2 p-4 hover:border-karl-orange">
                     <PreviewCard
                         v-if="getSelectedPrimaryDetails"
-                        :equipment="getSelectedPrimaryDetails"
-                        :selected-mods="selectedPrimaryModIds"
-                        :selected-overclock-id="selectedPrimaryOverclockId"
+                        :name="getSelectedPrimaryDetails.name"
+                        :icon="getSelectedPrimaryDetails.image"
+                        :mods="getSelectedPrimaryDetails.mods"
+                        :selected-mods="selectedPrimaryModIds.map(m => m.selectedModId)"
+                        :overclock="getSelectedPrimaryDetails.overclocks.find(o => o.id === selectedPrimaryOverclockId)"
                     />
                 </div>
             </router-link>
@@ -30,9 +32,11 @@
                 <div class="border-transparent border-2 p-4 hover:border-karl-orange">
                     <PreviewCard
                         v-if="getSelectedSecondaryDetails"
-                        :equipment="getSelectedSecondaryDetails"
-                        :selected-mods="selectedSecondaryModIds"
-                        :selected-overclock-id="selectedSecondaryOverclockId"
+                        :name="getSelectedSecondaryDetails.name"
+                        :icon="getSelectedSecondaryDetails.image"
+                        :mods="getSelectedSecondaryDetails.mods"
+                        :selected-mods="selectedSecondaryModIds.map(m => m.selectedModId)"
+                        :overclock="getSelectedSecondaryDetails.overclocks.find(o => o.id === selectedSecondaryOverclockId)"
                     />
                 </div>
             </router-link>
@@ -48,7 +52,9 @@
                 to="/equipment-builder">
                 <div class="border-transparent border-2 p-4 hover:border-karl-orange">
                     <PreviewCard
-                        :equipment="equipment"
+                        :name="equipment.name"
+                        :icon="equipment.icon"
+                        :mods="equipment.equipment_mods"
                         :selected-mods="equipmentModIds"
                     />
                 </div>

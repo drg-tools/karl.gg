@@ -1,10 +1,10 @@
 <template>
     <div class="equipmentCardContainer">
-        <h3 class="equipmentCardTitle">{{ equipment.name }}</h3>
+        <h3 class="equipmentCardTitle">{{ name }}</h3>
         <div>
             <img
                 class="w-24 p-4 filter invert"
-                :src="`/assets/${icon}.svg`" :alt="`${equipment.name} icon`"/>
+                :src="`/assets/${icon}.svg`" :alt="`${name} icon`"/>
         </div>
 
         <div class="modMatrixContainer">
@@ -100,9 +100,11 @@ import _ from 'lodash';
 export default {
     name: "PreviewCard",
     props: {
-        equipment: Object,
+        name: String,
+        icon: String,
+        mods: Array,
         selectedMods: Array,
-        selectedOverclockId: String
+        overclock: Object
     },
     methods: {
         getModTooltip(mod) {
@@ -116,27 +118,12 @@ export default {
             return `<h3>${oc.overclock_type}</h3><br><span>${oc.text_description}</span>`;
         },
         isActiveMod(mod) {
-            if (this.equipment.__typename === "Equipment") {
-                return this.selectedMods.includes(mod.id);
-            } else {
-                return this.selectedMods.map(m => m.selectedModId).includes(mod.id);
-            }
+            return this.selectedMods.includes(mod.id);
         }
     },
     computed: {
-        icon() {
-            return this.equipment.icon ?? this.equipment.image;
-        },
         modMatrix() {
-            // TODO: combine this behavior by renaming fields
-            if (this.equipment.__typename === "Equipment") {
-                return _.groupBy(this.equipment.equipment_mods, 'mod_tier');
-            } else {
-                return _.groupBy(this.equipment.mods, 'mod_tier');
-            }
-        },
-        overclock() {
-            return this.equipment.overclocks.find(o => o.id === this.selectedOverclockId);
+            return _.groupBy(this.mods, 'mod_tier');
         },
     }
 }
