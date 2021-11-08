@@ -4,7 +4,7 @@
         <p class="costList flex flex-wrap">
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="costObject.creditsCost > 0"
+                v-if="costObject && costObject.creditsCost > 0"
             >
                 <img
                     src="/assets/img/20px-Credit.png"
@@ -15,7 +15,7 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="costObject.bismorCost > 0"
+                v-if="costObject && costObject.bismorCost > 0"
             >
                 <img
                     src="/assets/img/Bismor_icon.png"
@@ -26,7 +26,7 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="costObject.croppaCost > 0"
+                v-if="costObject && costObject.croppaCost > 0"
             >
                 <img
                     src="/assets/img/Croppa_icon.png"
@@ -37,7 +37,7 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="costObject.enorCost > 0"
+                v-if="costObject && costObject.enorCost > 0"
             >
                 <img
                     src="/assets/img/Enor_pearl_icon.png"
@@ -48,7 +48,7 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="costObject.jadizCost > 0"
+                v-if="costObject && costObject.jadizCost > 0"
             >
                 <img
                     src="/assets/img/Jadiz_icon.png"
@@ -59,7 +59,7 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="costObject.magniteCost > 0"
+                v-if="costObject && costObject.magniteCost > 0"
             >
                 <img
                     src="/assets/img/Magnite_icon.png"
@@ -70,7 +70,7 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                v-if="costObject.umaniteCost > 0"
+                v-if="costObject && costObject.umaniteCost > 0"
             >
                 <img
                     src="/assets/img/Umanite_icon.png"
