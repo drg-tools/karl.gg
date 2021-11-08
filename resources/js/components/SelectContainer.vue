@@ -6,10 +6,10 @@
 
         <div>
             <router-link
+                v-if="getSelectedPrimaryDetails"
                 to="/primary-builder">
                 <div class="border-transparent border-2 p-4 hover:border-karl-orange">
                     <PreviewCard
-                        v-if="getSelectedPrimaryDetails"
                         :name="getSelectedPrimaryDetails.name"
                         :icon="getSelectedPrimaryDetails.image"
                         :mods="getSelectedPrimaryDetails.mods"
@@ -28,10 +28,10 @@
         <div>
 
             <router-link
+                v-if="getSelectedSecondaryDetails"
                 to="/secondary-builder">
                 <div class="border-transparent border-2 p-4 hover:border-karl-orange">
                     <PreviewCard
-                        v-if="getSelectedSecondaryDetails"
                         :name="getSelectedSecondaryDetails.name"
                         :icon="getSelectedSecondaryDetails.image"
                         :mods="getSelectedSecondaryDetails.mods"
