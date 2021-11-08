@@ -145,6 +145,9 @@ export default new Vuex.Store({
         setSelectedEquipmentMod(state, modId) {
             state.selectedEquipmentMods.push(modId);
         },
+        clearSelectedEquipmentMods(state) {
+            state.selectedEquipmentMods = [];
+        },
         setAllSelectedEquipmentMod(state, newValues) {
             state.selectedEquipmentMods = newValues;
         },
@@ -470,7 +473,16 @@ export default new Vuex.Store({
             commit("clearloadoutClassData");
             // also clear the previously selected data
             commit("clearSelectedPrimary");
-            // TODO: Clear all previously selected data on class swap
+            commit("clearAllSelectedPrimaryMods");
+            commit("clearSelectedPrimaryOverclock");
+
+            commit("clearSelectedSecondary");
+            commit("clearAllSelectedSecondaryMods");
+            commit("clearSelectedSecondaryOverclock");
+
+            commit("clearSelectedEquipment");
+            commit("clearSelectedEquipmentMods");
+
             // TODO: add a speed bump on the class selection if you have class data
 
             // TODO: Clear button to allow you to clear the whole current state
