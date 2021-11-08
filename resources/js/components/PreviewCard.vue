@@ -26,7 +26,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="overclockContainer mt-2 text-center" v-if="selectedOverclockId" v-tooltip="{
+            <div class="overclockContainer mt-2 text-center" v-if="overclock" v-tooltip="{
                   content: getOverclockTooltip(overclock),
                   placement: 'right',
                   trigger: 'hover'
