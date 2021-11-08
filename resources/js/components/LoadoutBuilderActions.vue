@@ -192,20 +192,7 @@ export default {
                         this.$modal.hide("loadingModal");
                         console.log(e);
                 });
-                // current user created the loadout, so let him update it instead of creating a new one
-                // this.updateLoadout(loadoutData)
-                //     .then(result => {
-                //         let redirId = result.data.updateLoadout.id;
-                //         this.$modal.hide('loadingModal');
-                //         window.location.href = `/preview/${redirId}`;
-                //     })
-                //     .catch(e => {
-                //         this.isError = true;
-                //         this.$modal.hide('loadingModal');
-                //         for (var key in e.graphQLErrors[0]?.extensions?.validation) {
-                //             this.errors.push(e.graphQLErrors[0].extensions.validation[key][0])
-                //         }
-                //     });
+                
             } else {
                 // create fresh loadout
                 let loadoutReturn = await this.$store

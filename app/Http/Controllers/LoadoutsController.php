@@ -45,6 +45,7 @@ class LoadoutsController extends Controller
     public function preview($id)
     {
         $loadout = Loadout::with('mods')
+            ->with('equipment_mods')
             ->findOrFail($id);
 
         $this->generateSeo($loadout);

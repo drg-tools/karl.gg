@@ -70,13 +70,6 @@
             dataReady() {
                 return store.state.loadoutDetailDataReady;
             },
-            loadoutDetails() {
-                // loadout details are getting loaded by LoadoutPreview component
-                return store.state.loadoutDetails;
-            },
-            getHeaderImageClass() {
-                return `image${this.loadoutDetails.classId}`;
-            },
             getUserVotedState() {
                 // show bosco in disabled state if user has not yet voted or is not able to vote
                 return this.loadoutDetails.userVoted ? '' : 'disabled';
@@ -140,6 +133,9 @@
                     console.warn('error on voting!', err);
                     throw(err);
                 }
+            },
+            async getUserVotedStatus() {
+                
             }
         },
         mounted: function () {
