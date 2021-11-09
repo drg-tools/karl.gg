@@ -54,10 +54,8 @@
 </template>
 
 <script>
-import store from '../store';
 import apolloQueries from '../apolloQueries';
 import gql from 'graphql-tag';
-import PreviewPageCard from './PreviewPageCard.vue';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import {Viewer} from '@toast-ui/vue-editor';
 import PreviewCard from "./PreviewCard";
@@ -87,7 +85,6 @@ export default {
         equipmentMods: Object,
     },
     components: {
-        PreviewPageCard,
         viewer: Viewer,
         PreviewCard
     },
@@ -115,39 +112,12 @@ export default {
             const response = await this.$apollo.query({
                 query: gql`${apolloQueries.loadoutDetails(loadoutId)}`
             });
-            /* todo: run these two queries in parallel */
-            let userVotedStatus = false;
-            try {
-                let getVoteStatus = await this.$apollo.query({
-                    query: gql`query getVoteStatus($id: Int!)
-                            {
-                                getVoteStatus(id: $id)
-                            }
-                            `,
-                    variables: {
-                        id: parseInt(loadoutId)
-                    }
-                });
-                // getVoteStatus
-                if (getVoteStatus.data.getVoteStatus === 1) {
-                    userVotedStatus = true;
-                }
-            } catch (e) {
-                console.warn('user not signed in, no voted status', e);
-            }
-            store.commit('setLoadoutDetails', {loadout: response.data.loadout, userVoted: userVotedStatus});
-
+            
 
         },
 
     },
     computed: {
-        dataReady() {
-            return store.state.loadoutDetailDataReady;
-        },
-        loadoutDetails() {
-            return store.state.loadoutDetails;
-        },
         selectedPrimaryMods: function () {
             return this.loadoutData.mods
                 .filter(mod => mod.gun_id === this.primary.id)
