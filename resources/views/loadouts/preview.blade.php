@@ -10,15 +10,8 @@
         <x-loadout-outdated :loadout="$loadout"></x-loadout-outdated>
         <x-preview-top 
             :loadout="$loadout"
-            :page-url="json_encode(Request::url())"
-            :updated-at="$loadout->updated_at" 
-            @if($loadout->creator)
-            :creator-id="$loadout->creator->id"
-            :creator-name="$loadout->creator->name"
-            @else
-            :creator-id="0"
-            ::creator-name="Anonymous"
-            @endif
+            :page-url="Request::url()"
+            :updated-at="$loadout->updated_at"
         >
         </x-preview-header>
         

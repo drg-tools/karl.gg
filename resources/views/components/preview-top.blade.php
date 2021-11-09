@@ -1,22 +1,35 @@
 <div>
     <div class="previewHeaderBackground text-gray-300">
         <div class="flex justify-between items-center">
-            <h2 class="p-4">by <a class="text-karl-orange" href="/profile/" . {{$creatorId}}>{{$creatorName}}</a> on
-                {{$updatedAt}}
+            @if($loadout->creator)
+            <h2 class="p-4">by <a class="text-karl-orange" href="/profile/" . {{$loadout->creator->id}}>{{$loadout->creator->name}}</a> on
+                {{ \Carbon\Carbon::parse($updatedAt)->format('d/m/Y')}}
             </h2>
-            {{-- <div class="flex">
-                <div class="button" v-on:click="onEditClick">
-                    <span class="buttonText" v-if="userOwnsLoadout">EDIT</span>
-                    <span class="buttonText" v-else>COPY</span>
-                </div>
-                <input type="hidden" v-model="this.pageUrl"/>
-                <div class="button"
-                     v-clipboard:copy="pageUrl"
-                     v-clipboard:success="onCopy"
-                     v-clipboard:error="onError">
-                    <h1 class="buttonText">SHARE</h1>
-                </div>
-            </div> --}}
+            @else
+            <h2 class="p-4">by <a class="text-karl-orange" href="/profile/0">Anonymous</a> on
+                {{ \Carbon\Carbon::parse($updatedAt)->format('Y-m-d')}}
+            </h2>
+            @endif
+            
+            <div class="flex">
+                <a class="inline-flex items-center text-center px-4 py-2 mr-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 w-full md:w-auto"
+                    href="/build/{{$loadout->id}}" >
+                    @auth
+                        @if(Auth::user()->id === $loadout->creator->id)
+                            EDIT
+                        @endif
+                    @endauth
+                    @guest
+                        COPY
+                    @endguest
+                </a>
+                
+                <!-- Trigger -->
+                <button class="clip-btn inline-flex items-center text-center px-4 py-2 mr-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 w-full md:w-auto" data-clipboard-text="{{$pageUrl}}">
+                    SHARE
+                </button>
+                
+            </div>
             <!-- todo: use texts from old karl and style toast messages -->
         </div>
         {{-- <div class="previewHeaderContainer p-4" :class="getHeaderImageClass">
@@ -33,3 +46,20 @@
        
     </div>
 </div>
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+<script type="text/javascript">
+var clipboard = new ClipboardJS('.clip-btn');
+
+clipboard.on('success', function(e) {
+    // we should show a quick alert here
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
+
+    e.clearSelection();
+});
+
+</script>
+@endsection
