@@ -10,9 +10,7 @@
         <x-loadout-outdated :loadout="$loadout"></x-loadout-outdated>
         <x-preview-top 
             :loadout="$loadout"
-            :page-url="Request::url()"
-        >
-        </x-preview-header>
+        />
         
         <loadout-preview-page
             :loadout-data="{{ $loadout }}"

@@ -51,9 +51,11 @@ import VPopover from 'vue-js-popover';
 import VTooltip from 'v-tooltip';
 import VModal from 'vue-js-modal';
 import VueApollo from 'vue-apollo';
+import VueClipboard from 'vue-clipboard2';
 import Vuelidate from 'vuelidate';
 import VueRouter from 'vue-router'
 
+Vue.use(VueClipboard);
 Vue.config.productionTip = false;
 Vue.use(Toasted);
 Vue.use(VModal);

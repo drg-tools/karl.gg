@@ -2,7 +2,7 @@
     <div class="previewHeaderBackground text-gray-300">
         <div class="flex justify-between items-center">
             @if($loadout->creator)
-            <h2 class="p-4">by <a class="text-karl-orange" href="/profile/" . {{$loadout->creator->id}}>{{$loadout->creator->name}}</a> on
+            <h2 class="p-4">by <a class="text-karl-orange" href="/profile/{{$loadout->creator->id}}">{{$loadout->creator->name}}</a> on
                 {{ \Carbon\Carbon::parse($loadout->updated_at)->format('d/m/Y')}}
             </h2>
             @else
@@ -25,9 +25,7 @@
                 </a>
                 
                 <!-- Trigger -->
-                <button class="clip-btn inline-flex items-center text-center px-4 py-2 mr-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 w-full md:w-auto" data-clipboard-text="{{$pageUrl}}">
-                    SHARE
-                </button>
+                <share-button :page-url="{{json_encode(Request::url())}}" />
                 
             </div>
             <!-- todo: use texts from old karl and style toast messages -->
