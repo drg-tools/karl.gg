@@ -11,7 +11,6 @@
         <x-preview-top 
             :loadout="$loadout"
             :page-url="Request::url()"
-            :updated-at="$loadout->updated_at"
         >
         </x-preview-header>
         

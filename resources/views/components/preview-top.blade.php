@@ -3,11 +3,11 @@
         <div class="flex justify-between items-center">
             @if($loadout->creator)
             <h2 class="p-4">by <a class="text-karl-orange" href="/profile/" . {{$loadout->creator->id}}>{{$loadout->creator->name}}</a> on
-                {{ \Carbon\Carbon::parse($updatedAt)->format('d/m/Y')}}
+                {{ \Carbon\Carbon::parse($loadout->updated_at)->format('d/m/Y')}}
             </h2>
             @else
             <h2 class="p-4">by <a class="text-karl-orange" href="/profile/0">Anonymous</a> on
-                {{ \Carbon\Carbon::parse($updatedAt)->format('Y-m-d')}}
+                {{ \Carbon\Carbon::parse($loadout->updated_at)->format('Y-m-d')}}
             </h2>
             @endif
             
@@ -32,16 +32,39 @@
             </div>
             <!-- todo: use texts from old karl and style toast messages -->
         </div>
-        {{-- <div class="previewHeaderContainer p-4" :class="getHeaderImageClass">
+
+        {{-- todo: add class image --}}
+        <div class="previewHeaderContainer p-4">
+            
             <div class="previewFooter mt-4">
                 <!-- todo: tooltip on salutes container! -->
-                <div v-on:click="onToggleVote" class="bg-gray-900 font-bold sm:rounded text-center p-2 cursor-pointer hover:bg-gray-800">
+                {{-- todo: bosco onclick --}}
+                <div class="bg-gray-900 font-bold sm:rounded text-center p-2 cursor-pointer hover:bg-gray-800">
                     <span>Salutes</span>
-                    <img src="/assets/img/bosco.png" :class="getUserVotedState" class="bosco-salute"/>
-                    <span class="salute-count">{{ loadoutDetails.votes }}</span>
+                    {{-- todo: voted states --}}
+                    <img src="/assets/img/bosco.png" class="bosco-salute"/>
+                    <span class="salute-count">{{ $loadout->getUpvotesCount($loadout->id) }}</span>
                 </div>
             </div>
-        </div> --}}
+            <div class="flex">
+                @switch($loadout->character->id)
+                    @case(1)
+                        <img src="/assets/img/Engineer_portrait-128px.png" />
+                        @break
+                    @case(2)
+                        <img src="/assets/img/Scout_portrait-128px.png" />
+                        @break
+                    @case(3)
+                        <img src="/assets/img/Driller_portrait-128px.png" />
+                        @break
+                    @case(4)
+                        <img src="/assets/img/Gunner_portrait-128px.png" />
+                        @break
+                                        
+                @endswitch
+                
+            </div>
+        </div>
 
        
     </div>

@@ -67,20 +67,28 @@ export default {
         primary: Object,
         primaryMods: {
             type: Array,
-            default: []
+            default() {
+                return []
+            } 
         },
         secondary: Object,
         secondaryMods: {
             type: Array,
-            default: []
+            default() {
+                return []
+            }
         },
         overclocks: {
             type: Array,
-            default: []
+            default() {
+                return []
+            }
         },
         availableEquipment: {
             type: Array,
-            default: []
+            default() {
+                return []
+            }
         },
         equipmentMods: Object,
     },
