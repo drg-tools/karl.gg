@@ -78,7 +78,10 @@ export default {
   components: {OverclockIcon},
   props: {
     primary: Boolean,
-    overclocks: Array,
+    overclocks: {
+        type: Array,
+        default: () => []
+    },
     selectedId: String
   },
   methods: {

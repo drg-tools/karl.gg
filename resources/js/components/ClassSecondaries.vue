@@ -1,5 +1,5 @@
 <template>
-    <div class="w-1/2">
+    <div>
 
         <div class="mb-4">
             <router-link

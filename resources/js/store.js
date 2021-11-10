@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import apolloQueries from "./apolloQueries";
 import { Apollo } from "./apollo";
 import * as IconList from "./IconsList";
-import { concat, over, sortedLastIndexOf, toInteger } from "lodash";
+import { buildComboIndexFromGun } from "./utils";
 
 Vue.use(Vuex);
 
@@ -610,23 +610,45 @@ export default new Vuex.Store({
             return state.selectedPrimary;
         },
         getSelectedPrimaryDetails: (state) => {
-            return state.loadoutClassData?.guns?.find(
+            if (!state.loadoutClassData) {
+                return null;
+            }
+
+            return state.loadoutClassData.guns.find(
                 (gun) => gun.id === state.selectedPrimary
             );
         },
         selectedPrimaryModIds: (state) => {
             return state.selectedPrimaryMods;
         },
+        selectedPrimaryBuildMetricsCombo: (state, getters) => {
+            const gun = getters.getSelectedPrimaryDetails;
+            const overclockId = getters.selectedPrimaryOverclockId;
+            const selectedMods = state.selectedPrimaryMods;
+
+            return buildComboIndexFromGun(gun, overclockId, selectedMods);
+        },
         selectedPrimaryOverclockId: (state) => {
             return state.selectedPrimaryOverclock;
         },
         getSelectedSecondaryDetails: (state) => {
-            return state.loadoutClassData?.guns?.find(
+            if (!state.loadoutClassData) {
+                return null;
+            }
+
+            return state.loadoutClassData.guns.find(
                 (gun) => gun.id === state.selectedSecondary
             );
         },
         selectedSecondaryModIds: (state) => {
             return state.selectedSecondaryMods;
+        },
+        selectedSecondaryBuildMetricsCombo: (state, getters) => {
+            const gun = getters.getSelectedSecondaryDetails;
+            const overclockId = getters.selectedSecondaryOverclockId;
+            const selectedMods = state.selectedSecondaryMods;
+
+            return buildComboIndexFromGun(gun, overclockId, selectedMods);
         },
         selectedSecondaryOverclockId: (state) => {
             return state.selectedSecondaryOverclock;
@@ -803,12 +825,12 @@ export default new Vuex.Store({
             let itemModArray = "";
 
             if (boolEquipment === true) {
-                itemObject = state.loadoutClassData.equipments.filter(
+                itemObject = state.loadoutClassData?.equipments.filter(
                     (equipment) => equipment.id == itemId
                 );
                 itemModArray = itemObject[0].equipment_mods;
             } else {
-                itemObject = state.loadoutClassData.guns.filter(
+                itemObject = state.loadoutClassData?.guns.filter(
                     (gun) => gun.id == itemId
                 );
                 itemModArray = itemObject[0].mods;

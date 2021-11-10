@@ -1,5 +1,5 @@
 export default {
-  character: (id) => `query {
+    character: (id) => `query {
                   character(id: ${id}){
                     name
                     id
@@ -85,7 +85,7 @@ export default {
                     }
                   }
                 }`,
-  popularLoadouts: `query {
+    popularLoadouts: `query {
                       loadouts {
                           id
                           name
@@ -112,7 +112,7 @@ export default {
                         }
                       }`,
 
-  loadoutDetails: (id) => `query {
+    loadoutDetails: (id) => `query {
                       loadout(id: ${id}) {
                         id
                         name
@@ -176,7 +176,7 @@ export default {
                         }
                       }
                     }`,
-  getModsForGun: (id) => `query {
+    getModsForGun: (id) => `query {
                           gun(id: ${id}) {
                             id
                             mods {
@@ -186,7 +186,7 @@ export default {
                             }
                           }
                         }`,
-  getModsForEquipment: (id) => `query {
+    getModsForEquipment: (id) => `query {
                           equipment(id: ${id}) {
                             id
                             equipment_mods {
@@ -196,7 +196,45 @@ export default {
                             }
                           }
                         }`,
-  myLoadouts: `query myLoadouts($userId: [Int!]) {
+    getBuildMetricsByCombo: (combo, gunId) => `{
+  buildMetricByCombo(build_combination: "${combo}", gun_id: ${gunId}) {
+    id
+    build_combination
+    ideal_burst_dps
+    ideal_burst_dps
+    burst_dps_wp
+    burst_dps_acc
+    burst_dps_aw
+    burst_dps_wp_acc
+    burst_dps_wp_aw
+    burst_dps_acc_aw
+    burst_dps_wp_acc_aw
+    ideal_sustained_dps
+    sustained_dps_wp
+    sustained_dps_acc
+    sustained_dps_aw
+    sustained_dps_wp_acc
+    sustained_dps_wp_aw
+    sustained_dps_acc_aw
+    sustained_dps_wp_acc_aw
+    ideal_additional_target_dps
+    max_num_targets_per_shot
+    max_multi_target_damage
+    ammo_efficiency
+    damage_wasted_by_armor
+    general_accuracy
+    weakpoint_accuracy
+    firing_duration
+    average_time_to_kill
+    average_overkill
+    breakpoints
+    utility
+    average_time_to_ignite_or_freeze
+    damage_per_magazine
+    time_to_fire_magazine
+  }
+}`,
+    myLoadouts: `query myLoadouts($userId: [Int!]) {
                           myLoadouts(userId: $userId) {
                               id
                               name
