@@ -15,7 +15,7 @@
             <span>Salutes</span>
             <img
                 src="/assets/img/bosco.png"
-                :class="getUserVotedState"
+                :class="[userVotedStatus ? '' : 'disabled' ]"
                 class="bosco-salute"
             />
             <span class="salute-count">{{ mutableNumberOfVotes }}</span>
@@ -25,7 +25,6 @@
 
 <script>
 import gql from "graphql-tag";
-import { get } from "lodash";
 
 export default {
     name: "BoscoSalute",
@@ -36,14 +35,10 @@ export default {
             mutableNumberOfVotes: this.numberOfVotes,
         };
     },
-    computed: {
-        getUserVotedState() {
-            // show bosco in disabled state if user has not yet voted or is not able to vote
-            this.getUserVotedStatus();
-            return this.userVotedStatus ? "" : "disabled";
-        },
+    created() {
+        this.getUserVotedStatus();
     },
-    methods: {
+    methods: { 
         onToggleVote() {
             // toggle vote
             this.setVotes()
@@ -98,11 +93,7 @@ export default {
             }
         },
     },
-    watch: {
-        userVotedStatus: function (newValue, oldValue) {
-            this.userVotedStatus = newValue;
-        },
-    },
+    
 };
 </script>
 
