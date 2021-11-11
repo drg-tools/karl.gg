@@ -98,7 +98,7 @@ export default {
     },
     data() {
         return {
-            guideIsOpen: false, // closed by default
+            guideIsOpen: true, // closed by default
         }
     },
     methods: {

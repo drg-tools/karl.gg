@@ -39,12 +39,8 @@
                 <!-- todo: tooltip on salutes container! -->
                 {{-- todo: bosco onclick --}}
                 @auth
-                    <a class="bg-gray-900 font-bold sm:rounded text-center p-2 cursor-pointer hover:bg-gray-800">
-                        <span>Salutes</span>
-                        {{-- todo: voted states --}}
-                        <img src="/assets/img/bosco.png" class="bosco-salute" />
-                        <span class="salute-count">{{ $loadout->getUpvotesCount($loadout->id) }}</span>
-                    </a>
+                    <bosco-salute :loadout-id="{{$loadout->id}}" :number-of-votes="{{ $loadout->getUpvotesCount($loadout->id) }}" />
+                    
                 @endauth
                 @guest
                 <div class="bg-gray-900 font-bold sm:rounded text-center p-2 disabled">

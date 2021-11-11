@@ -64,6 +64,9 @@
 .loadoutDescription {
     white-space: break-spaces;
 }
+.invertIcon {
+    transform: rotate(180deg);
+}
 
 @media (max-width: 770px) {
     .equipmentCards {
