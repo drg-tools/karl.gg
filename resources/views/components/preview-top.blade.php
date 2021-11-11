@@ -16,9 +16,12 @@
                 <a class="inline-flex items-center text-center px-4 py-2 mr-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 w-full md:w-auto"
                     href="/build/{{ $loadout->id }}">
                     @auth
-                        @if (Auth::user()->id === $loadout->creator->id)
+                        @if(!$loadout->creator)
+                            COPY
+                        @elseif (Auth::user()->id === $loadout->creator->id)
                             EDIT
                         @endif
+                            
                     @endauth
                     @guest
                         COPY
