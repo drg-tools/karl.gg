@@ -486,6 +486,20 @@ export default new Vuex.Store({
             // 2. Hydrated new class data
             commit("setSelectedClass", newClassIdInput);
         },
+        clearSelectedPrimary({commit}) {
+            commit("clearSelectedPrimary");
+            commit("clearAllSelectedPrimaryMods");
+            commit("clearSelectedPrimaryOverclock");
+        },
+        clearSelectedSecondary({commit}) {
+            commit("clearSelectedSecondary");
+            commit("clearAllSelectedSecondaryMods");
+            commit("clearSelectedSecondaryOverclock");
+        },
+        clearSelectedEquipment({commit}) {
+            commit("clearSelectedEquipment");
+            commit("clearSelectedEquipmentMods");
+        },
         setSelectedPrimary({ commit }, newLoadoutItem) {
             commit("clearSelectedPrimary");
             commit("clearAllSelectedPrimaryMods");
