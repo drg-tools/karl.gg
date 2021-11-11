@@ -28,9 +28,9 @@ class DashboardController extends Controller
     {
         // TODO: Extract to helper / model function
         $recentTopLoadouts = Loadout::where('created_at', '>', Carbon::now()->subDays(14))
-            ->withCount('votes')
+            ->withSum('votes', 'value')
             ->with('character', 'creator', 'mods.gun')
-            ->orderBy('votes_count', 'desc')
+            ->orderBy('votes_sum_value', 'desc')
             ->take(5)
             ->get();
 
@@ -40,7 +40,7 @@ class DashboardController extends Controller
     private function getLatestLoadouts()
     {
         $latestLoadouts = Loadout::where('created_at', '>', Carbon::now()->subDays(14))
-            ->withCount('votes')
+            ->withSum('votes', 'value')
             ->with('character', 'creator', 'mods.gun')
             ->latest()
             ->take(5)

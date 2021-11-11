@@ -19,8 +19,9 @@ class LoadoutsController extends Controller
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
             ->with('mods', 'mods.gun', 'character', 'creator', 'patch')
-            ->withCount('votes')
+            ->withSum('votes', 'value')
             ->paginate();
+
         $characters = Character::orderBy('name')->pluck('name', 'id');
         $overclocks = Overclock::orderBy('overclock_name')->with('character')->get();
         $primaries = Gun::where('character_slot', 1)->orderBy('name')->with('character')->get();

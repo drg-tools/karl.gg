@@ -74,7 +74,7 @@ class Loadout extends Model
     use Favoriteable, Filterable, CrudTrait, Votable, Likeable, Sortable;
 
     public $sortable = ['name', 'description', 'character_id', 'throwable_id', 'created_at', 'updated_at'];
-    public $sortableAs = ['votes_count'];
+    public $sortableAs = ['votes_sum_value'];
     private static $whiteListFilter = [
         'creator',
         'name',

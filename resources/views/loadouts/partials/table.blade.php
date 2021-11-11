@@ -38,7 +38,7 @@
                             scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                         >
-                            @sortablelink('votes_count', 'Salutes')
+                            @sortablelink('votes_sum_value', 'Salutes')
                         </th>
                         <th
                             scope="col"
@@ -78,7 +78,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 text-right">
-                                {{ $loadout->votes_count }}
+                                {{ round($loadout->votes_sum_value) ?? 0 }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                 {{ $loadout->updated_at->diffForHumans() }}

@@ -6,7 +6,7 @@
             </p>
             <div class="ml-2 flex-shrink-0 flex">
                 <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-300 text-gray-900">
-                    {{ $loadout->votes_count }}
+                    {{ round($loadout->votes_sum_value) ?? 0 }}
                 </p>
             </div>
         </div>
