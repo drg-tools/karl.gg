@@ -32,15 +32,12 @@
                 <share-button :page-url="{{ json_encode(Request::url()) }}" />
 
             </div>
-            <!-- todo: use texts from old karl and style toast messages -->
         </div>
 
-        {{-- todo: add class image --}}
         <div class="previewHeaderContainer p-4">
 
             <div class="previewFooter mt-4">
-                <!-- todo: tooltip on salutes container! -->
-                {{-- todo: bosco onclick --}}
+
                 @auth
                     <bosco-salute :loadout-id="{{$loadout->id}}" :number-of-votes="{{ $loadout->getUpvotesCount($loadout->id) }}" />
                     
@@ -48,7 +45,6 @@
                 @guest
                 <div class="bg-gray-900 font-bold sm:rounded text-center p-2 disabled">
                     <span>Salutes</span>
-                    {{-- todo: voted states --}}
                     <img src="/assets/img/bosco.png" class="bosco-salute" />
                     <span class="salute-count">{{ $loadout->getUpvotesCount($loadout->id) }}</span>
                 </div>
@@ -78,19 +74,3 @@
 
     </div>
 </div>
-
-@section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
-    <script type="text/javascript">
-        var clipboard = new ClipboardJS('.clip-btn');
-
-        clipboard.on('success', function(e) {
-            // we should show a quick alert here
-            console.info('Action:', e.action);
-            console.info('Text:', e.text);
-            console.info('Trigger:', e.trigger);
-
-            e.clearSelection();
-        });
-    </script>
-@endsection
