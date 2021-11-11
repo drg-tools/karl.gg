@@ -161,7 +161,7 @@ export default new Vuex.Store({
         async saveLoadout({ state, commit, dispatch }, updateId) {
             if (state.loadoutName === "") {
                 // loadout name can't be null
-                // TODO: return a more meaningful message
+                // This will be handled by frontend validation, but consider this server-side as a double-check
                 console.log("loadout name is requred");
                 return;
             }
@@ -373,20 +373,15 @@ export default new Vuex.Store({
                 });
         },
         hydrateLoadoutEditData({ state, commit, dispatch }, loadoutData) {
-            console.log("selected class:");
-            console.log(loadoutData.character.id);
-            // TODO: this needs to now somehow set the icon on the frontend
-            //       I think frontend icon isn't leveraging global state?
+            
             dispatch("setSelectedClass", loadoutData.character.id);
 
-            // TODO: Need to do some if checks on anything except name & calass select
-            console.log("loadoutName");
-            console.log(loadoutData.name);
+            
             commit("setLoadoutName", loadoutData.name);
-
-            console.log("loadoutDescription");
-            console.log(loadoutData?.description);
-            commit("setLoadoutDescription", loadoutData?.description);
+            
+            if(loadoutData?.description) {
+                commit("setLoadoutDescription", loadoutData.description);
+            }
 
             let primaryGunMods = loadoutData?.mods.filter(
                 (mod) => mod.gun.character_slot == 1
@@ -394,32 +389,27 @@ export default new Vuex.Store({
             let secondaryGunMods = loadoutData?.mods.filter(
                 (mod) => mod.gun.character_slot == 2
             );
-            console.log("selectedPrimary");
+
             // As long as the pgm array is filtered correctly, this will always work.
             // Just take the first mod and pull the gun ID
-            console.log(primaryGunMods[0]?.gun?.id);
-            commit("setSelectedPrimary", primaryGunMods[0]?.gun?.id);
+            if(primaryGunMods[0]?.gun?.id) {
+                commit("setSelectedPrimary", primaryGunMods[0]?.gun?.id);
+                primaryGunMods = primaryGunMods.map((mod) => ({
+                    selectedModId: mod.id,
+                    selectedModTier: mod.mod_tier,
+                }));
+                commit("setAllSelectedPrimaryMods", primaryGunMods);
+            }
 
-            console.log("selectedPrimaryMods");
-            // Map our mod array to the object structure needed by mod matrix
-            primaryGunMods = primaryGunMods.map((mod) => ({
-                selectedModId: mod.id,
-                selectedModTier: mod.mod_tier,
-            }));
-            commit("setAllSelectedPrimaryMods", primaryGunMods);
-
-            console.log(primaryGunMods);
-            console.log("selectedSecondary");
-            console.log(secondaryGunMods[0]?.gun?.id);
-            commit("setSelectedSecondary", secondaryGunMods[0]?.gun?.id);
-
-            console.log("selectedSecondaryMods");
-            secondaryGunMods = secondaryGunMods.map((mod) => ({
-                selectedModId: mod.id,
-                selectedModTier: mod.mod_tier,
-            }));
-            console.log(secondaryGunMods);
-            commit("setAllSelectedSecondaryMods", secondaryGunMods);
+            
+            if(secondaryGunMods[0]?.gun?.id) {
+                commit("setSelectedSecondary", secondaryGunMods[0]?.gun?.id);
+                secondaryGunMods = secondaryGunMods.map((mod) => ({
+                    selectedModId: mod.id,
+                    selectedModTier: mod.mod_tier,
+                }));
+                commit("setAllSelectedSecondaryMods", secondaryGunMods);
+            }            
 
             let selectedPrimaryOverclock = "";
             let selectedSecondaryOverclock = "";
@@ -431,19 +421,21 @@ export default new Vuex.Store({
                 (oc) => oc.gun.character_slot === 2
             );
 
-            console.log("selectedPrimaryOverclock");
-            console.log(selectedPrimaryOverclock[0]?.id);
-            commit(
-                "setSelectedPrimaryOverclock",
-                selectedPrimaryOverclock[0]?.id
-            );
+            if(selectedPrimaryOverclock[0]?.id) {
+                commit(
+                    "setSelectedPrimaryOverclock",
+                    selectedPrimaryOverclock[0]?.id
+                );
+            }
 
-            console.log("selectedSecondaryOverclock");
-            console.log(selectedSecondaryOverclock[0]?.id);
-            commit(
-                "setSelectedSecondaryOverclock",
-                selectedSecondaryOverclock[0]?.id
-            );
+            if(selectedSecondaryOverclock[0]?.id) {
+                commit(
+                    "setSelectedSecondaryOverclock",
+                    selectedSecondaryOverclock[0]?.id
+                );
+            }
+            
+            
 
             let selectedEquipmentId = "";
             let selectedEquipmentMods = [];
@@ -460,13 +452,12 @@ export default new Vuex.Store({
                 (mod) => mod.id
             );
 
-            console.log("equipment selected");
-            console.log(selectedEquipmentId);
-            commit("setSelectedEquipment", selectedEquipmentId);
+            if(selectedEquipmentId) {
+                commit("setSelectedEquipment", selectedEquipmentId);
+                commit("setAllSelectedEquipmentMod", selectedEquipmentMods);
+            }
 
-            console.log("equipment mods selected");
-            console.log(selectedEquipmentMods);
-            commit("setAllSelectedEquipmentMod", selectedEquipmentMods);
+            
         },
         setSelectedClass({ commit, dispatch }, newClassIdInput) {
             // clear the previously selected class

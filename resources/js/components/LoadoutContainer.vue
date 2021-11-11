@@ -9,7 +9,6 @@
     <!-- Note: When we account for the editing of loadouts, we will need to figure that out -->
     <!-- We will have to pull the loadout and then hydrate the store once we load an edit -->
     <MarkdownEditor
-      :v-model="this.$store.state.loadoutDescription"
       class="guideField"
     ></MarkdownEditor>
     
