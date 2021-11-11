@@ -49,6 +49,7 @@
                 v-if="
                         this.$store.state.selectedEquipmentMods != []
                     "
+                itemType="equipment"
             />
         </div>
     </div>

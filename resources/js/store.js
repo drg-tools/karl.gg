@@ -734,6 +734,10 @@ export default new Vuex.Store({
                         );
                         selectedItemId = state.selectedSecondary;
                         break;
+                    case "equipment":
+                        selectedModIds = state.selectedEquipmentMods;
+                        selectedItemId = state.selectedEquipment;
+                        break;
 
                     default:
                         break;
@@ -751,13 +755,24 @@ export default new Vuex.Store({
                 ) {
                     selectedOcId = state.selectedSecondaryOverclock;
                 }
-
+                let mainItem = '';
+                let itemMods = [];
                 // TODO: FIx for equipment
-                let mainItem = state.loadoutClassData.guns.filter(
-                    (gun) => gun.id == selectedItemId
-                );
+                if(itemType === "primary" || itemType === "secondary") {
+                    mainItem = state.loadoutClassData.guns.filter(
+                        (gun) => gun.id == selectedItemId
+                    );
+                    itemMods = mainItem[0].mods;
+                } else {
+                    mainItem = state.loadoutClassData.equipments.filter(
+                        (eq) => eq.id == selectedItemId
+                    );
+                    itemMods = mainItem[0].equipment_mods;
+                }
+                
                 // This is throwing an error on secondaries sometimes
-                let itemMods = mainItem[0].mods;
+                
+                
 
                 // filter selected primary mods
                 let selectedModArray = [];

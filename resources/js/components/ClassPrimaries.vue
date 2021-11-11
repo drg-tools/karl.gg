@@ -52,7 +52,7 @@
 
             <CreditsCalculator
                 v-if="
-                        selectedPrimaryModIds.length === 0 ||
+                        selectedPrimaryModIds.length !== 0 ||
                         selectedPrimaryOverclockId !== ''
                     "
                 itemType="primary"

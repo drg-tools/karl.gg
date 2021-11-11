@@ -106,16 +106,16 @@ export default {
                 mutation.type === "setSelectedPrimaryOverclock" ||
                 mutation.type === "setSelectedSecondary" ||
                 mutation.type === "setSelectedSecondaryMod" ||
-                mutation.type === "setSelectedSecondaryOverclock"
+                mutation.type === "setSelectedSecondaryOverclock" ||
+                mutation.type === "setSelectedEquipment" ||
+                mutation.type === "setSelectedEquipmentMod"
             ) {
-                console.log(`Updating costs`);
                 this.computeSumOfCost();
             }
         });
     },
     methods: {
         computeSumOfCost() {
-            console.log("sum of cost ran");
             this.costObject = this.$store.getters.getSelectedModCosts(this.itemType);
         },
     },
