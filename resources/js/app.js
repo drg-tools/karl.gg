@@ -6,7 +6,8 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+// Updated, per this article: https://nono.ma/window-vue-use-is-not-a-function
+window.Vue = require('vue').default;
 
 /**
  * The following block of code may be used to automatically register your

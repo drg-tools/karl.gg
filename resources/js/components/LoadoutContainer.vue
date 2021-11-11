@@ -1,7 +1,6 @@
 <template>
   <div id="loadout-container">
     <LoadoutBuilderActions />    
-    <LoadoutName />
     <ClassSelect />
     <router-view v-if="this.$store.state.selectedClass != ''"></router-view>
 

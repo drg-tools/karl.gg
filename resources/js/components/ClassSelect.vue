@@ -53,6 +53,12 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "ClassSelect",
+  created() {
+    // Default select Driller to smooth out UX
+    if(this.$store.state.selectedClass === '') {
+      this.setSelectedClass(3);
+    }
+  },
   methods: {
     setSelectedClass: function (classId) {
       this.$store.dispatch('setSelectedClass', classId);
