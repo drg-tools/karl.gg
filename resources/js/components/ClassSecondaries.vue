@@ -55,7 +55,7 @@
                         selectedSecondaryModIds.length === 0 ||
                         getSelectedSecondary !== ''
                     "
-                itemType="primary"
+                itemType="secondary"
             />
         </div>
     </div>
