@@ -1,8 +1,5 @@
 <template>
     <div class="modSelection">
-        <!-- TODO: Selected items for each mod matrix -->
-        <!-- TODO: Overclocks and selected OC's -->
-        <!-- TODO: Props for Mods and OC's? -->
 
         <!-- Tier Row Start -->
         <div
@@ -10,16 +7,9 @@
             class="tierContainer"
             :key="modTier"
         >
-            <h2 class="text-white">
-                Tier {{ modTier }}
-                <!-- If we're not on the first tier, show the level indicator -->
-                <p v-if="modTier > 1" class="levelIndicator text-gray-500">
-                    Level {{ modTier * 4 }}
-                </p>
-            </h2>
+            <TierLevelText :item-type="itemType" :mod-tier="modTier"/>
 
             <!-- Mod Sub Container Start -->
-            <!-- TODO: Call Stats here -->
             <div
                 class="tierSubContainer"
                 :class="[
@@ -82,11 +72,10 @@
     </div>
 </template>
 
-<!--todo: reset button-->
 <script>
 export default {
     name: "ModMatrix",
-    props: ["itemId"],
+    props: ["itemId", "itemType"],
     data() {
         return {
             itemMods: "",

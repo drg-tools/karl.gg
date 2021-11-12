@@ -42,6 +42,7 @@
             <ModMatrix
                 v-if="getSelectedPrimary !== ''"
                 :itemId="getSelectedPrimary"
+                itemType="primary"
             />
             <OverclockSelect
                 v-if="getSelectedPrimary !== ''"
