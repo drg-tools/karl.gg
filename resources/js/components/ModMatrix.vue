@@ -36,6 +36,11 @@
                     :key="modIndex"
                     class="modDisplay"
                     v-on:click="selectMod(modData.id, modData.mod_tier)"
+                    v-tooltip="{
+                        content: modData ? getModTooltip(modData) : null,
+                        placement: 'right',
+                        trigger: 'hover'
+                        }"
                 >
                     <svg
                         viewBox="0 0 80 50"
@@ -99,6 +104,10 @@ export default {
                 this.itemId,
                 this.$route.path === "/equipment-builder" // TODO: refactor
             );
+        },
+        getModTooltip(mod) {
+            let description = mod.description ? mod.description : mod.text_description;
+            return `<h3>${mod.mod_name}</h3><br><span>${description}</span>`;
         },
         getIconPath(iconName) {
             return this.$store.getters.getIconByName(iconName);

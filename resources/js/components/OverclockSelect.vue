@@ -9,6 +9,11 @@
             <OverclockIcon
                 :icon="getIconPath(selectedOverclock.icon)"
                 :ocType="selectedOverclock.overclock_type"
+                v-tooltip="{
+                        content: selectedOverclock ? getOcTooltip(selectedOverclock) : null,
+                        placement: 'right',
+                        trigger: 'hover'
+                        }"
             />
         </div>
         <div class="overclockDisplay" v-else>
@@ -57,6 +62,11 @@
                 <OverclockIcon
                     :icon="getIconPath(overclock.icon)"
                     :ocType="overclock.overclock_type"
+                    v-tooltip="{
+                        content: overclock ? getOcTooltip(overclock) : null,
+                        placement: 'right',
+                        trigger: 'hover'
+                        }"
                 />
             </div>
         </popover>
@@ -79,6 +89,10 @@ export default {
         selectedId: String,
     },
     methods: {
+        getOcTooltip(oc) {
+            let description = oc.description ? oc.description : oc.text_description;
+            return `<h3>${oc.overclock_name}</h3><br><span>${description}</span>`;
+        },
         getIconPath(iconName) {
             return this.$store.getters.getIconByName(iconName);
         },
