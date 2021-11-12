@@ -1,11 +1,9 @@
 <template>
-
-    <!-- TODO: Handle the loading state of class select -->
-    <!-- TODO: We currently have a loading state issue if you load the primary before the GQL finishes -->
-  <div v-if="getLoadingStatus" class="loadingIndicator">
-        <img src="/assets/img/karl-spinner-free.gif" alt="loading..."/>
-    </div>
-    <div v-else class="classSelectContainer my-2">
+  
+  <div v-if="getLoadingStatus">
+    
+  </div>
+  <div v-else class="classSelectContainer my-2">
     <h1>Select class:</h1>
     <div class="grid grid-cols-2 sm:grid-cols-4 w-full mb-4">
       <div
@@ -49,26 +47,23 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "ClassSelect",
   created() {
     // Default select Driller to smooth out UX
-    if(this.$store.state.selectedClass === '') {
+    if (this.$store.state.selectedClass === "") {
       this.setSelectedClass(3);
     }
   },
   methods: {
     setSelectedClass: function (classId) {
-      this.$store.dispatch('setSelectedClass', classId);
+      this.$store.dispatch("setSelectedClass", classId);
     },
   },
   computed: {
-        ...mapGetters([
-            'getLoadingStatus',
-            'getSelectedClass',
-        ])
-    },
+    ...mapGetters(["getLoadingStatus", "getSelectedClass"]),
+  },
 };
 </script>
