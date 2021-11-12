@@ -115,7 +115,7 @@ export default {
             if (!oc) {
                 return null;
             }
-            return `<h3>${oc.overclock_type}</h3><br><span>${oc.text_description}</span>`;
+            return `<h3>${oc.overclock_name}</h3><br><span>${oc.text_description}</span>`;
         },
         isActiveMod(mod) {
             return this.selectedMods.includes(mod.id);
