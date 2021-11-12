@@ -9,6 +9,17 @@
       <p v-if="modTier == 4" class="levelIndicator text-gray-500">Level 12</p>
       <p v-if="modTier == 5" class="levelIndicator text-gray-500">Level 16</p>
     </div>
+    <div v-if="itemType === 'secondary'">
+      <p v-if="modTier == 2" class="levelIndicator text-gray-500">Level 6</p>
+      <p v-if="modTier == 3" class="levelIndicator text-gray-500">Level 10</p>
+      <p v-if="modTier == 4" class="levelIndicator text-gray-500">Level 14</p>
+      <p v-if="modTier == 5" class="levelIndicator text-gray-500">Level 18</p>
+    </div>
+    <div v-if="itemType === 'equipment'">
+      <p v-if="modTier == 2" class="levelIndicator text-gray-500">Level 5</p>
+      <p v-if="modTier == 3" class="levelIndicator text-gray-500">Level 10</p>
+      <p v-if="modTier == 4" class="levelIndicator text-gray-500">Level 15</p>
+    </div>
   </h2>
 </template>
 

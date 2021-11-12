@@ -41,6 +41,7 @@
             <ModMatrix
                 v-if="getSelectedSecondary !== ''"
                 :itemId="getSelectedSecondary"
+                itemType="secondary"
             />
             <OverclockSelect
                 v-if="getSelectedSecondary !== ''"

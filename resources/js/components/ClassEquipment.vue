@@ -43,6 +43,7 @@
             <ModMatrix
                 v-if="getSelectedEquipment"
                 :itemId="getSelectedEquipment"
+                itemType="equipment"
             />
 
             <CreditsCalculator
