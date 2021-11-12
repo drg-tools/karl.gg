@@ -103,12 +103,17 @@ export default {
             if (
                 mutation.type === "setSelectedPrimary" ||
                 mutation.type === "setSelectedPrimaryMod" ||
+                mutation.type === "clearSelectedPrimaryMod" ||
                 mutation.type === "setSelectedPrimaryOverclock" ||
+                mutation.type === "clearSelectedPrimaryOverclock" ||
                 mutation.type === "setSelectedSecondary" ||
                 mutation.type === "setSelectedSecondaryMod" ||
+                mutation.type === "clearSelectedSecondaryMod" ||
                 mutation.type === "setSelectedSecondaryOverclock" ||
+                mutation.type === "clearSelectedSecondaryOverclock" ||
                 mutation.type === "setSelectedEquipment" ||
-                mutation.type === "setSelectedEquipmentMod"
+                mutation.type === "setSelectedEquipmentMod" ||
+                mutation.type === "clearSelectedEquipmentMod"
             ) {
                 this.computeSumOfCost();
             }
