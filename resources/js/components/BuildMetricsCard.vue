@@ -2,7 +2,7 @@
     <div class="w-full">
         <div v-if="metrics && Object.keys(metrics).length > 0">
             <div class="py-4">
-                <h3 class="mb-4">Burst DPS</h3>
+                <h2 class="mb-4 text-xl font-bold">Burst DPS</h2>
                 <table class="table w-full md:w-10/12">
                     <tr>
                         <td>Ideal</td>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="py-4">
-                <h3 class="mb-4">Sustained DPS</h3>
+                <h2 class="mb-4 text-xl font-bold">Sustained DPS</h2>
                 <table class="table w-full md:w-10/12">
                     <tr>
                         <td>Ideal</td>
@@ -78,7 +78,7 @@
             </div>
 
             <div class="py-4">
-                <h3 class="mb-4">Misc</h3>
+                <h2 class="mb-4 text-xl font-bold">Misc</h2>
                 <table class="table w-full md:w-10/12">
                     <tr>
                         <td>Additional Target DPS</td>
