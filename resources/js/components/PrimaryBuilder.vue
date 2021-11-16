@@ -1,12 +1,15 @@
 <template>
     <div class="flex my-5 gap-8">
-
         <div class="w-1/2">
-            <ClassPrimaries/>
+            <ClassPrimaries />
         </div>
 
         <div class="w-1/2">
-            <BuildMetricsCard :weapon-id="getSelectedPrimary" :combination="selectedPrimaryBuildMetricsCombo" />
+            <BuildMetricsCard
+                v-if="getSelectedPrimary"
+                :weapon-id="getSelectedPrimary"
+                :combination="selectedPrimaryBuildMetricsCombo"
+            />
         </div>
     </div>
 </template>
@@ -14,17 +17,16 @@
 <script>
 import ClassPrimaries from "./ClassPrimaries";
 import BuildMetricsCard from "./BuildMetricsCard";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
     name: "PrimaryBuilder",
-    components: {BuildMetricsCard, ClassPrimaries},
+    components: { BuildMetricsCard, ClassPrimaries },
     computed: {
         ...mapGetters([
-            'selectedPrimaryBuildMetricsCombo',
-            'getSelectedPrimary'
+            "selectedPrimaryBuildMetricsCombo",
+            "getSelectedPrimary",
         ]),
-
-    }
+    },
 };
 </script>

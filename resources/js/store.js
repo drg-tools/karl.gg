@@ -741,7 +741,7 @@ export default new Vuex.Store({
 
             // Need to do a check for gun or equipment...we may pass that in as a prop to this getter
             // hardcoded for now
-            if (state.loadoutClassData != "") {
+            if (state.loadoutClassData !== "" && !state.loadingStatus) {
                 // filter selected mods for our mod ids
                 let selectedModIds = [];
                 let selectedItemId = "";
@@ -769,12 +769,12 @@ export default new Vuex.Store({
                 let selectedOcId = null;
 
                 if (
-                    state.selectedPrimaryOverclock != "" &&
+                    state.selectedPrimaryOverclock !== "" &&
                     itemType === "primary"
                 ) {
                     selectedOcId = state.selectedPrimaryOverclock;
                 } else if (
-                    state.selectedSecondaryOverclock != "" &&
+                    state.selectedSecondaryOverclock !== "" &&
                     itemType === "secondary"
                 ) {
                     selectedOcId = state.selectedSecondaryOverclock;

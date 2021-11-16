@@ -101,6 +101,8 @@ export default {
         this.unsubscribe = this.$store.subscribe((mutation, state) => {
             // TODO: make this handle equipment as well as primary and secondary
             if (
+                mutation.type === "setSelectedClass" ||
+                mutation.type === "clearSelectedClass" ||
                 mutation.type === "setSelectedPrimary" ||
                 mutation.type === "setSelectedPrimaryMod" ||
                 mutation.type === "clearSelectedPrimaryMod" ||
