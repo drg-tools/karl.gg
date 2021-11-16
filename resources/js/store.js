@@ -40,8 +40,8 @@ export default new Vuex.Store({
         loadingStatus: false,
         user: null,
         selectedClass: "",
-        loadoutName: "", // TODO: In the component Debounce on this
-        loadoutDescription: "", // TODO: In the component Debounce on this
+        loadoutName: "", 
+        loadoutDescription: "", 
         loadoutClassData: "", // Use this as source of truth, only call this. Save ID's in other manipulators
         icons: IconList,
         selectedPrimary: "",
@@ -188,10 +188,6 @@ export default new Vuex.Store({
                 combinedOverClockIdArray = combinedOverClockIdArray.map(Number);
             }
 
-            console.log("combined mods:");
-            console.log(combinedModArray);
-            console.log("combined ocs:");
-            console.log(combinedOverClockIdArray);
 
             let combinedModIdArray = combinedModArray.map(
                 (e) => e.selectedModId
@@ -206,8 +202,6 @@ export default new Vuex.Store({
             // This is where we actually save the loadout
             if (updateId) {
                 // updating a loadout
-                console.log("updated id ");
-                console.log(updateId);
                 variables = {
                     id: parseInt(updateId),
                     name: state.loadoutName,
@@ -218,8 +212,6 @@ export default new Vuex.Store({
                     equipment_mods: combinedEquipmentModArray,
                     throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
                 };
-                console.log("edit vars");
-                console.log(variables);
                 loadoutData = await dispatch("updateLoadout", variables);
             } else {
                 // creating a new loadout
@@ -234,7 +226,6 @@ export default new Vuex.Store({
                 };
                 loadoutData = await dispatch("createLoadout", variables);
             }
-            console.log(loadoutData);
             return loadoutData;
         },
         async createLoadout({ state }, params) {
@@ -282,8 +273,6 @@ export default new Vuex.Store({
             return result;
         },
         async updateLoadout({ state }, params) {
-            console.log("edit params");
-            console.log(params);
             let variables = {
                 id: parseInt(params.id),
                 name: params.name,
@@ -466,10 +455,6 @@ export default new Vuex.Store({
 
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
-
-            // TODO: add a speed bump on the class selection if you have class data
-
-            // TODO: Clear button to allow you to clear the whole current state
 
             // dispatch an action which will commit our new class data to store
             dispatch("hydrateClassData", newClassIdInput);
