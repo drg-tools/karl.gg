@@ -54,10 +54,12 @@
 
             <CreditsCalculator
                 v-if="
-                        selectedPrimaryModIds.length !== 0 ||
-                        selectedPrimaryOverclockId !== ''
+                        selectedPrimaryModIds.length === 0 ||
+                        getSelectedPrimary !== ''
                     "
-                itemType="primary"
+                :overclock="selectedPrimaryOverclock"
+                :selected-mods="selectedPrimaryMods"
+                itemType="secondary"
             />
         </div>
     </div>
@@ -85,7 +87,9 @@ export default {
             'getSelectedPrimary',
             'selectedPrimaryOverclockId',
             'getSelectedPrimaryDetails',
-            'selectedPrimaryModIds'
+            'selectedPrimaryModIds',
+            'selectedPrimaryOverclock',
+            'selectedPrimaryMods'
         ])
     }
 };

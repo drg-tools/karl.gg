@@ -373,9 +373,7 @@ export default new Vuex.Store({
                 });
         },
         hydrateLoadoutEditData({ state, commit, dispatch }, loadoutData) {
-
             dispatch("setSelectedClass", loadoutData.character.id);
-
 
             commit("setLoadoutName", loadoutData.name);
 
@@ -400,7 +398,6 @@ export default new Vuex.Store({
                 }));
                 commit("setAllSelectedPrimaryMods", primaryGunMods);
             }
-
 
             if (secondaryGunMods[0]?.gun?.id) {
                 commit("setSelectedSecondary", secondaryGunMods[0]?.gun?.id);
@@ -435,8 +432,6 @@ export default new Vuex.Store({
                 );
             }
 
-
-
             let selectedEquipmentId = "";
             let selectedEquipmentMods = [];
 
@@ -456,8 +451,6 @@ export default new Vuex.Store({
                 commit("setSelectedEquipment", selectedEquipmentId);
                 commit("setAllSelectedEquipmentMod", selectedEquipmentMods);
             }
-
-
         },
         setSelectedClass({ commit, dispatch }, newClassIdInput) {
             // clear the previously selected class
@@ -580,29 +573,28 @@ export default new Vuex.Store({
             const currentEquipment = state.loadoutClassData?.equipments?.filter(
                 (e) => e.id === currentEquipmentId
             );
-            let currentTierSelectionMods = currentEquipment[0].equipment_mods.filter(
-                (mod) =>
-                    mod.mod_tier === selectedMod.modTier
+            let currentTierSelectionMods =
+                currentEquipment[0].equipment_mods.filter(
+                    (mod) => mod.mod_tier === selectedMod.modTier
+                );
+            let currentTierSelection = "";
+            currentTierSelection = currentTierSelectionMods.filter((mod) =>
+                state.selectedEquipmentMods.includes(mod.id)
             );
-            let currentTierSelection = '';
-            currentTierSelection = currentTierSelectionMods.filter(mod => state.selectedEquipmentMods.includes(mod.id))
-
 
             let sameSelection = false;
-            
+
             if (currentEquipment[0]) {
                 currentEquipment[0].equipment_mods
                     .filter((m) => m.mod_tier === selectedMod.modTier)
                     .map((m) => commit("clearSelectedEquipmentMod", m.id));
                 if (
                     currentTierSelection.length > 0 &&
-                    currentTierSelection[0].id ==
-                    selectedMod.modId
+                    currentTierSelection[0].id == selectedMod.modId
                 ) {
                     sameSelection = true;
                 }
             }
-
 
             if (!sameSelection) {
                 commit("setSelectedEquipmentMod", selectedMod.modId);
@@ -634,7 +626,7 @@ export default new Vuex.Store({
             return state.selectedPrimary;
         },
         getSelectedPrimaryDetails: (state) => {
-            if (!state.loadoutClassData) {
+            if (!state.loadoutClassData || !state.selectedPrimary) {
                 return null;
             }
 
@@ -655,8 +647,32 @@ export default new Vuex.Store({
         selectedPrimaryOverclockId: (state) => {
             return state.selectedPrimaryOverclock;
         },
+        selectedPrimaryOverclock: (state, getters) => {
+            const gun = getters.getSelectedPrimaryDetails;
+
+            return gun?.overclocks.find(
+                (o) => o.id === getters.selectedPrimaryOverclockId
+            );
+        },
+        selectedPrimaryMods: (state, getters) => {
+            const selectedModIds = getters.selectedPrimaryModIds.map(
+                (m) => m.selectedModId
+            );
+
+            let selectedMods = [];
+
+            selectedModIds.forEach(function (modId) {
+                getters.getSelectedPrimaryDetails?.mods.forEach((mod) => {
+                    if (mod.id == modId) {
+                        selectedMods.push(mod);
+                    }
+                });
+            });
+
+            return selectedMods;
+        },
         getSelectedSecondaryDetails: (state) => {
-            if (!state.loadoutClassData) {
+            if (!state.loadoutClassData || !state.selectedSecondary) {
                 return null;
             }
 
@@ -677,11 +693,55 @@ export default new Vuex.Store({
         selectedSecondaryOverclockId: (state) => {
             return state.selectedSecondaryOverclock;
         },
+        selectedSecondaryOverclock: (state, getters) => {
+            const gun = getters.getSelectedSecondaryDetails;
+
+            return gun?.overclocks.find(
+                (o) => o.id === getters.selectedSecondaryOverclockId
+            );
+        },
+        selectedSecondaryMods: (state, getters) => {
+            const selectedModIds = getters.selectedSecondaryModIds.map(
+                (m) => m.selectedModId
+            );
+
+            let selectedMods = [];
+
+            selectedModIds.forEach(function (modId) {
+                getters.getSelectedSecondaryDetails?.mods.forEach((mod) => {
+                    if (mod.id == modId) {
+                        selectedMods.push(mod);
+                    }
+                });
+            });
+
+            return selectedMods;
+        },
         getSelectedSecondary: (state) => {
             return state.selectedSecondary;
         },
-        getSelectedEquipment: (state) => {
+        getSelectedEquipmentId: (state) => {
             return state.selectedEquipment;
+        },
+        selectedEquipmentDetails: (state) => {
+            return state.loadoutClassData?.equipments.find(
+                (e) => e.id === state.selectedEquipment
+            );
+        },
+        selectedEquipmentMods: (state, getters) => {
+            let selectedMods = [];
+
+            state.selectedEquipmentMods.forEach(function (modId) {
+                getters.selectedEquipmentDetails?.equipment_mods.forEach(
+                    (mod) => {
+                        if (mod.id == modId) {
+                            selectedMods.push(mod);
+                        }
+                    }
+                );
+            });
+
+            return selectedMods;
         },
         equipmentModIds: (state) => {
             return state.selectedEquipmentMods;
@@ -734,130 +794,6 @@ export default new Vuex.Store({
                 state.selectedEquipmentMods.filter((mod) => mod === modId)
                     .length !== 0
             );
-        },
-        getSelectedModCosts: (state) => (itemType) => {
-            // TODO: Might need a whole-class version of this component
-            // TODO: Update to be whatever weapon we're on
-
-            // Need to do a check for gun or equipment...we may pass that in as a prop to this getter
-            // hardcoded for now
-            if (state.loadoutClassData !== "" && !state.loadingStatus) {
-                // filter selected mods for our mod ids
-                let selectedModIds = [];
-                let selectedItemId = "";
-                switch (itemType) {
-                    case "primary":
-                        selectedModIds = state.selectedPrimaryMods.map(
-                            (a) => a.selectedModId
-                        );
-                        selectedItemId = state.selectedPrimary;
-                        break;
-                    case "secondary":
-                        selectedModIds = state.selectedSecondaryMods.map(
-                            (a) => a.selectedModId
-                        );
-                        selectedItemId = state.selectedSecondary;
-                        break;
-                    case "equipment":
-                        selectedModIds = state.selectedEquipmentMods;
-                        selectedItemId = state.selectedEquipment;
-                        break;
-
-                    default:
-                        break;
-                }
-                let selectedOcId = null;
-
-                if (
-                    state.selectedPrimaryOverclock !== "" &&
-                    itemType === "primary"
-                ) {
-                    selectedOcId = state.selectedPrimaryOverclock;
-                } else if (
-                    state.selectedSecondaryOverclock !== "" &&
-                    itemType === "secondary"
-                ) {
-                    selectedOcId = state.selectedSecondaryOverclock;
-                }
-                let mainItem = '';
-                let itemMods = [];
-                // TODO: FIx for equipment
-                if (itemType === "primary" || itemType === "secondary") {
-                    mainItem = state.loadoutClassData.guns.filter(
-                        (gun) => gun.id == selectedItemId
-                    );
-                    itemMods = mainItem[0].mods;
-                } else {
-                    mainItem = state.loadoutClassData.equipments.filter(
-                        (eq) => eq.id == selectedItemId
-                    );
-                    itemMods = mainItem[0].equipment_mods;
-                }
-
-                // This is throwing an error on secondaries sometimes
-
-
-
-                // filter selected primary mods
-                let selectedModArray = [];
-
-                selectedModIds.forEach(function (modId) {
-                    itemMods.forEach((mod) => {
-                        if (mod.id == modId) {
-                            selectedModArray.push(mod);
-                        }
-                    });
-                });
-
-                // I'll need to figure out which weapon we're picking
-                // maybe send primary or secondary?
-                // Won't work for equipment
-                // Probably need to pass the gun or equipment ID
-                // use like item ID or something
-                let creditsCost = selectedModArray
-                    .map((mod) => mod.credits_cost)
-                    .reduce((prev, curr) => prev + curr, 0);
-                let magniteCost = selectedModArray
-                    .map((mod) => mod.magnite_cost)
-                    .reduce((prev, curr) => prev + curr, 0);
-                let bismorCost = selectedModArray
-                    .map((mod) => mod.bismor_cost)
-                    .reduce((prev, curr) => prev + curr, 0);
-                let umaniteCost = selectedModArray
-                    .map((mod) => mod.umanite_cost)
-                    .reduce((prev, curr) => prev + curr, 0);
-                let enorCost = selectedModArray
-                    .map((mod) => mod.enor_pearl_cost)
-                    .reduce((prev, curr) => prev + curr, 0);
-                let jadizCost = selectedModArray
-                    .map((mod) => mod.jadiz_cost)
-                    .reduce((prev, curr) => prev + curr, 0);
-
-                // This is an internal function variable, so we will always be able to trust this block
-                // It will be established based on the param in the first few lines of the function
-                if (selectedOcId) {
-                    let overclockObject = mainItem[0].overclocks.filter(
-                        (overclock) => overclock.id == selectedOcId
-                    );
-
-                    creditsCost += overclockObject[0].credits_cost;
-                    magniteCost += overclockObject[0].magnite_cost;
-                    bismorCost += overclockObject[0].bismor_cost;
-                    umaniteCost += overclockObject[0].umanite_cost;
-                    enorCost += overclockObject[0].enorCost_cost;
-                    jadizCost += overclockObject[0].jadiz_cost;
-                }
-
-                let costObject = {
-                    creditsCost: creditsCost,
-                    magniteCost: magniteCost,
-                    bismorCost: bismorCost,
-                    umaniteCost: umaniteCost,
-                    enorCost: enorCost,
-                    jadizCost: jadizCost,
-                };
-                return costObject;
-            }
         },
         getModsForMatrix: (state) => (itemId, boolEquipment) => {
             let itemObject = "";

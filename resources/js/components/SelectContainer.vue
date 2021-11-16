@@ -221,7 +221,7 @@ export default {
             "selectedSecondaryModIds",
             "getLoadingStatus",
             "loadoutClassEquipment",
-            "getSelectedEquipment",
+            "getSelectedEquipmentId",
             "equipmentModIds",
         ]),
     },

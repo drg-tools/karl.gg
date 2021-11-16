@@ -56,6 +56,8 @@
                         selectedSecondaryModIds.length === 0 ||
                         getSelectedSecondary !== ''
                     "
+                :overclock="selectedSecondaryOverclock"
+                :selected-mods="selectedSecondaryMods"
                 itemType="secondary"
             />
         </div>
@@ -83,7 +85,9 @@ export default {
             'getSelectedSecondary',
             'getSelectedSecondaryDetails',
             'selectedSecondaryModIds',
-            'selectedSecondaryOverclockId'
+            'selectedSecondaryOverclockId',
+            'selectedSecondaryOverclock',
+            'selectedSecondaryMods'
         ])
     }
 };
