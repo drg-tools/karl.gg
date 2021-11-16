@@ -40,5 +40,13 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
+    "/assets/Lok-1-minified.svg": "/assets/Lok-1-minified.svg",
+    "/assets/E_P3_LOK1.svg": "/assets/E_P3_LOK1.svg",
+    "/assets/drak-minified.svg": "/assets/drak-minified.svg",
+    "/assets/S_P3_DRAK25.svg": "/assets/S_P3_DRAK25.svg",
+    "/assets/Sludge_pump-minified.svg": "/assets/Sludge_pump-minified.svg",
+    "/assets/D_P3_Sludge.svg": "/assets/D_P3_Sludge.svg",
+    "/assets/Hurricane-minified.svg": "/assets/Hurricane-minified.svg",
+    "/assets/G_P3_Hurricane.svg": "/assets/G_P3_Hurricane.svg"
 }
