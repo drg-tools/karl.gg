@@ -184,6 +184,9 @@ export default {
     watch: {
         combination() {
             this.fetchData();
+        },
+        weaponId() {
+            this.fetchData();
         }
     }
 }
