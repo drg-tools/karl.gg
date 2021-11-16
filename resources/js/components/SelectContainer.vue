@@ -133,6 +133,7 @@
                 >
                     <router-link to="/equipment-builder">
                         <div
+                            @click="setSelectedEquipment(equipment.id)"
                             class="
                                 border-transparent border-2
                                 p-4
@@ -191,7 +192,7 @@
 <script>
 import RouterSelectButton from "./RouterSelectButton";
 import PreviewCard from "./PreviewCard";
-import { mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     name: "SelectContainer",
@@ -212,6 +213,9 @@ export default {
         clearSelectedEquipment() {
             this.$store.dispatch("clearSelectedEquipment");
         },
+        ...mapActions([
+            'setSelectedEquipment'
+        ])
     },
     computed: {
         ...mapGetters([
