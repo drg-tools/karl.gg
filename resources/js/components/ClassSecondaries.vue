@@ -25,7 +25,7 @@
                     h-12
                 "
             >
-            <
+            <i class="fas fa-chevron-left"></i>
             </router-link>
         </div>
 

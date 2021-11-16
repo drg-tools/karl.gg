@@ -53,7 +53,7 @@
                         md:w-auto
                     "
                 >
-                    X
+                    <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
 
@@ -116,7 +116,7 @@
                         md:w-auto
                     "
                 >
-                    X
+                    <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
 
@@ -125,7 +125,7 @@
                 <RouterSelectButton routeTo="/secondary-builder" />
             </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center flex-col">
             <div class="flex flex-row">
                 <div
                     v-for="equipment in loadoutClassEquipment"
@@ -148,7 +148,9 @@
                             />
                         </div>
                     </router-link>
-                    <div class="flex flex-row justify-center">
+                </div>
+            </div>
+            <div class="flex flex-row justify-center">
                 <button
                     v-on:click="clearSelectedEquipment"
                     v-if="equipmentModIds.length > 0"
@@ -174,12 +176,9 @@
                         md:w-auto
                     "
                 >
-                    X
+                <i class="fas fa-trash-alt mr-2"></i> Clear All
                 </button>
             </div>
-                </div>
-            </div>
-
 
             <div class="text-center" v-if="equipmentModIds.length === 0">
                 <h2>Select Equipment</h2>
@@ -192,7 +191,7 @@
 <script>
 import RouterSelectButton from "./RouterSelectButton";
 import PreviewCard from "./PreviewCard";
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     name: "SelectContainer",
@@ -205,11 +204,11 @@ export default {
                 : this.$router.push("/");
         },
         ...mapActions([
-            'setSelectedEquipment',
-            'clearSelectedSecondary',
-            'clearSelectedPrimary',
-            'clearSelectedEquipment'
-        ])
+            "setSelectedEquipment",
+            "clearSelectedSecondary",
+            "clearSelectedPrimary",
+            "clearSelectedEquipment",
+        ]),
     },
     computed: {
         ...mapGetters([
