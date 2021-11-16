@@ -180,7 +180,7 @@
                 </div>
             </div>
 
-            
+
             <div class="text-center" v-if="equipmentModIds.length === 0">
                 <h2>Select Equipment</h2>
                 <RouterSelectButton routeTo="/equipment-builder" />
@@ -204,17 +204,11 @@ export default {
                 ? this.$router.go(-1)
                 : this.$router.push("/");
         },
-        clearSelectedPrimary() {
-            this.$store.dispatch("clearSelectedPrimary");
-        },
-        clearSelectedSecondary() {
-            this.$store.dispatch("clearSelectedSecondary");
-        },
-        clearSelectedEquipment() {
-            this.$store.dispatch("clearSelectedEquipment");
-        },
         ...mapActions([
-            'setSelectedEquipment'
+            'setSelectedEquipment',
+            'clearSelectedSecondary',
+            'clearSelectedPrimary',
+            'clearSelectedEquipment'
         ])
     },
     computed: {
