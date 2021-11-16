@@ -30,11 +30,9 @@
             </router-link>
         </div>
 
-        <div class="flex">
-            <div v-for="(gun, index) in loadoutClassPrimaries" :key="gun.id">
-                <div class="max-w-1/2">
-                    <PrimaryWeaponSelector :gun="gun" :set-selected="!getSelectedPrimary && index === 0"/>
-                </div>
+        <div class="flex gap-4 mb-4">
+            <div class="w-1/3" v-for="(gun, index) in loadoutClassPrimaries" :key="gun.id">
+                <PrimaryWeaponSelector :gun="gun" :set-selected="!getSelectedPrimary && index === 0"/>
             </div>
         </div>
 

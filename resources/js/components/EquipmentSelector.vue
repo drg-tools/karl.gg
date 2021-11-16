@@ -7,7 +7,7 @@
                 :src="`/assets/${equipment.icon}.svg`" :alt="`${equipment.name} icon`"/>
         </div>
 
-        <div :class="[getIsSelected() ? 'equipmentTextActive' : 'equipmentText']">
+        <div :class="[{ equipmentTextActive: getIsSelected() }, 'equipmentText']">
             <h4>{{ equipment.name }}</h4>
         </div>
     </div>

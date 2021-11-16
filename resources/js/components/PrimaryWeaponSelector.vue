@@ -7,7 +7,7 @@
                 :src="`/assets/${gun.image}.svg`" :alt="`${gun.name} icon`"/>
         </div>
 
-        <div :class="[getIsSelected() ? 'equipmentTextActive' : 'equipmentText']">
+        <div :class="[{ equipmentTextActive: getIsSelected() }, 'equipmentText']">
             <h4>{{ gun.name }}</h4>
         </div>
     </div>
@@ -18,7 +18,7 @@ export default {
     name: "PrimaryWeaponSelector",
     props: ['gun', 'setSelected'],
     created() {
-        if(this.setSelected) {
+        if (this.setSelected) {
             this.selectEquipment();
         }
     },

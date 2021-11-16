@@ -379,15 +379,10 @@
         justify-content: center;
         background-color: #4B5563;
         color: #ada195;
+        text-align: center;
     }
 
     .equipmentTextActive {
-        flex: auto;
-        padding-left: 0.5rem;
-        padding-right: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         background-color: #111927;
         color: #fffbff;
     }
@@ -395,9 +390,9 @@
     .weaponSelectContainer {
         flex: auto;
         display: flex;
+        flex-direction: column;
         cursor: pointer;
-        margin-bottom: 10px;
-        margin-right: .5rem;
+        height: 100%;
     }
 
     .weaponSelectContainer:hover .equipmentText {
@@ -411,6 +406,7 @@
     .flexboxWeaponSelect {
         display: flex;
         align-items: center;
+        justify-content: center;
         height: 4rem;
     }
 
