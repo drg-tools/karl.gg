@@ -13,12 +13,12 @@
             rounded-md
             shadow-sm
             text-white
-            bg-orange-500
-            hover:bg-orange-700
+            bg-blue-500
+            hover:bg-blue-700
             focus:outline-none
             focus:ring-2
             focus:ring-offset-2
-            focus:ring-orange-500
+            focus:ring-blue-500
             w-full
             md:w-auto
         "

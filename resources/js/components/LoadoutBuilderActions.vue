@@ -15,18 +15,19 @@
                         rounded-md
                         shadow-sm
                         text-white
-                        bg-orange-500
-                        hover:bg-orange-700
+                        bg-green-600
+                        hover:bg-green-900
                         focus:outline-none
                         focus:ring-2
                         focus:ring-offset-2
-                        focus:ring-orange-500
+                        focus:ring-green-500
                         w-full
                         md:w-auto
+                        cursor-pointer
                     "
                     v-on:click="onSaveClick"
                 >
-                    SAVE
+                    Save Loadout
                 </div>
             </div>
 

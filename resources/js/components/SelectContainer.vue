@@ -2,7 +2,7 @@
     <div v-if="getLoadingStatus" class="loadingIndicator">
         <img src="/assets/img/karl-spinner-free.gif" alt="loading..." />
     </div>
-    <div v-else class="flex flex-row justify-around my-5">
+    <div v-else class="flex flex-row justify-around items-center my-5">
         <div>
             <router-link v-if="getSelectedPrimaryDetails" to="/primary-builder">
                 <div
@@ -39,21 +39,21 @@
                         py-2
                         border border-transparent
                         text-sm
-                        font-medium
+                        font-bold
                         rounded-md
                         shadow-sm
                         text-white
-                        bg-orange-500
-                        hover:bg-orange-700
+                        bg-red-500
+                        hover:bg-red-700
                         focus:outline-none
                         focus:ring-2
                         focus:ring-offset-2
-                        focus:ring-orange-500
+                        focus:ring-red-500
                         w-full
                         md:w-auto
                     "
                 >
-                    Clear
+                    X
                 </button>
             </div>
 
@@ -102,21 +102,21 @@
                         py-2
                         border border-transparent
                         text-sm
-                        font-medium
+                        font-bold
                         rounded-md
                         shadow-sm
                         text-white
-                        bg-orange-500
-                        hover:bg-orange-700
+                        bg-red-500
+                        hover:bg-red-700
                         focus:outline-none
                         focus:ring-2
                         focus:ring-offset-2
-                        focus:ring-orange-500
+                        focus:ring-red-500
                         w-full
                         md:w-auto
                     "
                 >
-                    Clear
+                    X
                 </button>
             </div>
 
@@ -147,10 +147,7 @@
                             />
                         </div>
                     </router-link>
-                </div>
-            </div>
-
-            <div class="flex flex-row justify-center">
+                    <div class="flex flex-row justify-center">
                 <button
                     v-on:click="clearSelectedEquipment"
                     v-if="equipmentModIds.length > 0"
@@ -162,23 +159,27 @@
                         py-2
                         border border-transparent
                         text-sm
-                        font-medium
+                        font-bold
                         rounded-md
                         shadow-sm
                         text-white
-                        bg-orange-500
-                        hover:bg-orange-700
+                        bg-red-500
+                        hover:bg-red-700
                         focus:outline-none
                         focus:ring-2
                         focus:ring-offset-2
-                        focus:ring-orange-500
+                        focus:ring-red-500
                         w-full
                         md:w-auto
                     "
                 >
-                    Clear All Equipment
+                    X
                 </button>
             </div>
+                </div>
+            </div>
+
+            
             <div class="text-center" v-if="equipmentModIds.length === 0">
                 <h2>Select Equipment</h2>
                 <RouterSelectButton routeTo="/equipment-builder" />

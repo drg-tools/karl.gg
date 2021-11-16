@@ -17,15 +17,16 @@
                     rounded-md
                     shadow-sm
                     text-white
-                    bg-orange-500
-                    hover:bg-orange-700
+                    bg-orange-700
+                    hover:bg-orange-900
                     focus:outline-none
                     focus:ring-2 focus:ring-offset-2 focus:ring-orange-500
                     w-full
                     md:w-auto
                     h-12
                 "
-            >Back
+            >
+            <
             </router-link>
         </div>
 
