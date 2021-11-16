@@ -29,14 +29,13 @@
 
             </div>
 
-            <div v-for="equipment in availableEquipment" v-if="equipmentMods && Object.keys(equipmentMods).length > 0">
-
+            <div v-for="(selectedMods, equipmentId) in equipmentMods" v-if="equipmentMods && Object.keys(equipmentMods).length > 0">
 
                 <PreviewCard
-                    :name="equipment.name"
-                    :icon="equipment.icon"
-                    :mods="equipment.equipment_mods"
-                    :selected-mods="getSelectedModsForEquipment(equipment.id)"
+                    :name="getEquipmentFromAvailable(equipmentId).name"
+                    :icon="getEquipmentFromAvailable(equipmentId).icon"
+                    :mods="getEquipmentFromAvailable(equipmentId).equipment_mods"
+                    :selected-mods="getSelectedModsForEquipment(equipmentId)"
                 />
             </div>
 
@@ -69,7 +68,7 @@ export default {
             type: Array,
             default() {
                 return []
-            } 
+            }
         },
         secondary: Object,
         secondaryMods: {
@@ -115,14 +114,15 @@ export default {
             return mods.map(m => m.id)
         },
 
-        async getLoadoutDetails(loadoutId) {
-
-            const response = await this.$apollo.query({
-                query: gql`${apolloQueries.loadoutDetails(loadoutId)}`
-            });
-            
-
-        },
+        /**
+         * Get equipment from available equipment by id
+         *
+         * @param id
+         * @returns {*}
+         */
+        getEquipmentFromAvailable(id) {
+            return this.availableEquipment.find(e => e.id === parseInt(id));
+        }
 
     },
     computed: {
