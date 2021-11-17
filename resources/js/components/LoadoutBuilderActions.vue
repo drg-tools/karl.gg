@@ -171,7 +171,6 @@ export default {
         this.unsubscribe = this.$store.subscribe((mutation, state) => {
             // TODO: make this handle equipment as well as primary and secondary
             if (mutation.type === "setLoadoutName") {
-                console.log(`Updating loadoutname`);
                 this.name = state.loadoutName;
             }
         });
@@ -194,16 +193,11 @@ export default {
             const response = await this.$store
                 .dispatch("getLoadoutData", loadoutEditingId)
                 .then((result) => {
-                    console.log("initial loadout editing");
-                    console.log(result);
                     if (result.creator != null) {
                         // loadout has creator id
-                        console.log("checking creator");
                         if (result.creator.id == this.getLoggedInUserId()) {
                             this.update = true;
                             this.updateId = result.id;
-                            console.log(this.updateId);
-                            console.log("update is true now");
                         }
                     }
                     // dispatch the store hydrator here
@@ -220,7 +214,6 @@ export default {
                 return;
             } else {
                 let loggedInStatus = this.getIsLoggedIn();
-                console.log(loggedInStatus);
                 if (loggedInStatus) {
                     // User is logged in & GQL will save them with the right ID
                     this.$modal.show("loadingModal");
@@ -240,10 +233,6 @@ export default {
         },
         async onAcceptSave() {
             if (this.update) {
-                console.log("update logic fired");
-                console.log("you will be updatating a loadout");
-                console.log("this.updateId for updating mutation");
-                console.log(this.updateId);
                 let loadoutReturn = await this.$store
                     .dispatch("saveLoadout", this.updateId) // send additional attributes to signify edit
                     .then((result) => {
@@ -279,8 +268,6 @@ export default {
             return this.$store.getters.isLoggedIn;
         },
         getLoggedInUserId() {
-            console.log("this.$store.getters.getLoggedInUserId");
-            console.log(this.$store.getters.getLoggedInUserId);
             return this.$store.getters.getLoggedInUserId;
         },
     },

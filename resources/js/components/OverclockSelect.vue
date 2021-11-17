@@ -100,7 +100,6 @@ export default {
             if (this.primary === true) {
                 this.$store.commit("clearSelectedPrimaryOverclock");
                 if (this.selectedId != overclockId) {
-                    console.log("you did not select the same one");
                     this.$store.commit(
                         "setSelectedPrimaryOverclock",
                         overclockId

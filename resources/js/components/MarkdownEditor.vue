@@ -30,7 +30,6 @@ export default {
         onEditorLoad() {
             // implement your code
             this.unsubscribe = this.$store.subscribe((mutation, state) => {
-            // TODO: make this handle equipment as well as primary and secondary
             if (mutation.type === "setLoadoutDescription") {
                 console.log(`Updating loadoutDescription`);
                 this.editorText = state.loadoutDescription;
