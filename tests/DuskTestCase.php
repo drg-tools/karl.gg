@@ -20,9 +20,14 @@ abstract class DuskTestCase extends BaseTestCase
      */
     public static function prepare()
     {
-        if (! static::runningInSail()) {
+        if (! static::runningInSail() && ! static::runningInCi()) {
             static::startChromeDriver();
         }
+    }
+
+    protected static function runningInCi()
+    {
+        return isset($_ENV['CI']) && $_ENV['CI'] == '1';
     }
 
     /**
