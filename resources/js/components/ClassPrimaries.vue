@@ -6,7 +6,7 @@
             <BackButton />
         </div>
 
-        <div class="flex gap-4 mb-4">
+        <div class="flex gap-4 mb-4" dusk="primary-selectors">
             <div class="w-1/3" v-for="(gun, index) in loadoutClassPrimaries" :key="gun.id">
                 <PrimaryWeaponSelector :gun="gun" :set-selected="!getSelectedPrimary && index === 0"/>
             </div>

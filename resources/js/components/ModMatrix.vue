@@ -25,6 +25,7 @@
                     v-for="(modData, modIndex) in mod"
                     :key="modIndex"
                     class="modDisplay"
+                    :dusk="`mod-${modData.id}`"
                     v-on:click="selectMod(modData.id, modData.mod_tier)"
                     v-tooltip="{
                         content: modData ? getModTooltip(modData) : null,

@@ -5,7 +5,7 @@
             <BackButton />
         </div>
 
-        <div class="flex gap-4 mb-4">
+        <div class="flex gap-4 mb-4" dusk="secondary-selectors">
             <div class="w-1/3" v-for="(gun, index) in loadoutClassSecondaries" :key="gun.id">
                 <SecondaryWeaponSelector :gun="gun" :set-selected="!getSelectedSecondary && index === 0"/>
             </div>

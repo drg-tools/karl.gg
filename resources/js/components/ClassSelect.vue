@@ -1,7 +1,7 @@
 <template>
-  
+
   <div v-if="getLoadingStatus">
-    
+
   </div>
   <div v-else class="classSelectContainer my-2">
     <h1>Select class:</h1>
@@ -11,6 +11,7 @@
         class="classSelect px-4 py-2"
         v-bind:class="[getSelectedClass() == 3 ? 'classSelectActive' : '']"
         v-bind:key="3"
+        dusk="driller"
       >
         <img src="/assets/img/50px-D_icon-hex.png" class="classIcon" />
         <h2>Driller</h2>
@@ -20,6 +21,7 @@
         class="classSelect px-4 py-2"
         v-bind:class="[getSelectedClass() == 1 ? 'classSelectActive' : '']"
         v-bind:key="1"
+        dusk="engineer"
       >
         <img src="/assets/img/50px-E_icon-hex.png" class="classIcon" />
         <h2>Engineer</h2>
@@ -29,6 +31,7 @@
         class="classSelect px-4 py-2"
         v-bind:class="[getSelectedClass() == 4 ? 'classSelectActive' : '']"
         v-bind:key="4"
+        dusk="gunner"
       >
         <img src="/assets/img/50px-G_icon-hex.png" class="classIcon" />
         <h2>Gunner</h2>
@@ -38,6 +41,7 @@
         class="classSelect px-4 py-2"
         v-bind:class="[getSelectedClass() == 2 ? 'classSelectActive' : '']"
         v-bind:key="2"
+        dusk="scout"
       >
         <img src="/assets/img/50px-S_icon-hex.png" class="classIcon" />
         <h2>Scout</h2>
