@@ -32,7 +32,6 @@
                     "
                 :overclock="selectedSecondaryOverclock"
                 :selected-mods="selectedSecondaryMods"
-                itemType="secondary"
             />
         </div>
     </div>
