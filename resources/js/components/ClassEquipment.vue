@@ -26,16 +26,14 @@
                     h-12
                 "
             >
-            <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-left"></i>
             </router-link>
         </div>
 
         <div class="flex gap-4 mb-4">
             <div class="w-1/3" v-for="(equipment, index) in loadoutClassEquipment" :key="equipment.id">
-                <div class="max-w-1/2">
-                    <EquipmentSelector :equipment="equipment" :equipment-slot="index + 1"
-                                       :set-selected="!getSelectedEquipmentId && index === 0"/>
-                </div>
+                <EquipmentSelector :equipment="equipment" :equipment-slot="index + 1"
+                                   :set-selected="!getSelectedEquipmentId && index === 0"/>
             </div>
         </div>
 

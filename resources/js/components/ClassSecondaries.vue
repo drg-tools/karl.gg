@@ -25,15 +25,13 @@
                     h-12
                 "
             >
-            <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-left"></i>
             </router-link>
         </div>
 
         <div class="flex gap-4 mb-4">
             <div class="w-1/3" v-for="(gun, index) in loadoutClassSecondaries" :key="gun.id">
-                <div class="max-w-1/2">
-                    <SecondaryWeaponSelector :gun="gun" :set-selected="!getSelectedSecondary && index === 0"/>
-                </div>
+                <SecondaryWeaponSelector :gun="gun" :set-selected="!getSelectedSecondary && index === 0"/>
             </div>
         </div>
 
