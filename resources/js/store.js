@@ -162,7 +162,6 @@ export default new Vuex.Store({
             if (state.loadoutName === "") {
                 // loadout name can't be null
                 // This will be handled by frontend validation, but consider this server-side as a double-check
-                console.log("loadout name is requred");
                 return;
             }
 
