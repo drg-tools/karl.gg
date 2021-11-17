@@ -48,4 +48,21 @@ jobs:
       # prepare the database
       - run: cp .env.example .env
       - run: ./vendor/bin/phpunit
-      - run: php artisan dusk
+      - run:
+          name: "Install Dusk and Update Chrome Drivers"
+          command: |
+            composer require --dev staudenmeir/dusk-updater
+            php artisan dusk:update --detect
+      - run:
+          name: Start Chrome Driver
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux
+          background: true
+
+      - run:
+          name: Run Laravel Server
+          command: php artisan serve
+          background: true
+
+      - run:
+          name: Run Browser Tests Tests
+          command: php artisan dusk
