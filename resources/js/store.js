@@ -40,17 +40,17 @@ export default new Vuex.Store({
         loadingStatus: false,
         user: null,
         selectedClass: "",
-        loadoutName: "", 
-        loadoutDescription: "", 
+        loadoutName: "",
+        loadoutDescription: "",
         loadoutClassData: "", // Use this as source of truth, only call this. Save ID's in other manipulators
         icons: IconList,
-        selectedPrimary: "",
+        selectedPrimaryId: "",
         selectedPrimaryMods: [],
-        selectedPrimaryOverclock: "",
-        selectedSecondary: "",
+        selectedPrimaryOverclockId: "",
+        selectedSecondaryId: "",
         selectedSecondaryMods: [],
-        selectedSecondaryOverclock: "",
-        selectedEquipment: "",
+        selectedSecondaryOverclockId: "",
+        selectedEquipmentId: "",
         selectedEquipmentMods: [],
     },
     mutations: {
@@ -85,10 +85,10 @@ export default new Vuex.Store({
             state.loadoutClassData = "";
         },
         setSelectedPrimary(state, newValue) {
-            state.selectedPrimary = newValue;
+            state.selectedPrimaryId = newValue;
         },
         clearSelectedPrimary(state) {
-            state.selectedPrimary = "";
+            state.selectedPrimaryId = "";
         },
         setSelectedPrimaryMod(state, newValue) {
             state.selectedPrimaryMods.push(newValue);
@@ -105,16 +105,16 @@ export default new Vuex.Store({
             state.selectedPrimaryMods = [];
         },
         setSelectedPrimaryOverclock(state, newValue) {
-            state.selectedPrimaryOverclock = newValue;
+            state.selectedPrimaryOverclockId = newValue;
         },
         clearSelectedPrimaryOverclock(state) {
-            state.selectedPrimaryOverclock = "";
+            state.selectedPrimaryOverclockId = "";
         },
         setSelectedSecondary(state, newValue) {
-            state.selectedSecondary = newValue;
+            state.selectedSecondaryId = newValue;
         },
         clearSelectedSecondary(state) {
-            state.selectedSecondary = "";
+            state.selectedSecondaryId = "";
         },
         setSelectedSecondaryMod(state, newValue) {
             state.selectedSecondaryMods.push(newValue);
@@ -131,16 +131,16 @@ export default new Vuex.Store({
             state.selectedSecondaryMods = [];
         },
         setSelectedSecondaryOverclock(state, newValue) {
-            state.selectedSecondaryOverclock = newValue;
+            state.selectedSecondaryOverclockId = newValue;
         },
         clearSelectedSecondaryOverclock(state) {
-            state.selectedSecondaryOverclock = "";
+            state.selectedSecondaryOverclockId = "";
         },
         setSelectedEquipment(state, newValue) {
-            state.selectedEquipment = newValue;
+            state.selectedEquipmentId = newValue;
         },
         clearSelectedEquipment(state) {
-            state.selectedEquipment = "";
+            state.selectedEquipmentId = "";
         },
         setSelectedEquipmentMod(state, modId) {
             state.selectedEquipmentMods.push(modId);
@@ -175,18 +175,19 @@ export default new Vuex.Store({
                 state.selectedSecondaryMods
             );
 
-            if (state.selectedPrimaryOverclock != "") {
-                combinedOverClockIdArray.push(state.selectedPrimaryOverclock);
+            if (state.selectedPrimaryOverclockId != "") {
+                combinedOverClockIdArray.push(state.selectedPrimaryOverclockId);
                 // Need to make array of strings ID's for gql
                 combinedOverClockIdArray = combinedOverClockIdArray.map(Number);
             }
 
-            if (state.selectedSecondaryOverclock != "") {
-                combinedOverClockIdArray.push(state.selectedSecondaryOverclock);
+            if (state.selectedSecondaryOverclockId != "") {
+                combinedOverClockIdArray.push(
+                    state.selectedSecondaryOverclockId
+                );
                 // Need to make array of strings ID's for gql
                 combinedOverClockIdArray = combinedOverClockIdArray.map(Number);
             }
-
 
             let combinedModIdArray = combinedModArray.map(
                 (e) => e.selectedModId
@@ -553,7 +554,7 @@ export default new Vuex.Store({
 
         setSelectedEquipmentMod({ commit, dispatch, state }, selectedMod) {
             // Do we have a mod id in this tier, for this equipment already? If so, let's remove all other mods on that tier from store.
-            const currentEquipmentId = state.selectedEquipment;
+            const currentEquipmentId = state.selectedEquipmentId;
             const currentEquipment = state.loadoutClassData?.equipments?.filter(
                 (e) => e.id === currentEquipmentId
             );
@@ -607,15 +608,15 @@ export default new Vuex.Store({
         },
         // TODO: this should probably be getSelectedPrimaryId (store as well)
         getSelectedPrimary: (state) => {
-            return state.selectedPrimary;
+            return state.selectedPrimaryId;
         },
         getSelectedPrimaryDetails: (state) => {
-            if (!state.loadoutClassData || !state.selectedPrimary) {
+            if (!state.loadoutClassData || !state.selectedPrimaryId) {
                 return null;
             }
 
             return state.loadoutClassData.guns.find(
-                (gun) => gun.id === state.selectedPrimary
+                (gun) => gun.id === state.selectedPrimaryId
             );
         },
         selectedPrimaryModIds: (state) => {
@@ -629,7 +630,7 @@ export default new Vuex.Store({
             return buildComboIndexFromGun(gun, overclockId, selectedMods);
         },
         selectedPrimaryOverclockId: (state) => {
-            return state.selectedPrimaryOverclock;
+            return state.selectedPrimaryOverclockId;
         },
         selectedPrimaryOverclock: (state, getters) => {
             const gun = getters.getSelectedPrimaryDetails;
@@ -656,12 +657,12 @@ export default new Vuex.Store({
             return selectedMods;
         },
         getSelectedSecondaryDetails: (state) => {
-            if (!state.loadoutClassData || !state.selectedSecondary) {
+            if (!state.loadoutClassData || !state.selectedSecondaryId) {
                 return null;
             }
 
             return state.loadoutClassData.guns.find(
-                (gun) => gun.id === state.selectedSecondary
+                (gun) => gun.id === state.selectedSecondaryId
             );
         },
         selectedSecondaryModIds: (state) => {
@@ -675,7 +676,7 @@ export default new Vuex.Store({
             return buildComboIndexFromGun(gun, overclockId, selectedMods);
         },
         selectedSecondaryOverclockId: (state) => {
-            return state.selectedSecondaryOverclock;
+            return state.selectedSecondaryOverclockId;
         },
         selectedSecondaryOverclock: (state, getters) => {
             const gun = getters.getSelectedSecondaryDetails;
@@ -702,14 +703,14 @@ export default new Vuex.Store({
             return selectedMods;
         },
         getSelectedSecondary: (state) => {
-            return state.selectedSecondary;
+            return state.selectedSecondaryId;
         },
         getSelectedEquipmentId: (state) => {
-            return state.selectedEquipment;
+            return state.selectedEquipmentId;
         },
         selectedEquipmentDetails: (state) => {
             return state.loadoutClassData?.equipments.find(
-                (e) => e.id === state.selectedEquipment
+                (e) => e.id === state.selectedEquipmentId
             );
         },
         selectedEquipmentMods: (state, getters) => {
@@ -744,13 +745,13 @@ export default new Vuex.Store({
             });
         },
         getIsSelectedPrimary: (state) => (weaponId) => {
-            return state.selectedPrimary === weaponId;
+            return state.selectedPrimaryId === weaponId;
         },
         getIsSelectedSecondary: (state) => (weaponId) => {
-            return state.selectedSecondary === weaponId;
+            return state.selectedSecondaryId === weaponId;
         },
         getIsSelectedEquipment: (state) => (equipmentId) => {
-            return state.selectedEquipment === equipmentId;
+            return state.selectedEquipmentId === equipmentId;
         },
         getIconByName: (state) => (iconName) => {
             return state.icons.default[iconName];
