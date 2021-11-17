@@ -52,6 +52,7 @@ import Icon_Upgrade_TemperatureCoolDown from "./assets/mods/Icon_Upgrade_Tempera
 import Icon_Upgrade_Weakspot from "./assets/mods/Icon_Upgrade_Weakspot.js";
 import Icon_Upgrade_Bosco_Rocket_Upgrade from "./assets/mods/Icon_Upgrade_Bosco_Rocket_Upgrade.js";
 import Icon_Upgrade_PlusOne from "./assets/mods/Icon_Upgrade_PlusOne.js";
+import Icon_Upgrade_Light from "./assets/mods/Icon_Upgrade_Light.js";
 import Icon_Upgrade_Light_ExtraLife from "./assets/mods/Icon_Upgrade_Light_ExtraLife.js";
 import Icon_Upgrade_Light_Intensity from "./assets/mods/Icon_Upgrade_Light_Intensity.js";
 import Icon_Upgrade_Special from "./assets/mods/Icon_Upgrade_Special.js";
@@ -118,6 +119,7 @@ const IconList = {
     Icon_Upgrade_Weakspot,
     Icon_Upgrade_Bosco_Rocket_Upgrade,
     Icon_Upgrade_PlusOne,
+    Icon_Upgrade_Light,
     Icon_Upgrade_Light_ExtraLife,
     Icon_Upgrade_Light_Intensity,
     Icon_Upgrade_Special,
