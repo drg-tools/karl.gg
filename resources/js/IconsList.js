@@ -67,6 +67,7 @@ import Icon_Overclock_Slowdown from "./assets/mods/Icon_Overclock_Slowdown.js";
 import Icon_Overclock_SmallBullets from "./assets/mods/Icon_Overclock_SmallBullets.js";
 import Icon_Overclock_Special_Magazine from "./assets/mods/Icon_Overclock_Special_Magazine.js";
 import Icon_Overclock_Spinning_Linecutter from "./assets/mods/Icon_Overclock_Spinning_Linecutter.js";
+import Icon_Upgrade_Arperture_Extension from "./assets/mods/Icon_Upgrade_Arperture_Extension.js";
 
 const IconList = {
     R_P1_Bosco_SVG,
@@ -134,6 +135,7 @@ const IconList = {
     Icon_Overclock_SmallBullets,
     Icon_Overclock_Special_Magazine,
     Icon_Overclock_Spinning_Linecutter,
+    Icon_Upgrade_Arperture_Extension,
 };
 
 export default IconList;
