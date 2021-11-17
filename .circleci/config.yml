@@ -13,7 +13,11 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # Using the RAM variation mitigates I/O contention
       # for database intensive operations.
-      # - image: circleci/mysql:5.7-ram
+      - image: circleci/mysql:5.7-ram
+        environment:
+          MYSQL_DATABASE: secrets
+          MYSQL_USER: laravel
+          MYSQL_PASSWORD: laravel
       #
       # - image: redis:2.8.19
     steps:
@@ -44,3 +48,4 @@ jobs:
       # prepare the database
       - run: cp .env.example .env
       - run: ./vendor/bin/phpunit
+      - run: php artisan dusk
