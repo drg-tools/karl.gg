@@ -166,6 +166,7 @@ class ModCrudController extends CrudController
                 'Icon_Upgrade_Area' => 'Icon_Upgrade_Area',
                 'Icon_Upgrade_AreaDamage' => 'Icon_Upgrade_AreaDamage',
                 'Icon_Upgrade_ArmorBreaking' => 'Icon_Upgrade_ArmorBreaking',
+                'Icon_Upgrade_Arperture_Extension' => 'Icon_Upgrade_Arperture_Extension',
                 'Icon_Upgrade_BulletPenetration' => 'Icon_Upgrade_BulletPenetration',
                 'Icon_Upgrade_Capacity' => 'Icon_Upgrade_Capacity',
                 'Icon_Upgrade_ChargeUp' => 'Icon_Upgrade_ChargeUp',

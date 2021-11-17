@@ -83,6 +83,7 @@ const IconList = {
     Icon_Upgrade_Area,
     Icon_Upgrade_AreaDamage,
     Icon_Upgrade_ArmorBreaking,
+    Icon_Upgrade_Arperture_Extension,
     Icon_Upgrade_BulletPenetration,
     Icon_Upgrade_Capacity,
     Icon_Upgrade_ChargeUp,
@@ -135,7 +136,6 @@ const IconList = {
     Icon_Overclock_SmallBullets,
     Icon_Overclock_Special_Magazine,
     Icon_Overclock_Spinning_Linecutter,
-    Icon_Upgrade_Arperture_Extension,
 };
 
 export default IconList;
