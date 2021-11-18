@@ -53,9 +53,10 @@ jobs:
           command: |
             composer require --dev staudenmeir/dusk-updater
             php artisan dusk:update --detect
+      - run: ./vendor/laravel/dusk/bin/chromedriver-linux -h
       - run:
           name: Start Chrome Driver
-          command: ./vendor/laravel/dusk/bin/chromedriver-linux
+          command: ./vendor/laravel/dusk/bin/chromedriver-linux --verbose
           background: true
 
       - run:
