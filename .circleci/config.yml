@@ -15,16 +15,16 @@ jobs:
       # for database intensive operations.
       - image: circleci/mysql:5.7-ram
         environment:
-          MYSQL_DATABASE: secrets
+          MYSQL_DATABASE: laravel
           MYSQL_USER: laravel
-          MYSQL_PASSWORD: laravel
+          MYSQL_PASSWORD: secrets
       #
       # - image: redis:2.8.19
     steps:
       - checkout
       - run: sudo apt update
       - run: sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-install zip pdo_mysql
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -45,25 +45,30 @@ jobs:
           key: node-v1-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
+      - run:
+          name: Build Frontend
+          command: npm run dev
       # prepare the database
       - run: cp .env.example .env
+      - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
       - run:
           name: "Install Dusk and Update Chrome Drivers"
           command: |
             composer require --dev staudenmeir/dusk-updater
             php artisan dusk:update --detect
-      - run: ./vendor/laravel/dusk/bin/chromedriver-linux -h
-      - run:
-          name: Start Chrome Driver
-          command: ./vendor/laravel/dusk/bin/chromedriver-linux --verbose
-          background: true
 
       - run:
           name: Run Laravel Server
           command: php artisan serve
           background: true
 
+      - run:
+          name: Get a freshly seeded database
+          command: php artisan migrate:fresh --seed
+      - run:
+          name: Setup Passport Post Seed
+          command: php artisan passport:install
       - run:
           name: Run Browser Tests Tests
           command: php artisan dusk
