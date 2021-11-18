@@ -29,7 +29,8 @@
 
             </div>
 
-            <div v-for="(selectedMods, equipmentId) in equipmentMods" v-if="equipmentMods && Object.keys(equipmentMods).length > 0">
+            <div v-for="(selectedMods, equipmentId) in equipmentMods"
+                 v-if="equipmentMods && Object.keys(equipmentMods).length > 0">
 
                 <PreviewCard
                     :name="getEquipmentFromAvailable(equipmentId).name"
@@ -53,8 +54,6 @@
 </template>
 
 <script>
-import apolloQueries from '../apolloQueries';
-import gql from 'graphql-tag';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import {Viewer} from '@toast-ui/vue-editor';
 import PreviewCard from "./PreviewCard";

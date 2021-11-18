@@ -8,12 +8,10 @@
 
     <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
         <x-loadout-outdated :loadout="$loadout"></x-loadout-outdated>
-        <x-preview-top 
-            :loadout="$loadout"
-        />
-        
+        <x-preview-top :loadout="$loadout" />
+
         <loadout-preview-page
-            :loadout-data="{{ $loadout }}"
+            :loadout-data="{!! $loadout !!}"
             @if($loadout->primary_gun)
             :primary="{{ $loadout->primary_gun }}"
             :primary-mods="{{ $loadout->primary_gun->mods }}"
