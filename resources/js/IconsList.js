@@ -15,6 +15,7 @@ import Icon_Upgrade_Angle from "./assets/mods/Icon_Upgrade_Angle.js";
 import Icon_Upgrade_Area from "./assets/mods/Icon_Upgrade_Area.js";
 import Icon_Upgrade_AreaDamage from "./assets/mods/Icon_Upgrade_AreaDamage.js";
 import Icon_Upgrade_ArmorBreaking from "./assets/mods/Icon_Upgrade_ArmorBreaking.js";
+import Icon_Upgrade_Arperture_Extension from "./assets/mods/Icon_Upgrade_Arperture_Extension.js";
 import Icon_Upgrade_BulletPenetration from "./assets/mods/Icon_Upgrade_BulletPenetration.js";
 import Icon_Upgrade_Capacity from "./assets/mods/Icon_Upgrade_Capacity.js";
 import Icon_Upgrade_ChargeUp from "./assets/mods/Icon_Upgrade_ChargeUp.js";
@@ -68,7 +69,7 @@ import Icon_Overclock_Slowdown from "./assets/mods/Icon_Overclock_Slowdown.js";
 import Icon_Overclock_SmallBullets from "./assets/mods/Icon_Overclock_SmallBullets.js";
 import Icon_Overclock_Special_Magazine from "./assets/mods/Icon_Overclock_Special_Magazine.js";
 import Icon_Overclock_Spinning_Linecutter from "./assets/mods/Icon_Overclock_Spinning_Linecutter.js";
-import Icon_Upgrade_Arperture_Extension from "./assets/mods/Icon_Upgrade_Arperture_Extension.js";
+import Player_State_Acid from "./assets/mods/Player_State_Acid.js";
 
 const IconList = {
     R_P1_Bosco_SVG,
@@ -138,6 +139,7 @@ const IconList = {
     Icon_Overclock_SmallBullets,
     Icon_Overclock_Special_Magazine,
     Icon_Overclock_Spinning_Linecutter,
+    Player_State_Acid,
 };
 
 export default IconList;
