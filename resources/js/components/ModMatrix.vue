@@ -22,7 +22,7 @@
             >
                 <!-- Each Mod start -->
                 <div
-                    v-for="(modData, modIndex) in mod"
+                    v-for="(modData, modIndex) in sortMods(mod)"
                     :key="modIndex"
                     class="modDisplay"
                     :dusk="`mod-${modData.id}`"
@@ -132,6 +132,9 @@ export default {
                 return this.$store.getters.getIsSecondaryModSelected(modId);
             }
         },
+        sortMods(mods) {
+            return _.sortBy(mods, 'mod_index');
+        }
     },
     computed: {
         modMatrixTiers() {

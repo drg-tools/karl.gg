@@ -26,7 +26,7 @@
             >
                 <g display="inherit">
                     <g>
-                        
+
                         <!-- background layer -->
                         <path
                             style="
@@ -54,7 +54,7 @@
         </div>
         <popover name="overclocks" class="overclockGrid">
             <div
-                v-for="(overclock, overclockIndex) in overclocks"
+                v-for="(overclock, overclockIndex) in sortedOverclocks"
                 :key="overclockIndex"
                 v-on:click="selectOverclock(overclock.id)"
                 class="tooltip-target modDisplay"
@@ -120,6 +120,9 @@ export default {
         selectedOverclock() {
             return this.overclocks.find((o) => o.id === this.selectedId);
         },
+        sortedOverclocks() {
+            return _.sortBy(this.overclocks, 'overclock_index')
+        }
     },
 };
 </script>
