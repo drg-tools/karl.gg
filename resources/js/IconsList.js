@@ -61,6 +61,7 @@ import Icon_Upgrade_TwoTurrets from "./assets/mods/Icon_Upgrade_TwoTurrets.js";
 import Icon_Overclock_ChangeOfHigherDamage from "./assets/mods/Icon_Overclock_ChangeOfHigherDamage.js";
 import Icon_Overclock_ExplosionJump from "./assets/mods/Icon_Overclock_ExplosionJump.js";
 import Icon_Overclock_ForthAndBack_Linecutter from "./assets/mods/Icon_Overclock_ForthAndBack_Linecutter.js";
+import Icon_Overclock_LastShellHigherDamage from "./assets/mods/Icon_Overclock_LastShellHigherDamage.js";
 import Icon_Overclock_Neuro from "./assets/mods/Icon_Overclock_Neuro.js";
 import Icon_Overclock_ShotgunJump from "./assets/mods/Icon_Overclock_ShotgunJump.js";
 import Icon_Overclock_Slowdown from "./assets/mods/Icon_Overclock_Slowdown.js";
@@ -130,6 +131,7 @@ const IconList = {
     Icon_Overclock_ChangeOfHigherDamage,
     Icon_Overclock_ExplosionJump,
     Icon_Overclock_ForthAndBack_Linecutter,
+    Icon_Overclock_LastShellHigherDamage,
     Icon_Overclock_Neuro,
     Icon_Overclock_ShotgunJump,
     Icon_Overclock_Slowdown,
