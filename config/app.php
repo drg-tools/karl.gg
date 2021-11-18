@@ -2,6 +2,15 @@
 
 return [
 
+    /**
+     * Banner to show across the whole site.
+     */
+    'banner' => [
+        'enabled' => false,
+        'message' => '',
+        'link' => '/blog/26',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
