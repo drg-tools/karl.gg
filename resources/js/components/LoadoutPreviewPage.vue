@@ -2,10 +2,9 @@
     <div class="equipmentCards text-gray-300">
 
         <div class="flex flex-row flex-wrap justify-around my-5">
-            <div class="mb-4">
+            <div class="mb-4" v-if="primary">
 
                 <PreviewCard
-                    v-if="primary"
                     :name="primary.name"
                     :icon="primary.image"
                     :mods="primaryMods"
@@ -15,10 +14,9 @@
 
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4" v-if="secondary">
 
                 <PreviewCard
-                    v-if="secondary"
                     :name="secondary.name"
                     :icon="secondary.image"
                     :mods="secondaryMods"
