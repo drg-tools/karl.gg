@@ -45,7 +45,7 @@ import Icon_Upgrade_Ricoshet from "./assets/mods/Icon_Upgrade_Ricoshet.js";
 import Icon_Upgrade_ScareEnemies from "./assets/mods/Icon_Upgrade_ScareEnemies.js";
 import Icon_Upgrade_Shot from "./assets/mods/Icon_Upgrade_Shot.js";
 import Icon_Upgrade_Shotgun_Pellet from "./assets/mods/Icon_Upgrade_Shotgun_Pellet.js";
-import Icon_Upgrade_Shotgun_Pellet2 from "./assets/mods/Icon_Upgrade_Shotgun_Pellet.js2";
+import Icon_Upgrade_Shotgun_Pellet2 from "./assets/mods/Icon_Upgrade_Shotgun_Pellet2.js";
 import Icon_Upgrade_Speed from "./assets/mods/Icon_Upgrade_Speed.js";
 import Icon_Upgrade_SpeedUp from "./assets/mods/Icon_Upgrade_SpeedUp.js";
 import Icon_Upgrade_Sticky from "./assets/mods/Icon_Upgrade_Sticky.js";
