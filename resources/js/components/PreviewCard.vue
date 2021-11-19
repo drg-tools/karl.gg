@@ -163,8 +163,6 @@ export default {
     height: 1rem;
     width: 6rem;
     margin-bottom: 0.3rem;
-    justify-content: center;
-    /*align-items: center;*/
 }
 
 .mod {
