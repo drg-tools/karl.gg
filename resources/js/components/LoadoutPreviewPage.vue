@@ -1,8 +1,8 @@
 <template>
     <div class="equipmentCards text-gray-300">
 
-        <div class="flex flex-row justify-around my-5">
-            <div>
+        <div class="flex flex-row flex-wrap justify-around my-5">
+            <div class="mb-4">
 
                 <PreviewCard
                     v-if="primary"
@@ -15,7 +15,7 @@
 
             </div>
 
-            <div>
+            <div class="mb-4">
 
                 <PreviewCard
                     v-if="secondary"
@@ -30,7 +30,9 @@
             </div>
 
             <div v-for="(selectedMods, equipmentId) in equipmentMods"
-                 v-if="equipmentMods && Object.keys(equipmentMods).length > 0">
+                 v-if="equipmentMods && Object.keys(equipmentMods).length > 0"
+                 class="mb-4"
+            >
 
                 <PreviewCard
                     :name="getEquipmentFromAvailable(equipmentId).name"
