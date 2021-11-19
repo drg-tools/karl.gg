@@ -121,7 +121,7 @@ class ProfileController extends Controller
     private function addSalutesToLoadoutsCollection($loadouts)
     {
         foreach ($loadouts as $key => $loadout) {
-            $loadout->votes_count = $loadout->upVotesCount();
+            $loadout->votes_sum_value = $loadout->getUpvotesCount($loadout->id);
         }
 
         return $loadouts;

@@ -74,7 +74,7 @@ class Loadout extends Model
     use Favoriteable, Filterable, CrudTrait, Votable, Likeable, Sortable;
 
     public $sortable = ['name', 'description', 'character_id', 'throwable_id', 'created_at', 'updated_at'];
-    public $sortableAs = ['votes_count'];
+    public $sortableAs = ['votes_sum_value'];
     private static $whiteListFilter = [
         'creator',
         'name',
@@ -165,6 +165,14 @@ class Loadout extends Model
     }
 
     /**
+     * @return mixed |null
+     */
+    public function getEquipmentsAttribute()
+    {
+        return $this->getEquipmentsFromMods();
+    }
+
+    /**
      * We don't have a native relationship to guns, so we must traverse the mods to derive weapon.
      *
      * @param $slot
@@ -180,6 +188,23 @@ class Loadout extends Model
         }
 
         return $grouped->first()->gun;
+    }
+
+    /**
+     * We don't have a native relationship to guns, so we must traverse the mods to derive weapon.
+     *
+     * @param $slot
+     * @return mixed
+     */
+    private function getEquipmentsFromMods()
+    {
+        $grouped = $this->equipment_mods->groupBy('equipment_id');
+
+        if (! $grouped || ! $grouped->first()) {
+            return null;
+        }
+
+        return $grouped;
     }
 
     /**

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Character;
+use App\Equipment;
 use App\Gun;
 use App\Loadout;
 use App\Overclock;
-use App\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Str;
@@ -19,8 +19,9 @@ class LoadoutsController extends Controller
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
             ->with('mods', 'mods.gun', 'character', 'creator', 'patch')
-            ->withCount('votes')
+            ->withSum('votes', 'value')
             ->paginate();
+
         $characters = Character::orderBy('name')->pluck('name', 'id');
         $overclocks = Overclock::orderBy('overclock_name')->with('character')->get();
         $primaries = Gun::where('character_slot', 1)->orderBy('name')->with('character')->get();
@@ -44,12 +45,18 @@ class LoadoutsController extends Controller
 
     public function preview($id)
     {
-        $loadout = Loadout::with('mods')
+        $loadout = Loadout::with('mods', 'equipment_mods', 'overclocks')
             ->findOrFail($id);
+
+        $availableEquipment = Equipment::where('character_id', $loadout->character_id)
+            ->with('equipment_mods')
+            ->get();
 
         $this->generateSeo($loadout);
 
-        return view('loadouts.preview')->withLoadout($loadout);
+        return view('loadouts.preview')
+            ->withLoadout($loadout)
+            ->withAvailableEquipment($availableEquipment);
     }
 
     public function delete(Request $request, $id)

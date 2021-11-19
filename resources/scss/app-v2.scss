@@ -1,6 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "_builder";
+@import "_preview";
 
 .tui-editor-contents * {
     color: white!important;

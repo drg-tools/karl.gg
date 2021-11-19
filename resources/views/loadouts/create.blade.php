@@ -6,14 +6,16 @@
 
 @section('content')
     <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
-        <loadout-buttons></loadout-buttons>
-        <class-select></class-select>
-        <equipment-select></equipment-select>
-        <div class="flex flex-wrap">
-            <stats-display></stats-display>
-            <modification-select></modification-select>
-        </div>
+        <loadout-builder />
     </div>
 
+@endsection
+
+@section('scripts')
+@if (Auth::check())
+     <script>window.authUser={!! json_encode(Auth::user()); !!};</script>
+@else
+     <script>window.authUser=null;</script>
+@endif
 @endsection
 

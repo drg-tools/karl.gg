@@ -6,7 +6,8 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+// Updated, per this article: https://nono.ma/window-vue-use-is-not-a-function
+window.Vue = require('vue').default;
 
 /**
  * The following block of code may be used to automatically register your
@@ -45,7 +46,7 @@ files.keys().map(key => {
 
 import Vue from 'vue';
 import store from './store';
-import {Apollo} from './apollo';
+import { Apollo } from './apollo';
 import Toasted from 'vue-toasted';
 import VPopover from 'vue-js-popover';
 import VTooltip from 'v-tooltip';
@@ -53,15 +54,17 @@ import VModal from 'vue-js-modal';
 import VueApollo from 'vue-apollo';
 import VueClipboard from 'vue-clipboard2';
 import Vuelidate from 'vuelidate';
+import VueRouter from 'vue-router'
 
 Vue.use(VueClipboard);
 Vue.config.productionTip = false;
 Vue.use(Toasted);
 Vue.use(VModal);
 Vue.use(VueApollo);
-Vue.use(VPopover, {tooltip: true});
+Vue.use(VPopover, { tooltip: true });
 Vue.use(VTooltip);
 Vue.use(Vuelidate);
+Vue.use(VueRouter);
 // credit to https://stackoverflow.com/questions/35070271/vue-js-components-how-to-truncate-the-text-in-the-slot-element-in-a-component
 // for this filter
 /** Vue Filters Start */
@@ -74,15 +77,54 @@ Vue.filter('truncate', function (text, length, suffix) {
 });
 /** Vue Filters End */
 
+// 1. Define route components.
+// These can be imported from other files
+import LoadoutBuilder from './components/LoadoutBuilder.vue'
+import LoadoutContainer from './components/LoadoutContainer.vue'
+import SelectContainer from './components/SelectContainer.vue'
+import PrimaryBuilder from './components/PrimaryBuilder.vue'
+import SecondaryBuilder from './components/SecondaryBuilder.vue'
+import EquipmentBuilder from './components/EquipmentBuilder.vue'
+
+// 2. Define some routes
+// Each route should map to a component. The "component" can
+// either be an actual component constructor created via
+// `Vue.extend()`, or just a component options object.
+// We'll talk about nested routes later.
+const routes = [
+    {
+        path: '', component: LoadoutBuilder,
+        children: [
+            {
+                path: '', component: LoadoutContainer,
+                children: [
+                    { path: '', component: SelectContainer },
+                    { path: '/primary-builder', component: PrimaryBuilder },
+                    { path: '/secondary-builder', component: SecondaryBuilder },
+                    { path: '/equipment-builder', component: EquipmentBuilder },
+                ]
+            },
+
+        ]
+    }
+]
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = new VueRouter({
+    routes, // short for `routes: routes`,
+})
+
+
 
 const apolloProvider = new VueApollo({
     defaultClient: Apollo
 });
 
-Vue.prototype.$userId = document.querySelector('meta[name=\'user-id\']').getAttribute('content');
-
 const app = new Vue({
     el: '#app',
     store,
+    router,
     apolloProvider
-});
+}).$mount("#app");

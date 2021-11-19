@@ -40,15 +40,16 @@
         "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
         "haydenpierce/class-finder": "^0.4.2",
         "laracasts/generators": "^2.0",
         "laravel-frontend-presets/tailwindcss": "^4.3",
+        "laravel/dusk": "^6.19",
         "laravel/homestead": "^10.8",
         "matt-allan/laravel-code-style": "^0.6",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3",
-        "fakerphp/faker": "^1.9.1"
+        "phpunit/phpunit": "^9.3.3"
     },
     "config": {
         "optimize-autoloader": true,

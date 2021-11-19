@@ -31,6 +31,7 @@ type Query {
     me: User @auth
     getVoteStatus(id: Int! @eq): Int!
     myLoadouts(userId: [Int!] @in(key: "user_id")): [Loadout!]! @all
+    buildMetricByCombo(build_combination: String! @eq, gun_id: Int! @eq): BuildMetric @first
 }
 
 type Mutation {
@@ -86,6 +87,7 @@ type Gun {
     id: ID!
     name: String!
     gun_class: String!
+    image: String
     character_slot: Int!
     mods: [Mod]
     overclocks: [Overclock]
@@ -209,4 +211,42 @@ type Loadout {
     equipment_mods: [EquipmentMod!]! @belongsToMany
     throwable: Throwable @hasOne
     votes: Int! @field(resolver: "App\\GraphQL\\Queries\\GetLoadoutVotes")
+}
+
+type BuildMetric {
+    id: ID!
+    character: Character @belongsTo
+    gun: Gun @belongsTo
+    build_combination: String!
+    ideal_burst_dps: Float!
+    burst_dps_wp: Float!
+    burst_dps_acc: Float!
+    burst_dps_aw: Float!
+    burst_dps_wp_acc: Float!
+    burst_dps_wp_aw: Float!
+    burst_dps_acc_aw: Float!
+    burst_dps_wp_acc_aw: Float!
+    ideal_sustained_dps: Float!
+    sustained_dps_wp: Float!
+    sustained_dps_acc: Float!
+    sustained_dps_aw: Float!
+    sustained_dps_wp_acc: Float!
+    sustained_dps_wp_aw: Float!
+    sustained_dps_acc_aw: Float!
+    sustained_dps_wp_acc_aw: Float!
+    ideal_additional_target_dps: Float!
+    max_num_targets_per_shot: Float!
+    max_multi_target_damage: Float!
+    ammo_efficiency: Float!
+    damage_wasted_by_armor: Float!
+    general_accuracy: Float!
+    weakpoint_accuracy: Float!
+    firing_duration: Float!
+    average_time_to_kill: Float!
+    average_overkill: Float!
+    breakpoints: Float!
+    utility: Float!
+    average_time_to_ignite_or_freeze: Float!
+    damage_per_magazine: Float!
+    time_to_fire_magazine: Float!
 }
