@@ -9,7 +9,7 @@
 
         <div class="modMatrixContainer">
             <div v-for="(tier, tierId) in modMatrix" :key="tierId" class="modMatrixRow">
-                <div v-for="(mod, modId) in tier" :key="modId" class="mod" v-tooltip="{
+                <div v-for="(mod, modId) in sortMods(tier)" :key="modId" class="mod" v-tooltip="{
                   content: mod ? getModTooltip(mod) : null,
                   placement: 'right',
                   trigger: 'hover'
@@ -119,6 +119,9 @@ export default {
         },
         isActiveMod(mod) {
             return this.selectedMods.includes(mod.id);
+        },
+        sortMods(mods) {
+            return _.sortBy(mods, 'mod_index');
         }
     },
     computed: {
