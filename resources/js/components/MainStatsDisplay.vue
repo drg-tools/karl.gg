@@ -1,5 +1,5 @@
 <template>
-    <div class="statsDisplay">
+    <div class="statsDisplay" v-if="equipment">
         <h1 class="equipmentTitle allCaps">{{ equipment.name }}</h1>
         <h2 class="equipmentSubTitle allCaps">{{ equipment.class }}</h2>
         <div class="statsBaseContainer">
@@ -131,94 +131,13 @@
                 ammunition.
             </span>
 
-            <!--todo: add numbers for weakspot damage to all stats-->
-            <span v-if="calcStats.visible" class="text-white text-lg block my-2"
-                >Total Costs:</span
-            >
-            <p class="costList flex flex-wrap">
-                <span
-                    class="costListItem flex items-center pr-2"
-                    v-if="calcStats.cost.credits > 0"
-                >
-                    <img
-                        src="/assets/img/20px-Credit.png"
-                        alt="Credits"
-                        title="Credits"
-                    />
-                    <span>{{ calcStats.cost.credits }}</span>
-                </span>
-                <span
-                    class="costListItem flex items-center pr-2"
-                    v-if="calcStats.cost.bismor > 0"
-                >
-                    <img
-                        src="/assets/img/Bismor_icon.png"
-                        alt="Bismor"
-                        title="Bismor"
-                    />
-                    <span>{{ calcStats.cost.bismor }}</span>
-                </span>
-                <span
-                    class="costListItem flex items-center pr-2"
-                    v-if="calcStats.cost.croppa > 0"
-                >
-                    <img
-                        src="/assets/img/Croppa_icon.png"
-                        alt="Croppa"
-                        title="Croppa"
-                    />
-                    <span>{{ calcStats.cost.croppa }}</span>
-                </span>
-                <span
-                    class="costListItem flex items-center pr-2"
-                    v-if="calcStats.cost.enorPearl > 0"
-                >
-                    <img
-                        src="/assets/img/Enor_pearl_icon.png"
-                        alt="Enor Pearl"
-                        title="Enor Pearl"
-                    />
-                    <span>{{ calcStats.cost.enorPearl }}</span>
-                </span>
-                <span
-                    class="costListItem flex items-center pr-2"
-                    v-if="calcStats.cost.jadiz > 0"
-                >
-                    <img
-                        src="/assets/img/Jadiz_icon.png"
-                        alt="Jadiz"
-                        title="Jadiz"
-                    />
-                    <span>{{ calcStats.cost.jadiz }}</span>
-                </span>
-                <span
-                    class="costListItem flex items-center pr-2"
-                    v-if="calcStats.cost.magnite > 0"
-                >
-                    <img
-                        src="/assets/img/Magnite_icon.png"
-                        alt="Magnite"
-                        title="Magnite"
-                    />
-                    <span>{{ calcStats.cost.magnite }}</span>
-                </span>
-                <span
-                    class="costListItem flex items-center pr-2"
-                    v-if="calcStats.cost.umanite > 0"
-                >
-                    <img
-                        src="/assets/img/Umanite_icon.png"
-                        alt="Umanite"
-                        title="Umanite"
-                    />
-                    <span>{{ calcStats.cost.umanite }}</span>
-                </span>
-            </p>
         </div>
     </div>
 </template>
 <!--todo: show most cost effective upgrade in tier (most change %)-->
 <script>
+import {mapGetters} from "vuex";
+
 const _calculateDamage = (stats) => {
     let damageWords = [
         "Damage",
@@ -395,6 +314,10 @@ export default {
     name: "MainStatsDisplay",
     props: ["equipmentId", "combination"],
     computed: {
+        ...mapGetters([
+            'selectedPrimaryOverclock',
+            'selectedPrimaryMods'
+        ]),
         selectedClassId: function () {
             return this.$store.state.selectedClass;
         },
@@ -408,20 +331,14 @@ export default {
         },
         calcStats: function () {
             let visible = false;
-            let mods = this.equipment?.mods ?? [];
-            // conditionally check this for oc's
-            let overclocks = this.$store.state.getters.selectedPrimaryOverclock;
+            // let mods = this.equipment?.mods ?? [];
 
-            let allSelectedUpgrades = [];
-            allSelectedUpgrades = this.$store.state.getters.selectedPrimaryMods;
+            let allSelectedUpgrades = this.selectedPrimaryMods;
 
-            if (overclocks) {
-                for (let overclock of overclocks) {
-                    if (overclock.selected) {
-                        allSelectedUpgrades.push(overclock);
-                    }
-                }
+            if (this.selectedPrimaryOverclock) {
+                allSelectedUpgrades.push(this.selectedPrimaryOverclock)
             }
+            console.log(allSelectedUpgrades);
             let results = getModifiedStats(this.baseStats, allSelectedUpgrades);
             let stats = results.stats;
             // only look for temporary calc damage function if weapon, not for equipment
