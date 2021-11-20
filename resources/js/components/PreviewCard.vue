@@ -95,7 +95,8 @@
 
 <script>
 
-import _ from 'lodash';
+import groupBy from 'lodash-es/groupBy';
+import sortBy from 'lodash-es/sortBy';
 
 export default {
     name: "PreviewCard",
@@ -121,12 +122,12 @@ export default {
             return this.selectedMods.includes(mod.id);
         },
         sortMods(mods) {
-            return _.sortBy(mods, 'mod_index');
+            return sortBy(mods, 'mod_index');
         }
     },
     computed: {
         modMatrix() {
-            return _.groupBy(this.mods, 'mod_tier');
+            return groupBy(this.mods, 'mod_tier');
         },
     }
 }

@@ -92,6 +92,8 @@
 
 <script>
 
+import get from 'lodash-es/get';
+
 export default {
     name: "CreditsCalculator",
     props: {
@@ -104,7 +106,7 @@ export default {
     methods: {
         computeCost(material) {
             const modCost = this.selectedMods.reduce((prev, curr) => prev + curr[material], 0);
-            const ocCost = _.get(this.overclock, material, 0);
+            const ocCost = get(this.overclock, material, 0);
 
             return modCost + ocCost;
         }

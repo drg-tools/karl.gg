@@ -1,3 +1,5 @@
+import keyBy from "lodash-es/keyBy";
+
 /**
  * Function that will take a gun and selected overclock and build the Build Metrics index from it.
  *
@@ -20,7 +22,7 @@ export const buildComboIndexFromGun = (gun, overclockId, selectedMods) => {
     let byTier = new Array(6).fill("-");
 
     // Get all mods of gun keyed by mod id
-    const modsByCombo = _.keyBy(gun?.mods, "id");
+    const modsByCombo = keyBy(gun?.mods, "id");
 
     // Get selected overclock object
     const overclock = gun?.overclocks.find((o) => o.id === overclockId);
