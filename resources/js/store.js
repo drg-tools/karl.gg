@@ -709,6 +709,10 @@ export default new Vuex.Store({
             return state.selectedEquipmentId;
         },
         selectedEquipmentDetails: (state) => {
+            if (!state.loadoutClassData || !state.selectedEquipmentId) {
+                return null;
+            }
+
             return state.loadoutClassData?.equipments.find(
                 (e) => e.id === state.selectedEquipmentId
             );

@@ -326,31 +326,20 @@ const getModifiedStats = (baseStats, selectedUpgrades) => {
 };
 export default {
     name: "MainStatsDisplay",
-    props: ["equipmentId", "combination"],
+    props: ["equipment", "overclock", "mods"],
     computed: {
-        ...mapGetters([
-            'selectedPrimaryOverclock',
-            'selectedPrimaryMods'
-        ]),
-        selectedClassId: function () {
-            return this.$store.state.selectedClass;
-        },
         // Just hardcoded to primary at the moment
         // TODO: fix this to be responsive to all
-        equipment: function () {
-            return this.$store.getters.getSelectedPrimaryDetails;
-        },
         baseStats: function () {
-            return this.equipment.json_stats;
+            return this.equipment?.json_stats;
         },
         calcStats: function () {
             let visible = false;
-            // let mods = this.equipment?.mods ?? [];
 
-            let allSelectedUpgrades = this.selectedPrimaryMods;
+            let allSelectedUpgrades = this.mods;
 
-            if (this.selectedPrimaryOverclock) {
-                allSelectedUpgrades.push(this.selectedPrimaryOverclock)
+            if (this.overclock) {
+                allSelectedUpgrades.push(this.overclock)
             }
             let results = getModifiedStats(this.baseStats, allSelectedUpgrades);
             let stats = results.stats;

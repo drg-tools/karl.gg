@@ -5,7 +5,11 @@
         </div>
 
         <div class="w-1/2">
-            <MainStatsDisplay />
+            <MainStatsDisplay
+                :equipment="getSelectedPrimaryDetails"
+                :overclock="selectedPrimaryOverclock"
+                :mods="selectedPrimaryMods"
+            />
             <!-- <BuildMetricsCard
                 v-if="getSelectedPrimary"
                 :weapon-id="getSelectedPrimary"
@@ -28,6 +32,9 @@ export default {
         ...mapGetters([
             "selectedPrimaryBuildMetricsCombo",
             "getSelectedPrimary",
+            "getSelectedPrimaryDetails",
+            "selectedPrimaryOverclock",
+            "selectedPrimaryMods",
         ]),
     },
 };

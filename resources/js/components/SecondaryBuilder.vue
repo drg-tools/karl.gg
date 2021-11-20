@@ -5,11 +5,16 @@
         </div>
 
         <div class="w-1/2">
-            <BuildMetricsCard
-                v-if="getSelectedSecondary"
-                :weapon-id="getSelectedSecondary"
-                :combination="selectedSecondaryBuildMetricsCombo"
+            <MainStatsDisplay
+                :equipment="getSelectedSecondaryDetails"
+                :overclock="selectedSecondaryOverclock"
+                :mods="selectedSecondaryMods"
             />
+<!--            <BuildMetricsCard-->
+<!--                v-if="getSelectedSecondary"-->
+<!--                :weapon-id="getSelectedSecondary"-->
+<!--                :combination="selectedSecondaryBuildMetricsCombo"-->
+<!--            />-->
         </div>
     </div>
 </template>
@@ -18,14 +23,18 @@
 import ClassSecondaries from "./ClassSecondaries";
 import BuildMetricsCard from "./BuildMetricsCard";
 import { mapGetters } from "vuex";
+import MainStatsDisplay from "./MainStatsDisplay";
 
 export default {
     name: "SecondaryBuilder",
-    components: { ClassSecondaries, BuildMetricsCard },
+    components: { ClassSecondaries, BuildMetricsCard, MainStatsDisplay },
     computed: {
         ...mapGetters([
             "selectedSecondaryBuildMetricsCombo",
             "getSelectedSecondary",
+            "getSelectedSecondaryDetails",
+            "selectedSecondaryOverclock",
+            "selectedSecondaryMods"
         ]),
     },
 };
