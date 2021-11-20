@@ -278,6 +278,20 @@ const getModifiedStats = (baseStats, selectedUpgrades) => {
     // loop trough all selected upgrades
     let upgradesForEachStat = new Map();
 
+    for (let upgrade of selectedUpgrades) {
+
+        // loop trough stats of upgrade
+        for (let statKey in upgrade.json_stats) {
+            let statContent = upgrade.json_stats[statKey];
+            let tempContent = [];
+            if (upgradesForEachStat.has(statKey)) {
+                tempContent = upgradesForEachStat.get(statKey);
+            }
+            tempContent.push(statContent);
+            upgradesForEachStat.set(statKey, tempContent);
+        }
+    }
+
     // group all upgrades by stat
     // loop trough groups and calculate new value for each stat
     // return stats
@@ -338,7 +352,6 @@ export default {
             if (this.selectedPrimaryOverclock) {
                 allSelectedUpgrades.push(this.selectedPrimaryOverclock)
             }
-            console.log(allSelectedUpgrades);
             let results = getModifiedStats(this.baseStats, allSelectedUpgrades);
             let stats = results.stats;
             // only look for temporary calc damage function if weapon, not for equipment
