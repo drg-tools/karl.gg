@@ -1,9 +1,9 @@
 <template>
 
-    <div class="w-1/2">
+    <div>
 
         <div class="mb-4">
-            <BackButton />
+            <BackButton/>
         </div>
 
         <div class="flex gap-4 mb-4" dusk="equipment-selectors">

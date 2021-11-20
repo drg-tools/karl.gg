@@ -709,11 +709,19 @@ export default new Vuex.Store({
             return state.selectedEquipmentId;
         },
         selectedEquipmentDetails: (state) => {
+            if (!state.loadoutClassData || !state.selectedEquipmentId) {
+                return null;
+            }
+
             return state.loadoutClassData?.equipments.find(
                 (e) => e.id === state.selectedEquipmentId
             );
         },
         selectedEquipmentMods: (state, getters) => {
+            if (!state.loadoutClassData || !state.selectedEquipmentId) {
+                return null;
+            }
+
             let selectedMods = [];
 
             state.selectedEquipmentMods.forEach(function (modId) {
@@ -785,15 +793,15 @@ export default new Vuex.Store({
             let itemModArray = "";
 
             if (boolEquipment === true) {
-                itemObject = state.loadoutClassData?.equipments.filter(
+                itemObject = state.loadoutClassData?.equipments.find(
                     (equipment) => equipment.id == itemId
                 );
-                itemModArray = itemObject[0].equipment_mods;
+                itemModArray = itemObject.equipment_mods;
             } else {
-                itemObject = state.loadoutClassData?.guns.filter(
+                itemObject = state.loadoutClassData?.guns.find(
                     (gun) => gun.id == itemId
                 );
-                itemModArray = itemObject[0].mods;
+                itemModArray = itemObject.mods;
             }
             return itemModArray;
         },
