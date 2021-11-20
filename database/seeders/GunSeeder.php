@@ -109,24 +109,25 @@ class GunSeeder extends Seeder
             ],
             [
                 'name' => 'LOK-1 Smart Rifle', 'character_id' => 1, 'image' => 'E_P3_LOK1',
-                'gun_class' => 'Submachine Gun', 'character_slot' => 1, 'json_stats' => '{}',
+                'gun_class' => 'Submachine Gun', 'character_slot' => 1,
+                'json_stats' => '{"dmg": {"name": "Damage", "value": 21}, "ammo": {"name": "Max Ammo", "value": 180}, "clip": {"name": "Magazine Size", "value": 36}, "rate": {"name": "Rate of Fire", "value": 6}, "reload": {"name": "Reload Time", "value": 3}, "ex1": {"name": "Lock-On Range", "value": 25}, "ex2": {"name": "Num Locks", "value": 12}, "ex3": {"name": "Lock-On Time", "value": 100, "percent": true}, "ex4": {"name": "Lose Lock", "value": 100, "percent": true}, "ex5": {"name": "Bonus Damage vs Afflicted Targets", "value": 0, "boolean": true}, "ex6": {"name": "SMRT", "value": 0, "boolean": true}, "ex7": {"name": "Blowthroughs", "value": 0}, "ex8": {"name": "Electrocute on 3 Locks", "value": 0, "boolean": true}, "ex9": {"name": "+20% Damage on Full Lock", "value": 0, "boolean": true}, "ex10": {"name": "Full Lock Fear", "value": 0, "boolean": true}, "ex11": {"name": "AB on Full Lock", "value": 0, "boolean": true}, "ex12": {"name": "Seeker Rounds", "value": 0, "boolean": true}, "ex13": {"name": "ECR", "value": 0, "boolean": true}, "ex14": {"name": "WP Bonus at Full Lock", "value": 0, "boolean": true}, "ex15": {"name": "Slow Locked Enemies", "value": 0, "boolean": true}}',
             ],
             [
                 'name' => 'DRAK-25 Plasma Carbine', 'character_id' => 2, 'image' => 'S_P3_DRAK25',
                 'gun_class' => 'Semi-Automatic Rifle',
                 'character_slot' => 1,
-                'json_stats' => '{}',
+                'json_stats' => '{"dmg": {"name": "Damage", "value": 9}, "ammo": {"name": "Battery Capacity", "value": 800}, "rate": {"name": "Rate of Fire", "value": 13}, "reload": {"name": "Overheat Duration", "value": 2.5}, "ex1": {"name": "Area Damage", "value": 0}, "ex2": {"name": "Heat per Shot", "value": 100, "percent": true}, "ex3": {"name": "Projectile Velocity", "value": 100, "percent": true}, "ex4": {"name": "Base Spread", "value": 100, "percent": true}, "ex5": {"name": "Cooling Rate", "value": 100, "percent": true}, "ex6": {"name": "Speed Boost", "value": 0, "boolean": true}, "ex7": {"name": "Chance to Electrocute", "value": 0, "boolean": true}, "ex8": {"name": "Armor Breaking", "value": 100, "percent": true}, "ex9": {"name": "Manual Heat Dump", "value": 0, "boolean": true}, "ex10": {"name": "Faster RoF when Hot", "value": 0, "boolean": true}, "ex11": {"name": "Bouncy Projectiles", "value": 0, "boolean": true}, "ex12": {"name": "Regenerate Ammo", "value": 0, "boolean": true}, "ex13": {"name": "Aggressive Venting", "value": 0, "boolean": true}, "ex14": {"name": "Shield Battery Booster", "value": 0, "boolean": true}, "ex15": {"name": "Transfer Heat to Projectiles", "value": 0, "boolean": true}}',
             ],
             [
                 'name' => 'Corrosive Sludge Pump', 'character_id' => 3, 'image' => 'D_P3_Sludge',
                 'gun_class' => 'Heavy Weapon',
                 'character_slot' => 1,
-                'json_stats' => '{}',
+                'json_stats' => '{"dmg": {"name": "Damage", "value": 25}, "clip": {"name": "Magazine Size", "value": 25}, "ammo": {"name": "Max Ammo", "value": 100}, "rate": {"name": "Rate of Fire", "value": 2}, "reload": {"name": "Reload Time", "value": 3}, "ex1": {"name": "Charged Splash Damage", "value": 50}, "ex2": {"name": "Fragment Count", "value": 8}, "ex3": {"name": "Charged Shot Cost", "value": 5}, "ex4": {"name": "Charge Time", "value": 100, "percent": true}, "ex5": {"name": "Corrosive DoT Duration", "value": 4}, "ex6": {"name": "Sludge Puddle Duration", "value": 12}, "ex7": {"name": "Projectile Velocity", "value": 100, "percent": true}, "ex8": {"name": "Bigger Puddles", "value": 0, "boolean": true}, "ex9": {"name": "Increased Slowdown Effect", "value": 0, "boolean": true}, "ex11": {"name": "Increased Corrosive DPS", "value": 0, "boolean": true}, "ex12": {"name": "Armor Melting", "value": 0, "boolean": true}, "ex10": {"name": "Stronger DoT and Slowdown Effect", "value": 0, "boolean": true},  "ex13": {"name": "Anti-gravity Mixture", "value": 0, "boolean": true},  "ex14": {"name": "Goo Bomber Special", "value": 0, "boolean": true},  "ex15": {"name": "Sludge Blast", "value": 0, "boolean": true}}',
             ],
             [
                 'name' => '"Hurricane" Guided Rocket System', 'character_id' => 4, 'image' => 'G_P3_Hurricane',
                 'gun_class' => 'Heavy Weapon', 'character_slot' => 1,
-                'json_stats' => '{}',
+                'json_stats' => '{"dmg": {"name": "Damage", "value": 16}, "ammo": {"name": "Max Ammo", "value": 288}, "clip": {"name": "Magazine Size", "value": 36}, "rate": {"name": "Rate of Fire", "value": 3}, "reload": {"name": "Reload Time", "value": 3.5}, "ex1": {"name": "Area Damage", "value": 20}, "ex2": {"name": "Effect Radius", "value": 1.4}, "ex3": {"name": "Projectile Velocity", "value": 100, "percent": true}, "ex4": {"name": "Turn Rate", "value": 100, "percent": true}, "ex5": {"name": "Armor Breaking", "value": 100, "percent": true}, "ex6": {"name": "Movement Speed While Using", "value": 50, "percent": true}, "ex7": {"name": "Weakpoint Bonus", "value": 0, "percent": true}, "ex8": {"name": "Damage Converted to Heat", "value": 0, "percent": true}, "ex9": {"name": "Stun Chance", "value": 0, "percent": true}, "ex10": {"name": "Stun Duration", "value": 0}, "ex11": {"name": "Nitroglycerin Compound", "value": 0, "boolean": true}, "ex12": {"name": "Minelayer System", "value": 0, "boolean": true}, "ex13": {"name": "Instant Acceleration", "value": 0, "boolean": true}, "ex14": {"name": "Salvo Module", "value": 0, "boolean": true}}',
             ],
         ];
 
