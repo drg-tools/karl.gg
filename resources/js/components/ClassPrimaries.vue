@@ -17,12 +17,13 @@
             <ModMatrix
                 v-if="getSelectedPrimary !== ''"
                 :itemId="getSelectedPrimary"
+                :mods="primaryMods"
                 itemType="primary"
             />
             <OverclockSelect
                 v-if="getSelectedPrimary !== ''"
                 :primary="true"
-                :overclocks="getSelectedPrimaryDetails.overclocks"
+                :overclocks="getSelectedPrimaryDetails ? getSelectedPrimaryDetails.overclocks : []"
                 :selected-id="selectedPrimaryOverclockId"
             />
 
@@ -65,7 +66,10 @@ export default {
             'selectedPrimaryModIds',
             'selectedPrimaryOverclock',
             'selectedPrimaryMods'
-        ])
+        ]),
+        primaryMods() {
+            return this.getSelectedPrimaryDetails?.mods;
+        }
     }
 };
 </script>

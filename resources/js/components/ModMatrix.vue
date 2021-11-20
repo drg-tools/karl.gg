@@ -76,28 +76,15 @@
 <script>
 import groupBy from 'lodash-es/groupBy';
 import sortBy from 'lodash-es/sortBy';
+import TierLevelText from "./TierLevelText";
 
 export default {
     name: "ModMatrix",
-    props: ["itemId", "itemType"],
-    data() {
-        return {
-            itemMods: "",
-        };
-    },
-    created() {
-        // fetch the data when the view is created and the data is
-        // already being observed
-        this.checkMods();
+    props: ["itemId", "itemType", "mods"],
+    components: {
+        TierLevelText
     },
     methods: {
-        // todo: this should be props or something
-        checkMods() {
-            this.itemMods = this.$store.getters.getModsForMatrix(
-                this.itemId,
-                this.$route.path === "/equipment-builder" // TODO: refactor
-            );
-        },
         getModTooltip(mod) {
             let description = mod.description ? mod.description : mod.text_description;
             return `<h3>${mod.mod_name}</h3><br><span>${description}</span>`;
@@ -107,7 +94,6 @@ export default {
         },
         selectMod(modId, modTier) {
 
-            // TODO: primary is handling secondary, that can just be for all "gun mods"
             if (this.$route.path === "/equipment-builder") {
                 this.$store.dispatch('setSelectedEquipmentMod', {
                     modId,
@@ -141,13 +127,7 @@ export default {
     },
     computed: {
         modMatrixTiers() {
-            return groupBy(this.itemMods, "mod_tier");
-        },
-    },
-    watch: {
-        itemId: function (newVal, oldVal) {
-            // watch it
-            this.checkMods();
+            return groupBy(this.mods, "mod_tier");
         },
     },
 };

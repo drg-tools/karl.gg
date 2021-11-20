@@ -615,7 +615,7 @@ export default new Vuex.Store({
                 return null;
             }
 
-            return state.loadoutClassData.guns.find(
+            return state.loadoutClassData?.guns.find(
                 (gun) => gun.id === state.selectedPrimaryId
             );
         },
@@ -787,23 +787,6 @@ export default new Vuex.Store({
                 state.selectedEquipmentMods.filter((mod) => mod === modId)
                     .length !== 0
             );
-        },
-        getModsForMatrix: (state) => (itemId, boolEquipment) => {
-            let itemObject = "";
-            let itemModArray = "";
-
-            if (boolEquipment === true) {
-                itemObject = state.loadoutClassData?.equipments.find(
-                    (equipment) => equipment.id == itemId
-                );
-                itemModArray = itemObject.equipment_mods;
-            } else {
-                itemObject = state.loadoutClassData?.guns.find(
-                    (gun) => gun.id == itemId
-                );
-                itemModArray = itemObject.mods;
-            }
-            return itemModArray;
         },
     },
 });

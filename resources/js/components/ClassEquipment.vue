@@ -18,6 +18,7 @@
             <ModMatrix
                 v-if="getSelectedEquipmentId"
                 :itemId="getSelectedEquipmentId"
+                :mods="equipmentMods"
                 itemType="equipment"
             />
 
@@ -51,8 +52,12 @@ export default {
         ...mapGetters([
             'loadoutClassEquipment',
             'getSelectedEquipmentId',
-            'selectedEquipmentMods'
-        ])
+            'selectedEquipmentMods',
+            'selectedEquipmentDetails'
+        ]),
+        equipmentMods() {
+            return this.selectedEquipmentDetails?.equipment_mods;
+        }
     }
 };
 </script>

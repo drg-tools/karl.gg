@@ -329,8 +329,6 @@ export default {
     name: "MainStatsDisplay",
     props: ["equipment", "overclock", "mods"],
     computed: {
-        // Just hardcoded to primary at the moment
-        // TODO: fix this to be responsive to all
         baseStats: function () {
             return this.equipment?.json_stats;
         },
