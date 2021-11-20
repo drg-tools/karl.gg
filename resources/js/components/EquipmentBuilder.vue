@@ -1,12 +1,12 @@
 <template>
-    <div class="flex my-5 gap-8">
+    <div class="flex flex-wrap my-5 gap-8">
 
-        <div class="w-1/2">
+        <div class="sm:w-1/2 w-full">
             <ClassEquipment/>
         </div>
 
         <!-- Stats -->
-        <div class="w-1/2">
+        <div class="sm:w-1/2 w-full">
             <MainStatsDisplay
                 :equipment="selectedEquipmentDetails"
                 :mods="selectedEquipmentMods"
