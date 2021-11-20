@@ -136,7 +136,8 @@
 </template>
 <!--todo: show most cost effective upgrade in tier (most change %)-->
 <script>
-import {mapGetters} from "vuex";
+
+import clone from 'lodash-es/clone';
 
 const _calculateDamage = (stats) => {
     let damageWords = [
@@ -336,27 +337,17 @@ export default {
         calcStats: function () {
             let visible = false;
 
-            let allSelectedUpgrades = this.mods;
+            let allSelectedUpgrades = clone(this.mods);
 
             if (this.overclock) {
                 allSelectedUpgrades.push(this.overclock)
             }
             let results = getModifiedStats(this.baseStats, allSelectedUpgrades);
             let stats = results.stats;
-            // only look for temporary calc damage function if weapon, not for equipment
 
-            // TODO: refactor this...this references the old store's stored equipment
-            // hiding for now
-            // let calculateDamage = this.equipment.eq_type ? undefined : store.state.missingBackendWeaponData[this.selectedEquipmentId].calculateDamage;
-            // let damage = calculateDamage ? calculateDamage(stats) : _calculateDamage(stats);
             let damage = _calculateDamage(stats);
 
-            // if (this.equipment.eq_type === 'Armor' || this.equipment.eq_type === 'Support Tool') {
-            //     return {
-            //         stats: stats,
-            //         visible: visible
-            //     };
-            // }
+
             return {
                 stats: stats,
                 visible: visible,
