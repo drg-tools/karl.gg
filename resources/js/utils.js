@@ -14,7 +14,7 @@ import keyBy from "lodash-es/keyBy";
  *
  * @param gun
  * @param overclockId
- * @param selectedMods
+ * @param {array} selectedMods
  * @returns {*}
  */
 export const buildComboIndexFromGun = (gun, overclockId, selectedMods) => {
