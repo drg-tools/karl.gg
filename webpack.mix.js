@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,22 +11,22 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js("resources/js/app.js", "public/js")
     .vue()
-    .copy('resources/js/assets', 'public/assets')
-    .copy('resources/fonts', 'public/fonts')
-    .sass('resources/scss/app-v2.scss', 'public/css')
+    .extract()
+    .copy("resources/js/assets", "public/assets")
+    .copy("resources/fonts", "public/fonts")
+    .sass("resources/scss/app-v2.scss", "public/css")
     .options({
         postCss: [
-            require('postcss-import')(),
-            require('tailwindcss')(),
-            require('postcss-nested')(),
-            require('autoprefixer')(),
-        ]
+            require("postcss-import")(),
+            require("tailwindcss")(),
+            require("postcss-nested")(),
+            require("autoprefixer")(),
+        ],
     })
     .sourceMaps();
 
 if (mix.inProduction()) {
-    mix
-        .version()
+    mix.version();
 }
