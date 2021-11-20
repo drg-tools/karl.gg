@@ -74,6 +74,9 @@
 </template>
 
 <script>
+import groupBy from 'lodash-es/groupBy';
+import sortBy from 'lodash-es/sortBy';
+
 export default {
     name: "ModMatrix",
     props: ["itemId", "itemType"],
@@ -133,12 +136,12 @@ export default {
             }
         },
         sortMods(mods) {
-            return _.sortBy(mods, 'mod_index');
+            return sortBy(mods, 'mod_index');
         }
     },
     computed: {
         modMatrixTiers() {
-            return _.groupBy(this.itemMods, "mod_tier");
+            return groupBy(this.itemMods, "mod_tier");
         },
     },
     watch: {

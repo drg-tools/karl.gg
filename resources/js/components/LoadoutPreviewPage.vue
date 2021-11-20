@@ -57,6 +57,7 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import {Viewer} from '@toast-ui/vue-editor';
 import PreviewCard from "./PreviewCard";
+import get from 'lodash-es/get';
 
 export default {
     name: 'LoadoutPreviewPage',
@@ -108,7 +109,7 @@ export default {
          * @returns Array
          */
         getSelectedModsForEquipment(id) {
-            const mods = _.get(this.equipmentMods, id, []);
+            const mods = get(this.equipmentMods, id, []);
 
             return mods.map(m => m.id)
         },

@@ -76,6 +76,7 @@
 <!--todo: reset button-->
 <script>
 import OverclockIcon from "./OverclockIcon.vue";
+import sortBy from "lodash-es/sortBy";
 
 export default {
     name: "OverclockSelect",
@@ -121,7 +122,7 @@ export default {
             return this.overclocks.find((o) => o.id === this.selectedId);
         },
         sortedOverclocks() {
-            return _.sortBy(this.overclocks, 'overclock_index')
+            return sortBy(this.overclocks, 'overclock_index')
         }
     },
 };

@@ -144,6 +144,7 @@
 
 <script>
 import { required, maxLength } from "vuelidate/lib/validators";
+import debounce from 'lodash-es/debounce';
 
 export default {
     name: "LoadoutBuilderActions",
@@ -185,7 +186,7 @@ export default {
         },
     },
     methods: {
-        debounceInput: _.debounce(function (e) {
+        debounceInput: debounce(function (e) {
             // this.name = e.target.value;
             this.$store.commit("setLoadoutName", e.target.value);
         }, 500),
