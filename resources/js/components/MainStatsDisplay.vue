@@ -391,7 +391,6 @@ h2 {
 }
 .statsDisplay {
     flex: 1;
-    height: 100%;
     width: 100%;
     padding-right: 1rem;
     display: flex;

@@ -10,24 +10,23 @@
                 :overclock="selectedPrimaryOverclock"
                 :mods="selectedPrimaryMods"
             />
-            <!-- <BuildMetricsCard
-                v-if="getSelectedPrimary"
-                :weapon-id="getSelectedPrimary"
-                :combination="selectedPrimaryBuildMetricsCombo"
-            /> -->
+
+            <div class="mt-4">
+                <BuildMetricsLink :gun-id="getSelectedPrimary" :combo="selectedPrimaryBuildMetricsCombo" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import ClassPrimaries from "./ClassPrimaries";
-import BuildMetricsCard from "./BuildMetricsCard";
 import MainStatsDisplay from "./MainStatsDisplay";
 import { mapGetters } from "vuex";
+import BuildMetricsLink from "./BuildMetricsLink";
 
 export default {
     name: "PrimaryBuilder",
-    components: { MainStatsDisplay, BuildMetricsCard, ClassPrimaries },
+    components: { MainStatsDisplay, BuildMetricsLink, ClassPrimaries },
     computed: {
         ...mapGetters([
             "selectedPrimaryBuildMetricsCombo",

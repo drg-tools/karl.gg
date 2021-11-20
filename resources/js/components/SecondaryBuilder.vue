@@ -10,24 +10,22 @@
                 :overclock="selectedSecondaryOverclock"
                 :mods="selectedSecondaryMods"
             />
-<!--            <BuildMetricsCard-->
-<!--                v-if="getSelectedSecondary"-->
-<!--                :weapon-id="getSelectedSecondary"-->
-<!--                :combination="selectedSecondaryBuildMetricsCombo"-->
-<!--            />-->
+            <div class="mt-4">
+                <BuildMetricsLink :gun-id="getSelectedSecondary" :combo="selectedSecondaryBuildMetricsCombo" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import ClassSecondaries from "./ClassSecondaries";
-import BuildMetricsCard from "./BuildMetricsCard";
+import BuildMetricsLink from "./BuildMetricsLink";
 import { mapGetters } from "vuex";
 import MainStatsDisplay from "./MainStatsDisplay";
 
 export default {
     name: "SecondaryBuilder",
-    components: { ClassSecondaries, BuildMetricsCard, MainStatsDisplay },
+    components: { ClassSecondaries, BuildMetricsLink, MainStatsDisplay },
     computed: {
         ...mapGetters([
             "selectedSecondaryBuildMetricsCombo",
