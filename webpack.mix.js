@@ -13,7 +13,7 @@ const mix = require("laravel-mix");
 
 mix.js("resources/js/app.js", "public/js")
     .vue()
-    .extract(["vue"])
+    .extract()
     .copy("resources/js/assets", "public/assets")
     .copy("resources/fonts", "public/fonts")
     .sass("resources/scss/app-v2.scss", "public/css")
