@@ -156,6 +156,7 @@ export default {
             updateId: "",
             name: "",
             unsubscribe: "",
+            editedLoadoutCreatorId: "",
         };
     },
     created() {
@@ -196,10 +197,8 @@ export default {
                 .then((result) => {
                     if (result.creator != null) {
                         // loadout has creator id
-                        if (result.creator.id == this.getLoggedInUserId()) {
-                            this.update = true;
-                            this.updateId = result.id;
-                        }
+                        this.editedLoadoutCreatorId = result.creator.id;
+                        this.updateId = result.id;
                     }
                     // dispatch the store hydrator here
                     this.$store.dispatch("hydrateLoadoutEditData", result);
@@ -214,10 +213,14 @@ export default {
                 // Vuelidate errors detected, do not submit.
                 return;
             } else {
+                this.$store.commit("setAuthUser", window.authUser);
                 let loggedInStatus = this.getIsLoggedIn();
                 if (loggedInStatus) {
                     // User is logged in & GQL will save them with the right ID
                     this.$modal.show("loadingModal");
+                    if (this.editedLoadoutCreatorId == this.getLoggedInUserId()) {
+                        this.update = true;                        
+                    }
                     this.onAcceptSave();
                 } else {
                     this.messageTitle = "Not logged in :(";
