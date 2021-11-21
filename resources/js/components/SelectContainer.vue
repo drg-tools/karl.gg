@@ -2,7 +2,7 @@
     <div v-if="getLoadingStatus" class="loadingIndicator">
         <img src="/assets/img/karl-spinner-free.gif" alt="loading..." />
     </div>
-    <div v-else class="flex flex-row justify-around items-center my-5">
+    <div v-else class="flex flex-row flex-wrap gap-4 justify-around items-center my-5">
         <div>
             <router-link v-if="getSelectedPrimaryDetails" to="/primary-builder">
                 <div

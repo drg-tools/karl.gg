@@ -1,7 +1,6 @@
 <template>
-    <div class="underline text-sm text-right text-karl-orange ml-2 sm:ml-0">
-        <a :href="`/asv/${gunId}/${combo}`" target="_blank">See more advanced stats</a>
-    </div>
+    <a :href="`/asv/${gunId}/${combo}`" class="underline text-sm text-karl-orange" target="_blank">See more advanced
+        stats</a>
 </template>
 
 <script>
