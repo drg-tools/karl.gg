@@ -10,8 +10,5 @@ import MarkdownEditor from "./MarkdownEditor.vue";
 import SelectContainer from "./SelectContainer.vue";
 export default {
     components: { ClassSelect, MarkdownEditor, SelectContainer },
-    mounted() {
-        this.$store.commit("setAuthUser", window.authUser);
-    },
 };
 </script>

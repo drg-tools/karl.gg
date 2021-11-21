@@ -31,7 +31,6 @@ export default {
             // implement your code
             this.unsubscribe = this.$store.subscribe((mutation, state) => {
                 if (mutation.type === "setLoadoutDescription") {
-                    console.log(`Updating loadoutDescription`);
                     this.editorText = state.loadoutDescription;
                     this.$refs.toastuiEditor.invoke('setMarkdown', this.editorText)
                 }
