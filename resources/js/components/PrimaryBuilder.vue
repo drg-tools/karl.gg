@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap my-5 gap-8">
+    <div class="flex sm:flex-nowrap flex-wrap my-5 gap-8">
         <div class="sm:w-1/2 w-full">
             <ClassPrimaries />
         </div>
@@ -11,7 +11,7 @@
                 :mods="selectedPrimaryMods"
             />
 
-            <div class="mt-4">
+            <div class="mt-4 sm:text-right text-center">
                 <BuildMetricsLink :gun-id="getSelectedPrimary" :combo="selectedPrimaryBuildMetricsCombo" />
             </div>
         </div>
