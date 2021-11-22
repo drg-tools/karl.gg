@@ -26,7 +26,7 @@ class ChangeJsonStatsSizeForEquipment extends Migration
     public function down()
     {
         Schema::table('equipment', function (Blueprint $table) {
-            $table->string('json_stats', 2500)->change();
+            $table->string('json_stats', 1000)->change();
         });
     }
 }
