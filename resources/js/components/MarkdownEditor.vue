@@ -21,7 +21,6 @@ export default {
     },
     methods: {
         debounceInput: debounce(function (e) {
-            console.log('debounce fired');
             let md = this.$refs.toastuiEditor.invoke("getMarkdown");
             // Commit our markdown text to the store after a 1000ms (1s) delay
             this.setLoadoutDescription(md);
