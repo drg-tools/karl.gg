@@ -788,5 +788,8 @@ export default new Vuex.Store({
                     .length !== 0
             );
         },
+        getLoadoutDescription: (state) => {
+            return state.loadoutDescription;
+        },
     },
 });
