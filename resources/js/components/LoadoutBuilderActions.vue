@@ -38,7 +38,7 @@
                 :height="250"
             >
                 <div>
-                    <h1>Saving Loadout...FOR KARL!</h1>
+                    <h2>Saving Loadout...FOR KARL!</h2>
                     <img
                         src="/assets/img/karl-spinner-free.gif"
                         alt="loading..."
@@ -219,7 +219,7 @@ export default {
                     // User is logged in & GQL will save them with the right ID
                     this.$modal.show("loadingModal");
                     if (this.editedLoadoutCreatorId == this.getLoggedInUserId()) {
-                        this.update = true;                        
+                        this.update = true;
                     }
                     this.onAcceptSave();
                 } else {
