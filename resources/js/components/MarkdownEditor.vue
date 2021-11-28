@@ -1,17 +1,17 @@
 <template>
     <editor
         ref="toastuiEditor"
-        @blur="onEditorBlur"
-        @load="onEditorLoad"
         initialEditType="wysiwyg"
         :options="editorOptions"
+        @blur="debounceInput"
     />
 </template>
 
 <script>
 import "@toast-ui/editor/dist/toastui-editor.css";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 import { Editor } from "@toast-ui/vue-editor";
+import debounce from 'lodash-es/debounce';
 
 export default {
     name: "MarkdownEditor",
@@ -19,33 +19,15 @@ export default {
     components: {
         editor: Editor,
     },
-    // beforeDestroy() {
-    //     this.unsubscribe();
-    // },
     methods: {
-        setLoadoutDescription: function (loadoutDescription) {
-            console.log('setLoadoutDescription ran in component');
-            this.$store.commit("setLoadoutDescription", loadoutDescription);
-        },
-        onEditorLoad() {
-            console.log('oneditorload ran');
-            console.log(this.stateDescription);
-            // implement your code
-            // this.unsubscribe = this.$store.subscribe((mutation, state) => {
-            //     if (mutation.type === "setLoadoutDescription") {
-            //         this.editorText = state.loadoutDescription;
-            //         this.$refs.toastuiEditor.invoke('setMarkdown', this.editorText)
-            //     }
-            // });
-            // this.editorText = state.loadoutDescription;
-            // this.$refs.toastuiEditor.invoke('setMarkdown', this.editorText)
-        },
-        onEditorBlur() {
-            console.log('oneditor blur ran')
-            // We need to convert our editor text to readable markdown
+        debounceInput: debounce(function (e) {
+            console.log('debounce fired');
             let md = this.$refs.toastuiEditor.invoke("getMarkdown");
-            // Commit our markdown text to the store when you click out of the editor
+            // Commit our markdown text to the store after a 1000ms (1s) delay
             this.setLoadoutDescription(md);
+        }, 1000),
+        setLoadoutDescription: function (loadoutDescription) {
+            this.$store.commit("setLoadoutDescription", loadoutDescription);
         },
     },
     computed: {
@@ -55,19 +37,15 @@ export default {
     },
     watch: {
         stateDescription() {
-            console.log('watch stateDescription  ran')
-            // We need to convert our editor text to readable markdown
-            console.log('getter');
-            console.log(this.getLoadoutDescription);
-            // let md = this.$refs.toastuiEditor.invoke("getMarkdown");
-            // console.log(md);
-            // Commit our markdown text to the store when you click out of the editor
-            this.setLoadoutDescription(this.getLoadoutDescription);
+            // Watch the state description to catch the onload
+            // Potential issue: This will fire everytime our debounce fires
+            //      Meaning: When we stop typing for 1000ms, we will commit to the store & refresh to description here
+            // This is because we are watching for the state description, and the state description is our main prop
+            this.$refs.toastuiEditor.invoke('setMarkdown', this.getLoadoutDescription);
         }
     },
     data() {
         return {
-            unsubscribe: "",
             editorOptions: {
                 hideModeSwitch: false,
                 useDefaultHTMLSanitizer: true,
