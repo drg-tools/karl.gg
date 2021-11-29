@@ -67,7 +67,6 @@ class EquipmentMod extends Model
 {
     use Filterable, CrudTrait;
     protected $guarded = ['id'];
-    public $timestamps = false;
 
     public function character()
     {
