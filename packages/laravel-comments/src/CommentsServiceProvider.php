@@ -108,6 +108,11 @@ class CommentsServiceProvider extends ServiceProvider
         $except = ['settings', 'models', 'table_names'];
         $tableName = $config['table_names']['settings'];
 
+        // This fails `composer install` without this check...we shouldn't ever need comment configuration via the command line
+        if ($this->app->runningInConsole()) {
+            return;
+        }
+
         if (! $config['settings'] || ! Schema::hasTable($tableName)) {
             return;
         }
