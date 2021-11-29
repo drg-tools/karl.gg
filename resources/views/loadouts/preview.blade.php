@@ -31,13 +31,12 @@
             @endif
         >
         </loadout-preview-page>
+    </div>
 
+    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md mt-4">
         <div class="p-4">
-            <h2 class="text-karl-orange text-xl uppercase">Comments</h2>
             <div id="loadout-comments"></div>
         </div>
-
-
     </div>
 
 @endsection
