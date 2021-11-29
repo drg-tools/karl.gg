@@ -1,0 +1,19 @@
+.comment__post-form {
+  .btn {
+    padding: 0.4375rem 0.625rem;
+  }
+
+  .mb-3 {
+    margin-bottom: 0.5rem;
+  }
+
+  @include media-breakpoint-up(sm) {
+    .comment__item & {
+      margin-left: 80px;
+    }
+
+    .comment__list--children & {
+      margin-left: 55px;
+    }
+  }
+}

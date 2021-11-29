@@ -1,0 +1,41 @@
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.25s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transition: transform 2s;
+}
+
+.fade-leave-active {
+  position: absolute;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form-control-feedback {
+  font-size: 14px;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: rgba(237, 237, 237, 0.4);
+}
+
+.token.operator {
+  background: none;
+}

@@ -1,0 +1,9 @@
+/docs
+/build
+/vendor
+/node_modules
+*.code-*
+composer.lock
+public/*.LICENSE.txt
+.phpunit.result.cache
+.php_cs.cache

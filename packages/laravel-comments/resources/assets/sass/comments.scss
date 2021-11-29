@@ -1,0 +1,8 @@
+@import 'components/spinner';
+
+.comments__iframe {
+  width: 100%;
+  border: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
