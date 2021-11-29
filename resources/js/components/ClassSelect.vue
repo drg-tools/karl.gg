@@ -4,7 +4,7 @@
 
   </div>
   <div v-else class="classSelectContainer my-2">
-    <h1>Select class:</h1>
+    <h2>Select class:</h2>
     <div class="grid grid-cols-2 sm:grid-cols-4 w-full mb-4">
       <div
         v-on:click="setSelectedClass(3)"

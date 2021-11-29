@@ -1,0 +1,21 @@
+@keyframes spinner-rotate-forever {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.comments__spinner {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  margin: 0px auto;
+  text-indent: 100%;
+  border-radius: 50%;
+  position: relative;
+  border: 4px solid #919191;
+  border-right-color: transparent;
+  animation: spinner-rotate-forever 1s infinite linear;
+}

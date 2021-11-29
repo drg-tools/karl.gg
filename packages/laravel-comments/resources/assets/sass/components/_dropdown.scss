@@ -1,0 +1,17 @@
+.dropdown-item {
+  cursor: pointer;
+  font-size: 13px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.dropdown-menu {
+  right: 0;
+  left: auto;
+  min-width: 7rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}

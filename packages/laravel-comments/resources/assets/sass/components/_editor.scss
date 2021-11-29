@@ -1,0 +1,37 @@
+.comment__editor {
+  textarea {
+    min-height: 60px;
+    border-bottom-left-radius: 0;
+  }
+
+  .nav-tabs {
+    border-bottom: none;
+
+    .nav-link {
+      padding: 0.375rem 0.625rem;;
+
+      &:not(.active) {
+        color: $muted-color;
+
+        &:focus,
+        &:hover {
+          border-color: transparent;
+        }
+      }
+
+      &.active {
+        color: $body-color
+      }
+    }
+  }
+}
+
+.comment__counter {
+  font-size: 13px;
+  color: $comment-link-color;
+}
+
+.comment__preview {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+

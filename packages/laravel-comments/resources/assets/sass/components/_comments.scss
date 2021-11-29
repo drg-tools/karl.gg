@@ -1,0 +1,16 @@
+.comments {
+  padding: 0.25rem;
+}
+
+.comment__list {
+  transition: opacity 0.25s;
+}
+
+.comment__list--loading {
+  opacity: 0.8;
+}
+
+.comments__total {
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+}

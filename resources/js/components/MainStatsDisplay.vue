@@ -1,7 +1,7 @@
 <template>
     <div class="statsDisplay" v-if="equipment">
-        <h1 class="equipmentTitle allCaps">{{ equipment.name }}</h1>
-        <h2 class="equipmentSubTitle allCaps">{{ equipment.class }}</h2>
+        <span class="equipmentTitle allCaps">{{ equipment.name }}</span>
+        <span class="equipmentSubTitle allCaps">{{ equipmentClass }}</span>
         <div class="statsBaseContainer">
             <div
                 v-for="(stat, statId) in calcStats.stats"
@@ -332,6 +332,9 @@ export default {
         baseStats: function () {
             return this.equipment?.json_stats;
         },
+        equipmentClass() {
+            return this.equipment?.gun_class
+        },
         calcStats: function () {
             let visible = false;
 
@@ -370,13 +373,6 @@ export default {
 <style scoped>
 .statsDisplay {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
-}
-h2 {
-    /*text-transform: uppercase;*/
-    /*font-size: 1rem;*/
-    /*font-weight: normal;*/
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
 }
 .statsDisplay {
     flex: 1;

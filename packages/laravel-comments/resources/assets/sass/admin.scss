@@ -1,0 +1,177 @@
+$body-bg: #f3f3f4;
+$body-color: #333;
+$accent-color: #f56857;
+$border-radius: .125rem;
+// $table-accent-bg: #f9f9f9;
+
+@import '~bootstrap/scss/bootstrap';
+@import '~sweetalert2/src/sweetalert2';
+
+@import 'prism';
+@import 'misc';
+
+[v-cloak] {
+  display: none;
+}
+
+@include media-breakpoint-down(xs) {
+  .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.navbar-light {
+  background-color: #fff;
+  border-top: 4px solid $accent-color;
+  border-bottom: 1px solid #E2E2E2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  .navbar-brand {
+    color: $accent-color;
+  }
+}
+
+.navbar-toggler-right {
+  right: 0px;
+}
+
+.nav-item {
+  margin-right: 2px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.card-title {
+  // font-weight: 400;
+  // border-bottom: 1px solid #eee;
+}
+
+.status__filter {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li {
+    display: inline;
+
+    a {
+      padding: 2px;
+      text-decoration: none;
+    }
+
+    &.active a {
+      color: #000;
+      font-weight: 500;
+    }
+  }
+}
+
+.status__count {
+  color: #999;
+  font-weight: 400;
+}
+
+.comments__table {
+  min-width: 700px;
+  border: 1px solid #ddd;
+
+  thead th {
+    font-weight: 500;
+  }
+
+  tr:hover > td .comment__actions {
+    visibility: visible;
+  }
+}
+
+.column__checkbox {
+  width: 1px;
+}
+
+.column__author {
+  width: 25%;
+
+   img {
+    width: 32px;
+    height: 32px;
+    margin: 1px 10px 0 0;
+  }
+}
+
+.column__in-response {
+  width: 160px;
+}
+
+.page-comment-count {
+  opacity: 0.8;
+  text-decoration: none !important;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.bulk__actions {
+  select {
+    width: 150px;
+    display: inline-block;
+  }
+}
+
+.comment__actions {
+  color: #ddd;
+  visibility: hidden;
+
+  a {
+    transition: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.comment__action {
+  &-approve {
+    color: #006505 !important;
+  }
+
+  &-unapprove {
+    color: #d98500 !important;
+  }
+
+  &-spam,
+  &-trash,
+  &-delete {
+    color: #a00 !important;
+  }
+}
+
+.comment__submitted-on {
+  font-size: 14px;
+
+  a {
+    text-decoration: none !important;
+  }
+}
+
+.comment__editor {
+  textarea {
+    min-height: 80px;
+    border-bottom-left-radius: 0;
+  }
+
+  .emoji {
+    width: 18px;
+    margin-top: -5px;
+  }
+}
+
+.comment__counter {
+  font-size: 13px;
+  color: #899eb8;
+}

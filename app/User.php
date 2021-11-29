@@ -103,4 +103,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Loadout::class);
     }
+
+    public function authorAttributes(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'url' => route('user.profile', $this->id),    // optional
+            //            'avatar' => 'gravatar', // optional
+        ];
+    }
 }
