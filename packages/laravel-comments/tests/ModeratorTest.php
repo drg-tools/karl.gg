@@ -2,11 +2,11 @@
 
 namespace Hazzard\Comments\Tests;
 
-use Mockery;
 use Hazzard\Comments\Comment;
-use Hazzard\Comments\Moderator;
 use Hazzard\Comments\Contracts\Akismet as AkismetContract;
 use Hazzard\Comments\Contracts\Formatter as FormatterContract;
+use Hazzard\Comments\Moderator;
+use Mockery;
 
 class ModeratorTest extends TestCase
 {

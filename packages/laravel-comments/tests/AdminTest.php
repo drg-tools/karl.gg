@@ -3,9 +3,9 @@
 namespace Hazzard\Comments\Tests;
 
 use Hazzard\Comments\Comment;
+use Hazzard\Comments\ScriptVariables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use Hazzard\Comments\ScriptVariables;
 
 class AdminTest extends TestCase
 {

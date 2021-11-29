@@ -4,9 +4,9 @@ namespace Hazzard\Comments\Tests;
 
 use Carbon\Carbon;
 use Hazzard\Comments\Comment;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Event;
 use Hazzard\Comments\Events\CommentWasPosted;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
 
 class CommentApiTest extends TestCase
 {
@@ -261,7 +261,7 @@ class CommentApiTest extends TestCase
             'author_url' => 'http://example.org',
         ];
 
-        $this->postJson('/comments', array_merge($author, ['content' => 'foo','page_id' => 'bar']))
+        $this->postJson('/comments', array_merge($author, ['content' => 'foo', 'page_id' => 'bar']))
             ->assertSuccessful()
             ->assertCookie('comment_author_email', $author['author_email']);
     }
@@ -425,8 +425,8 @@ class CommentApiTest extends TestCase
         config(['comments.markdown' => true]);
 
         $this->postJson('/comments/preview', [
-                'content' => 'foo [bar](http://example.org)',
-            ])
+            'content' => 'foo [bar](http://example.org)',
+        ])
             ->assertSuccessful();
     }
 }

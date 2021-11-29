@@ -17,8 +17,8 @@ trait HasAuthor
     /**
      * Set the user model and key.
      *
-     * @param  string $model
-     * @param  string $key
+     * @param  string  $model
+     * @param  string  $key
      * @return void
      */
     public static function setUserModel($model, $key)
@@ -31,7 +31,7 @@ trait HasAuthor
      * Get the comment user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
+     */
     public function user()
     {
         return $this->belongsTo(static::$userModel, 'user_id', static::$userKey);
@@ -40,7 +40,7 @@ trait HasAuthor
     /**
      * Eager load the comment users.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeWithUser($query)
@@ -49,7 +49,7 @@ trait HasAuthor
     }
 
     /**
-     * @param  string $value
+     * @param  string  $value
      * @return string
      */
     public function getAuthorNameAttribute($value)
@@ -88,8 +88,8 @@ trait HasAuthor
     }
 
     /**
-     * @param  string $key
-     * @param  string|null $default
+     * @param  string  $key
+     * @param  string|null  $default
      * @return string|null
      */
     public function userAttribute($key, $default = null)

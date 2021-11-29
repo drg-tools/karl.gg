@@ -18,7 +18,7 @@ trait HasVotes
      * Get the user vote relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    */
+     */
     public function userVote()
     {
         return $this->hasOne(Vote::class);
@@ -35,7 +35,7 @@ trait HasVotes
     /**
      * Eager load the vote for the given user id.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  int
      * @return \Illuminate\Database\Eloquent\Builder
      */

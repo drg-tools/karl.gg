@@ -1,12 +1,11 @@
 <?php
-use Hazzard\Comments\ScriptVariables;
 
 $polyfills = [
     'Promise',
     'Object.assign',
     'Array.from',
     'Array.prototype.includes',
-    'Element.prototype.closest'
+    'Element.prototype.closest',
 ];
 ?>
 <!DOCTYPE html>

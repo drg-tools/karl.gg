@@ -4,9 +4,9 @@ namespace Hazzard\Comments;
 
 use Exception;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 class ScriptVariables
 {
@@ -66,8 +66,8 @@ class ScriptVariables
     /**
      * Add a JavaScript variable.
      *
-     * @param  array|string $key
-     * @param  mixed $value
+     * @param  array|string  $key
+     * @param  mixed  $value
      * @return void
      */
     public static function add($key, $value = null)
@@ -84,7 +84,7 @@ class ScriptVariables
     /**
      * Get a JavaScript variable.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return mixed
      */
     public static function get($key)
@@ -95,7 +95,7 @@ class ScriptVariables
     /**
      * Render as a HTML string.
      *
-     * @param  string $varName
+     * @param  string  $varName
      * @return \Illuminate\Support\HtmlString
      */
     public static function render($varName = 'config')
@@ -106,8 +106,8 @@ class ScriptVariables
     /**
      * Get the path to a versioned Mix file.
      *
-     * @param  string $path
-     * @param  string $manifestDirectory
+     * @param  string  $path
+     * @param  string  $manifestDirectory
      * @return \Illuminate\Support\HtmlString
      *
      * @throws \Exception

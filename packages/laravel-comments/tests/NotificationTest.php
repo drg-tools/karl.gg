@@ -3,10 +3,10 @@
 namespace Hazzard\Comments\Tests;
 
 use Hazzard\Comments\Comment;
-use Illuminate\Support\Facades\Notification;
+use Hazzard\Comments\Notifications\CommentWasPosted;
 use Hazzard\Comments\Notifications\Notifiable;
 use Hazzard\Comments\Notifications\ReplyWasPosted;
-use Hazzard\Comments\Notifications\CommentWasPosted;
+use Illuminate\Support\Facades\Notification;
 
 class NotificationTest extends TestCase
 {

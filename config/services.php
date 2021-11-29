@@ -31,7 +31,7 @@ return [
     ],
 
     /**
-     * Used for commenting http://docs.hazzardweb.com/laravel-comments/4.0/configuration
+     * Used for commenting http://docs.hazzardweb.com/laravel-comments/4.0/configuration.
      */
     'recaptcha' => [
         'key' => env('RECAPTCHA_KEY'),

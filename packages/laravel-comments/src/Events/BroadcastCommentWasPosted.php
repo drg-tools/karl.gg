@@ -2,9 +2,9 @@
 
 namespace Hazzard\Comments\Events;
 
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Queue\SerializesModels;
 
 class BroadcastCommentWasPosted implements ShouldBroadcast
 {
@@ -18,7 +18,7 @@ class BroadcastCommentWasPosted implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return void
      */
     public function __construct($comment)

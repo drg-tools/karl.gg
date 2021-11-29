@@ -2,9 +2,9 @@
 
 namespace Hazzard\Comments\Tests;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
 use Hazzard\Comments\Contracts\Settings;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class SettingsTest extends TestCase
 {

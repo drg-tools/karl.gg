@@ -30,7 +30,7 @@ class Vote extends Model
     /**
      * Create a new model instance.
      *
-     * @param  array $attributes
+     * @param  array  $attributes
      * @return void
      */
     public function __construct(array $attributes = [])
@@ -44,7 +44,7 @@ class Vote extends Model
      * Get the vote comment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
+     */
     public function comment()
     {
         return $this->belongsTo(config('comments.models.comment'));

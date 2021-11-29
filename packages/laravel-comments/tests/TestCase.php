@@ -37,7 +37,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -64,7 +64,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -75,7 +75,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
     // protected function resolveApplicationExceptionHandler($app)
@@ -95,7 +95,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
         });
     }
 }
-
 
 class Formatter extends \Hazzard\Comments\Formatter
 {
@@ -119,14 +118,17 @@ class FormatterFake implements \Hazzard\Comments\Contracts\Formatter
     {
         return $text;
     }
+
     public function unparse($xml)
     {
         return $xml;
     }
+
     public function render($xml)
     {
         return $xml;
     }
+
     public function flush()
     {
     }

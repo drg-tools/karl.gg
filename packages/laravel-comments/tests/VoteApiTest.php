@@ -2,8 +2,8 @@
 
 namespace Hazzard\Comments\Tests;
 
-use Hazzard\Comments\Vote;
 use Hazzard\Comments\Comment;
+use Hazzard\Comments\Vote;
 
 class VoteApiTest extends TestCase
 {

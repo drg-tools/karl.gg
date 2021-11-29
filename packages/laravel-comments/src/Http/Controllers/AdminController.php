@@ -2,17 +2,17 @@
 
 namespace Hazzard\Comments\Http\Controllers;
 
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
 use Hazzard\Comments\Comment;
-use Hazzard\Comments\SettingInput;
-use Illuminate\Routing\Controller;
-use Hazzard\Comments\ScriptVariables;
-use Hazzard\Comments\Facades\Formatter;
-use Hazzard\Comments\Contracts\Settings;
-use Illuminate\Auth\Middleware\Authorize;
 use Hazzard\Comments\Contracts\CommentRepository;
+use Hazzard\Comments\Contracts\Settings;
+use Hazzard\Comments\Facades\Formatter;
+use Hazzard\Comments\ScriptVariables;
+use Hazzard\Comments\SettingInput;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
 
 class AdminController extends Controller
 {
@@ -31,8 +31,8 @@ class AdminController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  \Hazzard\Comments\Contracts\CommentRepository $comments
-     * @param  \Hazzard\Comments\Contracts\Settings $settings
+     * @param  \Hazzard\Comments\Contracts\CommentRepository  $comments
+     * @param  \Hazzard\Comments\Contracts\Settings  $settings
      * @return void
      */
     public function __construct(CommentRepository $comments, Settings $settings)
@@ -52,7 +52,7 @@ class AdminController extends Controller
     /**
      * Show the dashboard page.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function dashboard(Request $request)
@@ -82,7 +82,7 @@ class AdminController extends Controller
     /**
      * Show the settings page.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function settings(Request $request)
@@ -95,7 +95,7 @@ class AdminController extends Controller
     /**
      * Update the settings.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function updateSettings(Request $request)
@@ -137,7 +137,7 @@ class AdminController extends Controller
 
         foreach ($filter(SettingInput::BOOLEAN_TYPE) as $input) {
             if ($request->exists($key = $input->getKey())) {
-                $this->settings->set($input->getKey(), (boolean) $request->get($key));
+                $this->settings->set($input->getKey(), (bool) $request->get($key));
             }
         }
 
@@ -149,7 +149,7 @@ class AdminController extends Controller
     /**
      * Reset the settings.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function resetSettings()
@@ -166,7 +166,7 @@ class AdminController extends Controller
     /**
      * Log out the user.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)

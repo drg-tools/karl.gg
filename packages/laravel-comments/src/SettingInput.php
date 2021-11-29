@@ -2,10 +2,10 @@
 
 namespace Hazzard\Comments;
 
-use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\HtmlString;
 
 class SettingInput
 {
@@ -31,8 +31,8 @@ class SettingInput
     protected $data;
 
     /**
-     * @param  string $type
-     * @param  array $data
+     * @param  string  $type
+     * @param  array  $data
      * @return void
      */
     public function __construct($type, array $data)
@@ -99,9 +99,9 @@ class SettingInput
     /**
      * Create a boolean input.
      *
-     * @param  string $key
-     * @param  string $label
-     * @param  string|null $help
+     * @param  string  $key
+     * @param  string  $label
+     * @param  string|null  $help
      * @return static
      */
     public static function boolean($key, $label = null, $help = null)
@@ -112,9 +112,9 @@ class SettingInput
     /**
      * Create a text input.
      *
-     * @param  string $key
-     * @param  string $label
-     * @param  string|null $help
+     * @param  string  $key
+     * @param  string  $label
+     * @param  string|null  $help
      * @return static
      */
     public static function text($key, $label = null, $help = null)
@@ -125,9 +125,9 @@ class SettingInput
     /**
      * Create a textarea input.
      *
-     * @param  string $key
-     * @param  string $label
-     * @param  string|null $help
+     * @param  string  $key
+     * @param  string  $label
+     * @param  string|null  $help
      * @return static
      */
     public static function textarea($key, $label = null, $help = null)
@@ -138,9 +138,9 @@ class SettingInput
     /**
      * Create a number input.
      *
-     * @param  string $key
-     * @param  string $label
-     * @param  string|null $help
+     * @param  string  $key
+     * @param  string  $label
+     * @param  string|null  $help
      * @return static
      */
     public static function number($key, $label = null, $help = null)
@@ -151,9 +151,9 @@ class SettingInput
     /**
      * Create a select input.
      *
-     * @param  string $key
-     * @param  string $label
-     * @param  string|null $help
+     * @param  string  $key
+     * @param  string  $label
+     * @param  string|null  $help
      * @return static
      */
     public static function select($key, array $options, $label = null, $help = null)

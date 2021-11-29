@@ -2,8 +2,8 @@
 
 namespace Hazzard\Comments;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 
 class Comment extends Model
 {
@@ -55,7 +55,7 @@ class Comment extends Model
     /**
      * Create a new model instance.
      *
-     * @param  array $attributes
+     * @param  array  $attributes
      * @return void
      */
     public function __construct(array $attributes = [])
@@ -89,7 +89,7 @@ class Comment extends Model
      * Get the parent comment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    */
+     */
     public function parent()
     {
         return $this->hasOne(static::class, 'id', 'parent_id');
@@ -99,7 +99,7 @@ class Comment extends Model
      * Get the root comment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    */
+     */
     public function root()
     {
         return $this->hasOne(static::class, 'id', 'root_id');
@@ -118,7 +118,7 @@ class Comment extends Model
     /**
      * Parse the content before it's saved.
      *
-     * @param  string $value
+     * @param  string  $value
      * @return void
      */
     public function setContentAttribute($value)
@@ -129,7 +129,7 @@ class Comment extends Model
     /**
      * Unparse the parsed content.
      *
-     * @param  string $value
+     * @param  string  $value
      * @return string
      */
     public function getContentAttribute($value)
@@ -146,6 +146,7 @@ class Comment extends Model
     {
         return $this->getFormatter()->render($this->attributes['content']);
     }
+
     /**
      * Get the comment url.
      *

@@ -2,8 +2,8 @@
 
 namespace Hazzard\Comments\Tests;
 
-use Illuminate\Support\Facades\Event;
 use Hazzard\Comments\Events\FormatterConfigurator;
+use Illuminate\Support\Facades\Event;
 
 class FormatterTest extends TestCase
 {

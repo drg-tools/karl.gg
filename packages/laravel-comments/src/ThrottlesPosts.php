@@ -2,15 +2,15 @@
 
 namespace Hazzard\Comments;
 
-use Illuminate\Http\Request;
 use Illuminate\Cache\RateLimiter;
+use Illuminate\Http\Request;
 
 trait ThrottlesPosts
 {
     /**
      * Determine if should throttle comment posts.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function shouldThrottlePosts(Request $request)
@@ -25,7 +25,7 @@ trait ThrottlesPosts
     /**
      * Determine if the user has too many comment post attempts.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function hasTooManyPostAttempts(Request $request)
@@ -43,7 +43,7 @@ trait ThrottlesPosts
     /**
      * Increment the comment post attempts.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     protected function incrementPostAttempts(Request $request)
@@ -54,7 +54,7 @@ trait ThrottlesPosts
     /**
      * Redirect the user after determining they are locked out.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendLockoutResponse(Request $request)
@@ -71,7 +71,7 @@ trait ThrottlesPosts
     /**
      * Clear the comment post locks.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
     protected function clearAttempts(Request $request)
@@ -107,7 +107,7 @@ trait ThrottlesPosts
     /**
      * Get the lockout error message.
      *
-     * @param  int $seconds
+     * @param  int  $seconds
      * @return string
      */
     protected function getLockoutMessage($seconds)

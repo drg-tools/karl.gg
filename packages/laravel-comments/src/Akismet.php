@@ -2,8 +2,8 @@
 
 namespace Hazzard\Comments;
 
-use RuntimeException;
 use GuzzleHttp\Client;
+use RuntimeException;
 
 class Akismet implements Contracts\Akismet
 {
@@ -18,8 +18,8 @@ class Akismet implements Contracts\Akismet
     protected $http;
 
     /**
-     * @param  string|null $key
-     * @param  \GuzzleHttp\Client $http
+     * @param  string|null  $key
+     * @param  \GuzzleHttp\Client  $http
      * @return void
      */
     public function __construct(string $key = null, Client $http)
@@ -33,8 +33,8 @@ class Akismet implements Contracts\Akismet
      *
      * @link https://akismet.com/development/api/#comment-check.
      *
-     * @param  array $params
-     * @return boolean
+     * @param  array  $params
+     * @return bool
      */
     public function commentCheck(array $params): bool
     {

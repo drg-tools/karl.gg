@@ -1,5 +1,4 @@
 <?php
-use Hazzard\Comments\ScriptVariables;
 
 $emoji = config('comments.emoji');
 $broadcast = config('comments.broadcast');

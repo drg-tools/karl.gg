@@ -3,8 +3,8 @@
 namespace Hazzard\Comments\Http\Requests;
 
 use Hazzard\Comments\Comment;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StoreComment extends FormRequest
 {
@@ -97,7 +97,7 @@ class StoreComment extends FormRequest
     /**
      * Configure the validator instance.
      *
-     * @param  \Illuminate\Validation\Validator $validator
+     * @param  \Illuminate\Validation\Validator  $validator
      * @return void
      */
     public function withValidator($validator)

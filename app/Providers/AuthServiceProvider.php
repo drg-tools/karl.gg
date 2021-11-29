@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         /**
          * Determine if the current user can access the admin panel.
          *
-         * @param  User $user
+         * @param  User  $user
          * @return bool
          */
         \Gate::define('moderate-comments', function (User $user) {

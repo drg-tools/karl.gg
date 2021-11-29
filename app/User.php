@@ -110,7 +110,7 @@ class User extends Authenticatable
             'name' => $this->name,
             'email' => $this->email,
             'url' => route('user.profile', $this->id),    // optional
-//            'avatar' => 'gravatar', // optional
+            //            'avatar' => 'gravatar', // optional
         ];
     }
 }

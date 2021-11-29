@@ -2,10 +2,10 @@
 
 namespace Hazzard\Comments;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Hazzard\Comments\Contracts\Moderator;
 use Hazzard\Comments\Facades\Formatter as FormatterFacade;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class CommentRepository implements Contracts\CommentRepository
 {
@@ -22,8 +22,8 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Create a new instance.
      *
-     * @param  array $config
-     * @param  \Hazzard\Comments\Contracts\Moderator $moderator
+     * @param  array  $config
+     * @param  \Hazzard\Comments\Contracts\Moderator  $moderator
      * @return void
      */
     public function __construct(array $config, Moderator $moderator)
@@ -35,7 +35,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Get comments.
      *
-     * @param  array $args
+     * @param  array  $args
      * @return \Hazzard\Comments\Paginator
      */
     public function get(array $args)
@@ -87,7 +87,7 @@ class CommentRepository implements Contracts\CommentRepository
         }
 
         // Order by column and direction.
-        list($column, $direction) = $this->getOrderFields($order);
+        [$column, $direction] = $this->getOrderFields($order);
         $query->orderBy($column, $direction);
 
         // Load replies.
@@ -117,7 +117,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Get comments for admin.
      *
-     * @param  array $args
+     * @param  array  $args
      * @return \Hazzard\Comments\Paginator
      */
     public function getForAdmin(array $args)
@@ -204,20 +204,20 @@ class CommentRepository implements Contracts\CommentRepository
         }
 
         return new Paginator($comments, $total, $perPage, $page, [
-           'pageCount' => $pageCount,
-           'commentableCount' => $commentableCount->map(function ($count) {
-               return (int) $count;
-           }),
-           'statusCount' => $statusCount->map(function ($count) {
-               return (int) $count;
-           }),
-       ]);
+            'pageCount' => $pageCount,
+            'commentableCount' => $commentableCount->map(function ($count) {
+                return (int) $count;
+            }),
+            'statusCount' => $statusCount->map(function ($count) {
+                return (int) $count;
+            }),
+        ]);
     }
 
     /**
      * Create a new comment.
      *
-     * @param  array $args
+     * @param  array  $args
      * @return \Hazzard\Comments\Comment
      */
     public function create(array $args)
@@ -240,8 +240,8 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Update an existing comment.
      *
-     * @param  int $id
-     * @param  array $args
+     * @param  int  $id
+     * @param  array  $args
      * @return \Hazzard\Comments\Comment
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -269,8 +269,8 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Upvote the given comment.
      *
-     * @param  int $commentId
-     * @param  int $userId
+     * @param  int  $commentId
+     * @param  int  $userId
      * @return bool
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -283,8 +283,8 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Downvote the given comment.
      *
-     * @param  int $commentId
-     * @param  int $userId
+     * @param  int  $commentId
+     * @param  int  $userId
      * @return bool
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -295,9 +295,9 @@ class CommentRepository implements Contracts\CommentRepository
     }
 
     /**
-     * @param  int $commentId
-     * @param  int $userId
-     * @param  string $type
+     * @param  int  $commentId
+     * @param  int  $userId
+     * @param  string  $type
      * @return bool
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -339,8 +339,8 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Remove the vote for the given comment.
      *
-     * @param  int $commentId
-     * @param  int $userId
+     * @param  int  $commentId
+     * @param  int  $userId
      * @return bool
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -369,8 +369,8 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Report a comment.
      *
-     * @param  \Hazzard\Comments\Comment $comment
-     * @param  int $userId The user that reports it.
+     * @param  \Hazzard\Comments\Comment  $comment
+     * @param  int  $userId  The user that reports it.
      * @return bool
      */
     public function report($comment, $userId)
@@ -396,7 +396,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Delete the given comments.
      *
-     * @param  array $ids
+     * @param  array  $ids
      * @return int
      */
     public function deleteByIds(array $ids)
@@ -408,7 +408,7 @@ class CommentRepository implements Contracts\CommentRepository
      * Update the status of the given comments.
      *
      * @param  array  $ids
-     * @param  string $status
+     * @param  string  $status
      * @return int
      */
     public function updateStatusByIds(array $ids, $status)
@@ -419,7 +419,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Get the number of unapproved comments for a user.
      *
-     * @param  int|string $idOrEmail
+     * @param  int|string  $idOrEmail
      * @return int
      */
     public function getUnapprovedCount($idOrEmail)
@@ -433,7 +433,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Determine if the comment content has already been posted.
      *
-     * @param  args $input [content, user, page_id, commentable_id, commentable_type]
+     * @param  args  $input  [content, user, page_id, commentable_id, commentable_type]
      * @return bool
      */
     public function hasDuplicateContent(array $args)
@@ -458,7 +458,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Find a comment by its primary key.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Hazzard\Comments\Comment|null
      */
     public function find($id)
@@ -469,7 +469,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Find a comment by its primary key or throw an exception.
      *
-     * @param  mixed $id
+     * @param  mixed  $id
      * @return \Hazzard\Comments\Comment
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
@@ -482,12 +482,12 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Get page number by comment id.
      *
-     * @param  int $commentId
+     * @param  int  $commentId
      * @return int|null
      */
     protected function getPageNumber($commentId)
     {
-        list($column, $direction) = $this->getOrderFields(null);
+        [$column, $direction] = $this->getOrderFields(null);
 
         $operator = $direction === 'DESC' ? '>' : '<';
 
@@ -520,9 +520,9 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Apply where status != trash and (status or (user_id | author_email)).
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @param  string $status
-     * @param  int|string $idOrEmail
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string  $status
+     * @param  int|string  $idOrEmail
      * @return void
      */
     protected function applyStatusScope($query, $status, $idOrEmail)
@@ -541,7 +541,7 @@ class CommentRepository implements Contracts\CommentRepository
     /**
      * Get the column and direction for the "order by" clause.
      *
-     * @param  int $type
+     * @param  int  $type
      * @return array
      */
     protected function getOrderFields($type)
@@ -560,7 +560,7 @@ class CommentRepository implements Contracts\CommentRepository
     }
 
     /**
-     * @param  int|string $value
+     * @param  int|string  $value
      * @return array
      */
     protected function userColumnValue($value)

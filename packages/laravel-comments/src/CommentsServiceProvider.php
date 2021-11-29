@@ -3,15 +3,15 @@
 namespace Hazzard\Comments;
 
 use GuzzleHttp\Client;
-use ReCaptcha\ReCaptcha;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator;
 use Hazzard\Comments\Events\CommentWasPosted;
 use Hazzard\Comments\Listeners\HandleCommentWasPosted;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
+use ReCaptcha\ReCaptcha;
 
 class CommentsServiceProvider extends ServiceProvider
 {
@@ -175,7 +175,7 @@ class CommentsServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-           __DIR__.'/../public' => public_path('vendor/comments'),
+            __DIR__.'/../public' => public_path('vendor/comments'),
         ], 'public');
     }
 
