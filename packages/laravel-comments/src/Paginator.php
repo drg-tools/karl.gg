@@ -65,7 +65,7 @@ class Paginator extends LengthAwarePaginator
      */
     public function toArray()
     {
-        list($firstAdjacentPage, $lastAdjacentPage) = $this->getAdjacentPages();
+        [$firstAdjacentPage, $lastAdjacentPage] = $this->getAdjacentPages();
 
         $data = [
             'comments' => $this->items->toArray(),

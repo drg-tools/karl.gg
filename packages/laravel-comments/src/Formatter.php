@@ -2,11 +2,11 @@
 
 namespace Hazzard\Comments;
 
-use s9e\TextFormatter\Unparser;
-use s9e\TextFormatter\Configurator;
 use Hazzard\Comments\Events\FormatterConfigurator;
 use Illuminate\Contracts\Cache\Repository as Cache;
+use s9e\TextFormatter\Configurator;
 use s9e\TextFormatter\Configurator\Bundles\MediaPack;
+use s9e\TextFormatter\Unparser;
 
 class Formatter implements Contracts\Formatter
 {
@@ -23,8 +23,8 @@ class Formatter implements Contracts\Formatter
     /**
      * Create a new formatter instance.
      *
-     * @param  array $config
-     * @param  \Illuminate\Contracts\Cache\Repository $cache
+     * @param  array  $config
+     * @param  \Illuminate\Contracts\Cache\Repository  $cache
      * @return void
      */
     public function __construct(array $config, Cache $cache)
@@ -36,7 +36,7 @@ class Formatter implements Contracts\Formatter
     /**
      * Parse the text into an XML document.
      *
-     * @param  string $text
+     * @param  string  $text
      * @return string
      */
     public function parse($text)
@@ -47,7 +47,7 @@ class Formatter implements Contracts\Formatter
     /**
      * Transform the XML document back into plain text.
      *
-     * @param  string $xml
+     * @param  string  $xml
      * @return string
      */
     public function unparse($xml)
@@ -58,7 +58,7 @@ class Formatter implements Contracts\Formatter
     /**
      * Transform the XML document into HTML.
      *
-     * @param  string $xml
+     * @param  string  $xml
      * @return string
      */
     public function render($xml)
@@ -109,7 +109,7 @@ class Formatter implements Contracts\Formatter
     /**
      * Get configurator component.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return mixed
      */
     protected function getComponent($key)
@@ -181,7 +181,7 @@ class Formatter implements Contracts\Formatter
     /**
      * Add emoticons to the configurator.
      *
-     * @param  \s9e\TextFormatter\Configurator $configurator
+     * @param  \s9e\TextFormatter\Configurator  $configurator
      * @return void
      */
     protected function addEmoticons($configurator)
@@ -203,7 +203,7 @@ class Formatter implements Contracts\Formatter
     /**
      * Add BBCodes to the configurator.
      *
-     * @param  \s9e\TextFormatter\Configurator $configurator
+     * @param  \s9e\TextFormatter\Configurator  $configurator
      * @return void
      */
     protected function addBBCodes($configurator)

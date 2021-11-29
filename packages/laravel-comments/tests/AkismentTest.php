@@ -2,10 +2,10 @@
 
 namespace Hazzard\Comments\Tests;
 
-use Mockery;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Hazzard\Comments\Akismet;
+use Mockery;
 
 class AkismentTest extends TestCase
 {
@@ -27,7 +27,7 @@ class AkismentTest extends TestCase
     }
 
     /**
-     * @param string $response
+     * @param  string  $response
      * @return \GuzzleHttp\ClientInterface
      */
     protected function httpMock(string $response)

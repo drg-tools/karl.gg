@@ -9,8 +9,8 @@ interface Akismet
      *
      * @link https://akismet.com/development/api/#comment-check.
      *
-     * @param  array $params
-     * @return boolean
+     * @param  array  $params
+     * @return bool
      */
     public function commentCheck(array $params): bool;
 }

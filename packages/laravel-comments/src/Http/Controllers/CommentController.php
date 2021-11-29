@@ -2,18 +2,18 @@
 
 namespace Hazzard\Comments\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Hazzard\Comments\Comment;
-use Illuminate\Routing\Controller;
-use Hazzard\Comments\ThrottlesPosts;
-use Hazzard\Comments\ScriptVariables;
+use Hazzard\Comments\Contracts\CommentRepository;
 use Hazzard\Comments\Contracts\Formatter;
 use Hazzard\Comments\Events\CommentWasPosted;
 use Hazzard\Comments\Http\Requests\BulkUpdate;
 use Hazzard\Comments\Http\Requests\StoreComment;
-use Hazzard\Comments\Contracts\CommentRepository;
 use Hazzard\Comments\Http\Requests\UpdateComment;
+use Hazzard\Comments\ScriptVariables;
+use Hazzard\Comments\ThrottlesPosts;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class CommentController extends Controller
 {
@@ -33,8 +33,8 @@ class CommentController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  \Hazzard\Comments\Contracts\CommentRepository $comments
-     * @param  \Hazzard\Comments\Contracts\Formatter $formatter
+     * @param  \Hazzard\Comments\Contracts\CommentRepository  $comments
+     * @param  \Hazzard\Comments\Contracts\Formatter  $formatter
      * @return void
      */
     public function __construct(CommentRepository $comments, Formatter $formatter)
@@ -48,7 +48,7 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -92,7 +92,7 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Hazzard\Comments\Http\Requests\StoreComment $request
+     * @param  \Hazzard\Comments\Http\Requests\StoreComment  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreComment $request)
@@ -125,8 +125,8 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Hazzard\Comments\Http\Requests\UpdateComment $request
-     * @param  int $id
+     * @param  \Hazzard\Comments\Http\Requests\UpdateComment  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateComment $request, $id)
@@ -147,8 +147,8 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
@@ -165,8 +165,8 @@ class CommentController extends Controller
     /**
      * Report the specified comment.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function report(Request $request, $id)
@@ -183,8 +183,8 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Hazzard\Comments\Http\Requests\BulkUpdate $request
-     * @param  int $id
+     * @param  \Hazzard\Comments\Http\Requests\BulkUpdate  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function bulkUpdate(BulkUpdate $request)
@@ -205,7 +205,7 @@ class CommentController extends Controller
     /**
      * Render the comment as HTML.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function preview(Request $request)
@@ -216,7 +216,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     protected function getStoreInput(Request $request)

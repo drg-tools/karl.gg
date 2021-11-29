@@ -7,7 +7,7 @@ interface Settings
     /**
      * Determine if the given setting value exists.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return bool
      */
     public function has($key);
@@ -15,7 +15,7 @@ interface Settings
     /**
      * Set a setting value.
      *
-     * @param  string $key
+     * @param  string  $key
      * @param  mixed  $value
      * @return void
      */
@@ -24,7 +24,7 @@ interface Settings
     /**
      * Get the specified setting value.
      *
-     * @param  string $key
+     * @param  string  $key
      * @param  mixed  $default
      * @return mixed
      */
@@ -33,7 +33,7 @@ interface Settings
     /**
      * Forget a setting value.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return void
      */
     public function forget($key);

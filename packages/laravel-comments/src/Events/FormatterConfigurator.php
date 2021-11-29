@@ -14,7 +14,7 @@ class FormatterConfigurator
     /**
      * Create a new event instance.
      *
-     * @param \s9e\TextFormatter\Configurator $configurator
+     * @param  \s9e\TextFormatter\Configurator  $configurator
      */
     public function __construct(Configurator $configurator)
     {

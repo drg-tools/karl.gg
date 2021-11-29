@@ -12,7 +12,7 @@ class CommentWasPosted
     /**
      * Create a new event instance.
      *
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return void
      */
     public function __construct($comment)

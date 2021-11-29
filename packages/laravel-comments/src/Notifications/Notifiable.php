@@ -16,7 +16,7 @@ class Notifiable
     /**
      * Create a new instance.
      *
-     * @param string $email
+     * @param  string  $email
      * @param void
      */
     public function __construct($email)

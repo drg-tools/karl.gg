@@ -2,17 +2,17 @@
 
 namespace Hazzard\Comments\Listeners;
 
-use Hazzard\Comments\Notifications;
-use Hazzard\Comments\Events\CommentWasPosted;
-use Hazzard\Comments\Notifications\Notifiable;
 use Hazzard\Comments\Events\BroadcastCommentWasPosted;
+use Hazzard\Comments\Events\CommentWasPosted;
+use Hazzard\Comments\Notifications;
+use Hazzard\Comments\Notifications\Notifiable;
 
 class HandleCommentWasPosted
 {
     /**
      * Handle the event.
      *
-     * @param  \Hazzard\Comments\Events\CommentWasPosted $event
+     * @param  \Hazzard\Comments\Events\CommentWasPosted  $event
      * @return void
      */
     public function handle(CommentWasPosted $event)
@@ -33,7 +33,7 @@ class HandleCommentWasPosted
     }
 
     /**
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return void
      */
     protected function replyNotification($comment)
@@ -53,8 +53,8 @@ class HandleCommentWasPosted
     }
 
     /**
-     * @param  \Hazzard\Comments\Comment $comment
-     * @param  string $email
+     * @param  \Hazzard\Comments\Comment  $comment
+     * @param  string  $email
      * @return void
      */
     protected function adminNotification($comment, $email)

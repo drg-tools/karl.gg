@@ -2,9 +2,9 @@
 
 namespace Hazzard\Comments\Http\Controllers;
 
-use Illuminate\Routing\Controller;
-use Hazzard\Comments\Http\Requests\StoreVote;
 use Hazzard\Comments\Contracts\CommentRepository;
+use Hazzard\Comments\Http\Requests\StoreVote;
+use Illuminate\Routing\Controller;
 
 class VoteController extends Controller
 {
@@ -16,7 +16,7 @@ class VoteController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param \Hazzard\Comments\Contracts\CommentRepository $comments
+     * @param  \Hazzard\Comments\Contracts\CommentRepository  $comments
      * @return void
      */
     public function __construct(CommentRepository $comments)
@@ -28,8 +28,8 @@ class VoteController extends Controller
     /**
      * Upvote the given comment.
      *
-     * @param  \Hazzard\Comments\Http\Requests\StoreVote $request
-     * @param  int $commentId
+     * @param  \Hazzard\Comments\Http\Requests\StoreVote  $request
+     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
     public function upvote(StoreVote $request, $commentId)
@@ -42,8 +42,8 @@ class VoteController extends Controller
     /**
      * Downvote the given comment.
      *
-     * @param  \Hazzard\Comments\Http\Requests\StoreVote $request
-     * @param  int $commentId
+     * @param  \Hazzard\Comments\Http\Requests\StoreVote  $request
+     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
     public function downvote(StoreVote $request, $commentId)
@@ -56,8 +56,8 @@ class VoteController extends Controller
     /**
      * Remove the vote for the given comment.
      *
-     * @param  \Hazzard\Comments\Http\Requests\StoreVote $request
-     * @param  int $commentId
+     * @param  \Hazzard\Comments\Http\Requests\StoreVote  $request
+     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
     public function remove(StoreVote $request, $commentId)

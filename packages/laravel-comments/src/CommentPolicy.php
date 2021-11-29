@@ -24,7 +24,7 @@ class CommentPolicy
     /**
      * Determine if the user can moderate comments.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @return bool
      */
     public function moderate(User $user)
@@ -35,8 +35,8 @@ class CommentPolicy
     /**
      * Determine if the user can edit the given comment.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return bool
      */
     public function update(User $user, Comment $comment)
@@ -63,8 +63,8 @@ class CommentPolicy
     /**
      * Determine if the user can delete the given comment.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return bool
      */
     public function delete(User $user, Comment $comment)
@@ -91,8 +91,8 @@ class CommentPolicy
     /**
      * Determine if the user can report the given comment.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return bool
      */
     public function report(User $user, Comment $comment)

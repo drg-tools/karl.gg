@@ -7,7 +7,7 @@ interface Formatter
     /**
      * Parse the text into an XML document.
      *
-     * @param  string $text
+     * @param  string  $text
      * @return string
      */
     public function parse($text);
@@ -15,7 +15,7 @@ interface Formatter
     /**
      * Transform the XML document back into plain text.
      *
-     * @param  string $xml
+     * @param  string  $xml
      * @return string
      */
     public function unparse($xml);
@@ -23,7 +23,7 @@ interface Formatter
     /**
      * Transform the XML document into HTML.
      *
-     * @param  string $xml
+     * @param  string  $xml
      * @return string
      */
     public function render($xml);

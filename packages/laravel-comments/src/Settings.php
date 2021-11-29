@@ -3,8 +3,8 @@
 namespace Hazzard\Comments;
 
 use Exception;
-use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
+use Illuminate\Database\ConnectionInterface;
 
 class Settings implements Contracts\Settings
 {
@@ -31,9 +31,9 @@ class Settings implements Contracts\Settings
     /**
      * Create new database repository.
      *
-     * @param  \Illuminate\Database\ConnectionInterface $conn
-     * @param  \Illuminate\Contracts\Cache\Repository $cache
-     * @param  string $table
+     * @param  \Illuminate\Database\ConnectionInterface  $conn
+     * @param  \Illuminate\Contracts\Cache\Repository  $cache
+     * @param  string  $table
      * @return void
      */
     public function __construct(ConnectionInterface $conn, CacheContract $cache, $table)
@@ -46,7 +46,7 @@ class Settings implements Contracts\Settings
     /**
      * Determine if the given setting value exists.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return bool
      */
     public function has($key)
@@ -57,8 +57,8 @@ class Settings implements Contracts\Settings
     /**
      * Set a setting value.
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @return void
      */
     public function set($key, $value = null)
@@ -79,7 +79,7 @@ class Settings implements Contracts\Settings
     /**
      * Get the specified setting value.
      *
-     * @param  string $key
+     * @param  string  $key
      * @param  mixed  $default
      * @return mixed
      */
@@ -114,7 +114,7 @@ class Settings implements Contracts\Settings
     /**
      * Forget a setting value.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return void
      */
     public function forget($key)
@@ -149,7 +149,7 @@ class Settings implements Contracts\Settings
     /**
      * Get repository cache key.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return string
      */
     protected function getKey($key)

@@ -2,9 +2,9 @@
 
 namespace Hazzard\Comments;
 
-use Illuminate\Support\Facades\Auth;
 use Hazzard\Comments\Contracts\Akismet as Akismet;
 use Hazzard\Comments\Contracts\Formatter as Formatter;
+use Illuminate\Support\Facades\Auth;
 
 class Moderator implements Contracts\Moderator
 {
@@ -26,9 +26,9 @@ class Moderator implements Contracts\Moderator
     /**
      * Create a new moderator instance.
      *
-     * @param  array $config
-     * @param  \Hazzard\Comments\Contracts\Akismet $akismet
-     * @param  \Hazzard\Comments\Contracts\Formatter $formatter
+     * @param  array  $config
+     * @param  \Hazzard\Comments\Contracts\Akismet  $akismet
+     * @param  \Hazzard\Comments\Contracts\Formatter  $formatter
      * @return void
      */
     public function __construct(array $config, Akismet $akismet, Formatter $formatter)
@@ -41,7 +41,7 @@ class Moderator implements Contracts\Moderator
     /**
      * Determine the comment status.
      *
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return string
      */
     public function determineStatus($comment)
@@ -76,8 +76,8 @@ class Moderator implements Contracts\Moderator
     /**
      * Check if contains specific keys.
      *
-     * @param  \Hazzard\Comments\Comment $comment
-     * @param  string $type
+     * @param  \Hazzard\Comments\Comment  $comment
+     * @param  string  $type
      * @return bool
      */
     protected function contains($comment, $type)
@@ -102,7 +102,7 @@ class Moderator implements Contracts\Moderator
     /**
      * Check if the comment content contains too many links.
      *
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return bool
      */
     protected function hasTooManyLinks($comment)
@@ -123,7 +123,7 @@ class Moderator implements Contracts\Moderator
     /**
      * Determine if the if the comment input is spam using Akismet.
      *
-     * @param  \Hazzard\Comments\Comment $comment
+     * @param  \Hazzard\Comments\Comment  $comment
      * @return bool
      */
     protected function isSpam($comment)
