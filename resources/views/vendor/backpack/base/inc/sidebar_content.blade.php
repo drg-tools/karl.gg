@@ -10,6 +10,7 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('throwable') }}"><i class="la la-futbol nav-icon"></i> Throwables</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('loadout') }}"><i class="la la-address-card nav-icon"></i> Loadouts</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('character') }}"><i class="la la-running nav-icon"></i> Characters</a></li>
+<li class="nav-item"><a class="nav-link" href="/comments/admin"><i class="la la-comments nav-icon"></i> Comment Dashboard</a></li>
 <!-- Users, Roles, Permissions -->
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-group"></i> Authentication</a>
