@@ -67,7 +67,6 @@ class Mod extends Model
 
     public $identifiableAttribute = 'name';
     protected $guarded = ['id'];
-    public $timestamps = false;
 
     public function gun()
     {
