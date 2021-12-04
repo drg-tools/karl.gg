@@ -19,7 +19,6 @@
                          role="img"
                          :class="[isActiveMod(mod) ? 'modActive' : 'modInactive']"
                     >
-                        <title>{{ mod.mod_name }}</title>
                         <desc>{{ mod.text_description }}</desc>
                         <path
                             d=" M 0.3679663,25 13.7826,0.609756 H 66.221625 L 79.636259,25 66.221625,49.390244 H 13.7826L 0.3679663,25"/>
@@ -34,7 +33,6 @@
                 <svg v-if="overclock.overclock_type === 'Clean'" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
-                    <title>{{ overclock.overclock_name }}</title>
                     <desc>{{ overclock.text_description }}</desc>
                     <g>
                         <g> <!-- background layer -->
@@ -53,7 +51,6 @@
                 <svg v-if="overclock.overclock_type === 'Balanced'" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
-                    <title>{{ overclock.overclock_name }}</title>
                     <desc>{{ overclock.text_description }}</desc>
                     <g>
                         <g>
@@ -72,7 +69,6 @@
                 <svg v-if="overclock.overclock_type === 'Unstable'" viewBox="0 0 80 80"
                      height="6rem"
                      class="mod overclockBackground">
-                    <title>{{ overclock.overclock_name }}</title>
                     <desc>{{ overclock.text_description }}</desc>
                     <g>
                         <g>
