@@ -10,7 +10,6 @@
     <!-- We will have to pull the loadout and then hydrate the store once we load an edit -->
     <MarkdownEditor
       class="guideField"
-      :state-description="this.$store.state.loadoutDescription"
     ></MarkdownEditor>
     
   </div>
