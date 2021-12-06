@@ -143,8 +143,6 @@
 </template>
 
 <script>
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/vue-editor";
 import { required, maxLength } from "vuelidate/lib/validators";
 import debounce from 'lodash-es/debounce';
 
