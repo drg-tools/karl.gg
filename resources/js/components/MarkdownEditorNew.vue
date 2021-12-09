@@ -13,7 +13,7 @@ export default {
     computed: {
         message: {
             get () {
-                return this.$store.getters.getLoadoutDescription;
+                return this.$store.state.loadoutDescription;
             },
             set (value) {
                 this.$store.commit("setLoadoutDescription", value);
