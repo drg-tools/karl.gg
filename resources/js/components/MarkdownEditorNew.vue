@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vue-editor v-model="value" />
+        <vue-editor v-model="message"/>
     </div>
 </template>
 <script>
@@ -10,17 +10,12 @@ import { VueEditor } from "vue2-editor";
 export default {
     name: "editorText",
     components: { VueEditor },
-    data() {
-        return {
-            content: "<h1>Some initial content</h1>",
-        };
-    },
     computed: {
-        value: {
-            get: function () {
+        message: {
+            get () {
                 return this.$store.getters.getLoadoutDescription;
             },
-            set: function (value) {
+            set (value) {
                 this.$store.commit("setLoadoutDescription", value);
             },
         },

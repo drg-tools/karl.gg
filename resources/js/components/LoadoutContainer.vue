@@ -8,9 +8,10 @@
     <h2>Description</h2>
     <!-- Note: When we account for the editing of loadouts, we will need to figure that out -->
     <!-- We will have to pull the loadout and then hydrate the store once we load an edit -->
-    <MarkdownEditor
+    <!-- <MarkdownEditor
       class="guideField"
-    ></MarkdownEditor>
+    ></MarkdownEditor> -->
+    <MarkdownEditorNew />
     
   </div>
 </template>
@@ -19,8 +20,9 @@
 import LoadoutBuilderActions from "./LoadoutBuilderActions.vue";
 import ClassSelect from "./ClassSelect.vue";
 import MarkdownEditor from "./MarkdownEditor.vue";
+import MarkdownEditorNew from "./MarkdownEditorNew.vue";
 import SelectContainer from "./SelectContainer.vue";
 export default {
-  components: { LoadoutBuilderActions, ClassSelect, MarkdownEditor, SelectContainer },
+  components: { LoadoutBuilderActions, ClassSelect, MarkdownEditor, MarkdownEditorNew, SelectContainer },
 };
 </script>
