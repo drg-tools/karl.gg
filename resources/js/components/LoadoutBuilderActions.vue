@@ -251,7 +251,6 @@ export default {
                         console.log(e);
                     });
             } else {
-                console.log('trying to save the loadout');
                 // create fresh loadout
                 let loadoutReturn = await this.$store
                     .dispatch("saveLoadout", false)
