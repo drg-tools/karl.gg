@@ -214,6 +214,7 @@ export default {
                 return;
             } else {
                 this.$store.commit("setAuthUser", window.authUser);
+                
                 let loggedInStatus = this.getIsLoggedIn();
                 if (loggedInStatus) {
                     // User is logged in & GQL will save them with the right ID
@@ -250,6 +251,7 @@ export default {
                         console.log(e);
                     });
             } else {
+                console.log('trying to save the loadout');
                 // create fresh loadout
                 let loadoutReturn = await this.$store
                     .dispatch("saveLoadout", false)
