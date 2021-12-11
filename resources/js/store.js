@@ -52,6 +52,8 @@ export default new Vuex.Store({
         selectedSecondaryOverclockId: "",
         selectedEquipmentId: "",
         selectedEquipmentMods: [],
+        lastSelectedItem: {}, // object we will set
+        lastSelectedItemType: "", // mod, overclock, etc? 
     },
     mutations: {
         setLoadingStatus(state, newLoadingStatus) {
@@ -155,6 +157,12 @@ export default new Vuex.Store({
             state.selectedEquipmentMods = state.selectedEquipmentMods.filter(
                 (mod) => mod !== modId
             );
+        },
+        setLastSelectedItem(state, newValue) {
+            state.lastSelectedItem = newValue;
+        },
+        clearLastSelectedItem(state) {
+            state.lastSelectedItem = "";
         },
     },
     actions: {
@@ -455,6 +463,9 @@ export default new Vuex.Store({
 
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
+            
+            commit("clearLastSelectedItem");
+
 
             // dispatch an action which will commit our new class data to store
             dispatch("hydrateClassData", newClassIdInput);
@@ -468,20 +479,24 @@ export default new Vuex.Store({
             commit("clearSelectedPrimary");
             commit("clearAllSelectedPrimaryMods");
             commit("clearSelectedPrimaryOverclock");
+            commit("clearLastSelectedItem");
         },
         clearSelectedSecondary({ commit }) {
             commit("clearSelectedSecondary");
             commit("clearAllSelectedSecondaryMods");
             commit("clearSelectedSecondaryOverclock");
+            commit("clearLastSelectedItem");
         },
         clearSelectedEquipment({ commit }) {
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
+            commit("clearLastSelectedItem");
         },
         setSelectedPrimary({ commit }, newLoadoutItem) {
             commit("clearSelectedPrimary");
             commit("clearAllSelectedPrimaryMods");
             commit("clearSelectedPrimaryOverclock");
+            commit("clearLastSelectedItem");
             commit("setSelectedPrimary", newLoadoutItem);
         },
         setSelectedPrimaryMod({ commit, state }, selectedModObject) {
@@ -516,6 +531,7 @@ export default new Vuex.Store({
             commit("clearSelectedSecondary");
             commit("clearAllSelectedSecondaryMods");
             commit("clearSelectedSecondaryOverclock");
+            commit("clearLastSelectedItem");
             commit("setSelectedSecondary", newLoadoutItem);
         },
         setSelectedSecondaryMod({ commit, state }, selectedModObject) {
@@ -549,6 +565,7 @@ export default new Vuex.Store({
 
         setSelectedEquipment({ commit }, selected) {
             commit("clearSelectedEquipment");
+            commit("clearLastSelectedItem");
             commit("setSelectedEquipment", selected);
         },
 
