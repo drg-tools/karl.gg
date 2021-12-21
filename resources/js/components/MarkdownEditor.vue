@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-md-editor v-model="message" height="400px" left-toolbar="undo redo clear h bold italic strikethrough quote ul ol table hr link image" ></v-md-editor>
+        <v-md-editor v-model="message" height="400px" left-toolbar="undo redo clear h bold italic strikethrough quote ul ol table hr link" ></v-md-editor>
     </div>
 </template>
 <script>
@@ -19,3 +19,14 @@ export default {
     },
 };
 </script>
+
+<style>
+    .v-md-editor__tooltip {
+        font-family: sans-serif;
+    }
+    .v-md-editor,
+    .v-md-textarea-editor textarea,
+    .vuepress-markdown-body {
+        background-color: #ECECEC;
+    }
+</style>
