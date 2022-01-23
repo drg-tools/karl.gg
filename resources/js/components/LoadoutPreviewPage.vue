@@ -46,7 +46,8 @@
             <h2 @click="guideIsOpen = !guideIsOpen" class="text-karl-orange text-xl uppercase p-4">Loadout Guide <i
                 :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h2>
             <div v-show="guideIsOpen" class="p-6">
-                <viewer :initialValue="loadoutData.description"/>
+                <!-- <viewer :initialValue="loadoutData.description"/> -->
+                <v-md-preview :text="loadoutData.description"></v-md-preview>
             </div>
         </div>
 
@@ -54,8 +55,8 @@
 </template>
 
 <script>
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import {Viewer} from '@toast-ui/vue-editor';
+// import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+// import {Viewer} from '@toast-ui/vue-editor';
 import PreviewCard from "./PreviewCard";
 import get from 'lodash-es/get';
 
@@ -92,7 +93,6 @@ export default {
         equipmentMods: Object,
     },
     components: {
-        viewer: Viewer,
         PreviewCard
     },
     data() {
