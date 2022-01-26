@@ -742,6 +742,9 @@ export default new Vuex.Store({
         getSelectedClass: (state) => () => {
             return state.selectedClass;
         },
+        getLoadoutDescription: (state) => () => {
+            return state.loadoutDescription;
+        },
         getLoadingStatus: (state) => {
             return state.loadingStatus;
         },
