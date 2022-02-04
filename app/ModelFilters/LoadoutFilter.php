@@ -25,7 +25,7 @@ class LoadoutFilter extends ModelFilter
 
     public function favorites()
     {
-        $this->whereHas('favorites', fn($query) => $query->where('user_id', auth()->id()))->get();
+        $this->whereHas('favorites', fn ($query) => $query->where('user_id', auth()->id()))->get();
     }
 
     public function characters($charIds)
