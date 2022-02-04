@@ -68,7 +68,8 @@
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                         >
-                            <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" />
+                            <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
+                            <x-nav-dropdown-link :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
 
                             @can('access-api')
                             <x-nav-dropdown-link :link="route('settings.tokens')" title="Settings" />
@@ -174,7 +175,8 @@
                     <x-mobile-nav-link link="/login" title="Login"/>
                 @endguest
                 @auth
-                    <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" />
+                    <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
+                    <x-mobile-nav-link :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
 
                     @can('access-api')
                     <x-mobile-nav-link :link="route('settings.tokens')" title="Settings" />
