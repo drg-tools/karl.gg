@@ -1,7 +1,7 @@
 <template>
     <div>
-        <input type="hidden" v-model="this.pageUrl" />
         <button
+            @click="this.share"
             class="
                 clip-btn
                 inline-flex
@@ -25,32 +25,38 @@
                 w-full
                 md:w-auto
             "
-            v-clipboard:copy="pageUrl"
-            v-clipboard:success="onCopy"
-            v-clipboard:error="onError"
         >
             SHARE
         </button>
     </div>
-</template> 
+</template>
 
 
 <script>
 export default {
     name: "ShareButton",
-    props: ["pageUrl"],
+    props: ["loadout"],
+    mounted() {
+        console.log(this.loadout);
+    },
     methods: {
-        onCopy: function (e) {
-            this.$toasted.info("You just copied: " + this.pageUrl, {
-                position: "top-center",
-                duration: 5000,
-            });
-        },
-        onError: function (e) {
-            this.$toasted.error("Failed to copy URL", {
-                position: "top-center",
-                duration: 5000,
-            });
+        share: function () {
+            if (navigator.share) {
+                navigator.share({
+                    title: this.loadout.name,
+                    text: 'Check out this Deep Rock Galactic build.',
+                    url: document.location.href,
+                })
+                    .then(() => console.log('Successful share'))
+                    .catch((error) => console.log('Error sharing', error));
+            } else {
+                navigator.clipboard.writeText(document.location.href);
+
+                this.$toasted.info("You just copied: " + document.location.href, {
+                    position: "top-center",
+                    duration: 5000,
+                });
+            }
         },
     },
 };
