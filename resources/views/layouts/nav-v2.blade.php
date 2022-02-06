@@ -11,8 +11,12 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <x-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
-                        <x-nav-link :active="\Request::is('browse')" link="/browse" title="Browse"/>
+                        <x-nav-link :active="\Request::is('browse') && !\Request::query('favorites')" link="/browse" title="Browse"/>
                         <x-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
+                        @auth
+                        <x-nav-link :active="\Request::query('favorites')" :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
+                        @endauth
+                        
                         <x-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
 
                         @hasrole('super-admin')
@@ -69,7 +73,6 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                         >
                             <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
-                            <x-nav-dropdown-link :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
 
                             @can('access-api')
                             <x-nav-dropdown-link :link="route('settings.tokens')" title="Settings" />
@@ -137,6 +140,9 @@
             <x-mobile-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
             <x-mobile-nav-link :active="\Request::is('browse')" link="/browse" title="Browse"/>
             <x-mobile-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
+            @auth
+            <x-mobile-nav-link :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
+            @endauth
             <x-mobile-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
 
             @hasrole('super-admin')
@@ -176,7 +182,6 @@
                 @endguest
                 @auth
                     <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
-                    <x-mobile-nav-link :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
 
                     @can('access-api')
                     <x-mobile-nav-link :link="route('settings.tokens')" title="Settings" />

@@ -95,7 +95,7 @@
                            class="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded">
                 </div>
                 <div class="ml-3 text-sm">
-                    <label for="isCurrentPatch" class="font-medium text-gray-100">Only Favorites</label>
+                    <label for="favorites" class="font-medium text-gray-100">Only Favorites</label>
                 </div>
             </div>
         </div>
