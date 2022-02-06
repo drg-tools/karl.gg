@@ -21,7 +21,7 @@
                 @endif
 
                 <!-- Trigger -->
-                <share-button :page-url="{{ json_encode(Request::url()) }}" />
+                <share-button :loadout="{{ \Illuminate\Support\Js::from($loadout) }}" />
 
             </div>
         </div>
