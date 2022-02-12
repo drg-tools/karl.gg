@@ -74,6 +74,20 @@ class LoadoutsController extends Controller
     }
 
     /**
+     * @param  Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function toggleFavorite(Request $request, $id)
+    {
+        $loadout = Loadout::findOrFail($id);
+
+        $loadout->toggleFavorite();
+
+        return redirect()->back();
+    }
+
+    /**
      * @param  \Illuminate\Database\Eloquent\Collection|null  $loadout
      */
     protected function generateSeo($loadout): void

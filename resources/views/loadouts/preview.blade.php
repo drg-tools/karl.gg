@@ -1,7 +1,23 @@
 @extends('layouts.app')
 
 @section('header')
-    {{ $loadout->name }}
+    <div class="flex">
+        {{ $loadout->name }}
+
+        @auth
+            <form action="{{ route('loadout.favorite', $loadout->id) }}" method="post" class="ml-4">
+                @csrf
+                <button type="submit" class="text-sm">
+                    @if($loadout->isFavorited())
+                        <i class="fas fa-heart text-pink-600"></i>
+                    @else
+                        <i class="far fa-heart text-gray-500"></i>
+
+                    @endif
+                </button>
+            </form>
+        @endauth
+    </div>
 @endsection
 
 @section('styles')
@@ -12,7 +28,7 @@
 
     <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
         <x-loadout-outdated :loadout="$loadout"></x-loadout-outdated>
-        <x-preview-top :loadout="$loadout" />
+        <x-preview-top :loadout="$loadout"/>
 
         <loadout-preview-page
             :loadout-data="{!! $loadout !!}"

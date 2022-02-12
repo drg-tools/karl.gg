@@ -11,8 +11,12 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <x-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
-                        <x-nav-link :active="\Request::is('browse')" link="/browse" title="Browse"/>
+                        <x-nav-link :active="\Request::is('browse') && !\Request::query('favorites')" link="/browse" title="Browse"/>
                         <x-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
+                        @auth
+                        <x-nav-link :active="\Request::query('favorites')" :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
+                        @endauth
+                        
                         <x-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
 
                         @hasrole('super-admin')
@@ -68,7 +72,7 @@
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                         >
-                            <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" />
+                            <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
 
                             @can('access-api')
                             <x-nav-dropdown-link :link="route('settings.tokens')" title="Settings" />
@@ -136,6 +140,9 @@
             <x-mobile-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
             <x-mobile-nav-link :active="\Request::is('browse')" link="/browse" title="Browse"/>
             <x-mobile-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
+            @auth
+            <x-mobile-nav-link :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
+            @endauth
             <x-mobile-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
 
             @hasrole('super-admin')
@@ -174,7 +181,7 @@
                     <x-mobile-nav-link link="/login" title="Login"/>
                 @endguest
                 @auth
-                    <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Your Profile" />
+                    <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
 
                     @can('access-api')
                     <x-mobile-nav-link :link="route('settings.tokens')" title="Settings" />

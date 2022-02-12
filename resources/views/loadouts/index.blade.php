@@ -15,7 +15,11 @@
 @section('content')
 
     <div id="browse">
-
+        @if(Request::get('favorites'))
+            @if ($loadouts->isEmpty())
+                <x-favorites-alert />
+            @endif
+        @endif
         <div class="my-2">
             <form action="{{ route('loadout.index') }}" method="GET">
                 <x-filter :characters="$characters" :primaries="$primaries" :secondaries="$secondaries" :overclocks="$overclocks" />

@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
         ->where('id', '[0-9]+');
 
     Route::delete('build/delete/{id}', [LoadoutsController::class, 'delete']);
+    Route::post('build/{id}/favorite', [LoadoutsController::class, 'toggleFavorite'])->name('loadout.favorite');
 });
 
 Route::middleware(['can:access-api'])->group(function () {

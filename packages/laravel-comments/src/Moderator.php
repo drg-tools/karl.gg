@@ -2,8 +2,8 @@
 
 namespace Hazzard\Comments;
 
-use Hazzard\Comments\Contracts\Akismet as Akismet;
-use Hazzard\Comments\Contracts\Formatter as Formatter;
+use Hazzard\Comments\Contracts\Akismet;
+use Hazzard\Comments\Contracts\Formatter;
 use Illuminate\Support\Facades\Auth;
 
 class Moderator implements Contracts\Moderator

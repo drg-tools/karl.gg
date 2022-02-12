@@ -214,6 +214,7 @@ export default {
                 return;
             } else {
                 this.$store.commit("setAuthUser", window.authUser);
+                
                 let loggedInStatus = this.getIsLoggedIn();
                 if (loggedInStatus) {
                     // User is logged in & GQL will save them with the right ID

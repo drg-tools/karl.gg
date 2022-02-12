@@ -17,7 +17,7 @@
     </div>
 
     @php
-        $showFilters = request()->hasAny(['primaries', 'secondaries', 'overclocks', 'characters', 'isCurrentPatch']) ||
+        $showFilters = request()->hasAny(['primaries', 'favorites', 'secondaries', 'overclocks', 'characters', 'isCurrentPatch']) ||
             request()->filled('hasGuide') || request()->filled('hasOverclock')
                 ? 'true' : 'false';
     @endphp
@@ -86,6 +86,16 @@
                 </div>
                 <div class="ml-3 text-sm">
                     <label for="isCurrentPatch" class="font-medium text-gray-100">Current Patch Only</label>
+                </div>
+            </div>
+            <div class="relative flex items-center p-4 rounded-sm">
+                <div class="flex items-center h-5">
+                    <input id="favorites" name="favorites" type="checkbox" value="1"
+                           @if(request()->has('favorites'))checked="checked"@endif
+                           class="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded">
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="favorites" class="font-medium text-gray-100">Only Favorites</label>
                 </div>
             </div>
         </div>

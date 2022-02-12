@@ -23,6 +23,11 @@ class LoadoutFilter extends ModelFilter
         $this->where('character_id', $id);
     }
 
+    public function favorites()
+    {
+        $this->whereHas('favorites', fn ($query) => $query->where('user_id', auth()->id()))->get();
+    }
+
     public function characters($charIds)
     {
         return $this->whereHas('character', function ($query) use ($charIds) {
