@@ -1,4 +1,7 @@
 <template>
+<!-- Here we just need to use a getter to see if we have a selected item
+Then we do a pull for the name, details, icon, and cost info
+Stretch goal is OC's -->
   <div
     class="modTextBox"
     v-if="
