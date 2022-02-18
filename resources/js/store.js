@@ -52,8 +52,9 @@ export default new Vuex.Store({
         selectedSecondaryOverclockId: "",
         selectedEquipmentId: "",
         selectedEquipmentMods: [],
-        lastSelectedItem: {}, // object we will set
-        lastSelectedItemType: "", // mod, overclock, etc? 
+        lastSelectedItemId: "",
+        lastSelectedItemObject: {}, // object we will set
+        lastSelectedItemType: "", // primary-mod, secondary-mod, primary-oc etc.
     },
     mutations: {
         setLoadingStatus(state, newLoadingStatus) {
@@ -158,12 +159,31 @@ export default new Vuex.Store({
                 (mod) => mod !== modId
             );
         },
-        setLastSelectedItem(state, newValue) {
-            state.lastSelectedItem = newValue;
+        setLastSelectedItemId(state, newValue) {
+            state.lastSelectedItemId = newValue;
         },
-        clearLastSelectedItem(state) {
-            state.lastSelectedItem = "";
+        clearLastSelectedItemId(state) {
+            state.lastSelectedItemId = "";
         },
+        setLastSelectedItemObject(state, newValue) {
+            state.lastSelectedItemObject = newValue;
+        },
+        clearLastSelectedItemObject(state) {
+            state.lastSelectedItemObject = "";
+        },
+        setLastSelectedItemType(state, newValue) {
+            state.lastSelectedItemType = newValue;
+        },
+        clearLastSelectedItemType(state) {
+            state.lastSelectedItemType = "";
+        },
+        clearAllLastSelectedData(state) {
+            // Easier than writing 3 calls each time
+            state.lastSelectedItemId = "";
+            state.lastSelectedItemObject = "";
+            state.lastSelectedItemType = "";
+
+        }
     },
     actions: {
         async saveLoadout({ state, commit, dispatch }, updateId) {
@@ -464,7 +484,7 @@ export default new Vuex.Store({
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
             
-            commit("clearLastSelectedItem");
+            commit("clearAllLastSelectedData");
 
 
             // dispatch an action which will commit our new class data to store
@@ -479,27 +499,27 @@ export default new Vuex.Store({
             commit("clearSelectedPrimary");
             commit("clearAllSelectedPrimaryMods");
             commit("clearSelectedPrimaryOverclock");
-            commit("clearLastSelectedItem");
+            commit("clearAllLastSelectedData");
         },
         clearSelectedSecondary({ commit }) {
             commit("clearSelectedSecondary");
             commit("clearAllSelectedSecondaryMods");
             commit("clearSelectedSecondaryOverclock");
-            commit("clearLastSelectedItem");
+            commit("clearAllLastSelectedData");
         },
         clearSelectedEquipment({ commit }) {
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
-            commit("clearLastSelectedItem");
+            commit("clearAllLastSelectedData");
         },
         setSelectedPrimary({ commit }, newLoadoutItem) {
             commit("clearSelectedPrimary");
             commit("clearAllSelectedPrimaryMods");
             commit("clearSelectedPrimaryOverclock");
-            commit("clearLastSelectedItem");
+            commit("clearAllLastSelectedData");
             commit("setSelectedPrimary", newLoadoutItem);
         },
-        setSelectedPrimaryMod({ commit, state }, selectedModObject) {
+        setSelectedPrimaryMod({ commit, state, dispatch }, selectedModObject) {
             let currentTierSelection = state.selectedPrimaryMods.filter(
                 (mod) =>
                     mod.selectedModTier === selectedModObject.selectedModTier
@@ -517,6 +537,7 @@ export default new Vuex.Store({
                         selectedModObject.selectedModId
                     ) {
                         sameSelection = true;
+                        // TODO: Clear selected data here as well
                     }
                 }
             }
@@ -525,13 +546,20 @@ export default new Vuex.Store({
                     selectedModId: selectedModObject.selectedModId,
                     selectedModTier: selectedModObject.selectedModTier,
                 });
+
+                console.log('I am setting the selected item now');
+                dispatch('setLastSelectedItemAttributes', [selectedModObject.selectedModId, "primary-mod"]);
+                // set selected item
+                // type primary-mod
+                // etc
+                // maybe do a call here to also hydrate that object?
             }
         },
         setSelectedSecondary({ commit }, newLoadoutItem) {
             commit("clearSelectedSecondary");
             commit("clearAllSelectedSecondaryMods");
             commit("clearSelectedSecondaryOverclock");
-            commit("clearLastSelectedItem");
+            commit("clearAllLastSelectedData");
             commit("setSelectedSecondary", newLoadoutItem);
         },
         setSelectedSecondaryMod({ commit, state }, selectedModObject) {
@@ -552,6 +580,7 @@ export default new Vuex.Store({
                         selectedModObject.selectedModId
                     ) {
                         sameSelection = true;
+                        // TODO: Clear selected data here as well
                     }
                 }
             }
@@ -560,12 +589,16 @@ export default new Vuex.Store({
                     selectedModId: selectedModObject.selectedModId,
                     selectedModTier: selectedModObject.selectedModTier,
                 });
+                // set selected item
+                // type primary-mod
+                // etc
+                // maybe do a call here to also hydrate that object?
             }
         },
 
         setSelectedEquipment({ commit }, selected) {
             commit("clearSelectedEquipment");
-            commit("clearLastSelectedItem");
+            commit("clearAllLastSelectedData");
             commit("setSelectedEquipment", selected);
         },
 
@@ -595,13 +628,41 @@ export default new Vuex.Store({
                     currentTierSelection[0].id == selectedMod.modId
                 ) {
                     sameSelection = true;
+                    // TODO: Clear selected data here as well
                 }
             }
 
             if (!sameSelection) {
                 commit("setSelectedEquipmentMod", selectedMod.modId);
+                // set selected item
+                // type primary-mod
+                // etc
+                // maybe do a call here to also hydrate that object?
             }
         },
+        setLastSelectedItemAttributes({commit, dispatch, getters, state}, selectedItemArray) {
+            // Ok we need to set these items within this method 
+            // setLastSelectedItemId
+            commit('setLastSelectedItemId',selectedItemArray[0]);            
+           
+            // setLastSelectedItemType
+            commit('setLastSelectedItemType', selectedItemArray[1]); // primary-mod, secondary-mod, primary-oc etc.
+            
+            // setLastSelectedItemObject
+            // need a switch here lad
+            let itemDataObject = [];
+            switch (selectedItemArray[1]) {
+                case 'primary-mod':
+                    // TODO: Use the SelectedPrimaryMods getter maybe
+                    itemDataObject = getters.getPrimaryModObjectById; // it should only return 1, so just get the object
+                    console.log('set primary-mod object to the following:');
+                    console.log(itemDataObject);
+                    break;
+            
+                default:
+                    break;
+            }
+        }
     },
     getters: {
         loadoutClassPrimaries: (state) => {
@@ -808,5 +869,15 @@ export default new Vuex.Store({
                     .length !== 0
             );
         },
+        getPrimaryModObjectById: (state, getters) => (selectedModId) => {
+            let primaryWeaponObject = getters.getSelectedPrimaryDetails;
+            console.log('primaryWeaponObject');
+            console.log(primaryWeaponObject);
+            let lastSelectedPrimaryModArray = primaryWeaponObject.mods.filter((mod) => mod.id === selectedModId);
+            console.log('lastSelectedPrimaryModArray');
+            console.log(lastSelectedPrimaryModArray);
+
+            return lastSelectedPrimaryModArray; // Should be length 1
+        }, 
     },
 });

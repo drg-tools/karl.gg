@@ -4,9 +4,7 @@ Then we do a pull for the name, details, icon, and cost info
 Stretch goal is OC's -->
   <div
     class="modTextBox"
-    v-if="
-      hoveredMod ? !!hoveredMod.mod_name || !!hoveredMod.overclock_name : false
-    "
+   
   >
     <div class="modTextBoxHeader">
       <div class="modTextBoxIcon">
@@ -129,5 +127,6 @@ export default {
     //  selected item name
     //  selected item type
     //  selected item credits_stuff
+
 };
 </script>
