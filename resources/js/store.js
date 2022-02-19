@@ -547,7 +547,6 @@ export default new Vuex.Store({
                     selectedModTier: selectedModObject.selectedModTier,
                 });
 
-                console.log('I am setting the selected item now');
                 dispatch('setLastSelectedItemAttributes', [selectedModObject.selectedModId, "primary-mod"]);
             }
         },
@@ -658,10 +657,23 @@ export default new Vuex.Store({
                     commit('clearLastSelectedItemObject');
                     commit('setLastSelectedItemObject', itemDataObject[0]);
                     break;
+
+                case 'primary-oc':
+                    itemDataObject = getters.selectedPrimaryOverclock;
+                    commit('clearLastSelectedItemObject');
+                    commit('setLastSelectedItemObject', itemDataObject);
+                    break;
+                    
+                case 'secondary-oc':
+                    itemDataObject = getters.selectedSecondaryOverclock;;
+                    commit('clearLastSelectedItemObject');
+                    commit('setLastSelectedItemObject', itemDataObject);
             
                 default:
                     break;
             }
+
+            
         }
     },
     getters: {

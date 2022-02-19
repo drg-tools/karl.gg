@@ -31,12 +31,12 @@ Stretch goal is OC's -->
       </div>
       <div class="modTextBoxTitle">
         <p class="allCaps">
-          {{ selectedModObject.mod_type }}
+          {{ selectedModObject.mod_type || selectedModObject.overclock_type  }}
           <!-- {{ selectedModObject.mod_type || hoveredMod.overclock_type }} -->
         </p>
         <p class="allCaps modificationName">
           <!-- {{ hoveredMod.mod_name || hoveredMod.overclock_name }} -->
-          {{ selectedModObject.mod_name }}
+          {{ selectedModObject.mod_name || selectedModObject.overclock_name }}
         </p>
         <p class="costList flex flex-wrap">
           <span
@@ -116,7 +116,7 @@ Stretch goal is OC's -->
       </div>
     </div>
     <div>
-      {{ selectedModObject.text_description }}
+      {{ selectedModObject.text_description || selectedModObject.description }}
       <!-- {{ selectedModObject.text_description || hoveredMod.description }} -->
     </div>
   </div>

@@ -100,19 +100,26 @@ export default {
         selectOverclock(overclockId) {
             if (this.primary === true) {
                 this.$store.commit("clearSelectedPrimaryOverclock");
+                this.$store.commit('clearAllLastSelectedData');
                 if (this.selectedId != overclockId) {
                     this.$store.commit(
                         "setSelectedPrimaryOverclock",
                         overclockId
                     );
+                    // we need a setter for primary overclock
+                    this.$store.dispatch('setLastSelectedItemAttributes', [overclockId, "primary-oc"]);
+
                 }
             } else {
                 this.$store.commit("clearSelectedSecondaryOverclock");
+                this.$store.commit('clearAllLastSelectedData');
                 if (this.selectedId != overclockId) {
                     this.$store.commit(
                         "setSelectedSecondaryOverclock",
                         overclockId
                     );
+                    // we need a setter for secondary overclock
+                    this.$store.dispatch('setLastSelectedItemAttributes', [overclockId, "secondary-oc"]);
                 }
             }
         },
