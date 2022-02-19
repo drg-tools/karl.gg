@@ -549,10 +549,6 @@ export default new Vuex.Store({
 
                 console.log('I am setting the selected item now');
                 dispatch('setLastSelectedItemAttributes', [selectedModObject.selectedModId, "primary-mod"]);
-                // set selected item
-                // type primary-mod
-                // etc
-                // maybe do a call here to also hydrate that object?
             }
         },
         setSelectedSecondary({ commit }, newLoadoutItem) {
@@ -653,10 +649,14 @@ export default new Vuex.Store({
             let itemDataObject = [];
             switch (selectedItemArray[1]) {
                 case 'primary-mod':
-                    // TODO: Use the SelectedPrimaryMods getter maybe
-                    itemDataObject = getters.getPrimaryModObjectById; // it should only return 1, so just get the object
-                    console.log('set primary-mod object to the following:');
-                    console.log(itemDataObject);
+                    itemDataObject = getters.getPrimaryModObjectById(selectedItemArray[0]); // it should only return 1, so just get the object
+                    commit('clearLastSelectedItemObject');
+                    commit('setLastSelectedItemObject', itemDataObject[0]);
+                    break;
+                case 'secondary-mod':
+                    itemDataObject = getters.getSecondaryModObjectById(selectedItemArray[0]); // it should only return 1, so just get the object
+                    commit('clearLastSelectedItemObject');
+                    commit('setLastSelectedItemObject', itemDataObject[0]);
                     break;
             
                 default:
@@ -871,13 +871,15 @@ export default new Vuex.Store({
         },
         getPrimaryModObjectById: (state, getters) => (selectedModId) => {
             let primaryWeaponObject = getters.getSelectedPrimaryDetails;
-            console.log('primaryWeaponObject');
-            console.log(primaryWeaponObject);
             let lastSelectedPrimaryModArray = primaryWeaponObject.mods.filter((mod) => mod.id === selectedModId);
-            console.log('lastSelectedPrimaryModArray');
-            console.log(lastSelectedPrimaryModArray);
 
             return lastSelectedPrimaryModArray; // Should be length 1
+        }, 
+        getSecondaryModObjectById: (state, getters) => (selectedModId) => {
+            let secondaryWeaponObject = getters.getSelectedSecondaryDetails;
+            let lastSelectedSecondaryModArray = secondaryWeaponObject.mods.filter((mod) => mod.id === selectedModId);
+
+            return lastSelectedSecondaryModArray; // Should be length 1
         }, 
     },
 });

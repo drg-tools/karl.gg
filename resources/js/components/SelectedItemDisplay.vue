@@ -4,7 +4,7 @@ Then we do a pull for the name, details, icon, and cost info
 Stretch goal is OC's -->
   <div
     class="modTextBox"
-   
+   v-if="this.$store.state.lastSelectedItemId"
   >
     <div class="modTextBoxHeader">
       <div class="modTextBoxIcon">
@@ -24,97 +24,100 @@ Stretch goal is OC's -->
               class="modIconActive"
               height="80%"
               preserveAspectRatio="xMidYMid meet"
-              v-html="getIconFromPath(hoveredMod.icon)"
+              v-html="getIconPath(selectedModObject.icon)"
             ></svg>
           </g>
         </svg>
       </div>
       <div class="modTextBoxTitle">
         <p class="allCaps">
-          {{ hoveredMod.mod_type || hoveredMod.overclock_type }}
+          {{ selectedModObject.mod_type }}
+          <!-- {{ selectedModObject.mod_type || hoveredMod.overclock_type }} -->
         </p>
         <p class="allCaps modificationName">
-          {{ hoveredMod.mod_name || hoveredMod.overclock_name }}
+          <!-- {{ hoveredMod.mod_name || hoveredMod.overclock_name }} -->
+          {{ selectedModObject.mod_name }}
         </p>
         <p class="costList flex flex-wrap">
           <span
             class="costListItem flex items-center pr-2"
-            v-if="hoveredMod.cost.credits > 0"
+            v-if="selectedModObject.credits_cost > 0"
           >
             <img
               src="/assets/img/20px-Credit.png"
               alt="Credits"
               title="Credits"
             />
-            <span>{{ hoveredMod.cost.credits }}</span>
+            <span>{{ selectedModObject.credits_cost }}</span>
           </span>
           <span
             class="costListItem flex items-center pr-2"
-            v-if="hoveredMod.cost.bismor > 0"
+            v-if="selectedModObject.bismor_cost > 0"
           >
             <img
               src="/assets/img/Bismor_icon.png"
               alt="Bismor"
               title="Bismor"
             />
-            <span>{{ hoveredMod.cost.bismor }}</span>
+            <span>{{ selectedModObject.bismor_cost }}</span>
           </span>
           <span
             class="costListItem flex items-center pr-2"
-            v-if="hoveredMod.cost.croppa > 0"
+            v-if="selectedModObject.croppa_cost > 0"
           >
             <img
               src="/assets/img/Croppa_icon.png"
               alt="Croppa"
               title="Croppa"
             />
-            <span>{{ hoveredMod.cost.croppa }}</span>
+            <span>{{ selectedModObject.croppa_cost }}</span>
           </span>
           <span
             class="costListItem flex items-center pr-2"
-            v-if="hoveredMod.cost.enorPearl > 0"
+            v-if="selectedModObject.enorPearl_cost > 0"
           >
             <img
               src="/assets/img/Enor_pearl_icon.png"
               alt="Enor Pearl"
               title="Enor Pearl"
             />
-            <span>{{ hoveredMod.cost.enorPearl }}</span>
+            <span>{{ selectedModObject.enorPearl_cost }}</span>
           </span>
           <span
             class="costListItem flex items-center pr-2"
-            v-if="hoveredMod.cost.jadiz > 0"
+            v-if="selectedModObject.jadiz_cost > 0"
           >
             <img src="/assets/img/Jadiz_icon.png" alt="Jadiz" title="Jadiz" />
-            <span>{{ hoveredMod.cost.jadiz }}</span>
+            <span>{{ selectedModObject.jadiz_cost }}</span>
           </span>
           <span
             class="costListItem flex items-center pr-2"
-            v-if="hoveredMod.cost.magnite > 0"
+            v-if="selectedModObject.magnite_cost > 0"
           >
             <img
               src="/assets/img/Magnite_icon.png"
               alt="Magnite"
               title="Magnite"
             />
-            <span>{{ hoveredMod.cost.magnite }}</span>
+            <span>{{ selectedModObject.magnite_cost }}</span>
           </span>
           <span
             class="costListItem flex items-center pr-2"
-            v-if="hoveredMod.cost.umanite > 0"
+            v-if="selectedModObject.umanite_cost > 0"
           >
             <img
               src="/assets/img/Umanite_icon.png"
               alt="Umanite"
               title="Umanite"
             />
-            <span>{{ hoveredMod.cost.umanite }}</span>
+            <span>{{ selectedModObject.umanite_cost }}</span>
           </span>
         </p>
       </div>
     </div>
     <div>
-      {{ hoveredMod.text_description || hoveredMod.description }}
+      {{ selectedModObject.text_description }}
+      <!-- {{ selectedModObject.text_description || hoveredMod.description }} -->
     </div>
   </div>
 </template>
@@ -127,6 +130,16 @@ export default {
     //  selected item name
     //  selected item type
     //  selected item credits_stuff
+    methods: {
+      getIconPath(iconName) {
+            return this.$store.getters.getIconByName(iconName);
+        },
+    },
+    computed: {
+      selectedModObject() {
+        return this.$store.state.lastSelectedItemObject;
+      }
+    }
 
 };
 </script>
