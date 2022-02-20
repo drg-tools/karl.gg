@@ -537,7 +537,7 @@ export default new Vuex.Store({
                         selectedModObject.selectedModId
                     ) {
                         sameSelection = true;
-                        // TODO: Clear selected data here as well
+                        commit("clearAllLastSelectedData");
                     }
                 }
             }
@@ -557,7 +557,7 @@ export default new Vuex.Store({
             commit("clearAllLastSelectedData");
             commit("setSelectedSecondary", newLoadoutItem);
         },
-        setSelectedSecondaryMod({ commit, state }, selectedModObject) {
+        setSelectedSecondaryMod({ commit, dispatch, state }, selectedModObject) {
             let currentTierSelection = state.selectedSecondaryMods.filter(
                 (mod) =>
                     mod.selectedModTier === selectedModObject.selectedModTier
@@ -575,7 +575,7 @@ export default new Vuex.Store({
                         selectedModObject.selectedModId
                     ) {
                         sameSelection = true;
-                        // TODO: Clear selected data here as well
+                        commit("clearAllLastSelectedData");
                     }
                 }
             }
@@ -584,10 +584,7 @@ export default new Vuex.Store({
                     selectedModId: selectedModObject.selectedModId,
                     selectedModTier: selectedModObject.selectedModTier,
                 });
-                // set selected item
-                // type primary-mod
-                // etc
-                // maybe do a call here to also hydrate that object?
+                dispatch('setLastSelectedItemAttributes', [selectedModObject.selectedModId, "secondary-mod"]);
             }
         },
 
@@ -623,28 +620,20 @@ export default new Vuex.Store({
                     currentTierSelection[0].id == selectedMod.modId
                 ) {
                     sameSelection = true;
-                    // TODO: Clear selected data here as well
+                    commit("clearAllLastSelectedData");
                 }
             }
 
             if (!sameSelection) {
                 commit("setSelectedEquipmentMod", selectedMod.modId);
-                // set selected item
-                // type primary-mod
-                // etc
-                // maybe do a call here to also hydrate that object?
+                dispatch('setLastSelectedItemAttributes', [selectedMod.modId, "equipment-mod"]);
             }
         },
         setLastSelectedItemAttributes({commit, dispatch, getters, state}, selectedItemArray) {
-            // Ok we need to set these items within this method 
-            // setLastSelectedItemId
             commit('setLastSelectedItemId',selectedItemArray[0]);            
            
-            // setLastSelectedItemType
             commit('setLastSelectedItemType', selectedItemArray[1]); // primary-mod, secondary-mod, primary-oc etc.
             
-            // setLastSelectedItemObject
-            // need a switch here lad
             let itemDataObject = [];
             switch (selectedItemArray[1]) {
                 case 'primary-mod':
@@ -652,8 +641,15 @@ export default new Vuex.Store({
                     commit('clearLastSelectedItemObject');
                     commit('setLastSelectedItemObject', itemDataObject[0]);
                     break;
+
                 case 'secondary-mod':
-                    itemDataObject = getters.getSecondaryModObjectById(selectedItemArray[0]); // it should only return 1, so just get the object
+                    itemDataObject = getters.getSecondaryModObjectById(selectedItemArray[0]);
+                    commit('clearLastSelectedItemObject');
+                    commit('setLastSelectedItemObject', itemDataObject[0]);
+                    break;
+
+                case 'equipment-mod':
+                    itemDataObject = getters.getEquipmentModObjectById(selectedItemArray[0]);
                     commit('clearLastSelectedItemObject');
                     commit('setLastSelectedItemObject', itemDataObject[0]);
                     break;
@@ -892,6 +888,12 @@ export default new Vuex.Store({
             let lastSelectedSecondaryModArray = secondaryWeaponObject.mods.filter((mod) => mod.id === selectedModId);
 
             return lastSelectedSecondaryModArray; // Should be length 1
+        }, 
+        getEquipmentModObjectById: (state, getters) => (selectedModId) => {
+            let equipmentObject = getters.selectedEquipmentDetails;
+            let lastSelectedEquipmentModArray = equipmentObject.equipment_mods.filter((mod) => mod.id === selectedModId);
+
+            return lastSelectedEquipmentModArray; // Should be length 1
         }, 
     },
 });

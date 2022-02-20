@@ -1,7 +1,4 @@
 <template>
-<!-- Here we just need to use a getter to see if we have a selected item
-Then we do a pull for the name, details, icon, and cost info
-Stretch goal is OC's -->
   <div
     class="modTextBox"
    v-if="this.$store.state.lastSelectedItemId"
@@ -31,12 +28,10 @@ Stretch goal is OC's -->
       </div>
       <div class="modTextBoxTitle">
         <p class="allCaps">
-          {{ selectedModObject.mod_type || selectedModObject.overclock_type  }}
-          <!-- {{ selectedModObject.mod_type || hoveredMod.overclock_type }} -->
+          {{ selectedModObject.mod_type || selectedModObject.overclock_type || selectedModObject.eq_type }}
         </p>
         <p class="allCaps modificationName">
-          <!-- {{ hoveredMod.mod_name || hoveredMod.overclock_name }} -->
-          {{ selectedModObject.mod_name || selectedModObject.overclock_name }}
+          {{ selectedModObject.mod_name || selectedModObject.overclock_name || selectedModObject.name }}
         </p>
         <p class="costList flex flex-wrap">
           <span
@@ -117,7 +112,6 @@ Stretch goal is OC's -->
     </div>
     <div>
       {{ selectedModObject.text_description || selectedModObject.description }}
-      <!-- {{ selectedModObject.text_description || hoveredMod.description }} -->
     </div>
   </div>
 </template>
@@ -125,11 +119,6 @@ Stretch goal is OC's -->
 <script>
 export default {
   name: "SelectedItemDisplay",
-    // Ok we need:
-    //  selected item icon
-    //  selected item name
-    //  selected item type
-    //  selected item credits_stuff
     methods: {
       getIconPath(iconName) {
             return this.$store.getters.getIconByName(iconName);

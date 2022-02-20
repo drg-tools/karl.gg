@@ -106,7 +106,6 @@ export default {
                         "setSelectedPrimaryOverclock",
                         overclockId
                     );
-                    // we need a setter for primary overclock
                     this.$store.dispatch('setLastSelectedItemAttributes', [overclockId, "primary-oc"]);
 
                 }
@@ -118,7 +117,6 @@ export default {
                         "setSelectedSecondaryOverclock",
                         overclockId
                     );
-                    // we need a setter for secondary overclock
                     this.$store.dispatch('setLastSelectedItemAttributes', [overclockId, "secondary-oc"]);
                 }
             }

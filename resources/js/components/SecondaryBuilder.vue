@@ -2,6 +2,7 @@
     <div class="flex sm:flex-nowrap flex-wrap my-5 gap-8">
         <div class="sm:w-1/2 w-full">
             <ClassSecondaries />
+            <SelectedItemDisplay />
         </div>
 
         <div class="sm:w-1/2 w-full">
@@ -22,10 +23,11 @@ import ClassSecondaries from "./ClassSecondaries";
 import BuildMetricsLink from "./BuildMetricsLink";
 import { mapGetters } from "vuex";
 import MainStatsDisplay from "./MainStatsDisplay";
+import SelectedItemDisplay from "./SelectedItemDisplay";
 
 export default {
     name: "SecondaryBuilder",
-    components: { ClassSecondaries, BuildMetricsLink, MainStatsDisplay },
+    components: { ClassSecondaries, BuildMetricsLink, MainStatsDisplay, SelectedItemDisplay },
     computed: {
         ...mapGetters([
             "selectedSecondaryBuildMetricsCombo",

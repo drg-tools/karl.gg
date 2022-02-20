@@ -3,6 +3,7 @@
 
         <div class="sm:w-1/2 w-full">
             <ClassEquipment/>
+            <SelectedItemDisplay />
         </div>
 
         <!-- Stats -->
@@ -19,10 +20,11 @@
 import ClassEquipment from "./ClassEquipment";
 import {mapGetters} from "vuex";
 import MainStatsDisplay from "./MainStatsDisplay";
+import SelectedItemDisplay from "./SelectedItemDisplay";
 
 export default {
     name: "EquipmentBuilder",
-    components: {ClassEquipment, MainStatsDisplay},
+    components: {ClassEquipment, MainStatsDisplay, SelectedItemDisplay},
     computed: {
         ...mapGetters([
             "selectedEquipmentDetails",
