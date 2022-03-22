@@ -93,7 +93,9 @@ export default {
             return this.$store.getters.getIconByName(iconName);
         },
         selectMod(modId, modTier) {
-
+            // TODO: Set Selected item here
+            // Probably clear last selected item as well
+            // Then on the component itself need to setup the view
             if (this.$route.path === "/equipment-builder") {
                 this.$store.dispatch('setSelectedEquipmentMod', {
                     modId,
