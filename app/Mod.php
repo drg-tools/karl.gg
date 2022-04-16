@@ -89,5 +89,4 @@ class Mod extends Model
         return Str::of($this->text_description)
             ->remove(["\r", "\n"]);
     }
-
 }
