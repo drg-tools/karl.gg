@@ -86,8 +86,8 @@ class Mod extends Model
 
     public function getCleanTextDescriptionAttribute()
     {
-        return Str::of($this->text_description)
-            ->remove(["\r", "\n"]);
+        return addslashes(Str::of($this->text_description)
+            ->remove(["\r", "\n"]));
     }
 
 }
