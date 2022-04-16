@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * App\Mod.
@@ -82,4 +83,11 @@ class Mod extends Model
     {
         return $this->belongsToMany(Loadout::class, 'loadout_mod');
     }
+
+    public function getCleanTextDescriptionAttribute()
+    {
+        return Str::of($this->text_description)
+            ->remove(["\r", "\n"]);
+    }
+
 }
