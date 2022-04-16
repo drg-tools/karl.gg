@@ -52,7 +52,6 @@
         "laracasts/generators": "^2.0",
         "laravel-frontend-presets/tailwindcss": "^4.3",
         "laravel/dusk": "^6.19",
-        "laravel/homestead": "^10.8",
         "matt-allan/laravel-code-style": "^0.6",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
