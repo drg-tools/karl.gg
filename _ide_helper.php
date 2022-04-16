@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.83.0.
+ * Generated for Laravel 8.83.8.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -8947,7 +8947,7 @@
                     /**
          * Push a new job onto the queue.
          *
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @param string|null $queue
          * @return mixed 
@@ -8976,7 +8976,7 @@
          * Push a new job onto the queue after a delay.
          *
          * @param \DateTimeInterface|\DateInterval|int $delay
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @param string|null $queue
          * @return mixed 
@@ -8991,7 +8991,7 @@
          * Push a new job onto the queue.
          *
          * @param string $queue
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @return mixed 
          * @static 
@@ -9006,7 +9006,7 @@
          *
          * @param string $queue
          * @param \DateTimeInterface|\DateInterval|int $delay
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @return mixed 
          * @static 
@@ -16015,7 +16015,7 @@
          * Get the gravatar url
          *
          * @param string $email
-         * @param string $configGroup
+         * @param string|array|null $configGroup
          * @return string 
          * @throws InvalidEmailException
          * @static 
@@ -20546,7 +20546,7 @@
          * Setter for the settings key-value store.
          *
          * @param string $key Usually operation.name (ex: reorder.max_level)
-         * @param bool $value True/false depending on success.
+         * @param string $value The value being set
          * @static 
          */ 
         public static function set($key, $value)
@@ -23416,6 +23416,13 @@
      * 
      *
      */ 
+        class ProcessImgs {
+         
+    }
+            /**
+     * 
+     *
+     */ 
         class AttachPatchToLoadouts {
          
     }
@@ -23424,13 +23431,6 @@
      *
      */ 
         class NewPatchEmail {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class ProcessImgs {
          
     }
      
@@ -23789,6 +23789,13 @@
      *
      */ 
         class RequireDevTools {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Fix {
          
     }
      
