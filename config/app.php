@@ -6,9 +6,9 @@ return [
      * Banner to show across the whole site.
      */
     'banner' => [
-        'enabled' => false,
-        'message' => '',
-        'link' => '/blog/26',
+        'enabled' => true,
+        'message' => 'Heads up! New patch content is in the works!',
+        'link' => '',
     ],
 
     /*
