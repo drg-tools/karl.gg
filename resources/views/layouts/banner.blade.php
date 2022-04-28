@@ -9,9 +9,11 @@
           <span class="hidden md:inline">
             {{ config('app.banner.message') }}
           </span>
+          @if (config('app.banner.link'))
           <span class="block sm:ml-2 sm:inline-block">
             <a href="{{ config('app.banner.link') }}" class="text-white font-bold underline"> Learn more <span aria-hidden="true">&rarr;</span></a>
           </span>
+          @endif
         </p>
       </div>
       {{-- <div class="absolute inset-y-0 right-0 pt-1 pr-1 flex items-start sm:pt-1 sm:pr-2 sm:items-start">
