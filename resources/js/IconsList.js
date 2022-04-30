@@ -72,6 +72,13 @@ import Icon_Overclock_Special_Magazine from "./assets/mods/Icon_Overclock_Specia
 import Icon_Overclock_Spinning_Linecutter from "./assets/mods/Icon_Overclock_Spinning_Linecutter.js";
 import Player_State_Acid from "./assets/mods/Player_State_Acid.js";
 
+// U36 Additions
+import Icon_Overclock_Gamma_Contamination from "./assets/mods/Icon_Overclock_Gamma_Contamination";
+import Icon_Upgrade_Pheremones from "./assets/mods/Icon_Upgrade_Pheremones";
+import Icon_Upgrade_Radio_Control from "./assets/mods/Icon_Upgrade_Radio_Control";
+
+
+
 const IconList = {
     R_P1_Bosco_SVG,
     X_E_Armor_SVG,
@@ -142,6 +149,9 @@ const IconList = {
     Icon_Overclock_Special_Magazine,
     Icon_Overclock_Spinning_Linecutter,
     Player_State_Acid,
+    Icon_Overclock_Gamma_Contamination,
+    Icon_Upgrade_Pheremones,
+    Icon_Upgrade_Radio_Control,
 };
 
 export default IconList;

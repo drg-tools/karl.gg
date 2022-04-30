@@ -46,5 +46,9 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
+    "/assets/D_S3_Wave.svg": "/assets/D_S3_Wave.svg",
+    "/assets/E_S3_Shard.svg": "/assets/E_S3_Shard.svg",
+    "/assets/G_S3_Coil.svg": "/assets/G_S3_Coil.svg",
+    "/assets/S_S3_Bolt.svg": "/assets/S_S3_Bolt.svg"
 }
