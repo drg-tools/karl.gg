@@ -75,7 +75,6 @@
 }
 
 .previewModOuterActive {
-    stroke: #000;
     fill: #fc9e00;
     stroke-width: 5px;
 }
@@ -88,6 +87,12 @@
 .previewModIconActive {
     stroke: #000;
     stroke-width: 3px;
+}
+
+#equipmentCards {
+    .modIcon {
+        fill: #FFF;
+    }
 }
 
 @media (max-width: 770px) {
