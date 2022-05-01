@@ -111,6 +111,45 @@
                     </div>
                 </div>
             </modal>
+
+            <modal
+                name="errorModal"
+                class="loadoutModal"
+                :adaptive="true"
+                :height="250"
+            >
+                <div class="mx-auto">
+                    <h2 class="text-lg">{{ messageTitle }}</h2>
+                    <p>{{ messageText }} </p> <br>
+                    
+                    <div
+                        class="
+                            inline-flex
+                            items-center
+                            text-center
+                            px-4
+                            py-2
+                            border border-transparent
+                            text-sm
+                            font-medium
+                            rounded-md
+                            shadow-sm
+                            text-white
+                            bg-orange-500
+                            hover:bg-orange-700
+                            focus:outline-none
+                            focus:ring-2
+                            focus:ring-offset-2
+                            focus:ring-orange-500
+                            w-full
+                            md:w-auto
+                        "
+                        v-on:click="onCloseErrorModal"
+                    >
+                        CLOSE
+                    </div>
+                </div>
+            </modal>
         </div>
         <div
             class="form-group"
@@ -248,7 +287,10 @@ export default {
                     })
                     .catch((e) => {
                         this.$modal.hide("loadingModal");
-                        console.log(e);
+                        this.messageTitle = "Error Saving Loadout";
+                        this.messageText =
+                            "Usually this is due to a profanity filter error. Please check your Loadout Title and Description for any words which could be considered profane. Sometimes even words like \"Blow\" can cause the error to occur. After fixing this, please try saving again";
+                        this.$modal.show("errorModal");
                     });
             } else {
                 // create fresh loadout
@@ -262,12 +304,19 @@ export default {
                     })
                     .catch((e) => {
                         this.$modal.hide("loadingModal");
-                        console.log(e);
+                        this.messageTitle = "Error Saving Loadout";
+                        this.messageText =
+                            "Usually this is due to a profanity filter error. Please check your Loadout Title and Description for any words which could be considered profane. Sometimes even words like \"Blow\" can cause the error to occur. After fixing this, please try saving again";
+                        this.$modal.show("errorModal");
+                        
                     });
             }
         },
         onCloseMessageModal() {
             this.$modal.hide("messageModal");
+        },
+        onCloseErrorModal() {
+            this.$modal.hide("errorModal");
         },
         getIsLoggedIn() {
             return this.$store.getters.isLoggedIn;
