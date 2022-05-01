@@ -68,6 +68,28 @@
     transform: rotate(180deg);
 }
 
+.previewModOuter {
+    stroke: #fc9e00;
+    fill: #0000;
+    stroke-width: 5px;
+}
+
+.previewModOuterActive {
+    stroke: #000;
+    fill: #fc9e00;
+    stroke-width: 5px;
+}
+
+.previewModIcon {
+    stroke: #FFF;
+    stroke-width: 3px;
+}
+
+.previewModIconActive {
+    stroke: #000;
+    stroke-width: 3px;
+}
+
 @media (max-width: 770px) {
     .equipmentCards {
         flex-wrap: wrap;
