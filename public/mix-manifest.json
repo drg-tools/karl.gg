@@ -10,6 +10,7 @@
     "/assets/D_P3_Sludge.svg": "/assets/D_P3_Sludge.svg",
     "/assets/D_S1_Subata.svg": "/assets/D_S1_Subata.svg",
     "/assets/D_S2_Plasma.svg": "/assets/D_S2_Plasma.svg",
+    "/assets/D_S3_Wave.svg": "/assets/D_S3_Wave.svg",
     "/assets/E_E_Platform.svg": "/assets/E_E_Platform.svg",
     "/assets/E_E_Sentry.svg": "/assets/E_E_Sentry.svg",
     "/assets/E_P1_Warthog.svg": "/assets/E_P1_Warthog.svg",
@@ -17,6 +18,7 @@
     "/assets/E_P3_LOK1.svg": "/assets/E_P3_LOK1.svg",
     "/assets/E_S1_PGL.svg": "/assets/E_S1_PGL.svg",
     "/assets/E_S2_Breach.svg": "/assets/E_S2_Breach.svg",
+    "/assets/E_S3_Shard.svg": "/assets/E_S3_Shard.svg",
     "/assets/G_E_Shield.svg": "/assets/G_E_Shield.svg",
     "/assets/G_E_Zipline.svg": "/assets/G_E_Zipline.svg",
     "/assets/G_P1_Lead.svg": "/assets/G_P1_Lead.svg",
@@ -24,6 +26,7 @@
     "/assets/G_P3_Hurricane.svg": "/assets/G_P3_Hurricane.svg",
     "/assets/G_S1_Bulldog.svg": "/assets/G_S1_Bulldog.svg",
     "/assets/G_S2_Burst.svg": "/assets/G_S2_Burst.svg",
+    "/assets/G_S3_Coil.svg": "/assets/G_S3_Coil.svg",
     "/assets/logo.png": "/assets/logo.png",
     "/assets/R_P1_Bosco.js": "/assets/R_P1_Bosco.js",
     "/assets/R_P1_Bosco.svg": "/assets/R_P1_Bosco.svg",
@@ -34,6 +37,7 @@
     "/assets/S_P3_DRAK25.svg": "/assets/S_P3_DRAK25.svg",
     "/assets/S_S1_Jury.svg": "/assets/S_S1_Jury.svg",
     "/assets/S_S2_Zhuk.svg": "/assets/S_S2_Zhuk.svg",
+    "/assets/S_S3_Bolt.svg": "/assets/S_S3_Bolt.svg",
     "/assets/X_E_Armor.js": "/assets/X_E_Armor.js",
     "/assets/X_E_Armor.svg": "/assets/X_E_Armor.svg",
     "/assets/X_E_Flare.js": "/assets/X_E_Flare.js",
@@ -46,9 +50,5 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
-    "/assets/D_S3_Wave.svg": "/assets/D_S3_Wave.svg",
-    "/assets/E_S3_Shard.svg": "/assets/E_S3_Shard.svg",
-    "/assets/G_S3_Coil.svg": "/assets/G_S3_Coil.svg",
-    "/assets/S_S3_Bolt.svg": "/assets/S_S3_Bolt.svg"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
 }
