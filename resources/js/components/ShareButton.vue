@@ -36,9 +36,6 @@
 export default {
     name: "ShareButton",
     props: ["loadout"],
-    mounted() {
-        console.log(this.loadout);
-    },
     methods: {
         share: function () {
             if (navigator.share) {

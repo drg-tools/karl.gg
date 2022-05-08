@@ -1,5 +1,5 @@
 <template>
-    <div class="equipmentCards text-gray-300">
+    <div class="equipmentCards text-gray-300" id="equipmentCards">
 
         <div class="flex flex-row flex-wrap justify-around my-5">
             <div class="mb-4" v-if="primary">

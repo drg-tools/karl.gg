@@ -1,6 +1,4 @@
 <template>
-  <!-- TODO: Add overclock selection  -->
-  <!-- TODO: Selected overclock status -->
 
   <svg viewBox="0 0 80 80" height="6rem" class="mod overclockBackground hundredPercent">
     <!-- OC Background by Type start -->
@@ -97,7 +95,6 @@
   </svg>
 </template>
 
-<!--todo: reset button-->
 <script>
 export default {
   name: "OverclockIcon",
