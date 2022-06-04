@@ -21,10 +21,10 @@ class CheckIfAdmin
      */
     private function checkIfUserIsAdmin($user)
     {
-        if (\Auth::user()->hasRole('super-admin')) {
+        if (\Auth::user()->can('view-admin')) {
             return true;
         }
-        // return ($user->is_admin == 1);
+
         return false;
     }
 
