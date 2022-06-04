@@ -51,5 +51,3 @@ Route::group([
     Route::get('charts/daily-loadouts', [DailyLoadoutsChartController::class, 'response'])->name('charts.daily-loadouts.index');
     Route::get('charts/daily-updated-loadouts', [DailyUpdatedLoadoutsChartController::class, 'response'])->name('charts.daily-updated-loadouts.index');
 }); // this should be the absolute last line of this file
-
-

@@ -51,6 +51,5 @@ class LoadoutSeeder extends Seeder
                 return $u->upVote($loadout);
             });
         }
-
     }
 }
