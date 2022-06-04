@@ -15,7 +15,7 @@ return [
             'class' => 'fa fa-sort-amount',
         ],
         'numeric' => [
-            'rows' => ['created_at', 'updated_at', 'level', 'id', 'phone_number'],
+            'rows' => ['created_at', 'updated_at', 'level', 'id', 'phone_number', 'votes_sum_value'],
             'class' => 'fa fa-sort-numeric',
         ],
     ],
@@ -105,7 +105,7 @@ return [
     /*
     default direction for non-sorted columns
      */
-    'default_direction_unsorted' => 'asc',
+    'default_direction_unsorted' => 'desc',
 
     /*
     use the first defined sortable column (Model::$sortable) as default
