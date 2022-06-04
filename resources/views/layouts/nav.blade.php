@@ -55,7 +55,7 @@
                             </svg>
                         </div>
                         <div>
-                            @hasrole('super-admin')
+                            @can('view-admin')
                             <svg class="navButton" height="49" width="154">
                                 <a href="/admin">
                                     <path d="m 2 2 l 134 0 l 14 14 l 0 30 l -149 0 l 0 -45" fill="transparent"
@@ -65,7 +65,7 @@
                                     </text>
                                 </a>
                             </svg>
-                            @endhasrole
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -160,10 +160,10 @@
                class="{{ \Request::is('build')  || \Request::is('preview/*') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Build</a>
             <a href="/blog"
                class="{{ \Request::is('blog')  || \Request::is('blog/*') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Blog</a>
-            @hasrole('super-admin')
+            @can('view-admin')
             <a href="/admin"
                class="{{ \Request::is('admin') ? 'text-white bg-gray-900' : 'hover:bg-gray-700 hover:text-white text-gray-300' }} mt-1 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Admin</a>
-            @endhasrole
+            @endcan
         </div>
         <div class="pt-4 pb-3 border-t border-gray-700">
             @auth

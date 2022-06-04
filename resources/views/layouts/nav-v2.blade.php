@@ -16,12 +16,12 @@
                         @auth
                         <x-nav-link :active="\Request::query('favorites')" :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
                         @endauth
-                        
+
                         <x-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
 
-                        @hasrole('super-admin')
+                        @can('view-admin')
                         <x-nav-link link="/admin" title="Admin"/>
-                        @endhasrole
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -145,9 +145,9 @@
             @endauth
             <x-mobile-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
 
-            @hasrole('super-admin')
+            @can('view-admin')
             <x-mobile-nav-link link="/admin" title="Admin"/>
-            @endhasrole
+            @endcan
 
         </div>
 
