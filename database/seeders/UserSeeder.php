@@ -18,5 +18,8 @@ class UserSeeder extends Seeder
             'email' => 'admin@test.com',
             'password' => bcrypt('adminadmin'),
         ])->assignRole('super-admin');
+
+        // and 10 other users
+        \App\User::factory()->count(10)->create();
     }
 }
