@@ -20783,18 +20783,6 @@
                         \Backpack\CRUD\app\Library\CrudPanel\CrudPanel::macro($name, $macro);
         }
                     /**
-         * Register a custom macro.
-         *
-         * @param string $name
-         * @param object|callable $macro
-         * @return void 
-         * @static 
-         */ 
-        public static function parentMacro($name, $macro)
-        {
-                        \Backpack\CRUD\app\Library\CrudPanel\CrudPanel::parentMacro($name, $macro);
-        }
-                    /**
          * Mix another object into the class.
          *
          * @param object $mixin
