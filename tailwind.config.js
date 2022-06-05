@@ -12,7 +12,7 @@ module.exports = {
 
         // These options are passed through directly to PurgeCSS
         options: {
-            safelist: [/-driller/, /-gunner/, /-engineer/, /-scout/],
+            safelist: [/-driller/, /-gunner/, /-engineer/, /-scout/, /-green-/, /-red-/],
         },
     },
     theme: {
