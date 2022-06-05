@@ -2,18 +2,18 @@
 
 namespace App\View\Components;
 
-use App\Character;
 use App\Patch;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
-class CharacterStats extends Component
+class LoadoutStats extends Component
 {
     /**
-     * @var Character
+     * @var Model
      */
-    public $character;
+    public $entity;
     /**
-     * @var Character
+     * @var Model
      */
     public $comparison;
     /**
@@ -31,10 +31,10 @@ class CharacterStats extends Component
      *
      * @return void
      */
-    public function __construct(Character $character, Character $comparison, Patch $patch, $totalLoadouts, $previousTotal)
+    public function __construct($entity, $comparison, Patch $patch, $totalLoadouts, $previousTotal)
     {
 
-        $this->character = $character;
+        $this->entity = $entity;
         $this->comparison = $comparison;
         $this->patch = $patch;
         $this->totalLoadouts = $totalLoadouts;
@@ -68,6 +68,6 @@ class CharacterStats extends Component
      */
     public function render()
     {
-        return view('components.character-stats');
+        return view('components.loadout-stats');
     }
 }
