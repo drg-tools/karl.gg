@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Character;
-use App\Gun;
 use App\Loadout;
 use App\Mod;
 use App\Patch;
