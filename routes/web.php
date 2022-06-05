@@ -42,6 +42,7 @@ Route::get('unsubscribe/{user}', [SubscriptionController::class, 'unsubscribe'])
     ->middleware('signed');
 
 Route::get('/', [DashboardController::class, 'index']);
+Route::get('pickrates', [\App\Http\Controllers\PickRatesController::class, 'index'])->name('pickrates.index');
 Route::get('browse', [LoadoutsController::class, 'index'])->name('loadout.index');
 Route::resource('blog', PostController::class)->only(['index', 'show']);
 
