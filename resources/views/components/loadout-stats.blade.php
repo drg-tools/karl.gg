@@ -20,24 +20,6 @@
             <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                 <div class="flex items-baseline text-2xl font-semibold text-orange-600">
                     {{ $entity->loadouts_count }}
-                    <span class="ml-2 text-sm font-medium text-gray-400"> from {{ $comparison->loadouts_count }} </span>
-                </div>
-
-                <div
-                    class="
-                        inline-flex
-                        items-baseline
-                        px-2.5
-                        py-0.5
-                        rounded-full
-                        text-sm
-                        font-medium
-                        bg-{{ $totalLoadoutsDifference >= 0 ? 'green' : 'red' }}-100
-                        text-{{ $totalLoadoutsDifference >= 0 ? 'green' : 'red' }}-800
-                        md:mt-2
-                        lg:mt-0"
-                >
-                    {{ $totalLoadoutsDifference }}%
                 </div>
             </dd>
         </div>
