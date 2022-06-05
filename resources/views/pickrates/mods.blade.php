@@ -18,7 +18,7 @@
                 <x-slot name="identifier">
                     <div class="text-center">
                         <div class="filter invert p-4">
-                            <img class="w-24" src="{{ $mod->potrait }}"/>
+                            <img class="w-24" src="{{ $mod->image_svg }}"/>
                         </div>
                         <h2 class="text-xl leading-6 font-medium text-gray-300">{{ $mod->mod_name }}</h2>
                     </div>
