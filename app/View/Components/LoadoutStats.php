@@ -25,7 +25,6 @@ class LoadoutStats extends Component
 
     public $previousTotal;
 
-
     /**
      * Create a new component instance.
      *
@@ -33,7 +32,6 @@ class LoadoutStats extends Component
      */
     public function __construct($entity, $comparison, Patch $patch, $totalLoadouts, $previousTotal)
     {
-
         $this->entity = $entity;
         $this->comparison = $comparison;
         $this->patch = $patch;

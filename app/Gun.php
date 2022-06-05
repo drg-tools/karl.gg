@@ -67,5 +67,4 @@ class Gun extends Model
     {
         return $this->hasMany(Overclock::class);
     }
-
 }

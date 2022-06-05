@@ -81,16 +81,16 @@ class Character extends Model
     {
         switch ($this->id) {
             case 1:
-                return "/assets/img/Engineer_portrait-128px.png";
+                return '/assets/img/Engineer_portrait-128px.png';
                 break;
             case 2:
-                return "/assets/img/Scout_portrait-128px.png";
+                return '/assets/img/Scout_portrait-128px.png';
                 break;
             case 3:
-                return "/assets/img/Driller_portrait-128px.png";
+                return '/assets/img/Driller_portrait-128px.png';
                 break;
             case 4:
-                return "/assets/img/Gunner_portrait-128px.png";
+                return '/assets/img/Gunner_portrait-128px.png';
                 break;
             default:
                 return '';
