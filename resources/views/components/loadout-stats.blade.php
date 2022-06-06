@@ -1,8 +1,6 @@
 
 @php
 
-    $totalLoadoutsDifference = $calculateDifference($entity->loadouts_count, $comparison->loadouts_count);
-
     $currentPickRate = $calculatePercentage($entity->loadouts_count, $totalLoadouts);
     $previousPickRate = $calculatePercentage($comparison->loadouts_count, $previousTotal);
 

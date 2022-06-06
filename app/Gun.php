@@ -53,6 +53,11 @@ class Gun extends Model
     use Filterable, CrudTrait;
     protected $guarded = ['id'];
 
+    public function loadouts()
+    {
+        return $this->belongsToMany(Loadout::class);
+    }
+
     public function mods()
     {
         return $this->hasMany(Mod::class);

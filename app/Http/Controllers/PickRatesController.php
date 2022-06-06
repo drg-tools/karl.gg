@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Character;
+use App\Gun;
 use App\Loadout;
 use App\Mod;
 use App\Patch;
@@ -37,6 +38,38 @@ class PickRatesController extends Controller
 
         return view('pickrates.characters')
             ->with('characters', $characters)
+            ->with('patch', $latestPatch)
+            ->with('comparison', $comparison)
+            ->with('previousTotal', $previousTotal)
+            ->with('totalLoadouts', $totalLoadouts);
+    }
+
+    public function guns(Request $request)
+    {
+        // Get latest patch
+        $latestPatch = Patch::current();
+
+        // Get previous patch
+        $previousPatch = Patch::previous();
+
+        // Get number of builds per class
+        $guns = Gun::withCount(['loadouts' => function (Builder $query) use ($latestPatch) {
+            $query->where('patch_id', $latestPatch->id);
+        }])->orderBy('id')->get();
+
+        // Get stats to compare with
+        $comparison = Gun::withCount(['loadouts' => function (Builder $query) use ($previousPatch) {
+            $query->where('patch_id', $previousPatch->id);
+        }])->orderBy('id')->get();
+
+        // Get total loadouts this patch
+        $totalLoadouts = Loadout::wherePatchId($latestPatch->id)->count();
+
+        // And last patch
+        $previousTotal = Loadout::wherePatchId($previousPatch->id)->count();
+
+        return view('pickrates.guns')
+            ->with('guns', $guns)
             ->with('patch', $latestPatch)
             ->with('comparison', $comparison)
             ->with('previousTotal', $previousTotal)
