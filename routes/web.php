@@ -43,6 +43,7 @@ Route::get('unsubscribe/{user}', [SubscriptionController::class, 'unsubscribe'])
 
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('pickrates/classes', [\App\Http\Controllers\PickRatesController::class, 'classes'])->name('pickrates.classes');
+Route::get('pickrates/guns', [\App\Http\Controllers\PickRatesController::class, 'guns'])->name('pickrates.guns');
 Route::get('pickrates/mods', [\App\Http\Controllers\PickRatesController::class, 'mods'])->name('pickrates.mods');
 Route::get('browse', [LoadoutsController::class, 'index'])->name('loadout.index');
 Route::resource('blog', PostController::class)->only(['index', 'show']);
