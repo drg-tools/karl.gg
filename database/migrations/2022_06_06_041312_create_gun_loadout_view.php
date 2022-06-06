@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 class CreateGunLoadoutView extends Migration
 {
@@ -13,7 +11,7 @@ class CreateGunLoadoutView extends Migration
      */
     public function up()
     {
-        DB::statement("
+        DB::statement('
             CREATE VIEW gun_loadout as
             (SELECT DISTINCT
                 m.gun_id,
@@ -25,7 +23,7 @@ class CreateGunLoadoutView extends Migration
                 lm.loadout_id,
                 m.gun_id
             ORDER BY
-                m.gun_id)");
+                m.gun_id)');
     }
 
     /**
@@ -35,6 +33,6 @@ class CreateGunLoadoutView extends Migration
      */
     public function down()
     {
-        DB::statement("DROP VIEW gun_loadout");
+        DB::statement('DROP VIEW gun_loadout');
     }
 }
