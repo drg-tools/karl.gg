@@ -15,23 +15,23 @@ class PickRatesController extends Controller
 {
     public function classes(Request $request)
     {
-        return $this->getLoadoutStats(new Character, 'pickrates.characters');
+        return $this->getLoadoutStats(new Character, 'pickrates.characters', $request);
     }
 
     public function guns(Request $request)
     {
-        return $this->getLoadoutStats(new Gun, 'pickrates.guns');
+        return $this->getLoadoutStats(new Gun, 'pickrates.guns', $request);
     }
 
     public function mods(Request $request)
     {
-        return $this->getLoadoutStats(new Mod, 'pickrates.mods');
+        return $this->getLoadoutStats(new Mod, 'pickrates.mods', $request);
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function getLoadoutStats(Model $model, $view)
+    public function getLoadoutStats(Model $model, $view, Request $request)
     {
         // Get latest patch
         $latestPatch = Patch::current();
@@ -42,12 +42,12 @@ class PickRatesController extends Controller
         // Get number of builds per entity
         $entities = $model::withCount(['loadouts' => function (Builder $query) use ($latestPatch) {
             $query->where('patch_id', $latestPatch->id);
-        }])->orderBy('id')->paginate(10);
+        }])->orderBy('id')->filter($request->all())->paginate(10);
 
         // Get stats to compare with
         $comparison = $model::withCount(['loadouts' => function (Builder $query) use ($previousPatch) {
             $query->where('patch_id', $previousPatch->id);
-        }])->orderBy('id')->paginate(10);
+        }])->orderBy('id')->filter($request->all())->paginate(10);
 
         // Get total loadouts this patch
         $totalLoadouts = Loadout::wherePatchId($latestPatch->id)->count();
