@@ -35,7 +35,7 @@ class LoadoutsController extends Controller
             'primaries' => $primaries,
             'secondaries' => $secondaries,
             'overclocks' => $overclocks,
-            'mods' => $mods
+            'mods' => $mods,
         ]);
     }
 
