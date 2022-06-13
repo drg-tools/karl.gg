@@ -6,6 +6,9 @@
 @endsection
 
 @section('content')
+
+    @include('pickrates.partials.subnav')
+
     @include('pickrates.partials.search')
 
     <div class="grid md:grid-cols-2 gap-10">
