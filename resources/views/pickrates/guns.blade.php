@@ -10,7 +10,8 @@
 
     <div class="grid md:grid-cols-2 gap-10">
         @foreach($entities as $index => $gun)
-            <x-loadout-stats
+            <a href="{{ route('pickrates.mods', ['gun' => $gun->id]) }}">
+                <x-loadout-stats
                 :entity="$gun"
                 :comparison="$comparison[$index]"
                 :patch="$patch"
@@ -28,6 +29,7 @@
                     </div>
                 </x-slot>
             </x-loadout-stats>
+            </a>
         @endforeach
     </div>
 

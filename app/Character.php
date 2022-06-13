@@ -3,6 +3,7 @@
 namespace App;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +42,7 @@ class Character extends Model
 {
     use HasFactory;
     use CrudTrait;
+    use Filterable;
 
     public function guns()
     {
