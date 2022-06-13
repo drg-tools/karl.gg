@@ -66,9 +66,7 @@
                 @endforeach
             </ul>
 
-            <div class="my-4 py-4 sm:border-t-2 sm:border-gray-300">
-                {{ $loadouts->render() }}
-            </div>
+            <x-pagination :entities="$loadouts">
 
         </div>
     </div>

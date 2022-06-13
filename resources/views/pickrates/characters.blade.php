@@ -8,7 +8,7 @@
 @section('content')
 
     <div class="grid md:grid-cols-2 gap-10">
-        @foreach($characters as $index => $character)
+        @foreach($entities as $index => $character)
             <x-loadout-stats
                 :entity="$character"
                 :comparison="$comparison[$index]"
@@ -27,5 +27,7 @@
             </x-loadout-stats>
         @endforeach
     </div>
+
+    <x-pagination :entities="$entities" />
 
 @endsection
