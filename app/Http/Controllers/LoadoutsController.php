@@ -6,6 +6,7 @@ use App\Character;
 use App\Equipment;
 use App\Gun;
 use App\Loadout;
+use App\Mod;
 use App\Overclock;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class LoadoutsController extends Controller
         $overclocks = Overclock::orderBy('overclock_name')->with('character')->get();
         $primaries = Gun::where('character_slot', 1)->orderBy('name')->with('character')->get();
         $secondaries = Gun::where('character_slot', 2)->orderBy('name')->with('character')->get();
+        $mods = Mod::orderBy('mod_name')->get();
 
         return view('loadouts.index', [
             'loadouts' => $loadouts,
@@ -33,6 +35,7 @@ class LoadoutsController extends Controller
             'primaries' => $primaries,
             'secondaries' => $secondaries,
             'overclocks' => $overclocks,
+            'mods' => $mods
         ]);
     }
 

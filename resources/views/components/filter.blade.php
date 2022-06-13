@@ -3,7 +3,7 @@
     <x-form.search placeholder="Search by Loadout Name" />
 
     @php
-        $showFilters = request()->hasAny(['primaries', 'favorites', 'secondaries', 'overclocks', 'characters', 'isCurrentPatch']) ||
+        $showFilters = request()->hasAny(['primaries', 'favorites', 'secondaries', 'overclocks', 'mods', 'characters', 'isCurrentPatch']) ||
             request()->filled('hasGuide') || request()->filled('hasOverclock')
                 ? 'true' : 'false';
     @endphp
@@ -61,6 +61,14 @@
                     <option value="">Overclocks</option>
                     @foreach ($overclocks as $oc)
                         <option value="{{ $oc->id }}" data-custom-properties="{{ $oc->character->name }}">{{ $oc->overclock_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <select class="form-control block" data-trigger name="mods[]" id="mods" multiple>
+                    <option value="">Mods</option>
+                    @foreach ($mods as $mod)
+                        <option value="{{ $mod->id }}">{{ $mod->mod_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -199,6 +207,13 @@
                     itemSelectText: ' ',
                 }
             );
+            var modsSelectMultiple = new Choices(
+                '#mods',
+                {
+                    removeItemButton: true,
+                    itemSelectText: ' ',
+                }
+            );
             var hasOverclockSelectSingle = new Choices(
                 '#hasOverclock',
                 {
@@ -233,6 +248,9 @@
             @endif
             @if( request()->get('secondaries') )
             secondarySelectMultiple.setChoiceByValue({!! json_encode(request()->get('secondaries'))!!});
+            @endif
+            @if( request()->get('mods') )
+            modsSelectMultiple.setChoiceByValue({!! json_encode(request()->get('mods'))!!});
             @endif
         });
     </script>
