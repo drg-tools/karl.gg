@@ -6,6 +6,8 @@
 
 @section('content')
 
+    @include('pickrates.partials.search')
+
     <div class="grid md:grid-cols-2 gap-10">
         @foreach($entities as $index => $mod)
             <x-loadout-stats
