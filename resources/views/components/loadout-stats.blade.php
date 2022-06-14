@@ -13,14 +13,16 @@
         {{ $identifier }}
     </div>
     <dl class="mt-5 rounded-lg bg-gray-700 text-gray-200 overflow-hidden shadow divide-y divide-gray-900 w-3/4">
-        <div class="px-4 py-5 sm:p-6">
-            <dt class="text-base font-normal text-gray-100">Total Loadouts</dt>
-            <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl font-semibold text-orange-600">
-                    {{ $entity->loadouts_count }}
-                </div>
-            </dd>
-        </div>
+        <a href="{{ $loadoutLink }}">
+            <div class="px-4 py-5 sm:p-6">
+                <dt class="text-base font-normal text-gray-100">Total Loadouts</dt>
+                <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
+                    <div class="flex items-baseline text-2xl font-semibold text-orange-600">
+                        {{ $entity->loadouts_count }}
+                    </div>
+                </dd>
+            </div>
+        </a>
 
 
         <div class="px-4 py-5 sm:p-6">

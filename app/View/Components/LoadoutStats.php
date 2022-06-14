@@ -25,18 +25,21 @@ class LoadoutStats extends Component
 
     public $previousTotal;
 
+    public $loadoutLink;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($entity, $comparison, Patch $patch, $totalLoadouts, $previousTotal)
+    public function __construct($entity, $comparison, Patch $patch, $totalLoadouts, $previousTotal, $loadoutLink)
     {
         $this->entity = $entity;
         $this->comparison = $comparison;
         $this->patch = $patch;
         $this->totalLoadouts = $totalLoadouts;
         $this->previousTotal = $previousTotal;
+        $this->loadoutLink = $loadoutLink;
     }
 
     public function calculatePercentage($current, $previous)

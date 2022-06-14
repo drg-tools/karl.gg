@@ -18,6 +18,7 @@
                 :patch="$patch"
                 :totalLoadouts="$totalLoadouts"
                 :previousTotal="$previousTotal"
+                loadoutLink="{!! route('loadout.index', ['mods' => [$mod->id], 'isCurrentPatch' => 1]) !!}"
             >
                 <x-slot name="identifier">
                     <div class="text-center">

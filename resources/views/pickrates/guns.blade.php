@@ -12,26 +12,36 @@
 
     <div class="grid md:grid-cols-2 gap-10">
         @foreach($entities as $index => $gun)
-            <a href="{{ route('pickrates.mods', ['gun' => $gun->id]) }}">
-                <x-loadout-stats
+
+            @php
+                if ($gun->character_slot === 1) {
+                    $route = route('loadout.index', ['primaries' => [$gun->id], 'isCurrentPatch' => 1]);
+                } else {
+                    $route = route('loadout.index', ['secondaries' => [$gun->id], 'isCurrentPatch' => 1]);
+                }
+            @endphp
+
+            <x-loadout-stats
                 :entity="$gun"
                 :comparison="$comparison[$index]"
                 :patch="$patch"
                 :totalLoadouts="$totalLoadouts"
                 :previousTotal="$previousTotal"
+                loadoutLink=" {!! $route !!}"
             >
                 <x-slot name="identifier">
-                    <div class="text-center">
-                        <div class="filter invert p-4">
-                            <img
-                                class="w-24"
-                                src="/assets/{{ $gun->image }}.svg" alt="{{ $gun->name }} icon"/>
+                    <a href="{{ route('pickrates.mods', ['gun' => $gun->id]) }}">
+                        <div class="text-center">
+                            <div class="filter invert p-4">
+                                <img
+                                    class="w-24"
+                                    src="/assets/{{ $gun->image }}.svg" alt="{{ $gun->name }} icon"/>
+                            </div>
+                            <h2 class="text-xl leading-6 font-medium text-gray-300">{{ $gun->name }}</h2>
                         </div>
-                        <h2 class="text-xl leading-6 font-medium text-gray-300">{{ $gun->name }}</h2>
-                    </div>
+                    </a>
                 </x-slot>
             </x-loadout-stats>
-            </a>
         @endforeach
     </div>
 
