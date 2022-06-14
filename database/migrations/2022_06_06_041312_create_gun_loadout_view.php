@@ -13,7 +13,7 @@ class CreateGunLoadoutView extends Migration
     {
         DB::statement('
             CREATE VIEW gun_loadout as
-            (SELECT DISTINCT
+            SELECT DISTINCT
                 m.gun_id,
                 lm.loadout_id
             FROM
@@ -23,7 +23,7 @@ class CreateGunLoadoutView extends Migration
                 lm.loadout_id,
                 m.gun_id
             ORDER BY
-                m.gun_id)');
+                m.gun_id');
     }
 
     /**
