@@ -2,12 +2,10 @@
     <div class="sm:hidden">
         <label for="tabs" class="sr-only">Select a tab</label>
         <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-        <select id="tabs" name="tabs" class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-            <option>By Class</option>
-
-            <option>By Gun</option>
-
-            <option selected>By Mod</option>
+        <select onchange="window.location = document.getElementById('tabs').value" id="tabs" name="tabs" class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            <option @if(\Route::is('pickrates.classes')) selected @endif value="/pickrates/classes">By Class</option>
+            <option @if(\Route::is('pickrates.guns')) selected @endif value="/pickrates/guns">By Gun</option>
+            <option @if(\Route::is('pickrates.mods')) selected @endif value="/pickrates/mods">By Mod</option>
         </select>
     </div>
     <div class="hidden sm:block">
