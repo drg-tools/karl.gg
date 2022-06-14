@@ -1,4 +1,4 @@
-<nav class="bg-gray-700" x-data="{ mobileOpen: false, profileOpen: false }">
+<nav class="bg-gray-700" x-data="{ mobileOpen: false, profileOpen: false, openBuild: false }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
@@ -11,12 +11,27 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <x-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
-                        <x-nav-link :active="\Request::is('browse') && !\Request::query('favorites')" link="/browse" title="Browse"/>
-                        <x-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
-                        @auth
-                        <x-nav-link :active="\Request::query('favorites')" :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
-                        @endauth
 
+
+                        <div class="relative inline-block text-left" x-on:click="openBuild = !openBuild">
+                            <x-nav-dropdown title="Loadouts" />
+
+                            <div
+                                x-show.transition="openBuild"
+                                x-on:click.away="openBuild = false"
+                                style="display:none;"
+                                class="origin-top-right absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg py-1 text-gray-300 bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
+                            >
+                                <x-nav-dropdown-link :link="route('loadout.index')" :active="\Request::is('browse') && !\Request::query('favorites')" title="Browse" />
+                                @auth
+                                <x-nav-dropdown-link :link="route('loadout.index', ['favorites' => 1])" :active="\Request::query('favorites')" title="Favorites" />
+                                @endauth
+                                <x-nav-dropdown-link :link="route('pickrates.classes')" :active="\Request::is('pickrates/*')" title="Pick Rates" />
+                            </div>
+                        </div>
+
+                        <x-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
                         <x-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
 
                         @can('view-admin')
@@ -30,16 +45,6 @@
                     @guest
                     <x-nav-link link="/login" title="Login"/>
                     @endguest
-{{--                    <button--}}
-{{--                        class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">--}}
-{{--                        <span class="sr-only">View notifications</span>--}}
-{{--                        <!-- Heroicon name: outline/bell -->--}}
-{{--                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"--}}
-{{--                             stroke="currentColor" aria-hidden="true">--}}
-{{--                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"--}}
-{{--                                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>--}}
-{{--                        </svg>--}}
-{{--                    </button>--}}
 
                     <!-- Profile dropdown -->
                     @auth
@@ -69,7 +74,7 @@
                             x-show.transition="profileOpen"
                             x-on:click.away="profileOpen = false"
                             style="display:none;"
-                            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            class="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                         >
                             <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
@@ -78,7 +83,7 @@
                             <x-nav-dropdown-link :link="route('settings.tokens')" title="Settings" />
                             @endcan
 
-                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+                            <a class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
                                href="{{ route('logout') }}" role="menuitem"
                                onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
@@ -139,6 +144,7 @@
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <x-mobile-nav-link :active="\Request::is('/')" link="/" title="Dashboard"/>
             <x-mobile-nav-link :active="\Request::is('browse')" link="/browse" title="Browse"/>
+            <x-mobile-nav-link :active="\Request::is('pickrates/*')" :link="route('pickrates.classes')" title="Pick Rates"/>
             <x-mobile-nav-link :active="\Request::is('build')" link="/build" title="Build"/>
             @auth
             <x-mobile-nav-link :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
