@@ -25,7 +25,10 @@
                         <div class="filter invert p-4">
                             <img class="w-24" src="{{ $mod->image_svg }}"/>
                         </div>
-                        <h2 class="text-xl leading-6 font-medium text-gray-300">{{ $mod->mod_name }}</h2>
+                        <h2 class="text-xl leading-6 font-medium text-gray-300">
+                            {{ $mod->mod_name }} <br>
+                            <span class="text-sm text-gray-400">{{ $mod->gun->name }}</span>
+                        </h2>
                     </div>
                 </x-slot>
             </x-loadout-stats>
