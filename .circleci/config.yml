@@ -13,7 +13,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # Using the RAM variation mitigates I/O contention
       # for database intensive operations.
-      - image: cimg/mysql:8.0
+      - image: cimg/mysql:5.7
         environment:
           MYSQL_DATABASE: laravel
           MYSQL_USER: laravel
