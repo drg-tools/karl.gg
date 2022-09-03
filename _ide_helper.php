@@ -24176,6 +24176,17 @@
      
 }
 
+    namespace Staudenmeir\DuskUpdater { 
+            /**
+     * 
+     *
+     */ 
+        class UpdateCommand {
+         
+    }
+     
+}
+
     namespace EloquentFilter\Commands { 
             /**
      * 
