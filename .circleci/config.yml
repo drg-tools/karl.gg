@@ -3,6 +3,8 @@
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
 version: 2
+orbs:
+  browser-tools: circleci/browser-tools@1.4.0
 jobs:
   build:
     docker:
