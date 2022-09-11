@@ -51,6 +51,9 @@ jobs:
           name: Build Frontend
           command: npm run dev
       # prepare the database
+      - browser-tools/install-chrome:
+          replace-existing: true
+      - browser-tools/install-chromedriver
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
