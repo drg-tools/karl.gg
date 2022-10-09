@@ -184,6 +184,70 @@
                 <h2>Select Equipment</h2>
                 <RouterSelectButton routeTo="/equipment-builder" />
             </div>
+
+            
+        </div>
+        <div class="flex items-center flex-col">
+            <div class="flex flex-row">
+                <div
+                    v-for="equipment in loadoutClassEquipment"
+                    v-if="equipmentModIds.length > 0"
+                >
+                    <router-link to="/equipment-builder">
+                        <div
+                            @click="setSelectedEquipment(equipment.id)"
+                            class="
+                                border-transparent border-2
+                                p-4
+                                hover:border-karl-orange
+                            "
+                        >
+                            <PreviewCard
+                                :name="equipment.name"
+                                :icon="equipment.icon"
+                                :mods="equipment.equipment_mods"
+                                :selected-mods="equipmentModIds"
+                            />
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+            <div class="flex flex-row justify-center">
+                <button
+                    v-on:click="clearSelectedEquipment"
+                    v-if="equipmentModIds.length > 0"
+                    class="
+                        inline-flex
+                        items-center
+                        text-center
+                        px-4
+                        py-2
+                        border border-transparent
+                        text-sm
+                        font-bold
+                        rounded-md
+                        shadow-sm
+                        text-white
+                        bg-red-500
+                        hover:bg-red-700
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-offset-2
+                        focus:ring-red-500
+                        w-full
+                        md:w-auto
+                    "
+                >
+                <i class="fas fa-trash-alt mr-2"></i> Clear All
+                </button>
+            </div>
+
+            <div class="text-center" v-if="equipmentModIds.length === 0">
+                <h2>Select Throwable</h2>
+                <RouterSelectButton routeTo="/equipment-builder" />
+            </div>
+
+            
         </div>
     </div>
 </template>
