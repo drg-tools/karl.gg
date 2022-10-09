@@ -52,6 +52,7 @@ export default new Vuex.Store({
         selectedSecondaryOverclockId: "",
         selectedEquipmentId: "",
         selectedEquipmentMods: [],
+        selectedThrowableId: "",
         lastSelectedItemId: "",
         lastSelectedItemObject: {}, // object we will set
         lastSelectedItemType: "", // primary-mod, secondary-mod, primary-oc etc.
@@ -158,6 +159,12 @@ export default new Vuex.Store({
             state.selectedEquipmentMods = state.selectedEquipmentMods.filter(
                 (mod) => mod !== modId
             );
+        },
+        setSelectedThrowableId(state, newValue) {
+            state.selectedThrowableId = newValue;
+        },
+        clearSelectedThrowableId(state) {
+            state.selectedThrowableId = "";
         },
         setLastSelectedItemId(state, newValue) {
             state.lastSelectedItemId = newValue;

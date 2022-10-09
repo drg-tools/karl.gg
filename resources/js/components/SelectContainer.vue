@@ -187,35 +187,37 @@
 
             
         </div>
-        <div class="flex items-center flex-col">
-            <div class="flex flex-row">
+        <div>
+            <router-link
+                v-if="getSelectedSecondaryDetails"
+                to="/secondary-builder"
+            >
                 <div
-                    v-for="equipment in loadoutClassEquipment"
-                    v-if="equipmentModIds.length > 0"
+                    class="
+                        border-transparent border-2
+                        p-4
+                        hover:border-karl-orange
+                    "
                 >
-                    <router-link to="/equipment-builder">
-                        <div
-                            @click="setSelectedEquipment(equipment.id)"
-                            class="
-                                border-transparent border-2
-                                p-4
-                                hover:border-karl-orange
-                            "
-                        >
-                            <PreviewCard
-                                :name="equipment.name"
-                                :icon="equipment.icon"
-                                :mods="equipment.equipment_mods"
-                                :selected-mods="equipmentModIds"
-                            />
-                        </div>
-                    </router-link>
+                    <PreviewCard
+                        :name="getSelectedSecondaryDetails.name"
+                        :icon="getSelectedSecondaryDetails.image"
+                        :mods="getSelectedSecondaryDetails.mods"
+                        :selected-mods="
+                            selectedSecondaryModIds.map((m) => m.selectedModId)
+                        "
+                        :overclock="
+                            getSelectedSecondaryDetails.overclocks.find(
+                                (o) => o.id === selectedSecondaryOverclockId
+                            )
+                        "
+                    />
                 </div>
-            </div>
-            <div class="flex flex-row justify-center">
+            </router-link>
+            <div class="flex justify-center">
                 <button
-                    v-on:click="clearSelectedEquipment"
-                    v-if="equipmentModIds.length > 0"
+                    v-on:click="clearSelectedSecondary"
+                    v-if="getSelectedSecondaryDetails"
                     class="
                         inline-flex
                         items-center
@@ -238,16 +240,14 @@
                         md:w-auto
                     "
                 >
-                <i class="fas fa-trash-alt mr-2"></i> Clear All
+                    <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
 
-            <div class="text-center" v-if="equipmentModIds.length === 0">
-                <h2>Select Throwable</h2>
-                <RouterSelectButton routeTo="/equipment-builder" />
+            <div class="text-center" v-if="!getSelectedSecondaryDetails">
+                <h2>Select a Throwable</h2>
+                <RouterSelectButton routeTo="/secondary-builder" />
             </div>
-
-            
         </div>
     </div>
 </template>

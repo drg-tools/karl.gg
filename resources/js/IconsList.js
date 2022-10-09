@@ -78,18 +78,18 @@ import Icon_Upgrade_Pheremones from "./assets/mods/Icon_Upgrade_Pheremones";
 import Icon_Upgrade_Radio_Control from "./assets/mods/Icon_Upgrade_Radio_Control";
 
 // Throwables Icons
-import Icon_Throwable_D1_Axe from "./assets/G_T1_Grenade_Axe.js";
-import Icon_Throwable_D2_HE from "./assets/G_T2_Grenade_HE.js";
-import Icon_Throwable_D3_Neuro from "./assets/G_T1_Grenade_Neuro.js";
+import Icon_Throwable_D1_Axe from "./assets/D_T1_Grenade_Axe.js";
+import Icon_Throwable_D2_HE from "./assets/D_T2_Grenade_HE.js";
+import Icon_Throwable_D3_Neuro from "./assets/D_T3_Grenade_Neuro.js";
 import Icon_Throwable_S1_IFG from "./assets/S_T1_Grenade_IFG.js";
-import Icon_Throwable_S2_Freeze from "./assets/G_T1_Grenade_Freeze.js";
-import Icon_Throwable_S3_Pheremone from "./assets/G_T1_Grenade_Pheremone.js";
-import Icon_Throwable_E1_Lure from "./assets/G_T1_Grenade_Lure.js";
-import Icon_Throwable_E1_Plasma from "./assets/G_T1_Grenade_Plasma.js";
-import Icon_Throwable_E1_Proximity from "./assets/G_T1_Grenade_Proximity.js";
+import Icon_Throwable_S2_Freeze from "./assets/S_T2_Grenade_Freeze.js";
+import Icon_Throwable_S3_Pheremone from "./assets/S_T3_Grenade_Pheremone.js";
+import Icon_Throwable_E1_Lure from "./assets/E_T1_Grenade_Lure.js";
+import Icon_Throwable_E1_Plasma from "./assets/E_T2_Grenade_Plasma.js";
+import Icon_Throwable_E1_Proximity from "./assets/E_T3_Grenade_Proximity.js";
 import Icon_Throwable_G1_Sticky from "./assets/G_T1_Grenade_Sticky.js";
-import Icon_Throwable_G2_Indendiary from "./assets/G_T1_Grenade_Indendiary.js";
-import Icon_Throwable_G3_Cluster from "./assets/G_T1_Grenade_Cluster.js";
+import Icon_Throwable_G2_Indendiary from "./assets/G_T2_Grenade_Incendiary.js";
+import Icon_Throwable_G3_Cluster from "./assets/G_T3_Grenade_Cluster.js";
 
 
 
