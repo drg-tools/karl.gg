@@ -245,7 +245,7 @@ export default new Vuex.Store({
                     mods: combinedModIdArray,
                     overclocks: combinedOverClockIdArray,
                     equipment_mods: combinedEquipmentModArray,
-                    throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
+                    throwable_id: parseInt(state.selectedThrowableId),
                 };
                 loadoutData = await dispatch("updateLoadout", variables);
             } else {
@@ -257,7 +257,7 @@ export default new Vuex.Store({
                     mods: combinedModIdArray,
                     overclocks: combinedOverClockIdArray,
                     equipment_mods: combinedEquipmentModArray,
-                    throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
+                    throwable_id: parseInt(state.selectedThrowableId),
                 };
                 loadoutData = await dispatch("createLoadout", variables);
             }
@@ -474,6 +474,13 @@ export default new Vuex.Store({
             if (selectedEquipmentId) {
                 commit("setSelectedEquipment", selectedEquipmentId);
                 commit("setAllSelectedEquipmentMod", selectedEquipmentMods);
+            }
+
+            if (selectedThrowableId[0]?.id) {
+                commit(
+                    "setSelectedThrowableId",
+                    selectedThrowableId[0]?.id
+                );
             }
         },
         setSelectedClass({ commit, dispatch }, newClassIdInput) {
@@ -834,6 +841,9 @@ export default new Vuex.Store({
         },
         getSelectedClass: (state) => () => {
             return state.selectedClass;
+        },
+        getSelectedThrowableId: (state) => {
+            return state.selectedThrowableId;
         },
         getLoadoutDescription: (state) => () => {
             return state.loadoutDescription;

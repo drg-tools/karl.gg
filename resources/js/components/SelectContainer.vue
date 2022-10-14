@@ -214,10 +214,11 @@
                     />
                 </div>
             </router-link>
+            <!-- TODO: Test with full build selected. Might need to move Throwables to a new row. -->
             <div class="flex justify-center">
                 <button
-                    v-on:click="clearSelectedSecondary"
-                    v-if="getSelectedSecondaryDetails"
+                    v-on:click="clearSelectedThrowable"
+                    v-if="getSeletedThrowableId"
                     class="
                         inline-flex
                         items-center
@@ -244,9 +245,9 @@
                 </button>
             </div>
 
-            <div class="text-center" v-if="!getSelectedSecondaryDetails">
+            <div class="text-center" v-if="!getSeletedThrowableId">
                 <h2>Select a Throwable</h2>
-                <RouterSelectButton routeTo="/secondary-builder" />
+                <RouterSelectButton routeTo="/throwable-builder" />
             </div>
         </div>
     </div>
@@ -260,7 +261,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     name: "SelectContainer",
     components: { RouterSelectButton, PreviewCard },
-
+    // TODO: Update actions/getters to ensure it's all right
     methods: {
         goBack() {
             window.history.length > 1
@@ -272,6 +273,7 @@ export default {
             "clearSelectedSecondary",
             "clearSelectedPrimary",
             "clearSelectedEquipment",
+            "clearSelectedThrowable",
         ]),
     },
     computed: {
@@ -280,6 +282,7 @@ export default {
             "getSelectedPrimaryDetails",
             "selectedPrimaryModIds",
             "selectedSecondaryOverclockId",
+            "getSeletedThrowableId",
             "getSelectedSecondaryDetails",
             "selectedSecondaryModIds",
             "getLoadingStatus",
