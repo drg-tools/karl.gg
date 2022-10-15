@@ -29,7 +29,6 @@ class LoadoutsController extends Controller
         $secondaries = Gun::where('character_slot', 2)->orderBy('name')->with('character')->get();
         $throwables = Throwable::orderBy('name')->pluck('name', 'id');
 
-
         return view('loadouts.index', [
             'loadouts' => $loadouts,
             'characters' => $characters,
