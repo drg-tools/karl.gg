@@ -476,11 +476,8 @@ export default new Vuex.Store({
                 commit("setAllSelectedEquipmentMod", selectedEquipmentMods);
             }
 
-            if (selectedThrowableId[0]?.id) {
-                commit(
-                    "setSelectedThrowableId",
-                    selectedThrowableId[0]?.id
-                );
+            if (loadoutData?.throwable) {
+                commit("setSelectedThrowableId", loadoutData.throwable.id);
             }
         },
         setSelectedClass({ commit, dispatch }, newClassIdInput) {
@@ -649,6 +646,14 @@ export default new Vuex.Store({
                 dispatch('setLastSelectedItemAttributes', [selectedMod.modId, "equipment-mod"]);
             }
         },
+
+        
+        setSelectedThrowable({ commit }, selected) {
+            commit("clearSelectedThrowableId");
+            commit("clearAllLastSelectedData");
+            commit("setSelectedThrowableId", selected);
+        },
+
         setLastSelectedItemAttributes({commit, dispatch, getters, state}, selectedItemArray) {
             commit('setLastSelectedItemId',selectedItemArray[0]);            
            

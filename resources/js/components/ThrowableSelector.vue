@@ -18,7 +18,7 @@
 
 <script>
 export default {
-    name: "PrimaryWeaponSelector",
+    name: "ThrowableSelector",
     props: ['throwable', 'setSelected'],
     created() {
         if (this.setSelected) {
@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         selectThrowable() {
-            this.$store.commit('setSelectedThrowableId', this.throwable.id);
+            this.$store.dispatch('setSelectedThrowable', this.throwable.id);
         },
         getIsSelected() {
             return this.$store.getters.getIsSelectedThrowableId(this.throwable.id);

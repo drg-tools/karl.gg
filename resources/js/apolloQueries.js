@@ -174,7 +174,7 @@ export default {
                             }
                           }
                         }
-                        throwables {
+                        throwable {
                           id
                           name
                           description

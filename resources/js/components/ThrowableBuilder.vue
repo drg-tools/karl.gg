@@ -1,8 +1,22 @@
 <template>
     <div class="flex sm:flex-nowrap flex-wrap my-5 gap-8">
-        <div class="sm:w-1/2 w-full">
+        <div class="sm:w-full w-full">
             <ClassThrowables />
-            <SelectedItemDisplay />
+            <div v-if="getSelectedThrowableDetails"
+                        class="
+                            border-transparent border-2
+                            p-4
+                            hover:border-karl-orange
+                        "
+                    >
+                        <img
+                        class="w-24 p-4 filter invert mx-auto"
+                        :src="`/assets/${getSelectedThrowableDetails.icon}.svg`" :alt="`${getSelectedThrowableDetails.name} icon`"/>
+
+                        <div class="text-gray-300">{{getSelectedThrowableDetails.name}}</div>
+                        <div class="text-gray-300">{{getSelectedThrowableDetails.description}}</div>
+
+                    </div>
         </div>
 
     </div>
@@ -12,21 +26,15 @@
 <!-- TODO: Map throwables to all this stuff -->
 <script>
 import ClassThrowables from "./ClassThrowables";
-import MainStatsDisplay from "./MainStatsDisplay";
 import { mapGetters } from "vuex";
-import BuildMetricsLink from "./BuildMetricsLink";
-import SelectedItemDisplay from "./SelectedItemDisplay";
 
 export default {
     name: "ThrowableBuilder",
-    components: { MainStatsDisplay, BuildMetricsLink, ClassThrowables, SelectedItemDisplay },
+    components: { ClassThrowables },
     computed: {
         ...mapGetters([
-            "selectedPrimaryBuildMetricsCombo",
-            "getSelectedPrimary",
-            "getSelectedPrimaryDetails",
-            "selectedPrimaryOverclock",
-            "selectedPrimaryMods",
+            "getSelectedThrowableId",
+            "getSelectedThrowableDetails",
         ]),
     },
 };

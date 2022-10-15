@@ -188,33 +188,66 @@
             
         </div>
         <div>
-            <router-link
-                v-if="getSelectedSecondaryDetails"
-                to="/secondary-builder"
-            >
-                <div
-                    class="
-                        border-transparent border-2
-                        p-4
-                        hover:border-karl-orange
-                    "
-                >
-                    <PreviewCard
-                        :name="getSelectedSecondaryDetails.name"
-                        :icon="getSelectedSecondaryDetails.image"
-                        :mods="getSelectedSecondaryDetails.mods"
-                        :selected-mods="
-                            selectedSecondaryModIds.map((m) => m.selectedModId)
-                        "
-                        :overclock="
-                            getSelectedSecondaryDetails.overclocks.find(
-                                (o) => o.id === selectedSecondaryOverclockId
-                            )
-                        "
-                    />
-                </div>
-            </router-link>
             
+            <div class="flex items-center flex-col">
+                <router-link
+                    v-if="getSelectedThrowableDetails"
+                    to="/throwable-builder"
+                >
+                    <div
+                        class="
+                            border-transparent border-2
+                            p-4
+                            hover:border-karl-orange
+                        "
+                    >
+                        <img
+                        class="w-24 p-4 filter invert mx-auto"
+                        :src="`/assets/${getSelectedThrowableDetails.icon}.svg`" :alt="`${getSelectedThrowableDetails.name} icon`"/>
+
+                        <div class="text-gray-300">{{getSelectedThrowableDetails.name}}</div>
+
+                    </div>
+                </router-link>
+
+                <div class="flex flex-row">
+                    <!-- TODO: Test with full build selected. Might need to move Throwables to a new row. -->
+                    <div class="flex justify-center">
+                        <button
+                            v-on:click="clearSelectedThrowable"
+                            v-if="getSelectedThrowableId"
+                            class="
+                                inline-flex
+                                items-center
+                                text-center
+                                px-4
+                                py-2
+                                border border-transparent
+                                text-sm
+                                font-bold
+                                rounded-md
+                                shadow-sm
+                                text-white
+                                bg-red-500
+                                hover:bg-red-700
+                                focus:outline-none
+                                focus:ring-2
+                                focus:ring-offset-2
+                                focus:ring-red-500
+                                w-full
+                                md:w-auto
+                            "
+                        >
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="text-center" v-if="!getSelectedThrowableId">
+                        <h2>Select a Throwable</h2>
+                        <RouterSelectButton routeTo="/throwable-builder" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -250,6 +283,7 @@ export default {
             "selectedSecondaryOverclockId",
             "getSelectedThrowableId",
             "getSelectedSecondaryDetails",
+            "getSelectedThrowableDetails",
             "selectedSecondaryModIds",
             "getLoadingStatus",
             "loadoutClassEquipment",

@@ -36,7 +36,7 @@ import BackButton from "./BackButton";
 
 
 export default {
-    name: "ClassPrimaries",
+    name: "ClassThrowables",
     components: {
     CreditsCalculator,
     BackButton,
