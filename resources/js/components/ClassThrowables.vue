@@ -21,6 +21,8 @@
                 v-if="
                         getSelectedThrowableId !== ''
                     "
+                :throwable="getSelectedThrowableDetails"
+
             />
         </div>
     </div>
