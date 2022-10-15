@@ -23,7 +23,6 @@
 </template>
 
 
-<!-- TODO: Map throwables to all this stuff -->
 <script>
 import ClassThrowables from "./ClassThrowables";
 import { mapGetters } from "vuex";

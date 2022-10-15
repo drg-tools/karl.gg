@@ -14,8 +14,6 @@
     </div>
 </template>
 
-<!-- TODO: I am certain that icon won't work, need to check on that. Maybe emulate overclock icon instead of that img I have. -->
-
 <script>
 export default {
     name: "ThrowableSelector",

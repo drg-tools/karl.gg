@@ -211,7 +211,6 @@
                 </router-link>
 
                 <div class="flex flex-row">
-                    <!-- TODO: Test with full build selected. Might need to move Throwables to a new row. -->
                     <div class="flex justify-center">
                         <button
                             v-on:click="clearSelectedThrowable"
@@ -260,7 +259,6 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     name: "SelectContainer",
     components: { RouterSelectButton, PreviewCard },
-    // TODO: Update actions/getters to ensure it's all right
     methods: {
         goBack() {
             window.history.length > 1

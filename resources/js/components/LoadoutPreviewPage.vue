@@ -40,6 +40,25 @@
                 />
             </div>
 
+            <div class="mb-4" v-if="throwable">
+
+                <div
+                        class="
+                            border-transparent border-2
+                            p-4
+                            hover:border-karl-orange
+                        "
+                    >
+                        <img
+                        class="w-24 p-4 filter invert mx-auto"
+                        :src="`/assets/${throwable.icon}.svg`" :alt="`${throwable.name} icon`"/>
+
+                        <div class="text-gray-300">{{throwable.name}}</div>
+
+                    </div>
+
+            </div>
+
 
         </div>
         <div class="guideAccordion text-gray-300">
@@ -88,6 +107,7 @@ export default {
             }
         },
         equipmentMods: Object,
+        throwable: Object,
     },
     components: {
         PreviewCard
