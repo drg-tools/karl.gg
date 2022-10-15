@@ -1,7 +1,8 @@
 <template>
-    <div class="weaponSelectContainer" v-on:click="selectEquipment()">
+    <div class="weaponSelectContainer" v-on:click="selectThrowable()">
         <div class="flexboxWeaponSelect" :class="[getIsSelected() ? 'equipmentActive' : 'equipment']">
 
+           
             <img
                 class="w-24 p-4 filter invert"
                 :src="`/assets/${throwable.icon}.svg`" :alt="`${throwable.name} icon`"/>
@@ -21,12 +22,12 @@ export default {
     props: ['throwable', 'setSelected'],
     created() {
         if (this.setSelected) {
-            this.selectEquipment();
+            this.selectThrowable();
         }
     },
     methods: {
-        selectEquipment() {
-            this.$store.dispatch('setSelectedThrowableId', this.throwable.id);
+        selectThrowable() {
+            this.$store.commit('setSelectedThrowableId', this.throwable.id);
         },
         getIsSelected() {
             return this.$store.getters.getIsSelectedThrowableId(this.throwable.id);

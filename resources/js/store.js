@@ -842,8 +842,20 @@ export default new Vuex.Store({
         getSelectedClass: (state) => () => {
             return state.selectedClass;
         },
+        loadoutClassThrowables: (state) => {
+            return state.loadoutClassData?.throwables;
+        },
         getSelectedThrowableId: (state) => {
             return state.selectedThrowableId;
+        },
+        getSelectedThrowableDetails: (state) => {
+            if (!state.loadoutClassData || !state.selectedThrowableId) {
+                return null;
+            }
+
+            return state.loadoutClassData?.throwables.find(
+                (throwable) => throwable.id === state.selectedThrowableId
+            );
         },
         getLoadoutDescription: (state) => () => {
             return state.loadoutDescription;
@@ -863,6 +875,9 @@ export default new Vuex.Store({
         },
         getIsSelectedSecondary: (state) => (weaponId) => {
             return state.selectedSecondaryId === weaponId;
+        },
+        getIsSelectedThrowableId: (state) => (throwableId) => {
+            return state.selectedThrowableId === throwableId;
         },
         getIsSelectedEquipment: (state) => (equipmentId) => {
             return state.selectedEquipmentId === equipmentId;

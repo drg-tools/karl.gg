@@ -218,7 +218,7 @@
             <div class="flex justify-center">
                 <button
                     v-on:click="clearSelectedThrowable"
-                    v-if="getSeletedThrowableId"
+                    v-if="getSelectedThrowableId"
                     class="
                         inline-flex
                         items-center
@@ -245,7 +245,7 @@
                 </button>
             </div>
 
-            <div class="text-center" v-if="!getSeletedThrowableId">
+            <div class="text-center" v-if="!getSelectedThrowableId">
                 <h2>Select a Throwable</h2>
                 <RouterSelectButton routeTo="/throwable-builder" />
             </div>
@@ -282,7 +282,7 @@ export default {
             "getSelectedPrimaryDetails",
             "selectedPrimaryModIds",
             "selectedSecondaryOverclockId",
-            "getSeletedThrowableId",
+            "getSelectedThrowableId",
             "getSelectedSecondaryDetails",
             "selectedSecondaryModIds",
             "getLoadingStatus",

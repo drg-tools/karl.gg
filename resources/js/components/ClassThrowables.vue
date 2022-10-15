@@ -7,9 +7,9 @@
         </div>
 
         <!-- TODO: Throwables here -->
-        <div class="flex gap-4 mb-4" dusk="primary-selectors">
-            <div class="w-1/3" v-for="(gun, index) in loadoutClassPrimaries" :key="gun.id">
-                <ThrowableSelector :gun="gun" :set-selected="!getSelectedPrimary && index === 0"/>
+        <div class="flex gap-4 mb-4" dusk="throwable-selectors">
+            <div class="w-1/3" v-for="(throwable, index) in loadoutClassThrowables" :key="throwable.id">
+                <ThrowableSelector :throwable="throwable" :set-selected="!getSelectedThrowableId && index === 0"/>
             </div>
         </div>
 
@@ -19,19 +19,14 @@
             <!-- TODO: Make sure credits are setup -->
             <CreditsCalculator
                 v-if="
-                        selectedPrimaryModIds.length === 0 ||
-                        getSelectedPrimary !== ''
+                        getSelectedThrowableId !== ''
                     "
-                :overclock="selectedPrimaryOverclock"
-                :selected-mods="selectedPrimaryMods"
             />
         </div>
     </div>
 </template>
 <script>
 import ThrowableSelector from "./ThrowableSelector";
-import ModMatrix from "./ModMatrix";
-import OverclockSelect from "./OverclockSelect";
 import CreditsCalculator from "./CreditsCalculator";
 
 import {mapGetters} from 'vuex'
@@ -41,26 +36,18 @@ import BackButton from "./BackButton";
 export default {
     name: "ClassPrimaries",
     components: {
-    PrimaryWeaponSelector,
-    ModMatrix,
-    OverclockSelect,
     CreditsCalculator,
     BackButton,
     ThrowableSelector
 },
     computed: {
         ...mapGetters([
-            'loadoutClassPrimaries', // TODO: Map this to all throwables getters
-            'getSelectedPrimary',
-            'selectedPrimaryOverclockId',
-            'getSelectedPrimaryDetails',
-            'selectedPrimaryModIds',
+            'loadoutClassThrowables', // TODO: Map this to all throwables getters
+            'getSelectedThrowableId',
+            'getSelectedThrowableDetails',
             'selectedPrimaryOverclock',
             'selectedPrimaryMods'
         ]),
-        primaryMods() {
-            return this.getSelectedPrimaryDetails?.mods;
-        }
     }
 };
 </script>
