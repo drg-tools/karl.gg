@@ -42,11 +42,9 @@ export default {
 },
     computed: {
         ...mapGetters([
-            'loadoutClassThrowables', // TODO: Map this to all throwables getters
+            'loadoutClassThrowables', 
             'getSelectedThrowableId',
             'getSelectedThrowableDetails',
-            'selectedPrimaryOverclock',
-            'selectedPrimaryMods'
         ]),
     }
 };
