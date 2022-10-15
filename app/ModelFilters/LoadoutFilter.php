@@ -16,6 +16,7 @@ class LoadoutFilter extends ModelFilter
         'mods' => ['mods'], // Added so we can grab our weapon_id's
         'overclocks' => ['overclocks'], // Added so we can grab our overclocks
         'patches' => ['latest'], // Added for patch filter
+        'throwables' => ['throwable'], // Added for throwables
     ];
 
     public function character($id)
@@ -98,5 +99,12 @@ class LoadoutFilter extends ModelFilter
         } else {
             return $this->where('patch_id', \App\Patch::current()->id);
         }
+    }
+
+    public function throwables($throwableIds)
+    {
+        return $this->whereHas('throwable', function ($query) use ($throwableIds) {
+            return $query->whereIn('throwable_id', $throwableIds);
+        });
     }
 }

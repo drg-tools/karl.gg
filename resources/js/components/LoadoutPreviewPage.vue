@@ -46,7 +46,6 @@
                         class="
                             border-transparent border-2
                             p-4
-                            hover:border-karl-orange
                         "
                     >
                         <img
