@@ -497,6 +497,8 @@ export default new Vuex.Store({
 
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
+
+            commit("clearSelectedThrowableId");
             
             commit("clearAllLastSelectedData");
 
@@ -524,6 +526,10 @@ export default new Vuex.Store({
         clearSelectedEquipment({ commit }) {
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
+            commit("clearAllLastSelectedData");
+        },
+        clearSelectedThrowable({ commit }) {
+            commit("clearSelectedThrowableId");
             commit("clearAllLastSelectedData");
         },
         setSelectedPrimary({ commit }, newLoadoutItem) {
