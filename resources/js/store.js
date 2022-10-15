@@ -245,7 +245,7 @@ export default new Vuex.Store({
                     mods: combinedModIdArray,
                     overclocks: combinedOverClockIdArray,
                     equipment_mods: combinedEquipmentModArray,
-                    throwable_id: parseInt(state.selectedThrowableId),
+                    throwable_id: state.selectedThrowableId ? parseInt(state.selectedThrowableId) : 0,
                 };
                 loadoutData = await dispatch("updateLoadout", variables);
             } else {
@@ -257,7 +257,7 @@ export default new Vuex.Store({
                     mods: combinedModIdArray,
                     overclocks: combinedOverClockIdArray,
                     equipment_mods: combinedEquipmentModArray,
-                    throwable_id: parseInt(state.selectedThrowableId),
+                    throwable_id: state.selectedThrowableId ? parseInt(state.selectedThrowableId) : 0,
                 };
                 loadoutData = await dispatch("createLoadout", variables);
             }
