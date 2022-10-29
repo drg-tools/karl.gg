@@ -201,11 +201,12 @@
                             hover:border-karl-orange
                         "
                     >
+                    <div class="text-gray-300">{{getSelectedThrowableDetails.name}}</div>
+
                         <img
                         class="w-24 p-4 filter invert mx-auto"
                         :src="`/assets/${getSelectedThrowableDetails.icon}.svg`" :alt="`${getSelectedThrowableDetails.name} icon`"/>
 
-                        <div class="text-gray-300">{{getSelectedThrowableDetails.name}}</div>
 
                     </div>
                 </router-link>

@@ -43,16 +43,14 @@
             <div class="mb-4" v-if="throwable">
 
                 <div
-                        class="
-                            border-transparent border-2
-                            p-4
-                        "
+                        class="equipmentCardContainer"
                     >
+                    <div class="text-gray-300 equipmentCardTitle">{{throwable.name}}</div>
+
                         <img
                         class="w-24 p-4 filter invert mx-auto"
                         :src="`/assets/${throwable.icon}.svg`" :alt="`${throwable.name} icon`"/>
 
-                        <div class="text-gray-300">{{throwable.name}}</div>
 
                     </div>
 
