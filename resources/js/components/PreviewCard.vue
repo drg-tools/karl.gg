@@ -67,7 +67,7 @@
                         placement: 'right',
                         trigger: 'hover'
                         }"
-                    class="fiftyPercent"
+                    class="w-1/2"
                 />
             <div class="text-gray-300">{{overclock.overclock_name}}</div>
               
