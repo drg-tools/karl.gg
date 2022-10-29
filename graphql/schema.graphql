@@ -42,7 +42,7 @@ type Mutation {
         mods: [Int!]!
         overclocks: [Int!]!
         equipment_mods: [Int!]!
-        throwable_id: Int!
+        throwable_id: Int
     ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\CreateLoadout")
 
     updateLoadout(
@@ -53,7 +53,7 @@ type Mutation {
         mods: [Int!]!
         overclocks: [Int!]!
         equipment_mods: [Int!]!
-        throwable_id: Int!
+        throwable_id: Int
     ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard @can(ability: "update", find: "id")
 
     upVoteLoadout(
