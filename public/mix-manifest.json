@@ -287,5 +287,9 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
+    "/assets/Grenades_Boomerang_compressed.svg": "/assets/Grenades_Boomerang_compressed.svg",
+    "/assets/Grenades_Needle_compressed.svg": "/assets/Grenades_Needle_compressed.svg",
+    "/assets/Grenades_Parasites_compressed.svg": "/assets/Grenades_Parasites_compressed.svg",
+    "/assets/Grenades_WallSaw_compressed.svg": "/assets/Grenades_WallSaw_compressed.svg"
 }
