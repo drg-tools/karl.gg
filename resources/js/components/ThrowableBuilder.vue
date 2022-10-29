@@ -1,6 +1,6 @@
 <template>
     <div class="flex sm:flex-nowrap flex-wrap my-5 gap-8">
-        <div class="sm:w-full w-full">
+        <div class="sm:w-1/2 w-full">
             <ClassThrowables />
             <div v-if="getSelectedThrowableDetails"
                         class="
@@ -18,18 +18,24 @@
 
                     </div>
         </div>
-
+        <div class="sm:w-1/2 w-full">
+            <ThrowableStatsDisplay
+                :throwable="getSelectedThrowableDetails"
+            />
+            </div>
     </div>
 </template>
 
 
 <script>
 import ClassThrowables from "./ClassThrowables";
+import ThrowableStatsDisplay from "./ThrowableStatsDisplay";
+
 import { mapGetters } from "vuex";
 
 export default {
     name: "ThrowableBuilder",
-    components: { ClassThrowables },
+    components: { ClassThrowables, ThrowableStatsDisplay },
     computed: {
         ...mapGetters([
             "getSelectedThrowableId",

@@ -75,13 +75,13 @@ export default {
                       description
                       icon
                       json_stats
-                        credits_cost
-                        magnite_cost
-                        bismor_cost
-                        umanite_cost
-                        croppa_cost
-                        enor_pearl_cost
-                        jadiz_cost
+                      credits_cost
+                      magnite_cost
+                      bismor_cost
+                      umanite_cost
+                      croppa_cost
+                      enor_pearl_cost
+                      jadiz_cost
                     }
                   }
                 }`,
@@ -180,13 +180,13 @@ export default {
                           description
                           icon
                           json_stats
-                            credits_cost
-                            magnite_cost
-                            bismor_cost
-                            umanite_cost
-                            croppa_cost
-                            enor_pearl_cost
-                            jadiz_cost
+                          credits_cost
+                          magnite_cost
+                          bismor_cost
+                          umanite_cost
+                          croppa_cost
+                          enor_pearl_cost
+                          jadiz_cost
                         }
                       }
                     }`,
