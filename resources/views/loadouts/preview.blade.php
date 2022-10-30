@@ -45,6 +45,9 @@
             @if($loadout->equipments)
             :equipment-mods="{{ $loadout->equipments }}"
             @endif
+            @if($loadout->throwable)
+            :throwable="{{ $loadout->throwable }}"
+            @endif
         >
         </loadout-preview-page>
     </div>

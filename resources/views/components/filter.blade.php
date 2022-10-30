@@ -3,7 +3,7 @@
     <x-form.search placeholder="Search by Loadout Name" />
 
     @php
-        $showFilters = request()->hasAny(['primaries', 'favorites', 'secondaries', 'overclocks', 'mods', 'characters', 'isCurrentPatch']) ||
+        $showFilters = request()->hasAny(['primaries', 'favorites', 'secondaries', 'overclocks', 'mods', 'characters', 'isCurrentPatch', 'throwables']) ||
             request()->filled('hasGuide') || request()->filled('hasOverclock')
                 ? 'true' : 'false';
     @endphp
@@ -61,6 +61,16 @@
                     <option value="">Overclocks</option>
                     @foreach ($overclocks as $oc)
                         <option value="{{ $oc->id }}" data-custom-properties="{{ $oc->character->name }}">{{ $oc->overclock_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <select
+                    class="focus:ring-orange-500 focus:border-orange-500 relative block w-full rounded-none rounded-t-md focus:z-10 sm:text-sm border-gray-300"
+                    data-trigger name="throwables[]" id="throwables" multiple>
+                    <option value="">Throwables</option>
+                    @foreach($throwables as $id => $throwable)
+                        <option value="{{ $id }}">{{ $throwable }}</option>
                     @endforeach
                 </select>
             </div>
@@ -207,6 +217,13 @@
                     itemSelectText: ' ',
                 }
             );
+            var throwableSelectMultiple = new Choices(
+                '#throwables',
+                {
+                    removeItemButton: true,
+                    itemSelectText: ' ',
+                }
+            );
             var modsSelectMultiple = new Choices(
                 '#mods',
                 {
@@ -233,6 +250,9 @@
             // Pre-fill selected values conditionally
             @if( request()->get('characters') )
             characterSelectMultiple.setChoiceByValue({!! json_encode(request()->get('characters'))!!});
+            @endif
+            @if( request()->get('throwables') )
+            throwableSelectMultiple.setChoiceByValue({!! json_encode(request()->get('throwables'))!!});
             @endif
             @if( request()->get('overclocks') )
             overclocksSelectMultiple.setChoiceByValue({!! json_encode(request()->get('overclocks'))!!});

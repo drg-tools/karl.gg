@@ -1,6 +1,6 @@
 <template>
 
-  <svg viewBox="0 0 80 80" height="6rem" class="mod overclockBackground hundredPercent">
+  <svg viewBox="0 0 80 80" height="6rem" class="mod overclockBackground mx-auto">
     <!-- OC Background by Type start -->
     <!-- Start Clean OC -->
     <g v-if="ocType === 'Clean'" display="inherit">

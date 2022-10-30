@@ -52,6 +52,7 @@ export default new Vuex.Store({
         selectedSecondaryOverclockId: "",
         selectedEquipmentId: "",
         selectedEquipmentMods: [],
+        selectedThrowableId: "",
         lastSelectedItemId: "",
         lastSelectedItemObject: {}, // object we will set
         lastSelectedItemType: "", // primary-mod, secondary-mod, primary-oc etc.
@@ -159,6 +160,12 @@ export default new Vuex.Store({
                 (mod) => mod !== modId
             );
         },
+        setSelectedThrowableId(state, newValue) {
+            state.selectedThrowableId = newValue;
+        },
+        clearSelectedThrowableId(state) {
+            state.selectedThrowableId = "";
+        },
         setLastSelectedItemId(state, newValue) {
             state.lastSelectedItemId = newValue;
         },
@@ -238,7 +245,7 @@ export default new Vuex.Store({
                     mods: combinedModIdArray,
                     overclocks: combinedOverClockIdArray,
                     equipment_mods: combinedEquipmentModArray,
-                    throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
+                    throwable_id: state.selectedThrowableId ? parseInt(state.selectedThrowableId) : null,
                 };
                 loadoutData = await dispatch("updateLoadout", variables);
             } else {
@@ -250,7 +257,7 @@ export default new Vuex.Store({
                     mods: combinedModIdArray,
                     overclocks: combinedOverClockIdArray,
                     equipment_mods: combinedEquipmentModArray,
-                    throwable_id: 1, // HARDCODED -- we don't support throwables on the UI yet. This is tech debt until then
+                    throwable_id: state.selectedThrowableId ? parseInt(state.selectedThrowableId) : null,
                 };
                 loadoutData = await dispatch("createLoadout", variables);
             }
@@ -278,7 +285,7 @@ export default new Vuex.Store({
                         $mods: [Int!]!
                         $overclocks: [Int!]!
                         $equipment_mods: [Int!]!
-                        $throwable_id: Int!
+                        $throwable_id: Int
                     ) {
                         createLoadout(
                             name: $name
@@ -324,7 +331,7 @@ export default new Vuex.Store({
                         $mods: [Int!]!
                         $overclocks: [Int!]!
                         $equipment_mods: [Int!]!
-                        $throwable_id: Int!
+                        $throwable_id: Int
                     ) {
                         updateLoadout(
                             id: $id
@@ -468,6 +475,10 @@ export default new Vuex.Store({
                 commit("setSelectedEquipment", selectedEquipmentId);
                 commit("setAllSelectedEquipmentMod", selectedEquipmentMods);
             }
+
+            if (loadoutData?.throwable) {
+                commit("setSelectedThrowableId", loadoutData.throwable.id);
+            }
         },
         setSelectedClass({ commit, dispatch }, newClassIdInput) {
             // clear the previously selected class
@@ -483,6 +494,8 @@ export default new Vuex.Store({
 
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
+
+            commit("clearSelectedThrowableId");
             
             commit("clearAllLastSelectedData");
 
@@ -510,6 +523,10 @@ export default new Vuex.Store({
         clearSelectedEquipment({ commit }) {
             commit("clearSelectedEquipment");
             commit("clearSelectedEquipmentMods");
+            commit("clearAllLastSelectedData");
+        },
+        clearSelectedThrowable({ commit }) {
+            commit("clearSelectedThrowableId");
             commit("clearAllLastSelectedData");
         },
         setSelectedPrimary({ commit }, newLoadoutItem) {
@@ -629,6 +646,14 @@ export default new Vuex.Store({
                 dispatch('setLastSelectedItemAttributes', [selectedMod.modId, "equipment-mod"]);
             }
         },
+
+        
+        setSelectedThrowable({ commit }, selected) {
+            commit("clearSelectedThrowableId");
+            commit("clearAllLastSelectedData");
+            commit("setSelectedThrowableId", selected);
+        },
+
         setLastSelectedItemAttributes({commit, dispatch, getters, state}, selectedItemArray) {
             commit('setLastSelectedItemId',selectedItemArray[0]);            
            
@@ -828,6 +853,21 @@ export default new Vuex.Store({
         getSelectedClass: (state) => () => {
             return state.selectedClass;
         },
+        loadoutClassThrowables: (state) => {
+            return state.loadoutClassData?.throwables;
+        },
+        getSelectedThrowableId: (state) => {
+            return state.selectedThrowableId;
+        },
+        getSelectedThrowableDetails: (state) => {
+            if (!state.loadoutClassData || !state.selectedThrowableId) {
+                return null;
+            }
+
+            return state.loadoutClassData?.throwables.find(
+                (throwable) => throwable.id === state.selectedThrowableId
+            );
+        },
         getLoadoutDescription: (state) => () => {
             return state.loadoutDescription;
         },
@@ -846,6 +886,9 @@ export default new Vuex.Store({
         },
         getIsSelectedSecondary: (state) => (weaponId) => {
             return state.selectedSecondaryId === weaponId;
+        },
+        getIsSelectedThrowableId: (state) => (throwableId) => {
+            return state.selectedThrowableId === throwableId;
         },
         getIsSelectedEquipment: (state) => (equipmentId) => {
             return state.selectedEquipmentId === equipmentId;
