@@ -36,24 +36,12 @@ type Query {
 
 type Mutation {
     createLoadout(
-        name: String! @rules(apply: ["strictly_profane"])
-        description: String @rules(apply: ["strictly_profane"])
-        character_id: Int!
-        mods: [Int!]!
-        overclocks: [Int!]!
-        equipment_mods: [Int!]!
-        throwable_id: Int
+        input: LoadoutInput @spread
     ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\CreateLoadout")
 
     updateLoadout(
-        id: Int!
-        name: String! @rules(apply: ["strictly_profane"])
-        description: String @rules(apply: ["strictly_profane"])
-        character_id: Int!
-        mods: [Int!]!
-        overclocks: [Int!]!
-        equipment_mods: [Int!]!
-        throwable_id: Int
+        id: Int!,
+        input: LoadoutInput @spread
     ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard @can(ability: "update", find: "id")
 
     upVoteLoadout(
@@ -61,6 +49,16 @@ type Mutation {
     ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpvoteLoadout") @guard
 
     deleteLoadout(id: ID!): Loadout @delete @guard @can(ability: "delete", find: "id")
+}
+
+input LoadoutInput @validator {
+    name: String! @rules(apply: ["strictly_profane"])
+    description: String @rules(apply: ["strictly_profane"])
+    character_id: Int!
+    mods: [Int!]!
+    overclocks: [Int!]!
+    equipment_mods: [Int!]!
+    throwable_id: Int
 }
 
 type User {

@@ -232,36 +232,28 @@ export default new Vuex.Store({
             combinedEquipmentModArray = combinedEquipmentModArray.map(Number);
 
             // Here's what we need to save
-            let variables = "";
-            let loadoutData = "";
+            let variables = {
+                name: state.loadoutName,
+                description: state.loadoutDescription,
+                character_id: parseInt(state.selectedClass),
+                mods: combinedModIdArray,
+                overclocks: combinedOverClockIdArray,
+                equipment_mods: combinedEquipmentModArray,
+                throwable_id: state.selectedThrowableId ? parseInt(state.selectedThrowableId) : null,
+            };
+
             // This is where we actually save the loadout
             if (updateId) {
                 // updating a loadout
                 variables = {
                     id: parseInt(updateId),
-                    name: state.loadoutName,
-                    description: state.loadoutDescription,
-                    character_id: parseInt(state.selectedClass),
-                    mods: combinedModIdArray,
-                    overclocks: combinedOverClockIdArray,
-                    equipment_mods: combinedEquipmentModArray,
-                    throwable_id: state.selectedThrowableId ? parseInt(state.selectedThrowableId) : null,
+                    ...variables
                 };
-                loadoutData = await dispatch("updateLoadout", variables);
+                return await dispatch("updateLoadout", variables);
             } else {
                 // creating a new loadout
-                variables = {
-                    name: state.loadoutName,
-                    description: state.loadoutDescription,
-                    character_id: parseInt(state.selectedClass),
-                    mods: combinedModIdArray,
-                    overclocks: combinedOverClockIdArray,
-                    equipment_mods: combinedEquipmentModArray,
-                    throwable_id: state.selectedThrowableId ? parseInt(state.selectedThrowableId) : null,
-                };
-                loadoutData = await dispatch("createLoadout", variables);
+                return await dispatch("createLoadout", variables);
             }
-            return loadoutData;
         },
         async createLoadout({ state }, params) {
             let variables = {
@@ -288,13 +280,15 @@ export default new Vuex.Store({
                         $throwable_id: Int
                     ) {
                         createLoadout(
-                            name: $name
-                            description: $description
-                            character_id: $character_id
-                            mods: $mods
-                            overclocks: $overclocks
-                            equipment_mods: $equipment_mods
-                            throwable_id: $throwable_id
+                            input: {
+                                name: $name
+                                description: $description
+                                character_id: $character_id
+                                mods: $mods
+                                overclocks: $overclocks
+                                equipment_mods: $equipment_mods
+                                throwable_id: $throwable_id
+                            }
                         ) {
                             id
                             name
@@ -335,13 +329,15 @@ export default new Vuex.Store({
                     ) {
                         updateLoadout(
                             id: $id
-                            name: $name
-                            description: $description
-                            character_id: $character_id
-                            mods: $mods
-                            overclocks: $overclocks
-                            equipment_mods: $equipment_mods
-                            throwable_id: $throwable_id
+                            input: {
+                                name: $name
+                                description: $description
+                                character_id: $character_id
+                                mods: $mods
+                                overclocks: $overclocks
+                                equipment_mods: $equipment_mods
+                                throwable_id: $throwable_id
+                            }
                         ) {
                             id
                             name
@@ -496,7 +492,7 @@ export default new Vuex.Store({
             commit("clearSelectedEquipmentMods");
 
             commit("clearSelectedThrowableId");
-            
+
             commit("clearAllLastSelectedData");
 
 
@@ -647,7 +643,7 @@ export default new Vuex.Store({
             }
         },
 
-        
+
         setSelectedThrowable({ commit }, selected) {
             commit("clearSelectedThrowableId");
             commit("clearAllLastSelectedData");
@@ -655,10 +651,10 @@ export default new Vuex.Store({
         },
 
         setLastSelectedItemAttributes({commit, dispatch, getters, state}, selectedItemArray) {
-            commit('setLastSelectedItemId',selectedItemArray[0]);            
-           
+            commit('setLastSelectedItemId',selectedItemArray[0]);
+
             commit('setLastSelectedItemType', selectedItemArray[1]); // primary-mod, secondary-mod, primary-oc etc.
-            
+
             let itemDataObject = [];
             switch (selectedItemArray[1]) {
                 case 'primary-mod':
@@ -684,17 +680,17 @@ export default new Vuex.Store({
                     commit('clearLastSelectedItemObject');
                     commit('setLastSelectedItemObject', itemDataObject);
                     break;
-                    
+
                 case 'secondary-oc':
                     itemDataObject = getters.selectedSecondaryOverclock;;
                     commit('clearLastSelectedItemObject');
                     commit('setLastSelectedItemObject', itemDataObject);
-            
+
                 default:
                     break;
             }
 
-            
+
         }
     },
     getters: {
@@ -925,18 +921,18 @@ export default new Vuex.Store({
             let lastSelectedPrimaryModArray = primaryWeaponObject.mods.filter((mod) => mod.id === selectedModId);
 
             return lastSelectedPrimaryModArray; // Should be length 1
-        }, 
+        },
         getSecondaryModObjectById: (state, getters) => (selectedModId) => {
             let secondaryWeaponObject = getters.getSelectedSecondaryDetails;
             let lastSelectedSecondaryModArray = secondaryWeaponObject.mods.filter((mod) => mod.id === selectedModId);
 
             return lastSelectedSecondaryModArray; // Should be length 1
-        }, 
+        },
         getEquipmentModObjectById: (state, getters) => (selectedModId) => {
             let equipmentObject = getters.selectedEquipmentDetails;
             let lastSelectedEquipmentModArray = equipmentObject.equipment_mods.filter((mod) => mod.id === selectedModId);
 
             return lastSelectedEquipmentModArray; // Should be length 1
-        }, 
+        },
     },
 });
