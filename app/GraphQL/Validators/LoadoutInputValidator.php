@@ -15,6 +15,8 @@ final class LoadoutInputValidator extends Validator
     public function rules(): array
     {
         return [
+            'name' => ['strictly_profane'],
+            'description' => ['nullable', 'strictly_profane'],
             'throwable_id' => [
                 'nullable',
                 Rule::exists('throwables', 'id')->where(function ($query) {
