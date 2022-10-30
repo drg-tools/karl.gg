@@ -14,15 +14,7 @@
                     >{{ stat.name }}:</span
                 >
                 <div class="statsValueContainer">
-                    <span
-                        class="statsValue fixedWidth"
-                        :class="[stat.inactive ? 'inactiveStat' : '']"
-                    >
-                        {{ stat.baseValue }}<span v-if="stat.percent">%</span>
-                    </span>
-                    <span class="statsModifier fixedWidth">{{
-                        stat.modifier
-                    }}</span>
+                    
                     <span
                         class="statsValue fixedWidth"
                         :class="[

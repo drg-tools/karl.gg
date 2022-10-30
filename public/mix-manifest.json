@@ -49,6 +49,10 @@
     "/assets/E_T2_Plasma.svg": "/assets/E_T2_Plasma.svg",
     "/assets/E_T3_Grenade_Proximity.js": "/assets/E_T3_Grenade_Proximity.js",
     "/assets/E_T3_Proximity.svg": "/assets/E_T3_Proximity.svg",
+    "/assets/Grenades_Boomerang_compressed.svg": "/assets/Grenades_Boomerang_compressed.svg",
+    "/assets/Grenades_Needle_compressed.svg": "/assets/Grenades_Needle_compressed.svg",
+    "/assets/Grenades_Parasites_compressed.svg": "/assets/Grenades_Parasites_compressed.svg",
+    "/assets/Grenades_WallSaw_compressed.svg": "/assets/Grenades_WallSaw_compressed.svg",
     "/assets/gunner_1_Grenade_sticky.svg": "/assets/gunner_1_Grenade_sticky.svg",
     "/assets/gunner_2_Grenade_incendiary.svg": "/assets/gunner_2_Grenade_incendiary.svg",
     "/assets/gunner_3_Grenade_cluster.svg": "/assets/gunner_3_Grenade_cluster.svg",
@@ -287,9 +291,5 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
-    "/assets/Grenades_Boomerang_compressed.svg": "/assets/Grenades_Boomerang_compressed.svg",
-    "/assets/Grenades_Needle_compressed.svg": "/assets/Grenades_Needle_compressed.svg",
-    "/assets/Grenades_Parasites_compressed.svg": "/assets/Grenades_Parasites_compressed.svg",
-    "/assets/Grenades_WallSaw_compressed.svg": "/assets/Grenades_WallSaw_compressed.svg"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
 }

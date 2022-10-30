@@ -1,6 +1,6 @@
 <template>
     <div class="flex sm:flex-nowrap flex-wrap my-5 gap-8">
-        <div class="sm:w-1/2 w-full">
+        <div class="sm:w-2/3 w-full">
             <ClassThrowables />
             <div v-if="getSelectedThrowableDetails"
                         class="
@@ -18,7 +18,7 @@
 
                     </div>
         </div>
-        <div class="sm:w-1/2 w-full">
+        <div class="sm:w-1/3 w-full">
             <ThrowableStatsDisplay
                 :throwable="getSelectedThrowableDetails"
             />
