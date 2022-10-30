@@ -130,7 +130,7 @@ export default {
             return this.computeCost('jadiz_cost');
         },
         enorCost() {
-            return this.computeCost('enor_cost');
+            return this.computeCost('enor_pearl_cost');
         },
         bismorCost() {
             return this.computeCost('bismor_cost');
