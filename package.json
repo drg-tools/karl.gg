@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "@ivanv/vue-collapse-transition": "^0.2.1",
-        "@kangc/v-md-editor": "^1.7.8",
+        "@kangc/v-md-editor": "^2.1.7",
         "@tailwindcss/forms": "^0.3.4",
         "@tailwindcss/typography": "^0.4.1",
         "@vue/composition-api": "^1.4.0",
