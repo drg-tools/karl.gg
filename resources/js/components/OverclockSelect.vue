@@ -22,7 +22,7 @@
                 v-popover:overclocks.top
                 viewBox="0 0 80 80"
                 height="100%"
-                class="mod overclockBackground hundredPercent"
+                class="mod overclockBackground mx-auto"
             >
                 <g display="inherit">
                     <g>

@@ -22,7 +22,7 @@
         @endif
         <div class="my-2">
             <form action="{{ route('loadout.index') }}" method="GET">
-                <x-filter :characters="$characters" :primaries="$primaries" :secondaries="$secondaries" :overclocks="$overclocks" />
+                <x-filter :characters="$characters" :primaries="$primaries" :secondaries="$secondaries" :overclocks="$overclocks" :throwables="$throwables"/>
             </form>
         </div>
 

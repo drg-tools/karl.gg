@@ -67,8 +67,9 @@
                         placement: 'right',
                         trigger: 'hover'
                         }"
+                    class="w-1/2"
                 />
-            <div>{{overclock.overclock_name}}</div>
+            <div class="text-gray-300">{{overclock.overclock_name}}</div>
               
             </div>
         </div>

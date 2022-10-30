@@ -98,6 +98,7 @@ export default {
     name: "CreditsCalculator",
     props: {
         overclock: Object,
+        throwable: Object,
         selectedMods: {
             type: Array,
             default: () => []
@@ -107,8 +108,9 @@ export default {
         computeCost(material) {
             const modCost = this.selectedMods.reduce((prev, curr) => prev + curr[material], 0);
             const ocCost = get(this.overclock, material, 0);
+            const throwableCost = get(this.throwable, material, 0);
 
-            return modCost + ocCost;
+            return modCost + ocCost + throwableCost;
         }
     },
     computed: {
@@ -128,7 +130,7 @@ export default {
             return this.computeCost('jadiz_cost');
         },
         enorCost() {
-            return this.computeCost('enor_cost');
+            return this.computeCost('enor_pearl_cost');
         },
         bismorCost() {
             return this.computeCost('bismor_cost');
