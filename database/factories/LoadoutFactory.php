@@ -31,7 +31,6 @@ class LoadoutFactory extends Factory
             'patch_id' => 1,
             'created_at' => $createdAt,
             'updated_at' => $createdAt,
-            'throwable_id' => 12,
         ];
     }
 }
