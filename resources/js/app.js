@@ -61,7 +61,6 @@ import "@kangc/v-md-editor/lib/theme/style/vuepress.css";
 import enUS from "@kangc/v-md-editor/lib/lang/en-US";
 import VMdPreview from "@kangc/v-md-editor/lib/preview";
 import "@kangc/v-md-editor/lib/style/preview.css";
-import githubTheme from "@kangc/v-md-editor/lib/theme/github.js";
 import "@kangc/v-md-editor/lib/theme/style/github.css";
 
 // Prism
@@ -73,9 +72,8 @@ VueMarkdownEditor.use(vuepressTheme, {
     Prism,
 });
 VueMarkdownEditor.lang.use("en-US", enUS);
-
 Vue.use(VueMarkdownEditor);
-VMdPreview.use(githubTheme);
+
 Vue.use(VMdPreview);
 
 Vue.config.productionTip = false;
