@@ -43,26 +43,26 @@
             <div class="mb-4" v-if="throwable">
 
                 <div
-                        class="equipmentCardContainer"
-                    >
-                    <div class="text-gray-300 equipmentCardTitle">{{throwable.name}}</div>
+                    class="equipmentCardContainer"
+                >
+                    <div class="text-gray-300 equipmentCardTitle">{{ throwable.name }}</div>
 
-                        <img
+                    <img
                         class="w-24 p-4 filter invert mx-auto"
                         :src="`/assets/${throwable.icon}.svg`" :alt="`${throwable.name} icon`"/>
 
 
-                    </div>
+                </div>
 
             </div>
 
 
         </div>
-        <div class="guideAccordion text-gray-300">
+        <div class="text-gray-300">
             <h2 @click="guideIsOpen = !guideIsOpen" class="text-karl-orange text-xl uppercase p-4">Loadout Guide <i
                 :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h2>
             <div v-show="guideIsOpen" class="p-6">
-                <v-md-preview :text="loadoutData.description"></v-md-preview>
+                <div v-html="loadoutDescription" class="prose prose-invert lg:prose-lg"></div>
             </div>
         </div>
 
@@ -70,8 +70,10 @@
 </template>
 
 <script>
-import PreviewCard from "./PreviewCard";
-import get from 'lodash-es/get';
+import PreviewCard from './PreviewCard'
+import get from 'lodash-es/get'
+import DOMPurify from 'dompurify'
+import { marked } from 'marked'
 
 export default {
     name: 'LoadoutPreviewPage',
@@ -80,26 +82,26 @@ export default {
         primary: Object,
         primaryMods: {
             type: Array,
-            default() {
+            default () {
                 return []
             }
         },
         secondary: Object,
         secondaryMods: {
             type: Array,
-            default() {
+            default () {
                 return []
             }
         },
         overclocks: {
             type: Array,
-            default() {
+            default () {
                 return []
             }
         },
         availableEquipment: {
             type: Array,
-            default() {
+            default () {
                 return []
             }
         },
@@ -109,7 +111,7 @@ export default {
     components: {
         PreviewCard
     },
-    data() {
+    data () {
         return {
             guideIsOpen: true, // closed by default
         }
@@ -122,8 +124,8 @@ export default {
          * @param id
          * @returns Array
          */
-        getSelectedModsForEquipment(id) {
-            const mods = get(this.equipmentMods, id, []);
+        getSelectedModsForEquipment (id) {
+            const mods = get(this.equipmentMods, id, [])
 
             return mods.map(m => m.id)
         },
@@ -134,8 +136,8 @@ export default {
          * @param id
          * @returns {*}
          */
-        getEquipmentFromAvailable(id) {
-            return this.availableEquipment.find(e => e.id === parseInt(id));
+        getEquipmentFromAvailable (id) {
+            return this.availableEquipment.find(e => e.id === parseInt(id))
         }
 
     },
@@ -143,19 +145,22 @@ export default {
         selectedPrimaryMods: function () {
             return this.loadoutData.mods
                 .filter(mod => mod.gun_id === this.primary.id)
-                .map(mod => mod.id);
+                .map(mod => mod.id)
         },
         primaryOverclock: function () {
-            return this.overclocks?.find(oc => oc.gun_id === this.primary.id);
+            return this.overclocks?.find(oc => oc.gun_id === this.primary.id)
         },
         selectedSecondaryMods: function () {
             return this.loadoutData.mods
                 .filter(mod => mod.gun_id === this.secondary.id)
-                .map(mod => mod.id);
+                .map(mod => mod.id)
         },
         secondaryOverclock: function () {
             return this.overclocks?.find(oc => oc.gun_id === this.secondary.id)
+        },
+        loadoutDescription () {
+            return DOMPurify.sanitize(marked.parse(this.loadoutData.description))
         }
     }
-};
+}
 </script>
