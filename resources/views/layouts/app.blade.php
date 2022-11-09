@@ -4,10 +4,6 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165794980-1"></script>
 
-    @if(config('app.enable_ads'))
-    <script data-ad-client="ca-pub-3760169257343113" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    @endif
-
     <script>
         window.dataLayer = window.dataLayer || [];
 

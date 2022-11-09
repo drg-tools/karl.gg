@@ -12,17 +12,14 @@
                 @foreach($posts as $post)
 
                 @if($loop->iteration % 3 === 0)
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237881937260629"
-                    crossorigin="anonymous"></script>
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-format="fluid"
-                    data-ad-layout-key="-fu-28-3l-b4+18h"
-                    data-ad-client="ca-pub-3237881937260629"
-                    data-ad-slot="8001132222"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+                <x-ads.slot>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-format="fluid"
+                         data-ad-layout-key="-fu-28-3l-b4+18h"
+                         data-ad-client="ca-pub-3237881937260629"
+                         data-ad-slot="8001132222"></ins>
+                </x-ads.slot>
                 @endif
                 <div class="bg-gray-700 p-4 sm:p-6 sm:rounded">
                     <a href="{{ route('blog.show', $post->id) }}" class="block">
