@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="flex justify-center">
+    <div class="flex justify-center my-2">
         <x-ads.horizontal id="1471414710" />
     </div>
 

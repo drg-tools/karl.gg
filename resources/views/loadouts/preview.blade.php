@@ -50,7 +50,7 @@
             @endif
         >
         </loadout-preview-page>
-        <div class="flex justify-center">
+        <div class="flex justify-center my-2">
             <x-ads.horizontal id="3418109138" />
         </div>
     </div>

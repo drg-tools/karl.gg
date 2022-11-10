@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
-        <div class="flex justify-center">
+        <div class="flex justify-center my-2">
             <x-ads.horizontal id="3873388796" />
         </div>
         <loadout-builder />
