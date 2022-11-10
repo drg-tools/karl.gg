@@ -20,9 +20,9 @@
     </div>
 @endsection
 
-@section('styles')
+@push('styles')
     <link href="{{ mix('comments.css', 'vendor/comments') }}" rel="stylesheet">
-@endsection
+@endpush
 
 @section('content')
 
@@ -50,6 +50,9 @@
             @endif
         >
         </loadout-preview-page>
+        <div class="flex justify-center my-2">
+            <x-ads.horizontal id="3418109138" />
+        </div>
     </div>
 
     <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md mt-4">

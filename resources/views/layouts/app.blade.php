@@ -4,10 +4,6 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165794980-1"></script>
 
-    @if(config('app.enable_ads'))
-    <script data-ad-client="ca-pub-3760169257343113" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    @endif
-
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -38,7 +34,7 @@
     <!-- Styles -->
     <script src="https://kit.fontawesome.com/87ca57c51d.js" crossorigin="anonymous"></script>
     <link href="{{ mix('css/app-v2.css') }}" rel="stylesheet">
-    @yield('styles')
+    @stack('styles')
 </head>
 <body>
 <div id="app" class="bg-gray-900 flex flex-col min-h-screen">
