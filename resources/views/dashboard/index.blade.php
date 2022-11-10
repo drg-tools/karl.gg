@@ -46,7 +46,9 @@
         </div>
     </div>
 
-    <x-ads.horizontal id="1471414710" />
+    <div class="flex justify-center">
+        <x-ads.horizontal id="1471414710" />
+    </div>
 
     <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
         @foreach ($latestPosts as $post)

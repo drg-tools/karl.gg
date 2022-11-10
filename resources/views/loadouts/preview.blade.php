@@ -50,7 +50,9 @@
             @endif
         >
         </loadout-preview-page>
-        <x-ads.horizontal id="3418109138" />
+        <div class="flex justify-center">
+            <x-ads.horizontal id="3418109138" />
+        </div>
     </div>
 
     <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md mt-4">
