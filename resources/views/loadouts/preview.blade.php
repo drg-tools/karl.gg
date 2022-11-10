@@ -20,9 +20,9 @@
     </div>
 @endsection
 
-@section('styles')
+@push('styles')
     <link href="{{ mix('comments.css', 'vendor/comments') }}" rel="stylesheet">
-@endsection
+@endpush
 
 @section('content')
 

@@ -34,7 +34,7 @@
     <!-- Styles -->
     <script src="https://kit.fontawesome.com/87ca57c51d.js" crossorigin="anonymous"></script>
     <link href="{{ mix('css/app-v2.css') }}" rel="stylesheet">
-    @yield('styles')
+    @stack('styles')
 </head>
 <body>
 <div id="app" class="bg-gray-900 flex flex-col min-h-screen">

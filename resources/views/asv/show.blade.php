@@ -4,7 +4,7 @@
     {{ $gun['name'] }}
 @endsection
 
-@section('styles')
+@push('styles')
     <style>
         /**
 * Equipment Card Component
@@ -98,7 +98,7 @@
         }
 
     </style>
-@endsection
+@endpush
 
 @section('content')
 
