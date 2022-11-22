@@ -35,12 +35,12 @@
 <script>
 export default {
     name: "ShareButton",
-    props: ["loadout"],
+    props: ["name"],
     methods: {
         share: function () {
             if (navigator.share) {
                 navigator.share({
-                    title: this.loadout.name,
+                    title: this.name,
                     text: 'Check out this Deep Rock Galactic build.',
                     url: document.location.href,
                 })

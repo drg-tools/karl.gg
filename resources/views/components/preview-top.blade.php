@@ -21,7 +21,7 @@
                 @endif
 
                 <!-- Trigger -->
-                <share-button :loadout="{{ \Illuminate\Support\Js::from($loadout) }}" />
+                <share-button name="{{ $loadout->name }}" />
 
             </div>
         </div>
