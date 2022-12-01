@@ -62,7 +62,7 @@
             <h2 @click="guideIsOpen = !guideIsOpen" class="text-karl-orange text-xl uppercase p-4">Loadout Guide <i
                 :class="guideIsOpen ? 'fas fa-chevron-down invertIcon': 'fas fa-chevron-down'"></i></h2>
             <div v-show="guideIsOpen" class="p-6">
-                <div v-html="loadoutDescription" class="prose prose-invert lg:prose-lg"></div>
+                <div v-html="loadoutDescription" class="prose prose-invert lg:prose-lg max-w-none"></div>
             </div>
         </div>
 
