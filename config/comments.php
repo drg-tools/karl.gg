@@ -22,10 +22,10 @@ return [
     'broadcast' => false,
 
     // The number of seconds after a user can edit a comment. To disable set null.
-    'allow_edit' => 60,
+    'allow_edit' => 2592000, // 1 month
 
     // The number of seconds after a user can delete a comment. To disable set null.
-    'allow_delete' => 60,
+    'allow_delete' => 2592000, // 1 month
 
     // The maximum comment length. To disable set null.
     'max_length' => 500,
@@ -112,7 +112,7 @@ return [
     'allow_reports' => true,
 
     // The maximum number of reports after the comment gets flagged.
-    'max_reports' => 10,
+    'max_reports' => 2,
 
     // The status after the comment has to many reports: "pending" or "spam".
     'report_status' => 'pending',
