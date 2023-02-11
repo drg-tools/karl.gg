@@ -66,7 +66,7 @@
                 @endforeach
             </ul>
 
-            <x-pagination :entities="$loadouts">
+            <x-pagination :entities="$loadouts" />
 
         </div>
     </div>

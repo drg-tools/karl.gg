@@ -54,7 +54,7 @@
                 @endforeach
             </div>
 
-            <x-pagination :entities="$posts">
+            <x-pagination :entities="$posts" />
 
         </div>
     </div>
