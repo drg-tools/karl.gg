@@ -86,6 +86,8 @@ class Loadout extends Model
 
     protected $fillable = ['name', 'description', 'character_id', 'throwable_id'];
 
+    protected $hidden = ['creator'];
+
     /**
      * The event map for the model.
      *

@@ -77,7 +77,8 @@ import Icon_Overclock_Gamma_Contamination from "./assets/mods/Icon_Overclock_Gam
 import Icon_Upgrade_Pheremones from "./assets/mods/Icon_Upgrade_Pheremones";
 import Icon_Upgrade_Radio_Control from "./assets/mods/Icon_Upgrade_Radio_Control";
 
-
+// U37 Addition
+import Icon_Upgrade_Damage_Poison from "./assets/mods/Icon_Upgrade_Damage_Poison";
 
 
 const IconList = {
@@ -153,6 +154,7 @@ const IconList = {
     Icon_Overclock_Gamma_Contamination,
     Icon_Upgrade_Pheremones,
     Icon_Upgrade_Radio_Control,
+    Icon_Upgrade_Damage_Poison
 };
 
 export default IconList;

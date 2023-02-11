@@ -120,8 +120,8 @@
             >
                 <div class="mx-auto">
                     <h2 class="text-lg">{{ messageTitle }}</h2>
-                    <p>{{ messageText }} </p> <br>
-                    
+                    <p v-html="messageText"></p> <br>
+
                     <div
                         class="
                             inline-flex
@@ -184,6 +184,15 @@
 <script>
 import { required, maxLength } from "vuelidate/lib/validators";
 import debounce from 'lodash-es/debounce';
+
+function gatherErrorsFromGqlResp (e) {
+    const errorObject = e.graphQLErrors?.[0]?.extensions?.validation
+    const errors = []
+    for (const property in errorObject) {
+        errors.push(errorObject[property][0])
+    }
+    return errors
+}
 
 export default {
     name: "LoadoutBuilderActions",
@@ -253,7 +262,7 @@ export default {
                 return;
             } else {
                 this.$store.commit("setAuthUser", window.authUser);
-                
+
                 let loggedInStatus = this.getIsLoggedIn();
                 if (loggedInStatus) {
                     // User is logged in & GQL will save them with the right ID
@@ -286,10 +295,11 @@ export default {
                         window.location.href = `/preview/${redirId}`;
                     })
                     .catch((e) => {
+                        const errors = gatherErrorsFromGqlResp(e);
+
                         this.$modal.hide("loadingModal");
                         this.messageTitle = "Error Saving Loadout";
-                        this.messageText =
-                            "Usually this is due to a profanity filter error. Please check your Loadout Title and Description for any words which could be considered profane. Sometimes even words like \"Blow\" can cause the error to occur. After fixing this, please try saving again";
+                        this.messageText = errors.join('<br>');
                         this.$modal.show("errorModal");
                     });
             } else {
@@ -303,12 +313,12 @@ export default {
                         window.location.href = `/preview/${redirId}`;
                     })
                     .catch((e) => {
+                        const errors = gatherErrorsFromGqlResp(e);
+
                         this.$modal.hide("loadingModal");
                         this.messageTitle = "Error Saving Loadout";
-                        this.messageText =
-                            "Usually this is due to a profanity filter error. Please check your Loadout Title and Description for any words which could be considered profane. Sometimes even words like \"Blow\" can cause the error to occur. After fixing this, please try saving again";
+                        this.messageText = errors.join('<br>');
                         this.$modal.show("errorModal");
-                        
                     });
             }
         },

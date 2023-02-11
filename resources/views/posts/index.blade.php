@@ -10,6 +10,17 @@
         <div class="relative max-w-lg mx-auto lg:max-w-7xl">
             <div class="mt-4 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
                 @foreach($posts as $post)
+
+                @if($loop->iteration % 3 === 0)
+                <x-ads.slot>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-format="fluid"
+                         data-ad-layout-key="-fu-28-3l-b4+18h"
+                         data-ad-client="ca-pub-3237881937260629"
+                         data-ad-slot="8001132222"></ins>
+                </x-ads.slot>
+                @endif
                 <div class="bg-gray-700 p-4 sm:p-6 sm:rounded">
                     <a href="{{ route('blog.show', $post->id) }}" class="block">
                         <p class="text-xl font-semibold text-white">
