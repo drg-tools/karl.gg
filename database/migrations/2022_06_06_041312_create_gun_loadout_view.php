@@ -12,7 +12,7 @@ class CreateGunLoadoutView extends Migration
     public function up()
     {
         DB::statement('
-            CREATE VIEW gun_loadout as
+            CREATE OR REPLACE VIEW gun_loadout as
             SELECT DISTINCT
                 m.gun_id,
                 lm.loadout_id
