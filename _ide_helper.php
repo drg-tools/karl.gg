@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.83.23.
+ * Generated for Laravel 8.83.27.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2167,6 +2167,17 @@
         {
                         /** @var \Illuminate\Auth\SessionGuard $instance */
                         return $instance->setRequest($request);
+        }
+                    /**
+         * Get the timebox instance used by the guard.
+         *
+         * @return \Illuminate\Support\Timebox 
+         * @static 
+         */ 
+        public static function getTimebox()
+        {
+                        /** @var \Illuminate\Auth\SessionGuard $instance */
+                        return $instance->getTimebox();
         }
                     /**
          * Determine if the current user is authenticated. If not, throw an exception.
@@ -20783,6 +20794,18 @@
                         \Backpack\CRUD\app\Library\CrudPanel\CrudPanel::macro($name, $macro);
         }
                     /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function parentMacro($name, $macro)
+        {
+                        \Backpack\CRUD\app\Library\CrudPanel\CrudPanel::parentMacro($name, $macro);
+        }
+                    /**
          * Mix another object into the class.
          *
          * @param object $mixin
@@ -23526,6 +23549,13 @@
      * 
      *
      */ 
+        class ProcessImgs {
+         
+    }
+            /**
+     * 
+     *
+     */ 
         class AttachPatchToLoadouts {
          
     }
@@ -23534,13 +23564,6 @@
      *
      */ 
         class NewPatchEmail {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class ProcessImgs {
          
     }
      
