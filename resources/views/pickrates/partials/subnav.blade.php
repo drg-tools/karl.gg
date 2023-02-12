@@ -19,7 +19,7 @@
             <a href="{{ route('pickrates.guns') }}"
                class="{{ Route::is('pickrates.guns') ? 'bg-gray-700 text-gray-300' : 'text-gray-200 hover:text-white' }} px-3 py-2 font-medium text-sm rounded-md"
             >
-                By Guns
+                By Gun
             </a>
 
             <a href="{{ route('pickrates.mods') }}"
