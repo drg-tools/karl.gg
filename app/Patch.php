@@ -55,4 +55,12 @@ class Patch extends Model
     {
         return static::latest('launched_at')->first();
     }
+
+    /**
+     * @return Patch|\Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public static function previous()
+    {
+        return static::latest('launched_at')->take(2)->get()[1];
+    }
 }

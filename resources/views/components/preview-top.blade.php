@@ -44,22 +44,7 @@
 
             </div>
             <div class="flex">
-                @switch($loadout->character->id)
-                    @case(1)
-                        <img src="/assets/img/Engineer_portrait-128px.png" />
-                    @break
-                    @case(2)
-                        <img src="/assets/img/Scout_portrait-128px.png" />
-                    @break
-                    @case(3)
-                        <img src="/assets/img/Driller_portrait-128px.png" />
-                    @break
-                    @case(4)
-                        <img src="/assets/img/Gunner_portrait-128px.png" />
-                    @break
-
-                @endswitch
-
+                <img src="{{ $loadout->character->potrait }}" />
             </div>
         </div>
 

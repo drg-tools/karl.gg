@@ -53,6 +53,11 @@ class Gun extends Model
     use Filterable, CrudTrait;
     protected $guarded = ['id'];
 
+    public function loadouts()
+    {
+        return $this->belongsToMany(Loadout::class);
+    }
+
     public function mods()
     {
         return $this->hasMany(Mod::class);
@@ -66,10 +71,5 @@ class Gun extends Model
     public function overclocks()
     {
         return $this->hasMany(Overclock::class);
-    }
-
-    public function loadouts()
-    {
-        return $this->belongsToMany(Loadout::class, 'loadout_gun');
     }
 }
