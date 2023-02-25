@@ -205,6 +205,7 @@
     "/assets/mods/optimized/Icon_Upgrade_Aim.svg": "/assets/mods/optimized/Icon_Upgrade_Aim.svg",
     "/assets/mods/optimized/Icon_Upgrade_Ammo.svg": "/assets/mods/optimized/Icon_Upgrade_Ammo.svg",
     "/assets/mods/optimized/Icon_Upgrade_Angle.svg": "/assets/mods/optimized/Icon_Upgrade_Angle.svg",
+    "/assets/mods/optimized/Icon_Upgrade_Aperature_Extension.svg": "/assets/mods/optimized/Icon_Upgrade_Aperature_Extension.svg",
     "/assets/mods/optimized/Icon_Upgrade_Area.svg": "/assets/mods/optimized/Icon_Upgrade_Area.svg",
     "/assets/mods/optimized/Icon_Upgrade_AreaDamage.svg": "/assets/mods/optimized/Icon_Upgrade_AreaDamage.svg",
     "/assets/mods/optimized/Icon_Upgrade_ArmorBreaking.svg": "/assets/mods/optimized/Icon_Upgrade_ArmorBreaking.svg",
@@ -292,6 +293,5 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
-    "/assets/mods/optimized/Icon_Upgrade_Aperature_Extension.svg": "/assets/mods/optimized/Icon_Upgrade_Aperature_Extension.svg"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
 }
