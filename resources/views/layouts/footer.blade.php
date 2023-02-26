@@ -1,7 +1,7 @@
 <footer class="bg-gray-700">
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
         <div class="flex justify-center space-x-6 md:order-2">
-
+            <a href="https://deeprockgalactic.wiki.gg/wiki/Deep_Rock_Galactic_Wiki" class="text-gray-400 hover:text-gray-500">Deep Rock Galactic Wiki</a>
             <a href="https://twitter.com/drgtools" class="text-gray-400 hover:text-gray-500">
                 <span class="sr-only">Twitter</span>
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
