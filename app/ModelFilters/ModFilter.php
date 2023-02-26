@@ -4,7 +4,7 @@ namespace App\ModelFilters;
 
 use EloquentFilter\ModelFilter;
 
-class GunFilter extends ModelFilter
+class ModFilter extends ModelFilter
 {
     /**
      * Related Models that have ModelFilters as well as the method on the ModelFilter
@@ -14,18 +14,18 @@ class GunFilter extends ModelFilter
      */
     public $relations = [];
 
-    public function character($id)
+    public function gun($id)
     {
-        $this->where('character_id', $id);
+        return $this->where('gun_id', $id);
     }
 
-    public function name($name)
+    public function mod($id)
     {
-        $this->whereLike('name', $name);
+        return $this->where('id', $id);
     }
 
     public function search($name)
     {
-        $this->whereLike('name', $name);
+        $this->whereLike('mod_name', $name);
     }
 }

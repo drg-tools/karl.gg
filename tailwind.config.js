@@ -12,6 +12,7 @@ module.exports = {
         { pattern: /-gunner/ },
         { pattern: /-engineer/ },
         { pattern: /-scout/ },
+        { pattern: /(red|green)/ }
     ],
     theme: {
         extend: {
