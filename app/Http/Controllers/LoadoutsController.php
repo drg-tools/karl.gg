@@ -6,6 +6,7 @@ use App\Character;
 use App\Equipment;
 use App\Gun;
 use App\Loadout;
+use App\Mod;
 use App\Overclock;
 use App\Throwable;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -19,6 +20,7 @@ class LoadoutsController extends Controller
         SEOTools::setTitle('Deep Rock Galactic Loadouts');
         $loadouts = Loadout::sortable(['updated_at' => 'desc'])
             ->filter($request->all())
+            ->select(['loadouts.id', 'loadouts.name', 'user_id', 'character_id', 'patch_id', 'throwable_id', 'loadouts.created_at', 'loadouts.updated_at'])
             ->with('mods', 'mods.gun', 'character', 'creator', 'patch')
             ->withSum('votes', 'value')
             ->paginate();
@@ -27,6 +29,7 @@ class LoadoutsController extends Controller
         $overclocks = Overclock::orderBy('overclock_name')->with('character')->get();
         $primaries = Gun::where('character_slot', 1)->orderBy('name')->with('character')->get();
         $secondaries = Gun::where('character_slot', 2)->orderBy('name')->with('character')->get();
+        $mods = Mod::orderBy('mod_name')->get();
         $throwables = Throwable::orderBy('name')->pluck('name', 'id');
 
         return view('loadouts.index', [
@@ -35,6 +38,7 @@ class LoadoutsController extends Controller
             'primaries' => $primaries,
             'secondaries' => $secondaries,
             'overclocks' => $overclocks,
+            'mods' => $mods,
             'throwables' => $throwables,
         ]);
     }

@@ -54,9 +54,7 @@
                 @endforeach
             </div>
 
-            <div class="my-4 py-4 sm:border-t-2 sm:border-gray-300">
-                {{ $posts->render() }}
-            </div>
+            <x-pagination :entities="$posts" />
 
         </div>
     </div>

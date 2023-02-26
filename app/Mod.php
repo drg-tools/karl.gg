@@ -84,6 +84,11 @@ class Mod extends Model
         return $this->belongsToMany(Loadout::class, 'loadout_mod');
     }
 
+    public function getImageSvgAttribute()
+    {
+        return "/assets/mods/optimized/{$this->icon}.svg";
+    }
+
     public function getCleanTextDescriptionAttribute()
     {
         return addslashes(Str::of($this->text_description)

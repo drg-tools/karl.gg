@@ -13,4 +13,9 @@ class CharacterFilter extends ModelFilter
      * @var array
      */
     public $relations = [];
+
+    public function search($name)
+    {
+        $this->whereLike('name', $name);
+    }
 }

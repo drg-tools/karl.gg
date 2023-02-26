@@ -92,6 +92,13 @@ class LoadoutFilter extends ModelFilter
         });
     }
 
+    public function mods($modIds)
+    {
+        return $this->whereHas('mods', function ($query) use ($modIds) {
+            return $query->whereIn('mods.id', $modIds);
+        });
+    }
+
     public function isCurrentPatch($currentPatch)
     {
         if ($currentPatch == 0) {

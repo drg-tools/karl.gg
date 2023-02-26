@@ -1,23 +1,9 @@
 <div class="mb-4 bg-gray-700 p-4 sm:rounded-lg">
-    <div>
-        <label for="search" class="sr-only">Search</label>
-        <div class="relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <!-- Heroicon name: search -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-            </div>
-            <input type="text" value="{{ \Request::get('search') }}" name="search" id="search"
-                   placeholder="Search by Loadout Name"
-                   class="focus:ring-orange-500 focus:border-orange-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md">
-        </div>
-    </div>
+
+    <x-form.search placeholder="Search by Loadout Name" />
 
     @php
-        $showFilters = request()->hasAny(['primaries', 'favorites', 'secondaries', 'overclocks', 'characters', 'isCurrentPatch', 'throwables']) ||
+        $showFilters = request()->hasAny(['primaries', 'favorites', 'secondaries', 'overclocks', 'mods', 'characters', 'isCurrentPatch', 'throwables']) ||
             request()->filled('hasGuide') || request()->filled('hasOverclock')
                 ? 'true' : 'false';
     @endphp
@@ -85,6 +71,14 @@
                     <option value="">Throwables</option>
                     @foreach($throwables as $id => $throwable)
                         <option value="{{ $id }}">{{ $throwable }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <select class="form-control block" data-trigger name="mods[]" id="mods" multiple>
+                    <option value="">Mods</option>
+                    @foreach ($mods as $mod)
+                        <option value="{{ $mod->id }}">{{ $mod->mod_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -230,6 +224,13 @@
                     itemSelectText: ' ',
                 }
             );
+            var modsSelectMultiple = new Choices(
+                '#mods',
+                {
+                    removeItemButton: true,
+                    itemSelectText: ' ',
+                }
+            );
             var hasOverclockSelectSingle = new Choices(
                 '#hasOverclock',
                 {
@@ -267,6 +268,9 @@
             @endif
             @if( request()->get('secondaries') )
             secondarySelectMultiple.setChoiceByValue({!! json_encode(request()->get('secondaries'))!!});
+            @endif
+            @if( request()->get('mods') )
+            modsSelectMultiple.setChoiceByValue({!! json_encode(request()->get('mods'))!!});
             @endif
         });
     </script>
