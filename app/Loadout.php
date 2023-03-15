@@ -60,6 +60,7 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereThrowableId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUserId($value)
+ *
  * @mixin \Eloquent
  *
  * @property int $patch_id
