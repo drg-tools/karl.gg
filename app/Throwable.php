@@ -50,6 +50,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereUmaniteCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Throwable extends Model

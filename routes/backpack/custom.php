@@ -16,7 +16,6 @@ Route::group([
     'middleware' => ['web', 'permission:view-admin'],
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
-
     Route::group([
         'middleware' => ['web', 'permission:manage-stats'],
     ], function () {
