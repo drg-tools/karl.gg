@@ -49,7 +49,6 @@ class ProcessImgs extends Command
 
             // Loop
             foreach ($files as $file) {
-
                 // Remove all but "Upgrade"
                 if (! Str::contains($file->getFilename(), 'Icon_Upgrade')) {
                     File::delete($file->getPathname());

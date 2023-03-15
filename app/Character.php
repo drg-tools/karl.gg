@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Character extends Model

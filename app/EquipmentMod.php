@@ -61,6 +61,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereModType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereUmaniteCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class EquipmentMod extends Model
