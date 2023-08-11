@@ -62,11 +62,11 @@ jobs:
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
-      - run:
-          name: "Install Dusk and Update Chrome Drivers"
-          command: |
-            composer require --dev staudenmeir/dusk-updater
-            php artisan dusk:update --detect
+      # - run:
+      #     name: "Install Dusk and Update Chrome Drivers"
+      #     command: |
+      #       composer require --dev staudenmeir/dusk-updater
+      #       php artisan dusk:update --detect
 
       - run:
           name: Run Laravel Server
