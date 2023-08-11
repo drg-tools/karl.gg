@@ -59,6 +59,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereModType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereTextDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mod whereUmaniteCost($value)
+ *
  * @mixin \Eloquent
  */
 class Mod extends Model
