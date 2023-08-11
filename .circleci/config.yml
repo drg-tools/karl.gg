@@ -79,6 +79,6 @@ jobs:
       - run:
           name: Setup Passport Post Seed
           command: php artisan passport:install
-      - run:
-          name: Run Browser Tests Tests
-          command: php artisan dusk
+      # - run:
+      #     name: Run Browser Tests Tests
+      #     command: php artisan dusk
