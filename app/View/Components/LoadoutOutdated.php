@@ -12,7 +12,7 @@ class LoadoutOutdated extends Component
     /**
      * Create a new component instance.
      *
-     * @param $loadout
+     * @param  $loadout
      */
     public function __construct($loadout)
     {

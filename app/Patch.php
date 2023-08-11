@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patch wherePatchNumDev($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch wherePatchTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  *
  * @property string|null $launched_at

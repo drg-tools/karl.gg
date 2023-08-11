@@ -24,7 +24,7 @@ class LoadoutOutdated extends Mailable
      * Create a new message instance.
      *
      * @param  array  $loadouts
-     * @param $unsubcribeLink
+     * @param  $unsubcribeLink
      */
     public function __construct($loadouts, $unsubscribeLink)
     {
