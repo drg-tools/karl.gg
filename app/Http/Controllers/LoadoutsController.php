@@ -82,7 +82,7 @@ class LoadoutsController extends Controller
 
     /**
      * @param  Request  $request
-     * @param $id
+     * @param  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function toggleFavorite(Request $request, $id)

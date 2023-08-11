@@ -93,6 +93,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereUtility($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereWeakpointAccuracy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric whereWeaponShortName($value)
+ *
  * @mixin \Eloquent
  */
 class BuildMetric extends Model
