@@ -69,14 +69,14 @@
           </span>
           <span
             class="costListItem flex items-center pr-2"
-            v-if="selectedModObject.enorPearl_cost > 0"
+            v-if="selectedModObject.enor_pearl_cost > 0"
           >
             <img
               src="/assets/img/Enor_pearl_icon.png"
               alt="Enor Pearl"
               title="Enor Pearl"
             />
-            <span>{{ selectedModObject.enorPearl_cost }}</span>
+            <span>{{ selectedModObject.enor_pearl_cost }}</span>
           </span>
           <span
             class="costListItem flex items-center pr-2"
