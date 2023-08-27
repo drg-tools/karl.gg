@@ -293,5 +293,10 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
+    "/assets/mods/Icon_ExtractOre.svg": "/assets/mods/Icon_ExtractOre.svg",
+    "/assets/mods/Icon_ExtractOre.js": "/assets/mods/Icon_ExtractOre.js",
+    "/assets/mods/Icon_Health.js": "/assets/mods/Icon_Health.js",
+    "/assets/Icon_ExtractOre.svg": "/assets/Icon_ExtractOre.svg",
+    "/assets/Icon_Health.svg": "/assets/Icon_Health.svg"
 }
