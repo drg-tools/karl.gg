@@ -125,10 +125,9 @@ class OverclockCrudController extends CrudController
         $this->crud->addField([   // select_from_array
             'name' => 'overclock_index',
             'label' => 'Overclock Index',
-            'type' => 'select_from_array',
-            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7],
+            'type' => 'number',
             'allows_null' => false,
-            'default' => '',
+            'default' => 1,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -316,10 +315,9 @@ class OverclockCrudController extends CrudController
         $this->crud->addField([   // select_from_array
             'name' => 'overclock_index',
             'label' => 'Overclock Index',
-            'type' => 'select_from_array',
-            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7],
+            'type' => 'number',
             'allows_null' => false,
-            'default' => '',
+            'default' => 1,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
