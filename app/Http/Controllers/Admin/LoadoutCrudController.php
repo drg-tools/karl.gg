@@ -55,9 +55,9 @@ class LoadoutCrudController extends CrudController
             },
         ]);
         $this->crud->addColumn([   // DateTime
-            'name'  => 'created_at',
+            'name' => 'created_at',
             'label' => 'Created',
-            'type'  => 'datetime',
+            'type' => 'datetime',
         ]);
     }
 

@@ -4,7 +4,7 @@
 #
 version: 2.1
 orbs:
-  browser-tools: circleci/browser-tools@1.4.3
+  browser-tools: circleci/browser-tools@1.5.3
 jobs:
   build:
     docker:
@@ -24,6 +24,7 @@ jobs:
       # - image: redis:2.8.19
     steps:
       - checkout
+      - run: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
       - run: sudo apt update
       - run: sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-install zip pdo_mysql

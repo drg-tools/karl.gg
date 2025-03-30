@@ -27,11 +27,11 @@ class BuildMetricController extends Controller
         }
 
         return view('asv.show', [
-            'buildMetrics'  => $build,
-            'gun'           => $build_gun,
-            'modMatrix'     => $mod_matrix,
-            'combo'         => $combo,
-            'overclock'     => $overclock ? $overclock : '',
+            'buildMetrics' => $build,
+            'gun' => $build_gun,
+            'modMatrix' => $mod_matrix,
+            'combo' => $combo,
+            'overclock' => $overclock ? $overclock : '',
         ]);
     }
 }
