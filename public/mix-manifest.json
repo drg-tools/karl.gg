@@ -70,6 +70,8 @@
     "/assets/G_T2_Incendiary.svg": "/assets/G_T2_Incendiary.svg",
     "/assets/G_T3_Cluster.svg": "/assets/G_T3_Cluster.svg",
     "/assets/G_T3_Grenade_Cluster.js": "/assets/G_T3_Grenade_Cluster.js",
+    "/assets/Icon_ExtractOre.svg": "/assets/Icon_ExtractOre.svg",
+    "/assets/Icon_Health.svg": "/assets/Icon_Health.svg",
     "/assets/img/20px-Credit.png": "/assets/img/20px-Credit.png",
     "/assets/img/400.png": "/assets/img/400.png",
     "/assets/img/401.png": "/assets/img/401.png",
@@ -119,6 +121,9 @@
     "/assets/img/Umanite_icon.png": "/assets/img/Umanite_icon.png",
     "/assets/logo.png": "/assets/logo.png",
     "/assets/mods/Class_level_icon.js": "/assets/mods/Class_level_icon.js",
+    "/assets/mods/Icon_ExtractOre.js": "/assets/mods/Icon_ExtractOre.js",
+    "/assets/mods/Icon_ExtractOre.svg": "/assets/mods/Icon_ExtractOre.svg",
+    "/assets/mods/Icon_Health.js": "/assets/mods/Icon_Health.js",
     "/assets/mods/Icon_Overclock_ChangeOfHigherDamage.js": "/assets/mods/Icon_Overclock_ChangeOfHigherDamage.js",
     "/assets/mods/Icon_Overclock_ExplosionJump.js": "/assets/mods/Icon_Overclock_ExplosionJump.js",
     "/assets/mods/Icon_Overclock_ForthAndBack_Linecutter.js": "/assets/mods/Icon_Overclock_ForthAndBack_Linecutter.js",
@@ -293,10 +298,5 @@
     "/fonts/BebasNeue.svg": "/fonts/BebasNeue.svg",
     "/fonts/BebasNeue.ttf": "/fonts/BebasNeue.ttf",
     "/fonts/BebasNeue.woff": "/fonts/BebasNeue.woff",
-    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2",
-    "/assets/mods/Icon_ExtractOre.svg": "/assets/mods/Icon_ExtractOre.svg",
-    "/assets/mods/Icon_ExtractOre.js": "/assets/mods/Icon_ExtractOre.js",
-    "/assets/mods/Icon_Health.js": "/assets/mods/Icon_Health.js",
-    "/assets/Icon_ExtractOre.svg": "/assets/Icon_ExtractOre.svg",
-    "/assets/Icon_Health.svg": "/assets/Icon_Health.svg"
+    "/fonts/BebasNeue.woff2": "/fonts/BebasNeue.woff2"
 }
