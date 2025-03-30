@@ -22,7 +22,7 @@ class Akismet implements Contracts\Akismet
      * @param  \GuzzleHttp\Client  $http
      * @return void
      */
-    public function __construct(string $key = null, Client $http)
+    public function __construct(?string $key = null, Client $http)
     {
         $this->key = $key;
         $this->http = $http;
