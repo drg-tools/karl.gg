@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereOverclockType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereTextDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock whereUmaniteCost($value)
+ *
  * @mixin \Eloquent
  */
 class Overclock extends Model

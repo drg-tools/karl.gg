@@ -125,10 +125,9 @@ class OverclockCrudController extends CrudController
         $this->crud->addField([   // select_from_array
             'name' => 'overclock_index',
             'label' => 'Overclock Index',
-            'type' => 'select_from_array',
-            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7],
+            'type' => 'number',
             'allows_null' => false,
-            'default' => '',
+            'default' => 1,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -216,6 +215,8 @@ class OverclockCrudController extends CrudController
                 'Icon_Upgrade_Pheremones' => 'Icon_Upgrade_Pheremones',
                 'Icon_Upgrade_Radio_Control' => 'Icon_Upgrade_Radio_Control',
                 'Icon_Upgrade_Damage_Poison' => 'Icon_Upgrade_Damage_Poison',
+                'Icon_ExtractOre' => 'Icon_ExtractOre',
+                'Icon_Health' => 'Icon_Health',
             ],
             'allows_null' => false,
             'default' => '',
@@ -314,10 +315,9 @@ class OverclockCrudController extends CrudController
         $this->crud->addField([   // select_from_array
             'name' => 'overclock_index',
             'label' => 'Overclock Index',
-            'type' => 'select_from_array',
-            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7],
+            'type' => 'number',
             'allows_null' => false,
-            'default' => '',
+            'default' => 1,
             'tab' => 'Base Info',
         ]);
         $this->crud->addField([
@@ -404,6 +404,8 @@ class OverclockCrudController extends CrudController
                 'Icon_Overclock_Gamma_Contamination' => 'Icon_Overclock_Gamma_Contamination',
                 'Icon_Upgrade_Pheremones' => 'Icon_Upgrade_Pheremones',
                 'Icon_Upgrade_Damage_Poison' => 'Icon_Upgrade_Damage_Poison',
+                'Icon_ExtractOre' => 'Icon_ExtractOre',
+                'Icon_Health' => 'Icon_Health',
             ],
             'allows_null' => false,
             'default' => '',

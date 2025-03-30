@@ -60,6 +60,7 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereThrowableId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout whereUserId($value)
+ *
  * @mixin \Eloquent
  *
  * @property int $patch_id
@@ -177,7 +178,7 @@ class Loadout extends Model
     /**
      * We don't have a native relationship to guns, so we must traverse the mods to derive weapon.
      *
-     * @param $slot
+     * @param  $slot
      * @return mixed
      */
     private function getGunFromMods($slot)
@@ -195,7 +196,7 @@ class Loadout extends Model
     /**
      * We don't have a native relationship to guns, so we must traverse the mods to derive weapon.
      *
-     * @param $slot
+     * @param  $slot
      * @return mixed
      */
     private function getEquipmentsFromMods()

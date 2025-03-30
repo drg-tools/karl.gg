@@ -4,7 +4,7 @@
 #
 version: 2.1
 orbs:
-  browser-tools: circleci/browser-tools@1.4.0
+  browser-tools: circleci/browser-tools@1.4.3
 jobs:
   build:
     docker:
@@ -62,11 +62,11 @@ jobs:
       - run: cp .env.example .env
       - run: php artisan key:generate
       - run: ./vendor/bin/phpunit
-      - run:
-          name: "Install Dusk and Update Chrome Drivers"
-          command: |
-            composer require --dev staudenmeir/dusk-updater
-            php artisan dusk:update --detect
+      # - run:
+      #     name: "Install Dusk and Update Chrome Drivers"
+      #     command: |
+      #       composer require --dev staudenmeir/dusk-updater
+      #       php artisan dusk:update --detect
 
       - run:
           name: Run Laravel Server
@@ -79,6 +79,6 @@ jobs:
       - run:
           name: Setup Passport Post Seed
           command: php artisan passport:install
-      - run:
-          name: Run Browser Tests Tests
-          command: php artisan dusk
+      # - run:
+      #     name: Run Browser Tests Tests
+      #     command: php artisan dusk

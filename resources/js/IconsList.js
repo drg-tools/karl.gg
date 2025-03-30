@@ -80,6 +80,10 @@ import Icon_Upgrade_Radio_Control from "./assets/mods/Icon_Upgrade_Radio_Control
 // U37 Addition
 import Icon_Upgrade_Damage_Poison from "./assets/mods/Icon_Upgrade_Damage_Poison";
 
+// Pickaxe Addition
+import Icon_ExtractOre from "./assets/mods/Icon_ExtractOre";
+import Icon_Health from "./assets/mods/Icon_Health";
+
 
 const IconList = {
     R_P1_Bosco_SVG,
@@ -154,7 +158,9 @@ const IconList = {
     Icon_Overclock_Gamma_Contamination,
     Icon_Upgrade_Pheremones,
     Icon_Upgrade_Radio_Control,
-    Icon_Upgrade_Damage_Poison
+    Icon_Upgrade_Damage_Poison,
+    Icon_ExtractOre,
+    Icon_Health
 };
 
 export default IconList;
