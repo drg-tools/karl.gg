@@ -203,7 +203,7 @@ const _calculateDamage = (stats) => {
         wpd: isNaN(weakpointDamage) ? undefined : weakpointDamage,
         dps: parseFloat(damagePerSecond).toFixed(2),
         dpm: magazineDamage,
-        dpa: dpsStats.damage * dpsStats.maxAmmo,
+        dpa: (dpsStats.damage * dpsStats.maxAmmo).toFixed(2),
     };
 };
 const precisionCalc = (a) => {
