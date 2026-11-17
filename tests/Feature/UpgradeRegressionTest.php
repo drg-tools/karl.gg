@@ -6,10 +6,12 @@ use App\Character;
 use App\Loadout;
 use App\Patch;
 use App\User;
+use ErrorException;
 use Hazzard\Comments\Comment;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
 class UpgradeRegressionTest extends TestCase
@@ -116,6 +118,24 @@ class UpgradeRegressionTest extends TestCase
         $this->get('/admin')->assertRedirect('/admin/login');
         $this->actingAs(User::factory()->create(), 'backpack')
             ->getJson('/admin')->assertForbidden();
+    }
+
+    #[TestWith(['/'])]
+    #[TestWith(['/browse'])]
+    public function test_unrated_loadouts_render_without_deprecations(string $path): void
+    {
+        $loadout = $this->loadout(User::factory()->create());
+        $loadout->forceFill(['name' => 'Unrated migration build', 'created_at' => now()])->save();
+
+        set_error_handler(static function (int $severity, string $message, string $file, int $line): never {
+            throw new ErrorException($message, 0, $severity, $file, $line);
+        }, E_DEPRECATED);
+
+        try {
+            $this->get($path)->assertOk()->assertSeeText('Unrated migration build');
+        } finally {
+            restore_error_handler();
+        }
     }
 
     private function loadout(User $owner): Loadout

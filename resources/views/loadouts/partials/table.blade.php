@@ -78,7 +78,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 text-right">
-                                {{ round($loadout->votes_sum_value) ?? 0 }}
+                                {{ round($loadout->votes_sum_value ?? 0) }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                 {{ $loadout->updated_at->diffForHumans() }}
