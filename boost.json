@@ -1,18 +1,26 @@
 {
     "agents": [
-        "codex"
+        "codex",
+        "claude_code"
     ],
-    "cloud": true,
+    "cloud": false,
     "guidelines": true,
     "mcp": true,
     "nightwatch": false,
+    "packages": [
+        "filament/filament",
+        "spatie/laravel-backup",
+        "spatie/laravel-permission"
+    ],
     "sail": false,
     "skills": [
         "infer-conventions",
-        "deploying-to-cloud",
         "laravel-best-practices",
         "testing-best-practices",
         "passport-development",
-        "tailwindcss-development"
+        "tailwindcss-development",
+        "filament-development",
+        "laravel-backup",
+        "laravel-permission-development"
     ]
 }
