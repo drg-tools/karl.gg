@@ -11,8 +11,12 @@ class CreateGunLoadoutView extends Migration
      */
     public function up()
     {
-        DB::statement('
-            CREATE OR REPLACE VIEW gun_loadout as
+        // SQLite has no CREATE OR REPLACE VIEW; a fresh migration only needs CREATE.
+        $createView = DB::connection()->getDriverName() === 'sqlite'
+            ? 'CREATE VIEW'
+            : 'CREATE OR REPLACE VIEW';
+
+        DB::statement($createView.' gun_loadout as
             SELECT DISTINCT
                 m.gun_id,
                 lm.loadout_id
