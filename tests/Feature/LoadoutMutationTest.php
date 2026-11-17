@@ -27,6 +27,7 @@ class LoadoutMutationTest extends TestCase
     {
         $response = $this->postJson('/graphql', ['query' => 'mutation($input: LoadoutInput!) { createLoadout(input: $input) { id name } }',
             'variables' => ['input' => $this->input()]]);
+        $response->assertOk();
         $this->assertNull($response->json('errors'), $response->getContent());
         $response->assertJsonPath('data.createLoadout.name', 'Test build');
         $this->assertDatabaseHas('loadouts', ['id' => $response->json('data.createLoadout.id'), 'user_id' => null]);
@@ -48,6 +49,7 @@ class LoadoutMutationTest extends TestCase
 
         Passport::actingAs($owner);
         $response = $this->postJson('/graphql', $payload);
+        $response->assertOk();
         $this->assertNull($response->json('errors'), $response->getContent());
         $response->assertJsonPath('data.updateLoadout.name', 'Test build');
         $this->assertDatabaseHas('loadouts', ['id' => $loadout->id, 'name' => 'Test build']);

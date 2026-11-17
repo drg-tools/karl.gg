@@ -1,0 +1,63 @@
+{
+    "name": "nagy/laravel-rating",
+    "description": "manage rating column for elqouent models",
+    "keywords": [
+        "nagy",
+        "laravel-rating"
+    ],
+    "homepage": "https://github.com/nagy/laravel-rating",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmed Nagi",
+            "email": "info@ahmednagi.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Mohamed Nagy",
+            "email": "mohamed.n.haleem@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0|^7.3",
+        "illuminate/contracts": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0|^5.0|^4.0",
+        "phpunit/phpunit": "^9.3|^8.0",
+        "vimeo/psalm": "^4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nagy\\LaravelRating\\": "src",
+            "Nagy\\LaravelRating\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nagy\\LaravelRating\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nagy\\LaravelRating\\LaravelRatingServiceProvider"
+            ],
+            "aliases": {
+                "LaravelRatingFacade": "Nagy\\LaravelRating\\LaravelRatingFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "version": "2.2.1"
+}

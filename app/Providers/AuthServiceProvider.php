@@ -26,7 +26,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Passport::routes();
+        // Preserve existing integer client IDs and the token-management UI.
+        Passport::$clientUuids = false;
+        Passport::$registersJsonApiRoutes = true;
+        Passport::enablePasswordGrant();
+
 
         /**
          * Determine if the current user can access the admin panel.

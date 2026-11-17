@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Backpack\PermissionManager\app\Models\Permission;
-use Backpack\PermissionManager\app\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Seeder;
 
 class RolesAndPermissionsSeeder extends Seeder

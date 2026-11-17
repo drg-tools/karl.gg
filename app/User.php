@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -66,10 +65,10 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCanEmail($value)
  */
-class User extends Authenticatable
+class User extends Authenticatable implements \Laravel\Passport\Contracts\OAuthenticatable, \Filament\Models\Contracts\FilamentUser
 {
     use HasFactory;
-    use Notifiable, Favoriteability, CrudTrait, HasRoles, HasApiTokens, CanVote, CanRate, CanLike, SoftDeletes;
+    use Notifiable, Favoriteability, HasRoles, HasApiTokens, CanVote, CanRate, CanLike, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -77,7 +76,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'can_email',
     ];
 
     public $guard_name = 'backpack';
@@ -99,6 +98,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return $this->can('view-admin');
+    }
 
     public function loadouts()
     {

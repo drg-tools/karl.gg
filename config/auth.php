@@ -36,6 +36,8 @@ return [
     */
 
     'guards' => [
+        // Retain the guard name used by existing sessions and permission assignments.
+        'backpack' => ['driver' => 'session', 'provider' => 'users'],
         'web' => [
             'driver' => 'session',
             'provider' => 'users',

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,7 +50,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gun extends Model
 {
     use HasFactory;
-    use Filterable, CrudTrait;
+    use Filterable;
     protected $guarded = ['id'];
 
     public function loadouts()

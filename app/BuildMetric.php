@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -98,7 +97,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BuildMetric extends Model
 {
-    use CrudTrait;
     protected $guarded = ['id'];
 
     public $timestamps = false;

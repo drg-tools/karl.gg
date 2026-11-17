@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -66,7 +65,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EquipmentMod extends Model
 {
-    use Filterable, CrudTrait;
+    use Filterable;
     protected $guarded = ['id'];
 
     public function character()

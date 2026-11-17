@@ -42,13 +42,13 @@ type Mutation {
     updateLoadout(
         id: Int!,
         input: LoadoutInput @spread
-    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard @can(ability: "update", find: "id")
+    ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpdateLoadout") @guard @canFind(ability: "update", find: "id")
 
     upVoteLoadout(
         id: Int!
     ): Loadout @field(resolver: "App\\GraphQL\\Mutations\\UpvoteLoadout") @guard
 
-    deleteLoadout(id: ID!): Loadout @delete @guard @can(ability: "delete", find: "id")
+    deleteLoadout(id: ID!): Loadout @delete @guard @canFind(ability: "delete", find: "id")
 }
 
 input LoadoutInput @validator {
@@ -207,7 +207,7 @@ type Loadout {
     updated_at: DateTime
     overclocks: [Overclock!]! @belongsToMany
     equipment_mods: [EquipmentMod!]! @belongsToMany
-    throwable: Throwable @hasOne
+    throwable: Throwable @belongsTo
     votes: Int! @field(resolver: "App\\GraphQL\\Queries\\GetLoadoutVotes")
 }
 

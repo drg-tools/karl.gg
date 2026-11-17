@@ -114,7 +114,7 @@ class UpgradeRegressionTest extends TestCase
     {
         $this->get('/admin')->assertRedirect('/admin/login');
         $this->actingAs(User::factory()->create(), 'backpack')
-            ->getJson('/admin')->assertUnauthorized();
+            ->getJson('/admin')->assertForbidden();
     }
 
     private function loadout(User $owner): Loadout
