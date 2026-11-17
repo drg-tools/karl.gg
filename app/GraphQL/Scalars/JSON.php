@@ -6,6 +6,7 @@ use GraphQL\Language\AST\BooleanValueNode;
 use GraphQL\Language\AST\FloatValueNode;
 use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\ListValueNode;
+use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\ObjectValueNode;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
@@ -15,17 +16,14 @@ use GraphQL\Type\Definition\ScalarType;
  */
 class JSON extends ScalarType
 {
-    public $description =
+    public ?string $description =
         'The `JSON` scalar type represents JSON values as specified by
         [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).';
 
     /**
      * Serializes an internal value to include in a response.
-     *
-     * @param  mixed  $value
-     * @return mixed
      */
-    public function serialize($value)
+    public function serialize(mixed $value): mixed
     {
         // Assuming the internal representation of the value is always correct
         return json_decode($value);
@@ -33,11 +31,8 @@ class JSON extends ScalarType
 
     /**
      * Parses an externally provided value (query variable) to use as an input.
-     *
-     * @param  mixed  $value
-     * @return mixed
      */
-    public function parseValue($value)
+    public function parseValue(mixed $value): mixed
     {
         return $value;
     }
@@ -50,11 +45,9 @@ class JSON extends ScalarType
      *   user(email: "user@example.com")
      * }
      *
-     * @param  \GraphQL\Language\AST\Node  $valueNode
      * @param  mixed[]|null  $variables
-     * @return mixed
      */
-    public function parseLiteral($valueNode, ?array $variables = null)
+    public function parseLiteral(Node $valueNode, ?array $variables = null): mixed
     {
         switch ($valueNode) {
             case $valueNode instanceof StringValueNode:
