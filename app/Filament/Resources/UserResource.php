@@ -2,14 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
+use App\User;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Facades\Hash;
 
 class UserResource extends AdminResource
 {
-    protected static ?string $model = \App\User::class;
+    protected static ?string $model = User::class;
+
     protected static string $permission = 'manage-users';
+
     protected static array $listColumns = ['name', 'email'];
+
     protected static array $relationshipFilters = [];
 
     protected static function fields(): array

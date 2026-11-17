@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
@@ -77,7 +77,7 @@ abstract class AdminResource extends Resource
     {
         $filters = [];
         foreach (static::$relationshipFilters as $relationship => $title) {
-            $filters[] = \Filament\Tables\Filters\SelectFilter::make($relationship)
+            $filters[] = SelectFilter::make($relationship)
                 ->relationship($relationship, $title)->searchable()->preload();
         }
 

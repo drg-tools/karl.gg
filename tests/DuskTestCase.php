@@ -6,6 +6,7 @@ use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use PHPUnit\Framework\Attributes\BeforeClass;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -13,12 +14,9 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Prepare for Dusk test execution.
-     *
-     * @beforeClass
-     *
-     * @return void
      */
-    public static function prepare()
+    #[BeforeClass]
+    public static function prepare(): void
     {
         if (! static::runningInSail()) {
             static::startChromeDriver();
@@ -28,7 +26,7 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Create the RemoteWebDriver instance.
      *
-     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
+     * @return RemoteWebDriver
      */
     protected function driver()
     {

@@ -28,3 +28,9 @@ public/css/app.css
 # Generate IDE Helpers for GQL (Lighthouse)
 _lighthouse_ide_helper.php
 schema-directives.graphql
+
+.phpunit.cache/
+.phpunit.xml.bak
+
+# Boost MCP executable paths are local to each developer.
+.codex/config.toml

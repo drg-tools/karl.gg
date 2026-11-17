@@ -1,85 +1,63 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
 version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.5.3
 jobs:
   build:
     docker:
-      # Specify the version you desire here
-      - image: cimg/php:8.0-browsers
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
+      - image: cimg/php:8.4-browsers
       - image: cimg/mysql:5.7
         environment:
           MYSQL_DATABASE: laravel
           MYSQL_USER: laravel
           MYSQL_PASSWORD: secrets
-      #
-      # - image: redis:2.8.19
+    environment:
+      APP_URL: http://127.0.0.1:8000
+      DB_HOST: 127.0.0.1
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: secrets
     steps:
       - checkout
-      - run: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-      - run: sudo apt update
-      - run: sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip pdo_mysql
-      # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "composer.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - php84-dependencies-{{ checksum "composer.lock" }}
       - run: composer install -n --prefer-dist
+      - run: composer check-platform-reqs
       - save_cache:
-          key: v1-dependencies-{{ checksum "composer.lock" }}
+          key: php84-dependencies-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
       - restore_cache:
           keys:
-            - node-v1-{{ checksum "package-lock.json" }}
-            - node-v1-
-      - run: npm install
+            - node-v2-{{ checksum "package-lock.json" }}
+      - run: npm ci
       - save_cache:
-          key: node-v1-{{ checksum "package-lock.json" }}
+          key: node-v2-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      - run:
-          name: Build Frontend
-          command: npm run dev
-      # browser setup
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - run:
-          command: |
-            google-chrome --version
-            chromedriver --version
-          name: Check install
-      # prepare the database
+      - run: npm run production
       - run: cp .env.example .env
       - run: php artisan key:generate
-      - run: ./vendor/bin/phpunit
-      # - run:
-      #     name: "Install Dusk and Update Chrome Drivers"
-      #     command: |
-      #       composer require --dev staudenmeir/dusk-updater
-      #       php artisan dusk:update --detect
-
+      - run:
+          name: SQLite regression suite
+          command: |
+            DB_CONNECTION=sqlite DB_DATABASE=:memory: vendor/bin/phpunit
+      - run:
+          name: MySQL regression suite (disposable CI database)
+          command: DB_CONNECTION=mysql vendor/bin/phpunit
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run: php artisan dusk:chrome-driver --detect
+      - run: php artisan migrate:fresh --seed --no-interaction
+      - run: php artisan passport:keys --no-interaction
       - run:
           name: Run Laravel Server
-          command: php artisan serve
+          command: php artisan serve --host=127.0.0.1 --port=8000
           background: true
-
       - run:
-          name: Get a freshly seeded database
-          command: php artisan migrate:fresh --seed
-      - run:
-          name: Setup Passport Post Seed
-          command: php artisan passport:install
-      # - run:
-      #     name: Run Browser Tests Tests
-      #     command: php artisan dusk
+          name: Builder browser regression suite
+          command: php artisan dusk
+      - store_artifacts:
+          path: tests/Browser/screenshots
+      - store_artifacts:
+          path: tests/Browser/console

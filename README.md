@@ -6,8 +6,8 @@
 ### Requirements
 
 - Docker
-- PHP (if not running in a container)
-- Node / NPM
+- PHP 8.4+ with the Laravel extensions, PDO MySQL/SQLite, Intl, and Zip
+- Node / NPM (production build verified with Node 24)
 
 ### Local Development
 
@@ -15,7 +15,7 @@
 
 ```bash
 composer install && \
-  npm install
+  npm ci
 ```
 
 - Copy and fill out env `cp .env.example .env`
@@ -44,10 +44,11 @@ _Note: If you want the advanced weapon stats, you will need to import a raw sql 
 - Install passport keys (run once)
 
 ```bash
-php artisan passport:install
+php artisan passport:keys
+php artisan passport:client --personal --provider=users --name="Karl local"
 ```
 
-- Default admin user is `admin@admin.com` / `adminadmin`
+- Default admin user is `admin@test.com` / `adminadmin` (local seeded data only)
 
 ### Lint / Styles
 
@@ -82,49 +83,33 @@ As long as you are running the frontend build process via `npm run watch`, you w
 ### Backend Components
 
 ## Admin Panel
-We have implemented an admin panel, which includes CRUD interfaces for all models (excluding the incoming Build Statistics model). We are using a framework called [Backpack](https://backpackforlaravel.com/docs/4.1/introduction) to run our admin panel. In order to get this installed locally, you will have to run a couple of commands. This should be a set-and-forget situation, so once you run this you won't have to run again -- excluding sitations where you destroy your local environment.
 
-### Install Backpack
+The admin panel uses Filament 5 at `/admin`. Existing users and Spatie permission assignments are preserved. The session guard retains the name `backpack` for compatibility; Backpack itself is removed.
 
-```bash
-## install updated dependencies
-composer install
+- Panel access: `view-admin`.
+- Game data and loadouts: `manage-stats`.
+- Posts: `manage-posts`.
+- Users, roles, and permissions: `manage-users`.
+- Existing comments moderation: `/comments/admin`, requiring `manage-comments`.
 
-## install backpack
-php artisan backpack:install
+The local database seeder creates `admin@test.com` with password `adminadmin` and the `super-admin` role. Run seeders only in local/test environments.
 
-## run migrations
-php artisan migrate
+### Laravel Boost
 
-## you may have to delete existing user for this
-## run db seeders
-php artisan db:seed
-## if you have errors, you can try individually:
-php artisan db:seed --class=RolesAndPermissionsSeeder
+Boost is installed as a development dependency. With PHP 8.4+ selected in your shell:
 
-php artisan db:seed --class=UserSeeder
-
-## if you get errors while seeding, run
-composer dump-autoload
+```sh
+php artisan boost:install
 ```
 
-Finally, it's always a good idea to:
-```bash
-## clear config cache and cache new one
-php artisan config:cache
+Select your coding assistant to generate its local MCP configuration. Codex guidance and skills are committed; `.codex/config.toml` is local because PHP executable paths vary between developers. Restart/reconnect your assistant after installation. This checkout's local MCP configuration uses its installed PHP 8.5 binary.
+
+### Testing and deployment
+
+```sh
+APP_ENV=testing DB_CONNECTION=sqlite DB_DATABASE=:memory: vendor/bin/phpunit
 ```
 
+The full seed data includes MySQL-specific SQL imports; use the disposable MySQL service for full seeding and browser tests. CircleCI runs the regression suite on SQLite and MySQL, followed by Dusk builder checks.
 
-Please raise issues as you have them, and we can add debug info if any of these commands fail.
-
-### Access the Admin Panel
-Once you have run your install, you can authenticate to the admin panel with the newly seeded DB credentials. Go to: `https://yoursite.local/admin` and enter your credentials, Email: `admin@test.com` Pass: `adminadmin`. You will then be able to access a basic CRUD interface for all current Models.
-
-This is the base-level setup for the admin panel, and we can continue to add features from here as needed.
-
-### Permissions Manager
-Now that we have an admin panel, we need to have a permissions system in place to eventually guard it from normal users. Luckily, Backpack has integrated a good package for this. We now have a users, permissions and roles management system in place. 
-
-We have implemented a basic admin role, as well as basic checks on the admin panel to see if you are the proper role. Make sure to login and give yourself access to the admin panel on a new account if you want.
-
-You can find all these settings by clicking on "Authentication" in the admin panel side-nav.
+See [the upgrade and deployment notes](docs/laravel-upgrade.md) before upgrading an existing database, particularly the Passport client schema and secret migration.

@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use App\Mod;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class ModResource extends AdminResource
 {
-    protected static ?string $model = \App\Mod::class;
+    protected static ?string $model = Mod::class;
+
     protected static string $permission = 'manage-stats';
+
     protected static array $listColumns = ['mod_name', 'character.name', 'gun.name', 'mod_tier'];
+
     protected static array $relationshipFilters = ['character' => 'name', 'gun' => 'name'];
 
     protected static function fields(): array

@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use App\EquipmentMod;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class EquipmentModResource extends AdminResource
 {
-    protected static ?string $model = \App\EquipmentMod::class;
+    protected static ?string $model = EquipmentMod::class;
+
     protected static string $permission = 'manage-stats';
+
     protected static array $listColumns = ['mod_name', 'character.name', 'equipment.name', 'mod_tier'];
+
     protected static array $relationshipFilters = ['character' => 'name', 'equipment' => 'name'];
 
     protected static function fields(): array

@@ -2,14 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use App\Post;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 
 class PostResource extends AdminResource
 {
-    protected static ?string $model = \App\Post::class;
+    protected static ?string $model = Post::class;
+
     protected static string $permission = 'manage-posts';
+
     protected static array $listColumns = ['title', 'user.name', 'published_at'];
+
     protected static array $relationshipFilters = ['user' => 'name'];
 
     protected static function fields(): array

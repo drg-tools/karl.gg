@@ -4,6 +4,9 @@ use Illuminate\Support\Str;
 
 return [
 
+    // Preserve sessions written before Laravel 13.
+    'serialization' => 'php',
+
     /*
     |--------------------------------------------------------------------------
     | Default Session Driver

@@ -36,7 +36,7 @@ class FilamentAdminTest extends TestCase
         return $user;
     }
 
-    public function testAuthorsCanManagePostsButCannotReachStatsOrUsers()
+    public function test_authors_can_manage_posts_but_cannot_reach_stats_or_users()
     {
         $this->manager(['view-admin', 'manage-posts']);
         $this->assertTrue(PostResource::canCreate());
@@ -48,14 +48,14 @@ class FilamentAdminTest extends TestCase
         Livewire::test(ManageCharacter::class)->assertForbidden();
     }
 
-    public function testResourcePermissionAloneDoesNotGrantPanelAccess()
+    public function test_resource_permission_alone_does_not_grant_panel_access()
     {
         $this->manager(['manage-stats']);
         $this->get('/admin')->assertForbidden();
         $this->assertFalse(CharacterResource::canCreate());
     }
 
-    public function testAllAdminScreensRenderForAnAuthorizedManager()
+    public function test_all_admin_screens_render_for_an_authorized_manager()
     {
         $this->manager(['view-admin', 'manage-stats', 'manage-posts', 'manage-users']);
         $this->get('/admin')->assertOk();
@@ -64,7 +64,7 @@ class FilamentAdminTest extends TestCase
         }
     }
 
-    public function testStatsManagerCanCreateUpdateAndDeleteACharacter()
+    public function test_stats_manager_can_create_update_and_delete_a_character()
     {
         $this->manager(['view-admin', 'manage-stats']);
         Livewire::test(ManageCharacter::class)

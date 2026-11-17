@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use App\Equipment;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class EquipmentResource extends AdminResource
 {
-    protected static ?string $model = \App\Equipment::class;
+    protected static ?string $model = Equipment::class;
+
     protected static string $permission = 'manage-stats';
+
     protected static array $listColumns = ['name', 'character.name', 'eq_type'];
+
     protected static array $relationshipFilters = ['character' => 'name'];
 
     protected static function fields(): array

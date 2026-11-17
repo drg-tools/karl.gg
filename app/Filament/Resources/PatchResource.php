@@ -2,14 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use App\Patch;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\TextInput;
 
 class PatchResource extends AdminResource
 {
-    protected static ?string $model = \App\Patch::class;
+    protected static ?string $model = Patch::class;
+
     protected static string $permission = 'manage-stats';
+
     protected static array $listColumns = ['patch_title', 'patch_num', 'launched_at'];
+
     protected static array $relationshipFilters = [];
 
     protected static function fields(): array

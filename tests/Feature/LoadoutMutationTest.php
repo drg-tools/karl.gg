@@ -23,7 +23,7 @@ class LoadoutMutationTest extends TestCase
             'mods' => [], 'overclocks' => [], 'equipment_mods' => []];
     }
 
-    public function testGuestCanCreateAnAnonymousLoadout()
+    public function test_guest_can_create_an_anonymous_loadout()
     {
         $response = $this->postJson('/graphql', ['query' => 'mutation($input: LoadoutInput!) { createLoadout(input: $input) { id name } }',
             'variables' => ['input' => $this->input()]]);
@@ -33,7 +33,7 @@ class LoadoutMutationTest extends TestCase
         $this->assertDatabaseHas('loadouts', ['id' => $response->json('data.createLoadout.id'), 'user_id' => null]);
     }
 
-    public function testOwnerCanUpdateButOtherUsersCannotUpdateOrDelete()
+    public function test_owner_can_update_but_other_users_cannot_update_or_delete()
     {
         $input = $this->input();
         $owner = User::factory()->create();

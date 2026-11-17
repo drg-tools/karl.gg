@@ -2,14 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
+use Spatie\Permission\Models\Permission;
 
 class PermissionResource extends AdminResource
 {
-    protected static ?string $model = \Spatie\Permission\Models\Permission::class;
+    protected static ?string $model = Permission::class;
+
     protected static string $permission = 'manage-users';
+
     protected static array $listColumns = ['name', 'guard_name'];
+
     protected static array $relationshipFilters = [];
 
     protected static function fields(): array

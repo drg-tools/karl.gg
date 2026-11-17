@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use App\Gun;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class GunResource extends AdminResource
 {
-    protected static ?string $model = \App\Gun::class;
+    protected static ?string $model = Gun::class;
+
     protected static string $permission = 'manage-stats';
+
     protected static array $listColumns = ['name', 'character.name', 'gun_class'];
+
     protected static array $relationshipFilters = ['character' => 'name'];
 
     protected static function fields(): array

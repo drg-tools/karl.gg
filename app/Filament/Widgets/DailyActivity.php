@@ -7,7 +7,9 @@ use Filament\Widgets\ChartWidget;
 abstract class DailyActivity extends ChartWidget
 {
     protected string $activityModel;
+
     protected string $dateColumn = 'created_at';
+
     protected string $activityLabel;
 
     protected function getData(): array

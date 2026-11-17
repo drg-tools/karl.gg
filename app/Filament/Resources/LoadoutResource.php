@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\{DateTimePicker, Hidden, RichEditor, Select, Textarea, TextInput, Toggle};
-use Illuminate\Support\Facades\Hash;
+use App\Loadout;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class LoadoutResource extends AdminResource
 {
-    protected static ?string $model = \App\Loadout::class;
+    protected static ?string $model = Loadout::class;
+
     protected static string $permission = 'manage-stats';
+
     protected static array $listColumns = ['name', 'creator.name', 'character.name'];
+
     protected static array $relationshipFilters = ['character' => 'name', 'creator' => 'name'];
 
     protected static function fields(): array

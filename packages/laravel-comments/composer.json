@@ -15,7 +15,7 @@
     },
     "require": {
         "php": "^7.2.5|^8.0",
-        "laravel/framework": "^11.0|^12.0",
+        "laravel/framework": "^12.0|^13.0",
         "guzzlehttp/guzzle": "^6.3|^7.0",
         "google/recaptcha": "^1.2",
         "s9e/text-formatter": "^0.9.1"

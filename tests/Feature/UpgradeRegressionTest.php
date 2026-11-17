@@ -7,6 +7,7 @@ use App\Loadout;
 use App\Patch;
 use App\User;
 use Hazzard\Comments\Comment;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
@@ -15,7 +16,7 @@ class UpgradeRegressionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testLoginRejectsInvalidCredentials()
+    public function test_login_rejects_invalid_credentials()
     {
         $user = User::factory()->create();
 
@@ -24,7 +25,7 @@ class UpgradeRegressionTest extends TestCase
         $this->assertGuest();
     }
 
-    public function testLoginAndLogoutPreserveTheBackpackGuard()
+    public function test_login_and_logout_preserve_the_backpack_guard()
     {
         $user = User::factory()->create();
 
@@ -35,23 +36,23 @@ class UpgradeRegressionTest extends TestCase
         $this->assertGuest('backpack');
     }
 
-    public function testPasswordResetSendsANotification()
+    public function test_password_reset_sends_a_notification()
     {
         Notification::fake();
         $user = User::factory()->create();
 
         $this->post('/password/email', ['email' => $user->email])->assertSessionHasNoErrors();
-        Notification::assertSentTo($user, \Illuminate\Auth\Notifications\ResetPassword::class);
+        Notification::assertSentTo($user, ResetPassword::class);
     }
 
-    public function testGuestsCannotFavoriteOrDeleteLoadoutsOrReadTheApiUser()
+    public function test_guests_cannot_favorite_or_delete_loadouts_or_read_the_api_user()
     {
         $this->post('/build/1/favorite')->assertRedirect('/login');
         $this->delete('/build/delete/1')->assertRedirect('/login');
         $this->getJson('/api/user')->assertUnauthorized();
     }
 
-    public function testOnlyTheOwnerCanDeleteALoadout()
+    public function test_only_the_owner_can_delete_a_loadout()
     {
         $owner = User::factory()->create();
         $other = User::factory()->create();
@@ -63,7 +64,7 @@ class UpgradeRegressionTest extends TestCase
         $this->assertDatabaseMissing('loadouts', ['id' => $loadout->id]);
     }
 
-    public function testFavoritesToggleAndVotesRemainUnique()
+    public function test_favorites_toggle_and_votes_remain_unique()
     {
         $user = User::factory()->create();
         $loadout = $this->loadout($user);
@@ -83,7 +84,7 @@ class UpgradeRegressionTest extends TestCase
         $this->assertEquals(0, $loadout->votes()->sum('value'));
     }
 
-    public function testGraphqlReadsPublicLoadoutsAndGuardsPrivateLists()
+    public function test_graphql_reads_public_loadouts_and_guards_private_lists()
     {
         $loadout = $this->loadout(User::factory()->create());
         $response = $this->postJson('/graphql', ['query' => '{ loadout(id: '.$loadout->id.') { id name } }']);
@@ -95,7 +96,7 @@ class UpgradeRegressionTest extends TestCase
             ->assertOk()->assertJsonStructure(['errors']);
     }
 
-    public function testPublicCommentsHidePendingCommentsAndGuestsCannotModerate()
+    public function test_public_comments_hide_pending_comments_and_guests_cannot_moderate()
     {
         Comment::unguard();
         try {
@@ -110,7 +111,7 @@ class UpgradeRegressionTest extends TestCase
         $this->assertDatabaseHas('comments', ['id' => $pending->id, 'status' => 'pending']);
     }
 
-    public function testAdminRequiresAuthenticationAndPermission()
+    public function test_admin_requires_authentication_and_permission()
     {
         $this->get('/admin')->assertRedirect('/admin/login');
         $this->actingAs(User::factory()->create(), 'backpack')
