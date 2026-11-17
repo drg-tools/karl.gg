@@ -55,6 +55,24 @@ class FilamentAdminTest extends TestCase
         $this->assertFalse(CharacterResource::canCreate());
     }
 
+    public function test_comments_managers_see_the_comment_dashboard_link(): void
+    {
+        Permission::findOrCreate('manage-comments', 'backpack');
+        $this->manager(['view-admin', 'manage-comments']);
+
+        $this->get('/admin')->assertOk()
+            ->assertSee('Comment Dashboard')
+            ->assertSee(route('comments.dashboard'));
+    }
+
+    public function test_admins_without_comments_permission_do_not_see_the_comment_dashboard_link(): void
+    {
+        $this->manager(['view-admin']);
+
+        $this->get('/admin')->assertOk()
+            ->assertDontSee('Comment Dashboard');
+    }
+
     public function test_all_admin_screens_render_for_an_authorized_manager()
     {
         $this->manager(['view-admin', 'manage-stats', 'manage-posts', 'manage-users']);

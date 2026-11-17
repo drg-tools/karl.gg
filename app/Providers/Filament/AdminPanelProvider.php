@@ -4,9 +4,11 @@ namespace App\Providers\Filament;
 
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\VerifyCsrfToken;
+use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -25,6 +27,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->pages([Dashboard::class])
+            ->navigationItems([
+                NavigationItem::make('Comment Dashboard')
+                    ->icon('heroicon-o-chat-bubble-left-right')
+                    ->url(fn (): string => route('comments.dashboard'))
+                    ->visible(fn (): bool => Filament::auth()->user()?->can('manage-comments') ?? false),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
