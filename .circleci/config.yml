@@ -16,6 +16,7 @@ jobs:
       DB_DATABASE: laravel
       DB_USERNAME: laravel
       DB_PASSWORD: secrets
+      DUSK_DRIVER_URL: http://127.0.0.1:9515
     steps:
       - checkout
       - restore_cache:
@@ -47,16 +48,21 @@ jobs:
           command: DB_CONNECTION=mysql vendor/bin/phpunit
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
-      - run: php artisan dusk:chrome-driver --detect
       - run: php artisan migrate:fresh --seed --no-interaction
       - run: php artisan passport:keys --no-interaction
+      - run:
+          name: Run ChromeDriver
+          command: chromedriver --port=9515
+          background: true
       - run:
           name: Run Laravel Server
           command: php artisan serve --host=127.0.0.1 --port=8000
           background: true
       - run:
           name: Builder browser regression suite
-          command: php artisan dusk
+          command: |
+            curl --fail --silent --show-error --retry 15 --retry-connrefused --retry-delay 1 "$DUSK_DRIVER_URL/status"
+            php artisan dusk
       - store_artifacts:
           path: tests/Browser/screenshots
       - store_artifacts:
