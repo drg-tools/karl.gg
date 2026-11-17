@@ -31,7 +31,6 @@ class AuthServiceProvider extends ServiceProvider
         Passport::$registersJsonApiRoutes = true;
         Passport::enablePasswordGrant();
 
-
         /**
          * Determine if the current user can access the admin panel.
          *
