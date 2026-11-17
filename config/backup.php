@@ -3,6 +3,12 @@
 return [
 
     'backup' => [
+        'database_dump_filename_base' => 'database',
+        'database_dump_file_extension' => '',
+        'password' => env('BACKUP_ARCHIVE_PASSWORD'),
+        'encryption' => 'default',
+        'tries' => 1,
+        'retry_delay' => 0,
 
         /*
          * The name of this application. You can use this name to monitor
@@ -40,6 +46,7 @@ return [
                  * Determines if it should avoid unreadable folders.
                  */
                 'ignore_unreadable_directories' => false,
+                'relative_path' => null,
             ],
 
             /*
@@ -137,16 +144,16 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => env('BACKUP_NOTIFICATION_MAIL_TO', 'your@example.com'),
+            'to' => env('BACKUP_NOTIFICATION_MAIL_TO') ?: [],
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+                'address' => env('MAIL_FROM_ADDRESS') ?: 'hello@example.com',
                 'name' => env('MAIL_FROM_NAME', 'Example'),
             ],
         ],
 
         'slack' => [
-            'webhook_url' => env('SLACK_WEBHOOK_URL'),
+            'webhook_url' => env('SLACK_WEBHOOK_URL') ?: '',
 
             /*
              * If this is set to null the default channel of the webhook will be used.
@@ -188,6 +195,8 @@ return [
     ],
 
     'cleanup' => [
+        'tries' => 1,
+        'retry_delay' => 0,
         /*
          * The strategy that will be used to cleanup old backups. The default strategy
          * will keep all backups for a certain amount of days. After that period only
