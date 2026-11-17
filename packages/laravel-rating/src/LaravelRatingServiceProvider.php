@@ -21,7 +21,6 @@ class LaravelRatingServiceProvider extends ServiceProvider
     }
 
     /**
-     *
      * @return void
      */
     public function register()

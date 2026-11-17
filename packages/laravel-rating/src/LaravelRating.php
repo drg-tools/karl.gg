@@ -66,9 +66,9 @@ class LaravelRating
     private function resolveTypeRelation($type)
     {
         $lookup = [
-              static::TYPE_LIKE => 'likes',
-              static::TYPE_RATE => 'ratings',
-              static::TYPE_VOTE => 'votes',
+            static::TYPE_LIKE => 'likes',
+            static::TYPE_RATE => 'ratings',
+            static::TYPE_VOTE => 'votes',
         ];
 
         return $lookup[$type];
