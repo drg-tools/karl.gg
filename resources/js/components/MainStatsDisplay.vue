@@ -52,7 +52,7 @@
             </span>
 
             <span v-if="calcStats.dpb" class="text-white text-lg block my-2"
-                >Damage per shot: {{ calcStats.dpb }}</span
+                >{{ equipmentClass === "Crossbow" ? "Damage per bolt" : "Damage per shot" }}: {{ calcStats.dpb }}</span
             >
             <!-- damage per bullet -->
 
@@ -139,7 +139,7 @@
 
 import clone from 'lodash-es/clone';
 
-const _calculateDamage = (stats) => {
+const _calculateDamage = (stats, equipmentClass) => {
     let damageWords = [
         "Damage",
         "Area Damage",
@@ -188,6 +188,14 @@ const _calculateDamage = (stats) => {
         } else if (weakPointWords.includes(stat.name)) {
             dpsStats.weakPoint = parseFloat(stat.value);
         }
+    }
+    if (equipmentClass === "Crossbow") {
+        // The crossbow loads one bolt and has no displayed magazine or fire-rate stat.
+        // Keep these estimates to direct/area damage; special effects need simulation.
+        return {
+            dpb: dpsStats.damage.toFixed(2),
+            dpa: (dpsStats.damage * (dpsStats.maxAmmo + 1)).toFixed(2),
+        };
     }
     dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
     let timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;
@@ -346,7 +354,7 @@ export default {
             let results = getModifiedStats(this.baseStats, allSelectedUpgrades);
             let stats = results.stats;
 
-            let damage = _calculateDamage(stats);
+            let damage = _calculateDamage(stats, this.equipmentClass);
 
 
             return {
