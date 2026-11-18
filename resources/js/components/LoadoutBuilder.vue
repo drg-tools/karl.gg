@@ -1,191 +1,712 @@
 <template>
-    <form @submit.prevent="save" class="flex flex-col gap-6">
-        <div class="flex flex-wrap items-center justify-between gap-4">
-            <p>{{ config.method === 'PUT' ? 'Edit your loadout' : 'Create a loadout' }}</p>
-            <button type="submit" :disabled="saving || loading || !catalog" class="rounded bg-karl-orange px-5 py-3 font-bold text-gray-900 disabled:opacity-50">
-                {{ saving ? 'Saving…' : 'Save Loadout' }}
+    <div
+        class="loadout-workbench"
+        :style="{ '--class-accent': classDetails.color }"
+    >
+        <header class="workbench-intro">
+            <div>
+                <p class="terminal-label">Karl.gg / Equipment terminal</p>
+                <h2>
+                    {{
+                        config.method === "PUT"
+                            ? "Back to the workbench."
+                            : "Built for your next drop."
+                    }}
+                </h2>
+                <p>Pick your kit. Find your edge. Rock and stone.</p>
+            </div>
+            <span class="workbench-badge"
+                ><span aria-hidden="true">⬡</span> Loadout builder</span
+            >
+        </header>
+
+        <div
+            v-if="recoverableDraft"
+            class="builder-notice draft-notice"
+            role="status"
+        >
+            <div>
+                <strong>Your last build is still here.</strong>
+                <p>Pick up where you left off, or start with a clean slate.</p>
+            </div>
+            <div class="notice-actions">
+                <button
+                    type="button"
+                    class="terminal-button"
+                    dusk="restore-draft"
+                    @click="restoreDraft"
+                >
+                    Continue draft</button
+                ><button
+                    type="button"
+                    class="text-action"
+                    @click="discardDraft"
+                >
+                    Start fresh
+                </button>
+            </div>
+        </div>
+        <div
+            v-if="error"
+            class="builder-notice error-notice"
+            role="alert"
+            tabindex="-1"
+            ref="errorPanel"
+        >
+            <div>
+                <strong>{{ error }}</strong>
+                <ul v-if="Object.keys(errors).length">
+                    <li v-for="(messages, field) in errors" :key="field">
+                        {{ messages.join(" ") }}
+                    </li>
+                </ul>
+            </div>
+            <button
+                type="button"
+                aria-label="Dismiss error"
+                @click="dismissError"
+            >
+                ×
             </button>
         </div>
-        <p v-if="!config.signedIn">You can save anonymously. Sign in before saving to edit your build later.</p>
-        <div v-if="error" role="alert" class="rounded border border-red-400 p-4 text-red-200">{{ error }}</div>
-        <ul v-if="Object.keys(errors).length" role="alert" class="text-red-200">
-            <li v-for="(messages, field) in errors" :key="field">{{ messages.join(' ') }}</li>
-        </ul>
-        <fieldset :disabled="saving" class="flex flex-col gap-6">
-            <legend class="sr-only">Loadout selections</legend>
-            <div class="flex flex-wrap gap-3">
-                <button v-for="character in config.characters" :key="character.id" type="button" :aria-pressed="character.id === form.character_id" :dusk="character.name.toLowerCase()"
-                    class="rounded border px-5 py-3 hover:border-karl-orange" :class="character.id === form.character_id ? 'border-karl-orange text-karl-orange' : 'border-gray-500'" @click="selectClass(character.id)">{{ character.name }}</button>
-            </div>
-            <p v-if="loading" role="status">Loading equipment…</p>
-            <button v-if="!loading && !catalog && form.character_id" type="button" @click="loadCatalog(form.character_id)">Retry loading equipment</button>
-            <template v-if="catalog && !loading">
-                <div class="grid gap-6 lg:grid-cols-2">
-                    <section v-for="slot in [1, 2]" :key="slot" class="flex flex-col gap-4 rounded bg-gray-800 p-4" :dusk="slot === 1 ? 'primary-selectors' : 'secondary-selectors'">
-                        <label :for="`weapon-${slot}`" class="font-bold">{{ slot === 1 ? 'Primary weapon' : 'Secondary weapon' }}</label>
-                        <select :id="`weapon-${slot}`" v-model.number="weapons[slot]" @change="changeWeapon(slot)" class="w-full rounded bg-gray-900">
-                            <option :value="null">Select a weapon</option>
-                            <option v-for="gun in catalog.guns.filter(gun => gun.character_slot === slot)" :key="gun.id" :value="gun.id">{{ gun.name }}</option>
-                        </select>
-                        <template v-if="selectedGun(slot)">
-                            <fieldset v-for="(mods, tier) in tiers(selectedGun(slot).mods)" :key="tier" class="flex flex-wrap gap-2">
-                                <legend class="py-2">Tier {{ tier }}</legend>
-                                <button v-for="mod in mods" :key="mod.id" type="button" :dusk="`mod-${mod.id}`" :aria-pressed="form.mods.includes(mod.id)" :title="mod.text_description"
-                                    class="rounded border p-3 text-left" :class="form.mods.includes(mod.id) ? 'border-karl-orange text-karl-orange' : 'border-gray-500'" @click="toggleMod(mod, 'mods', selectedGun(slot).mods)">
-                                    {{ mod.mod_name }}
-                                </button>
-                            </fieldset>
-                            <label :for="`overclock-${slot}`">Overclock</label>
-                            <select :id="`overclock-${slot}`" v-model.number="overclocks[slot]" @change="syncOverclocks" class="w-full rounded bg-gray-900">
-                                <option :value="null">No overclock</option>
-                                <option v-for="overclock in selectedGun(slot).overclocks" :key="overclock.id" :value="overclock.id">{{ overclock.overclock_name }}</option>
-                            </select>
-                            <p v-if="selectedOverclock(slot)">{{ selectedOverclock(slot).text_description }}</p>
-                            <p v-for="mod in selectedMods(selectedGun(slot).mods, 'mods')" :key="mod.id" class="text-sm">{{ mod.mod_name }}: {{ mod.text_description }}</p>
-                            <MainStatsDisplay :equipment="selectedGun(slot)" :mods="selectedMods(selectedGun(slot).mods, 'mods')" :overclock="selectedOverclock(slot)" />
-                            <CreditsCalculator :selected-mods="selectedMods(selectedGun(slot).mods, 'mods')" :overclock="selectedOverclock(slot)" />
-                            <button type="button" @click="fetchMetrics(slot)" class="text-left text-karl-orange">Advanced statistics</button>
-                            <p v-if="metrics[slot]?.message" role="status">{{ metrics[slot].message }}</p>
-                            <dl v-if="metrics[slot]?.data" class="grid grid-cols-2 gap-2 text-sm">
-                                <template v-for="(value, key) in metricValues(metrics[slot].data)" :key="key"><dt>{{ key.replaceAll('_', ' ') }}</dt><dd>{{ value }}</dd></template>
-                            </dl>
-                        </template>
-                    </section>
+
+        <section
+            v-if="!form.character_id || choosingClass"
+            class="class-selection"
+            aria-label="Choose your class"
+        >
+            <div class="section-heading">
+                <div>
+                    <p class="terminal-label">Start here</p>
+                    <h2>Who’s going down?</h2>
                 </div>
-                <section v-for="equipment in catalog.equipments" :key="equipment.id" class="rounded bg-gray-800 p-4">
-                    <h2 class="text-lg font-bold">{{ equipment.name }}</h2>
-                    <fieldset v-for="(mods, tier) in tiers(equipment.equipment_mods)" :key="tier" class="flex flex-wrap gap-2">
-                        <legend class="py-2">Tier {{ tier }}</legend>
-                        <button v-for="mod in mods" :key="mod.id" type="button" :aria-pressed="form.equipment_mods.includes(mod.id)" :title="mod.text_description"
-                            class="rounded border p-3" :class="form.equipment_mods.includes(mod.id) ? 'border-karl-orange text-karl-orange' : 'border-gray-500'" @click="toggleMod(mod, 'equipment_mods', equipment.equipment_mods)">{{ mod.mod_name }}</button>
+                <button
+                    v-if="form.character_id"
+                    type="button"
+                    class="text-action"
+                    @click="cancelClassSelection"
+                >
+                    Keep {{ currentClass?.name }}
+                </button>
+            </div>
+            <div class="class-roster">
+                <button
+                    v-for="character in orderedCharacters"
+                    :key="character.id"
+                    type="button"
+                    class="class-choice"
+                    :style="{
+                        '--roster-color':
+                            classInfo[character.name]?.color || '#fc9e00',
+                    }"
+                    :aria-pressed="character.id === form.character_id"
+                    :dusk="character.name.toLowerCase()"
+                    :disabled="saving"
+                    @click="requestClass(character.id)"
+                >
+                    <span class="class-number">{{
+                        classInfo[character.name]?.number
+                    }}</span
+                    ><img
+                        :src="`/assets/img/full-${
+                            classInfo[character.name]?.letter
+                        }_image.png`"
+                        alt=""
+                    />
+                    <span class="class-caption"
+                        ><small>{{ classInfo[character.name]?.role }}</small
+                        ><strong>{{ character.name }}</strong
+                        ><span>{{
+                            classInfo[character.name]?.description
+                        }}</span></span
+                    ><span class="class-arrow" aria-hidden="true">↗</span>
+                </button>
+            </div>
+            <div
+                v-if="pendingClass"
+                class="builder-notice class-confirmation"
+                role="alert"
+                ref="classConfirmation"
+                tabindex="-1"
+            >
+                <div>
+                    <strong
+                        >Switch to
+                        {{
+                            config.characters.find(
+                                (character) => character.id === pendingClass
+                            )?.name
+                        }}?</strong
+                    >
+                    <p>
+                        Weapon and equipment selections will be reset. Your name
+                        and guide will stay.
+                    </p>
+                </div>
+                <div class="notice-actions">
+                    <button
+                        type="button"
+                        class="terminal-button"
+                        dusk="confirm-class"
+                        @click="selectClass(pendingClass)"
+                    >
+                        Switch class</button
+                    ><button
+                        type="button"
+                        class="text-action"
+                        @click="pendingClass = null"
+                    >
+                        Keep current class
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <template v-if="form.character_id && !choosingClass">
+            <div class="selected-class-strip">
+                <div class="selected-class-identity">
+                    <img
+                        :src="`/assets/img/${currentClass?.name}_portrait-128px.png`"
+                        alt=""
+                    />
+                    <div>
+                        <span class="terminal-label">Your class</span
+                        ><strong>{{ currentClass?.name }}</strong>
+                    </div>
+                    <button
+                        type="button"
+                        class="text-action"
+                        dusk="change-class"
+                        :disabled="saving"
+                        @click="choosingClass = true"
+                    >
+                        Change <span aria-hidden="true">↗</span>
+                    </button>
+                </div>
+                <span class="draft-status">{{
+                    draftSaved
+                        ? "Draft saved in this browser"
+                        : "Your next great build starts here"
+                }}</span>
+            </div>
+            <div v-if="loading" class="catalog-loading" role="status">
+                <span class="loading-spinner" aria-hidden="true"></span>
+                <h3>Opening the armory…</h3>
+                <p>Loading {{ currentClass?.name }} equipment.</p>
+            </div>
+            <div v-else-if="!catalog" class="empty-slot">
+                <h3>The armory didn’t load.</h3>
+                <p>
+                    Your selections are safe. Try loading the equipment again.
+                </p>
+                <button
+                    type="button"
+                    class="terminal-button"
+                    @click="loadCatalog(form.character_id)"
+                >
+                    Retry loading equipment
+                </button>
+            </div>
+            <div v-else class="workbench-layout">
+                <nav
+                    ref="railPanel"
+                    class="loadout-rail"
+                    aria-label="Loadout sections"
+                >
+                    <div class="rail-heading">
+                        <span class="terminal-label">Your loadout</span
+                        ><span>{{ configuredCount }} / 4</span>
+                    </div>
+                    <button
+                        v-for="(section, index) in sections"
+                        :key="section.key"
+                        type="button"
+                        class="rail-item"
+                        :class="{ 'is-active': activeSection === section.key }"
+                        :aria-current="
+                            activeSection === section.key ? 'step' : undefined
+                        "
+                        :dusk="`section-${section.key}`"
+                        :disabled="saving"
+                        @click="goTo(section.key)"
+                    >
+                        <span class="rail-number">{{
+                            String(index + 1).padStart(2, "0")
+                        }}</span
+                        ><span
+                            ><strong>{{ section.label }}</strong
+                            ><small>{{
+                                sectionSummary(section.key)
+                            }}</small></span
+                        ><span class="rail-state" aria-hidden="true">{{
+                            sectionConfigured(section.key) ? "✓" : "·"
+                        }}</span>
+                    </button>
+                    <div class="rail-footer">
+                        <span aria-hidden="true">↳</span> Every slot is
+                        optional.<br />Make this build your own.
+                    </div>
+                </nav>
+                <section
+                    class="workbench-content"
+                    ref="contentPanel"
+                    tabindex="-1"
+                    :aria-busy="saving"
+                >
+                    <fieldset :disabled="saving" class="workbench-fieldset">
+                        <BuilderWeaponPanel
+                            v-if="
+                                activeSection === 'primary' ||
+                                activeSection === 'secondary'
+                            "
+                            :key="activeSection"
+                            :slot="activeWeaponSlot"
+                            :guns="
+                                catalog.guns.filter(
+                                    (gun) =>
+                                        gun.character_slot === activeWeaponSlot
+                                )
+                            "
+                            :gun="selectedGun(activeWeaponSlot)"
+                            :selected-ids="form.mods"
+                            :overclock="selectedOverclock(activeWeaponSlot)"
+                            :metrics="metrics[activeWeaponSlot]"
+                            @weapon="chooseWeapon(activeWeaponSlot, $event)"
+                            @mod="
+                                selectMod(
+                                    $event,
+                                    'mods',
+                                    selectedGun(activeWeaponSlot).mods
+                                )
+                            "
+                            @overclock="
+                                chooseOverclock(activeWeaponSlot, $event)
+                            "
+                            @metrics="fetchMetrics(activeWeaponSlot)"
+                        />
+                        <section v-else-if="activeSection === 'equipment'">
+                            <div class="section-heading">
+                                <div>
+                                    <p class="terminal-label">
+                                        03 / Tools of the trade
+                                    </p>
+                                    <h2>More than firepower.</h2>
+                                </div>
+                                <span class="section-hint"
+                                    >A good dwarf comes prepared.</span
+                                >
+                            </div>
+                            <div
+                                v-if="catalog.equipments.length"
+                                class="equipment-tabs"
+                                role="group"
+                                aria-label="Equipment"
+                            >
+                                <button
+                                    v-for="equipment in catalog.equipments"
+                                    :key="equipment.id"
+                                    :dusk="`equipment-${equipment.id}`"
+                                    type="button"
+                                    :class="{
+                                        'is-selected':
+                                            activeEquipmentId === equipment.id,
+                                    }"
+                                    :aria-pressed="
+                                        activeEquipmentId === equipment.id
+                                    "
+                                    @click="activeEquipmentId = equipment.id"
+                                >
+                                    <img
+                                        :src="`/assets/${equipment.icon}.svg`"
+                                        alt=""
+                                    />{{ equipment.name }}
+                                </button>
+                            </div>
+                            <div
+                                v-if="activeEquipment"
+                                class="weapon-configuration"
+                            >
+                                <div class="upgrade-column">
+                                    <div class="subsection-heading">
+                                        <h3>{{ activeEquipment.name }}</h3>
+                                        <span>Equipment upgrades</span>
+                                    </div>
+                                    <BuilderModGrid
+                                        :mods="activeEquipment.equipment_mods"
+                                        :selected="form.equipment_mods"
+                                        @select="
+                                            selectMod(
+                                                $event,
+                                                'equipment_mods',
+                                                activeEquipment.equipment_mods
+                                            )
+                                        "
+                                    />
+                                </div>
+                                <aside class="weapon-readout">
+                                    <span class="terminal-label"
+                                        >Live readout</span
+                                    ><img
+                                        class="readout-weapon equipment-art"
+                                        :src="`/assets/${activeEquipment.icon}.svg`"
+                                        alt=""
+                                    /><MainStatsDisplay
+                                        :equipment="activeEquipment"
+                                        :mods="
+                                            selectedMods(
+                                                activeEquipment.equipment_mods,
+                                                'equipment_mods'
+                                            )
+                                        "
+                                    /><CreditsCalculator
+                                        :selected-mods="
+                                            selectedMods(
+                                                activeEquipment.equipment_mods,
+                                                'equipment_mods'
+                                            )
+                                        "
+                                    />
+                                </aside>
+                            </div>
+                            <div v-else class="empty-slot">
+                                <h3>No equipment in this armory.</h3>
+                                <p>You can continue to throwables.</p>
+                            </div>
+                        </section>
+                        <section v-else-if="activeSection === 'throwable'">
+                            <div class="section-heading">
+                                <div>
+                                    <p class="terminal-label">
+                                        04 / Parting gift
+                                    </p>
+                                    <h2>Make an entrance.</h2>
+                                </div>
+                                <span class="section-hint"
+                                    >One last thing for the swarm.</span
+                                >
+                            </div>
+                            <div
+                                class="throwable-roster"
+                                role="group"
+                                aria-label="Throwables"
+                            >
+                                <button
+                                    v-for="throwable in catalog.throwables"
+                                    :key="throwable.id"
+                                    :dusk="`throwable-${throwable.id}`"
+                                    type="button"
+                                    class="throwable-choice"
+                                    :class="{
+                                        'is-selected':
+                                            form.throwable_id === throwable.id,
+                                    }"
+                                    :aria-pressed="
+                                        form.throwable_id === throwable.id
+                                    "
+                                    @click="form.throwable_id = throwable.id"
+                                >
+                                    <img
+                                        :src="`/assets/${throwable.icon}.svg`"
+                                        alt=""
+                                    /><strong>{{ throwable.name }}</strong
+                                    ><span>{{
+                                        cleanDescription(throwable.description)
+                                    }}</span
+                                    ><small>{{
+                                        form.throwable_id === throwable.id
+                                            ? "Equipped ✓"
+                                            : "Equip throwable →"
+                                    }}</small>
+                                </button>
+                            </div>
+                            <button
+                                type="button"
+                                class="text-action throwable-skip"
+                                @click="form.throwable_id = null"
+                            >
+                                {{
+                                    form.throwable_id
+                                        ? "Remove throwable"
+                                        : "Continue without a throwable"
+                                }}
+                            </button>
+                            <div
+                                v-if="selectedThrowable"
+                                class="throwable-readout"
+                            >
+                                <MainStatsDisplay
+                                    :equipment="selectedThrowable"
+                                    :mods="[]"
+                                /><CreditsCalculator
+                                    :throwable="selectedThrowable"
+                                />
+                            </div>
+                        </section>
+                        <section v-else class="review-section">
+                            <div class="section-heading">
+                                <div>
+                                    <p class="terminal-label">
+                                        05 / Ready for deployment
+                                    </p>
+                                    <h2>Give this build a name.</h2>
+                                </div>
+                            </div>
+                            <form
+                                @submit.prevent="save"
+                                class="publish-form"
+                                novalidate
+                            >
+                                <div class="review-summary">
+                                    <img
+                                        :src="`/assets/img/full-${classDetails.letter}_image.png`"
+                                        alt=""
+                                    />
+                                    <div>
+                                        <span class="terminal-label"
+                                            >{{
+                                                currentClass?.name
+                                            }}
+                                            loadout</span
+                                        >
+                                        <h3>
+                                            {{
+                                                form.name ||
+                                                "Your next great build."
+                                            }}
+                                        </h3>
+                                        <p>
+                                            {{
+                                                selectedGun(1)?.name ||
+                                                "No primary"
+                                            }}<span> + </span
+                                            >{{
+                                                selectedGun(2)?.name ||
+                                                "No secondary"
+                                            }}
+                                        </p>
+                                        <div class="review-codes">
+                                            <span
+                                                v-for="slot in [1, 2]"
+                                                :key="slot"
+                                                >{{ combination(slot) }}</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="publish-fields">
+                                    <label for="loadout-name"
+                                        >Loadout name
+                                        <span>Required</span></label
+                                    ><input
+                                        id="loadout-name"
+                                        ref="nameInput"
+                                        v-model="form.name"
+                                        @input="clearFieldError('name')"
+                                        maxlength="255"
+                                        placeholder="e.g. The Haz 5 problem solver"
+                                        :aria-invalid="!!errors.name"
+                                        :aria-describedby="
+                                            errors.name
+                                                ? 'name-error'
+                                                : undefined
+                                        "
+                                        autocomplete="off"
+                                    />
+                                    <p
+                                        v-if="errors.name"
+                                        id="name-error"
+                                        class="field-error"
+                                    >
+                                        {{ errors.name.join(" ") }}
+                                    </p>
+                                    <label for="loadout-description"
+                                        >Field notes
+                                        <span
+                                            >Optional · Markdown supported</span
+                                        ></label
+                                    ><textarea
+                                        id="loadout-description"
+                                        v-model="form.description"
+                                        @input="clearFieldError('description')"
+                                        rows="7"
+                                        maxlength="50000"
+                                        placeholder="What makes this build work? Share your playstyle, synergies, and tips for the team."
+                                        :aria-invalid="!!errors.description"
+                                        :aria-describedby="
+                                            errors.description
+                                                ? 'description-error'
+                                                : undefined
+                                        "
+                                    ></textarea>
+                                    <p
+                                        v-if="errors.description"
+                                        id="description-error"
+                                        class="field-error"
+                                    >
+                                        {{ errors.description.join(" ") }}
+                                    </p>
+                                </div>
+                                <details class="review-kit">
+                                    <summary>
+                                        Review your equipment
+                                        <span
+                                            >{{ configuredCount }}
+                                            {{
+                                                configuredCount === 1
+                                                    ? "slot"
+                                                    : "slots"
+                                            }}
+                                            configured</span
+                                        >
+                                    </summary>
+                                    <button
+                                        v-for="section in sections.filter(
+                                            (section) =>
+                                                section.key !== 'review'
+                                        )"
+                                        :key="section.key"
+                                        type="button"
+                                        @click="goTo(section.key)"
+                                    >
+                                        <strong>{{ section.label }}</strong
+                                        ><span>{{
+                                            sectionSummary(section.key)
+                                        }}</span
+                                        ><span aria-hidden="true">↗</span>
+                                    </button>
+                                </details>
+                                <div
+                                    v-if="!config.signedIn"
+                                    class="anonymous-note"
+                                >
+                                    <span aria-hidden="true">ⓘ</span>
+                                    <p>
+                                        You’re saving anonymously.
+                                        <a :href="config.loginUrl">Sign in</a>
+                                        before publishing if you want to edit
+                                        this build later. Your draft will stay
+                                        in this browser.
+                                    </p>
+                                </div>
+                                <div class="publish-footer">
+                                    <p>
+                                        Your build gets a permanent link to
+                                        share with the team.
+                                    </p>
+                                    <button
+                                        type="submit"
+                                        class="terminal-button"
+                                        :disabled="saving"
+                                        dusk="save-loadout"
+                                    >
+                                        {{
+                                            saving
+                                                ? "Saving build…"
+                                                : config.method === "PUT"
+                                                ? "Save changes"
+                                                : "Publish loadout"
+                                        }}
+                                        <span aria-hidden="true">↗</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </section>
                     </fieldset>
-                    <MainStatsDisplay :equipment="equipment" :mods="selectedMods(equipment.equipment_mods, 'equipment_mods')" />
-                    <CreditsCalculator :selected-mods="selectedMods(equipment.equipment_mods, 'equipment_mods')" />
+                    <footer
+                        v-if="activeSection !== 'review'"
+                        class="workbench-navigation"
+                    >
+                        <button
+                            type="button"
+                            class="text-action"
+                            :disabled="saving || activeSection === 'primary'"
+                            @click="previousSection"
+                        >
+                            ← Back
+                        </button>
+                        <p>
+                            {{
+                                storageAvailable
+                                    ? "Selections save as you go."
+                                    : "Keep this tab open to save your build."
+                            }}
+                        </p>
+                        <button
+                            type="button"
+                            class="terminal-button"
+                            :disabled="saving"
+                            dusk="next-section"
+                            @click="nextSection"
+                        >
+                            {{ nextLabel }} <span aria-hidden="true">→</span>
+                        </button>
+                    </footer>
                 </section>
-                <label for="throwable">Throwable</label>
-                <select id="throwable" v-model.number="form.throwable_id" class="rounded bg-gray-900">
-                    <option :value="null">No throwable</option>
-                    <option v-for="throwable in catalog.throwables" :key="throwable.id" :value="throwable.id">{{ throwable.name }}</option>
-                </select>
-                <label for="loadout-name">Loadout name</label>
-                <input id="loadout-name" v-model="form.name" required maxlength="255" class="rounded bg-gray-900" />
-                <label for="loadout-description">Loadout guide (Markdown)</label>
-                <textarea id="loadout-description" v-model="form.description" rows="8" maxlength="50000" class="rounded bg-gray-900"></textarea>
-                <button type="submit" :disabled="saving" class="rounded bg-karl-orange px-5 py-3 font-bold text-gray-900">{{ saving ? 'Saving…' : 'Save Loadout' }}</button>
-            </template>
-        </fieldset>
-    </form>
+            </div>
+        </template>
+    </div>
 </template>
 
 <script setup>
-import { reactive, ref, onMounted } from 'vue';
-import MainStatsDisplay from './MainStatsDisplay.vue';
-import CreditsCalculator from './CreditsCalculator.vue';
+import BuilderModGrid from "./BuilderModGrid.vue";
+import BuilderWeaponPanel from "./BuilderWeaponPanel.vue";
+import MainStatsDisplay from "./MainStatsDisplay.vue";
+import CreditsCalculator from "./CreditsCalculator.vue";
+import { useLoadoutBuilder } from "../useLoadoutBuilder";
 
 const { config } = defineProps({ config: { type: Object, required: true } });
-const form = reactive({ name: '', description: '', character_id: null, throwable_id: null, mods: [], overclocks: [], equipment_mods: [], ...config.initial });
-const weapons = reactive({ 1: null, 2: null });
-const overclocks = reactive({ 1: null, 2: null });
-const catalog = ref(null);
-const loading = ref(false);
-const saving = ref(false);
-const error = ref('');
-const errors = ref({});
-const metrics = reactive({});
-const catalogs = new Map();
-let catalogRequest = 0;
-
-async function request(url, options = {}) {
-    const response = await fetch(url, {
-        credentials: 'same-origin', ...options,
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, ...options.headers },
-    });
-    const body = await response.json().catch(() => ({}));
-    if (!response.ok) {
-        const failure = new Error(response.status === 419 ? 'Your session expired. Reload this page before saving.' : body.message || 'The request failed. Please try again.');
-        failure.errors = body.errors || {};
-        throw failure;
-    }
-    return body;
-}
-
-async function loadCatalog(id) {
-    const requestId = ++catalogRequest;
-    loading.value = true;
-    error.value = '';
-    try {
-        if (!catalogs.has(id)) catalogs.set(id, (await request(config.characters.find(character => character.id === id).url)).data);
-        if (requestId !== catalogRequest) return;
-        catalog.value = catalogs.get(id);
-        for (const slot of [1, 2]) {
-            const gun = catalog.value.guns.find(gun => gun.character_slot === slot && (gun.mods.some(mod => form.mods.includes(mod.id)) || gun.overclocks.some(overclock => form.overclocks.includes(overclock.id))));
-            weapons[slot] = gun?.id || null;
-            overclocks[slot] = gun?.overclocks.find(overclock => form.overclocks.includes(overclock.id))?.id || null;
-        }
-    } catch (failure) {
-        if (requestId === catalogRequest) error.value = failure.message;
-    } finally {
-        if (requestId === catalogRequest) loading.value = false;
-    }
-}
-function selectClass(id) {
-    if (form.character_id === id) return;
-    Object.assign(form, { character_id: id, mods: [], overclocks: [], equipment_mods: [], throwable_id: null });
-    catalog.value = null;
-    metrics[1] = metrics[2] = null;
-    loadCatalog(id);
-}
-function selectedGun(slot) { return catalog.value?.guns.find(gun => gun.id === weapons[slot]); }
-function selectedOverclock(slot) { return selectedGun(slot)?.overclocks.find(overclock => overclock.id === overclocks[slot]); }
-function tiers(mods) {
-    return [...mods].sort((a, b) => a.mod_tier - b.mod_tier || String(a.mod_index).localeCompare(String(b.mod_index))).reduce((groups, mod) => { (groups[mod.mod_tier] ||= []).push(mod); return groups; }, {});
-}
-function selectedMods(mods, field) { return mods.filter(mod => form[field].includes(mod.id)); }
-function toggleMod(mod, field, available) {
-    const selected = form[field].includes(mod.id);
-    const sameTier = available.filter(item => item.mod_tier === mod.mod_tier).map(item => item.id);
-    form[field] = form[field].filter(id => !sameTier.includes(id));
-    if (!selected) form[field].push(mod.id);
-    metrics[1] = metrics[2] = null;
-}
-function changeWeapon(slot) {
-    const slotMods = catalog.value.guns.filter(gun => gun.character_slot === slot).flatMap(gun => gun.mods.map(mod => mod.id));
-    form.mods = form.mods.filter(id => !slotMods.includes(id));
-    overclocks[slot] = null;
-    syncOverclocks();
-}
-function syncOverclocks() {
-    form.overclocks = [overclocks[1], overclocks[2]].filter(Boolean);
-    metrics[1] = metrics[2] = null;
-}
-async function fetchMetrics(slot) {
-    const gun = selectedGun(slot);
-    const combo = Array(6).fill('-');
-    selectedMods(gun.mods, 'mods').forEach(mod => { combo[mod.mod_tier - 1] = mod.mod_index; });
-    combo[5] = selectedOverclock(slot)?.overclock_index || '-';
-    const selection = JSON.stringify([weapons[slot], form.mods, overclocks[slot]]);
-    metrics[slot] = { message: 'Loading statistics…' };
-    try {
-        const body = await request(`${config.metricsUrl}?${new URLSearchParams({ gun_id: gun.id, combo: combo.join('') })}`);
-        if (selection !== JSON.stringify([weapons[slot], form.mods, overclocks[slot]])) return;
-        metrics[slot] = body.data ? { data: body.data } : { message: 'Advanced statistics are not available for this combination.' };
-    } catch (failure) { metrics[slot] = { message: failure.message }; }
-}
-function metricValues(data) { return Object.fromEntries(Object.entries(data).filter(([key]) => !['id', 'gun_id', 'character_id', 'build_combination'].includes(key))); }
-async function save() {
-    if (saving.value || loading.value || !catalog.value) return;
-    if ([1, 2].some(slot => selectedGun(slot) && !selectedMods(selectedGun(slot).mods, 'mods').length)) {
-        error.value = 'Select at least one mod for each selected weapon before saving.';
-        return;
-    }
-    saving.value = true;
-    error.value = '';
-    errors.value = {};
-    try {
-        const body = await request(config.saveUrl, { method: config.method, body: JSON.stringify(form) });
-        window.location.assign(body.url);
-    } catch (failure) { error.value = failure.message; errors.value = failure.errors || {}; }
-    finally { saving.value = false; }
-}
-onMounted(() => { if (form.character_id) loadCatalog(form.character_id); });
+const {
+    classInfo,
+    sections,
+    form,
+    catalog,
+    loading,
+    saving,
+    error,
+    errors,
+    errorPanel,
+    contentPanel,
+    nameInput,
+    activeSection,
+    choosingClass,
+    pendingClass,
+    classConfirmation,
+    railPanel,
+    activeEquipmentId,
+    metrics,
+    draftSaved,
+    storageAvailable,
+    recoverableDraft,
+    orderedCharacters,
+    currentClass,
+    classDetails,
+    activeWeaponSlot,
+    activeEquipment,
+    selectedThrowable,
+    configuredCount,
+    nextLabel,
+    loadCatalog,
+    requestClass,
+    cancelClassSelection,
+    selectClass,
+    selectedGun,
+    selectedOverclock,
+    selectedMods,
+    selectMod,
+    chooseWeapon,
+    chooseOverclock,
+    cleanDescription,
+    sectionConfigured,
+    sectionSummary,
+    combination,
+    goTo,
+    nextSection,
+    previousSection,
+    fetchMetrics,
+    restoreDraft,
+    discardDraft,
+    clearFieldError,
+    dismissError,
+    save,
+} = useLoadoutBuilder(config);
 </script>

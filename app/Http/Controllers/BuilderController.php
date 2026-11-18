@@ -36,6 +36,7 @@ class BuilderController extends Controller
             'method' => $canUpdate ? 'PUT' : 'POST',
             'signedIn' => $request->user() !== null,
             'metricsUrl' => route('builder.metrics'),
+            'loginUrl' => route('login'),
         ]]);
     }
 

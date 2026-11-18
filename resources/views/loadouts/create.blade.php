@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-    <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
-        <div class="flex justify-center my-2">
-            <x-ads.horizontal id="3873388796" />
-        </div>
+    <div class="text-gray-300">
         <div id="loadout-builder"><p>Loading builder…</p></div>
         <noscript>Enable JavaScript to build a loadout.</noscript>
+        <div class="flex justify-center mt-8">
+            <x-ads.horizontal id="3873388796" />
+        </div>
     </div>
 
 @endsection

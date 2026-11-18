@@ -346,25 +346,15 @@ export default {
             let results = getModifiedStats(this.baseStats, allSelectedUpgrades);
             let stats = results.stats;
 
-            let damage = _calculateDamage(stats);
-
+            const damage = _calculateDamage(stats, this.equipmentClass);
+            const derivedMetrics = Object.fromEntries(
+                Object.entries(damage).filter(([, value]) => value && Number.isFinite(Number(value)))
+            );
 
             return {
                 stats: stats,
                 visible: visible,
-                tte: damage.tte ? damage.tte : undefined,
-                wpd: damage.wpd ? damage.wpd : undefined,
-                dps: damage.dps ? damage.dps : undefined,
-                dpb: damage.dpb ? damage.dpb : undefined,
-                dpm: damage.dpm ? damage.dpm : undefined,
-                dpa: damage.dpa ? damage.dpa : undefined,
-                ex1: damage.ex1 ? damage.ex1 : undefined,
-                dpsplasma: damage.dpsplasma ? damage.dpsplasma : undefined,
-                dpscharged: damage.dpscharged ? damage.dpscharged : undefined,
-                dpbplasma: damage.dpbplasma ? damage.dpbplasma : undefined,
-                dpbcharged: damage.dpbcharged ? damage.dpbcharged : undefined,
-                dpaplasma: damage.dpaplasma ? damage.dpaplasma : undefined,
-                dpacharged: damage.dpacharged ? damage.dpacharged : undefined,
+                ...derivedMetrics,
             };
         },
     },
