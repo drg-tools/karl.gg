@@ -2,38 +2,55 @@
 
 namespace Tests\Browser;
 
+use App\Gun;
+use App\Loadout;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class BuilderTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testLoadingBuilder()
+    public function test_builder_saves_a_guest_loadout_and_renders_its_preview(): void
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/build')
-                ->assertSee('Save Loadout');
-        });
-    }
+        $gun = Gun::where('character_slot', 1)->whereHas('character', fn ($query) => $query->where('name', 'Engineer'))->firstOrFail();
+        $mod = $gun->mods()->orderBy('mod_tier')->firstOrFail();
+        $name = 'Browser prototype '.uniqid();
 
-    public function testSelectingClassAndPrimary()
-    {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser) use ($gun, $mod, $name): void {
             $browser->visit('/build')
                 ->waitForText('Engineer')
                 ->click('@engineer')
-                ->waitForText('Select a Primary')
-                ->clickLink('Select')
-                ->waitFor('@primary-selectors')
-                ->assertSee('Warthog')
-                ->click('@mod-53')
+                ->waitFor('#weapon-1')
+                ->select('#weapon-1', (string) $gun->id)
+                ->waitFor('@mod-'.$mod->id)
+                ->click('@mod-'.$mod->id)
                 ->waitFor('@credits-cost')
                 ->assertVisible('@credits-cost')
-                ->assertVisible('@bismor-cost');
+                ->screenshot('builder-prototype-desktop')
+                ->resize(390, 844)
+                ->screenshot('builder-prototype-mobile')
+                ->type('#loadout-name', $name)
+                ->type('#loadout-description', '# Browser guide')
+                ->press('Save Loadout')
+                ->waitForText('Loadout guide')
+                ->assertSee($name)
+                ->assertSee($gun->name)
+                ->assertSee($mod->mod_name)
+                ->assertSee('Browser guide');
+        });
+
+        $loadout = Loadout::where('name', $name)->firstOrFail();
+        $this->assertNull($loadout->user_id);
+        $this->assertTrue($loadout->mods()->whereKey($mod->id)->exists());
+    }
+
+    public function test_switching_classes_clears_weapon_selection(): void
+    {
+        $gun = Gun::where('character_slot', 1)->whereHas('character', fn ($query) => $query->where('name', 'Engineer'))->firstOrFail();
+        $this->browse(function (Browser $browser) use ($gun): void {
+            $browser->visit('/build')->waitForText('Engineer')->click('@engineer')
+                ->waitFor('#weapon-1')->select('#weapon-1', (string) $gun->id)
+                ->click('@scout')->waitForText('Deepcore GK2')
+                ->assertSeeIn('#weapon-1 option:checked', 'Select a weapon');
         });
     }
 }

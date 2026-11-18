@@ -79,10 +79,6 @@
                         >
                             <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
 
-                            @can('access-api')
-                            <x-nav-dropdown-link :link="route('settings.tokens')" title="Settings" />
-                            @endcan
-
                             <a class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
                                href="{{ route('logout') }}" role="menuitem"
                                onclick="event.preventDefault();
@@ -188,10 +184,6 @@
                 @endguest
                 @auth
                     <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
-
-                    @can('access-api')
-                    <x-mobile-nav-link :link="route('settings.tokens')" title="Settings" />
-                    @endcan
 
                     <a class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                        href="{{ route('logout') }}" role="menuitem"

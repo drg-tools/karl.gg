@@ -2,15 +2,24 @@
 
 namespace App;
 
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Carbon;
+use Nagy\LaravelRating\Models\Rating;
 use Nagy\LaravelRating\Traits\Like\CanLike;
 use Nagy\LaravelRating\Traits\Rate\CanRate;
 use Nagy\LaravelRating\Traits\Vote\CanVote;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -19,30 +28,28 @@ use Spatie\Permission\Traits\HasRoles;
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read int|null $clients_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\ChristianKuri\LaravelFavorite\Models\Favorite[] $favorites
+ * @property-read Collection|Favorite[] $favorites
  * @property-read int|null $favorites_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $likes
+ * @property-read Collection|Rating[] $likes
  * @property-read int|null $likes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
+ * @property-read Collection|Loadout[] $loadouts
  * @property-read int|null $loadouts_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
+ * @property-read Collection|Permission[] $permissions
  * @property-read int|null $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $ratings
+ * @property-read Collection|Rating[] $ratings
  * @property-read int|null $ratings_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property-read Collection|Role[] $roles
  * @property-read int|null $roles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @property-read int|null $tokens_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $votes
+ * @property-read Collection|Rating[] $votes
  * @property-read int|null $votes_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -65,10 +72,10 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCanEmail($value)
  */
-class User extends Authenticatable implements \Laravel\Passport\Contracts\OAuthenticatable, \Filament\Models\Contracts\FilamentUser
+class User extends Authenticatable implements FilamentUser
 {
+    use CanLike, CanRate, CanVote, Favoriteability, HasRoles, Notifiable, SoftDeletes;
     use HasFactory;
-    use Notifiable, Favoriteability, HasRoles, HasApiTokens, CanVote, CanRate, CanLike, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -99,7 +106,7 @@ class User extends Authenticatable implements \Laravel\Passport\Contracts\OAuthe
         'email_verified_at' => 'datetime',
     ];
 
-    public function canAccessPanel(\Filament\Panel $panel): bool
+    public function canAccessPanel(Panel $panel): bool
     {
         return $this->can('view-admin');
     }

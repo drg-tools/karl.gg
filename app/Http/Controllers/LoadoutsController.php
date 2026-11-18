@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Character;
-use App\Equipment;
 use App\Gun;
 use App\Loadout;
 use App\Mod;
 use App\Overclock;
 use App\Throwable;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Str;
 
@@ -43,27 +44,18 @@ class LoadoutsController extends Controller
         ]);
     }
 
-    public function build()
-    {
-        SEOTools::setTitle('Build a Deep Rock Galactic Loadout');
-
-        return view('loadouts.create');
-    }
-
     public function preview($id)
     {
-        $loadout = Loadout::with('mods', 'equipment_mods', 'overclocks')
+        $loadout = Loadout::with('mods.gun', 'equipment_mods.equipment', 'overclocks.gun', 'throwable', 'character', 'creator', 'patch')
             ->findOrFail($id);
-
-        $availableEquipment = Equipment::where('character_id', $loadout->character_id)
-            ->with('equipment_mods')
-            ->get();
 
         $this->generateSeo($loadout);
 
         return view('loadouts.preview')
             ->withLoadout($loadout)
-            ->withAvailableEquipment($availableEquipment);
+            ->withHasVoted(auth()->check() && auth()->user()->getVotingValue($loadout) == 1)
+            ->withVoteCount($loadout->upVotesCount())
+            ->withGuideHtml(Str::markdown($loadout->description ?? '', ['html_input' => 'strip', 'allow_unsafe_links' => false]));
     }
 
     public function delete(Request $request, $id)
@@ -81,9 +73,7 @@ class LoadoutsController extends Controller
     }
 
     /**
-     * @param  Request  $request
-     * @param  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function toggleFavorite(Request $request, $id)
     {
@@ -95,7 +85,7 @@ class LoadoutsController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Collection|null  $loadout
+     * @param  Collection|null  $loadout
      */
     protected function generateSeo($loadout): void
     {

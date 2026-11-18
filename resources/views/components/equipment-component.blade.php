@@ -7,11 +7,7 @@
         @foreach ($modMatrix['gun_mods'] as $key => $mod_tier)
             <div class="asvModMatrixRow">
                 @foreach ($mod_tier as $mod)
-                    <div class="asvMod" v-tooltip="{
-                        content:'<h3>{{$mod->mod_name}}</h3><br><span>{{ $mod->clean_text_description }}</span></p>',
-                        placement: 'right',
-                        trigger: 'hover'
-                        }">
+                    <div class="asvMod" title="{{ $mod->mod_name }}: {{ $mod->text_description }}">
 
                         @if ($modMatrix['selected_index'][$key]['value'] == $mod->mod_index)
                             <svg viewBox="0 0 80 50"
@@ -39,11 +35,7 @@
 
         @if($overclock != '')
             <div class="overclockContainer"
-                 v-tooltip="{
-                     content: '<h3>{{$overclock['overclock_name']}}</h3><br><span>{{addslashes($overclock['text_description'])}}</span></p>',
-                     placement: 'right',
-                     trigger: 'hover'
-                     }"
+                 title="{{ $overclock['overclock_name'] }}: {{ $overclock['text_description'] }}"
             >
 
                 @if($overclock['overclock_type'] == 'Clean')

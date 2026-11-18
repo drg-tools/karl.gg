@@ -19,14 +19,7 @@ class BuilderDataTest extends TestCase
             'gun_class' => 'Shotgun',
             'json_stats' => '{"damage":{"value":7}}',
         ]);
-        // Exercise the actual client query so new selected fields cannot escape coverage.
-        $source = file_get_contents(resource_path('js/apolloQueries.js'));
-        preg_match('/character: \(id\) => `([^`]+)`/', $source, $matches);
-        $query = str_replace('${id}', (string) $character->id, $matches[1]);
-
-        $response = $this->postJson('/graphql', ['query' => $query]);
-        $response->assertOk();
-        $this->assertNull($response->json('errors'), $response->getContent());
-        $response->assertJsonPath('data.character.guns.0.json_stats.damage.value', 7);
+        $this->getJson('/builder/catalog/'.$character->id)->assertOk()
+            ->assertJsonPath('data.guns.0.json_stats.damage.value', 7);
     }
 }

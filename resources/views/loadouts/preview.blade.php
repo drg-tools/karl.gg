@@ -28,28 +28,40 @@
 
     <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
         <x-loadout-outdated :loadout="$loadout"></x-loadout-outdated>
-        <x-preview-top :loadout="$loadout"/>
+        <x-preview-top :loadout="$loadout" :has-voted="$hasVoted" :vote-count="$voteCount"/>
 
-        <loadout-preview-page
-            :loadout-data="{!! $loadout !!}"
-            @if($loadout->primary_gun)
-            :primary="{{ $loadout->primary_gun }}"
-            :primary-mods="{{ $loadout->primary_gun->mods }}"
+        <div class="grid gap-4 p-4 md:grid-cols-2">
+            @foreach ($loadout->mods->pluck('gun')->merge($loadout->overclocks->pluck('gun'))->filter()->unique('id') as $gun)
+                <section class="rounded bg-gray-800 p-4">
+                    <h2 class="text-lg font-bold">{{ $gun->name }}</h2>
+                    <ul class="py-3">
+                        @foreach ($loadout->mods->where('gun_id', $gun->id)->sortBy('mod_tier') as $mod)
+                            <li title="{{ $mod->text_description }}">Tier {{ $mod->mod_tier }}: {{ $mod->mod_name }}</li>
+                        @endforeach
+                    </ul>
+                    @foreach ($loadout->overclocks->where('gun_id', $gun->id) as $overclock)
+                        <p title="{{ $overclock->text_description }}">{{ $overclock->overclock_name }}</p>
+                    @endforeach
+                </section>
+            @endforeach
+            @foreach ($loadout->equipment_mods->groupBy('equipment_id') as $mods)
+                <section class="rounded bg-gray-800 p-4">
+                    <h2 class="text-lg font-bold">{{ $mods->first()->equipment->name }}</h2>
+                    <ul class="py-3">
+                        @foreach ($mods->sortBy('mod_tier') as $mod)
+                            <li title="{{ $mod->text_description }}">Tier {{ $mod->mod_tier }}: {{ $mod->mod_name }}</li>
+                        @endforeach
+                    </ul>
+                </section>
+            @endforeach
+            @if ($loadout->throwable)
+                <section class="rounded bg-gray-800 p-4"><h2>{{ $loadout->throwable->name }}</h2></section>
             @endif
-            @if($loadout->secondary_gun)
-            :secondary="{{ $loadout->secondary_gun }}"
-            :secondary-mods="{{ optional($loadout->secondary_gun)->mods }}"
-            @endif
-            :overclocks="{{ $loadout->overclocks }}"
-            :available-equipment="{{ $availableEquipment }}"
-            @if($loadout->equipments)
-            :equipment-mods="{{ $loadout->equipments }}"
-            @endif
-            @if($loadout->throwable)
-            :throwable="{{ $loadout->throwable }}"
-            @endif
-        >
-        </loadout-preview-page>
+        </div>
+        <details open class="p-4">
+            <summary class="cursor-pointer text-xl text-karl-orange">Loadout guide</summary>
+            <div class="prose prose-invert max-w-none py-4">{!! $guideHtml !!}</div>
+        </details>
         <div class="flex justify-center my-2">
             <x-ads.horizontal id="3418109138" />
         </div>

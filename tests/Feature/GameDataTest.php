@@ -39,13 +39,11 @@ class GameDataTest extends TestCase
         $this->assertDatabaseCount('mods', 12);
         $this->assertDatabaseCount('overclocks', 6);
         $this->assertDatabaseHas('guns', ['character_id' => $character->id, 'name' => 'Shard Diffractor', 'character_slot' => 2]);
-        $response = $this->postJson('/graphql', ['query' => '{character(id: '.$character->id.') {guns {name json_stats mods {mod_name json_stats} overclocks {overclock_name json_stats}}}}']);
-        $response->assertOk();
-        $this->assertNull($response->json('errors'), $response->getContent());
-        $response->assertJsonPath('data.character.guns.0.json_stats.charge_up.value', 0.2);
-        $response->assertJsonPath('data.character.guns.0.mods.5.json_stats.clip.value', 50);
-        $response->assertJsonPath('data.character.guns.0.overclocks.1.json_stats.clip.multiply', true);
-        $response->assertJsonPath('data.character.guns.0.overclocks.1.json_stats.clip.value', 0.8);
+        $response = $this->getJson('/builder/catalog/'.$character->id)->assertOk();
+        $response->assertJsonPath('data.guns.0.json_stats.charge_up.value', 0.2);
+        $response->assertJsonPath('data.guns.0.mods.5.json_stats.clip.value', 50);
+        $response->assertJsonPath('data.guns.0.overclocks.1.json_stats.clip.multiply', true);
+        $response->assertJsonPath('data.guns.0.overclocks.1.json_stats.clip.value', 0.8);
     }
 
     public function test_updates_preserve_ids_loadout_links_and_unknown_base_stats_and_are_repeatable(): void
