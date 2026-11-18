@@ -1298,3 +1298,212 @@
         }
     }
 }
+
+// Hexagonal equipment controls in the workbench's original slate and amber palette.
+#loadout-builder .loadout-workbench {
+    --hex-shape: polygon(17% 0, 83% 0, 100% 50%, 83% 100%, 17% 100%, 0 50%);
+    --panel-cut: polygon(
+        0 0,
+        calc(100% - 12px) 0,
+        100% 12px,
+        100% 100%,
+        12px 100%,
+        0 calc(100% - 12px)
+    );
+
+    .class-choice,
+    .weapon-choice,
+    .throwable-choice {
+        clip-path: var(--panel-cut);
+    }
+    .class-choice:focus-visible,
+    .weapon-choice:focus-visible,
+    .throwable-choice:focus-visible {
+        outline: none;
+        box-shadow: inset 0 0 0 3px var(--terminal-accent);
+    }
+    .class-number {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 25px;
+        color: #17212c;
+        background: var(--roster-color);
+        clip-path: var(--hex-shape);
+    }
+    .selected-class-identity img {
+        border: 0;
+        clip-path: var(--hex-shape);
+        background: #18212c;
+    }
+    .upgrade-options {
+        gap: 8px;
+    }
+    .upgrade-option {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 8px;
+    }
+    .upgrade-option:hover,
+    .upgrade-option.is-inspected {
+        border-color: #8a939a;
+        background: #202e3b;
+    }
+    .upgrade-option.is-selected {
+        border-color: #ac8745;
+        background: linear-gradient(135deg, #ffc15a15, #ffc15a05);
+    }
+    .upgrade-option.is-selected:hover,
+    .upgrade-option.is-selected.is-inspected {
+        border-color: var(--terminal-accent);
+    }
+    .upgrade-hex {
+        position: relative;
+        isolation: isolate;
+        display: grid;
+        place-items: center;
+        width: 61px;
+        height: 51px;
+        flex: 0 0 61px;
+        background: #73808a;
+        clip-path: var(--hex-shape);
+    }
+    .upgrade-hex::before {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        background: linear-gradient(180deg, #344352, #1b2835);
+        clip-path: var(--hex-shape);
+        z-index: -1;
+    }
+    .upgrade-hex::after {
+        content: "";
+        position: absolute;
+        bottom: 6px;
+        width: 15px;
+        height: 2px;
+        background: #84929f;
+    }
+    .upgrade-hex img {
+        width: 29px;
+        height: 29px;
+        object-fit: contain;
+        filter: invert(80%);
+    }
+    .is-selected .upgrade-hex {
+        background: #ffe0a9;
+    }
+    .is-selected .upgrade-hex::before {
+        background: linear-gradient(180deg, #ffd28a, #e7a73b);
+    }
+    .is-selected .upgrade-hex::after {
+        background: #68502b;
+    }
+    .is-selected .upgrade-hex img {
+        filter: none;
+    }
+    .upgrade-label {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .upgrade-index {
+        color: var(--terminal-muted);
+        font: 8px ui-monospace, monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+    .upgrade-index > span {
+        opacity: 0.5;
+    }
+    .is-selected .upgrade-index {
+        color: var(--terminal-accent);
+    }
+    .upgrade-option strong {
+        font-size: 11px;
+        line-height: 1.45;
+    }
+    .upgrade-inspection {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        min-height: 45px;
+        padding: 10px 8px 0;
+    }
+    .inspection-key {
+        display: grid;
+        place-items: center;
+        width: 17px;
+        height: 16px;
+        flex: 0 0 17px;
+        background: #344352;
+        color: #d1b57e;
+        font: 9px ui-monospace, monospace;
+        clip-path: var(--hex-shape);
+    }
+    .upgrade-inspection p {
+        color: var(--terminal-muted);
+        font-size: 11px;
+        line-height: 1.6;
+    }
+    .overclock-option {
+        clip-path: var(--panel-cut);
+    }
+    .overclock-option:focus-visible {
+        outline: none;
+        box-shadow: inset 0 0 0 2px var(--terminal-accent);
+    }
+    .overclock-marker {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 32px;
+        background: #243342;
+        clip-path: var(--hex-shape);
+    }
+    .terminal-button {
+        clip-path: polygon(
+            8px 0,
+            100% 0,
+            100% calc(100% - 8px),
+            calc(100% - 8px) 100%,
+            0 100%,
+            0 8px
+        );
+    }
+    .terminal-button:focus-visible {
+        outline: none;
+        box-shadow: inset 0 0 0 3px #fff;
+    }
+    @media (max-width: 700px) {
+        .upgrade-options {
+            gap: 5px;
+        }
+        .upgrade-option {
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 5px;
+            text-align: center;
+        }
+        .upgrade-hex {
+            width: 58px;
+            height: 48px;
+            flex-basis: 48px;
+        }
+        .upgrade-label {
+            align-items: center;
+        }
+        .upgrade-index {
+            font-size: 7px;
+        }
+        .upgrade-inspection {
+            min-height: 52px;
+        }
+        .class-number {
+            top: 12px;
+            left: 12px;
+        }
+    }
+}

@@ -7,6 +7,7 @@ use App\Gun;
 use App\Loadout;
 use App\Throwable;
 use Facebook\WebDriver\Chrome\ChromeDevToolsDriver;
+use Facebook\WebDriver\WebDriverKeys;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -144,6 +145,28 @@ class BuilderTest extends DuskTestCase
                 ->assertScript('document.documentElement.scrollWidth <= window.innerWidth', true)
                 ->screenshot('builder-review-phone');
             $devTools->execute('Emulation.clearDeviceMetricsOverride');
+        });
+    }
+
+    public function test_upgrade_details_follow_hover_and_keyboard_focus_without_equipping(): void
+    {
+        $gun = Gun::where('character_slot', 1)->whereHas('character', fn ($query) => $query->where('name', 'Engineer'))->firstOrFail();
+        $mods = $gun->mods()->where('mod_tier', 1)->orderBy('mod_index')->take(2)->get();
+
+        $this->browse(function (Browser $browser) use ($gun, $mods): void {
+            $this->freshBuilder($browser)->resize(1440, 1000)->click('@engineer')
+                ->waitFor('@weapon-'.$gun->id)->click('@weapon-'.$gun->id)
+                ->scrollIntoView('@mod-'.$mods[0]->id)
+                ->mouseover('@mod-'.$mods[1]->id)
+                ->assertSeeIn('@tier-details-1', strip_tags($mods[1]->text_description))
+                ->assertAttribute('@mod-'.$mods[0]->id, 'aria-pressed', 'true')
+                ->assertAttribute('@mod-'.$mods[1]->id, 'aria-pressed', 'false')
+                ->mouseover('@mod-'.$mods[0]->id)
+                ->keys('@mod-'.$mods[0]->id, WebDriverKeys::TAB)
+                ->assertFocused('@mod-'.$mods[1]->id)
+                ->assertSeeIn('@tier-details-1', strip_tags($mods[1]->text_description))
+                ->assertAttribute('@mod-'.$mods[1]->id, 'aria-pressed', 'false')
+                ->screenshot('builder-slate-hexagons');
         });
     }
 
