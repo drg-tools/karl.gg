@@ -1,70 +1,150 @@
 @extends('layouts.app')
 
-@section('header')
-    Dashboard
+@section('page-heading')
+    <p>Dashboard</p>
 @endsection
+
+@php
+    $classes = [
+        'Driller' => ['color' => '#ebc64d', 'role' => 'Excavate & eliminate'],
+        'Engineer' => ['color' => '#eb745d', 'role' => 'Fortify & defend'],
+        'Gunner' => ['color' => '#9cba6f', 'role' => 'Firepower & protection'],
+        'Scout' => ['color' => '#68aaf6', 'role' => 'Light & mobility'],
+    ];
+    $patchLoadouts = $patchStats['patchLoadouts'];
+    $topClass = $patchStats['classes']->sortByDesc('loadouts_count')->first();
+@endphp
 
 @section('content')
-    <h2 class="text-gray-300">Find Loadouts by Class</h2>
-    <div class="mb-5">
-        <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
-            <a href="/browse?characters[]=3" class="block px-4 py-4 bg-driller hover:bg-driller-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
-                <img
-                    src="{{ asset('assets/img/Driller_portrait-128px.png') }}"
-                    class="w-16 sm:w-24"
-                    alt="Driller Logo">
-                <span class="text-lg sm:text-3xl font-semibold">Driller</span>
-            </a>
-            <a href="/browse?characters[]=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
-                <img
-                    src="{{ asset('assets/img/Engineer_portrait-128px.png') }}"
-                    class="w-16 sm:w-24"
-                    alt="Engineer Logo">
-                <span class="text-lg sm:text-3xl font-semibold">Engineer</span>
-            </a>
-            <a href="/browse?characters[]=4" class="block px-4 py-4 bg-gunner hover:bg-gunner-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
-                <img
-                    src="{{ asset('assets/img/Gunner_portrait-128px.png') }}"
-                    class="w-16 sm:w-24"
-                    alt="Gunner Logo">
-                <span class="text-lg sm:text-3xl font-semibold">Gunner</span>
-            </a>
-            <a href="/browse?characters[]=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
-                <img
-                    src="{{ asset('assets/img/Scout_portrait-128px.png') }}"
-                    class="w-16 sm:w-24"
-                    alt="Scout Logo">
-                <span class="text-lg sm:text-3xl font-semibold">Scout</span>
-            </a>
-        </div>
-    </div>
+    <div class="loadout-page dashboard">
+        <header class="dashboard-hero">
+            <img class="dashboard-hero__art" src="{{ asset('assets/img/home-base.png') }}" alt="">
+            <div class="dashboard-hero__copy">
+                <p class="loadout-eyebrow">
+                    @if ($currentPatch)
+                        Patch {{ $currentPatch->patch_num_dev }} · {{ $currentPatch->patch_title }}
+                    @else
+                        Deep Rock Galactic builds
+                    @endif
+                </p>
+                <h1 class="dashboard-hero__title">Deep Rock Galactic builds, born ready</h1>
+                <p class="dashboard-hero__lede">
+                    Plan a loadout, compare upgrades and overclocks, and borrow the builds other dwarves swear by.
+                </p>
 
-    <div class="my-2">
-        <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
-            <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top Loadouts in Past 2 Weeks"/>
-            <x-dashboard-listing :loadoutList="$latestLoadouts" title='Newest Loadouts'/>
-        </div>
-    </div>
-
-    <div class="flex justify-center my-2">
-        <x-ads.horizontal id="1471414710" />
-    </div>
-
-    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow-sm sm:rounded-md">
-        @foreach ($latestPosts as $post)
-            <div class="my-5">
-                <a href="{{ route('blog.show', $post->id) }}" class="hover:underline text-white text-lg"><h3>{{$post->title}}</h3></a>
-                <div class="mt-2">
-                    {!! Str::words($post->strippedContent, 50, '...') !!}
+                <div class="loadout-hero__actions">
+                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗</span></a>
+                    <a class="loadout-button is-secondary" href="{{ route('loadout.index') }}">Browse loadouts</a>
                 </div>
-                <div class="text-right">
-                    <a class="" href="{{ route('blog.show', $post->id) }}">
-                        <span class="uppercase">Read more</span>
-                    </a>
-                </div>
+
+                <dl class="loadout-hero__summary dashboard-hero__stats">
+                    <div>
+                        <dt>Builds this patch</dt>
+                        <dd>{{ number_format($patchLoadouts) }}</dd>
+                    </div>
+                    <div>
+                        <dt>Builds all-time</dt>
+                        <dd>{{ number_format($patchStats['totalLoadouts']) }}</dd>
+                    </div>
+                    <div>
+                        <dt>Most played</dt>
+                        <dd>{{ $patchLoadouts > 0 ? $topClass->name : '—' }}</dd>
+                    </div>
+                </dl>
             </div>
-        @endforeach
+        </header>
+
+        <section class="loadout-section" aria-labelledby="dashboard-classes">
+            <div class="loadout-section__heading dashboard-heading">
+                <div>
+                    <p class="loadout-eyebrow">Pick your dwarf</p>
+                    <h2 id="dashboard-classes">Find loadouts by class</h2>
+                </div>
+                <a class="dashboard-more" href="{{ route('pickrates.classes') }}">Class pick rates →</a>
+            </div>
+            <div class="dashboard-classes">
+                @foreach ($patchStats['classes'] as $character)
+                    @php
+                        $meta = $classes[$character->name] ?? ['color' => '#ffb547', 'role' => ''];
+                        $share = $patchLoadouts > 0 ? round($character->loadouts_count / $patchLoadouts * 100) : 0;
+                    @endphp
+                    <a class="dashboard-class" href="{{ route('loadout.index') }}?characters[]={{ $character->id }}" style="--class-accent: {{ $meta['color'] }}">
+                        <img class="dashboard-class__portrait" src="{{ $character->potrait }}" alt="">
+                        <span class="dashboard-class__copy">
+                            <span class="dashboard-class__name">{{ $character->name }}</span>
+                            <span class="dashboard-class__role">{{ $meta['role'] }}</span>
+                        </span>
+                        <span class="dashboard-class__share">
+                            <span class="dashboard-class__meter" aria-hidden="true"><span style="width: {{ $share }}%"></span></span>
+                            <span>{{ number_format($character->loadouts_count) }} {{ Str::plural("build", $character->loadouts_count) }} · {{ $share }}% this patch</span>
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+
+        <div class="dashboard-lists">
+            <x-dashboard-listing :loadoutList="$recentTopLoadouts" eyebrow="Squad favorites" title="Top loadouts in past 2 weeks"/>
+            <x-dashboard-listing :loadoutList="$latestLoadouts" eyebrow="Fresh off the forge" title="Newest loadouts"/>
+        </div>
+
+        @if ($patchStats['popularOverclocks']->isNotEmpty())
+            <section class="loadout-section" aria-labelledby="dashboard-overclocks">
+                <div class="loadout-section__heading dashboard-heading">
+                    <div>
+                        <p class="loadout-eyebrow">Meta report</p>
+                        <h2 id="dashboard-overclocks">Most-picked overclocks this patch</h2>
+                    </div>
+                    <a class="dashboard-more" href="{{ route('pickrates.guns') }}">Weapon pick rates →</a>
+                </div>
+                <ol class="dashboard-overclocks">
+                    @foreach ($patchStats['popularOverclocks'] as $overclock)
+                        <li @class(['dashboard-overclock', 'kit-oc-'.strtolower($overclock->overclock_type)])
+                            style="--class-accent: {{ $classes[$overclock->character?->name]['color'] ?? '#ffb547' }}">
+                            <span class="dashboard-overclock__rank">{{ $loop->iteration }}</span>
+                            <span class="dashboard-overclock__icon">
+                                @if ($overclock->icon)
+                                    <img src="/assets/mods/optimized/{{ $overclock->icon }}.svg" alt="">
+                                @endif
+                            </span>
+                            <span class="dashboard-overclock__copy">
+                                <strong>{{ $overclock->overclock_name }}</strong>
+                                <small>{{ $overclock->gun?->name }}</small>
+                            </span>
+                            <span class="dashboard-overclock__meta">
+                                <span class="dashboard-overclock__type">{{ $overclock->overclock_type }}</span>
+                                <span>{{ number_format($overclock->loadouts_count) }} {{ Str::plural("build", $overclock->loadouts_count) }}</span>
+                            </span>
+                        </li>
+                    @endforeach
+                </ol>
+            </section>
+        @endif
+
+        <div class="flex justify-center">
+            <x-ads.horizontal id="1471414710" />
+        </div>
+
+        @if ($latestPosts->isNotEmpty())
+            <section class="loadout-section" aria-labelledby="dashboard-posts">
+                <div class="loadout-section__heading dashboard-heading">
+                    <div>
+                        <p class="loadout-eyebrow">Mission control</p>
+                        <h2 id="dashboard-posts">From the blog</h2>
+                    </div>
+                    <a class="dashboard-more" href="{{ route('blog.index') }}">All posts →</a>
+                </div>
+                <div class="dashboard-posts">
+                    @foreach ($latestPosts as $post)
+                        <article class="dashboard-post">
+                            <p class="loadout-eyebrow">{{ $post->published_at->format('j M Y') }}</p>
+                            <h3><a href="{{ route('blog.show', $post->id) }}">{{ $post->title }}</a></h3>
+                            <p class="dashboard-post__excerpt">{!! Str::words($post->strippedContent, 40, '…') !!}</p>
+                            <a class="dashboard-more" href="{{ route('blog.show', $post->id) }}" aria-label="Read more: {{ $post->title }}">Read more →</a>
+                        </article>
+                    @endforeach
+                </div>
+            </section>
+        @endif
     </div>
-
 @endsection
-
