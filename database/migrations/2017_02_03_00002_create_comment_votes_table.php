@@ -13,7 +13,7 @@ class CreateCommentVotesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('comments.table_names.votes'), function (Blueprint $table) {
+        Schema::create('comment_votes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('comment_id')->unsigned()->index();
             $table->bigInteger('user_id')->unsigned()->index();
@@ -21,9 +21,9 @@ class CreateCommentVotesTable extends Migration
             $table->timestamps();
 
             $table->foreign('comment_id')
-                    ->references('id')
-                    ->on(config('comments.table_names.comments'))
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on('comments')
+                ->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateCommentVotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('comments.table_names.votes'));
+        Schema::dropIfExists('comment_votes');
     }
 }

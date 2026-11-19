@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@push('styles')
-    <link href="{{ mix('comments.css', 'vendor/comments') }}" rel="stylesheet">
-@endpush
-
 @php
     $classes = [
         'Engineer' => ['letter' => 'E', 'color' => '#eb745d', 'role' => 'Fortify & defend'],
@@ -151,18 +147,8 @@
                 <h2 id="loadout-comments-heading">Comments</h2>
             </div>
             <div class="loadout-panel">
-                <div id="loadout-comments"></div>
+                @include('comments.embed', ['pageId' => 'loadout-'.$loadout->id])
             </div>
         </section>
     </div>
-@endsection
-
-@section('scripts')
-    <script src="{{ mix('comments.js', 'vendor/comments') }}"></script>
-    <script>
-        new Comments.default({
-            el: '#loadout-comments',
-            pageId: 'loadout-{{ $loadout->id }}'
-        });
-    </script>
 @endsection

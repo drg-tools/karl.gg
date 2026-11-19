@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\User;
+use App\Comment;
+use App\Policies\CommentPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        //         'App\Build' => 'App\Policies\BuildPolicy',
+        Comment::class => CommentPolicy::class,
     ];
 
     /**
@@ -24,15 +25,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        /**
-         * Determine if the current user can access the admin panel.
-         *
-         * @param  User  $user
-         * @return bool
-         */
-        \Gate::define('moderate-comments', function (User $user) {
-            return $user->can('manage-comments');
-        });
     }
 }
