@@ -11,7 +11,7 @@ const calculatorSource = fs.readFileSync(path.join(root, 'resources/js/statCalcu
         'export { _calculateDamage as calculateDamage, getModifiedStats };',
         'globalThis.statCalculator = { calculateDamage: _calculateDamage, getModifiedStats };'
     );
-const script = source.match(/<script>([\s\S]*?)<\/script>/)[1]
+const script = source.match(/<script>([\s\S]*?)<\/script>/i)[1]
     .replace("import clone from 'lodash-es/clone';", 'const clone = (value) => [...value];')
     .replace(
         "import { calculateDamage as _calculateDamage, getModifiedStats } from '../statCalculator';",
