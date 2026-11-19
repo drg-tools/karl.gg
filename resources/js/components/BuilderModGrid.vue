@@ -39,7 +39,6 @@
                     :aria-pressed="selected.includes(mod.id)"
                     :aria-label="mod.mod_name"
                     :aria-describedby="`${descriptionId}-${mod.id}`"
-                    :dusk="`mod-${mod.id}`"
                     @mouseenter="inspect(mod)"
                     @focus="inspect(mod)"
                     @click="selectUpgrade(mod)"
@@ -75,7 +74,6 @@
             <div
                 v-if="locked(tier)"
                 class="upgrade-inspection is-locked"
-                :dusk="`tier-details-${tier}`"
             >
                 <span class="inspection-key">Locked</span>
                 <p>Choose a tier {{ tier - 1 }} upgrade to unlock this tier.</p>
@@ -84,7 +82,6 @@
                 v-else-if="detailFor(tier, tierMods)"
                 class="upgrade-inspection"
                 :class="{ 'is-preview': isPreview(tier, tierMods) }"
-                :dusk="`tier-details-${tier}`"
             >
                 <span class="inspection-key"
                     >{{

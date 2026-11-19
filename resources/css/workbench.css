@@ -1193,12 +1193,12 @@
         font: 600 14px var(--mono);
         color: var(--ice-2);
     }
-    [dusk="credits-calculator"] {
+    .credits-calculator {
         margin-top: 18px;
         padding-top: 14px;
         border-top: 1px solid rgba(156, 200, 232, 0.12);
     }
-    [dusk="credits-calculator"] > .text-lg {
+    .credits-calculator > .text-lg {
         display: block;
         margin: 0 0 8px;
         font: 500 11px/1.4 var(--mono);

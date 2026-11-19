@@ -25,7 +25,6 @@
             <div
                 class="weapon-picker"
                 :style="{ '--weapons': guns.length }"
-                :dusk="slot === 1 ? 'primary-selectors' : 'secondary-selectors'"
                 role="group"
                 :aria-label="
                     slot === 1 ? 'Primary weapons' : 'Secondary weapons'
@@ -38,7 +37,6 @@
                     class="weapon-choice"
                     :class="{ 'is-selected': gun?.id === weapon.id }"
                     :aria-pressed="gun?.id === weapon.id"
-                    :dusk="`weapon-${weapon.id}`"
                     @click="$emit('weapon', weapon.id)"
                 >
                     <span class="weapon-silhouette"
@@ -141,7 +139,6 @@
                                 { 'is-selected': overclock?.id === item.id },
                             ]"
                             :aria-pressed="overclock?.id === item.id"
-                            :dusk="`overclock-${item.id}`"
                             @mouseenter="previewOverclock(item)"
                             @focus="previewOverclock(item)"
                             @blur="preview = null"

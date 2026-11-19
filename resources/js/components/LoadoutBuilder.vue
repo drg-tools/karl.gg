@@ -33,7 +33,6 @@
                 <button
                     type="button"
                     class="terminal-button"
-                    dusk="restore-draft"
                     @click="restoreDraft"
                 >
                     Continue draft</button
@@ -100,7 +99,6 @@
                             classInfo[character.name]?.color || '#fc9e00',
                     }"
                     :aria-pressed="character.id === form.character_id"
-                    :dusk="character.name.toLowerCase()"
                     :disabled="saving"
                     @click="requestClass(character.id)"
                 >
@@ -149,7 +147,6 @@
                     <button
                         type="button"
                         class="terminal-button"
-                        dusk="confirm-class"
                         @click="selectClass(pendingClass)"
                     >
                         Switch class</button
@@ -200,7 +197,6 @@
                             <button
                                 type="button"
                                 class="text-action"
-                                dusk="change-class"
                                 :disabled="saving"
                                 @click="choosingClass = true"
                             >
@@ -224,7 +220,6 @@
                         :aria-current="
                             activeSection === section.key ? 'step' : undefined
                         "
-                        :dusk="`section-${section.key}`"
                         :disabled="saving"
                         @click="goTo(section.key)"
                     >
@@ -316,7 +311,6 @@
                                 <button
                                     v-for="equipment in catalog.equipments"
                                     :key="equipment.id"
-                                    :dusk="`equipment-${equipment.id}`"
                                     type="button"
                                     class="weapon-choice"
                                     :class="{
@@ -453,7 +447,6 @@
                                 <button
                                     v-for="throwable in catalog.throwables"
                                     :key="throwable.id"
-                                    :dusk="`throwable-${throwable.id}`"
                                     type="button"
                                     class="weapon-choice"
                                     :class="{
@@ -736,7 +729,6 @@
                                         type="submit"
                                         class="terminal-button"
                                         :disabled="saving"
-                                        dusk="save-loadout"
                                     >
                                         {{
                                             saving
@@ -774,7 +766,6 @@
                             type="button"
                             class="terminal-button"
                             :disabled="saving"
-                            dusk="next-section"
                             @click="nextSection"
                         >
                             {{ nextLabel }} <span aria-hidden="true">→</span>
