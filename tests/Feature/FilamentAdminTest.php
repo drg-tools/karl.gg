@@ -97,6 +97,33 @@ class FilamentAdminTest extends TestCase
         $this->assertDatabaseHas('loadouts', ['id' => $loadout->id, 'name' => $loadout->name]);
     }
 
+    public function test_panel_users_can_hide_and_restore_another_users_build(): void
+    {
+        $this->manager(['view-admin']);
+        $loadout = $this->loadout();
+        Patch::factory()->create(['launched_at' => now()]);
+
+        Livewire::test(ManageLoadout::class)
+            ->callTableAction('hide', $loadout)
+            ->assertHasNoTableActionErrors()
+            ->assertCanSeeTableRecords([$loadout]);
+
+        $this->assertDatabaseHas('loadouts', [
+            'id' => $loadout->id,
+            'is_hidden' => true,
+            'patch_id' => $loadout->patch_id,
+            'updated_at' => $loadout->getRawOriginal('updated_at'),
+        ]);
+        $this->get('/browse')->assertOk()->assertDontSee($loadout->name);
+
+        Livewire::test(ManageLoadout::class)
+            ->callTableAction('restoreListing', $loadout)
+            ->assertHasNoTableActionErrors();
+
+        $this->assertDatabaseHas('loadouts', ['id' => $loadout->id, 'is_hidden' => false]);
+        $this->get('/browse')->assertOk()->assertSee($loadout->name);
+    }
+
     private function loadout(): Loadout
     {
         $patch = Patch::factory()->create(['launched_at' => now()->subDay()]);

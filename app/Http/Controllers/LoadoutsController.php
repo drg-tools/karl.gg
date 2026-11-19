@@ -39,7 +39,7 @@ class LoadoutsController extends Controller
         $browse = LoadoutBrowseQuery::fromRequest($request);
 
         $loadouts = $browse->applySort(
-            Loadout::filter($browse->filters)
+            Loadout::listed()->filter($browse->filters)
                 ->select(['loadouts.id', 'loadouts.name', 'user_id', 'character_id', 'patch_id', 'throwable_id', 'loadouts.created_at', 'loadouts.updated_at'])
                 ->with('mods.gun', 'overclocks.gun', 'character', 'creator', 'patch')
                 ->withSum('votes', 'value')

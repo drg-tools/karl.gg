@@ -36,9 +36,12 @@ class ProfileController extends Controller
     {
         $user = User::findOrFail($id);
         $currentPatchId = Patch::current()?->id;
+        $isOwner = $request->user()?->is($user) ?? false;
+        $profileLoadouts = Loadout::query()->where('user_id', $user->id)
+            ->unless($isOwner, fn (Builder $query): Builder => $query->listed());
 
         /** @var Collection<int, int> $classCounts loadout count keyed by character id */
-        $classCounts = $user->loadouts()->toBase()
+        $classCounts = (clone $profileLoadouts)->toBase()
             ->selectRaw('character_id, count(*) as aggregate')
             ->groupBy('character_id')
             ->pluck('aggregate', 'character_id')
@@ -51,7 +54,7 @@ class ProfileController extends Controller
         $classId = is_scalar($classId) && ctype_digit((string) $classId) && $classCounts->has((int) $classId) ? (int) $classId : null;
 
         $loadouts = (new LoadoutBrowseQuery([], $sort))
-            ->applySort($this->loadoutRows($user)->when($classId, fn (Builder $query) => $query->where('character_id', $classId)))
+            ->applySort($this->loadoutRows(clone $profileLoadouts)->when($classId, fn (Builder $query) => $query->where('character_id', $classId)))
             ->paginate(20)
             ->appends(array_filter([
                 'class' => $classId,
@@ -61,7 +64,7 @@ class ProfileController extends Controller
 
         $showTopLoadouts = $loadouts->onFirstPage() && $classId === null && $sort !== 'salutes' && $loadoutCount > 3;
         $topLoadouts = $showTopLoadouts
-            ? $this->loadoutRows($user)
+            ? $this->loadoutRows(clone $profileLoadouts)
                 ->orderByDesc('votes_sum_value')
                 ->orderByDesc('loadouts.id')
                 ->take(3)
@@ -74,18 +77,18 @@ class ProfileController extends Controller
             'loadouts' => $loadoutCount,
             'salutes' => $loadoutCount === 0 ? 0 : (int) Rating::query()
                 ->where('rateable_type', (new Loadout)->getMorphClass())
-                ->whereIn('rateable_id', $user->loadouts()->select('id'))
+                ->whereIn('rateable_id', (clone $profileLoadouts)->select('id'))
                 ->sum('value'),
             'currentPatch' => $currentPatchId === null || $loadoutCount === 0
                 ? 0
-                : $user->loadouts()->where('patch_id', $currentPatchId)->count(),
+                : (clone $profileLoadouts)->where('patch_id', $currentPatchId)->count(),
         ];
 
         $this->generateSeo($user, $stats, $loadouts->currentPage());
 
         return view('profile.show', [
             'user' => $user,
-            'isOwner' => $request->user()?->is($user) ?? false,
+            'isOwner' => $isOwner,
             'stats' => $stats,
             'loadouts' => $loadouts,
             'topLoadouts' => $topLoadouts,
@@ -99,12 +102,12 @@ class ProfileController extends Controller
     /**
      * The user's loadouts with everything a loadout row renders, in one eager-loaded query.
      *
+     * @param  Builder<Loadout>  $query
      * @return Builder<Loadout>
      */
-    private function loadoutRows(User $user): Builder
+    private function loadoutRows(Builder $query): Builder
     {
-        return Loadout::query()
-            ->where('user_id', $user->id)
+        return $query
             ->select(['loadouts.id', 'loadouts.name', 'user_id', 'character_id', 'patch_id', 'loadouts.created_at', 'loadouts.updated_at'])
             ->with('mods.gun', 'overclocks.gun', 'character', 'patch')
             ->withSum('votes', 'value');

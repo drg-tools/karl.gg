@@ -23,6 +23,7 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $throwable_id
+ * @property bool $is_hidden
  * @property-read \App\Character $character
  * @property-read \App\User|null $creator
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\EquipmentMod[] $equipment_mods
@@ -88,6 +89,8 @@ class Loadout extends Model
 
     protected $hidden = ['creator'];
 
+    protected $casts = ['is_hidden' => 'boolean'];
+
     /**
      * The event map for the model.
      *
@@ -130,6 +133,18 @@ class Loadout extends Model
     public function patch()
     {
         return $this->belongsTo(Patch::class);
+    }
+
+    public function scopeListed(Builder $query): Builder
+    {
+        return $query->where('loadouts.is_hidden', false);
+    }
+
+    public function setHiddenFromLists(bool $hidden): void
+    {
+        $this->is_hidden = $hidden;
+
+        static::withoutTimestamps(fn (): bool => $this->saveQuietly());
     }
 
     public function scopeOnOlderPatch(Builder $query)

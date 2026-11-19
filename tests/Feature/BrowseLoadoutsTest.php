@@ -15,6 +15,31 @@ class BrowseLoadoutsTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_hidden_loadouts_stay_off_public_lists_and_remain_accessible(): void
+    {
+        $owner = User::factory()->create();
+        $character = Character::factory()->create(['name' => 'Scout']);
+        $visible = Loadout::factory()->for($character)->for($owner, 'creator')->create([
+            'name' => 'Listed Scout Build',
+            'created_at' => now()->subDay(),
+        ]);
+        $hidden = Loadout::factory()->for($character)->for($owner, 'creator')->create([
+            'name' => 'Unlisted Scout Build',
+            'created_at' => now()->subDay(),
+            'is_hidden' => true,
+        ]);
+        Loadout::factory()->for($character)->for($owner, 'creator')->count(3)->create();
+        $owner->upVote($visible);
+        $owner->upVote($hidden);
+
+        foreach (['/', '/browse', '/profile/'.$owner->id] as $url) {
+            $this->get($url)->assertOk()->assertSee($visible->name)->assertDontSee($hidden->name);
+        }
+
+        $this->get('/preview/'.$hidden->id)->assertOk()->assertSee($hidden->name);
+        $this->actingAs($owner)->get('/profile/'.$owner->id)->assertOk()->assertSee($hidden->name);
+    }
+
     public function test_browse_keeps_its_seo_metadata(): void
     {
         $this->get('/browse')

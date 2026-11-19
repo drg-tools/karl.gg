@@ -4,10 +4,16 @@ namespace App\Filament\Resources;
 
 use App\Loadout;
 use App\User;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Table;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
@@ -33,6 +39,36 @@ class LoadoutResource extends AdminResource
             'update', 'delete' => static::canViewAny() ? Response::allow() : Response::deny(),
             default => parent::getAuthorizationResponse($action, $record),
         };
+    }
+
+    public static function table(Table $table): Table
+    {
+        return parent::table($table)->recordActions([
+            EditAction::make(),
+            DeleteAction::make(),
+            Action::make('hide')
+                ->label('Hide')
+                ->icon(Heroicon::OutlinedEyeSlash)
+                ->authorize(fn (Loadout $record): Response => static::getEditAuthorizationResponse($record))
+                ->visible(fn (Loadout $record): bool => ! $record->is_hidden)
+                ->action(fn (Loadout $record) => $record->setHiddenFromLists(true)),
+            Action::make('restoreListing')
+                ->label('Show in lists')
+                ->authorize(fn (Loadout $record): Response => static::getEditAuthorizationResponse($record))
+                ->visible(fn (Loadout $record): bool => $record->is_hidden)
+                ->action(fn (Loadout $record) => $record->setHiddenFromLists(false)),
+        ]);
+    }
+
+    protected static function filters(): array
+    {
+        return [
+            ...parent::filters(),
+            TernaryFilter::make('is_hidden')
+                ->label('List visibility')
+                ->trueLabel('Hidden from lists')
+                ->falseLabel('Shown in lists'),
+        ];
     }
 
     protected static function fields(): array

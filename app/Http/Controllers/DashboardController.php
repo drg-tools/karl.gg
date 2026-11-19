@@ -76,7 +76,7 @@ class DashboardController extends Controller
      */
     private function getRecentTopLoadouts(): Collection
     {
-        return Loadout::where('created_at', '>', Carbon::now()->subDays(14))
+        return Loadout::listed()->where('created_at', '>', Carbon::now()->subDays(14))
             ->withSum('votes', 'value')
             ->with('character', 'creator', 'mods.gun')
             ->orderBy('votes_sum_value', 'desc')
@@ -89,7 +89,7 @@ class DashboardController extends Controller
      */
     private function getLatestLoadouts(): Collection
     {
-        return Loadout::where('created_at', '>', Carbon::now()->subDays(14))
+        return Loadout::listed()->where('created_at', '>', Carbon::now()->subDays(14))
             ->withSum('votes', 'value')
             ->with('character', 'creator', 'mods.gun')
             ->latest()

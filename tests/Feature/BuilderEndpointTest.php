@@ -58,6 +58,23 @@ class BuilderEndpointTest extends TestCase
         $this->putJson('/build/'.$loadout->id, [])->assertUnauthorized();
     }
 
+    public function test_owner_cannot_restore_a_hidden_build_through_the_public_builder(): void
+    {
+        $input = $this->input();
+        $owner = User::factory()->create();
+        $loadout = Loadout::factory()->for($owner, 'creator')->create([
+            'character_id' => $input['character_id'],
+            'is_hidden' => true,
+        ]);
+
+        $this->actingAs($owner)->putJson('/build/'.$loadout->id, $input + ['is_hidden' => false])->assertOk();
+        $this->assertDatabaseHas('loadouts', [
+            'id' => $loadout->id,
+            'name' => $input['name'],
+            'is_hidden' => true,
+        ]);
+    }
+
     public function test_invalid_selection_does_not_create_a_partial_build(): void
     {
         $input = $this->input();
