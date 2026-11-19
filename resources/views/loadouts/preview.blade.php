@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('header')
-    Loadout
+@section('page-heading')
+    <p class="text-lg leading-6 font-semibold text-white">Loadout</p>
 @endsection
 
 @push('styles')
@@ -39,7 +39,7 @@
                         · Patch {{ $loadout->patch->patch_num_dev }}
                     @endif
                 </p>
-                <h2 class="loadout-hero__name">{{ $loadout->name }}</h2>
+                <h1 class="loadout-hero__name">{{ $loadout->name }}</h1>
                 <p class="loadout-hero__meta">
                     by
                     @if ($loadout->creator)
@@ -94,7 +94,7 @@
         <section class="loadout-section" aria-labelledby="loadout-kit">
             <div class="loadout-section__heading">
                 <p class="loadout-eyebrow">The kit</p>
-                <h3 id="loadout-kit">Weapons &amp; gear</h3>
+                <h2 id="loadout-kit">Weapons &amp; gear</h2>
             </div>
             <div class="loadout-kit">
                 @foreach ($guns as $gun)
@@ -136,7 +136,7 @@
             <section class="loadout-section" aria-labelledby="loadout-guide">
                 <div class="loadout-section__heading">
                     <p class="loadout-eyebrow">Field notes</p>
-                    <h3 id="loadout-guide">Loadout guide</h3>
+                    <h2 id="loadout-guide">Loadout guide</h2>
                 </div>
                 <div class="loadout-panel prose prose-invert max-w-none">{!! $guideHtml !!}</div>
             </section>
@@ -149,7 +149,7 @@
         <section class="loadout-section" aria-labelledby="loadout-comments-heading">
             <div class="loadout-section__heading">
                 <p class="loadout-eyebrow">Squad chatter</p>
-                <h3 id="loadout-comments-heading">Comments</h3>
+                <h2 id="loadout-comments-heading">Comments</h2>
             </div>
             <div class="loadout-panel">
                 <div id="loadout-comments"></div>

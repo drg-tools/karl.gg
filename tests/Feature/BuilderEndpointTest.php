@@ -174,6 +174,27 @@ class BuilderEndpointTest extends TestCase
             ->assertDontSee('href="javascript:', false)->assertDontSee('/js/builder.js', false);
     }
 
+    public function test_public_preview_renders_loadout_seo_metadata_and_main_heading(): void
+    {
+        $id = $this->postJson('/build', $this->input())->assertCreated()->json('id');
+        $url = route('preview.show', $id);
+        $description = 'Engineer build with Impact Splash';
+
+        $this->get($url)->assertOk()->assertSeeHtml([
+            '<title>Karl: Born Ready - Engineer - Test build</title>',
+            '<meta name="description" content="'.$description.'">',
+            '<meta name="keywords" content="Engineer build, Deep Rock Galactic builds, drg builds, Impact Splash build, Shard Diffractor build">',
+            '<meta property="og:title" content="Engineer - Test build"',
+            '<meta property="og:description" content="'.$description.'"',
+            '<meta property="og:url" content="'.$url.'"',
+            '<meta name="twitter:card" content="summary">',
+            '<meta name="twitter:title" content="Engineer - Test build">',
+            '<meta name="twitter:description" content="'.$description.'">',
+            '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Engineer - Test build","description":"'.$description.'"}</script>',
+            '<h1 class="loadout-hero__name">Test build</h1>',
+        ]);
+    }
+
     public function test_salutes_toggle_using_session_authentication(): void
     {
         $input = $this->input();

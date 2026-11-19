@@ -233,7 +233,7 @@
     display: grid;
     gap: 14px;
 }
-.loadout-section__heading h3 {
+.loadout-section__heading h2 {
     margin: 4px 0 0;
     font: 400 32px/1 var(--display);
     letter-spacing: 0.01em;
