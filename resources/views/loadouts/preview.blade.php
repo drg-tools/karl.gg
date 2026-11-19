@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page-heading')
-    <p class="text-lg leading-6 font-semibold text-white">Loadout</p>
+    <p>Loadout</p>
 @endsection
 
 @push('styles')

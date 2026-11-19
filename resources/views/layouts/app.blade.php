@@ -31,13 +31,13 @@
     @stack('styles')
 </head>
 <body>
-<div id="app" class="bg-gray-900 flex flex-col min-h-screen">
+<div id="app" class="site-shell flex flex-col min-h-screen">
     @include('layouts.nav-v2')
 
-    <header class="bg-gray-700 shadow-xs">
-        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+    <header class="site-header">
+        <div class="site-header__inner">
             @section('page-heading')
-                <h1 class="text-lg leading-6 font-semibold text-white">
+                <h1>
                     @yield('header')
                 </h1>
             @show
