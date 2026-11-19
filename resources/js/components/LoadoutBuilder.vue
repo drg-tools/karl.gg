@@ -119,7 +119,9 @@
                         ><span>{{
                             classInfo[character.name]?.description
                         }}</span></span
-                    ><span class="class-arrow" aria-hidden="true">↗</span>
+                    ><span class="class-arrow" aria-hidden="true"
+                        >Select ↗</span
+                    >
                 </button>
             </div>
             <div
@@ -163,32 +165,6 @@
         </section>
 
         <template v-if="form.character_id && !choosingClass">
-            <div class="selected-class-strip">
-                <div class="selected-class-identity">
-                    <img
-                        :src="`/assets/img/${currentClass?.name}_portrait-128px.png`"
-                        alt=""
-                    />
-                    <div>
-                        <span class="terminal-label">Your class</span
-                        ><strong>{{ currentClass?.name }}</strong>
-                    </div>
-                    <button
-                        type="button"
-                        class="text-action"
-                        dusk="change-class"
-                        :disabled="saving"
-                        @click="choosingClass = true"
-                    >
-                        Change <span aria-hidden="true">↗</span>
-                    </button>
-                </div>
-                <span class="draft-status">{{
-                    draftSaved
-                        ? "Draft saved in this browser"
-                        : "Your next great build starts here"
-                }}</span>
-            </div>
             <div v-if="loading" class="catalog-loading" role="status">
                 <span class="loading-spinner" aria-hidden="true"></span>
                 <h3>Opening the armory…</h3>
@@ -213,6 +189,25 @@
                     class="loadout-rail"
                     aria-label="Loadout sections"
                 >
+                    <div class="rail-identity">
+                        <span class="rail-portrait" aria-hidden="true"
+                            ><img
+                                :src="`/assets/img/${currentClass?.name}_portrait-128px.png`"
+                                alt=""
+                        /></span>
+                        <div>
+                            <strong>{{ currentClass?.name }}</strong>
+                            <button
+                                type="button"
+                                class="text-action"
+                                dusk="change-class"
+                                :disabled="saving"
+                                @click="choosingClass = true"
+                            >
+                                Change class
+                            </button>
+                        </div>
+                    </div>
                     <div class="rail-heading">
                         <span class="terminal-label">Your loadout</span
                         ><span>{{ configuredCount }} / 4</span>
@@ -222,7 +217,10 @@
                         :key="section.key"
                         type="button"
                         class="rail-item"
-                        :class="{ 'is-active': activeSection === section.key }"
+                        :class="{
+                            'is-active': activeSection === section.key,
+                            'is-configured': sectionConfigured(section.key),
+                        }"
                         :aria-current="
                             activeSection === section.key ? 'step' : undefined
                         "
@@ -230,21 +228,29 @@
                         :disabled="saving"
                         @click="goTo(section.key)"
                     >
-                        <span class="rail-number">{{
-                            String(index + 1).padStart(2, "0")
+                        <span class="rail-number" aria-hidden="true">{{
+                            sectionConfigured(section.key) &&
+                            activeSection !== section.key
+                                ? "✓"
+                                : String(index + 1).padStart(2, "0")
                         }}</span
-                        ><span
+                        ><span class="rail-text"
                             ><strong>{{ section.label }}</strong
                             ><small>{{
                                 sectionSummary(section.key)
                             }}</small></span
-                        ><span class="rail-state" aria-hidden="true">{{
-                            sectionConfigured(section.key) ? "✓" : "·"
-                        }}</span>
+                        ><span
+                            v-if="sectionConfigured(section.key)"
+                            class="sr-only"
+                            >(configured)</span
+                        >
                     </button>
                     <div class="rail-footer">
-                        <span aria-hidden="true">↳</span> Every slot is
-                        optional.<br />Make this build your own.
+                        <span class="draft-status">{{
+                            draftSaved
+                                ? "Draft saved in this browser"
+                                : "Every slot is optional"
+                        }}</span>
                     </div>
                 </nav>
                 <section
@@ -271,6 +277,7 @@
                             :selected-ids="form.mods"
                             :overclock="selectedOverclock(activeWeaponSlot)"
                             :metrics="metrics[activeWeaponSlot]"
+                            :class-name="currentClass?.name"
                             @weapon="chooseWeapon(activeWeaponSlot, $event)"
                             @mod="
                                 selectMod(
@@ -288,9 +295,9 @@
                             <div class="section-heading">
                                 <div>
                                     <p class="terminal-label">
-                                        03 / Tools of the trade
+                                        Step 03 of 05 · {{ currentClass?.name }}
                                     </p>
-                                    <h2>More than firepower.</h2>
+                                    <h2>Equipment</h2>
                                 </div>
                                 <span class="section-hint"
                                     >A good dwarf comes prepared.</span
@@ -298,7 +305,10 @@
                             </div>
                             <div
                                 v-if="catalog.equipments.length"
-                                class="equipment-tabs"
+                                class="equipment-tabs weapon-picker"
+                                :style="{
+                                    '--weapons': catalog.equipments.length,
+                                }"
                                 role="group"
                                 aria-label="Equipment"
                             >
@@ -307,6 +317,7 @@
                                     :key="equipment.id"
                                     :dusk="`equipment-${equipment.id}`"
                                     type="button"
+                                    class="weapon-choice"
                                     :class="{
                                         'is-selected':
                                             activeEquipmentId === equipment.id,
@@ -316,24 +327,36 @@
                                     "
                                     @click="activeEquipmentId = equipment.id"
                                 >
-                                    <img
-                                        :src="`/assets/${equipment.icon}.svg`"
-                                        alt=""
-                                    />{{ equipment.name }}
+                                    <span class="weapon-silhouette"
+                                        ><img
+                                            :src="`/assets/${equipment.icon}.svg`"
+                                            alt=""
+                                    /></span>
+                                    <span class="weapon-name">{{
+                                        equipment.name
+                                    }}</span>
                                 </button>
                             </div>
                             <div
                                 v-if="activeEquipment"
-                                class="weapon-configuration"
+                                class="weapon-panel equipment-panel"
                             >
                                 <div class="upgrade-column">
                                     <div class="subsection-heading">
-                                        <h3>{{ activeEquipment.name }}</h3>
-                                        <span>Equipment upgrades</span>
+                                        <div>
+                                            <h3>{{ activeEquipment.name }}</h3>
+                                            <p class="upgrade-help">
+                                                Equipment upgrades. Hover or
+                                                focus to preview, click to
+                                                equip.
+                                            </p>
+                                        </div>
                                     </div>
                                     <BuilderModGrid
                                         :mods="activeEquipment.equipment_mods"
                                         :selected="form.equipment_mods"
+                                        :base-stats="activeEquipment.json_stats"
+                                        @preview="equipmentPreview = $event"
                                         @select="
                                             selectMod(
                                                 $event,
@@ -343,20 +366,46 @@
                                         "
                                     />
                                 </div>
-                                <aside class="weapon-readout">
-                                    <span class="terminal-label"
-                                        >Live readout</span
-                                    ><img
+                                <aside
+                                    class="weapon-readout"
+                                    aria-label="Equipment statistics"
+                                >
+                                    <div class="readout-title">
+                                        <span class="readout-mode">{{
+                                            equipmentPreview
+                                                ? "Previewing swap"
+                                                : "Live readout"
+                                        }}</span
+                                        ><span>Equipment</span>
+                                    </div>
+                                    <img
                                         class="readout-weapon equipment-art"
                                         :src="`/assets/${activeEquipment.icon}.svg`"
                                         alt=""
-                                    /><MainStatsDisplay
+                                    />
+                                    <h3>{{ activeEquipment.name }}</h3>
+                                    <BuilderStatReadout
                                         :equipment="activeEquipment"
-                                        :mods="
+                                        :upgrades="
                                             selectedMods(
                                                 activeEquipment.equipment_mods,
                                                 'equipment_mods'
                                             )
+                                        "
+                                        :preview-upgrades="
+                                            equipmentPreview
+                                                ? [
+                                                      ...selectedMods(
+                                                          activeEquipment.equipment_mods,
+                                                          'equipment_mods'
+                                                      ).filter(
+                                                          (mod) =>
+                                                              mod.mod_tier !==
+                                                              equipmentPreview.mod_tier
+                                                      ),
+                                                      equipmentPreview,
+                                                  ]
+                                                : null
                                         "
                                     /><CreditsCalculator
                                         :selected-mods="
@@ -377,9 +426,9 @@
                             <div class="section-heading">
                                 <div>
                                     <p class="terminal-label">
-                                        04 / Parting gift
+                                        Step 04 of 05 · {{ currentClass?.name }}
                                     </p>
-                                    <h2>Make an entrance.</h2>
+                                    <h2>Throwable</h2>
                                 </div>
                                 <span class="section-hint"
                                     >One last thing for the swarm.</span
@@ -434,9 +483,13 @@
                                 v-if="selectedThrowable"
                                 class="throwable-readout"
                             >
-                                <MainStatsDisplay
+                                <div class="readout-title">
+                                    <span class="readout-mode"
+                                        >Live readout</span
+                                    ><span>{{ selectedThrowable.name }}</span>
+                                </div>
+                                <BuilderStatReadout
                                     :equipment="selectedThrowable"
-                                    :mods="[]"
                                 /><CreditsCalculator
                                     :throwable="selectedThrowable"
                                 />
@@ -446,7 +499,7 @@
                             <div class="section-heading">
                                 <div>
                                     <p class="terminal-label">
-                                        05 / Ready for deployment
+                                        Step 05 of 05 · Ready for deployment
                                     </p>
                                     <h2>Give this build a name.</h2>
                                 </div>
@@ -650,7 +703,8 @@
 <script setup>
 import BuilderModGrid from "./BuilderModGrid.vue";
 import BuilderWeaponPanel from "./BuilderWeaponPanel.vue";
-import MainStatsDisplay from "./MainStatsDisplay.vue";
+import { ref, watch } from "vue";
+import BuilderStatReadout from "./BuilderStatReadout.vue";
 import CreditsCalculator from "./CreditsCalculator.vue";
 import { useLoadoutBuilder } from "../useLoadoutBuilder";
 
@@ -709,4 +763,10 @@ const {
     dismissError,
     save,
 } = useLoadoutBuilder(config);
+
+/** Equipment upgrade currently being previewed by hover or focus. */
+const equipmentPreview = ref(null);
+watch([activeEquipmentId, activeSection], () => {
+    equipmentPreview.value = null;
+});
 </script>

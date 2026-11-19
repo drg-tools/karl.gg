@@ -159,6 +159,8 @@ class BuilderTest extends DuskTestCase
                 ->scrollIntoView('@mod-'.$mods[0]->id)
                 ->mouseover('@mod-'.$mods[1]->id)
                 ->assertSeeIn('@tier-details-1', strip_tags($mods[1]->text_description))
+                ->assertSeeIn('.weapon-readout', 'Previewing swap')
+                ->assertSeeIn('.weapon-readout', $mods[1]->mod_name)
                 ->assertAttribute('@mod-'.$mods[0]->id, 'aria-pressed', 'true')
                 ->assertAttribute('@mod-'.$mods[1]->id, 'aria-pressed', 'false')
                 ->mouseover('@mod-'.$mods[0]->id)
