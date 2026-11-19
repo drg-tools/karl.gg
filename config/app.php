@@ -6,9 +6,10 @@ return [
      * Banner to show across the whole site.
      */
     'banner' => [
-        'enabled' => false,
-        'message' => 'Heads up! New patch content is in the works!',
-        'link' => '',
+        'enabled' => true,
+        'message' => 'Have feedback on the new Karl.gg? Tell us what’s working, what’s getting in your way, or what you’d like to see improved on Discord. Please keep loadout posts focused on builds so players can find them easily.',
+        'link' => 'https://discord.gg/pdh5RMf',
+        'link_label' => 'Share feedback on Discord',
     ],
 
     /*
