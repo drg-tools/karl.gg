@@ -20,7 +20,7 @@
                     :maxlength="tierCount"
                     spellcheck="false"
                     autocomplete="off"
-                    title="Type a code like BACAB or 21312"
+                    title="Type a code like BACAB or 21312; use - to skip a tier"
                     @focus="startCode"
                     @input="typeCode"
                     @blur="codeDraft = null"
@@ -160,8 +160,9 @@ const changedStats = computed(() => {
         }));
 });
 
+/** Start editing with empty tiers as "-", so a gap like "B-C" keeps its place. */
 function startCode() {
-    codeDraft.value = signature.value.replace(/–/g, "");
+    codeDraft.value = signature.value.replace(/–/g, "-").replace(/-+$/, "");
 }
 
 function typeCode(event) {

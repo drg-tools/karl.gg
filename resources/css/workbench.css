@@ -1444,23 +1444,6 @@
         animation: workbench-pulse 1s ease-in-out infinite;
     }
 
-    /* ---------- tier locking ---------- */
-    .upgrade-tier.is-locked .upgrade-options {
-        opacity: 0.38;
-    }
-    .upgrade-tier.is-locked .upgrade-option {
-        cursor: not-allowed;
-    }
-    .upgrade-tier.is-locked .tier-label strong {
-        color: var(--faint);
-    }
-    .upgrade-tier:disabled button:disabled {
-        opacity: 1;
-    }
-    .upgrade-inspection.is-locked {
-        border-left-style: dashed;
-        color: var(--muted);
-    }
     .section-hint .text-action {
         margin-left: 14px;
         font-family: inherit;

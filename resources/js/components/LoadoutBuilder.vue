@@ -364,9 +364,9 @@
                                         <div>
                                             <h3>{{ activeEquipment.name }}</h3>
                                             <p class="upgrade-help">
-                                                Optional. Tiers unlock in order;
-                                                click an equipped upgrade to
-                                                remove it.
+                                                Optional. Pick any tiers; click
+                                                an equipped upgrade to remove
+                                                it.
                                             </p>
                                         </div>
                                     </div>

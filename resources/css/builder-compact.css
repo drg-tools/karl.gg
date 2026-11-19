@@ -224,10 +224,6 @@
         font: 700 10px var(--mono);
         color: var(--faint);
     }
-    .compact-tier.is-locked .compact-choice {
-        opacity: 0.3;
-        cursor: not-allowed;
-    }
     .compact-choice {
         position: relative;
         flex: none;

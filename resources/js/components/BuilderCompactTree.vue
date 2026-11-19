@@ -4,7 +4,6 @@
             v-for="(tierMods, tier) in tiers"
             :key="tier"
             class="compact-tier"
-            :class="{ 'is-locked': locked(tier) }"
             role="group"
             :aria-label="`${label} tier ${tier}`"
         >
@@ -19,7 +18,6 @@
                 :class="{ 'is-selected': selected.includes(mod.id) }"
                 :aria-pressed="selected.includes(mod.id)"
                 :aria-label="`Tier ${tier} ${mod.mod_index}: ${mod.mod_name}`"
-                :disabled="locked(tier)"
                 @click="$emit('select', mod)"
             >
                 <span class="compact-hex" aria-hidden="true"
@@ -68,17 +66,6 @@ const tiers = computed(() =>
             return groups;
         }, {})
 );
-
-/** A tier stays locked until the tier above it has an upgrade. */
-function locked(tier) {
-    const previous = tiers.value[tier - 1];
-
-    return (
-        Number(tier) > 1 &&
-        !!previous &&
-        !previous.some((mod) => props.selected.includes(mod.id))
-    );
-}
 
 function cleanDescription(text) {
     return (text || "").replace(/<[^>]*>/g, "").replace(/\\n/g, " ");

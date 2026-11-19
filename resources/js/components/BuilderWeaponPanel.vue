@@ -51,8 +51,8 @@
                     <div>
                         <h3>Gear modifications</h3>
                         <p class="upgrade-help">
-                            Tiers unlock in order, from tier 1 up. Hover to
-                            preview, click to equip, click again to remove.
+                            Pick any tiers you like. Hover to preview, click
+                            to equip, click again to remove.
                         </p>
                     </div>
                     <div class="build-signature">
