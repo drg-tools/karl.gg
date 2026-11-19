@@ -45,7 +45,9 @@ class LoadoutBrowseQuery
     /**
      * @param  array{characters?: list<int>, primaries?: list<int>, secondaries?: list<int>, overclocks?: list<int>, mods?: list<int>, throwables?: list<int>, search?: string, hasOverclock?: string, hasGuide?: string, isCurrentPatch?: int, favorites?: int}  $filters
      */
-    public function __construct(public array $filters, public string $sort = self::DEFAULT_SORT) {}
+    public function __construct(public array $filters, public string $sort = self::DEFAULT_SORT)
+    {
+    }
 
     public static function fromRequest(Request $request): self
     {
