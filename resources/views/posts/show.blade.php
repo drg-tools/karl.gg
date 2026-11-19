@@ -23,9 +23,7 @@
             </footer>
         </article>
 
-        <div class="flex justify-center">
-            <x-ads.horizontal id="1471414710" />
-        </div>
+        <x-ads.unit ad-slot="1190532311" />
 
         @if ($morePosts->isNotEmpty())
             <section class="loadout-section" aria-labelledby="blog-more">

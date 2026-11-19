@@ -134,6 +134,8 @@
             </div>
         </section>
 
+        <x-ads.unit ad-slot="6984291185" />
+
         @if (trim($guideHtml) !== '')
             <section class="loadout-section" aria-labelledby="loadout-guide">
                 <div class="loadout-section__heading">
@@ -142,11 +144,10 @@
                 </div>
                 <div class="loadout-panel prose prose-invert max-w-none">{!! $guideHtml !!}</div>
             </section>
-        @endif
 
-        <div class="flex justify-center my-6">
-            <x-ads.horizontal id="3418109138" />
-        </div>
+            {{-- Only with a guide between them, so the two units never stack. --}}
+            <x-ads.unit ad-slot="3418109138" />
+        @endif
 
         <section class="loadout-section" aria-labelledby="loadout-comments-heading">
             <div class="loadout-section__heading">

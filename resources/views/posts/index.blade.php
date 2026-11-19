@@ -69,18 +69,6 @@
                             </div>
                         </article>
 
-                        @if ($loop->iteration % 3 === 0 && ! $loop->last)
-                            <x-ads.slot>
-                                <div class="blog-ad">
-                                    <ins class="adsbygoogle"
-                                         style="display:block"
-                                         data-ad-format="fluid"
-                                         data-ad-layout-key="-fu-28-3l-b4+18h"
-                                         data-ad-client="ca-pub-3237881937260629"
-                                         data-ad-slot="8001132222"></ins>
-                                </div>
-                            </x-ads.slot>
-                        @endif
                     @endforeach
                 </div>
             </section>

@@ -121,9 +121,7 @@
             </section>
         @endif
 
-        <div class="flex justify-center">
-            <x-ads.horizontal id="1471414710" />
-        </div>
+        <x-ads.unit ad-slot="1471414710" />
 
         @if ($latestPosts->isNotEmpty())
             <section class="loadout-section" aria-labelledby="dashboard-posts">

@@ -29,6 +29,11 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
+
+    @if (config('app.enable_ads'))
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('app.adsense_client') }}"
+                crossorigin="anonymous"></script>
+    @endif
 </head>
 <body>
 <div id="app" class="site-shell flex flex-col min-h-screen">

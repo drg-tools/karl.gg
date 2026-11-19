@@ -1,3 +1,11 @@
-.horizontal-ad-slot { width: 320px; height: 100px; }
-@media (min-width:500px) { .horizontal-ad-slot { width: 468px; height: 60px; } }
-@media (min-width:800px) { .horizontal-ad-slot { width: 980px; height: 90px; } }
+/* Reserve space so units don't push the page around when they fill. */
+.ad-unit {
+    width: 100%;
+    min-height: 100px;
+}
+@media (min-width: 768px) {
+    .ad-unit--auto { min-height: 90px; }
+}
+.ad-unit--rectangle {
+    min-height: 250px;
+}

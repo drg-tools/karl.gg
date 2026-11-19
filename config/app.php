@@ -142,8 +142,12 @@ return [
     |
     */
 
-    // Enable Google Ads
-    'enable_ads' => true,
+    /*
+     * Google AdSense. Auto ads (overlay formats) load on every page through the
+     * layout script; in-page units are placed manually with <x-ads.unit>.
+     */
+    'enable_ads' => (bool) env('ADS_ENABLED', true),
+    'adsense_client' => env('ADSENSE_CLIENT', 'ca-pub-3237881937260629'),
 
     /*
     |--------------------------------------------------------------------------

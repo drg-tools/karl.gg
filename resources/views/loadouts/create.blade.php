@@ -8,9 +8,7 @@
     <div class="text-gray-300">
         <div id="loadout-builder"><p>Loading builder…</p></div>
         <noscript>Enable JavaScript to build a loadout.</noscript>
-        <div class="flex justify-center mt-8">
-            <x-ads.horizontal id="3873388796" />
-        </div>
+        <x-ads.unit ad-slot="3873388796" class="mt-8" />
     </div>
 
 @endsection

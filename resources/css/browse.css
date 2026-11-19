@@ -67,11 +67,28 @@
     gap: 24px;
 }
 
-/* ---------- filters ---------- */
-.browse-filters {
+/* ---------- sidebar ---------- */
+.browse-sidebar {
     position: sticky;
     top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     max-height: calc(100vh - 32px);
+}
+.browse-sidebar__ad {
+    flex: none;
+}
+/* On short screens the filters need the room more than the ad does. */
+@media (max-height: 760px) {
+    .browse-sidebar__ad {
+        display: none;
+    }
+}
+
+/* ---------- filters ---------- */
+.browse-filters {
+    min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
     background: var(--panel);
@@ -573,9 +590,13 @@ a.browse-pagination__page:hover {
     .browse-layout {
         grid-template-columns: minmax(0, 1fr);
     }
-    .browse-filters {
+    .browse-sidebar {
         position: static;
+        display: block;
         max-height: none;
+    }
+    .browse-sidebar__ad {
+        display: none;
     }
 
     /* With JavaScript the sidebar becomes a slide-over drawer. */
