@@ -39,15 +39,13 @@
 <div id="app" class="site-shell flex flex-col min-h-screen">
     @include('layouts.nav-v2')
 
-    <header class="site-header">
-        <div class="site-header__inner">
-            @section('page-heading')
-                <h1>
-                    @yield('header')
-                </h1>
-            @show
-        </div>
-    </header>
+    @hasSection('header')
+        <header class="site-header">
+            <div class="site-header__inner">
+                <h1>@yield('header')</h1>
+            </div>
+        </header>
+    @endif
 
     @include('layouts.banner')
 

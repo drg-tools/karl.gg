@@ -364,13 +364,6 @@
         letter-spacing: 0.02em;
         color: var(--chrome-ink);
     }
-    > p {
-        margin: 0;
-        font: 500 11px/1.4 var(--chrome-mono);
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--chrome-muted);
-    }
 }
 
 /* ---------- banner ---------- */

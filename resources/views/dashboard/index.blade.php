@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Dashboard</p>
-@endsection
-
 @php
     $classes = [
         'Driller' => ['color' => '#ebc64d', 'role' => 'Excavate & eliminate'],

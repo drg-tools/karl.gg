@@ -146,19 +146,16 @@
     .workbench-intro {
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
-        gap: 24px;
-        padding: 16px 0 28px;
+        align-items: center;
+        gap: 16px;
+        padding: 0 0 14px;
         border-bottom: 1px solid var(--hair);
-        margin-bottom: 28px;
+        margin-bottom: 20px;
     }
-    .workbench-intro h2 {
-        font: 400 64px/0.92 var(--display);
+    .workbench-intro h1 {
+        margin: 0;
+        font: 400 36px/1 var(--display);
         text-transform: uppercase;
-        margin: 10px 0 12px;
-    }
-    .workbench-intro > div > p:last-child {
-        color: var(--ink-2);
     }
     .workbench-badge {
         display: inline-flex;
@@ -792,8 +789,7 @@
         -webkit-box-orient: vertical;
     }
     .upgrade-option:hover .upgrade-hex,
-    .upgrade-option:focus-visible .upgrade-hex,
-    .upgrade-option.is-inspected .upgrade-hex {
+    .upgrade-option:focus-visible .upgrade-hex {
         background: var(--amber);
     }
     .upgrade-option:hover .upgrade-hex img,
@@ -832,7 +828,7 @@
         flex-wrap: wrap;
         align-items: center;
         gap: 6px 14px;
-        min-height: 40px;
+        min-height: 58px;
         margin-top: 10px;
         padding: 9px 12px;
         font-size: 12.5px;
@@ -841,10 +837,6 @@
         border-left: 2px solid var(--line-2);
         transition: border-color 0.15s, background 0.15s;
     }
-    .upgrade-inspection.is-preview {
-        border-left-color: var(--amber);
-        background: linear-gradient(90deg, var(--amber-wash), var(--bg-2) 60%);
-    }
     .inspection-key {
         font: 600 10.5px var(--mono);
         letter-spacing: 0.1em;
@@ -852,34 +844,64 @@
         color: var(--muted);
         white-space: nowrap;
     }
-    .is-preview .inspection-key {
-        color: var(--amber);
-    }
     .upgrade-inspection p {
         flex: 1 1 240px;
     }
-    .inspection-effects {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
+    .upgrade-matrix {
+        position: relative;
     }
-    .effect-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 2px 8px;
-        font: 500 11.5px var(--mono);
-        white-space: nowrap;
-        color: var(--ice-2);
-        background: var(--ice-wash);
-        border: 1px solid rgba(156, 200, 232, 0.18);
+    .upgrade-option-wrap {
+        position: relative;
+        display: grid;
     }
-    .effect-chip s {
-        text-decoration: none;
-        color: var(--faint);
+    .upgrade-option-wrap.has-info .upgrade-option {
+        padding-right: 30px;
     }
-    .effect-chip [aria-hidden="true"] {
-        color: var(--ice);
+    .upgrade-info {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        display: grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        font: 600 11px var(--mono);
+        color: var(--muted);
+        background: var(--bg);
+        border: 1px solid var(--line-2);
+        border-radius: 50%;
+    }
+    .upgrade-info:hover,
+    .upgrade-info[aria-expanded="true"] {
+        color: var(--amber);
+        border-color: var(--amber);
+    }
+    .upgrade-info:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+    }
+    .upgrade-popover {
+        position: absolute;
+        z-index: 20;
+        width: min(380px, 100%);
+        max-height: 280px;
+        overflow: auto;
+        padding: 12px 14px;
+        font-size: 12.5px;
+        line-height: 1.5;
+        color: var(--ink-2);
+        background: var(--panel-2);
+        border: 1px solid var(--line-2);
+        border-top: 2px solid var(--amber);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+    }
+    .upgrade-popover strong {
+        display: block;
+        margin-bottom: 4px;
+        font: 600 10.5px var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--amber);
     }
 
     /* ---------- overclocks ---------- */
@@ -899,9 +921,13 @@
     .overclock-slot {
         grid-column: 2;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 14px;
-        padding: 4px 0;
+        min-height: 82px;
+        margin-top: 10px;
+        padding: 12px 14px;
+        background: var(--bg-2);
+        border-left: 2px solid var(--oc, var(--line-2));
     }
     .overclock-octagon {
         position: relative;
@@ -945,7 +971,6 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
         gap: 6px;
-        margin-top: 12px;
     }
     .overclock-option {
         display: grid;
@@ -1055,26 +1080,6 @@
         letter-spacing: 0.04em;
         color: var(--muted);
     }
-    .readout-preview {
-        margin-top: 14px;
-        padding: 10px 12px;
-        font-size: 12.5px;
-        color: var(--ink-2);
-        background: var(--amber-wash);
-        border: 1px dashed rgba(255, 181, 71, 0.4);
-    }
-    .readout-preview > span {
-        display: block;
-        margin-bottom: 2px;
-        font: 10.5px var(--mono);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--amber);
-    }
-    .readout-preview strong {
-        font-weight: 600;
-        color: var(--amber-2);
-    }
     .stat-readout {
         margin-left: 0;
         margin-right: 0;
@@ -1152,6 +1157,19 @@
     }
     .readout-row.is-previewed .readout-value small {
         color: var(--amber);
+    }
+    .readout-row.is-highlighted {
+        border-left-color: var(--ice-2);
+        background: linear-gradient(90deg, rgba(156, 200, 232, 0.16), rgba(156, 200, 232, 0.02));
+    }
+    .readout-row.is-highlighted dt,
+    .readout-row.is-highlighted .readout-value {
+        color: #fff;
+        font-weight: 700;
+    }
+    .readout-row.is-highlighted .readout-value small {
+        font-weight: 400;
+        color: var(--ice-2);
     }
     .readout-row.is-inactive dt,
     .readout-row.is-inactive dd {
@@ -1578,13 +1596,8 @@
     }
     @media (max-width: 700px) {
         padding: 0 16px 20px;
-        .workbench-intro {
-            flex-direction: column;
-            align-items: flex-start;
-            padding-bottom: 22px;
-        }
-        .workbench-intro h2 {
-            font-size: 42px;
+        .workbench-intro h1 {
+            font-size: 30px;
         }
         .workbench-badge {
             display: none;

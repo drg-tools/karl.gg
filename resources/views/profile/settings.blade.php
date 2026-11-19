@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Settings</p>
-@endsection
-
 @php
     $statusMessages = [
         'profile-updated' => 'Profile saved.',

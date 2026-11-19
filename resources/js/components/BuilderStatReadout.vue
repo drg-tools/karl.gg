@@ -10,8 +10,10 @@
                 :key="row.key"
                 class="readout-row"
                 :class="{
-                    'is-modified': row.modified && !row.previewed,
+                    'is-modified':
+                        row.modified && !row.previewed && !row.highlighted,
                     'is-previewed': row.previewed,
+                    'is-highlighted': row.highlighted,
                     'is-inactive': row.inactive,
                 }"
             >
@@ -22,6 +24,8 @@
                     }}<small v-if="row.previewed"
                         >was {{ format(row, row.value) }} ·
                         {{ difference(row, row.value, row.preview) }}</small
+                    ><small v-else-if="row.highlighted"
+                        >{{ difference(row, row.without, row.value) }}</small
                     ><small v-else-if="row.modified">{{
                         difference(row, row.base, row.value)
                     }}</small>
@@ -61,6 +65,8 @@ const props = defineProps({
     equipment: { type: Object, required: true },
     upgrades: { type: Array, default: () => [] },
     previewUpgrades: { type: Array, default: null },
+    /** The build without a hovered, already equipped upgrade. */
+    highlightUpgrades: { type: Array, default: null },
 });
 
 const showInactive = ref(false);
@@ -89,6 +95,9 @@ const current = computed(() => calculate(props.upgrades));
 const preview = computed(() =>
     props.previewUpgrades ? calculate(props.previewUpgrades) : null
 );
+const withoutHighlighted = computed(() =>
+    props.highlightUpgrades ? calculate(props.highlightUpgrades) : null
+);
 
 const rows = computed(() =>
     Object.entries(current.value).map(([key, stat]) => {
@@ -97,8 +106,12 @@ const rows = computed(() =>
         const previewValue = preview.value
             ? numeric(preview.value[key]?.value)
             : value;
+        const without = withoutHighlighted.value
+            ? numeric(withoutHighlighted.value[key]?.value)
+            : value;
         const modified = value !== base;
         const previewed = previewValue !== value;
+        const highlighted = without !== value;
 
         return {
             key,
@@ -108,9 +121,11 @@ const rows = computed(() =>
             base,
             value,
             preview: previewValue,
+            without,
             modified,
             previewed,
-            inactive: !modified && !previewed && base === 0,
+            highlighted,
+            inactive: !modified && !previewed && !highlighted && base === 0,
         };
     })
 );

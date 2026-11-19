@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Pick rates</p>
-@endsection
-
 @php
     $tabs = [
         'classes' => ['label' => 'By class', 'route' => 'pickrates.classes'],

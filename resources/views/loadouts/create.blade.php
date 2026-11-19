@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('header')
-    Build a Loadout
-@endsection
-
 @section('content')
     <div class="text-gray-300">
         <div id="loadout-builder"><p>Loading builder…</p></div>

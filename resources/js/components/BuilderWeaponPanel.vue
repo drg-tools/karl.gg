@@ -86,8 +86,6 @@
                 <BuilderModGrid
                     :mods="gun.mods"
                     :selected="selectedIds"
-                    :base-stats="gun.json_stats"
-                    :extra-upgrades="overclock ? [overclock] : []"
                     @select="$emit('mod', $event)"
                     @preview="preview = $event ? { mod: $event } : null"
                 />
@@ -95,34 +93,6 @@
                     <legend class="tier-label">
                         <strong>OC</strong><span>Optional</span>
                     </legend>
-                    <div
-                        class="overclock-slot"
-                        :class="overclockClass(shownOverclock)"
-                    >
-                        <span class="overclock-octagon" aria-hidden="true"
-                            ><img
-                                v-if="shownOverclock?.icon"
-                                :src="`/assets/mods/optimized/${shownOverclock.icon}.svg`"
-                                alt=""
-                                @error="hideImage"
-                            /><span v-else>+</span></span
-                        ><span class="overclock-summary"
-                            ><strong>{{
-                                shownOverclock?.overclock_name || "Overclock"
-                            }}</strong
-                            ><span>{{
-                                shownOverclock
-                                    ? `${
-                                          shownOverclock.overclock_type
-                                      } · ${cleanDescription(
-                                          shownOverclock.text_description
-                                      )}`
-                                    : `${
-                                          gun.overclocks?.length || 0
-                                      } available. Every one has trade-offs.`
-                            }}</span></span
-                        >
-                    </div>
                     <div
                         class="overclock-options"
                         role="group"
@@ -175,6 +145,34 @@
                             >
                         </button>
                     </div>
+                    <div
+                        class="overclock-slot"
+                        :class="overclockClass(shownOverclock)"
+                    >
+                        <span class="overclock-octagon" aria-hidden="true"
+                            ><img
+                                v-if="shownOverclock?.icon"
+                                :src="`/assets/mods/optimized/${shownOverclock.icon}.svg`"
+                                alt=""
+                                @error="hideImage"
+                            /><span v-else>+</span></span
+                        ><span class="overclock-summary"
+                            ><strong>{{
+                                shownOverclock?.overclock_name || "Overclock"
+                            }}</strong
+                            ><span>{{
+                                shownOverclock
+                                    ? `${
+                                          shownOverclock.overclock_type
+                                      } · ${cleanDescription(
+                                          shownOverclock.text_description
+                                      )}`
+                                    : `${
+                                          gun.overclocks?.length || 0
+                                      } available. Every one has trade-offs.`
+                            }}</span></span
+                        >
+                    </div>
                 </fieldset>
             </div>
             <div v-else class="empty-slot">
@@ -210,23 +208,11 @@
                     overclock?.overclock_name || "Standard issue"
                 }}</span>
             </p>
-            <div v-if="previewUpgrades" class="readout-preview" role="status">
-                <span>Not equipped yet</span>
-                <template v-if="preview.mod"
-                    >Tier {{ preview.mod.mod_tier }} ·
-                    {{ preview.mod.mod_index }}
-                    <strong>{{ preview.mod.mod_name }}</strong></template
-                ><template v-else
-                    >Overclock ·
-                    <strong>{{
-                        preview.overclock?.overclock_name || "Standard issue"
-                    }}</strong></template
-                >
-            </div>
             <BuilderStatReadout
                 :equipment="gun"
                 :upgrades="equippedUpgrades"
                 :preview-upgrades="previewUpgrades"
+                :highlight-upgrades="highlightUpgrades"
             />
             <CreditsCalculator
                 :selected-mods="selectedMods"
@@ -305,8 +291,21 @@ const equippedUpgrades = computed(() => [
     ...selectedMods.value,
     ...(props.overclock ? [props.overclock] : []),
 ]);
-const previewUpgrades = computed(() => {
+/** Whether the hovered upgrade or overclock is already part of the build. */
+const previewIsEquipped = computed(() => {
     if (!preview.value) {
+        return false;
+    }
+    if (preview.value.mod) {
+        return props.selectedIds.includes(preview.value.mod.id);
+    }
+
+    return (
+        (preview.value.overclock?.id ?? null) === (props.overclock?.id ?? null)
+    );
+});
+const previewUpgrades = computed(() => {
+    if (!preview.value || previewIsEquipped.value) {
         return null;
     }
     if (preview.value.mod) {
@@ -325,6 +324,22 @@ const previewUpgrades = computed(() => {
         ...selectedMods.value,
         ...(preview.value.overclock ? [preview.value.overclock] : []),
     ];
+});
+/** The build without the hovered equipped upgrade, to show what it changes. */
+const highlightUpgrades = computed(() => {
+    if (!previewIsEquipped.value) {
+        return null;
+    }
+    if (preview.value.mod) {
+        return [
+            ...selectedMods.value.filter(
+                (mod) => mod.id !== preview.value.mod.id
+            ),
+            ...(props.overclock ? [props.overclock] : []),
+        ];
+    }
+
+    return props.overclock ? selectedMods.value : null;
 });
 const shownOverclock = computed(() =>
     preview.value && "overclock" in preview.value
@@ -364,14 +379,10 @@ watch(
 );
 
 function previewOverclock(item) {
-    preview.value =
-        (item?.id ?? null) === (props.overclock?.id ?? null)
-            ? null
-            : { overclock: item };
+    preview.value = { overclock: item };
 }
 
 function chooseOverclock(id) {
-    preview.value = null;
     emit("overclock", id);
 }
 
