@@ -1,7 +1,7 @@
 
 ## DRG Builds
 [![StyleCI](https://github.styleci.io/repos/260825558/shield?branch=master)](https://github.styleci.io/repos/260825558)
-[![CircleCI](https://circleci.com/gh/drg-tools/karl.gg.svg?style=svg)](https://circleci.com/gh/drg-tools/karl.gg)
+[![CI](https://github.com/drg-tools/karl.gg/actions/workflows/ci.yml/badge.svg)](https://github.com/drg-tools/karl.gg/actions/workflows/ci.yml)
 
 ### Requirements
 
@@ -96,6 +96,6 @@ Select your coding assistant to generate its local MCP configuration. Codex guid
 APP_ENV=testing DB_CONNECTION=sqlite DB_DATABASE=:memory: vendor/bin/phpunit
 ```
 
-The full seed data includes MySQL-specific SQL imports. Use the disposable MySQL service for full seeding. CircleCI runs the regression suite on SQLite and MySQL.
+The full seed data includes MySQL-specific SQL imports. Use the disposable MySQL service for full seeding. GitHub Actions runs the regression suite on SQLite and MySQL.
 
 See [the upgrade and deployment notes](docs/laravel-upgrade.md) before upgrading an existing database, particularly the Passport client schema and secret migration.

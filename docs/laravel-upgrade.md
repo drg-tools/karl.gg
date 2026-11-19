@@ -41,7 +41,7 @@ Existing users, hashes, roles and permission assignments are retained. Spatie's 
 - Artisan boots, routes load, configuration caching and Blade compilation pass.
 - Boost's MCP initialize and tools/list requests succeed. Project-local Codex MCP configuration points at the compatible installed PHP binary; its machine-specific file is ignored. Agent guidance and skills are committed.
 - Fresh SQLite migrations succeed. Full seeding reaches the existing MySQL-specific overclock SQL dump and fails on SQLite syntax; that import is not portable to SQLite.
-- CircleCI targets PHP 8.4 and runs the production asset build and the SQLite and MySQL regression suites.
+- GitHub Actions targets PHP 8.4 and runs the production asset build and the SQLite and MySQL regression suites.
 
 ## Existing-database deployment
 
