@@ -3,19 +3,37 @@
 namespace App\Filament\Resources;
 
 use App\Loadout;
+use App\User;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Model;
+use UnitEnum;
 
 class LoadoutResource extends AdminResource
 {
     protected static ?string $model = Loadout::class;
 
-    protected static string $permission = 'manage-stats';
-
     protected static array $listColumns = ['name', 'creator.name', 'character.name'];
 
     protected static array $relationshipFilters = ['character' => 'name', 'creator' => 'name'];
+
+    public static function canViewAny(): bool
+    {
+        $user = auth('backpack')->user();
+
+        return $user instanceof User && $user->canAccessPanel(Filament::getPanel('admin'));
+    }
+
+    public static function getAuthorizationResponse(string|UnitEnum $action, ?Model $record = null): Response
+    {
+        return match ($action) {
+            'update', 'delete' => static::canViewAny() ? Response::allow() : Response::deny(),
+            default => parent::getAuthorizationResponse($action, $record),
+        };
+    }
 
     protected static function fields(): array
     {

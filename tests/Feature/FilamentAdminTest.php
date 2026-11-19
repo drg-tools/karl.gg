@@ -5,8 +5,12 @@ namespace Tests\Feature;
 use App\Character;
 use App\Filament\Resources\CharacterResource;
 use App\Filament\Resources\CharacterResource\Pages\ManageCharacter;
+use App\Filament\Resources\LoadoutResource;
+use App\Filament\Resources\LoadoutResource\Pages\ManageLoadout;
 use App\Filament\Resources\PostResource;
 use App\Filament\Resources\UserResource;
+use App\Loadout;
+use App\Patch;
 use App\User;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -53,6 +57,55 @@ class FilamentAdminTest extends TestCase
         $this->manager(['manage-stats']);
         $this->get('/admin')->assertForbidden();
         $this->assertFalse(CharacterResource::canCreate());
+        $this->get(LoadoutResource::getUrl())->assertForbidden();
+        Livewire::test(ManageLoadout::class)->assertForbidden();
+    }
+
+    public function test_panel_users_can_edit_and_delete_other_users_builds_in_admin(): void
+    {
+        $this->manager(['view-admin']);
+        $loadout = $this->loadout();
+
+        $this->get(LoadoutResource::getUrl())->assertOk();
+
+        Livewire::test(ManageLoadout::class)
+            ->callTableAction('edit', $loadout, data: ['name' => 'Updated build'])
+            ->assertHasNoTableActionErrors();
+        $this->assertDatabaseHas('loadouts', [
+            'id' => $loadout->id,
+            'name' => 'Updated build',
+            'user_id' => $loadout->user_id,
+        ]);
+
+        Livewire::test(ManageLoadout::class)->callTableAction('delete', $loadout);
+        $this->assertModelMissing($loadout);
+    }
+
+    public function test_admin_access_does_not_grant_public_build_update_or_delete(): void
+    {
+        $this->manager(['view-admin']);
+        $loadout = $this->loadout();
+
+        $this->putJson('/build/'.$loadout->id, [
+            'name' => 'Updated build',
+            'character_id' => $loadout->character_id,
+            'mods' => [],
+            'overclocks' => [],
+            'equipment_mods' => [],
+        ])->assertForbidden();
+        $this->delete('/build/delete/'.$loadout->id)->assertForbidden();
+        $this->assertDatabaseHas('loadouts', ['id' => $loadout->id, 'name' => $loadout->name]);
+    }
+
+    private function loadout(): Loadout
+    {
+        $patch = Patch::factory()->create(['launched_at' => now()->subDay()]);
+
+        return Loadout::factory()
+            ->for(User::factory(), 'creator')
+            ->for(Character::factory())
+            ->for($patch)
+            ->create();
     }
 
     public function test_comments_managers_see_the_comment_dashboard_link(): void
