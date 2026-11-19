@@ -38,7 +38,7 @@
                     @if ($isCurrentPatch)
                         · Current Patch
                     @elseif ($loadout->patch)
-                        · Patch {{ $loadout->patch->patch_num }}
+                        · {{ $loadout->patch->label }}
                     @endif
                 </p>
                 <h1 class="loadout-hero__name">{{ $loadout->name }}</h1>

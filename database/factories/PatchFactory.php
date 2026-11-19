@@ -23,8 +23,8 @@ class PatchFactory extends Factory
     {
         return [
             'patch_num' => $this->faker->numberBetween(100, 100000),
-            'patch_num_dev' => $this->faker->numberBetween(100, 100000),
             'patch_title' => $this->faker->title,
+            'short_name' => 'Season '.$this->faker->numberBetween(1, 20),
             'launched_at' => $this->faker->dateTimeThisMonth,
         ];
     }

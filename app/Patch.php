@@ -3,18 +3,22 @@
 namespace App;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Patch.
  *
  * @property int $id
  * @property string $patch_num
- * @property string $patch_num_dev
  * @property string $patch_title
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $short_name
+ * @property-read string $label
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Patch filter($input = [], $filter = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch newModelQuery()
@@ -28,7 +32,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patch whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch whereLike($column, $value, $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Patch wherePatchNum($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Patch wherePatchNumDev($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch wherePatchTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patch whereUpdatedAt($value)
  *
@@ -40,8 +43,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Patch extends Model
 {
-    use HasFactory;
     use Filterable;
+    use HasFactory;
+
     protected $casts = [
         'launched_at' => 'datetime',
     ];
@@ -49,7 +53,15 @@ class Patch extends Model
     protected $guarded = [];
 
     /**
-     * @return Patch|\Illuminate\Database\Eloquent\Builder|Model|object|null
+     * The short name shown in lists and badges, falling back to the public patch number.
+     */
+    protected function label(): Attribute
+    {
+        return Attribute::get(fn (): string => $this->short_name ?: 'Patch '.$this->patch_num);
+    }
+
+    /**
+     * @return Patch|Builder|Model|object|null
      */
     public static function current()
     {
@@ -57,7 +69,7 @@ class Patch extends Model
     }
 
     /**
-     * @return Patch|\Illuminate\Database\Eloquent\Builder|Model|object|null
+     * @return Patch|Builder|Model|object|null
      */
     public static function previous()
     {

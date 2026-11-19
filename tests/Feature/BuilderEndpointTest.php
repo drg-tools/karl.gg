@@ -212,12 +212,12 @@ class BuilderEndpointTest extends TestCase
         ]);
     }
 
-    public function test_preview_shows_the_public_patch_number_after_a_new_patch_is_released(): void
+    public function test_preview_shows_the_patch_short_name_after_a_new_patch_is_released(): void
     {
         $this->freezeTime();
         $patch = Patch::factory()->create([
-            'patch_num' => '1.39',
-            'patch_num_dev' => '123456',
+            'patch_num' => '39',
+            'short_name' => 'Season 5',
             'launched_at' => now()->subDay(),
         ]);
         $loadout = Loadout::factory()->create([
@@ -229,16 +229,32 @@ class BuilderEndpointTest extends TestCase
 
         $this->get($url)->assertOk()
             ->assertSeeText('· Current Patch')
-            ->assertDontSeeText('Patch 123456')
             ->assertDontSeeText('This build may be outdated.');
 
         Patch::factory()->create(['launched_at' => now()]);
 
         $this->get($url)->assertOk()
-            ->assertSeeText('· Patch 1.39')
+            ->assertSeeText('· Season 5')
             ->assertSeeText('This build may be outdated.')
-            ->assertDontSeeText('· Current Patch')
-            ->assertDontSeeText('Patch 123456');
+            ->assertDontSeeText('· Current Patch');
+    }
+
+    public function test_preview_falls_back_to_the_patch_number_without_a_short_name(): void
+    {
+        $patch = Patch::factory()->create([
+            'patch_num' => '34',
+            'short_name' => null,
+            'launched_at' => now()->subYear(),
+        ]);
+        $loadout = Loadout::factory()->create([
+            'character_id' => Character::factory()->create(['name' => 'Engineer'])->id,
+            'user_id' => null,
+            'patch_id' => $patch->id,
+        ]);
+        Patch::factory()->create(['launched_at' => now()]);
+
+        $this->get(route('preview.show', $loadout->id))->assertOk()
+            ->assertSeeText('· Patch 34');
     }
 
     public function test_salutes_toggle_using_session_authentication(): void

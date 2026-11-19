@@ -10,11 +10,7 @@
         'guns' => ['label' => 'By weapon', 'route' => 'pickrates.guns'],
         'mods' => ['label' => 'By mod', 'route' => 'pickrates.mods'],
     ];
-    $shortPatch = fn (?\App\Patch $patch) => $patch
-        ? implode('.', array_slice(explode('.', (string) ($patch->patch_num_dev ?: $patch->patch_num)), 0, 2))
-        : null;
-    $currentLabel = $shortPatch($currentPatch);
-    $previousLabel = $shortPatch($previousPatch);
+    $previousLabel = $previousPatch?->label;
     $characterNames = $characters->pluck('name', 'id');
     $selectedGun = $selectedGunId ? $weapons->firstWhere('id', $selectedGunId) : null;
     $subjects = ['classes' => 'class', 'guns' => 'weapon', 'mods' => 'mod'];
@@ -26,14 +22,14 @@
             <div>
                 <p class="loadout-eyebrow">
                     @if ($currentPatch)
-                        Patch {{ $currentLabel }} · {{ $currentPatch->patch_title }}
+                        {{ $currentPatch->patch_title }}
                     @else
                         Deep Rock Galactic builds
                     @endif
                 </p>
                 <h1 class="browse-header__title">Pick rates</h1>
                 <p class="browse-header__lede">
-                    How often each {{ $subjects[$type] }} shows up in builds saved this patch{{ $hasComparison ? ', and how that has moved since patch '.$previousLabel : '' }}.
+                    How often each {{ $subjects[$type] }} shows up in builds saved this patch{{ $hasComparison ? ', and how that has moved since '.$previousLabel : '' }}.
                 </p>
             </div>
             <dl class="loadout-hero__summary pickrates-summary">
@@ -207,7 +203,7 @@
                             @if ($hasComparison)
                                 <span @class(['pickrates-row__delta', $deltaState])>
                                     <span aria-hidden="true">{{ $row['delta'] > 0 ? '▲' : ($row['delta'] < 0 ? '▼' : '–') }}</span>
-                                    {{ $row['delta'] > 0 ? '+' : '' }}{{ $row['delta'] }}<span class="sr-only"> percentage points since patch {{ $previousLabel }}</span><span aria-hidden="true"> pts</span>
+                                    {{ $row['delta'] > 0 ? '+' : '' }}{{ $row['delta'] }}<span class="sr-only"> percentage points since {{ $previousLabel }}</span><span aria-hidden="true"> pts</span>
                                 </span>
                             @endif
 

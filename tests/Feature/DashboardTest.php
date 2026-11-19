@@ -29,8 +29,7 @@ class DashboardTest extends TestCase
     {
         $previousPatch = Patch::factory()->create(['launched_at' => Carbon::now()->subYear()]);
         $currentPatch = Patch::factory()->create([
-            'patch_num_dev' => '1.40',
-            'patch_title' => 'Relics of Hoxxes',
+            'patch_title' => 'Season 06: Relics of Hoxxes',
             'launched_at' => Carbon::now()->subMonth(),
         ]);
         $scout = Character::factory()->create(['name' => 'Scout']);
@@ -63,7 +62,7 @@ class DashboardTest extends TestCase
 
         $this->get('/')
             ->assertOk()
-            ->assertSeeInOrder(['Patch 1.40', 'Relics of Hoxxes'])
+            ->assertSee('Season 06: Relics of Hoxxes')
             ->assertSeeInOrder(['Builds this patch', '4', 'Builds all-time', '9', 'Most played', 'Scout'])
             ->assertSee('3 builds · 75% this patch')
             ->assertSee('1 build · 25% this patch')

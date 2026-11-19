@@ -27,7 +27,7 @@ class BackfillLoadoutPatches extends Command
             ->where('created_at', '>=', $launchedAt)
             ->where('patch_id', '!=', $patch->id);
 
-        $this->info("Patch {$patch->patch_title} ({$patch->patch_num_dev}), launched {$launchedAt}.");
+        $this->info("Patch {$patch->patch_title} ({$patch->label}), launched {$launchedAt}.");
 
         if ($this->option('apply')) {
             $updated = $loadouts->toBase()->update(['patch_id' => $patch->id]);

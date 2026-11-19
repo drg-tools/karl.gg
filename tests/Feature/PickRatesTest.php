@@ -29,7 +29,7 @@ class PickRatesTest extends TestCase
         $this->get('/pickrates/classes')
             ->assertOk()
             ->assertSee('<title>Karl: Born Ready</title>', false)
-            ->assertSeeInOrder(['Patch 1.40', 'Builds this patch', '4', 'Last patch (1.39)', '4'])
+            ->assertSeeInOrder(['Season 06: Relics of Hoxxes', 'Builds this patch', '4', 'Last patch (Season 5)', '4'])
             ->assertSeeInOrder(['Scout', '75%', 'was 25%', '+50', '3 builds', 'Driller', '25%', 'was 75%', '-50', '1 build'])
             ->assertSee(e(route('loadout.index', ['characters' => [$scout->id], 'isCurrentPatch' => 1])), false);
 
@@ -92,11 +92,15 @@ class PickRatesTest extends TestCase
      */
     private function patches(int $count = 2): array
     {
-        return collect(['1.39.101466.0', '1.40'])
+        return collect([
+            ['Season 5', 'Season 05: Drilling Deeper'],
+            ['Season 6', 'Season 06: Relics of Hoxxes'],
+        ])
             ->take(-$count)
             ->values()
-            ->map(fn (string $number, int $index) => Patch::factory()->create([
-                'patch_num_dev' => $number,
+            ->map(fn (array $patch, int $index) => Patch::factory()->create([
+                'short_name' => $patch[0],
+                'patch_title' => $patch[1],
                 'launched_at' => Carbon::now()->subMonths($count - $index),
             ]))
             ->all();

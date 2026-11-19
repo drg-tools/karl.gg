@@ -12,7 +12,7 @@ class PatchResource extends AdminResource
 
     protected static string $permission = 'manage-stats';
 
-    protected static array $listColumns = ['patch_title', 'patch_num', 'launched_at'];
+    protected static array $listColumns = ['short_name', 'patch_title', 'patch_num', 'launched_at'];
 
     protected static array $relationshipFilters = [];
 
@@ -20,8 +20,12 @@ class PatchResource extends AdminResource
     {
         return [
             TextInput::make('patch_title')->maxLength(100)->required(),
+            TextInput::make('short_name')
+                ->maxLength(30)
+                ->required()
+                ->placeholder('Season 6')
+                ->helperText('Shown in build lists and badges, so keep it short.'),
             TextInput::make('patch_num')->maxLength(10)->required(),
-            TextInput::make('patch_num_dev')->maxLength(20)->required(),
             DateTimePicker::make('launched_at'),
         ];
     }

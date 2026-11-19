@@ -22,7 +22,7 @@
             <div class="dashboard-hero__copy">
                 <p class="loadout-eyebrow">
                     @if ($currentPatch)
-                        Patch {{ $currentPatch->patch_num_dev }} · {{ $currentPatch->patch_title }}
+                        {{ $currentPatch->patch_title }}
                     @else
                         Deep Rock Galactic builds
                     @endif

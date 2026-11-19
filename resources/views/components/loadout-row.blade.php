@@ -28,7 +28,7 @@
             <span class="loadout-row__class">{{ $loadout->character->name }}</span>
             · {{ $loadout->creator->name ?? 'Anonymous' }}
             @if ($detailed && $loadout->patch)
-                · <span @class(['loadout-row__patch', 'is-current' => $isCurrentPatch])>Patch {{ $loadout->patch->patch_num_dev ?? $loadout->patch->patch_num }}</span>
+                · <span @class(['loadout-row__patch', 'is-current' => $isCurrentPatch]) title="{{ $loadout->patch->patch_title }}">{{ $loadout->patch->label }}</span>
             @endif
             · {{ $detailed && $timestamp === 'updated_at' ? 'updated ' : '' }}{{ $loadout->{$timestamp}->diffForHumans(short: true) }}
         </span>

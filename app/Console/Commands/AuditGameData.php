@@ -81,7 +81,7 @@ class AuditGameData extends Command
         $metricGunIds = BuildMetric::query()->distinct()->pluck('gun_id');
         $this->line(json_encode([
             'reference' => $reference,
-            'latest_database_patch' => Patch::orderByDesc('launched_at')->first()?->only(['patch_title', 'patch_num_dev', 'launched_at']),
+            'latest_database_patch' => Patch::orderByDesc('launched_at')->first()?->only(['patch_title', 'patch_num', 'short_name', 'launched_at']),
             'inventory' => $guns->map(fn (Gun $gun): array => [
                 'id' => $gun->id, 'name' => $gun->name, 'character' => $gun->character?->name,
                 'mods' => $gun->mods->count(), 'overclocks' => $gun->overclocks->count(),
@@ -95,7 +95,7 @@ class AuditGameData extends Command
             'review_scope' => 'Reference-table coverage only. Follow-up items in curated_reference.reviews are not certified or silently resolved.',
             'curated_changes' => $changes,
             'advanced_metric_coverage' => BuildMetric::query()->select('gun_id', 'patch_id')->selectRaw('count(*) as combinations')->groupBy('gun_id', 'patch_id')->orderBy('gun_id')->orderBy('patch_id')->get()->toArray(),
-            'advanced_metric_patches' => Patch::whereIn('id', BuildMetric::query()->select('patch_id')->distinct())->orderBy('id')->get(['id', 'patch_title', 'patch_num_dev', 'launched_at'])->toArray(),
+            'advanced_metric_patches' => Patch::whereIn('id', BuildMetric::query()->select('patch_id')->distinct())->orderBy('id')->get(['id', 'patch_title', 'patch_num', 'short_name', 'launched_at'])->toArray(),
             'weapons_without_advanced_metrics' => $guns->whereNotIn('id', $metricGunIds)->pluck('name')->all(),
             'metric_status' => 'Coverage only; stored metrics require separate source and patch verification.',
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
