@@ -15,7 +15,7 @@
 
             <div class="flex">
                 @can('update', $loadout)
-                <a class="inline-flex items-center text-center px-4 py-2 mr-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 w-full md:w-auto"
+                <a class="inline-flex items-center text-center px-4 py-2 mr-3 border border-transparent text-sm font-medium rounded-md shadow-xs text-white bg-orange-500 hover:bg-orange-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 w-full md:w-auto"
                     href="/build/{{ $loadout->id }}">
                         EDIT
                 </a>
@@ -34,7 +34,7 @@
                 @auth
                     <form action="{{ route('loadout.vote', $loadout) }}" method="post">
                         @csrf
-                        <button class="rounded bg-gray-900 p-3 font-bold" type="submit" aria-pressed="{{ $hasVoted ? 'true' : 'false' }}">
+                        <button class="rounded-sm bg-gray-900 p-3 font-bold" type="submit" aria-pressed="{{ $hasVoted ? 'true' : 'false' }}">
                             {{ $hasVoted ? 'Remove salute' : 'Salute' }} · {{ $voteCount }}
                         </button>
                     </form>

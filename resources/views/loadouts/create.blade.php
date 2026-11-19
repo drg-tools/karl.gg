@@ -17,5 +17,5 @@
 
 @section('scripts')
     <script id="builder-data" type="application/json">{!! json_encode($builder, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
-    <script src="{{ mix('/js/builder.js') }}" defer></script>
+    @vite('resources/js/builder.js')
 @endsection

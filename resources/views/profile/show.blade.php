@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
+    <div class="bg-gray-700 text-gray-300 p-4 sm:rounded-sm">
             @if (Request()->id == Auth::id())
                 <div class="flex justify-end">
                     <a href="/profile/{{Auth::id()}}/edit" class="hover:underline text-gray-300">Edit Profile</a>
@@ -32,11 +32,11 @@
             <ul class="divide-y divide-gray-900">
                 @foreach($loadouts as $loadout)
                     <li class="flex gap-4">
-                        <div class="flex-grow bg-gray-700 sm:rounded-md shadow overflow-hidden">
+                        <div class="grow bg-gray-700 sm:rounded-md shadow-sm overflow-hidden">
                             <x-clickable-loadout :loadout="$loadout"/>
                         </div>
                         <div class="w-1/4 md:w-1/5 lg:w-1/6 flex flex-col justify-evenly">
-                            <a class="w-full block px-6 py-1 bg-karl-orange text-gray-800 text-center font-bold sm:rounded" href="/build/{{$loadout->id}}">
+                            <a class="w-full block px-6 py-1 bg-karl-orange text-gray-800 text-center font-bold sm:rounded-sm" href="/build/{{$loadout->id}}">
                                 @guest
                                     Copy
                                 @endguest
@@ -53,7 +53,7 @@
                                     <form method="POST" action="/build/delete/{{$loadout->id}}">
                                         @method('DELETE')
                                         @csrf
-                                        <button class="w-full px-6 py-1 bg-karl-orange text-gray-800 text-center font-bold sm:rounded" type="submit">
+                                        <button class="w-full px-6 py-1 bg-karl-orange text-gray-800 text-center font-bold sm:rounded-sm" type="submit">
                                             Delete
                                         </button>
                                     </form>

@@ -28,14 +28,14 @@
 
     <!-- Styles -->
     <script src="https://kit.fontawesome.com/87ca57c51d.js" crossorigin="anonymous"></script>
-    <link href="{{ mix('css/app-v2.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
 <body>
 <div id="app" class="bg-gray-900 flex flex-col min-h-screen">
     @include('layouts.nav-v2')
 
-    <header class="bg-gray-700 shadow-sm">
+    <header class="bg-gray-700 shadow-xs">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <h1 class="text-lg leading-6 font-semibold text-white">
                 @yield('header')
@@ -45,7 +45,7 @@
 
     @include('layouts.banner')
 
-    <main class="flex-grow mb-4">
+    <main class="grow mb-4">
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             @yield('content')
         </div>
@@ -53,9 +53,6 @@
 
     @include('layouts.footer')
 </div>
-
-<!-- Scripts -->
-<script src="{{ mix("/js/app.js") }}"></script>
 
 @yield('scripts')
 

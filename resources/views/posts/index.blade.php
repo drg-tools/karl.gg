@@ -21,7 +21,7 @@
                          data-ad-slot="8001132222"></ins>
                 </x-ads.slot>
                 @endif
-                <div class="bg-gray-700 p-4 sm:p-6 sm:rounded">
+                <div class="bg-gray-700 p-4 sm:p-6 sm:rounded-sm">
                     <a href="{{ route('blog.show', $post->id) }}" class="block">
                         <p class="text-xl font-semibold text-white">
                             {{ $post->title }}
@@ -31,7 +31,7 @@
                         </p>
                     </a>
                     <div class="mt-6 flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <a href="#">
                                 <span class="sr-only">Paul York</span>
                                 <img class="h-10 w-10 rounded-full" src="{{ \Gravatar::get($post->user->email) }}" alt=""{{ $post->user->email }}>

@@ -4,7 +4,7 @@
             <p class="text-sm font-medium text-white truncate">
                 {{ Str::limit($loadout->name, 30) }}
             </p>
-            <div class="ml-2 flex-shrink-0 flex">
+            <div class="ml-2 shrink-0 flex">
                 <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-300 text-gray-900">
                     {{ round($loadout->votes_sum_value ?? 0) }}
                 </p>

@@ -26,13 +26,13 @@
 
 @section('content')
 
-    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
+    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow-sm sm:rounded-md">
         <x-loadout-outdated :loadout="$loadout"></x-loadout-outdated>
         <x-preview-top :loadout="$loadout" :has-voted="$hasVoted" :vote-count="$voteCount"/>
 
         <div class="grid gap-4 p-4 md:grid-cols-2">
             @foreach ($loadout->mods->pluck('gun')->merge($loadout->overclocks->pluck('gun'))->filter()->unique('id') as $gun)
-                <section class="rounded bg-gray-800 p-4">
+                <section class="rounded-sm bg-gray-800 p-4">
                     <h2 class="text-lg font-bold">{{ $gun->name }}</h2>
                     <ul class="py-3">
                         @foreach ($loadout->mods->where('gun_id', $gun->id)->sortBy('mod_tier') as $mod)
@@ -45,7 +45,7 @@
                 </section>
             @endforeach
             @foreach ($loadout->equipment_mods->groupBy('equipment_id') as $mods)
-                <section class="rounded bg-gray-800 p-4">
+                <section class="rounded-sm bg-gray-800 p-4">
                     <h2 class="text-lg font-bold">{{ $mods->first()->equipment->name }}</h2>
                     <ul class="py-3">
                         @foreach ($mods->sortBy('mod_tier') as $mod)
@@ -55,7 +55,7 @@
                 </section>
             @endforeach
             @if ($loadout->throwable)
-                <section class="rounded bg-gray-800 p-4"><h2>{{ $loadout->throwable->name }}</h2></section>
+                <section class="rounded-sm bg-gray-800 p-4"><h2>{{ $loadout->throwable->name }}</h2></section>
             @endif
         </div>
         <details open class="p-4">
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md mt-4">
+    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow-sm sm:rounded-md mt-4">
         <div class="p-4">
             <div id="loadout-comments"></div>
         </div>

@@ -12,7 +12,7 @@
     <div class="w-1/4">
         {{ $identifier }}
     </div>
-    <dl class="mt-5 rounded-lg bg-gray-700 text-gray-200 overflow-hidden shadow divide-y divide-gray-900 w-3/4">
+    <dl class="mt-5 rounded-lg bg-gray-700 text-gray-200 overflow-hidden shadow-sm divide-y divide-gray-900 w-3/4">
         <a href="{{ $loadoutLink }}">
             <div class="px-4 py-5 sm:p-6">
                 <dt class="text-base font-normal text-gray-100">Total Loadouts</dt>

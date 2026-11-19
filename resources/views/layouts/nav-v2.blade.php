@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                     <a href="/">
                         <img class="h-8 w-8" src="{{ asset('assets/img/k-logo.svg') }}"
                              alt="{{ config('app.name') }}">
@@ -20,7 +20,7 @@
                                 x-show.transition="openBuild"
                                 x-on:click.away="openBuild = false"
                                 style="display:none;"
-                                class="origin-top-right absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg py-1 text-gray-300 bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                class="origin-top-right absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg py-1 text-gray-300 bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-hidden"
                                 role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                             >
                                 <x-nav-dropdown-link :link="route('loadout.index')" :active="\Request::is('browse') && !\Request::query('favorites')" title="Browse" />
@@ -51,7 +51,7 @@
                     <div class="ml-3 relative">
                         <div x-on:click="profileOpen = true">
                             <button type="button"
-                                    class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                                    class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm text-white focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                                     id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="sr-only">Open user menu</span>
                                 <img class="h-8 w-8 rounded-full"
@@ -74,7 +74,7 @@
                             x-show.transition="profileOpen"
                             x-on:click.away="profileOpen = false"
                             style="display:none;"
-                            class="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            class="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-hidden"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                         >
                             <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
@@ -99,7 +99,7 @@
                 <!-- Mobile menu button -->
                 <button x-on:click="mobileOpen = true"
                         type="button"
-                        class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                        class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                         aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <!--
@@ -156,7 +156,7 @@
         <div class="pt-4 pb-3 border-t border-gray-700">
             @auth
             <div class="flex items-center px-5">
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                     <img class="h-10 w-10 rounded-full"
                          src="{{ \Gravatar::get(auth()->user()->email) }}"
                          alt="{{ auth()->user()->email }}">
@@ -166,7 +166,7 @@
                     <div class="text-sm font-medium text-gray-400">{{ auth()->user()->email }}</div>
                 </div>
 {{--                <button--}}
-{{--                    class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">--}}
+{{--                    class="ml-auto bg-gray-800 shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">--}}
 {{--                    <span class="sr-only">View notifications</span>--}}
 {{--                    <!-- Heroicon name: outline/bell -->--}}
 {{--                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"--}}

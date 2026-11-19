@@ -1,11 +1,7 @@
 /node_modules
+/public/dist
 /public/hot
 /public/storage
-/public/css
-/public/js
-/public/assets
-/public/images
-/public/fonts
 /storage/*.key
 /vendor
 .env
@@ -22,8 +18,6 @@ aliases
 VagrantFile
 .vagrant
 .php_cs.cache
-public/js/app.js
-public/css/app.css
 
 # Generate IDE Helpers for GQL (Lighthouse)
 _lighthouse_ide_helper.php

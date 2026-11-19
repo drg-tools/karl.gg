@@ -26,11 +26,8 @@ composer install && \
 ## In one terminal tab
 docker-compose up
 
-## In another
-php artisan serve
-
-## And another
-npm run watch
+## In another: runs the web server, queue worker and Vite together
+composer dev
 ```
 
 - Get database migrated and seeded
@@ -65,7 +62,7 @@ Worst case scenario, StyleCI will make a PR against yours to fix any style issue
 
 ### Frontend Components
 
-Public pages render with Blade. The loadout builder mounts Vue 3 only on the build page, using `resources/js/builder.js` and `resources/js/components/LoadoutBuilder.vue`. It keeps selections locally and calls session-authenticated Laravel web routes with CSRF protection. Run `npm run watch` for development or `npm run production` to build assets.
+Public pages render with Blade. The loadout builder mounts Vue 3 only on the build page, using `resources/js/builder.js` and `resources/js/components/LoadoutBuilder.vue`. It keeps selections locally and calls session-authenticated Laravel web routes with CSRF protection. Assets are bundled with Vite (`vite.config.js`) and Tailwind CSS v4 (configured in `resources/css/app.css`). Run `npm run dev` (or `composer dev`) for development and `npm run build` to build assets. Static images live in `public/assets`.
 
 GraphQL and Passport are retired; OAuth keys and clients are no longer needed. Existing OAuth tables are retained without dropping data. The comments package still has its own separate frontend bundle.
 
