@@ -373,7 +373,6 @@
                                     <BuilderModGrid
                                         :mods="activeEquipment.equipment_mods"
                                         :selected="form.equipment_mods"
-                                        :base-stats="activeEquipment.json_stats"
                                         @preview="equipmentPreview = $event"
                                         @select="
                                             selectMod(
@@ -390,7 +389,7 @@
                                 >
                                     <div class="readout-title">
                                         <span class="readout-mode">{{
-                                            equipmentPreview
+                                            equipmentPreviewUpgrades
                                                 ? "Previewing swap"
                                                 : "Live readout"
                                         }}</span
@@ -411,19 +410,10 @@
                                             )
                                         "
                                         :preview-upgrades="
-                                            equipmentPreview
-                                                ? [
-                                                      ...selectedMods(
-                                                          activeEquipment.equipment_mods,
-                                                          'equipment_mods'
-                                                      ).filter(
-                                                          (mod) =>
-                                                              mod.mod_tier !==
-                                                              equipmentPreview.mod_tier
-                                                      ),
-                                                      equipmentPreview,
-                                                  ]
-                                                : null
+                                            equipmentPreviewUpgrades
+                                        "
+                                        :highlight-upgrades="
+                                            equipmentHighlightUpgrades
                                         "
                                     /><CreditsCalculator
                                         :selected-mods="
@@ -915,4 +905,34 @@ const equipmentPreview = ref(null);
 watch([activeEquipmentId, activeSection], () => {
     equipmentPreview.value = null;
 });
+const activeEquipmentMods = computed(() =>
+    activeEquipment.value
+        ? selectedMods(activeEquipment.value.equipment_mods, "equipment_mods")
+        : []
+);
+const equipmentPreviewIsEquipped = computed(() =>
+    form.equipment_mods.includes(equipmentPreview.value?.id)
+);
+/** The equipment build with the hovered, unequipped upgrade swapped in. */
+const equipmentPreviewUpgrades = computed(() => {
+    const hovered = equipmentPreview.value;
+    if (!hovered || equipmentPreviewIsEquipped.value) {
+        return null;
+    }
+
+    return [
+        ...activeEquipmentMods.value.filter(
+            (mod) => mod.mod_tier !== hovered.mod_tier
+        ),
+        hovered,
+    ];
+});
+/** The equipment build without the hovered, equipped upgrade. */
+const equipmentHighlightUpgrades = computed(() =>
+    equipmentPreviewIsEquipped.value
+        ? activeEquipmentMods.value.filter(
+              (mod) => mod.id !== equipmentPreview.value.id
+          )
+        : null
+);
 </script>

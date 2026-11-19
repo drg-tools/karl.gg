@@ -1,5 +1,5 @@
 <template>
-    <div class="upgrade-matrix">
+    <div ref="matrix" class="upgrade-matrix">
         <fieldset
             v-for="(tierMods, tier) in tiers"
             :key="tier"
@@ -21,108 +21,100 @@
                 @mouseleave="$emit('preview', null)"
                 @focusout="leaveTier"
             >
-                <button
+                <div
                     v-for="mod in tierMods"
                     :key="mod.id"
-                    type="button"
-                    class="upgrade-option"
-                    :class="{
-                        'is-selected': selected.includes(mod.id),
-                        'is-inspected':
-                            inspected[tier] === mod.id &&
-                            !selected.includes(mod.id),
-                    }"
-                    :aria-pressed="selected.includes(mod.id)"
-                    :aria-label="mod.mod_name"
-                    :aria-describedby="`${descriptionId}-${mod.id}`"
-                    @mouseenter="inspect(mod)"
-                    @focus="inspect(mod)"
-                    @click="selectUpgrade(mod)"
+                    class="upgrade-option-wrap"
+                    :class="{ 'has-info': truncated[mod.id] }"
                 >
-                    <span class="upgrade-hex" aria-hidden="true"
-                        ><img
-                            v-if="mod.icon"
-                            :src="`/assets/mods/optimized/${mod.icon}.svg`"
-                            alt=""
-                            @error="hideImage"
-                        /><span v-else>{{ mod.mod_index }}</span></span
+                    <button
+                        type="button"
+                        class="upgrade-option"
+                        :class="{ 'is-selected': selected.includes(mod.id) }"
+                        :aria-pressed="selected.includes(mod.id)"
+                        :aria-label="mod.mod_name"
+                        :aria-describedby="`${descriptionId}-${mod.id}`"
+                        @mouseenter="$emit('preview', mod)"
+                        @focus="$emit('preview', mod)"
+                        @click="$emit('select', mod)"
                     >
-                    <span class="upgrade-label"
-                        ><span class="upgrade-index"
-                            >{{ mod.mod_index
-                            }}<template v-if="selected.includes(mod.id)">
-                                · Equipped</template
+                        <span class="upgrade-hex" aria-hidden="true"
+                            ><img
+                                v-if="mod.icon"
+                                :src="`/assets/mods/optimized/${mod.icon}.svg`"
+                                alt=""
+                                @error="hideImage"
+                            /><span v-else>{{ mod.mod_index }}</span></span
+                        >
+                        <span class="upgrade-label"
+                            ><span class="upgrade-index">{{
+                                mod.mod_index
+                            }}</span
+                            ><strong>{{ mod.mod_name }}</strong
+                            ><span
+                                class="upgrade-effect"
+                                :data-mod-id="mod.id"
+                                aria-hidden="true"
+                                >{{ description(mod) }}</span
                             ></span
-                        ><strong>{{ mod.mod_name }}</strong
-                        ><span class="upgrade-effect" aria-hidden="true">{{
-                            cleanDescription(
-                                mod.text_description || mod.description
-                            )
-                        }}</span></span
+                        >
+                        <span
+                            :id="`${descriptionId}-${mod.id}`"
+                            class="sr-only"
+                            >{{ description(mod) }}</span
+                        >
+                    </button>
+                    <button
+                        v-if="truncated[mod.id]"
+                        type="button"
+                        class="upgrade-info"
+                        :aria-label="`Full description of ${mod.mod_name}`"
+                        :aria-expanded="openMod?.id === mod.id"
+                        :aria-controls="popoverId"
+                        @click="toggleInfo(mod, $event)"
                     >
-                    <span :id="`${descriptionId}-${mod.id}`" class="sr-only">{{
-                        cleanDescription(
-                            mod.text_description || mod.description
-                        )
-                    }}</span>
-                </button>
-            </div>
-            <div
-                v-if="detailFor(tier, tierMods)"
-                class="upgrade-inspection"
-                :class="{ 'is-preview': isPreview(tier, tierMods) }"
-            >
-                <span class="inspection-key"
-                    >{{
-                        selected.includes(detailFor(tier, tierMods).id)
-                            ? "Equipped"
-                            : isPreview(tier, tierMods)
-                            ? "Preview"
-                            : "Choose one"
-                    }}
-                    · {{ detailFor(tier, tierMods).mod_index }}</span
-                >
-                <p>
-                    {{
-                        cleanDescription(
-                            detailFor(tier, tierMods).text_description ||
-                                detailFor(tier, tierMods).description
-                        ) || "No additional effects listed."
-                    }}
-                </p>
-                <span
-                    v-if="effects(detailFor(tier, tierMods), tierMods).length"
-                    class="inspection-effects"
-                    ><span
-                        v-for="effect in effects(
-                            detailFor(tier, tierMods),
-                            tierMods
-                        )"
-                        :key="effect.name"
-                        class="effect-chip"
-                        >{{ effect.name }} <s>{{ effect.from }}</s
-                        ><span aria-hidden="true">→</span
-                        ><span class="sr-only"> to </span>{{ effect.to }}</span
-                    ></span
-                >
+                        i
+                    </button>
+                </div>
             </div>
         </fieldset>
+        <div
+            v-if="openMod"
+            :id="popoverId"
+            ref="popover"
+            class="upgrade-popover"
+            role="dialog"
+            :aria-label="openMod.mod_name"
+            :style="popoverPosition"
+        >
+            <strong
+                >T{{ openMod.mod_tier }} · {{ openMod.mod_index }} ·
+                {{ openMod.mod_name }}</strong
+            >
+            <p>{{ description(openMod) }}</p>
+        </div>
     </div>
 </template>
 
 <script setup>
-import { computed, reactive, useId } from "vue";
-import { getModifiedStats } from "../statCalculator";
+import {
+    computed,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    reactive,
+    ref,
+    useId,
+    watch,
+} from "vue";
 
 const props = defineProps({
     mods: { type: Array, default: () => [] },
     selected: { type: Array, default: () => [] },
-    baseStats: { type: Object, default: null },
-    extraUpgrades: { type: Array, default: () => [] },
 });
 const emit = defineEmits(["select", "preview"]);
-const inspected = reactive({});
 const descriptionId = useId();
+const popoverId = useId();
 const tierLevels = [1, 4, 8, 12, 16];
 const tiers = computed(() =>
     [...props.mods]
@@ -136,27 +128,69 @@ const tiers = computed(() =>
             return groups;
         }, {})
 );
-const selectedMods = computed(() =>
-    props.mods.filter((mod) => props.selected.includes(mod.id))
-);
 
-function detailFor(tier, mods) {
-    return (
-        mods.find((mod) => mod.id === inspected[tier]) ||
-        mods.find((mod) => props.selected.includes(mod.id)) ||
-        mods[0]
-    );
+const matrix = ref(null);
+const popover = ref(null);
+/** Mods whose one-line description is cut off, keyed by mod id. */
+const truncated = reactive({});
+/** The mod whose full description is open in the popover. */
+const openMod = ref(null);
+const popoverPosition = ref({});
+let infoTrigger = null;
+let resizeObserver = null;
+
+/** Marks each description that does not fit its clamped lines. */
+function measureTruncation() {
+    matrix.value
+        ?.querySelectorAll(".upgrade-effect[data-mod-id]")
+        .forEach((element) => {
+            truncated[element.dataset.modId] =
+                element.scrollHeight > element.clientHeight + 1;
+        });
 }
 
-function isPreview(tier, mods) {
-    const mod = detailFor(tier, mods);
-
-    return inspected[tier] === mod.id && !props.selected.includes(mod.id);
+/**
+ * Opens the popover under an option, aligned to whichever edge keeps it
+ * inside the grid, or closes it when it is already open for that mod.
+ */
+function toggleInfo(mod, event) {
+    if (openMod.value?.id === mod.id) {
+        closeInfo();
+        return;
+    }
+    infoTrigger = event.currentTarget;
+    const option = infoTrigger.parentElement.getBoundingClientRect();
+    const grid = matrix.value.getBoundingClientRect();
+    const top = `${option.bottom - grid.top + 4}px`;
+    popoverPosition.value =
+        option.left - grid.left > grid.width / 2
+            ? { top, right: `${grid.right - option.right}px` }
+            : { top, left: `${option.left - grid.left}px` };
+    openMod.value = mod;
 }
 
-function inspect(mod) {
-    inspected[mod.mod_tier] = mod.id;
-    emit("preview", props.selected.includes(mod.id) ? null : mod);
+function closeInfo({ restoreFocus = false } = {}) {
+    if (restoreFocus) {
+        infoTrigger?.focus();
+    }
+    openMod.value = null;
+    infoTrigger = null;
+}
+
+function closeOnOutsideClick(event) {
+    if (
+        openMod.value &&
+        !popover.value?.contains(event.target) &&
+        !event.target.closest(".upgrade-info")
+    ) {
+        closeInfo();
+    }
+}
+
+function closeOnEscape(event) {
+    if (event.key === "Escape" && openMod.value) {
+        closeInfo({ restoreFocus: true });
+    }
 }
 
 function leaveTier(event) {
@@ -165,51 +199,8 @@ function leaveTier(event) {
     }
 }
 
-function selectUpgrade(mod) {
-    inspected[mod.mod_tier] = mod.id;
-    emit("preview", null);
-    emit("select", mod);
-}
-
-/**
- * Stat changes a mod makes: what it adds on top of the rest of the build
- * when equipped, or what swapping to it would change when it is not.
- *
- * @return {Array<{name: string, from: string, to: string}>}
- */
-function effects(mod, tierMods) {
-    if (!props.baseStats) {
-        return [];
-    }
-    const others = selectedMods.value.filter(
-        (selectedMod) => !tierMods.includes(selectedMod)
-    );
-    const before = props.selected.includes(mod.id)
-        ? [...others, ...props.extraUpgrades]
-        : [...selectedMods.value, ...props.extraUpgrades];
-    const after = [...others, mod, ...props.extraUpgrades];
-    const from = getModifiedStats(props.baseStats, before).stats;
-    const to = getModifiedStats(props.baseStats, after).stats;
-
-    return to
-        .map((stat, index) => ({ stat, previous: from[index] }))
-        .filter(
-            ({ stat, previous }) =>
-                parseFloat(stat.value) !== parseFloat(previous.value)
-        )
-        .map(({ stat, previous }) => ({
-            name: stat.name,
-            from: formatStat(stat, previous.value),
-            to: formatStat(stat, stat.value),
-        }));
-}
-
-function formatStat(stat, value) {
-    if (stat.boolean) {
-        return parseFloat(value) ? "Yes" : "No";
-    }
-
-    return `${parseFloat(value)}${stat.percent ? "%" : ""}`;
+function description(mod) {
+    return cleanDescription(mod.text_description || mod.description);
 }
 
 function cleanDescription(text) {
@@ -219,4 +210,27 @@ function cleanDescription(text) {
 function hideImage(event) {
     event.target.hidden = true;
 }
+
+watch(
+    () => props.mods,
+    async () => {
+        closeInfo();
+        await nextTick();
+        measureTruncation();
+    }
+);
+
+onMounted(() => {
+    measureTruncation();
+    resizeObserver = new ResizeObserver(measureTruncation);
+    resizeObserver.observe(matrix.value);
+    document.addEventListener("click", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+});
+
+onBeforeUnmount(() => {
+    resizeObserver?.disconnect();
+    document.removeEventListener("click", closeOnOutsideClick);
+    document.removeEventListener("keydown", closeOnEscape);
+});
 </script>
