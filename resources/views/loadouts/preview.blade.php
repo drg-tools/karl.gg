@@ -28,15 +28,17 @@
 
 @section('content')
     <div class="loadout-page" style="--class-accent: {{ $class['color'] }}">
-        <x-loadout-outdated :loadout="$loadout"/>
+        <x-loadout-outdated :outdated="! $isCurrentPatch"/>
 
         <header class="loadout-hero">
             <img class="loadout-hero__art" src="/assets/img/full-{{ $class['letter'] }}_image.png" alt="">
             <div class="loadout-hero__copy">
                 <p class="loadout-eyebrow">
                     <span class="loadout-hero__class">{{ $loadout->character->name }}</span> loadout
-                    @if ($loadout->patch)
-                        · Patch {{ $loadout->patch->patch_num_dev }}
+                    @if ($isCurrentPatch)
+                        · Current Patch
+                    @elseif ($loadout->patch)
+                        · Patch {{ $loadout->patch->patch_num }}
                     @endif
                 </p>
                 <h1 class="loadout-hero__name">{{ $loadout->name }}</h1>

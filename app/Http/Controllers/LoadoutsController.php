@@ -7,6 +7,7 @@ use App\Gun;
 use App\Loadout;
 use App\Mod;
 use App\Overclock;
+use App\Patch;
 use App\Throwable;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Database\Eloquent\Collection;
@@ -53,6 +54,7 @@ class LoadoutsController extends Controller
 
         return view('loadouts.preview')
             ->withLoadout($loadout)
+            ->withIsCurrentPatch($loadout->patch?->is(Patch::current()) ?? false)
             ->withHasVoted(auth()->check() && auth()->user()->getVotingValue($loadout) == 1)
             ->withVoteCount($loadout->upVotesCount())
             ->withGuideHtml(Str::markdown($loadout->description ?? '', ['html_input' => 'strip', 'allow_unsafe_links' => false]));

@@ -195,6 +195,35 @@ class BuilderEndpointTest extends TestCase
         ]);
     }
 
+    public function test_preview_shows_the_public_patch_number_after_a_new_patch_is_released(): void
+    {
+        $this->freezeTime();
+        $patch = Patch::factory()->create([
+            'patch_num' => '1.39',
+            'patch_num_dev' => '123456',
+            'launched_at' => now()->subDay(),
+        ]);
+        $loadout = Loadout::factory()->create([
+            'character_id' => Character::factory()->create(['name' => 'Engineer'])->id,
+            'user_id' => null,
+            'patch_id' => $patch->id,
+        ]);
+        $url = route('preview.show', $loadout->id);
+
+        $this->get($url)->assertOk()
+            ->assertSeeText('· Current Patch')
+            ->assertDontSeeText('Patch 123456')
+            ->assertDontSeeText('This build may be outdated.');
+
+        Patch::factory()->create(['launched_at' => now()]);
+
+        $this->get($url)->assertOk()
+            ->assertSeeText('· Patch 1.39')
+            ->assertSeeText('This build may be outdated.')
+            ->assertDontSeeText('· Current Patch')
+            ->assertDontSeeText('Patch 123456');
+    }
+
     public function test_salutes_toggle_using_session_authentication(): void
     {
         $input = $this->input();
