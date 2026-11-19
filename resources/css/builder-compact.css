@@ -32,13 +32,7 @@
     }
 
     &.is-compact .workbench-intro {
-        align-items: center;
-        padding: 4px 0 14px;
         margin-bottom: 14px;
-    }
-    &.is-compact .workbench-intro h2,
-    &.is-compact .workbench-intro > div > p:last-child {
-        display: none;
     }
 
     .compact-builder {

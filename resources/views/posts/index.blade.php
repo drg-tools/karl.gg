@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Blog</p>
-@endsection
-
 @php
     $featuredPost = $posts->onFirstPage() ? $posts->first() : null;
     $gridPosts = $featuredPost ? $posts->slice(1) : $posts;

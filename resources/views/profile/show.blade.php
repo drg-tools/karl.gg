@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Profile</p>
-@endsection
-
 @php
     $accents = [
         'Driller' => '#ebc64d',

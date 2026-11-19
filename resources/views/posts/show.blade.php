@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Blog</p>
-@endsection
-
 @section('content')
     <div class="loadout-page blog">
         <article class="blog-post">

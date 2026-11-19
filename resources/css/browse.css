@@ -44,13 +44,13 @@
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 16px 24px;
-    padding-bottom: 22px;
+    gap: 12px 24px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--line);
 }
 .browse-header__title {
-    margin: 8px 0 6px;
-    font: 400 56px/0.92 var(--display);
+    margin: 6px 0 4px;
+    font: 400 40px/0.95 var(--display);
     letter-spacing: 0.005em;
 }
 .browse-header__lede {
@@ -658,7 +658,7 @@ html.browse-drawer-open {
 
 @media (max-width: 760px) {
     .browse-header__title {
-        font-size: 44px;
+        font-size: 32px;
     }
     .browse-header .loadout-button {
         display: none;

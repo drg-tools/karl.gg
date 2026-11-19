@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Browse</p>
-@endsection
-
 @php
     $classIds = $browse->classIds();
     $selectedClassId = count($classIds) === 1 ? $classIds[0] : null;

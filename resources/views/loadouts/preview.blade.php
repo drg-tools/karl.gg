@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('page-heading')
-    <p>Loadout</p>
-@endsection
-
 @push('styles')
     <link href="{{ mix('comments.css', 'vendor/comments') }}" rel="stylesheet">
 @endpush

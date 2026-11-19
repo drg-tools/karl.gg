@@ -5,17 +5,9 @@
         :style="{ '--class-accent': classDetails.color }"
     >
         <header class="workbench-intro">
-            <div>
-                <p class="terminal-label">Karl.gg / Equipment terminal</p>
-                <h2>
-                    {{
-                        config.method === "PUT"
-                            ? "Back to the workbench."
-                            : "Built for your next drop."
-                    }}
-                </h2>
-                <p>Pick your kit. Find your edge. Rock and stone.</p>
-            </div>
+            <h1>
+                {{ config.method === "PUT" ? "Edit loadout" : "Build a loadout" }}
+            </h1>
             <div class="builder-mode" role="group" aria-label="Builder layout">
                 <button
                     v-for="mode in builderModes"
