@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-wrap justify-center">
         <div class="w-full max-w-sm">
-            <div class="flex flex-col break-words bg-gray-700 border border-2 border-gray-700 rounded shadow-md">
+            <div class="flex flex-col wrap-break-word bg-gray-700 border border-2 border-gray-700 rounded-sm shadow-md">
 
                 <div class="font-semibold bg-gray-800 text-gray-300 py-3 px-6 mb-0">
                     {{ __('Register') }}
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="flex flex-wrap">
-                        <button type="submit" class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">
+                        <button type="submit" class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded-sm text-base leading-normal no-underline text-gray-100 bg-orange-500 hover:bg-orange-700">
                             {{ __('Register') }}
                         </button>
 

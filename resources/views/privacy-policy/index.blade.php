@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="p-4 text-gray-300 bg-gray-700 sm:rounded prose max-w-none lg:prose-xl">
+    <div class="p-4 text-gray-300 bg-gray-700 sm:rounded-sm prose max-w-none lg:prose-xl">
         <p>Last updated May 07, 2020</p>
 
         <p>

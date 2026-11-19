@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-xl p-8 text-center bg-gray-700 text-gray-300 sm:rounded">
+    <div class="text-xl p-8 text-center bg-gray-700 text-gray-300 sm:rounded-sm">
 
         <h1 class="text-white mb-4">Unsubscribe Successful</h1>
 

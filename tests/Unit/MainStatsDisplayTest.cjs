@@ -6,10 +6,21 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '../..');
 const source = fs.readFileSync(path.join(root, 'resources/js/components/MainStatsDisplay.vue'), 'utf8');
-const script = source.match(/<script>([\s\S]*?)<\/script>/)[1]
+const calculatorSource = fs.readFileSync(path.join(root, 'resources/js/statCalculator.js'), 'utf8')
+    .replace(
+        'export { _calculateDamage as calculateDamage, getModifiedStats };',
+        'globalThis.statCalculator = { calculateDamage: _calculateDamage, getModifiedStats };'
+    );
+const script = source.match(/<script>([\s\S]*?)<\/script>/i)[1]
     .replace("import clone from 'lodash-es/clone';", 'const clone = (value) => [...value];')
+    .replace(
+        "import { calculateDamage as _calculateDamage, getModifiedStats } from '../statCalculator';",
+        'const { calculateDamage: _calculateDamage, getModifiedStats } = globalThis.statCalculator;'
+    )
     .replace('export default', 'globalThis.component =');
-const context = vm.createContext({});
+const calculatorContext = vm.createContext({});
+vm.runInContext(calculatorSource, calculatorContext);
+const context = vm.createContext({ statCalculator: calculatorContext.statCalculator });
 vm.runInContext(script, context);
 const data = JSON.parse(fs.readFileSync(path.join(root, 'database/seeders/game_data.json'), 'utf8'));
 const crossbow = data.weapons.find((weapon) => weapon.gun_class === 'Crossbow');

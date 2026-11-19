@@ -106,7 +106,7 @@ export default {
     },
     methods: {
         computeCost(material) {
-            const modCost = this.selectedMods.reduce((prev, curr) => prev + curr[material], 0);
+            const modCost = this.selectedMods.reduce((prev, curr) => prev + Number(curr[material] || 0), 0);
             const ocCost = get(this.overclock, material, 0);
             const throwableCost = get(this.throwable, material, 0);
 

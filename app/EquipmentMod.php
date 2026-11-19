@@ -3,6 +3,8 @@
 namespace App;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,9 +29,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $mod_type
  * @property string|null $created_at
  * @property string|null $updated_at
- * @property-read \App\Character $character
- * @property-read \App\Equipment $equipment
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
+ * @property-read Character $character
+ * @property-read Equipment $equipment
+ * @property-read Collection|Loadout[] $loadouts
  * @property-read int|null $loadouts_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|EquipmentMod filter($input = [], $filter = null)
@@ -66,6 +68,8 @@ use Illuminate\Database\Eloquent\Model;
 class EquipmentMod extends Model
 {
     use Filterable;
+    use HasFactory;
+
     protected $guarded = ['id'];
 
     public function character()

@@ -5,20 +5,17 @@
 @endsection
 
 @section('content')
-    <div class="bg-gray-700 text-gray-300 p-4 sm:rounded">
-        <div class="flex justify-center my-2">
+    <div class="text-gray-300">
+        <div id="loadout-builder"><p>Loading builder…</p></div>
+        <noscript>Enable JavaScript to build a loadout.</noscript>
+        <div class="flex justify-center mt-8">
             <x-ads.horizontal id="3873388796" />
         </div>
-        <loadout-builder />
     </div>
 
 @endsection
 
 @section('scripts')
-@if (Auth::check())
-     <script>window.authUser={!! json_encode(Auth::user()); !!};</script>
-@else
-     <script>window.authUser=null;</script>
-@endif
+    <script id="builder-data" type="application/json">{!! json_encode($builder, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+    @vite('resources/js/builder.js')
 @endsection
-

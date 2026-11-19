@@ -8,28 +8,28 @@
     <h2 class="text-gray-300">Find Loadouts by Class</h2>
     <div class="mb-5">
         <div class="grid grid-cols-2 md:grid-cols-4 md:gap-4">
-            <a href="/browse?characters[]=3" class="block px-4 py-4 bg-driller hover:bg-driller-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+            <a href="/browse?characters[]=3" class="block px-4 py-4 bg-driller hover:bg-driller-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
                 <img
                     src="{{ asset('assets/img/Driller_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
                     alt="Driller Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Driller</span>
             </a>
-            <a href="/browse?characters[]=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+            <a href="/browse?characters[]=1" class="block px-4 py-4 bg-engineer hover:bg-engineer-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
                 <img
                     src="{{ asset('assets/img/Engineer_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
                     alt="Engineer Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Engineer</span>
             </a>
-            <a href="/browse?characters[]=4" class="block px-4 py-4 bg-gunner hover:bg-gunner-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+            <a href="/browse?characters[]=4" class="block px-4 py-4 bg-gunner hover:bg-gunner-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
                 <img
                     src="{{ asset('assets/img/Gunner_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
                     alt="Gunner Logo">
                 <span class="text-lg sm:text-3xl font-semibold">Gunner</span>
             </a>
-            <a href="/browse?characters[]=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow sm:rounded">
+            <a href="/browse?characters[]=2" class="block px-4 py-4 bg-scout hover:bg-scout-dark flex flex-col justify-center items-center sm:flex-row sm:justify-around shadow-sm sm:rounded-sm">
                 <img
                     src="{{ asset('assets/img/Scout_portrait-128px.png') }}"
                     class="w-16 sm:w-24"
@@ -50,7 +50,7 @@
         <x-ads.horizontal id="1471414710" />
     </div>
 
-    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow sm:rounded-md">
+    <div class="bg-gray-700 text-gray-300 px-3 py-2 shadow-sm sm:rounded-md">
         @foreach ($latestPosts as $post)
             <div class="my-5">
                 <a href="{{ route('blog.show', $post->id) }}" class="hover:underline text-white text-lg"><h3>{{$post->title}}</h3></a>

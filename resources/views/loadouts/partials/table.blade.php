@@ -1,7 +1,7 @@
 <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="shadow overflow-hidden border-b border-gray-900 sm:rounded-lg">
+            <div class="shadow-sm overflow-hidden border-b border-gray-900 sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-900">
                     <thead class="bg-gray-600">
                     <tr>
@@ -53,7 +53,7 @@
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
+                                    <div class="shrink-0 h-10 w-10">
                                         <img src="/assets/img/{{ $loadout->character->image }}-hex.png" alt="{{ $loadout->character->name }} icon">
                                     </div>
                                 </div>

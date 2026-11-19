@@ -107,7 +107,7 @@
         <a href="{{ url()->previous() }}" class="underline text-gray-300 ml-2 sm:ml-0">Back</a>
     </div>
 
-    <div class="bg-gray-700 pb-20 text-white sm:rounded">
+    <div class="bg-gray-700 pb-20 text-white sm:rounded-sm">
         @include('components.asv-alert')
         <div class="flex flex-col md:flex-row justify-between">
             <div class="mx-4 pt-2 text-gray-300 text-xl">

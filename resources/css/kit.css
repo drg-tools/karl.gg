@@ -1,0 +1,246 @@
+/*
+ * Kit cards: a weapon, equipment or throwable summary with its upgrade tree.
+ * Shared by the builder's review step (Vue) and the published loadout page
+ * (Blade), so both render the same markup and colours.
+ */
+.kit-card {
+    --kit-bg: #172431;
+    --kit-bg-2: #121d2a;
+    --kit-line: #2a3a4a;
+    --kit-line-2: #344758;
+    --kit-ink: #e9eef3;
+    --kit-ink-2: #c3cdd6;
+    --kit-muted: #8e9eac;
+    --kit-faint: #64778a;
+    --kit-amber: #ffb547;
+    --kit-amber-2: #ffcf80;
+    --kit-amber-deep: #b97a24;
+    --kit-amber-ink: #2b1903;
+    --kit-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    --kit-display: "Karl Display", Impact, "Arial Narrow", sans-serif;
+    --kit-hex: polygon(18% 0, 82% 0, 100% 50%, 82% 100%, 18% 100%, 0 50%);
+    --kit-octagon: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    padding: 18px 20px 20px;
+    color: var(--kit-ink);
+    background: var(--kit-bg);
+    border: 1px solid var(--kit-line);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.kit-card::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: -1px;
+    height: 2px;
+    background: var(--kit-accent, var(--kit-amber));
+}
+.kit-card * {
+    min-width: 0;
+}
+
+.kit-card__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 16px;
+    align-items: start;
+}
+.kit-card__eyebrow {
+    font: 600 10.5px/1.4 var(--kit-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kit-muted);
+}
+.kit-card__name {
+    margin: 4px 0 0;
+    font: 400 28px/1 var(--kit-display);
+    letter-spacing: 0.01em;
+    color: var(--kit-ink);
+}
+.kit-card__art {
+    grid-column: 2;
+    width: 120px;
+    height: 52px;
+    object-fit: contain;
+    object-position: right center;
+    filter: brightness(0) invert(0.84);
+}
+.kit-card__action {
+    grid-column: 2;
+    justify-self: end;
+    align-self: start;
+    font-size: 12px;
+    color: var(--kit-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--kit-line-2);
+    text-underline-offset: 3px;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+.kit-card__action:hover {
+    color: var(--kit-amber);
+}
+
+.kit-card__body {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 18px 24px;
+    align-items: start;
+}
+
+/* ---------- the tree ---------- */
+.mod-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+.mod-tree__row {
+    display: flex;
+    gap: 6px;
+}
+.mod-tree__hex,
+.mod-tree__overclock {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    flex: none;
+}
+.mod-tree__hex {
+    width: 44px;
+    height: 32px;
+    clip-path: var(--kit-hex);
+    background: var(--kit-amber-deep);
+}
+.mod-tree__hex::before,
+.mod-tree__overclock::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    z-index: -1;
+    clip-path: inherit;
+    background: #1b2938;
+}
+.mod-tree__hex img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: brightness(0) invert(0.92);
+}
+.mod-tree__hex.is-selected {
+    background: var(--kit-amber-2);
+}
+.mod-tree__hex.is-selected::before {
+    background: linear-gradient(165deg, #ffc76a, #f0a234);
+}
+.mod-tree__hex.is-selected img {
+    filter: brightness(0);
+    opacity: 0.85;
+}
+.mod-tree__row.is-empty .mod-tree__hex {
+    background: var(--kit-line-2);
+}
+.mod-tree__row.is-empty .mod-tree__hex img {
+    opacity: 0.35;
+}
+.mod-tree__overclock {
+    width: 52px;
+    height: 52px;
+    margin-top: 8px;
+    clip-path: var(--kit-octagon);
+    background: var(--kit-oc, var(--kit-line-2));
+    font: 300 18px var(--kit-mono);
+    color: var(--kit-faint);
+}
+.mod-tree__overclock::before {
+    background: color-mix(in srgb, var(--kit-oc, #1b2938) 22%, #16212d);
+}
+.mod-tree__overclock img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) invert(0.9);
+}
+.kit-oc-clean {
+    --kit-oc: #82c9a5;
+}
+.kit-oc-balanced {
+    --kit-oc: #e9c25c;
+}
+.kit-oc-unstable {
+    --kit-oc: #ec7a62;
+}
+
+/* ---------- chosen upgrades ---------- */
+.kit-choices {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 2px;
+}
+.kit-choices li {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.kit-choices li:last-child {
+    border-bottom: 0;
+}
+.kit-choices__key {
+    padding-top: 2px;
+    font: 600 11px var(--kit-mono);
+    letter-spacing: 0.06em;
+    color: var(--kit-amber);
+}
+.kit-choices__key.is-overclock {
+    color: var(--kit-oc, var(--kit-muted));
+}
+.kit-choices strong {
+    display: block;
+    font-weight: 600;
+    font-size: 13.5px;
+    line-height: 1.3;
+    color: var(--kit-ink);
+}
+.kit-choices small {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--kit-muted);
+}
+.kit-choices li.is-empty strong {
+    font-weight: 400;
+    color: var(--kit-faint);
+}
+
+.kit-card__description {
+    margin: 0;
+    font-size: 13px;
+    color: var(--kit-ink-2);
+}
+
+@media (max-width: 560px) {
+    .kit-card__body {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .kit-card__art {
+        width: 84px;
+    }
+    .kit-card__name {
+        font-size: 24px;
+    }
+}

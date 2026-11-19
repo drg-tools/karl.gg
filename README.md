@@ -26,11 +26,8 @@ composer install && \
 ## In one terminal tab
 docker-compose up
 
-## In another
-php artisan serve
-
-## And another
-npm run watch
+## In another: runs the web server, queue worker and Vite together
+composer dev
 ```
 
 - Get database migrated and seeded
@@ -40,13 +37,6 @@ php artisan migrate --seed
 ```
 
 _Note: If you want the advanced weapon stats, you will need to import a raw sql file by exporting for our standalone [weapons calculator](https://github.com/drg-tools/drg-weapons-calculator)._
-
-- Install passport keys (run once)
-
-```bash
-php artisan passport:keys
-php artisan passport:client --personal --provider=users --name="Karl local"
-```
 
 - Default admin user is `admin@test.com` / `adminadmin` (local seeded data only)
 
@@ -72,13 +62,9 @@ Worst case scenario, StyleCI will make a PR against yours to fix any style issue
 
 ### Frontend Components
 
-All of the frontend components live in `resources/js/components`. All of these components are automatically
-registered and compiled. To add into a rendered view, simply open the view and add the component. For example, if
-you wanted to add a component to the create build screen, simply open `resources/views/builds/create.blade.php`. If
-your component was called `CharacterBuilderComponent.vue`, you would just pop in
-`<character-builder-component></character-builder-component>`
+Public pages render with Blade. The loadout builder mounts Vue 3 only on the build page, using `resources/js/builder.js` and `resources/js/components/LoadoutBuilder.vue`. It keeps selections locally and calls session-authenticated Laravel web routes with CSRF protection. Assets are bundled with Vite (`vite.config.js`) and Tailwind CSS v4 (configured in `resources/css/app.css`). Run `npm run dev` (or `composer dev`) for development and `npm run build` to build assets. Static images live in `public/assets`.
 
-As long as you are running the frontend build process via `npm run watch`, you will have realtime compilation.
+GraphQL and Passport are retired; OAuth keys and clients are no longer needed. Existing OAuth tables are retained without dropping data. The comments package still has its own separate frontend bundle.
 
 ### Backend Components
 
@@ -110,6 +96,6 @@ Select your coding assistant to generate its local MCP configuration. Codex guid
 APP_ENV=testing DB_CONNECTION=sqlite DB_DATABASE=:memory: vendor/bin/phpunit
 ```
 
-The full seed data includes MySQL-specific SQL imports; use the disposable MySQL service for full seeding and browser tests. CircleCI runs the regression suite on SQLite and MySQL, followed by Dusk builder checks.
+The full seed data includes MySQL-specific SQL imports. Use the disposable MySQL service for full seeding. CircleCI runs the regression suite on SQLite and MySQL.
 
 See [the upgrade and deployment notes](docs/laravel-upgrade.md) before upgrading an existing database, particularly the Passport client schema and secret migration.

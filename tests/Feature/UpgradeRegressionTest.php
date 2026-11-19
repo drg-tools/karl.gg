@@ -51,7 +51,7 @@ class UpgradeRegressionTest extends TestCase
     {
         $this->post('/build/1/favorite')->assertRedirect('/login');
         $this->delete('/build/delete/1')->assertRedirect('/login');
-        $this->getJson('/api/user')->assertUnauthorized();
+        $this->getJson('/api/user')->assertNotFound();
     }
 
     public function test_only_the_owner_can_delete_a_loadout()
@@ -86,16 +86,11 @@ class UpgradeRegressionTest extends TestCase
         $this->assertEquals(0, $loadout->votes()->sum('value'));
     }
 
-    public function test_graphql_reads_public_loadouts_and_guards_private_lists()
+    public function test_retired_graphql_and_oauth_endpoints_are_unavailable(): void
     {
-        $loadout = $this->loadout(User::factory()->create());
-        $response = $this->postJson('/graphql', ['query' => '{ loadout(id: '.$loadout->id.') { id name } }']);
-        $this->assertNull($response->json('errors'), $response->getContent());
-        $response->assertOk()
-            ->assertJsonPath('data.loadout.name', $loadout->name);
-
-        $this->postJson('/graphql', ['query' => '{ loadouts { data { id } } }'])
-            ->assertOk()->assertJsonStructure(['errors']);
+        $this->postJson('/graphql', [])->assertNotFound();
+        $this->postJson('/oauth/token', [])->assertNotFound();
+        $this->get('/settings/tokens')->assertNotFound();
     }
 
     public function test_public_comments_hide_pending_comments_and_guests_cannot_moderate()
