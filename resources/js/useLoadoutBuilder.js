@@ -255,8 +255,29 @@ export function useLoadoutBuilder(config) {
     function selectedMods(mods, field) {
         return mods.filter((mod) => form[field].includes(mod.id));
     }
+    /**
+     * Tiers fill from 1 upward: a tier opens once the tier below it has an
+     * upgrade, and removing an upgrade also clears every tier above it.
+     */
+    function tierUnlocked(tier, field, available) {
+        return (
+            tier <= 1 ||
+            available.some(
+                (item) =>
+                    item.mod_tier === tier - 1 && form[field].includes(item.id)
+            )
+        );
+    }
     function selectMod(mod, field, available) {
-        if (form[field].includes(mod.id)) return;
+        if (form[field].includes(mod.id)) {
+            const cleared = available
+                .filter((item) => item.mod_tier >= mod.mod_tier)
+                .map((item) => item.id);
+            form[field] = form[field].filter((id) => !cleared.includes(id));
+            metrics[1] = metrics[2] = null;
+            return;
+        }
+        if (!tierUnlocked(mod.mod_tier, field, available)) return;
         const sameTier = available
             .filter((item) => item.mod_tier === mod.mod_tier)
             .map((item) => item.id);
@@ -273,16 +294,14 @@ export function useLoadoutBuilder(config) {
             .flatMap((gun) => gun.mods.map((mod) => mod.id));
         form.mods = form.mods.filter((id) => !slotMods.includes(id));
         weapons[slot] = id;
-        const firstByTier = new Map();
-        [...selectedGun(slot).mods]
-            .sort((a, b) =>
-                String(a.mod_index).localeCompare(String(b.mod_index))
-            )
-            .forEach((mod) => {
-                if (!firstByTier.has(mod.mod_tier))
-                    firstByTier.set(mod.mod_tier, mod.id);
-            });
-        form.mods.push(...firstByTier.values());
+        chooseOverclock(slot, null);
+    }
+    function clearWeapon(slot) {
+        const gun = selectedGun(slot);
+        if (!gun) return;
+        const gunMods = gun.mods.map((mod) => mod.id);
+        form.mods = form.mods.filter((id) => !gunMods.includes(id));
+        weapons[slot] = null;
         chooseOverclock(slot, null);
     }
     function chooseOverclock(slot, id) {
@@ -301,14 +320,18 @@ export function useLoadoutBuilder(config) {
         return false;
     }
     function sectionSummary(key) {
-        if (key === "primary" || key === "secondary")
-            return (
-                selectedGun(key === "primary" ? 1 : 2)?.name ||
-                "Choose a weapon"
-            );
+        if (key === "primary" || key === "secondary") {
+            const gun = selectedGun(key === "primary" ? 1 : 2);
+            if (!gun) return "Choose a weapon";
+            return selectedMods(gun.mods, "mods").length
+                ? gun.name
+                : `${gun.name} · needs tier 1`;
+        }
         if (key === "equipment")
             return form.equipment_mods.length
-                ? `${form.equipment_mods.length} upgrades equipped`
+                ? `${form.equipment_mods.length} ${
+                      form.equipment_mods.length === 1 ? "upgrade" : "upgrades"
+                  } equipped`
                 : "Tools & armor";
         if (key === "throwable")
             return selectedThrowable.value?.name || "Your finishing touch";
@@ -522,15 +545,12 @@ export function useLoadoutBuilder(config) {
             nameInput.value?.focus();
             return;
         }
-        if (
-            [1, 2].some(
-                (slot) =>
-                    selectedGun(slot) &&
-                    !selectedMods(selectedGun(slot).mods, "mods").length
-            )
-        ) {
+        const incomplete = [1, 2]
+            .map((slot) => selectedGun(slot))
+            .find((gun) => gun && !selectedMods(gun.mods, "mods").length);
+        if (incomplete) {
             await showError(
-                "Select at least one mod for each equipped weapon."
+                `Choose at least a tier 1 upgrade for ${incomplete.name}, or pick a different weapon.`
             );
             return;
         }
@@ -605,7 +625,9 @@ export function useLoadoutBuilder(config) {
         selectedOverclock,
         selectedMods,
         selectMod,
+        tierUnlocked,
         chooseWeapon,
+        clearWeapon,
         chooseOverclock,
         cleanDescription,
         sectionConfigured,

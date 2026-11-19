@@ -27,6 +27,8 @@ class BuilderTest extends DuskTestCase
                 ->waitFor('@weapon-'.$gun->id)
                 ->click('@weapon-'.$gun->id)
                 ->waitFor('@mod-'.$mod->id)
+                ->assertAttribute('@mod-'.$mod->id, 'aria-pressed', 'false')
+                ->click('@mod-'.$mod->id)
                 ->assertAttribute('@mod-'.$mod->id, 'aria-pressed', 'true')
                 ->waitFor('@credits-cost')
                 ->assertVisible('@credits-cost')
@@ -90,27 +92,32 @@ class BuilderTest extends DuskTestCase
     {
         $guns = Gun::where('character_slot', 1)->whereHas('character', fn ($query) => $query->where('name', 'Engineer'))->take(2)->get();
         $secondary = Gun::where('character_slot', 2)->whereHas('character', fn ($query) => $query->where('name', 'Engineer'))->firstOrFail();
-        $this->browse(function (Browser $browser) use ($guns, $secondary): void {
+        $secondaryMod = $secondary->mods()->where('mod_tier', 1)->orderBy('mod_index')->firstOrFail();
+        $this->browse(function (Browser $browser) use ($guns, $secondary, $secondaryMod): void {
             $this->freshBuilder($browser)->click('@engineer')->waitFor('@weapon-'.$guns[0]->id)->click('@weapon-'.$guns[0]->id)
                 ->click('@next-section')->waitFor('@weapon-'.$secondary->id)->click('@weapon-'.$secondary->id)
+                ->waitFor('@mod-'.$secondaryMod->id)->click('@mod-'.$secondaryMod->id)
                 ->click('@section-primary')->waitFor('@weapon-'.$guns[1]->id)->click('@weapon-'.$guns[1]->id)
                 ->click('@section-secondary')->waitFor('@weapon-'.$secondary->id)
                 ->assertAttribute('@weapon-'.$secondary->id, 'aria-pressed', 'true')
-                ->assertSee('5 / 5 tiers');
+                ->assertAttribute('@mod-'.$secondaryMod->id, 'aria-pressed', 'true')
+                ->assertSee('1 / 5 tiers');
         });
     }
 
     public function test_equipment_throwables_and_overclocks_are_included_when_publishing(): void
     {
         $gun = Gun::where('character_slot', 1)->whereHas('character', fn ($query) => $query->where('name', 'Engineer'))->firstOrFail();
+        $mod = $gun->mods()->where('mod_tier', 1)->orderBy('mod_index')->firstOrFail();
         $overclock = $gun->overclocks()->firstOrFail();
         $equipment = Equipment::where('character_id', $gun->character_id)->whereHas('equipment_mods')->firstOrFail();
-        $equipmentMod = $equipment->equipment_mods()->firstOrFail();
+        $equipmentMod = $equipment->equipment_mods()->where('mod_tier', 1)->orderBy('mod_index')->firstOrFail();
         $throwable = Throwable::where('character_id', $gun->character_id)->firstOrFail();
         $name = 'Complete expedition '.uniqid();
 
-        $this->browse(function (Browser $browser) use ($gun, $overclock, $equipment, $equipmentMod, $throwable, $name): void {
+        $this->browse(function (Browser $browser) use ($gun, $mod, $overclock, $equipment, $equipmentMod, $throwable, $name): void {
             $this->freshBuilder($browser)->click('@engineer')->waitFor('@weapon-'.$gun->id)->click('@weapon-'.$gun->id)
+                ->waitFor('@mod-'.$mod->id)->click('@mod-'.$mod->id)
                 ->scrollIntoView('@overclock-'.$overclock->id)->click('@overclock-'.$overclock->id)
                 ->click('@section-equipment')->waitFor('@equipment-'.$equipment->id)->click('@equipment-'.$equipment->id)
                 ->waitFor('@mod-'.$equipmentMod->id)->click('@mod-'.$equipmentMod->id)
@@ -118,7 +125,7 @@ class BuilderTest extends DuskTestCase
                 ->click('@section-throwable')->waitFor('@throwable-'.$throwable->id)->click('@throwable-'.$throwable->id)
                 ->assertDontSee('NaN')->screenshot('builder-throwables')
                 ->click('@next-section')->waitFor('#loadout-name')->type('#loadout-name', $name)
-                ->press('Publish loadout')->waitForText('Loadout guide')
+                ->press('Publish loadout')->waitForText('Weapons & gear')
                 ->assertSee($overclock->overclock_name)->assertSee($equipmentMod->mod_name)->assertSee($throwable->name);
         });
 
@@ -157,6 +164,7 @@ class BuilderTest extends DuskTestCase
             $this->freshBuilder($browser)->resize(1440, 1000)->click('@engineer')
                 ->waitFor('@weapon-'.$gun->id)->click('@weapon-'.$gun->id)
                 ->scrollIntoView('@mod-'.$mods[0]->id)
+                ->click('@mod-'.$mods[0]->id)
                 ->mouseover('@mod-'.$mods[1]->id)
                 ->assertSeeIn('@tier-details-1', strip_tags($mods[1]->text_description))
                 ->assertSeeIn('.weapon-readout', 'Previewing swap')

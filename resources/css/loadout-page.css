@@ -1,0 +1,275 @@
+/*
+ * Published loadout page. Same palette and type as the builder workbench:
+ * slate/navy surfaces, amber for actions, class colour for identity.
+ */
+.loadout-page {
+    --bg: #0e1722;
+    --panel: #172431;
+    --panel-2: #1c2a38;
+    --line: #2a3a4a;
+    --line-2: #344758;
+    --hair: rgba(255, 255, 255, 0.06);
+    --ink: #e9eef3;
+    --ink-2: #c3cdd6;
+    --muted: #8e9eac;
+    --faint: #64778a;
+    --amber: #ffb547;
+    --amber-2: #ffcf80;
+    --amber-ink: #2b1903;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    --display: "Karl Display", Impact, "Arial Narrow", sans-serif;
+
+    display: grid;
+    gap: 32px;
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+
+    * {
+        min-width: 0;
+    }
+    a:focus-visible,
+    button:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 3px;
+    }
+}
+
+.loadout-eyebrow {
+    margin: 0;
+    font: 500 11px/1.4 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.loadout-notice {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--ink-2);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--amber);
+
+    strong {
+        display: block;
+        color: var(--ink);
+    }
+    p {
+        margin: 0;
+        color: var(--muted);
+    }
+}
+
+/* ---------- hero ---------- */
+.loadout-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    min-height: 360px;
+    padding: 36px 40px 32px;
+    background: linear-gradient(105deg, var(--bg) 35%, color-mix(in srgb, var(--class-accent) 22%, var(--bg)) 100%);
+    border: 1px solid var(--hair);
+    border-bottom: 3px solid var(--class-accent);
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+.loadout-hero__art {
+    position: absolute;
+    right: 2%;
+    bottom: -4%;
+    z-index: -1;
+    height: 112%;
+    width: 44%;
+    object-fit: contain;
+    object-position: right bottom;
+    filter: saturate(0.95);
+}
+.loadout-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(14, 23, 34, 0.96) 30%, rgba(14, 23, 34, 0.55) 62%, transparent 85%);
+}
+.loadout-hero__copy {
+    max-width: 640px;
+}
+.loadout-hero__class {
+    color: var(--class-accent);
+}
+.loadout-hero__name {
+    margin: 12px 0 10px;
+    font: 400 64px/0.92 var(--display);
+    letter-spacing: 0.005em;
+    overflow-wrap: anywhere;
+}
+.loadout-hero__meta {
+    margin: 0;
+    color: var(--ink-2);
+
+    a {
+        color: var(--amber);
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 181, 71, 0.4);
+        text-underline-offset: 3px;
+    }
+}
+.loadout-hero__summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    margin: 26px 0 0;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+
+    div {
+        padding: 10px 14px;
+        background: rgba(14, 23, 34, 0.82);
+    }
+    dt {
+        font: 500 10.5px var(--mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+    }
+    dd {
+        margin: 2px 0 0;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--ink);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+.loadout-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+
+    form {
+        margin: 0;
+    }
+}
+.loadout-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 20px;
+    font-weight: 700;
+    color: var(--amber-ink);
+    background: var(--amber);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: background 0.15s;
+
+    &:hover {
+        background: var(--amber-2);
+    }
+    &.is-secondary {
+        color: var(--ink);
+        background: var(--line-2);
+    }
+    &.is-secondary:hover {
+        background: #415669;
+    }
+}
+.loadout-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-2);
+    background: rgba(14, 23, 34, 0.7);
+    border: 1px solid var(--line-2);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+
+    &:hover {
+        color: var(--ink);
+        border-color: var(--muted);
+    }
+    &[aria-pressed="true"] {
+        color: var(--amber-2);
+        border-color: rgba(255, 181, 71, 0.55);
+    }
+    &.is-static {
+        cursor: default;
+    }
+    &.is-favorite[aria-pressed="true"] {
+        color: #f2b8c2;
+        border-color: rgba(232, 122, 142, 0.5);
+    }
+    span {
+        color: var(--amber);
+    }
+}
+
+.loadout-heart {
+    width: 15px;
+    height: 15px;
+    flex: none;
+    fill: none;
+    stroke: #e87a8e;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    opacity: 0.85;
+    transition: fill 0.15s, opacity 0.15s;
+}
+.loadout-chip:hover .loadout-heart {
+    opacity: 1;
+}
+.loadout-chip[aria-pressed="true"] .loadout-heart {
+    fill: #e87a8e;
+    opacity: 1;
+}
+
+/* ---------- sections ---------- */
+.loadout-section {
+    display: grid;
+    gap: 14px;
+}
+.loadout-section__heading h3 {
+    margin: 4px 0 0;
+    font: 400 32px/1 var(--display);
+    letter-spacing: 0.01em;
+}
+.loadout-kit {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr));
+    gap: 12px;
+}
+.loadout-panel {
+    padding: 22px 24px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+}
+
+@media (max-width: 760px) {
+    .loadout-page {
+        gap: 24px;
+        padding: 0 16px;
+    }
+    .loadout-hero {
+        min-height: 0;
+        padding: 24px 20px;
+    }
+    .loadout-hero__art {
+        width: 60%;
+        height: 70%;
+        opacity: 0.45;
+    }
+    .loadout-hero__name {
+        font-size: 44px;
+    }
+    .loadout-hero__summary {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .loadout-panel {
+        padding: 18px 16px;
+    }
+}

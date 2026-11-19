@@ -279,6 +279,7 @@
                             :metrics="metrics[activeWeaponSlot]"
                             :class-name="currentClass?.name"
                             @weapon="chooseWeapon(activeWeaponSlot, $event)"
+                            @clear="clearWeapon(activeWeaponSlot)"
                             @mod="
                                 selectMod(
                                     $event,
@@ -319,8 +320,12 @@
                                     type="button"
                                     class="weapon-choice"
                                     :class="{
-                                        'is-selected':
+                                        'is-viewing':
                                             activeEquipmentId === equipment.id,
+                                        'is-upgraded': selectedMods(
+                                            equipment.equipment_mods,
+                                            'equipment_mods'
+                                        ).length,
                                     }"
                                     :aria-pressed="
                                         activeEquipmentId === equipment.id
@@ -334,7 +339,10 @@
                                     /></span>
                                     <span class="weapon-name">{{
                                         equipment.name
-                                    }}</span>
+                                    }}</span
+                                    ><small>{{
+                                        equipmentStatus(equipment)
+                                    }}</small>
                                 </button>
                             </div>
                             <div
@@ -346,9 +354,9 @@
                                         <div>
                                             <h3>{{ activeEquipment.name }}</h3>
                                             <p class="upgrade-help">
-                                                Equipment upgrades. Hover or
-                                                focus to preview, click to
-                                                equip.
+                                                Optional. Tiers unlock in order;
+                                                click an equipped upgrade to
+                                                remove it.
                                             </p>
                                         </div>
                                     </div>
@@ -435,7 +443,10 @@
                                 >
                             </div>
                             <div
-                                class="throwable-roster"
+                                class="weapon-picker throwable-picker"
+                                :style="{
+                                    '--weapons': catalog.throwables.length,
+                                }"
                                 role="group"
                                 aria-label="Throwables"
                             >
@@ -444,7 +455,7 @@
                                     :key="throwable.id"
                                     :dusk="`throwable-${throwable.id}`"
                                     type="button"
-                                    class="throwable-choice"
+                                    class="weapon-choice"
                                     :class="{
                                         'is-selected':
                                             form.throwable_id === throwable.id,
@@ -454,45 +465,78 @@
                                     "
                                     @click="form.throwable_id = throwable.id"
                                 >
-                                    <img
-                                        :src="`/assets/${throwable.icon}.svg`"
-                                        alt=""
-                                    /><strong>{{ throwable.name }}</strong
-                                    ><span>{{
-                                        cleanDescription(throwable.description)
-                                    }}</span
-                                    ><small>{{
-                                        form.throwable_id === throwable.id
-                                            ? "Equipped ✓"
-                                            : "Equip throwable →"
-                                    }}</small>
+                                    <span class="weapon-silhouette"
+                                        ><img
+                                            :src="`/assets/${throwable.icon}.svg`"
+                                            alt=""
+                                    /></span>
+                                    <span class="weapon-name">{{
+                                        throwable.name
+                                    }}</span>
                                 </button>
                             </div>
-                            <button
-                                type="button"
-                                class="text-action throwable-skip"
-                                @click="form.throwable_id = null"
-                            >
-                                {{
-                                    form.throwable_id
-                                        ? "Remove throwable"
-                                        : "Continue without a throwable"
-                                }}
-                            </button>
                             <div
                                 v-if="selectedThrowable"
-                                class="throwable-readout"
+                                class="weapon-panel has-readout throwable-panel"
                             >
-                                <div class="readout-title">
-                                    <span class="readout-mode"
-                                        >Live readout</span
-                                    ><span>{{ selectedThrowable.name }}</span>
+                                <div class="upgrade-column">
+                                    <div class="subsection-heading">
+                                        <div>
+                                            <h3>
+                                                {{ selectedThrowable.name }}
+                                            </h3>
+                                            <p class="upgrade-help">
+                                                Throwables have no upgrade
+                                                tiers.
+                                            </p>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="text-action"
+                                            @click="form.throwable_id = null"
+                                        >
+                                            Remove throwable
+                                        </button>
+                                    </div>
+                                    <div class="upgrade-inspection">
+                                        <span class="inspection-key"
+                                            >Equipped</span
+                                        >
+                                        <p>
+                                            {{
+                                                cleanDescription(
+                                                    selectedThrowable.description
+                                                )
+                                            }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <BuilderStatReadout
-                                    :equipment="selectedThrowable"
-                                /><CreditsCalculator
-                                    :throwable="selectedThrowable"
-                                />
+                                <aside
+                                    class="weapon-readout"
+                                    aria-label="Throwable statistics"
+                                >
+                                    <div class="readout-title">
+                                        <span class="readout-mode"
+                                            >Live readout</span
+                                        ><span>Throwable</span>
+                                    </div>
+                                    <img
+                                        class="readout-weapon equipment-art"
+                                        :src="`/assets/${selectedThrowable.icon}.svg`"
+                                        alt=""
+                                    />
+                                    <h3>{{ selectedThrowable.name }}</h3>
+                                    <BuilderStatReadout
+                                        :equipment="selectedThrowable"
+                                    /><CreditsCalculator
+                                        :throwable="selectedThrowable"
+                                    />
+                                </aside>
+                            </div>
+                            <div v-else class="empty-slot">
+                                <span aria-hidden="true">↖</span>
+                                <h3>Pick a throwable.</h3>
+                                <p>Optional. You can publish without one.</p>
                             </div>
                         </section>
                         <section v-else class="review-section">
@@ -501,7 +545,7 @@
                                     <p class="terminal-label">
                                         Step 05 of 05 · Ready for deployment
                                     </p>
-                                    <h2>Give this build a name.</h2>
+                                    <h2>Review &amp; publish</h2>
                                 </div>
                             </div>
                             <form
@@ -537,14 +581,85 @@
                                                 "No secondary"
                                             }}
                                         </p>
-                                        <div class="review-codes">
-                                            <span
-                                                v-for="slot in [1, 2]"
-                                                :key="slot"
-                                                >{{ combination(slot) }}</span
-                                            >
-                                        </div>
                                     </div>
+                                </div>
+                                <div class="review-kit-grid">
+                                    <template
+                                        v-for="slot in [1, 2]"
+                                        :key="slot"
+                                    >
+                                        <BuilderKitCard
+                                            v-if="selectedGun(slot)"
+                                            :label="
+                                                slot === 1
+                                                    ? 'Primary'
+                                                    : 'Secondary'
+                                            "
+                                            :name="selectedGun(slot).name"
+                                            :kind="selectedGun(slot).gun_class"
+                                            :image="`/assets/${
+                                                selectedGun(slot).image
+                                            }.svg`"
+                                            :mods="selectedGun(slot).mods"
+                                            :selected-ids="form.mods"
+                                            :overclock="selectedOverclock(slot)"
+                                            has-overclock-slot
+                                            :accent="classDetails.color"
+                                            action-label="Edit"
+                                            @action="
+                                                goTo(
+                                                    slot === 1
+                                                        ? 'primary'
+                                                        : 'secondary'
+                                                )
+                                            "
+                                        />
+                                        <BuilderKitCard
+                                            v-else
+                                            :label="
+                                                slot === 1
+                                                    ? 'Primary'
+                                                    : 'Secondary'
+                                            "
+                                            name="Not chosen"
+                                            description="Every slot is optional."
+                                            action-label="Choose"
+                                            @action="
+                                                goTo(
+                                                    slot === 1
+                                                        ? 'primary'
+                                                        : 'secondary'
+                                                )
+                                            "
+                                        />
+                                    </template>
+                                    <BuilderKitCard
+                                        v-for="equipment in upgradedEquipment"
+                                        :key="equipment.id"
+                                        label="Equipment"
+                                        :name="equipment.name"
+                                        :image="`/assets/${equipment.icon}.svg`"
+                                        :mods="equipment.equipment_mods"
+                                        :selected-ids="form.equipment_mods"
+                                        :accent="classDetails.color"
+                                        action-label="Edit"
+                                        @action="
+                                            activeEquipmentId = equipment.id;
+                                            goTo('equipment');
+                                        "
+                                    />
+                                    <BuilderKitCard
+                                        v-if="selectedThrowable"
+                                        label="Throwable"
+                                        :name="selectedThrowable.name"
+                                        :image="`/assets/${selectedThrowable.icon}.svg`"
+                                        :description="
+                                            selectedThrowable.description
+                                        "
+                                        :accent="classDetails.color"
+                                        action-label="Edit"
+                                        @action="goTo('throwable')"
+                                    />
                                 </div>
                                 <div class="publish-fields">
                                     <label for="loadout-name"
@@ -599,35 +714,6 @@
                                         {{ errors.description.join(" ") }}
                                     </p>
                                 </div>
-                                <details class="review-kit">
-                                    <summary>
-                                        Review your equipment
-                                        <span
-                                            >{{ configuredCount }}
-                                            {{
-                                                configuredCount === 1
-                                                    ? "slot"
-                                                    : "slots"
-                                            }}
-                                            configured</span
-                                        >
-                                    </summary>
-                                    <button
-                                        v-for="section in sections.filter(
-                                            (section) =>
-                                                section.key !== 'review'
-                                        )"
-                                        :key="section.key"
-                                        type="button"
-                                        @click="goTo(section.key)"
-                                    >
-                                        <strong>{{ section.label }}</strong
-                                        ><span>{{
-                                            sectionSummary(section.key)
-                                        }}</span
-                                        ><span aria-hidden="true">↗</span>
-                                    </button>
-                                </details>
                                 <div
                                     v-if="!config.signedIn"
                                     class="anonymous-note"
@@ -703,8 +789,9 @@
 <script setup>
 import BuilderModGrid from "./BuilderModGrid.vue";
 import BuilderWeaponPanel from "./BuilderWeaponPanel.vue";
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import BuilderStatReadout from "./BuilderStatReadout.vue";
+import BuilderKitCard from "./BuilderKitCard.vue";
 import CreditsCalculator from "./CreditsCalculator.vue";
 import { useLoadoutBuilder } from "../useLoadoutBuilder";
 
@@ -748,6 +835,7 @@ const {
     selectedMods,
     selectMod,
     chooseWeapon,
+    clearWeapon,
     chooseOverclock,
     cleanDescription,
     sectionConfigured,
@@ -763,6 +851,26 @@ const {
     dismissError,
     save,
 } = useLoadoutBuilder(config);
+
+/** Equipment with at least one upgrade chosen, for the review step. */
+const upgradedEquipment = computed(
+    () =>
+        catalog.value?.equipments.filter(
+            (equipment) =>
+                selectedMods(equipment.equipment_mods, "equipment_mods").length
+        ) || []
+);
+
+function equipmentStatus(equipment) {
+    const chosen = selectedMods(
+        equipment.equipment_mods,
+        "equipment_mods"
+    ).length;
+    const total = new Set(equipment.equipment_mods.map((mod) => mod.mod_tier))
+        .size;
+
+    return chosen ? `${chosen} / ${total} tiers` : "Not upgraded";
+}
 
 /** Equipment upgrade currently being previewed by hover or focus. */
 const equipmentPreview = ref(null);

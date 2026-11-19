@@ -992,8 +992,7 @@
     }
 
     /* ---------- readout ---------- */
-    .weapon-readout,
-    .throwable-readout {
+    .weapon-readout {
         position: sticky;
         top: 0;
         padding: 0 0 20px;
@@ -1001,8 +1000,7 @@
         border-left: 1px solid var(--hair);
         border-top: 3px solid var(--class-accent);
     }
-    .weapon-readout > *,
-    .throwable-readout > * {
+    .weapon-readout > * {
         margin-left: 22px;
         margin-right: 22px;
     }
@@ -1287,79 +1285,6 @@
     .equipment-panel {
         margin-top: 4px;
     }
-    .throwable-roster {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-        gap: 10px;
-    }
-    .throwable-choice {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        min-height: 180px;
-        padding: 16px;
-        text-align: left;
-        background: var(--panel);
-        border: 1px solid var(--line);
-    }
-    .throwable-choice::before {
-        content: "";
-        position: absolute;
-        left: -1px;
-        right: -1px;
-        top: -1px;
-        height: 2px;
-    }
-    .throwable-choice img {
-        height: 56px;
-        max-width: 110px;
-        margin-bottom: 10px;
-        object-fit: contain;
-        object-position: left center;
-        filter: brightness(0) invert(0.6);
-    }
-    .throwable-choice strong {
-        font-size: 14px;
-        font-weight: 600;
-    }
-    .throwable-choice > span {
-        flex: 1;
-        font-size: 12.5px;
-        line-height: 1.45;
-        color: var(--muted);
-    }
-    .throwable-choice small {
-        font: 600 10.5px var(--mono);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--faint);
-    }
-    .throwable-choice:hover {
-        background: var(--panel-2);
-        border-color: var(--line-2);
-    }
-    .throwable-choice.is-selected {
-        background: linear-gradient(180deg, var(--amber-wash), transparent 70%), var(--panel-2);
-        border-color: color-mix(in srgb, var(--amber) 45%, var(--line));
-    }
-    .throwable-choice.is-selected::before {
-        background: var(--amber);
-    }
-    .throwable-choice.is-selected img {
-        filter: brightness(0) invert(0.95);
-    }
-    .throwable-choice.is-selected small {
-        color: var(--amber);
-    }
-    .throwable-skip {
-        margin-top: 14px;
-        font-size: 13px;
-    }
-    .throwable-readout {
-        position: static;
-        margin-top: 22px;
-    }
 
     /* ---------- review ---------- */
     .publish-form {
@@ -1395,19 +1320,6 @@
     }
     .review-summary p span {
         color: var(--faint);
-    }
-    .review-codes {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 12px;
-    }
-    .review-codes span {
-        padding: 3px 10px;
-        font: 600 12px var(--mono);
-        color: var(--ice-2);
-        background: var(--ice-wash);
-        border: 1px solid rgba(156, 200, 232, 0.18);
     }
     .publish-fields {
         display: grid;
@@ -1446,40 +1358,6 @@
     .field-error {
         font-size: 12px;
         color: var(--unstable);
-    }
-    .review-kit {
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-    }
-    .review-kit summary {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px 0;
-        cursor: pointer;
-        font-weight: 600;
-    }
-    .review-kit summary span {
-        font: 12px var(--mono);
-        font-weight: 400;
-        color: var(--muted);
-    }
-    .review-kit button {
-        display: grid;
-        grid-template-columns: 160px minmax(0, 1fr) auto;
-        gap: 12px;
-        width: 100%;
-        padding: 10px 0;
-        text-align: left;
-        border-top: 1px solid var(--hair);
-    }
-    .review-kit button strong {
-        font-weight: 600;
-    }
-    .review-kit button span:first-of-type {
-        color: var(--muted);
-    }
-    .review-kit button:hover span:last-child {
-        color: var(--amber);
     }
     .anonymous-note {
         display: flex;
@@ -1564,6 +1442,59 @@
         background: var(--amber);
         clip-path: var(--hex-point);
         animation: workbench-pulse 1s ease-in-out infinite;
+    }
+
+    /* ---------- tier locking ---------- */
+    .upgrade-tier.is-locked .upgrade-options {
+        opacity: 0.38;
+    }
+    .upgrade-tier.is-locked .upgrade-option {
+        cursor: not-allowed;
+    }
+    .upgrade-tier.is-locked .tier-label strong {
+        color: var(--faint);
+    }
+    .upgrade-tier:disabled button:disabled {
+        opacity: 1;
+    }
+    .upgrade-inspection.is-locked {
+        border-left-style: dashed;
+        color: var(--muted);
+    }
+    .section-hint .text-action {
+        margin-left: 14px;
+        font-family: inherit;
+    }
+
+    /* ---------- equipment tabs: open vs upgraded ---------- */
+    .weapon-choice.is-viewing {
+        background: var(--panel-2);
+        border-color: var(--ink-2);
+    }
+    .weapon-choice.is-viewing::before {
+        background: var(--ink-2);
+    }
+    .weapon-choice.is-viewing .weapon-silhouette img {
+        filter: brightness(0) invert(0.94);
+    }
+    .weapon-choice.is-viewing .weapon-name {
+        color: var(--ink);
+    }
+    .weapon-choice.is-upgraded small {
+        color: var(--amber);
+    }
+    .throwable-panel {
+        margin-top: 4px;
+    }
+    .throwable-panel .upgrade-inspection {
+        margin-top: 16px;
+    }
+
+    /* ---------- review kit ---------- */
+    .review-kit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+        gap: 12px;
     }
 
     /* Let the workbench break out of the site container on wide screens. */
@@ -1754,12 +1685,6 @@
         .review-summary > img {
             width: 90px;
             height: 90px;
-        }
-        .review-kit button {
-            grid-template-columns: minmax(0, 1fr) auto;
-        }
-        .review-kit button span:first-of-type {
-            display: none;
         }
         .publish-footer {
             flex-direction: column;

@@ -27,7 +27,6 @@
     @endguest
 
     <!-- Styles -->
-    <script src="https://kit.fontawesome.com/87ca57c51d.js" crossorigin="anonymous"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>

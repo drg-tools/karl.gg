@@ -8,15 +8,15 @@ return [
     'columns' => [
         'alpha' => [
             'rows' => ['description', 'email', 'name', 'slug'],
-            'class' => 'fa fa-sort-alpha',
+            'class' => 'sort-icon sort-icon',
         ],
         'amount' => [
             'rows' => ['amount', 'price'],
-            'class' => 'fa fa-sort-amount',
+            'class' => 'sort-icon sort-icon',
         ],
         'numeric' => [
             'rows' => ['created_at', 'updated_at', 'level', 'id', 'phone_number', 'votes_sum_value'],
-            'class' => 'fa fa-sort-numeric',
+            'class' => 'sort-icon sort-icon',
         ],
     ],
 
@@ -28,12 +28,12 @@ return [
     /*
     defines icon set to use when sorted data is none above (alpha nor amount nor numeric)
      */
-    'default_icon_set' => 'fa fa-sort',
+    'default_icon_set' => 'sort-icon sort-icon',
 
     /*
     icon that shows when generating sortable link while column is not sorted
      */
-    'sortable_icon' => 'fa fa-sort',
+    'sortable_icon' => 'sort-icon',
 
     /*
     generated icon is clickable non-clickable (default)

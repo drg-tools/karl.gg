@@ -11,7 +11,16 @@
                         {{ slot === 1 ? "Primary weapon" : "Secondary weapon" }}
                     </h2>
                 </div>
-                <span class="section-hint">{{ guns.length }} weapons</span>
+                <span class="section-hint"
+                    >{{ guns.length }} weapons<button
+                        v-if="gun"
+                        type="button"
+                        class="text-action"
+                        @click="$emit('clear')"
+                    >
+                        Remove weapon
+                    </button></span
+                >
             </div>
             <div
                 class="weapon-picker"
@@ -44,8 +53,8 @@
                     <div>
                         <h3>Gear modifications</h3>
                         <p class="upgrade-help">
-                            One upgrade per tier. Hover or focus to preview,
-                            click to equip.
+                            Tiers unlock in order, from tier 1 up. Hover to
+                            preview, click to equip, click again to remove.
                         </p>
                     </div>
                     <div class="build-signature">
@@ -285,7 +294,7 @@ const props = defineProps({
     metrics: Object,
     className: { type: String, default: "" },
 });
-const emit = defineEmits(["weapon", "mod", "overclock", "metrics"]);
+const emit = defineEmits(["weapon", "mod", "overclock", "metrics", "clear"]);
 
 /** @type {import('vue').Ref<{mod?: object, overclock?: object|null}|null>} */
 const preview = ref(null);

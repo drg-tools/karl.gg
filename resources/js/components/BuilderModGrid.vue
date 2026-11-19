@@ -4,13 +4,17 @@
             v-for="(tierMods, tier) in tiers"
             :key="tier"
             class="upgrade-tier"
+            :class="{ 'is-locked': locked(tier) }"
+            :disabled="locked(tier)"
         >
             <legend class="tier-label">
                 <strong>T{{ tier }}</strong
                 ><span v-if="tierLevels[tier - 1]"
                     >LV {{ tierLevels[tier - 1] }}</span
                 ><span class="sr-only">{{
-                    tierMods.some((mod) => selected.includes(mod.id))
+                    locked(tier)
+                        ? `Locked until a tier ${tier - 1} upgrade is chosen`
+                        : tierMods.some((mod) => selected.includes(mod.id))
                         ? "Equipped"
                         : "Choose an upgrade"
                 }}</span>
@@ -69,7 +73,15 @@
                 </button>
             </div>
             <div
-                v-if="detailFor(tier, tierMods)"
+                v-if="locked(tier)"
+                class="upgrade-inspection is-locked"
+                :dusk="`tier-details-${tier}`"
+            >
+                <span class="inspection-key">Locked</span>
+                <p>Choose a tier {{ tier - 1 }} upgrade to unlock this tier.</p>
+            </div>
+            <div
+                v-else-if="detailFor(tier, tierMods)"
                 class="upgrade-inspection"
                 :class="{ 'is-preview': isPreview(tier, tierMods) }"
                 :dusk="`tier-details-${tier}`"
@@ -80,7 +92,7 @@
                             ? "Equipped"
                             : isPreview(tier, tierMods)
                             ? "Preview"
-                            : "Not equipped"
+                            : "Choose one"
                     }}
                     · {{ detailFor(tier, tierMods).mod_index }}</span
                 >
@@ -141,6 +153,20 @@ const tiers = computed(() =>
 const selectedMods = computed(() =>
     props.mods.filter((mod) => props.selected.includes(mod.id))
 );
+
+/**
+ * A tier stays locked until the tier below it has an upgrade, so builds
+ * fill from tier 1 upward without gaps.
+ */
+function locked(tier) {
+    const below = tiers.value[tier - 1];
+
+    return (
+        Number(tier) > 1 &&
+        !!below &&
+        !below.some((mod) => props.selected.includes(mod.id))
+    );
+}
 
 function detailFor(tier, mods) {
     return (

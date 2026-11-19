@@ -46,7 +46,7 @@ class LoadoutsController extends Controller
 
     public function preview($id)
     {
-        $loadout = Loadout::with('mods.gun', 'equipment_mods.equipment', 'overclocks.gun', 'throwable', 'character', 'creator', 'patch')
+        $loadout = Loadout::with('mods.gun.mods', 'equipment_mods.equipment.equipment_mods', 'overclocks.gun.mods', 'throwable', 'character', 'creator', 'patch')
             ->findOrFail($id);
 
         $this->generateSeo($loadout);

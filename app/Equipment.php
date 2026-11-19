@@ -3,7 +3,10 @@
 namespace App;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Equipment.
@@ -14,12 +17,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $json_stats
  * @property string $icon
  * @property string $eq_type
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Character $character
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\EquipmentMod[] $equipment_mods
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Character $character
+ * @property-read Collection|EquipmentMod[] $equipment_mods
  * @property-read int|null $equipment_mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
+ * @property-read Collection|Loadout[] $loadouts
  * @property-read int|null $loadouts_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Equipment filter($input = [], $filter = null)
@@ -45,6 +48,7 @@ use Illuminate\Database\Eloquent\Model;
 class Equipment extends Model
 {
     use Filterable;
+    use HasFactory;
 
     protected $table = 'equipment';
 
