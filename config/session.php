@@ -13,15 +13,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option controls the default session "driver" that will be used on
-    | requests. By default, we will use the lightweight native driver but
-    | you may specify any of the other wonderful drivers provided here.
+    | requests. By default, sessions are stored in the application's database.
     |
     | Supported: "file", "cookie", "database", "apc",
     |            "memcached", "redis", "dynamodb", "array"
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+    'driver' => env('SESSION_DRIVER', 'database'),
 
     /*
     |--------------------------------------------------------------------------

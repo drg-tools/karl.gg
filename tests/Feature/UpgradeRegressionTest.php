@@ -10,7 +10,9 @@ use ErrorException;
 use Hazzard\Comments\Comment;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
@@ -45,6 +47,27 @@ class UpgradeRegressionTest extends TestCase
 
         $this->post('/password/email', ['email' => $user->email])->assertSessionHasNoErrors();
         Notification::assertSentTo($user, ResetPassword::class);
+    }
+
+    public function test_login_persists_in_the_database_across_requests(): void
+    {
+        config(['session.driver' => 'database']);
+        $user = User::factory()->create();
+        $cookieName = config('session.cookie');
+
+        $response = $this->post('/login', ['email' => $user->email, 'password' => 'password'])
+            ->assertRedirect()
+            ->assertCookie($cookieName);
+        $sessionId = $response->getCookie($cookieName)->getValue();
+
+        $this->assertDatabaseHas('sessions', ['id' => $sessionId, 'user_id' => $user->id]);
+
+        Auth::forgetGuards();
+        Session::forgetDrivers();
+        $this->app->forgetInstance('session.store');
+
+        $this->withCookie($cookieName, $sessionId)->get(route('account.settings'))->assertOk();
+        $this->assertAuthenticatedAs($user, 'backpack');
     }
 
     public function test_guests_cannot_favorite_or_delete_loadouts_or_read_the_api_user()
