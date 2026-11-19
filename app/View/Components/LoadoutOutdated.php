@@ -7,7 +7,9 @@ use Illuminate\View\View;
 
 class LoadoutOutdated extends Component
 {
-    public function __construct(public bool $outdated) {}
+    public function __construct(public bool $outdated)
+    {
+    }
 
     public function render(): View
     {
