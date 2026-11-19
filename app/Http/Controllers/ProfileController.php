@@ -2,128 +2,153 @@
 
 namespace App\Http\Controllers;
 
+use App\Character;
+use App\Loadout;
+use App\LoadoutBrowseQuery;
+use App\Patch;
 use App\User;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
+use Nagy\LaravelRating\Models\Rating;
 
 class ProfileController extends Controller
 {
     /**
-     * Show the profile for the given user.
+     * Class identity colours shared with the dashboard, builder and loadout page.
      *
-     * @param  int  $id
-     * @return View
+     * @var array<string, string>
      */
-    public function index(Request $request, $id)
+    private const CLASS_ACCENTS = [
+        'Driller' => '#ebc64d',
+        'Engineer' => '#eb745d',
+        'Gunner' => '#9cba6f',
+        'Scout' => '#68aaf6',
+    ];
+
+    /**
+     * Show a user's public profile: their stats, best builds and every loadout they've shared.
+     */
+    public function index(Request $request, int $id): View
     {
-        SEOTools::setTitle('Profile');
-
         $user = User::findOrFail($id);
+        $currentPatchId = Patch::current()?->id;
 
-        $loadouts = $user->loadouts()->paginate();
-        $loadoutCount = $user->loadouts->count();
+        /** @var Collection<int, int> $classCounts loadout count keyed by character id */
+        $classCounts = $user->loadouts()->toBase()
+            ->selectRaw('character_id, count(*) as aggregate')
+            ->groupBy('character_id')
+            ->pluck('aggregate', 'character_id')
+            ->map(fn ($count) => (int) $count);
+        $loadoutCount = $classCounts->sum();
 
-        $salutesCount = $this->getVoteCount($id);
-        $loadoutsWithSalutes = $this->addSalutesToLoadoutsCollection($loadouts);
-        $profileImgClassArray = ['profileImageS', 'profileImageD', 'profileImageE', 'profileImageG'];
-        $profileImgClass = Arr::random($profileImgClassArray);
+        $sort = $request->query('sort');
+        $sort = is_string($sort) && array_key_exists($sort, LoadoutBrowseQuery::SORTS) ? $sort : LoadoutBrowseQuery::DEFAULT_SORT;
+        $classId = $request->query('class');
+        $classId = is_scalar($classId) && ctype_digit((string) $classId) && $classCounts->has((int) $classId) ? (int) $classId : null;
+
+        $loadouts = (new LoadoutBrowseQuery([], $sort))
+            ->applySort($this->loadoutRows($user)->when($classId, fn (Builder $query) => $query->where('character_id', $classId)))
+            ->paginate(20)
+            ->appends(array_filter([
+                'class' => $classId,
+                'sort' => $sort === LoadoutBrowseQuery::DEFAULT_SORT ? null : $sort,
+            ]));
+        $loadouts->getCollection()->each->setRelation('creator', $user);
+
+        $showTopLoadouts = $loadouts->onFirstPage() && $classId === null && $sort !== 'salutes' && $loadoutCount > 3;
+        $topLoadouts = $showTopLoadouts
+            ? $this->loadoutRows($user)
+                ->orderByDesc('votes_sum_value')
+                ->orderByDesc('loadouts.id')
+                ->take(3)
+                ->get()
+                ->filter(fn (Loadout $loadout) => $loadout->votes_sum_value > 0)
+                ->each->setRelation('creator', $user)
+            : collect();
+
+        $stats = [
+            'loadouts' => $loadoutCount,
+            'salutes' => $loadoutCount === 0 ? 0 : (int) Rating::query()
+                ->where('rateable_type', (new Loadout)->getMorphClass())
+                ->whereIn('rateable_id', $user->loadouts()->select('id'))
+                ->sum('value'),
+            'currentPatch' => $currentPatchId === null || $loadoutCount === 0
+                ? 0
+                : $user->loadouts()->where('patch_id', $currentPatchId)->count(),
+        ];
+
+        $this->generateSeo($user, $stats, $loadouts->currentPage());
 
         return view('profile.show', [
-            'user' => User::findOrFail($id),
-            'loadouts' => $loadoutsWithSalutes,
-            'loadoutCount' => $loadoutCount,
-            'salutesCount' => $salutesCount,
-            'profileImgClass' => $profileImgClass,
+            'user' => $user,
+            'isOwner' => $request->user()?->is($user) ?? false,
+            'stats' => $stats,
+            'loadouts' => $loadouts,
+            'topLoadouts' => $topLoadouts,
+            'classTabs' => $this->classTabs($classCounts),
+            'classId' => $classId,
+            'sort' => $sort,
+            'currentPatchId' => $currentPatchId,
         ]);
     }
 
     /**
-     * Allow the current user to edit their current profile.
+     * The user's loadouts with everything a loadout row renders, in one eager-loaded query.
+     *
+     * @return Builder<Loadout>
      */
-    public function editProfile(Request $request, $id)
+    private function loadoutRows(User $user): Builder
     {
-        // TODO: make this a static path rather than by ID, then we can remove a lot of this logic
-        SEOTools::setTitle('Profile');
-
-        $authUserId = \Auth::id();
-        if ($authUserId == $id) {
-            // You are authenticated and trying to edit your profile
-            return view('profile.edit', ['user' => $request->user()]);
-        } else {
-            // Do not allow a user to edit someone else's profile
-            return response()->view('errors.'.'403', [], 403);
-        }
+        return Loadout::query()
+            ->where('user_id', $user->id)
+            ->select(['loadouts.id', 'loadouts.name', 'user_id', 'character_id', 'patch_id', 'loadouts.created_at', 'loadouts.updated_at'])
+            ->with('mods.gun', 'overclocks.gun', 'character', 'patch')
+            ->withSum('votes', 'value');
     }
 
     /**
-     * Update the user's profile.
+     * Class filter tabs for the classes this user has built for.
      *
-     * @param  Request  $request
-     * @return Response
+     * @param  Collection<int, int>  $classCounts
+     * @return list<array{id: int, name: string, count: int, accent: string}>
      */
-    public function editProfileSave(Request $request, $id)
+    private function classTabs(Collection $classCounts): array
     {
-        // TODO: simplify this
-        $authUserId = \Auth::id();
-        if ($authUserId == $id) {
-            $user = User::find($id);
-            if (\Auth::user()->email == request('email')) {
-                $this->validate(request(), [
-                    'name' => 'required',
-                    //    'email' => 'required|email|unique:users',
-                    'password' => 'required|min:6|confirmed',
-                ]);
-
-                $user->name = request('name');
-                // $user->email = request('email');
-                $user->password = bcrypt(request('password'));
-
-                $user->save();
-
-                return back();
-            } else {
-                $this->validate(request(), [
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users',
-                    'password' => 'required|min:6|confirmed',
-                ]);
-
-                $user->name = request('name');
-                $user->email = request('email');
-                $user->password = bcrypt(request('password'));
-
-                $user->save();
-
-                return back();
-            }
-        } else {
-            // Do not allow a user to edit someone else's profile
-            return response()->view('errors.'.'403', [], 403);
+        if ($classCounts->count() < 2) {
+            return [];
         }
+
+        return Character::whereIn('id', $classCounts->keys())
+            ->orderBy('name')
+            ->get(['id', 'name'])
+            ->map(fn (Character $character) => [
+                'id' => $character->id,
+                'name' => $character->name,
+                'count' => $classCounts[$character->id],
+                'accent' => self::CLASS_ACCENTS[$character->name] ?? '#ffb547',
+            ])
+            ->all();
     }
 
-    private function getVoteCount($userId)
+    /**
+     * @param  array{loadouts: int, salutes: int, currentPatch: int}  $stats
+     */
+    private function generateSeo(User $user, array $stats, int $page): void
     {
-        $user = User::findOrFail($userId);
-        $loadouts = $user->loadouts;
-        $totalUpvotes = 0;
-        if ($loadouts->count() > 0) {
-            foreach ($loadouts as $key => $item) {
-                $upvotes = $item->upVotesCount();
-                $totalUpvotes = $totalUpvotes + $upvotes;
-            }
+        $loadouts = number_format($stats['loadouts']).' Deep Rock Galactic '.Str::plural('loadout', $stats['loadouts']);
+
+        SEOTools::setTitle("{$user->name}'s Deep Rock Galactic Builds");
+        SEOTools::setDescription("{$user->name} has shared {$loadouts} on Karl.gg, earning ".number_format($stats['salutes']).' '.Str::plural('salute', $stats['salutes']).'.');
+        SEOTools::setCanonical(route('user.profile', array_filter(['id' => $user->id, 'page' => $page > 1 ? $page : null])));
+        SEOTools::opengraph()->setType('profile');
+        SEOTools::opengraph()->setProfile(['username' => $user->name]);
+
+        if ($stats['loadouts'] === 0) {
+            SEOTools::metatags()->setRobots('noindex, follow');
         }
-
-        return $totalUpvotes;
-    }
-
-    private function addSalutesToLoadoutsCollection($loadouts)
-    {
-        foreach ($loadouts as $key => $loadout) {
-            $loadout->votes_sum_value = $loadout->getUpvotesCount($loadout->id);
-        }
-
-        return $loadouts;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountSettingsController;
 use App\Http\Controllers\BuilderController;
 use App\Http\Controllers\BuildMetricController;
 use App\Http\Controllers\DashboardController;
@@ -23,12 +24,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('profile/{id}/edit', [ProfileController::class, 'editProfile'])->where('id', '[0-9]+');
-
-    // TODO: need to review this
-    Route::post('profile/{id}/edit/update', [ProfileController::class, 'editProfileSave'])
-        ->name('user.profile.update')
-        ->where('id', '[0-9]+');
+    Route::get('settings', [AccountSettingsController::class, 'edit'])->name('account.settings');
+    Route::put('settings/profile', [AccountSettingsController::class, 'updateProfile'])->name('account.profile.update');
+    Route::put('settings/password', [AccountSettingsController::class, 'updatePassword'])->name('account.password.update');
 
     Route::delete('build/delete/{id}', [LoadoutsController::class, 'delete']);
     Route::post('build/{id}/favorite', [LoadoutsController::class, 'toggleFavorite'])->name('loadout.favorite');
@@ -57,4 +55,5 @@ Route::get('build/{loadoutId}', [BuilderController::class, 'create'])->whereNumb
 Route::view('/privacy-policy', 'privacy-policy.index');
 Route::get('asv/{gun}/{combo}', [BuildMetricController::class, 'show'])->name('asv.show')->where('gun', '[0-9]+');
 Route::get('profile/{id}', [ProfileController::class, 'index'])->name('user.profile')->where('id', '[0-9]+');
+Route::permanentRedirect('profile/{id}/edit', '/settings')->where('id', '[0-9]+');
 Auth::routes();
