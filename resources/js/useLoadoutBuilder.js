@@ -256,34 +256,49 @@ export function useLoadoutBuilder(config) {
         return mods.filter((mod) => form[field].includes(mod.id));
     }
     /**
-     * Tiers fill from 1 upward: a tier opens once the tier below it has an
-     * upgrade, and removing an upgrade also clears every tier above it.
+     * Equip an upgrade, replacing any other choice in its tier. Any tier can
+     * be chosen on its own, and clicking an equipped upgrade removes just it.
      */
-    function tierUnlocked(tier, field, available) {
-        return (
-            tier <= 1 ||
-            available.some(
-                (item) =>
-                    item.mod_tier === tier - 1 && form[field].includes(item.id)
-            )
-        );
-    }
     function selectMod(mod, field, available) {
         if (form[field].includes(mod.id)) {
-            const cleared = available
-                .filter((item) => item.mod_tier >= mod.mod_tier)
-                .map((item) => item.id);
-            form[field] = form[field].filter((id) => !cleared.includes(id));
+            form[field] = form[field].filter((id) => id !== mod.id);
             metrics[1] = metrics[2] = null;
             return;
         }
-        if (!tierUnlocked(mod.mod_tier, field, available)) return;
         const sameTier = available
             .filter((item) => item.mod_tier === mod.mod_tier)
             .map((item) => item.id);
         form[field] = [
             ...form[field].filter((id) => !sameTier.includes(id)),
             mod.id,
+        ];
+        metrics[1] = metrics[2] = null;
+    }
+    /**
+     * Equip a whole tree from a typed code such as "BACAB" or "21312".
+     * Each character is one tier; anything that isn't an upgrade, like "-",
+     * leaves that tier empty, so "B-C" skips tier 2.
+     */
+    function applyCombination(code, field, available) {
+        const letters = String(code)
+            .toUpperCase()
+            .replace(/[1-9]/g, (digit) =>
+                String.fromCharCode(64 + Number(digit))
+            );
+        const chosen = [...letters]
+            .map(
+                (letter, index) =>
+                    available.find(
+                        (item) =>
+                            item.mod_tier === index + 1 &&
+                            item.mod_index === letter
+                    )?.id
+            )
+            .filter(Boolean);
+        const availableIds = available.map((item) => item.id);
+        form[field] = [
+            ...form[field].filter((id) => !availableIds.includes(id)),
+            ...chosen,
         ];
         metrics[1] = metrics[2] = null;
     }
@@ -325,7 +340,7 @@ export function useLoadoutBuilder(config) {
             if (!gun) return "Choose a weapon";
             return selectedMods(gun.mods, "mods").length
                 ? gun.name
-                : `${gun.name} · needs tier 1`;
+                : `${gun.name} · needs an upgrade`;
         }
         if (key === "equipment")
             return form.equipment_mods.length
@@ -550,7 +565,7 @@ export function useLoadoutBuilder(config) {
             .find((gun) => gun && !selectedMods(gun.mods, "mods").length);
         if (incomplete) {
             await showError(
-                `Choose at least a tier 1 upgrade for ${incomplete.name}, or pick a different weapon.`
+                `Choose at least one upgrade for ${incomplete.name}, or pick a different weapon.`
             );
             return;
         }
@@ -625,7 +640,7 @@ export function useLoadoutBuilder(config) {
         selectedOverclock,
         selectedMods,
         selectMod,
-        tierUnlocked,
+        applyCombination,
         chooseWeapon,
         clearWeapon,
         chooseOverclock,

@@ -6,7 +6,6 @@ use App\EquipmentMod;
 use App\Mod;
 use App\Overclock;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
@@ -64,25 +63,9 @@ class SaveLoadoutRequest extends FormRequest
             if ($validator->errors()->isNotEmpty()) {
                 return;
             }
-            if ($guns->contains(fn ($gun): bool => ! $this->tiersAreContiguous($mods->where('gun_id', $gun->id)->pluck('mod_tier')))) {
-                $validator->errors()->add('mods', 'Weapon upgrades must start at tier 1 and cannot skip a tier.');
-            }
-            if ($equipmentMods->groupBy('equipment_id')->contains(fn ($group): bool => ! $this->tiersAreContiguous($group->pluck('mod_tier')))) {
-                $validator->errors()->add('equipment_mods', 'Equipment upgrades must start at tier 1 and cannot skip a tier.');
+            if ($guns->contains(fn ($gun): bool => $mods->where('gun_id', $gun->id)->isEmpty())) {
+                $validator->errors()->add('mods', 'Choose at least one upgrade for each weapon.');
             }
         }];
-    }
-
-    /**
-     * Whether the chosen tiers run 1, 2, 3… without gaps, so low-level builds
-     * stay possible but no tier is left empty below a chosen one.
-     *
-     * @param  Collection<int, int>  $tiers
-     */
-    private function tiersAreContiguous(Collection $tiers): bool
-    {
-        $sorted = $tiers->map(fn ($tier): int => (int) $tier)->sort()->values();
-
-        return $sorted->isNotEmpty() && $sorted->all() === range(1, $sorted->count());
     }
 }

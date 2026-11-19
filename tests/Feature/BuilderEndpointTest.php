@@ -126,18 +126,17 @@ class BuilderEndpointTest extends TestCase
         $this->postJson('/build', $input)->assertCreated();
     }
 
-    public function test_weapon_upgrades_that_skip_a_tier_are_rejected(): void
+    public function test_weapon_upgrades_that_skip_tiers_are_accepted(): void
     {
         $input = $this->input();
         $mods = Character::findOrFail($input['character_id'])->guns->first()->mods;
-        $input['mods'] = [$mods->firstWhere('mod_tier', 1)->id, $mods->firstWhere('mod_tier', 3)->id];
+        $input['mods'] = [$mods->firstWhere('mod_tier', 2)->id, $mods->firstWhere('mod_tier', 4)->id];
 
-        $this->postJson('/build', $input)->assertUnprocessable()
-            ->assertJsonPath('errors.mods.0', 'Weapon upgrades must start at tier 1 and cannot skip a tier.');
-        $this->assertDatabaseCount('loadouts', 0);
+        $id = $this->postJson('/build', $input)->assertCreated()->json('id');
+        $this->assertEqualsCanonicalizing($input['mods'], Loadout::findOrFail($id)->mods()->pluck('mods.id')->all());
     }
 
-    public function test_a_weapon_needs_a_tier_one_upgrade(): void
+    public function test_a_weapon_needs_at_least_one_upgrade(): void
     {
         $input = $this->input();
         $gun = Character::findOrFail($input['character_id'])->guns->first();
@@ -145,21 +144,20 @@ class BuilderEndpointTest extends TestCase
         $input['overclocks'] = [$gun->overclocks->first()->id];
 
         $this->postJson('/build', $input)->assertUnprocessable()
-            ->assertJsonPath('errors.mods.0', 'Weapon upgrades must start at tier 1 and cannot skip a tier.');
+            ->assertJsonPath('errors.mods.0', 'Choose at least one upgrade for each weapon.');
         $this->assertDatabaseCount('loadouts', 0);
     }
 
-    public function test_equipment_upgrades_that_skip_a_tier_are_rejected(): void
+    public function test_equipment_upgrades_that_skip_tiers_are_accepted(): void
     {
         $input = $this->input();
         $equipment = Equipment::factory()->create(['character_id' => $input['character_id']]);
-        $tierOne = EquipmentMod::factory()->for($equipment)->create(['mod_tier' => 1]);
-        $tierThree = EquipmentMod::factory()->for($equipment)->create(['mod_tier' => 3]);
-        $input['equipment_mods'] = [$tierOne->id, $tierThree->id];
+        $tierTwo = EquipmentMod::factory()->for($equipment)->create(['mod_tier' => 2]);
+        $tierFour = EquipmentMod::factory()->for($equipment)->create(['mod_tier' => 4]);
+        $input['equipment_mods'] = [$tierTwo->id, $tierFour->id];
 
-        $this->postJson('/build', $input)->assertUnprocessable()
-            ->assertJsonPath('errors.equipment_mods.0', 'Equipment upgrades must start at tier 1 and cannot skip a tier.');
-        $this->assertDatabaseCount('loadouts', 0);
+        $id = $this->postJson('/build', $input)->assertCreated()->json('id');
+        $this->assertEqualsCanonicalizing([$tierTwo->id, $tierFour->id], Loadout::findOrFail($id)->equipment_mods()->pluck('equipment_mods.id')->all());
     }
 
     public function test_required_fields_and_unknown_ids_are_rejected(): void

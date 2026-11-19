@@ -1,6 +1,7 @@
 <template>
     <div
         class="loadout-workbench"
+        :class="{ 'is-compact': builderMode === 'compact' }"
         :style="{ '--class-accent': classDetails.color }"
     >
         <header class="workbench-intro">
@@ -15,9 +16,19 @@
                 </h2>
                 <p>Pick your kit. Find your edge. Rock and stone.</p>
             </div>
-            <span class="workbench-badge"
-                ><span aria-hidden="true">⬡</span> Loadout builder</span
-            >
+            <div class="builder-mode" role="group" aria-label="Builder layout">
+                <button
+                    v-for="mode in builderModes"
+                    :key="mode.key"
+                    type="button"
+                    :class="{ 'is-active': builderMode === mode.key }"
+                    :aria-pressed="builderMode === mode.key"
+                    :title="mode.hint"
+                    @click="builderMode = mode.key"
+                >
+                    {{ mode.label }}
+                </button>
+            </div>
         </header>
 
         <div
@@ -180,6 +191,11 @@
                     Retry loading equipment
                 </button>
             </div>
+            <BuilderCompactView
+                v-else-if="builderMode === 'compact'"
+                :builder="builder"
+                :config="config"
+            />
             <div v-else class="workbench-layout">
                 <nav
                     ref="railPanel"
@@ -348,9 +364,9 @@
                                         <div>
                                             <h3>{{ activeEquipment.name }}</h3>
                                             <p class="upgrade-help">
-                                                Optional. Tiers unlock in order;
-                                                click an equipped upgrade to
-                                                remove it.
+                                                Optional. Pick any tiers; click
+                                                an equipped upgrade to remove
+                                                it.
                                             </p>
                                         </div>
                                     </div>
@@ -778,15 +794,17 @@
 </template>
 
 <script setup>
+import BuilderCompactView from "./BuilderCompactView.vue";
 import BuilderModGrid from "./BuilderModGrid.vue";
 import BuilderWeaponPanel from "./BuilderWeaponPanel.vue";
-import { computed, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import BuilderStatReadout from "./BuilderStatReadout.vue";
 import BuilderKitCard from "./BuilderKitCard.vue";
 import CreditsCalculator from "./CreditsCalculator.vue";
 import { useLoadoutBuilder } from "../useLoadoutBuilder";
 
 const { config } = defineProps({ config: { type: Object, required: true } });
+const builderState = useLoadoutBuilder(config);
 const {
     classInfo,
     sections,
@@ -841,7 +859,36 @@ const {
     clearFieldError,
     dismissError,
     save,
-} = useLoadoutBuilder(config);
+} = builderState;
+
+/** The same builder state, with refs unwrapped, for the compact view. */
+const builder = reactive(builderState);
+
+const builderModeKey = "karl:builder-mode";
+const builderModes = [
+    { key: "guided", label: "Guided", hint: "Step by step, with full upgrade details" },
+    { key: "compact", label: "Compact", hint: "Every tree on one screen, icons only" },
+];
+
+/** Guided or compact layout, remembered in this browser. */
+const builderMode = ref(readBuilderMode());
+watch(builderMode, (mode) => {
+    try {
+        localStorage.setItem(builderModeKey, mode);
+    } catch {
+        /* Storage is optional. */
+    }
+});
+
+function readBuilderMode() {
+    try {
+        return localStorage.getItem(builderModeKey) === "compact"
+            ? "compact"
+            : "guided";
+    } catch {
+        return "guided";
+    }
+}
 
 /** Equipment with at least one upgrade chosen, for the review step. */
 const upgradedEquipment = computed(

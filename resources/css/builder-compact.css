@@ -1,0 +1,617 @@
+/*
+ * Loadout builder — compact layout for players who already know the trees.
+ * Every tree on one screen, icons only, details on hover or focus.
+ */
+#loadout-builder .loadout-workbench {
+    .builder-mode {
+        display: inline-flex;
+        flex: none;
+        padding: 3px;
+        border: 1px solid var(--line-2);
+        border-radius: 999px;
+        background: var(--panel);
+    }
+    .builder-mode button {
+        padding: 6px 14px;
+        border-radius: 999px;
+        font: 600 11px var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+    .builder-mode button:hover {
+        color: var(--ink);
+    }
+    .builder-mode button.is-active {
+        background: var(--ink);
+        color: var(--bg);
+    }
+    .builder-mode button:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+    }
+
+    &.is-compact .workbench-intro {
+        align-items: center;
+        padding: 4px 0 14px;
+        margin-bottom: 14px;
+    }
+    &.is-compact .workbench-intro h2,
+    &.is-compact .workbench-intro > div > p:last-child {
+        display: none;
+    }
+
+    .compact-builder {
+        display: grid;
+        gap: 12px;
+    }
+    .compact-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px 14px;
+    }
+    .compact-label {
+        display: block;
+        font: 700 10px var(--mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+    }
+    .compact-muted {
+        color: var(--faint);
+    }
+
+    .compact-topbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .compact-portrait {
+        flex: none;
+        width: 40px;
+        height: 40px;
+        overflow: hidden;
+        border-radius: 6px;
+        background: var(--class-accent);
+    }
+    .compact-portrait img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .compact-class {
+        flex: none;
+        line-height: 1.2;
+    }
+    .compact-class strong {
+        display: block;
+    }
+    .compact-class .text-action {
+        font-size: 11px;
+    }
+    .compact-name {
+        flex: 1;
+    }
+    .compact-name input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel);
+        color: var(--ink);
+        font: inherit;
+    }
+    .compact-name input:focus {
+        outline: none;
+        border-color: var(--amber);
+    }
+    .compact-name input[aria-invalid="true"] {
+        border-color: var(--unstable);
+    }
+    .compact-save {
+        flex: none;
+        padding: 11px 20px;
+    }
+
+    .compact-slots {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        gap: 12px;
+    }
+    .compact-slot-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .compact-slot-head > div {
+        flex: 1;
+        min-width: 0;
+    }
+    .compact-slot-head strong {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .compact-clear {
+        font-size: 11px;
+    }
+    .compact-code input {
+        width: 92px;
+        padding: 5px 6px;
+        border: 1px solid var(--line-2);
+        border-radius: 5px;
+        background: var(--bg);
+        color: var(--amber);
+        font: 700 16px var(--mono);
+        letter-spacing: 0.2em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .compact-code input:focus {
+        outline: none;
+        border-color: var(--amber);
+    }
+
+    .compact-picker {
+        display: flex;
+        gap: 4px;
+        margin-top: 10px;
+    }
+    .compact-pick {
+        position: relative;
+        flex: 1;
+        min-height: 36px;
+        display: grid;
+        place-items: center;
+        padding: 3px 6px;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        opacity: 0.5;
+        transition: opacity 0.15s, border-color 0.15s;
+    }
+    .compact-pick img {
+        max-width: 64px;
+        max-height: 26px;
+        filter: brightness(0) invert(0.9);
+    }
+    .compact-pick:hover,
+    .compact-pick:focus-visible {
+        opacity: 0.85;
+        outline: none;
+        border-color: var(--line-2);
+    }
+    .compact-pick.is-selected {
+        opacity: 1;
+        border-color: var(--amber);
+        background: var(--amber-wash);
+    }
+    .compact-pick.is-marked::after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--amber);
+    }
+
+    .compact-slot-body {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin-top: 12px;
+    }
+    .compact-empty {
+        margin-top: 14px;
+        color: var(--faint);
+    }
+
+    /* Trees: tier 1 at the top, options A/B/C across each row. */
+    .compact-tree {
+        display: grid;
+        gap: 3px;
+    }
+    .compact-tier {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .compact-tier-number {
+        width: 12px;
+        font: 700 10px var(--mono);
+        color: var(--faint);
+    }
+    .compact-choice {
+        position: relative;
+        flex: none;
+    }
+    .compact-hex {
+        position: relative;
+        width: 46px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        clip-path: var(--hex);
+        background: var(--line);
+        transition: background 0.15s;
+    }
+    .compact-hex img {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+        filter: brightness(0) invert(0.74);
+    }
+    .compact-hex i {
+        position: absolute;
+        right: 10px;
+        bottom: 3px;
+        font: 700 8px var(--mono);
+        font-style: normal;
+        color: var(--faint);
+    }
+    .compact-choice:not(:disabled):hover .compact-hex,
+    .compact-choice:focus-visible .compact-hex {
+        background: var(--ice);
+    }
+    .compact-choice:not(:disabled):hover .compact-hex img,
+    .compact-choice:focus-visible .compact-hex img {
+        filter: brightness(0);
+        opacity: 0.8;
+    }
+    .compact-choice:focus-visible {
+        outline: none;
+    }
+    .compact-choice.is-selected .compact-hex {
+        background: var(--amber);
+    }
+    .compact-choice.is-selected .compact-hex img {
+        filter: brightness(0);
+        opacity: 0.85;
+    }
+    .compact-choice.is-selected .compact-hex i {
+        color: var(--amber-ink);
+    }
+    .compact-tree.is-small .compact-hex {
+        width: 32px;
+        height: 28px;
+    }
+    .compact-tree.is-small .compact-hex img {
+        width: 18px;
+        height: 18px;
+    }
+    .compact-tree.is-small .compact-hex i {
+        display: none;
+    }
+    .compact-tree.is-small .compact-tier-number {
+        width: 10px;
+        font-size: 9px;
+    }
+
+    /* Details only appear when asked for. */
+    .compact-tip {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 50%;
+        z-index: 20;
+        display: none;
+        width: 240px;
+        padding: 8px 10px;
+        transform: translateX(-50%);
+        border: 1px solid var(--ice);
+        border-radius: 6px;
+        background: #0a121b;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+        font-size: 12px;
+        line-height: 1.4;
+        text-align: left;
+        pointer-events: none;
+    }
+    .compact-tip strong {
+        display: block;
+        color: var(--ice-2);
+    }
+    .compact-tip small {
+        display: block;
+        margin-bottom: 4px;
+        font: 600 10px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+    }
+    .compact-tip span {
+        color: var(--ink-2);
+    }
+    .compact-choice:hover .compact-tip,
+    .compact-choice:focus-visible .compact-tip {
+        display: block;
+    }
+
+    .compact-tree-column {
+        flex: none;
+        display: grid;
+        gap: 3px;
+    }
+    .compact-octagon {
+        position: relative;
+        flex: none;
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        clip-path: var(--octagon);
+        background: var(--line);
+        color: var(--muted);
+        font: 600 15px var(--mono);
+        transition: background 0.15s;
+    }
+    .compact-octagon::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: 3px;
+    }
+    .oc-clean .compact-octagon::after {
+        background: var(--clean);
+    }
+    .oc-balanced .compact-octagon::after {
+        background: var(--balanced);
+    }
+    .oc-unstable .compact-octagon::after {
+        background: var(--unstable);
+    }
+    .compact-octagon img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        filter: brightness(0) invert(0.74);
+    }
+
+    /* Overclock: one slot under the tree, choices in an overlay. */
+    .compact-oc-slot {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 5px;
+        padding-top: 7px;
+        border-top: 1px dashed var(--line-2);
+    }
+    .compact-oc-slot > .compact-tier-number {
+        font-size: 8px;
+    }
+    .compact-oc-trigger {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        padding-right: 8px;
+        border-radius: 6px;
+        text-align: left;
+    }
+    .compact-oc-trigger:not(.is-empty) .compact-octagon {
+        background: var(--amber);
+    }
+    .compact-oc-trigger:not(.is-empty) .compact-octagon img {
+        filter: brightness(0);
+        opacity: 0.85;
+    }
+    .compact-oc-trigger:hover .compact-octagon,
+    .compact-oc-trigger:focus-visible .compact-octagon,
+    .compact-oc-trigger[aria-expanded="true"] .compact-octagon {
+        background: var(--ice);
+        color: var(--bg);
+    }
+    .compact-oc-trigger:focus-visible {
+        outline: none;
+    }
+    .compact-oc-trigger-text,
+    .compact-oc-option-text {
+        display: grid;
+        min-width: 0;
+        line-height: 1.25;
+    }
+    .compact-oc-trigger-text strong,
+    .compact-oc-option-text strong {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 12px;
+    }
+    .compact-oc-trigger-text small,
+    .compact-oc-option-text small {
+        font: 600 10px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+    }
+    .compact-oc-trigger.oc-clean small,
+    .compact-oc-option.oc-clean small {
+        color: var(--clean);
+    }
+    .compact-oc-trigger.oc-balanced small,
+    .compact-oc-option.oc-balanced small {
+        color: var(--balanced);
+    }
+    .compact-oc-trigger.oc-unstable small,
+    .compact-oc-option.oc-unstable small {
+        color: var(--unstable);
+    }
+    .compact-oc-panel {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        z-index: 30;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px;
+        width: 430px;
+        padding: 6px;
+        border: 1px solid var(--line-2);
+        border-radius: 8px;
+        background: #0a121b;
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
+    }
+    .compact-oc-option {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 8px 4px 4px;
+        border-radius: 6px;
+        text-align: left;
+    }
+    .compact-oc-option .compact-octagon {
+        width: 34px;
+        height: 34px;
+    }
+    .compact-oc-option .compact-octagon img {
+        width: 20px;
+        height: 20px;
+    }
+    .compact-oc-option:hover,
+    .compact-oc-option:focus-visible {
+        outline: none;
+        background: var(--panel-2);
+    }
+    .compact-oc-option.is-selected {
+        background: var(--amber-wash);
+        box-shadow: inset 0 0 0 1px var(--amber);
+    }
+    .compact-oc-option.is-selected .compact-octagon {
+        background: var(--amber);
+    }
+    .compact-oc-option.is-selected .compact-octagon img {
+        filter: brightness(0);
+        opacity: 0.85;
+    }
+    .compact-oc-option .compact-tip {
+        top: auto;
+        bottom: calc(100% + 4px);
+    }
+    /* Hover only: the overlay focuses an option on open, and a focus tip would cover its neighbours. */
+    .compact-oc-option:hover .compact-tip {
+        display: block;
+    }
+
+    .compact-deltas {
+        flex: 1;
+        min-width: 0;
+        display: grid;
+        align-content: start;
+        gap: 4px;
+        margin: 0;
+        padding-left: 14px;
+        border-left: 1px solid var(--line);
+        font: 11px var(--mono);
+        color: var(--muted);
+    }
+    .compact-deltas > div {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+    }
+    .compact-deltas dt {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .compact-deltas dd {
+        flex: none;
+        margin: 0;
+    }
+    .compact-deltas s {
+        color: var(--faint);
+    }
+    .compact-deltas em {
+        font-style: normal;
+        font-weight: 700;
+        color: var(--ice);
+    }
+    .compact-all-stats {
+        margin-top: 6px;
+    }
+    .compact-all-stats summary,
+    .compact-notes summary {
+        cursor: pointer;
+        font: 11px var(--mono);
+        color: var(--faint);
+    }
+    .compact-all-stats summary:hover,
+    .compact-notes summary:hover {
+        color: var(--ink-2);
+    }
+    .compact-all-stats[open] .stat-readout {
+        margin-top: 10px;
+    }
+    .compact-notes summary {
+        font-size: 12px;
+        color: var(--ink-2);
+    }
+    .compact-notes textarea {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--bg);
+        color: var(--ink);
+        font: inherit;
+        resize: vertical;
+    }
+    .compact-notes textarea:focus {
+        outline: none;
+        border-color: var(--amber);
+    }
+
+    .compact-footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 18px;
+        padding: 10px 14px;
+        border: 1px dashed var(--line-2);
+        border-radius: 8px;
+        font: 11px var(--mono);
+        color: var(--muted);
+    }
+    .compact-footer:not(:has(strong, a)) {
+        display: none;
+    }
+    .compact-footer strong {
+        color: var(--ink);
+    }
+    .compact-footer code {
+        margin: 0 6px;
+        color: var(--amber);
+        letter-spacing: 0.08em;
+    }
+    .compact-footer a {
+        color: var(--amber);
+    }
+
+    @media (max-width: 700px) {
+        .compact-topbar {
+            flex-wrap: wrap;
+        }
+        .compact-name {
+            order: 3;
+            flex-basis: 100%;
+        }
+        .compact-save {
+            margin-left: auto;
+        }
+        .compact-slots {
+            grid-template-columns: 1fr;
+        }
+        .compact-oc-panel {
+            width: min(340px, calc(100vw - 48px));
+            grid-template-columns: 1fr;
+        }
+        .compact-tip {
+            width: 200px;
+        }
+    }
+}
