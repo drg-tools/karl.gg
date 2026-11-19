@@ -96,6 +96,6 @@ Select your coding assistant to generate its local MCP configuration. Codex guid
 APP_ENV=testing DB_CONNECTION=sqlite DB_DATABASE=:memory: vendor/bin/phpunit
 ```
 
-The full seed data includes MySQL-specific SQL imports; use the disposable MySQL service for full seeding and browser tests. CircleCI runs the regression suite on SQLite and MySQL, followed by Dusk builder checks.
+The full seed data includes MySQL-specific SQL imports. Use the disposable MySQL service for full seeding. CircleCI runs the regression suite on SQLite and MySQL.
 
 See [the upgrade and deployment notes](docs/laravel-upgrade.md) before upgrading an existing database, particularly the Passport client schema and secret migration.
