@@ -1,61 +1,91 @@
 @extends('layouts.app')
 
-@section('header')
-    Blog
+@section('page-heading')
+    <p>Blog</p>
 @endsection
 
+@php
+    $featuredPost = $posts->onFirstPage() ? $posts->first() : null;
+    $gridPosts = $featuredPost ? $posts->slice(1) : $posts;
+@endphp
 
 @section('content')
-    <div class="px-4 sm:py-6 sm:px-6 lg:px-8">
-        <div class="relative max-w-lg mx-auto lg:max-w-7xl">
-            <div class="mt-4 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
-                @foreach($posts as $post)
-
-                @if($loop->iteration % 3 === 0)
-                <x-ads.slot>
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-format="fluid"
-                         data-ad-layout-key="-fu-28-3l-b4+18h"
-                         data-ad-client="ca-pub-3237881937260629"
-                         data-ad-slot="8001132222"></ins>
-                </x-ads.slot>
-                @endif
-                <div class="bg-gray-700 p-4 sm:p-6 sm:rounded-sm">
-                    <a href="{{ route('blog.show', $post->id) }}" class="block">
-                        <p class="text-xl font-semibold text-white">
-                            {{ $post->title }}
-                        </p>
-                        <p class="mt-3 text-base text-gray-300">
-                            {!! Str::limit($post->strippedContent, 200) !!}
-                        </p>
-                    </a>
-                    <div class="mt-6 flex items-center">
-                        <div class="shrink-0">
-                            <a href="#">
-                                <span class="sr-only">Paul York</span>
-                                <img class="h-10 w-10 rounded-full" src="{{ \Gravatar::get($post->user->email) }}" alt=""{{ $post->user->email }}>
-                            </a>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm font-medium text-orange-500">
-                                <a href="{{ route('user.profile', $post->user->id) }}">
-                                    {{ $post->user->name }}
-                                </a>
-                            </p>
-                            <div class="flex space-x-1 text-sm text-gray-300">
-                                <time datetime="{{ $post->published_at->format('Y-m-d') }}">
-                                    {{ $post->published_at->format('M d, Y') }}
-                                </time>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+    <div class="loadout-page blog">
+        <header class="browse-header">
+            <div>
+                <p class="loadout-eyebrow">Mission control</p>
+                <h1 class="browse-header__title">Blog</h1>
+                <p class="browse-header__lede">
+                    Patch breakdowns, site updates and news from the Karl.gg crew.
+                </p>
             </div>
+            <dl class="loadout-hero__summary blog-summary">
+                <div>
+                    <dt>Posts</dt>
+                    <dd>{{ number_format($posts->total()) }}</dd>
+                </div>
+                <div>
+                    <dt>Latest</dt>
+                    <dd>{{ $latestPublishedAt?->format('j M Y') ?? '—' }}</dd>
+                </div>
+            </dl>
+        </header>
 
-            <x-pagination :entities="$posts" />
+        @if ($posts->isEmpty())
+            <div class="loadout-notice">
+                <strong>No posts yet</strong>
+                <p>Check back soon. The crew is still writing up the mission report.</p>
+            </div>
+        @endif
 
-        </div>
+        @if ($featuredPost)
+            <article class="blog-feature" aria-labelledby="post-{{ $featuredPost->id }}">
+                <p class="loadout-eyebrow">Latest post</p>
+                <h2 class="blog-feature__title" id="post-{{ $featuredPost->id }}">
+                    <a href="{{ route('blog.show', $featuredPost->id) }}">{{ $featuredPost->title }}</a>
+                </h2>
+                <p class="blog-feature__excerpt">{!! Str::words($featuredPost->strippedContent, 60, '…') !!}</p>
+                <div class="blog-feature__footer">
+                    <x-blog-byline :post="$featuredPost" />
+                    <a class="loadout-button" href="{{ route('blog.show', $featuredPost->id) }}" aria-label="Read the post: {{ $featuredPost->title }}">Read the post <span aria-hidden="true">→</span></a>
+                </div>
+            </article>
+        @endif
+
+        @if ($gridPosts->isNotEmpty())
+            <section class="loadout-section" aria-labelledby="blog-archive">
+                <div class="loadout-section__heading">
+                    <p class="loadout-eyebrow">{{ $featuredPost ? 'Earlier dispatches' : 'Page '.$posts->currentPage() }}</p>
+                    <h2 id="blog-archive">{{ $featuredPost ? 'More from the blog' : 'Older posts' }}</h2>
+                </div>
+                <div class="blog-grid">
+                    @foreach ($gridPosts as $post)
+                        <article class="blog-card">
+                            <h2><a href="{{ route('blog.show', $post->id) }}">{{ $post->title }}</a></h2>
+                            <p class="blog-card__excerpt">{!! Str::words($post->strippedContent, 32, '…') !!}</p>
+                            <div class="blog-card__footer">
+                                <x-blog-byline :post="$post" />
+                                <a class="dashboard-more" href="{{ route('blog.show', $post->id) }}" aria-label="Read more: {{ $post->title }}">Read →</a>
+                            </div>
+                        </article>
+
+                        @if ($loop->iteration % 3 === 0 && ! $loop->last)
+                            <x-ads.slot>
+                                <div class="blog-ad">
+                                    <ins class="adsbygoogle"
+                                         style="display:block"
+                                         data-ad-format="fluid"
+                                         data-ad-layout-key="-fu-28-3l-b4+18h"
+                                         data-ad-client="ca-pub-3237881937260629"
+                                         data-ad-slot="8001132222"></ins>
+                                </div>
+                            </x-ads.slot>
+                        @endif
+                    @endforeach
+                </div>
+            </section>
+        @endif
+
+        {{ $posts->onEachSide(1)->links('loadouts.partials.pagination', ['label' => 'Blog pages']) }}
     </div>
 @endsection

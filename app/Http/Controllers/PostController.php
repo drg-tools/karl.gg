@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Support\Carbon;
 use Str;
 
 class PostController extends Controller
@@ -12,9 +13,15 @@ class PostController extends Controller
     {
         SEOTools::setTitle('Blog');
 
-        $posts = Post::published()->latest('published_at')->paginate(9);
+        $posts = Post::published()->with('user')->latest('published_at')->paginate(9);
+        $latestPublishedAt = $posts->onFirstPage()
+            ? $posts->first()?->published_at
+            : Post::published()->max('published_at');
 
-        return view('posts.index')->withPosts($posts);
+        return view('posts.index', [
+            'posts' => $posts,
+            'latestPublishedAt' => $latestPublishedAt ? Carbon::parse($latestPublishedAt) : null,
+        ]);
     }
 
     public function show($id)
@@ -34,6 +41,16 @@ class PostController extends Controller
 
         SEOTools::jsonLd()->setType('Article');
 
-        return view('posts.show')->withPost($post);
+        $morePosts = Post::published()
+            ->with('user')
+            ->whereKeyNot($post->id)
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        return view('posts.show', [
+            'post' => $post,
+            'morePosts' => $morePosts,
+        ]);
     }
 }

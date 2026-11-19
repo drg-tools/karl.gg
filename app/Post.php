@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $published_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\User $user
+ * @property-read User $user
+ * @property-read int $reading_minutes
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
@@ -37,6 +38,7 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = [];
+
     protected $casts = [
         'published_at' => 'datetime',
     ];
@@ -55,5 +57,13 @@ class Post extends Model
     public function getStrippedContentAttribute()
     {
         return strip_tags($this->content);
+    }
+
+    /**
+     * Estimated reading time at roughly 200 words a minute, never less than one.
+     */
+    public function getReadingMinutesAttribute(): int
+    {
+        return max(1, (int) ceil(str_word_count($this->stripped_content) / 200));
     }
 }
