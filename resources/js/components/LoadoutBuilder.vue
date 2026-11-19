@@ -118,7 +118,7 @@
                             classInfo[character.name]?.description
                         }}</span></span
                     ><span class="class-arrow" aria-hidden="true"
-                        >Select ↗</span
+                        >Select ↗︎</span
                     >
                 </button>
             </div>
@@ -737,7 +737,7 @@
                                                 ? "Save changes"
                                                 : "Publish loadout"
                                         }}
-                                        <span aria-hidden="true">↗</span>
+                                        <span aria-hidden="true">↗︎</span>
                                     </button>
                                 </div>
                             </form>

@@ -33,7 +33,7 @@
                 </p>
 
                 <div class="loadout-hero__actions">
-                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗</span></a>
+                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
                     <a class="loadout-button is-secondary" href="{{ route('loadout.index') }}">Browse loadouts</a>
                 </div>
 

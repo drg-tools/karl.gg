@@ -43,7 +43,7 @@
 
             @if ($isOwner)
                 <div class="profile-hero__actions">
-                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗</span></a>
+                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
                     <a class="loadout-button is-secondary" href="{{ route('account.settings') }}">Account settings</a>
                 </div>
             @endif

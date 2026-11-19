@@ -34,7 +34,7 @@
 
         <div class="site-nav__actions">
             <a href="/build" @class(['site-nav__cta', 'is-active' => $isBuilding]) @if ($isBuilding) aria-current="page" @endif>
-                Build <span aria-hidden="true">↗</span>
+                Build <span aria-hidden="true">↗︎</span>
             </a>
 
             @guest

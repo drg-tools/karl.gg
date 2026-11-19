@@ -19,7 +19,7 @@
 
             <footer class="blog-post__footer">
                 <a class="blog-back" href="{{ route('blog.index') }}">← All posts</a>
-                <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗</span></a>
+                <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
             </footer>
         </article>
 

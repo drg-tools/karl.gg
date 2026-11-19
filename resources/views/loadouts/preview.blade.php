@@ -66,7 +66,7 @@
                 </dl>
 
                 <div class="loadout-hero__actions">
-                    <a class="loadout-button" href="{{ route('build.show', $loadout->id) }}">Use this build <span aria-hidden="true">↗</span></a>
+                    <a class="loadout-button" href="{{ route('build.show', $loadout->id) }}">Use this build <span aria-hidden="true">↗︎</span></a>
                     @can('update', $loadout)
                         <a class="loadout-button is-secondary" href="/build/{{ $loadout->id }}">Edit</a>
                     @endcan
