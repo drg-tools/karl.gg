@@ -287,6 +287,34 @@ export function useLoadoutBuilder(config) {
         ];
         metrics[1] = metrics[2] = null;
     }
+    /**
+     * Equip a whole tree from a typed code such as "BACAB" or "21312".
+     * Tiers fill in order and stop at the first character that doesn't
+     * match an upgrade, so a partial code leaves the higher tiers empty.
+     */
+    function applyCombination(code, field, available) {
+        const letters = String(code)
+            .toUpperCase()
+            .replace(/[1-9]/g, (digit) =>
+                String.fromCharCode(64 + Number(digit))
+            );
+        const chosen = [];
+        for (let tier = 1; tier <= letters.length; tier++) {
+            const mod = available.find(
+                (item) =>
+                    item.mod_tier === tier &&
+                    item.mod_index === letters[tier - 1]
+            );
+            if (!mod) break;
+            chosen.push(mod.id);
+        }
+        const availableIds = available.map((item) => item.id);
+        form[field] = [
+            ...form[field].filter((id) => !availableIds.includes(id)),
+            ...chosen,
+        ];
+        metrics[1] = metrics[2] = null;
+    }
     function chooseWeapon(slot, id) {
         if (weapons[slot] === id) return;
         const slotMods = catalog.value.guns
@@ -626,6 +654,7 @@ export function useLoadoutBuilder(config) {
         selectedMods,
         selectMod,
         tierUnlocked,
+        applyCombination,
         chooseWeapon,
         clearWeapon,
         chooseOverclock,
