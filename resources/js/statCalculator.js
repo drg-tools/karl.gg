@@ -1,7 +1,7 @@
 /**
  * Shared stat maths for weapon, equipment and throwable readouts.
  */
-const _calculateDamage = (stats) => {
+const _calculateDamage = (stats, equipmentClass) => {
     let damageWords = [
         "Damage",
         "Area Damage",
@@ -50,6 +50,12 @@ const _calculateDamage = (stats) => {
         } else if (weakPointWords.includes(stat.name)) {
             dpsStats.weakPoint = parseFloat(stat.value);
         }
+    }
+    if (equipmentClass === "Crossbow") {
+        return {
+            dpb: dpsStats.damage.toFixed(2),
+            dpa: (dpsStats.damage * (dpsStats.maxAmmo + 1)).toFixed(2),
+        };
     }
     dpsStats.maxAmmo = dpsStats.maxAmmo + dpsStats.magazineSize;
     let timeToEmpty = dpsStats.magazineSize / dpsStats.rateOfFire;

@@ -52,7 +52,7 @@
             </span>
 
             <span v-if="calcStats.dpb" class="text-white text-lg block my-2"
-                >Damage per shot: {{ calcStats.dpb }}</span
+                >{{ equipmentClass === "Crossbow" ? "Damage per bolt" : "Damage per shot" }}: {{ calcStats.dpb }}</span
             >
             <!-- damage per bullet -->
 

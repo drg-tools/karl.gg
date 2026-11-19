@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\BuildMetric;
+use App\Gun;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class BuildMetricController extends Controller
 {
-    public function show(Request $request, $gun, $combo)
+    public function show(Request $request, string $gun, string $combo): View
     {
         $build = BuildMetric::where([
             ['gun_id', '=', $gun],
             ['build_combination', '=', $combo],
-        ])->firstOrFail();
+        ])->first();
+
+        if (! $build) {
+            $build_gun = Gun::findOrFail($gun);
+            SEOTools::setTitle("{$build_gun->name} Advanced Statistics");
+
+            return view('asv.unavailable', ['gun' => $build_gun]);
+        }
 
         $build_gun = $build->gun;
 
