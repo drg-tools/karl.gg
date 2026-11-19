@@ -36,7 +36,7 @@
                 <p class="loadout-eyebrow">
                     <span class="loadout-hero__class">{{ $loadout->character->name }}</span> loadout
                     @if ($loadout->patch)
-                        · Patch {{ $loadout->patch->patch_num }}
+                        · Patch {{ $loadout->patch->patch_num_dev }}
                     @endif
                 </p>
                 <h2 class="loadout-hero__name">{{ $loadout->name }}</h2>
