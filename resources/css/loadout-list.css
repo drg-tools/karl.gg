@@ -1,0 +1,145 @@
+/*
+ * Dense loadout rows shared by the dashboard listings and the browse page.
+ * Class colour marks identity on the left edge; amber marks salutes and the
+ * current patch. Tokens come from .loadout-page in loadout-page.css.
+ */
+.loadout-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--panel);
+    border: 1px solid var(--line);
+
+    li + li {
+        border-top: 1px solid var(--hair);
+    }
+}
+.loadout-list__empty {
+    padding: 18px 20px;
+    color: var(--muted);
+}
+
+.loadout-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px 14px 16px;
+    border-left: 3px solid var(--class-accent);
+    transition: background 0.15s;
+
+    &:hover {
+        background: var(--panel-2);
+    }
+    &:hover .loadout-row__name {
+        color: var(--amber-2);
+    }
+    &:focus-visible {
+        outline-offset: -2px;
+    }
+}
+.loadout-row.is-detailed {
+    grid-template-columns: minmax(0, 1fr) 100px 190px auto;
+}
+.loadout-row__copy {
+    display: grid;
+    gap: 2px;
+}
+.loadout-row__name {
+    overflow: hidden;
+    font-weight: 600;
+    color: var(--ink);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+.loadout-row__meta {
+    overflow: hidden;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.loadout-row__class {
+    color: var(--class-accent);
+}
+.loadout-row__patch {
+    font-family: var(--mono);
+    font-size: 11.5px;
+
+    &.is-current {
+        color: var(--amber);
+    }
+}
+.loadout-row__guns {
+    display: flex;
+    gap: 8px;
+
+    img {
+        width: 44px;
+        height: 22px;
+        object-fit: contain;
+        filter: invert(1);
+        opacity: 0.75;
+    }
+}
+.loadout-row__overclock {
+    display: grid;
+    gap: 2px;
+}
+.loadout-row__oc {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    overflow: hidden;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.is-empty {
+        font: 500 11px var(--mono);
+        letter-spacing: 0.06em;
+        color: var(--faint);
+    }
+}
+.loadout-row__oc-mark {
+    flex: none;
+    width: 9px;
+    height: 9px;
+    clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);
+    background: var(--kit-oc, var(--muted));
+}
+.loadout-row__votes {
+    min-width: 52px;
+    padding: 3px 8px;
+    font: 600 12px var(--mono);
+    color: var(--ink-2);
+    text-align: center;
+    border: 1px solid var(--line-2);
+
+    span[aria-hidden] {
+        color: var(--amber);
+    }
+}
+
+@media (max-width: 1180px) {
+    .loadout-row.is-detailed {
+        grid-template-columns: minmax(0, 1fr) 100px auto;
+    }
+    .loadout-row.is-detailed .loadout-row__overclock {
+        display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .loadout-row,
+    .loadout-row.is-detailed {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        padding: 12px 14px 12px 12px;
+    }
+    .loadout-row__guns {
+        display: none;
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App\ModelFilters;
 
+use App\Patch;
 use EloquentFilter\ModelFilter;
 
 class LoadoutFilter extends ModelFilter
@@ -26,14 +27,12 @@ class LoadoutFilter extends ModelFilter
 
     public function favorites()
     {
-        $this->whereHas('favorites', fn ($query) => $query->where('user_id', auth()->id()))->get();
+        $this->whereHas('favorites', fn ($query) => $query->where('user_id', auth()->id()));
     }
 
     public function characters($charIds)
     {
-        return $this->whereHas('character', function ($query) use ($charIds) {
-            return $query->whereIn('id', $charIds);
-        });
+        return $this->whereIn('loadouts.character_id', $charIds);
     }
 
     public function search($name)
@@ -104,7 +103,7 @@ class LoadoutFilter extends ModelFilter
         if ($currentPatch == 0) {
             return;
         } else {
-            return $this->where('patch_id', \App\Patch::current()->id);
+            return $this->where('patch_id', Patch::current()?->id);
         }
     }
 
