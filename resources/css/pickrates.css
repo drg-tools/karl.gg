@@ -1,0 +1,362 @@
+/*
+ * Pick rates (classes, weapons, mods). Shares the header, labels and
+ * pagination from browse.css and the tokens in loadout-page.css. Amber
+ * marks the current tab and this patch's rate; class colour marks
+ * identity; green and red only mark movement since the previous patch.
+ */
+.pickrates {
+    --rise: #82c9a5;
+    --fall: #ec7a62;
+
+    input:focus-visible,
+    select:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+    }
+}
+
+.pickrates-summary {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    margin: 0;
+}
+
+/* ---------- tabs ---------- */
+.pickrates-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--line);
+}
+.pickrates-tab {
+    margin-bottom: -1px;
+    padding: 10px 16px;
+    font: 500 12px var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+
+    &:hover {
+        color: var(--ink);
+    }
+    &.is-active {
+        color: var(--amber-2);
+        border-bottom-color: var(--amber);
+    }
+}
+
+/* ---------- toolbar ---------- */
+.pickrates-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px 18px;
+    padding: 16px 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+
+    fieldset {
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    &.is-enhanced .pickrates-apply {
+        display: none;
+    }
+}
+.pickrates-field {
+    display: grid;
+
+    select,
+    input {
+        min-width: 190px;
+        padding: 8px 12px;
+        font-size: 13.5px;
+        color: var(--ink);
+        background: var(--bg);
+        border: 1px solid var(--line-2);
+        border-radius: 0;
+        box-shadow: none;
+
+        &::placeholder {
+            color: var(--faint);
+        }
+        &:focus {
+            border-color: var(--amber);
+            box-shadow: none;
+        }
+    }
+    select {
+        padding-right: 34px;
+        cursor: pointer;
+    }
+    optgroup {
+        color: var(--muted);
+        background: var(--bg);
+    }
+    option {
+        color: var(--ink);
+    }
+}
+.pickrates-field--search {
+    flex: 1;
+
+    input {
+        width: 100%;
+    }
+}
+.pickrates-apply {
+    padding: 9px 18px;
+    border: 0;
+    cursor: pointer;
+}
+
+.pickrates-classes__options {
+    display: flex;
+    flex-wrap: wrap;
+}
+.pickrates-class {
+    position: relative;
+    cursor: pointer;
+
+    & + & span {
+        border-left: 0;
+    }
+    input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+    span {
+        display: block;
+        padding: 8px 14px;
+        font: 500 11px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: var(--bg);
+        border: 1px solid var(--line-2);
+        transition: color 0.15s, background 0.15s;
+    }
+    &:hover span {
+        color: var(--ink);
+    }
+    input:checked + span {
+        color: var(--ink);
+        background: color-mix(in srgb, var(--class-accent) 16%, var(--bg));
+        box-shadow: inset 0 -2px 0 var(--class-accent);
+    }
+    input:focus-visible + span {
+        outline: 2px solid var(--amber);
+        outline-offset: 1px;
+    }
+}
+
+/* ---------- rows ---------- */
+.pickrates-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--panel);
+    border: 1px solid var(--line);
+}
+.pickrates-row {
+    display: grid;
+    grid-template-columns: 34px 44px minmax(0, 1.3fr) minmax(80px, 1fr) 88px 104px;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 18px 12px 14px;
+    border-left: 3px solid var(--class-accent);
+
+    & + & {
+        border-top: 1px solid var(--hair);
+    }
+    &:hover {
+        background: var(--panel-2);
+    }
+    .has-comparison & {
+        grid-template-columns: 34px 44px minmax(0, 1.3fr) minmax(80px, 1fr) 88px 84px 104px;
+    }
+}
+.pickrates-row__rank {
+    font: 400 24px/1 var(--display);
+    color: var(--faint);
+    text-align: right;
+}
+.pickrates-row__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+
+    img {
+        max-width: 34px;
+        max-height: 24px;
+        object-fit: contain;
+        filter: invert(1);
+        opacity: 0.8;
+    }
+    &.is-portrait {
+        background: none;
+        border: 0;
+
+        img {
+            max-width: 44px;
+            max-height: 44px;
+            filter: none;
+            opacity: 1;
+        }
+    }
+}
+.pickrates-row__copy {
+    display: grid;
+    gap: 1px;
+}
+.pickrates-row__name {
+    overflow: hidden;
+    font-weight: 600;
+    color: var(--ink);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+a.pickrates-row__name:hover {
+    color: var(--amber-2);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.pickrates-row__meta {
+    overflow: hidden;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.pickrates-row__class {
+    color: var(--class-accent);
+}
+.pickrates-row__meter {
+    position: relative;
+    height: 8px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+}
+.pickrates-row__bar {
+    display: block;
+    height: 100%;
+    background: var(--amber);
+}
+.pickrates-row__was {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--ink-2);
+    opacity: 0.6;
+}
+.pickrates-row__rate {
+    display: grid;
+    justify-items: end;
+    font-family: var(--mono);
+    white-space: nowrap;
+
+    strong {
+        font-size: 14px;
+        color: var(--ink);
+    }
+    small {
+        font-size: 11px;
+        color: var(--faint);
+    }
+}
+.pickrates-row__delta {
+    justify-self: end;
+    padding: 3px 7px;
+    font: 600 11.5px var(--mono);
+    white-space: nowrap;
+    border: 1px solid currentColor;
+
+    &.is-up {
+        color: var(--rise);
+    }
+    &.is-down {
+        color: var(--fall);
+    }
+    &.is-flat {
+        color: var(--faint);
+    }
+}
+.pickrates-row__builds {
+    justify-self: end;
+    font: 500 12px var(--mono);
+    color: var(--amber);
+    white-space: nowrap;
+
+    &:hover {
+        color: var(--amber-2);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .pickrates-row,
+    .has-comparison .pickrates-row {
+        grid-template-columns: 26px 40px minmax(0, 1fr) auto auto;
+        grid-template-areas:
+            "rank icon copy rate delta"
+            "rank icon meter meter builds";
+        row-gap: 8px;
+    }
+    .pickrates-row__rank { grid-area: rank; }
+    .pickrates-row__icon { grid-area: icon; width: 40px; height: 40px; }
+    .pickrates-row__copy { grid-area: copy; }
+    .pickrates-row__meter { grid-area: meter; }
+    .pickrates-row__rate { grid-area: rate; }
+    .pickrates-row__delta { grid-area: delta; }
+    .pickrates-row__builds { grid-area: builds; }
+}
+
+@media (max-width: 760px) {
+    .pickrates-summary {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .pickrates-tabs {
+        overflow-x: auto;
+    }
+    .pickrates-tab {
+        flex: 1;
+        padding: 10px 8px;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .pickrates-field,
+    .pickrates-field select,
+    .pickrates-field input {
+        width: 100%;
+        min-width: 0;
+    }
+    .pickrates-row,
+    .has-comparison .pickrates-row {
+        grid-template-columns: 22px minmax(0, 1fr) auto;
+        grid-template-areas:
+            "rank copy rate"
+            "rank meter delta"
+            "rank builds builds";
+        gap: 6px 12px;
+        padding: 12px 14px 12px 10px;
+    }
+    .pickrates-row__icon {
+        display: none;
+    }
+    .pickrates-row__meta {
+        white-space: normal;
+    }
+    .pickrates-row__builds {
+        justify-self: start;
+    }
+}

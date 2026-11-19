@@ -9,6 +9,9 @@
 @import './loadout-page.css';
 @import './dashboard.css';
 @import './site-chrome.css';
+@import './loadout-list.css';
+@import './browse.css';
+@import './pickrates.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -16,9 +19,8 @@
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
 
-/* Class names built dynamically in Blade (character colours, pick-rate badges). */
+/* Class names built dynamically in Blade (character colours). */
 @source inline('{hover:,}{bg,text,border,border-l}-{driller,gunner,engineer,scout}{,-light,-dark}');
-@source inline('{bg,text}-{green,red}-{100,800}');
 
 @theme {
     /* Palette aliases carried over from tailwind.config.js. */
@@ -159,54 +161,4 @@
             border-color: #f9f9f9;
         }
     }
-}
-
-.choices__list--dropdown {
-    color: #333;
-}
-
-.choices__inner {
-    border-radius: 5px !important;
-}
-
-.choices__list--multiple .choices__item {
-    background-color: rgba(249, 115, 22) !important;
-    border: 1px solid rgba(17, 24, 39, 1) !important;
-}
-
-.choices__input,
-.choices__input--cloned {
-    color: #333
-}
-
-.choices__placeholder {
-    margin: 2px 0 2px;
-}
-
-.choices__list--dropdown .choices__item--selectable {
-    padding-right: 0px!important;
-}
-
-/* Sort direction markers for column-sortable table headers (see config/columnsortable.php). */
-.sort-icon {
-    display: inline-block;
-    margin-left: 0.25rem;
-    font-style: normal;
-    font-size: 0.7em;
-    line-height: 1;
-    vertical-align: 0.1em;
-    opacity: 0.45;
-}
-.sort-icon::before {
-    content: "↕";
-}
-.sort-icon-asc,
-.sort-icon-desc {
-    opacity: 0.9;
-}
-.sort-icon-asc::before {
-    content: "▲";
-}
-.sort-icon-desc::before {
-    content: "▼";
 }
