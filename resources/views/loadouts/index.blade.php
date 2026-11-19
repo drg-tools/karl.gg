@@ -50,10 +50,9 @@
                             <input type="hidden" name="characters[]" value="{{ $legacyClassId }}" data-legacy-class>
                         @endforeach
                         <div class="browse-classes__options">
-                            <label class="browse-class" style="--class-accent: #ffb547">
+                            <label class="browse-class is-all" style="--class-accent: #ffb547">
                                 <input type="radio" name="characters[]" value="" @checked($selectedClassId === null && $legacyClassIds === [])>
-                                <span class="browse-class__mark" aria-hidden="true">∗</span>
-                                <span class="browse-class__name">All</span>
+                                <span class="browse-class__name">All classes</span>
                             </label>
                             @foreach ($catalog['characters'] as $character)
                                 <label class="browse-class" style="--class-accent: {{ $accents[$character->name] ?? '#ffb547' }}">

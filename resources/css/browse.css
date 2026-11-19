@@ -143,7 +143,7 @@
 /* class tiles */
 .browse-classes__options {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
 }
 .browse-classes .browse-picker__note {
@@ -151,13 +151,14 @@
 }
 .browse-class {
     position: relative;
-    display: grid;
-    justify-items: center;
-    gap: 4px;
-    padding: 8px 2px 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 6px 10px;
     background: var(--bg);
     border: 1px solid var(--line);
-    border-bottom: 2px solid transparent;
+    border-left: 3px solid color-mix(in srgb, var(--class-accent) 45%, transparent);
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
 
@@ -168,30 +169,36 @@
     }
     &:hover {
         border-color: var(--line-2);
+        border-left-color: var(--class-accent);
     }
     &:has(input:checked) {
         background: color-mix(in srgb, var(--class-accent) 14%, var(--bg));
         border-color: color-mix(in srgb, var(--class-accent) 55%, transparent);
-        border-bottom-color: var(--class-accent);
+        border-left-color: var(--class-accent);
     }
     &:has(input:focus-visible) {
         outline: 2px solid var(--amber);
         outline-offset: 2px;
     }
+    &.is-all {
+        grid-column: 1 / -1;
+        justify-content: center;
+        min-height: 36px;
+    }
 }
 .browse-class__mark {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    font: 400 24px/1 var(--display);
-    color: var(--amber);
+    flex: none;
+    width: 28px;
+    height: 28px;
 }
 .browse-class__name {
-    font: 500 9.5px var(--mono);
-    letter-spacing: 0.06em;
+    overflow: hidden;
+    font: 500 11px var(--mono);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     .browse-class:has(input:checked) & {
         color: var(--ink);
