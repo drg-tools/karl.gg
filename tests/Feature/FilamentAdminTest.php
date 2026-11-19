@@ -81,6 +81,16 @@ class FilamentAdminTest extends TestCase
         $this->assertModelMissing($loadout);
     }
 
+    public function test_loadouts_admin_links_to_the_public_preview(): void
+    {
+        $this->manager(['view-admin']);
+        $loadout = $this->loadout();
+
+        $this->get(LoadoutResource::getUrl())->assertOk()
+            ->assertSee('View loadout')
+            ->assertSee('href="'.url('/preview/'.$loadout->id).'"', false);
+    }
+
     public function test_admin_access_does_not_grant_public_build_update_or_delete(): void
     {
         $this->manager(['view-admin']);

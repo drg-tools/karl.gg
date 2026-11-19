@@ -44,6 +44,10 @@ class LoadoutResource extends AdminResource
     public static function table(Table $table): Table
     {
         return parent::table($table)->recordActions([
+            Action::make('viewLoadout')
+                ->label('View loadout')
+                ->url(fn (Loadout $record): string => route('preview.show', $record->id))
+                ->openUrlInNewTab(),
             EditAction::make(),
             DeleteAction::make(),
             Action::make('hide')
