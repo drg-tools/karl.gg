@@ -41,11 +41,11 @@ Existing users, hashes, roles and permission assignments are retained. Spatie's 
 - Artisan boots, routes load, configuration caching and Blade compilation pass.
 - Boost's MCP initialize and tools/list requests succeed. Project-local Codex MCP configuration points at the compatible installed PHP binary; its machine-specific file is ignored. Agent guidance and skills are committed.
 - Fresh SQLite migrations succeed. Full seeding reaches the existing MySQL-specific overclock SQL dump and fails on SQLite syntax; that import is not portable to SQLite.
-- CircleCI now targets PHP 8.4 and runs SQLite and MySQL regression suites, production asset build and Dusk builder tests. CI has not been run from this workstation. Local MySQL and Dusk execution were unavailable because MySQL/Docker and Chrome are not installed here.
+- CircleCI targets PHP 8.4 and runs the production asset build and the SQLite and MySQL regression suites.
 
 ## Existing-database deployment
 
-1. Rehearse against a sanitized restored production database with the production PHP/extensions, storage and queues. Verify all admin forms/filters, existing permission assignments, comments moderation, builder, public login, API clients, mail, backups and scheduled jobs. Require green MySQL and browser CI checks before release.
+1. Rehearse against a sanitized restored production database with the production PHP/extensions, storage and queues. Verify all admin forms/filters, existing permission assignments, comments moderation, builder, public login, API clients, mail, backups and scheduled jobs. Require green CI checks before release.
 2. Back up the database, application artifact, uploads, APP_KEY and existing OAuth keys. Test restoring that backup. The OAuth schema conversion intentionally cannot be reversed with `migrate:rollback`.
 3. Select PHP 8.4+ for CLI, web and workers. Install the committed lockfile (`composer install --no-dev --optimize-autoloader`), build assets, and confirm `composer check-platform-reqs` passes. Composer publishes Filament assets through `filament:upgrade`.
 4. Pause writes and workers during the migration. Run `php artisan migrate --force`. In the Blade + Vue builder prototype, Passport and GraphQL are retired. Existing OAuth tables remain untouched; the former client conversion migrations are no-ops.

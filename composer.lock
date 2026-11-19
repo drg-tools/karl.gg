@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4edf604dc17b48fe6a5893c94289d019",
+    "content-hash": "9b73503678780c252e8558e3d6a7501c",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -10796,80 +10796,6 @@
             "published-time": "2026-10-29T18:32:20+00:00"
         },
         {
-            "name": "laravel/dusk",
-            "version": "v8.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/dusk.git",
-                "reference": "23f49df0447b018a38c7aac0662410331b9cc552"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/dusk/zipball/23f49df0447b018a38c7aac0662410331b9cc552",
-                "reference": "23f49df0447b018a38c7aac0662410331b9cc552",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-zip": "*",
-                "guzzlehttp/guzzle": "^7.5|^8.0",
-                "illuminate/console": "^12.0|^13.0",
-                "illuminate/support": "^12.0|^13.0",
-                "php": "^8.2",
-                "php-webdriver/webdriver": "^1.15.2",
-                "symfony/console": "^6.2|^7.0|^8.0",
-                "symfony/finder": "^6.2|^7.0|^8.0",
-                "symfony/process": "^6.2|^7.0|^8.0",
-                "vlucas/phpdotenv": "^5.2"
-            },
-            "require-dev": {
-                "laravel/framework": "^12.69|^13.30",
-                "mockery/mockery": "^1.6",
-                "orchestra/testbench-core": "^10.8|^11.0",
-                "phpstan/phpstan": "2.2.15",
-                "phpunit/phpunit": "^11.0|^12.0.1|^13.0",
-                "psy/psysh": "^0.11.12|^0.12",
-                "symfony/yaml": "^6.2|^7.0|^8.0"
-            },
-            "suggest": {
-                "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Dusk\\DuskServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Dusk\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Laravel Dusk provides simple end-to-end testing and browser automation.",
-            "keywords": [
-                "laravel",
-                "testing",
-                "webdriver"
-            ],
-            "support": {
-                "source": "https://github.com/laravel/dusk/tree/v8.8.0"
-            },
-            "time": "2026-11-09T14:41:34+00:00",
-            "published-time": "2026-11-10T16:02:12+00:00"
-        },
-        {
             "name": "laravel/mcp",
             "version": "v1.2.0",
             "source": {
@@ -11609,73 +11535,6 @@
             },
             "time": "2026-01-15T14:47:34+00:00",
             "published-time": "2026-01-15T14:47:58+00:00"
-        },
-        {
-            "name": "php-webdriver/webdriver",
-            "version": "1.16.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-webdriver/php-webdriver.git",
-                "reference": "ac0662863aa120b4f645869f584013e4c4dba46a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-webdriver/php-webdriver/zipball/ac0662863aa120b4f645869f584013e4c4dba46a",
-                "reference": "ac0662863aa120b4f645869f584013e4c4dba46a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-zip": "*",
-                "php": "^7.3 || ^8.0",
-                "symfony/polyfill-mbstring": "^1.12",
-                "symfony/process": "^5.0 || ^6.0 || ^7.0 || ^8.0"
-            },
-            "replace": {
-                "facebook/webdriver": "*"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.20.0",
-                "ondram/ci-detector": "^4.0",
-                "php-coveralls/php-coveralls": "^2.4",
-                "php-mock/php-mock-phpunit": "^2.0",
-                "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpunit/phpunit": "^9.3",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symfony/var-dumper": "^5.0 || ^6.0 || ^7.0 || ^8.0"
-            },
-            "suggest": {
-                "ext-simplexml": "For Firefox profile creation"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "lib/Exception/TimeoutException.php"
-                ],
-                "psr-4": {
-                    "Facebook\\WebDriver\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A PHP client for Selenium WebDriver. Previously facebook/webdriver.",
-            "homepage": "https://github.com/php-webdriver/php-webdriver",
-            "keywords": [
-                "Chromedriver",
-                "geckodriver",
-                "php",
-                "selenium",
-                "webdriver"
-            ],
-            "support": {
-                "issues": "https://github.com/php-webdriver/php-webdriver/issues",
-                "source": "https://github.com/php-webdriver/php-webdriver/tree/1.16.0"
-            },
-            "time": "2025-12-28T23:57:40+00:00",
-            "published-time": "2025-12-28T23:58:24+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

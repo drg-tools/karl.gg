@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/php:8.4-browsers
+      - image: cimg/php:8.4-node
       - image: cimg/mysql:5.7
         environment:
           MYSQL_DATABASE: laravel

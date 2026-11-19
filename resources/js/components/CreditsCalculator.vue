@@ -1,10 +1,9 @@
 <template>
-    <div dusk="credits-calculator">
+    <div class="credits-calculator">
         <span class="text-white text-lg block my-2">Total Costs:</span>
         <p class="costList flex flex-wrap">
             <span
                 class="costListItem flex items-center pr-2"
-                dusk="credits-cost"
                 v-if="creditsCost > 0"
             >
                 <img
@@ -16,7 +15,6 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                dusk="bismor-cost"
                 v-if="bismorCost > 0"
             >
                 <img
@@ -28,7 +26,6 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                dusk="croppa-cost"
                 v-if="croppaCost > 0"
             >
                 <img
@@ -40,7 +37,6 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                dusk="enor-cost"
                 v-if="enorCost > 0"
             >
                 <img
@@ -52,7 +48,6 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                dusk="jadiz-cost"
                 v-if="jadizCost > 0"
             >
                 <img
@@ -64,7 +59,6 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                dusk="magnite-cost"
                 v-if="magniteCost > 0"
             >
                 <img
@@ -76,7 +70,6 @@
             </span>
             <span
                 class="costListItem flex items-center pr-2"
-                dusk="umanite-cost"
                 v-if="umaniteCost > 0"
             >
                 <img

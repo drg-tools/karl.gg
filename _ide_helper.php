@@ -24199,17 +24199,6 @@
      
 }
 
-    namespace Staudenmeir\DuskUpdater { 
-            /**
-     * 
-     *
-     */ 
-        class UpdateCommand {
-         
-    }
-     
-}
-
     namespace EloquentFilter\Commands { 
             /**
      * 
@@ -24277,67 +24266,6 @@
      *
      */ 
         class ChartsCommand {
-         
-    }
-     
-}
-
-    namespace Laravel\Dusk\Console { 
-            /**
-     * 
-     *
-     */ 
-        class InstallCommand {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class DuskCommand {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class DuskFailsCommand {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class MakeCommand {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class PageCommand {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class PurgeCommand {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class ComponentCommand {
-         
-    }
-            /**
-     * 
-     *
-     * @copyright Originally created by Jonas Staudenmeir: https://github.com/staudenmeir/dusk-updater
-     */ 
-        class ChromeDriverCommand {
          
     }
      
