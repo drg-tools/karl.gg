@@ -51,7 +51,8 @@
 
                     <div x-show="profileOpen" style="display:none;" class="site-nav__menu is-right" id="profile-menu">
                         <p class="site-nav__menu-label">{{ auth()->user()->name }}</p>
-                        <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
+                        <x-nav-dropdown-link :link="route('user.profile', ['id' => Auth::id()])" title="My builds" />
+                        <x-nav-dropdown-link :link="route('account.settings')" title="Account settings" />
                         <button type="submit" form="logout-form" class="site-nav__menu-link">{{ __('Sign out') }}</button>
                     </div>
                 </div>
@@ -95,7 +96,8 @@
                         <small>{{ auth()->user()->email }}</small>
                     </span>
                 </div>
-                <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="Profile" />
+                <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="My builds" />
+                <x-mobile-nav-link :link="route('account.settings')" title="Account settings" />
                 <button type="submit" form="logout-form" class="site-nav__mobile-link">{{ __('Sign out') }}</button>
             @endauth
         </div>

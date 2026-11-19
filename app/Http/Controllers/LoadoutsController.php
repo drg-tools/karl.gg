@@ -93,8 +93,10 @@ class LoadoutsController extends Controller
 
         $loadout->delete();
 
-        // Currently you can only delete from user profile, so redirect there
-        return redirect('profile/'.$request->user()->id);
+        // Loadouts are deleted from the owner's profile, so return there.
+        return redirect()
+            ->route('user.profile', $request->user()->id)
+            ->with('status', "Deleted \"{$loadout->name}\".");
     }
 
     /**
