@@ -28,3 +28,11 @@ schema-directives.graphql
 
 # Boost MCP executable paths are local to each developer.
 .codex/config.toml
+
+# Filament assets are republished by `artisan filament:upgrade` on composer install.
+/public/css/filament
+/public/js/filament
+/public/fonts/filament
+
+# Claude Code worktrees
+/.claude/worktrees/
