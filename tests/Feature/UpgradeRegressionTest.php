@@ -9,10 +9,12 @@ use App\Patch;
 use App\User;
 use ErrorException;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
@@ -115,6 +117,26 @@ class UpgradeRegressionTest extends TestCase
         $this->postJson('/graphql', [])->assertNotFound();
         $this->postJson('/oauth/token', [])->assertNotFound();
         $this->get('/settings/tokens')->assertNotFound();
+    }
+
+    public function test_fresh_install_has_no_retired_oauth_tables(): void
+    {
+        foreach (['oauth_refresh_tokens', 'oauth_access_tokens', 'oauth_auth_codes', 'oauth_device_codes', 'oauth_clients'] as $table) {
+            $this->assertFalse(Schema::hasTable($table), "Retired OAuth table [{$table}] still exists.");
+        }
+    }
+
+    public function test_upgrade_drops_the_legacy_personal_access_clients_table(): void
+    {
+        Schema::create('oauth_personal_access_clients', function (Blueprint $table): void {
+            $table->id();
+            $table->unsignedBigInteger('client_id');
+        });
+        $migration = require database_path('migrations/2026_11_20_004215_drop_retired_oauth_tables.php');
+
+        $migration->up();
+
+        $this->assertFalse(Schema::hasTable('oauth_personal_access_clients'));
     }
 
     public function test_public_comments_hide_pending_comments_and_guests_cannot_moderate()
