@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Comment;
 use App\Comments\Report;
 use App\Filament\Resources\CommentResource\Pages\ManageComment;
-use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkAction;
@@ -33,8 +32,6 @@ class CommentResource extends AdminResource
     protected static string|UnitEnum|null $navigationGroup = 'Community';
 
     protected static string $permission = 'manage-comments';
-
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
 
     /**
      * @var array<string, string>

@@ -137,6 +137,52 @@ class FilamentAdminTest extends TestCase
         $this->get('/browse')->assertOk()->assertSee($loadout->name);
     }
 
+    public function test_loadouts_admin_can_show_every_optional_column(): void
+    {
+        $this->manager(['view-admin']);
+        $loadout = $this->loadout();
+
+        Livewire::test(ManageLoadout::class)
+            ->toggleAllTableColumns()
+            ->assertTableColumnVisible('created_at')
+            ->assertTableColumnVisible('patch.label')
+            ->assertCanSeeTableRecords([$loadout]);
+    }
+
+    public function test_loadouts_admin_filters_by_patch_and_local_created_day(): void
+    {
+        $this->manager(['view-admin']);
+        $older = $this->loadout();
+        $newer = Loadout::factory()
+            ->for(User::factory(), 'creator')
+            ->for($older->character)
+            ->for(Patch::factory()->create(['launched_at' => now()]))
+            ->create();
+        $older->forceFill(['created_at' => '2026-11-02 03:00:00'])->saveQuietly();
+        $newer->forceFill(['created_at' => '2026-11-03 03:00:00'])->saveQuietly();
+
+        Livewire::test(ManageLoadout::class)
+            ->filterTable('patch', $newer->patch_id)
+            ->assertCanSeeTableRecords([$newer])
+            ->assertCanNotSeeTableRecords([$older]);
+
+        Livewire::test(ManageLoadout::class)
+            ->filterTable('created_at', ['from' => '2026-11-01', 'until' => '2026-11-01'])
+            ->assertCanSeeTableRecords([$older])
+            ->assertCanNotSeeTableRecords([$newer]);
+    }
+
+    public function test_admin_dates_display_in_eastern_time(): void
+    {
+        $this->manager(['view-admin']);
+        $loadout = $this->loadout();
+        $loadout->forceFill(['updated_at' => '2026-11-02 03:00:00'])->saveQuietly();
+
+        $this->get(LoadoutResource::getUrl())
+            ->assertOk()
+            ->assertSee('Nov 1, 2026 10:00 PM EST');
+    }
+
     private function loadout(): Loadout
     {
         $patch = Patch::factory()->create(['launched_at' => now()->subDay()]);
