@@ -24,7 +24,6 @@
 @section('content')
     <div class="loadout-page legal">
         <header class="legal-header">
-            <p class="loadout-eyebrow">Legal</p>
             <h1 class="legal-header__title">Privacy policy</h1>
             <p class="legal-header__meta">Last updated <time datetime="2020-05-07">May 07, 2020</time></p>
         </header>
