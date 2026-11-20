@@ -302,7 +302,7 @@ class BuilderEndpointTest extends TestCase
 
         $response = $this->get(route('preview.show', $loadout->id));
 
-        $response->assertOk()->assertSeeHtml('<span class="sr-only">Upgrade code:</span><code class="kit-card__code" title="Upgrade code: type it into the compact builder">C–A–B</code>');
+        $response->assertOk()->assertSeeHtml('<span class="sr-only">Upgrade code:</span><code class="kit-card__code" title="Upgrade code: type it into the compact builder">3–1–2</code>');
     }
 
     public function test_preview_kit_layout_defaults_to_compact_only_on_phones_signed_in_or_not(): void

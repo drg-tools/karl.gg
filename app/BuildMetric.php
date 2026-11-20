@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\BuildMetric.
@@ -44,11 +45,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $damage_per_magazine
  * @property float $time_to_fire_magazine
  * @property int $patch_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Character $character
- * @property-read \App\Gun $gun
- * @property-read \App\Patch $patch
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Character $character
+ * @property-read Gun $gun
+ * @property-read Patch $patch
  *
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BuildMetric newQuery()
@@ -100,6 +101,11 @@ class BuildMetric extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    public static function normalizeCombination(string $combination): string
+    {
+        return strtr(substr($combination, 0, 5), '123', 'ABC').substr($combination, 5);
+    }
 
     public function gun()
     {

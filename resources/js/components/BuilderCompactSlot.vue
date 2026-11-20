@@ -20,7 +20,7 @@
                     :maxlength="tierCount"
                     spellcheck="false"
                     autocomplete="off"
-                    title="Type a code like BACAB or 21312; use - to skip a tier"
+                    title="Type a code like 21312 or BACAB. Use - to skip a tier."
                     @focus="startCode"
                     @input="typeCode"
                     @blur="codeDraft = null"
@@ -94,6 +94,7 @@ import BuilderCompactOverclock from "./BuilderCompactOverclock.vue";
 import BuilderCompactTree from "./BuilderCompactTree.vue";
 import BuilderStatReadout from "./BuilderStatReadout.vue";
 import { getModifiedStats } from "../statCalculator";
+import { upgradeCode } from "../upgradeCode";
 
 const props = defineProps({
     label: { type: String, required: true },
@@ -127,15 +128,9 @@ const tierCount = computed(
     () => new Set(props.mods.map((mod) => mod.mod_tier)).size || 5
 );
 
-/** The equipped tiers as letters, e.g. "BAC––". */
-const signature = computed(() => {
-    const letters = Array(tierCount.value).fill("–");
-    selectedMods.value.forEach((mod) => {
-        letters[mod.mod_tier - 1] = mod.mod_index;
-    });
-
-    return letters.join("");
-});
+const signature = computed(() =>
+    upgradeCode(selectedMods.value, tierCount.value)
+);
 
 /** Only the stats this build actually moves away from stock. */
 const changedStats = computed(() => {
@@ -160,7 +155,7 @@ const changedStats = computed(() => {
         }));
 });
 
-/** Start editing with empty tiers as "-", so a gap like "B-C" keeps its place. */
+/** Start editing with empty tiers as "-", so a gap like "2-3" keeps its place. */
 function startCode() {
     codeDraft.value = signature.value.replace(/–/g, "-").replace(/-+$/, "");
 }

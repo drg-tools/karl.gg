@@ -177,6 +177,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import BuilderCompactSlot from "./BuilderCompactSlot.vue";
+import { upgradeCode } from "../upgradeCode";
 
 const { builder, config } = defineProps({
     builder: { type: Object, required: true },
@@ -215,18 +216,11 @@ function pickable(item, image) {
     return { id: item.id, name: item.name, image: `/assets/${image}.svg` };
 }
 
-/** Equipped tiers as letters, e.g. "CAAB", for a weapon or equipment. */
 function code(item, field = "equipment_mods") {
     const mods = item.mods || item.equipment_mods;
-    const letters = Array(new Set(mods.map((mod) => mod.mod_tier)).size).fill(
-        "–"
+    return upgradeCode(
+        mods.filter((mod) => builder.form[field].includes(mod.id)),
+        new Set(mods.map((mod) => mod.mod_tier)).size
     );
-    mods.filter((mod) => builder.form[field].includes(mod.id)).forEach(
-        (mod) => {
-            letters[mod.mod_tier - 1] = mod.mod_index;
-        }
-    );
-
-    return letters.join("");
 }
 </script>

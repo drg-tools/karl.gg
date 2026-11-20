@@ -170,7 +170,7 @@ class Loadout extends Model
     }
 
     /**
-     * The weapon's upgrade code: one letter per tier, a dash for a tier left open (e.g. "BA–CB").
+     * The weapon's upgrade code: one number per tier, a dash for a tier left open (e.g. "21–32").
      * Matches the code box in the compact builder, so players can copy it straight in.
      */
     public function upgradeCode(int $gunId, int $tiers = 5): string
@@ -178,7 +178,7 @@ class Loadout extends Model
         $chosen = $this->mods->where('gun_id', $gunId)->pluck('mod_index', 'mod_tier');
 
         return collect(range(1, $tiers))
-            ->map(fn (int $tier): string => $chosen->get($tier) ?? '–')
+            ->map(fn (int $tier): string => strtr($chosen->get($tier) ?? '–', 'ABC', '123'))
             ->join('');
     }
 

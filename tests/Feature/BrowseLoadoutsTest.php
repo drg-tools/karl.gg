@@ -157,7 +157,7 @@ class BrowseLoadoutsTest extends TestCase
 
         $response = $this->get(route('loadout.index'));
 
-        $response->assertOk()->assertSeeHtml('<code title="Deepcore GK2 upgrade code">BA–C–</code>');
+        $response->assertOk()->assertSeeHtml('<code title="Deepcore GK2 upgrade code">21–3–</code>');
     }
 
     private function modAttributes(Gun $gun, string $name): array

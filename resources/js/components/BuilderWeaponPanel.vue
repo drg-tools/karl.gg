@@ -60,11 +60,11 @@
                             class="signature-hexes"
                             :aria-label="`Upgrade combination ${combination}`"
                             ><i
-                                v-for="(letter, index) in signature"
+                                v-for="(choice, index) in signature"
                                 :key="index"
-                                :class="{ 'is-set': letter !== '–' }"
+                                :class="{ 'is-set': choice !== '–' }"
                                 aria-hidden="true"
-                                >{{ letter }}</i
+                                >{{ choice }}</i
                             ><i
                                 class="signature-overclock"
                                 :class="
@@ -267,6 +267,7 @@ import { computed, ref, watch } from "vue";
 import BuilderModGrid from "./BuilderModGrid.vue";
 import BuilderStatReadout from "./BuilderStatReadout.vue";
 import CreditsCalculator from "./CreditsCalculator.vue";
+import { upgradeCode } from "../upgradeCode";
 
 const props = defineProps({
     slot: Number,
@@ -349,17 +350,12 @@ const shownOverclock = computed(() =>
 const tierCount = computed(
     () => new Set(props.gun?.mods.map((mod) => mod.mod_tier)).size
 );
-const signature = computed(() => {
-    const letters = Array(tierCount.value || 5).fill("–");
-    selectedMods.value.forEach((mod) => {
-        letters[mod.mod_tier - 1] = mod.mod_index;
-    });
-
-    return letters;
-});
+const signature = computed(() =>
+    upgradeCode(selectedMods.value, tierCount.value || 5)
+);
 const combination = computed(
     () =>
-        signature.value.join("") +
+        signature.value +
         " / " +
         (props.overclock?.overclock_name || "no overclock")
 );

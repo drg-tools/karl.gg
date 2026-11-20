@@ -12,6 +12,7 @@ class BuildMetricController extends Controller
 {
     public function show(Request $request, string $gun, string $combo): View
     {
+        $combo = BuildMetric::normalizeCombination($combo);
         $build = BuildMetric::where([
             ['gun_id', '=', $gun],
             ['build_combination', '=', $combo],
@@ -25,8 +26,9 @@ class BuildMetricController extends Controller
         }
 
         $build_gun = $build->gun;
+        $displayCombo = strtr($combo, 'ABC', '123');
 
-        SEOTools::setTitle(str_replace('"', '', "{$build_gun->name} {$combo} Advanced Statistics"));
+        SEOTools::setTitle(str_replace('"', '', "{$build_gun->name} {$displayCombo} Advanced Statistics"));
 
         $mod_matrix = $build->getModMatrix($build_gun, $combo);
         $combo_array = str_split($combo);
@@ -39,7 +41,7 @@ class BuildMetricController extends Controller
             'buildMetrics' => $build,
             'gun' => $build_gun,
             'modMatrix' => $mod_matrix,
-            'combo' => $combo,
+            'combo' => $displayCombo,
             'overclock' => $overclock ? $overclock : '',
         ]);
     }

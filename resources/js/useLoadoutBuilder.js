@@ -7,6 +7,7 @@ import {
     onBeforeUnmount,
     nextTick,
 } from "vue";
+import { upgradeCode } from "./upgradeCode";
 
 export function useLoadoutBuilder(config) {
     const classInfo = {
@@ -271,9 +272,9 @@ export function useLoadoutBuilder(config) {
         metrics[1] = metrics[2] = null;
     }
     /**
-     * Equip a whole tree from a typed code such as "BACAB" or "21312".
+     * Equip a whole tree from a typed code such as "21312" or "BACAB".
      * Each character is one tier; anything that isn't an upgrade, like "-",
-     * leaves that tier empty, so "B-C" skips tier 2.
+     * leaves that tier empty, so "2-3" skips tier 2.
      */
     function applyCombination(code, field, available) {
         const letters = String(code)
@@ -351,12 +352,8 @@ export function useLoadoutBuilder(config) {
     function combination(slot) {
         const gun = selectedGun(slot);
         if (!gun) return "—";
-        const parts = Array(5).fill("–");
-        selectedMods(gun.mods, "mods").forEach((mod) => {
-            parts[mod.mod_tier - 1] = String(mod.mod_index).charCodeAt(0) - 64;
-        });
         return (
-            parts.join("") +
+            upgradeCode(selectedMods(gun.mods, "mods"), 5) +
             " / " +
             (selectedOverclock(slot)?.overclock_index || "–")
         );

@@ -61,8 +61,10 @@ class BuilderController extends Controller
 
     public function metrics(Request $request): JsonResponse
     {
-        $input = $request->validate(['gun_id' => ['required', 'integer', 'exists:guns,id'], 'combo' => ['required', 'string', 'regex:/^[ABC\-]{5}[0-9\-]$/']]);
-        $metric = BuildMetric::where('gun_id', $input['gun_id'])->where('build_combination', $input['combo'])->first();
+        $input = $request->validate(['gun_id' => ['required', 'integer', 'exists:guns,id'], 'combo' => ['required', 'string', 'regex:/^[ABC123\-]{5}[0-9\-]$/']]);
+        $metric = BuildMetric::where('gun_id', $input['gun_id'])
+            ->where('build_combination', BuildMetric::normalizeCombination($input['combo']))
+            ->first();
 
         return response()->json(['data' => $metric]);
     }
