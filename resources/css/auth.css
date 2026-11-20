@@ -1,0 +1,103 @@
+/*
+ * Sign-in, registration and password pages. A single narrow panel built on
+ * the loadout page tokens in loadout-page.css; fields reuse the settings
+ * form styles in profile.css.
+ */
+.auth {
+    justify-items: center;
+    gap: 16px;
+    padding-block: 24px 40px;
+}
+
+.auth-card {
+    display: grid;
+    gap: 22px;
+    width: 100%;
+    max-width: 440px;
+    padding: 28px 32px 30px;
+    border-top: 2px solid var(--amber);
+}
+.auth-card__head {
+    display: grid;
+    gap: 6px;
+}
+.auth-card__title {
+    margin: 0;
+    font: 400 40px/0.95 var(--display);
+    letter-spacing: 0.005em;
+}
+.auth-card__lede {
+    margin: 2px 0 0;
+    color: var(--muted);
+}
+
+.auth-card .settings-form__foot {
+    justify-content: space-between;
+}
+
+.auth-field-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+
+    .browse-label {
+        margin-bottom: 8px;
+    }
+}
+
+.auth-remember {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink-2);
+    cursor: pointer;
+
+    input {
+        width: 16px;
+        height: 16px;
+        color: var(--amber);
+        background: var(--bg);
+        border: 1px solid var(--line-2);
+        border-radius: 0;
+        cursor: pointer;
+
+        &:focus {
+            box-shadow: none;
+        }
+        &:focus-visible {
+            outline: 2px solid var(--amber);
+            outline-offset: 2px;
+        }
+    }
+}
+
+.auth-switch {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+
+    a {
+        color: var(--amber);
+        font-weight: 600;
+
+        &:hover {
+            color: var(--amber-2);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+}
+
+@media (max-width: 760px) {
+    .auth {
+        padding-block: 8px 24px;
+    }
+    .auth-card {
+        padding: 22px 20px 24px;
+    }
+    .auth-card__title {
+        font-size: 34px;
+    }
+}

@@ -1,51 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto loginPage">
-        <div class="flex flex-wrap justify-center">
-            <div class="w-full max-w-sm">
-                <div class="flex flex-col wrap-break-word bg-gray-700 border border-2 border-gray-700 rounded-sm shadow-md">
+    <x-auth-card eyebrow="Account" title="Confirm password" lede="This is a secure area. Confirm your password before continuing.">
+        <form class="settings-form" method="POST" action="{{ route('password.confirm') }}">
+            @csrf
 
-                    <div class="font-semibold bg-gray-800 text-gray-300 py-3 px-6 mb-0">
-                        {{ __('Confirm Password') }}
-                    </div>
-
-                    <form class="w-full p-6" method="POST" action="{{ route('password.confirm') }}">
-                        @csrf
-
-                        <p class="leading-normal">
-                            {{ __('Please confirm your password before continuing.') }}
-                        </p>
-
-                        <div class="flex flex-wrap my-6">
-                            <label for="password" class="block text-gray-300 text-sm font-bold mb-2">
-                                {{ __('Password') }}:
-                            </label>
-
-                            <input id="password" type="password" class="form-input w-full @error('password') border-red-500 @enderror" name="password" required autocomplete="new-password">
-
-                            @error('password')
-                                <p class="text-red-500 text-xs italic mt-4">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div class="flex flex-wrap justify-center">
-                            <button type="submit" class="bg-orange-500 hover:bg-orange-700 text-gray-100 font-bold  py-2 px-4 rounded-sm focus:outline-hidden focus:ring-3">
-                                {{ __('Confirm Password') }}
-                            </button>
-
-                            @if (Route::has('password.request'))
-                                <a class="text-sm text-orange-500 hover:text-orange-700 whitespace-no-wrap no-underline ml-auto" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            @endif
-                        </div>
-                    </form>
-
+            <div class="settings-field">
+                <div class="auth-field-row">
+                    <label class="browse-label" for="password">Password</label>
+                    @if (Route::has('password.request'))
+                        <a class="browse-clear" href="{{ route('password.request') }}">Forgot password?</a>
+                    @endif
                 </div>
+                <input id="password" type="password" name="password" required autocomplete="current-password" autofocus @error('password') aria-invalid="true" aria-describedby="password-error" @enderror>
+                @error('password')
+                    <p class="settings-field__error" id="password-error">{{ $message }}</p>
+                @enderror
             </div>
-        </div>
-    </div>
+
+            <div class="settings-form__foot">
+                <button class="loadout-button" type="submit">Confirm</button>
+            </div>
+        </form>
+    </x-auth-card>
 @endsection

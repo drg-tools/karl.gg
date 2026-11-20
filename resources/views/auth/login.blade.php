@@ -1,75 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex flex-wrap justify-center">
-        <div class="w-full max-w-sm">
-            <div class="flex flex-col wrap-break-word bg-gray-700 border border-2 border-gray-700 rounded-sm shadow-md">
+    <x-auth-card eyebrow="Account" title="Sign in" lede="Welcome back, miner. Sign in to save builds and favorites.">
+        <form class="settings-form" method="POST" action="{{ route('login') }}">
+            @csrf
 
-                <div class="font-semibold bg-gray-800 text-gray-300 py-3 px-6 mb-0">
-                    {{ __('Login') }}
-                </div>
-
-                <form class="w-full p-6" method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <div class="flex flex-wrap mb-6">
-                        <label for="email" class="block text-gray-300 text-sm font-bold mb-2">
-                            {{ __('E-Mail Address') }}:
-                        </label>
-
-                        <input id="email" type="email" class="form-input w-full @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                        @error('email')
-                            <p class="text-red-500 text-xs italic mt-4">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex flex-wrap mb-6">
-                        <label for="password" class="block text-gray-300 text-sm font-bold mb-2">
-                            {{ __('Password') }}:
-                        </label>
-
-                        <input id="password" type="password" class="form-input w-full @error('password') border-red-500 @enderror" name="password" required>
-
-                        @error('password')
-                            <p class="text-red-500 text-xs italic mt-4">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex mb-6">
-                        <label class="inline-flex justify-center text-sm text-gray-300" for="remember">
-                            <input type="checkbox" name="remember" id="remember" class="form-checkbox" {{ old('remember') ? 'checked' : '' }}>
-                            <span class="ml-2">{{ __('Remember Me') }}</span>
-                        </label>
-                    </div>
-
-                    <div class="flex flex-wrap justify-center">
-                        <button type="submit" class="bg-orange-500 hover:bg-orange-700 text-gray-100 font-bold py-2 px-4 rounded-sm focus:outline-hidden focus:ring-3">
-                            {{ __('Login') }}
-                        </button>
-
-                        @if (Route::has('password.request'))
-                            <a class="text-sm text-orange-500 hover:text-orange-700 whitespace-nowrap no-underline ml-auto" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif
-
-                        @if (Route::has('register'))
-                            <p class="w-full text-xs text-center text-gray-300 mt-8 -mb-4">
-                                {{ __("Don't have an account?") }}
-                                <a class="text-orange-500 hover:text-orange-700 no-underline" href="{{ route('register') }}">
-                                    {{ __('Register') }}
-                                </a>
-                            </p>
-                        @endif
-                    </div>
-                </form>
-
+            <div class="settings-field">
+                <label class="browse-label" for="email">Email</label>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus @error('email') aria-invalid="true" aria-describedby="email-error" @enderror>
+                @error('email')
+                    <p class="settings-field__error" id="email-error">{{ $message }}</p>
+                @enderror
             </div>
-        </div>
-    </div>
+
+            <div class="settings-field">
+                <div class="auth-field-row">
+                    <label class="browse-label" for="password">Password</label>
+                    @if (Route::has('password.request'))
+                        <a class="browse-clear" href="{{ route('password.request') }}">Forgot password?</a>
+                    @endif
+                </div>
+                <input id="password" type="password" name="password" required autocomplete="current-password" @error('password') aria-invalid="true" aria-describedby="password-error" @enderror>
+                @error('password')
+                    <p class="settings-field__error" id="password-error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <label class="auth-remember" for="remember">
+                <input type="checkbox" name="remember" id="remember" @checked(old('remember'))>
+                Remember me
+            </label>
+
+            <div class="settings-form__foot">
+                <button class="loadout-button" type="submit">Sign in</button>
+            </div>
+        </form>
+
+        @if (Route::has('register'))
+            <x-slot:footer>
+                New to Karl.gg? <a href="{{ route('register') }}">Create an account</a>
+            </x-slot:footer>
+        @endif
+    </x-auth-card>
 @endsection

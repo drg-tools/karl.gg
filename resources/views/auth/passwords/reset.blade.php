@@ -1,65 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto loginPage">
-        <div class="flex flex-wrap justify-center">
-            <div class="w-full max-w-sm">
-                <div class="flex flex-col wrap-break-word bg-gray-700 border border-2 border-gray-700 rounded-sm shadow-md">
+    <x-auth-card eyebrow="Account" title="Choose a new password" lede="Use at least 8 characters. You'll be signed in once it's saved.">
+        <form class="settings-form" method="POST" action="{{ route('password.update') }}">
+            @csrf
 
-                    <div class="font-semibold bg-gray-800 text-gray-300 py-3 px-6 mb-0">
-                        {{ __('Reset Password') }}
-                    </div>
+            <input type="hidden" name="token" value="{{ $token }}">
 
-                    <form class="w-full p-6" method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="flex flex-wrap mb-6">
-                            <label for="email" class="block text-gray-300 text-sm font-bold mb-2">
-                                {{ __('E-Mail Address') }}:
-                            </label>
-
-                            <input id="email" type="email" class="form-input w-full @error('email') border-red-500 @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                            @error('email')
-                                <p class="text-red-500 text-xs italic mt-4">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div class="flex flex-wrap mb-6">
-                            <label for="password" class="block text-gray-300 text-sm font-bold mb-2">
-                                {{ __('Password') }}:
-                            </label>
-
-                            <input id="password" type="password" class="form-input w-full @error('password') border-red-500 @enderror" name="password" required autocomplete="new-password">
-
-                            @error('password')
-                                <p class="text-red-500 text-xs italic mt-4">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div class="flex flex-wrap mb-6">
-                            <label for="password-confirm" class="block text-gray-300 text-sm font-bold mb-2">
-                                {{ __('Confirm Password') }}:
-                            </label>
-
-                            <input id="password-confirm" type="password" class="form-input w-full" name="password_confirmation" required autocomplete="new-password">
-                        </div>
-
-                        <div class="flex flex-wrap">
-                            <button type="submit" class="bg-orange-500 hover:bg-orange-700 text-gray-100 font-bold  py-2 px-4 rounded-sm focus:outline-hidden focus:ring-3">
-                                {{ __('Reset Password') }}
-                            </button>
-                        </div>
-                    </form>
-
-                </div>
+            <div class="settings-field">
+                <label class="browse-label" for="email">Email</label>
+                <input id="email" type="email" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" @error('email') aria-invalid="true" aria-describedby="email-error" @enderror>
+                @error('email')
+                    <p class="settings-field__error" id="email-error">{{ $message }}</p>
+                @enderror
             </div>
-        </div>
-    </div>
+
+            <div class="settings-field">
+                <label class="browse-label" for="password">New password</label>
+                <input id="password" type="password" name="password" required minlength="8" autocomplete="new-password" autofocus @error('password') aria-invalid="true" aria-describedby="password-error" @enderror>
+                @error('password')
+                    <p class="settings-field__error" id="password-error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="settings-field">
+                <label class="browse-label" for="password-confirm">Confirm new password</label>
+                <input id="password-confirm" type="password" name="password_confirmation" required minlength="8" autocomplete="new-password">
+            </div>
+
+            <div class="settings-form__foot">
+                <button class="loadout-button" type="submit">Save password</button>
+            </div>
+        </form>
+    </x-auth-card>
 @endsection
