@@ -64,53 +64,57 @@
                 </dl>
 
                 <div class="loadout-hero__actions">
-                    <a class="loadout-button" href="{{ route('build.show', $loadout->id) }}">Use this build</a>
-                    {{-- The share sheet where the device has one (phones), otherwise copy the link. --}}
-                    <button type="button" class="loadout-button is-secondary loadout-share"
-                            data-share-url="{{ route('preview.show', $loadout->id) }}"
-                            x-data="{
-                                copied: false,
-                                async share() {
-                                    const url = this.$el.dataset.shareUrl;
-                                    if (navigator.share) {
-                                        try { await navigator.share({ title: @js($loadout->name), url }); return; }
-                                        catch (e) { if (e.name === 'AbortError') { return; } }
-                                    }
-                                    try {
-                                        await navigator.clipboard.writeText(url);
-                                        this.copied = true;
-                                        setTimeout(() => this.copied = false, 2000);
-                                    } catch (e) {
-                                        window.prompt('Copy this link', url);
-                                    }
-                                },
-                            }"
-                            x-on:click="share()">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"/></svg>
-                        <span x-text="copied ? 'Link copied' : 'Share'">Share</span>
-                    </button>
-                    @can('update', $loadout)
-                        <a class="loadout-button is-secondary" href="/build/{{ $loadout->id }}">Edit</a>
-                    @endcan
-                    @auth
-                        <form action="{{ route('loadout.vote', $loadout) }}" method="post">
-                            @csrf
-                            <button class="loadout-chip" type="submit" aria-pressed="{{ $hasVoted ? 'true' : 'false' }}">
-                                <span aria-hidden="true">⬡</span> {{ $hasVoted ? 'Saluted' : 'Salute' }} · {{ $voteCount }}
-                            </button>
-                        </form>
-                        <form action="{{ route('loadout.favorite', $loadout->id) }}" method="post">
-                            @csrf
-                            <button class="loadout-chip is-favorite" type="submit" aria-pressed="{{ $loadout->isFavorited() ? 'true' : 'false' }}">
-                                <svg class="loadout-heart" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M12 20.5s-7.5-4.6-9.4-9.3C1.3 7.9 3.4 4.5 6.9 4.5c2.1 0 3.9 1.2 5.1 3 1.2-1.8 3-3 5.1-3 3.5 0 5.6 3.4 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3z"/>
-                                </svg>
-                                {{ $loadout->isFavorited() ? 'Favorited' : 'Favorite' }}
-                            </button>
-                        </form>
-                    @else
-                        <span class="loadout-chip is-static"><span aria-hidden="true">⬡</span> Salutes · {{ $voteCount }}</span>
-                    @endauth
+                    <div class="loadout-hero__buttons">
+                        <a class="loadout-button" href="{{ route('build.show', $loadout->id) }}">Use this build</a>
+                        {{-- The share sheet where the device has one (phones), otherwise copy the link. --}}
+                        <button type="button" class="loadout-button is-secondary loadout-share"
+                                data-share-url="{{ route('preview.show', $loadout->id) }}"
+                                x-data="{
+                                    copied: false,
+                                    async share() {
+                                        const url = this.$el.dataset.shareUrl;
+                                        if (navigator.share) {
+                                            try { await navigator.share({ title: @js($loadout->name), url }); return; }
+                                            catch (e) { if (e.name === 'AbortError') { return; } }
+                                        }
+                                        try {
+                                            await navigator.clipboard.writeText(url);
+                                            this.copied = true;
+                                            setTimeout(() => this.copied = false, 2000);
+                                        } catch (e) {
+                                            window.prompt('Copy this link', url);
+                                        }
+                                    },
+                                }"
+                                x-on:click="share()">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"/></svg>
+                            <span x-text="copied ? 'Link copied' : 'Share'">Share</span>
+                        </button>
+                        @can('update', $loadout)
+                            <a class="loadout-button is-secondary" href="/build/{{ $loadout->id }}">Edit</a>
+                        @endcan
+                    </div>
+                    <div class="loadout-hero__chips">
+                        @auth
+                            <form action="{{ route('loadout.vote', $loadout) }}" method="post">
+                                @csrf
+                                <button class="loadout-chip" type="submit" aria-pressed="{{ $hasVoted ? 'true' : 'false' }}">
+                                    <span aria-hidden="true">⬡</span> {{ $hasVoted ? 'Saluted' : 'Salute' }} · {{ $voteCount }}
+                                </button>
+                            </form>
+                            <form action="{{ route('loadout.favorite', $loadout->id) }}" method="post">
+                                @csrf
+                                <button class="loadout-chip is-favorite" type="submit" aria-pressed="{{ $loadout->isFavorited() ? 'true' : 'false' }}">
+                                    <svg class="loadout-heart" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M12 20.5s-7.5-4.6-9.4-9.3C1.3 7.9 3.4 4.5 6.9 4.5c2.1 0 3.9 1.2 5.1 3 1.2-1.8 3-3 5.1-3 3.5 0 5.6 3.4 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3z"/>
+                                    </svg>
+                                    {{ $loadout->isFavorited() ? 'Favorited' : 'Favorite' }}
+                                </button>
+                            </form>
+                        @else
+                            <span class="loadout-chip is-static"><span aria-hidden="true">⬡</span> Salutes · {{ $voteCount }}</span>
+                        @endauth
+                    </div>
                 </div>
             </div>
         </header>

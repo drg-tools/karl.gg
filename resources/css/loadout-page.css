@@ -154,6 +154,11 @@
         margin: 0;
     }
 }
+/* One row on wide screens; on phones the buttons and the chips each get a row of their own. */
+.loadout-hero__buttons,
+.loadout-hero__chips {
+    display: contents;
+}
 .loadout-button {
     display: inline-flex;
     align-items: center;
@@ -374,6 +379,32 @@
     .loadout-hero {
         min-height: 0;
         padding: 24px 20px;
+    }
+    .loadout-hero__buttons,
+    .loadout-hero__chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+    .loadout-hero__buttons .loadout-button {
+        justify-content: center;
+    }
+    .loadout-hero__buttons > .loadout-button:first-child {
+        flex: 1;
+    }
+    /* Owners also get Edit, and three labelled buttons don't fit a phone row, so Share keeps just its icon. */
+    .loadout-hero__buttons:has(> :nth-child(3)) .loadout-share {
+        padding-inline: 14px;
+
+        span {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+        }
     }
     .loadout-hero__art {
         width: 60%;
