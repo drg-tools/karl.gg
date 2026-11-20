@@ -58,8 +58,8 @@
                     <dd>{{ number_format($stats['currentPatch']) }}</dd>
                 </div>
                 <div>
-                    <dt>Member since</dt>
-                    <dd>{{ $user->created_at?->format('M Y') ?? '—' }}</dd>
+                    <dt>Main class</dt>
+                    <dd @if ($mainClass) style="color: {{ $accents[$mainClass] ?? 'inherit' }}" @endif>{{ $mainClass ?? '—' }}</dd>
                 </div>
             </dl>
         </header>

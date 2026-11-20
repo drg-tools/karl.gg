@@ -84,12 +84,16 @@ class ProfileController extends Controller
                 : (clone $profileLoadouts)->where('patch_id', $currentPatchId)->count(),
         ];
 
+        $mainClassId = $classCounts->sortDesc()->keys()->first();
+        $mainClass = $mainClassId === null ? null : Character::whereKey($mainClassId)->value('name');
+
         $this->generateSeo($user, $stats, $loadouts->currentPage());
 
         return view('profile.show', [
             'user' => $user,
             'isOwner' => $isOwner,
             'stats' => $stats,
+            'mainClass' => $mainClass,
             'loadouts' => $loadouts,
             'topLoadouts' => $topLoadouts,
             'classTabs' => $this->classTabs($classCounts),

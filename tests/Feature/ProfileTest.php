@@ -92,6 +92,30 @@ class ProfileTest extends TestCase
         $this->assertSame($baseline, $queriesFor());
     }
 
+    public function test_profile_shows_the_class_the_miner_builds_most(): void
+    {
+        $user = User::factory()->create(['name' => 'Molly']);
+        $scout = Character::factory()->create(['name' => 'Scout']);
+        $driller = Character::factory()->create(['name' => 'Driller']);
+        Loadout::factory()->create(['user_id' => $user->id, 'character_id' => $scout->id]);
+        Loadout::factory()->count(2)->create(['user_id' => $user->id, 'character_id' => $driller->id]);
+
+        $response = $this->get(route('user.profile', $user->id));
+
+        $response->assertOk()
+            ->assertSeeInOrder(['Main class', 'Driller', 'Builds by Molly']);
+    }
+
+    public function test_profile_without_loadouts_has_no_main_class(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->get(route('user.profile', $user->id));
+
+        $response->assertOk()
+            ->assertSeeInOrder(['Main class', '—']);
+    }
+
     public function test_loadouts_can_be_filtered_by_class_and_sorted(): void
     {
         $user = User::factory()->create();
