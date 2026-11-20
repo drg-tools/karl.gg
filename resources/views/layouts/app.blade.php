@@ -33,6 +33,14 @@
     @if (config('app.enable_ads'))
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('app.adsense_client') }}"
                 crossorigin="anonymous"></script>
+        {{-- Keep the Auto ads anchor at the bottom; a top anchor covers the nav on phones. --}}
+        <script>
+            (window.adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: @js(config('app.adsense_client')),
+                enable_page_level_ads: true,
+                overlays: { bottom: true },
+            });
+        </script>
     @endif
 </head>
 <body>
