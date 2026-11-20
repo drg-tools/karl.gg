@@ -1,5 +1,5 @@
 <template>
-    <div class="credits-calculator">
+    <div v-if="hasCost" class="credits-calculator">
         <span class="text-white text-lg block my-2">Total Costs:</span>
         <p class="costList flex flex-wrap">
             <span
@@ -107,6 +107,18 @@ export default {
         }
     },
     computed: {
+        /** Hide the whole block, label included, until something costs resources. */
+        hasCost() {
+            return [
+                this.creditsCost,
+                this.bismorCost,
+                this.croppaCost,
+                this.enorCost,
+                this.jadizCost,
+                this.magniteCost,
+                this.umaniteCost,
+            ].some((cost) => cost > 0);
+        },
         umaniteCost() {
             return this.computeCost('umanite_cost');
         },
