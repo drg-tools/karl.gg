@@ -163,7 +163,7 @@
 }
 .pickrates-row {
     display: grid;
-    grid-template-columns: 34px 44px minmax(0, 1.3fr) minmax(80px, 1fr) 88px 104px;
+    grid-template-columns: 34px var(--icon-col, 44px) minmax(0, 1.3fr) minmax(80px, 1fr) 88px 104px;
     align-items: center;
     gap: 16px;
     padding: 12px 18px 12px 14px;
@@ -176,8 +176,12 @@
         background: var(--panel-2);
     }
     .has-comparison & {
-        grid-template-columns: 34px 44px minmax(0, 1.3fr) minmax(80px, 1fr) 88px 84px 104px;
+        grid-template-columns: 34px var(--icon-col, 44px) minmax(0, 1.3fr) minmax(80px, 1fr) 88px 84px 104px;
     }
+}
+.pickrates-row:has(.is-weapon) {
+    --icon-col: 96px;
+    --icon-col-sm: 72px;
 }
 .pickrates-row__rank {
     font: 400 24px/1 var(--display);
@@ -187,7 +191,7 @@
 .pickrates-row__icon {
     display: grid;
     place-items: center;
-    width: 44px;
+    width: var(--icon-col, 44px);
     height: 44px;
     background: var(--bg);
     border: 1px solid var(--line);
@@ -198,6 +202,14 @@
         object-fit: contain;
         filter: invert(1);
         opacity: 0.8;
+    }
+    /* Weapon silhouettes are wide, so give them a wide slot to read at a glance. */
+    &.is-weapon {
+        img {
+            max-width: calc(100% - 12px);
+            max-height: 34px;
+            opacity: 0.9;
+        }
     }
     &.is-portrait {
         background: none;
@@ -305,14 +317,14 @@ a.pickrates-row__name:hover {
 @media (max-width: 1023px) {
     .pickrates-row,
     .has-comparison .pickrates-row {
-        grid-template-columns: 26px 40px minmax(0, 1fr) auto auto;
+        grid-template-columns: 26px var(--icon-col-sm, 40px) minmax(0, 1fr) auto auto;
         grid-template-areas:
             "rank icon copy rate delta"
             "rank icon meter meter builds";
         row-gap: 8px;
     }
     .pickrates-row__rank { grid-area: rank; }
-    .pickrates-row__icon { grid-area: icon; width: 40px; height: 40px; }
+    .pickrates-row__icon { grid-area: icon; width: var(--icon-col-sm, 40px); height: 40px; }
     .pickrates-row__copy { grid-area: copy; }
     .pickrates-row__meter { grid-area: meter; }
     .pickrates-row__rate { grid-area: rate; }

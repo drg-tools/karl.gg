@@ -142,7 +142,7 @@
                         <li class="pickrates-row" style="--class-accent: {{ $accents[$className] ?? '#fc9e00' }}">
                             <span class="pickrates-row__rank" aria-hidden="true">{{ $rankOffset + $loop->iteration }}</span>
 
-                            <span @class(['pickrates-row__icon', 'is-portrait' => $type === 'classes'])>
+                            <span @class(['pickrates-row__icon', 'is-portrait' => $type === 'classes', 'is-weapon' => $type === 'guns'])>
                                 @switch($type)
                                     @case('classes')
                                         <img src="{{ $entity->potrait }}" alt="">
