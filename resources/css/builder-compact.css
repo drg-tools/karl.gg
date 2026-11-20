@@ -311,7 +311,7 @@
         display: none;
         width: 240px;
         padding: 8px 10px;
-        transform: translateX(-50%);
+        transform: translateX(calc(-50% + var(--tip-shift, 0px)));
         border: 1px solid var(--line-2);
         border-top: 2px solid var(--amber);
         border-radius: 6px;

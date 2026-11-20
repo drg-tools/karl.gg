@@ -19,6 +19,8 @@
                 :aria-pressed="selected.includes(mod.id)"
                 :aria-label="`Tier ${tier} ${mod.mod_index}: ${mod.mod_name}`"
                 @click="$emit('select', mod)"
+                @mouseenter="keepTipOnScreen"
+                @focus="keepTipOnScreen"
             >
                 <span class="compact-hex" aria-hidden="true"
                     ><img
@@ -44,6 +46,7 @@
 
 <script setup>
 import { computed } from "vue";
+import { keepTipOnScreen } from "../compactTip.js";
 
 const props = defineProps({
     mods: { type: Array, default: () => [] },

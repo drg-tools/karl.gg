@@ -19,6 +19,8 @@
                     :aria-pressed="selected?.id === item.id"
                     :aria-label="`Overclock: ${item.overclock_name} (${item.overclock_type})`"
                     @click="toggle(item.id)"
+                    @mouseenter="keepTipOnScreen"
+                    @focus="keepTipOnScreen"
                 >
                     <span class="compact-octagon" aria-hidden="true"
                         ><img
@@ -48,6 +50,8 @@
 </template>
 
 <script setup>
+import { keepTipOnScreen } from "../compactTip.js";
+
 const props = defineProps({
     overclocks: { type: Array, default: () => [] },
     selected: { type: Object, default: null },
