@@ -1,0 +1,152 @@
+/*
+ * Advanced weapon statistics (asv/show). Built on the loadout page tokens in
+ * loadout-page.css; the header and notice come from browse.css and
+ * loadout-page.css. Also styles the equipment-component mod matrix.
+ */
+.asv-combo {
+    padding: 1px 6px;
+    font: 500 13px var(--mono);
+    color: var(--amber-2);
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+}
+
+.asv .loadout-notice a {
+    color: var(--amber);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+        color: var(--amber-2);
+    }
+}
+
+.asv-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+}
+
+.asv-build {
+    position: sticky;
+    top: 16px;
+    display: grid;
+    justify-items: center;
+    padding-block: 28px;
+    border-top: 2px solid var(--amber);
+}
+
+.asv-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    align-items: start;
+    gap: 12px;
+}
+.asv-metric-group {
+    display: grid;
+    gap: 12px;
+
+    h2 {
+        margin: 0;
+        font: 400 26px/1 var(--display);
+        letter-spacing: 0.01em;
+    }
+    dl {
+        margin: 0;
+    }
+}
+.asv-metric {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 7px 0;
+    border-top: 1px solid var(--hair);
+
+    &:first-child {
+        border-top: 0;
+    }
+    dt {
+        color: var(--ink-2);
+    }
+    dd {
+        margin: 0;
+        font: 500 13px var(--mono);
+        font-variant-numeric: tabular-nums;
+        color: var(--ink);
+        white-space: nowrap;
+    }
+    dd.is-muted {
+        color: var(--faint);
+    }
+}
+
+/* ---------- equipment-component ---------- */
+.asvEquipmentCardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12rem;
+}
+.flexboxWeaponSelect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+}
+.asvIcon {
+    width: 180px;
+    fill: var(--ink-2);
+}
+.asvModMatrixContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.25rem;
+}
+.asvModMatrixRow {
+    display: flex;
+    width: 7.5rem;
+    height: 1.25rem;
+    margin-bottom: 0.4rem;
+}
+.asvMod {
+    display: flex;
+    justify-content: space-between;
+    width: 2.5rem;
+    height: 100%;
+}
+.asvModActive,
+.asvModInactive {
+    stroke: var(--amber);
+    stroke-width: 5px;
+}
+.asvModActive {
+    fill: var(--amber);
+}
+.asvModInactive {
+    fill: transparent;
+    stroke: var(--line-2);
+}
+.overclockContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0.75rem;
+}
+.overclockName {
+    margin: 0;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+@media (max-width: 900px) {
+    .asv-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .asv-build {
+        position: static;
+    }
+}

@@ -94,7 +94,7 @@
                         </g>
                     </svg>
                 @endif
-                <h3 class="overclockName">{{ $overclock['overclock_name'] }}</h3>
+                <p class="overclockName">{{ $overclock['overclock_name'] }}</p>
             </div><!-- end overclock container -->
         @endif
 

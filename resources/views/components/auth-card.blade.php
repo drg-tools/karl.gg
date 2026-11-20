@@ -1,9 +1,9 @@
 @props(['eyebrow', 'title', 'lede' => null])
 
 {{--
-    Narrow centred panel shared by the sign-in, registration and password
-    pages. The default slot holds the form; the optional `footer` slot holds
-    the "switch to another auth page" line below the panel.
+    Narrow centred panel shared by the sign-in, registration, password and
+    unsubscribe pages. The default slot holds the form or actions; the
+    optional `footer` slot holds the line below the panel.
 --}}
 <div class="loadout-page auth">
     <section {{ $attributes->class('loadout-panel auth-card') }} aria-labelledby="auth-title">

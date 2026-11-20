@@ -17,6 +17,8 @@
 @import './profile.css';
 @import './legal.css';
 @import './auth.css';
+@import './errors.css';
+@import './asv.css';
 @import './comments.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

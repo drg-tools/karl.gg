@@ -1,0 +1,80 @@
+/*
+ * Error pages (404, 500, ...). Built on the loadout page tokens in
+ * loadout-page.css; the hero echoes the loadout hero's clipped corner.
+ */
+.error-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+    overflow: hidden;
+    padding: 40px 44px;
+    background: linear-gradient(105deg, var(--bg) 40%, color-mix(in srgb, var(--amber) 10%, var(--bg)) 100%);
+    border: 1px solid var(--hair);
+    border-bottom: 3px solid var(--amber);
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+.error-hero__copy {
+    display: grid;
+    justify-items: start;
+    gap: 10px;
+}
+.error-hero__code {
+    margin: 4px 0 0;
+    font: 400 132px/0.8 var(--display);
+    letter-spacing: 0.01em;
+    color: var(--amber);
+}
+.error-hero__title {
+    margin: 8px 0 0;
+    font: 400 44px/0.95 var(--display);
+    letter-spacing: 0.005em;
+}
+.error-hero__lede {
+    margin: 0;
+    max-width: 52ch;
+    font-size: 15px;
+    color: var(--ink-2);
+}
+.error-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+    margin-top: 14px;
+
+    form {
+        margin: 0;
+    }
+    button.browse-clear {
+        cursor: pointer;
+    }
+}
+.error-hero__art img {
+    display: block;
+    width: 260px;
+    height: auto;
+}
+
+@media (max-width: 760px) {
+    .error-hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 28px 20px;
+    }
+    .error-hero__code {
+        font-size: 96px;
+    }
+    .error-hero__title {
+        font-size: 34px;
+    }
+    .error-hero__art {
+        position: absolute;
+        right: -24px;
+        top: 12px;
+        opacity: 0.35;
+    }
+    .error-hero__art img {
+        width: 150px;
+    }
+}

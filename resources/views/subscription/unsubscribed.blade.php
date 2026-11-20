@@ -1,12 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-xl p-8 text-center bg-gray-700 text-gray-300 sm:rounded-sm">
-
-        <h1 class="text-white mb-4">Unsubscribe Successful</h1>
-
-        <p>Management will no longer send you company emails.</p>
-
-        <p>Rock and stone!</p>
-    </div>
+    <x-auth-card eyebrow="Email preferences" title="You're unsubscribed" lede="Management will no longer send you company emails. Rock and stone!">
+        <div class="settings-form__foot">
+            <a class="loadout-button" href="{{ url('/') }}">Back to the dashboard</a>
+        </div>
+    </x-auth-card>
 @endsection
