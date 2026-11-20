@@ -6,9 +6,11 @@ use App\Character;
 use App\Gun;
 use App\Loadout;
 use App\Mod;
+use App\Patch;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
 class BrowseLoadoutsTest extends TestCase
@@ -52,6 +54,60 @@ class BrowseLoadoutsTest extends TestCase
             ->assertSee('<meta name="twitter:site" content="@DrgTools">', false)
             ->assertSee('<meta name="twitter:title" content="Deep Rock Galactic Loadouts">', false)
             ->assertSee('<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Deep Rock Galactic Loadouts","description":"Best builds for the best game. Your go to partner for Deep Rock Galactic builds and content."}</script>', false);
+    }
+
+    #[TestWith(['/browse', 8])]
+    #[TestWith(['/browse?isCurrentPatch=1', 1])]
+    public function test_browse_shows_current_patch_loadouts(string $url, int $daysSinceLaunch): void
+    {
+        $character = Character::factory()->create();
+        $previous = Patch::factory()->create(['launched_at' => now()->subMonth()]);
+        Loadout::factory()->for($character)->for($previous)->create(['name' => 'Previous Patch Build']);
+        Patch::factory()->create(['launched_at' => now()->subDays($daysSinceLaunch)]);
+        Loadout::factory()->for($character)->create(['name' => 'Current Patch Build']);
+
+        $this->get($url)
+            ->assertOk()
+            ->assertSee('Current Patch Build')
+            ->assertDontSee('Previous Patch Build')
+            ->assertSee('1 loadout')
+            ->assertSeeHtml('<input type="radio" name="isCurrentPatch" value="1" checked>');
+    }
+
+    public function test_browse_defaults_to_all_patches_at_seven_days_after_launch(): void
+    {
+        $this->freezeSecond();
+        $character = Character::factory()->create();
+        Patch::factory()->create(['launched_at' => now()->subMonth()]);
+        Loadout::factory()->for($character)->create(['name' => 'Previous Patch Build']);
+        Patch::factory()->create(['launched_at' => now()->subDays(7)]);
+        Loadout::factory()->for($character)->create(['name' => 'Current Patch Build']);
+
+        $this->get('/browse')
+            ->assertOk()
+            ->assertSee('Current Patch Build')
+            ->assertSee('Previous Patch Build')
+            ->assertSee('2 loadouts')
+            ->assertSeeHtml('<input type="radio" name="isCurrentPatch" value="0" checked>')
+            ->assertSeeHtml('data-state="{&quot;sort&quot;:&quot;updated&quot;,&quot;isCurrentPatch&quot;:0}"');
+    }
+
+    public function test_all_patches_selection_survives_live_pagination(): void
+    {
+        $character = Character::factory()->create();
+        $previous = Patch::factory()->create(['launched_at' => now()->subMonth()]);
+        Loadout::factory()->for($character)->for($previous)->create(['name' => 'Previous Patch Build', 'created_at' => now()->subWeek()]);
+        $current = Patch::factory()->create(['launched_at' => now()->subDays(8)]);
+        Loadout::factory()->for($character)->for($current)->count(20)->create(['created_at' => now()]);
+
+        $this->get('/browse?isCurrentPatch=0&sort=newest&page=2', ['X-Requested-With' => 'XMLHttpRequest'])
+            ->assertOk()
+            ->assertSee('Previous Patch Build')
+            ->assertSee('21 loadouts · page 2 of 2')
+            ->assertSee('Remove filter: All patches')
+            ->assertSeeHtml(e(route('loadout.index', ['sort' => 'newest'])).'" data-browse-link aria-label="Remove filter: All patches"')
+            ->assertSeeHtml(e(route('loadout.index', ['isCurrentPatch' => 0, 'sort' => 'newest', 'page' => 1])))
+            ->assertSeeHtml('data-state="{&quot;isCurrentPatch&quot;:0,&quot;sort&quot;:&quot;newest&quot;}"');
     }
 
     public function test_legacy_class_array_params_still_filter(): void

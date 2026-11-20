@@ -45,11 +45,9 @@ class LoadoutBrowseQuery
     /**
      * @param  array{characters?: list<int>, primaries?: list<int>, secondaries?: list<int>, overclocks?: list<int>, mods?: list<int>, throwables?: list<int>, search?: string, hasOverclock?: string, hasGuide?: string, isCurrentPatch?: int, favorites?: int}  $filters
      */
-    public function __construct(public array $filters, public string $sort = self::DEFAULT_SORT)
-    {
-    }
+    public function __construct(public array $filters, public string $sort = self::DEFAULT_SORT) {}
 
-    public static function fromRequest(Request $request): self
+    public static function fromRequest(Request $request, int $defaultPatchScope): self
     {
         $filters = [];
 
@@ -84,10 +82,13 @@ class LoadoutBrowseQuery
             }
         }
 
-        foreach (['isCurrentPatch', 'favorites'] as $key) {
-            if ($request->filled($key) && $request->query($key) !== '0') {
-                $filters[$key] = 1;
-            }
+        $patchScope = $request->query('isCurrentPatch');
+        if (in_array($patchScope, ['0', '1'], true) && (int) $patchScope !== $defaultPatchScope) {
+            $filters['isCurrentPatch'] = (int) $patchScope;
+        }
+
+        if ($request->filled('favorites') && $request->query('favorites') !== '0') {
+            $filters['favorites'] = 1;
         }
 
         return new self($filters, self::resolveSort($request));

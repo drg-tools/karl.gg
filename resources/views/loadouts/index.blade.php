@@ -87,18 +87,26 @@
                             </fieldset>
                         @endforeach
 
-                        <div class="browse-checks">
-                            <label class="browse-check">
-                                <input type="checkbox" name="isCurrentPatch" value="1" @checked($browse->has('isCurrentPatch'))>
-                                <span>Current patch only</span>
-                            </label>
-                            @if (auth()->check() || $browse->has('favorites'))
+                        <fieldset class="browse-segment">
+                            <legend class="browse-label">Patch</legend>
+                            <div class="browse-segment__options grid-cols-2!">
+                                @foreach ([1 => 'Current patch', 0 => 'All patches'] as $value => $label)
+                                    <label>
+                                        <input type="radio" name="isCurrentPatch" value="{{ $value }}" @checked($patchScope === $value)>
+                                        <span>{{ $label }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </fieldset>
+
+                        @if (auth()->check() || $browse->has('favorites'))
+                            <div class="browse-checks">
                                 <label class="browse-check">
                                     <input type="checkbox" name="favorites" value="1" @checked($browse->has('favorites'))>
                                     <span>My favorites</span>
                                 </label>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
 
                         <div class="browse-filters__foot">
                             <button class="loadout-button browse-apply" type="submit">Apply filters</button>

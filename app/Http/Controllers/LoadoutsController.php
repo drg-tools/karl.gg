@@ -11,10 +11,12 @@ use App\Overclock;
 use App\Patch;
 use App\Throwable;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection as SupportCollection;
 use Str;
 
@@ -36,10 +38,17 @@ class LoadoutsController extends Controller
     {
         SEOTools::setTitle('Deep Rock Galactic Loadouts');
 
-        $browse = LoadoutBrowseQuery::fromRequest($request);
+        $currentPatch = Patch::current();
+        $currentPatchId = $currentPatch?->id;
+        $now = now();
+        $recentLaunch = $currentPatch?->launched_at?->betweenIncluded($now->copy()->subDays(7), $now) ?? false;
+        $defaultPatchScope = $currentPatchId !== null && ! $recentLaunch ? 1 : 0;
+        $browse = LoadoutBrowseQuery::fromRequest($request, $defaultPatchScope);
+        $patchScope = $browse->filters['isCurrentPatch'] ?? $defaultPatchScope;
 
         $loadouts = $browse->applySort(
-            Loadout::listed()->filter($browse->filters)
+            Loadout::listed()->filter(Arr::except($browse->filters, 'isCurrentPatch'))
+                ->when($currentPatchId !== null && $patchScope === 1, fn (Builder $query): Builder => $query->where('loadouts.patch_id', $currentPatchId))
                 ->select(['loadouts.id', 'loadouts.name', 'user_id', 'character_id', 'patch_id', 'throwable_id', 'loadouts.created_at', 'loadouts.updated_at'])
                 ->with('mods.gun', 'overclocks.gun', 'character', 'creator', 'patch')
                 ->withSum('votes', 'value')
@@ -53,7 +62,8 @@ class LoadoutsController extends Controller
             'browse' => $browse,
             'loadouts' => $loadouts,
             'activeFilters' => $this->activeFilters($browse, $catalog),
-            'currentPatchId' => Patch::current()?->id,
+            'currentPatchId' => $currentPatchId,
+            'patchScope' => $patchScope,
         ];
 
         // Live filtering swaps in just the results fragment.
@@ -252,7 +262,7 @@ class LoadoutsController extends Controller
         $toggles = [
             'hasOverclock' => ['Yes' => 'Has overclock', 'No' => 'No overclock'],
             'hasGuide' => ['Yes' => 'Has guide', 'No' => 'No guide'],
-            'isCurrentPatch' => [1 => 'Current patch'],
+            'isCurrentPatch' => [0 => 'All patches', 1 => 'Current patch'],
             'favorites' => [1 => 'My favorites'],
         ];
 

@@ -4,7 +4,7 @@
         .($loadouts->lastPage() > 1 ? ' · page '.$loadouts->currentPage().' of '.number_format($loadouts->lastPage()) : '');
 @endphp
 
-<div class="browse-fragment" data-browse-fragment data-summary="{{ $summary }}" data-total="{{ number_format($total) }}" data-filter-count="{{ count($activeFilters) }}" data-state="{{ json_encode($browse->query() + ['sort' => $browse->sort]) }}">
+<div class="browse-fragment" data-browse-fragment data-summary="{{ $summary }}" data-total="{{ number_format($total) }}" data-filter-count="{{ count($activeFilters) }}" data-state="{{ json_encode($browse->query() + ['sort' => $browse->sort, 'isCurrentPatch' => $patchScope]) }}">
     @if ($activeFilters !== [])
         <ul class="browse-chips" aria-label="Active filters">
             @foreach ($activeFilters as $filter)

@@ -89,7 +89,7 @@ export function initBrowse(root) {
             } else if (element.type === 'radio') {
                 element.checked = String(value ?? '') === element.value;
             } else if (element.type === 'checkbox') {
-                element.checked = Boolean(value);
+                element.checked = String(value ?? '') === element.value;
             } else if (element === sortSelect) {
                 element.value = value || DEFAULT_SORT;
             } else if (element === searchInput) {

@@ -127,14 +127,14 @@ class FilamentAdminTest extends TestCase
             'patch_id' => $loadout->patch_id,
             'updated_at' => $loadout->getRawOriginal('updated_at'),
         ]);
-        $this->get('/browse')->assertOk()->assertDontSee($loadout->name);
+        $this->get('/browse?isCurrentPatch=0')->assertOk()->assertDontSee($loadout->name);
 
         Livewire::test(ManageLoadout::class)
             ->callTableAction('restoreListing', $loadout)
             ->assertHasNoTableActionErrors();
 
         $this->assertDatabaseHas('loadouts', ['id' => $loadout->id, 'is_hidden' => false]);
-        $this->get('/browse')->assertOk()->assertSee($loadout->name);
+        $this->get('/browse?isCurrentPatch=0')->assertOk()->assertSee($loadout->name);
     }
 
     public function test_loadouts_admin_can_show_every_optional_column(): void
