@@ -33,29 +33,11 @@ class DeleteAccount
             Favorite::where('user_id', $user->id)->delete();
             Rating::where('model_type', $user->getMorphClass())->where('model_id', $user->id)->delete();
 
-            $this->deleteRetiredOAuthData($user);
             DB::table('sessions')->where('user_id', $user->id)->delete();
 
             $user->roles()->detach();
             $user->permissions()->detach();
             $user->forceDelete();
         });
-    }
-
-    /**
-     * OAuth is retired, but its tables still hold tokens issued to the user.
-     */
-    private function deleteRetiredOAuthData(User $user): void
-    {
-        $accessTokenIds = DB::table('oauth_access_tokens')->where('user_id', $user->id)->pluck('id');
-
-        DB::table('oauth_refresh_tokens')->whereIn('access_token_id', $accessTokenIds)->delete();
-        DB::table('oauth_access_tokens')->where('user_id', $user->id)->delete();
-        DB::table('oauth_auth_codes')->where('user_id', $user->id)->delete();
-        DB::table('oauth_device_codes')->where('user_id', $user->id)->delete();
-        DB::table('oauth_clients')
-            ->where('owner_type', $user->getMorphClass())
-            ->where('owner_id', $user->id)
-            ->delete();
     }
 }
