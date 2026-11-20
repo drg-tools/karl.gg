@@ -13,7 +13,7 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        $tableName = config('comments.table_names.comments');
+        $tableName = 'comments';
 
         Schema::create($tableName, function (Blueprint $table) use ($tableName) {
             $table->bigIncrements('id');
@@ -35,14 +35,14 @@ class CreateCommentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('root_id')
-                    ->references('id')
-                    ->on($tableName)
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on($tableName)
+                ->onDelete('cascade');
 
             $table->foreign('parent_id')
-                    ->references('id')
-                    ->on($tableName)
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on($tableName)
+                ->onDelete('cascade');
         });
     }
 
@@ -53,6 +53,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('comments.table_names.comments'));
+        Schema::dropIfExists('comments');
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b73503678780c252e8558e3d6a7501c",
+    "content-hash": "2799c7c81d621d548011b5dc3b7a1a05",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2143,60 +2143,6 @@
             "published-time": "2025-12-03T09:37:01+00:00"
         },
         {
-            "name": "google/recaptcha",
-            "version": "1.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/google/recaptcha.git",
-                "reference": "ee4352ff2fe5ee23f2a8fbd165375dab3a1bad17"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/google/recaptcha/zipball/ee4352ff2fe5ee23f2a8fbd165375dab3a1bad17",
-                "reference": "ee4352ff2fe5ee23f2a8fbd165375dab3a1bad17",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.4"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.95",
-                "php-coveralls/php-coveralls": "^2.9.1",
-                "phpstan/phpstan": "^2.1.51",
-                "phpunit/phpunit": "^13.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.5.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ReCaptcha\\": "src/ReCaptcha"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Client library for reCAPTCHA, a free service that protects websites from spam and abuse.",
-            "homepage": "https://www.google.com/recaptcha/",
-            "keywords": [
-                "Abuse",
-                "captcha",
-                "recaptcha",
-                "spam"
-            ],
-            "support": {
-                "forum": "https://groups.google.com/forum/#!forum/recaptcha",
-                "issues": "https://github.com/google/recaptcha/issues",
-                "source": "https://github.com/google/recaptcha"
-            },
-            "time": "2026-09-22T09:50:41+00:00",
-            "published-time": "2026-09-22T09:55:31+00:00"
-        },
-        {
             "name": "graham-campbell/result-type",
             "version": "v1.2.0",
             "source": {
@@ -2679,61 +2625,6 @@
             ],
             "time": "2026-08-24T17:13:02+00:00",
             "published-time": "2026-08-24T17:13:22+00:00"
-        },
-        {
-            "name": "hazzard/laravel-comments",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "./packages/laravel-comments",
-                "reference": "09292580aae4d2be4d1524a12d3274b669981e5d"
-            },
-            "require": {
-                "google/recaptcha": "^1.2",
-                "guzzlehttp/guzzle": "^6.3|^7.0",
-                "laravel/framework": "^12.0|^13.0",
-                "php": "^7.2.5|^8.0",
-                "s9e/text-formatter": "^0.9.1"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.3|^1.4",
-                "orchestra/testbench": "^4.16",
-                "phpunit/phpunit": "^7.5|^8.4|^9.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Hazzard\\Comments\\CommentsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hazzard\\Comments\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Hazzard\\Comments\\Tests\\": "tests"
-                }
-            },
-            "authors": [
-                {
-                    "name": "Cretu Eusebiu",
-                    "email": "hazzardweb@gmail.com",
-                    "homepage": "https://hazzardweb.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Comment system for Laravel.",
-            "homepage": "https://codecanyon.net/item/ajax-comment-system-for-laravel/12660889",
-            "support": {
-                "email": "hazzardweb@gmail.com"
-            },
-            "transport-options": {
-                "relative": true
-            }
         },
         {
             "name": "kirschbaum-development/eloquent-power-joins",
@@ -13509,9 +13400,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "hazzard/laravel-comments": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

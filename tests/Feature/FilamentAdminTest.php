@@ -3,8 +3,11 @@
 namespace Tests\Feature;
 
 use App\Character;
+use App\Comment;
 use App\Filament\Resources\CharacterResource;
 use App\Filament\Resources\CharacterResource\Pages\ManageCharacter;
+use App\Filament\Resources\CommentResource;
+use App\Filament\Resources\CommentResource\Pages\ManageComment;
 use App\Filament\Resources\LoadoutResource;
 use App\Filament\Resources\LoadoutResource\Pages\ManageLoadout;
 use App\Filament\Resources\PostResource;
@@ -26,7 +29,7 @@ class FilamentAdminTest extends TestCase
     {
         parent::setUp();
         Filament::setCurrentPanel(Filament::getPanel('admin'));
-        foreach (['view-admin', 'manage-stats', 'manage-posts', 'manage-users'] as $name) {
+        foreach (['view-admin', 'manage-stats', 'manage-posts', 'manage-users', 'manage-comments'] as $name) {
             Permission::findOrCreate($name, 'backpack');
         }
     }
@@ -145,27 +148,92 @@ class FilamentAdminTest extends TestCase
             ->create();
     }
 
-    public function test_comments_managers_see_the_comment_dashboard_link(): void
+    public function test_comment_moderators_can_approve_and_filter_comments_by_status(): void
     {
-        Permission::findOrCreate('manage-comments', 'backpack');
         $this->manager(['view-admin', 'manage-comments']);
+        $reporter = User::factory()->create();
+        $pending = Comment::factory()->create(['page_id' => 'loadout-7', 'status' => Comment::STATUS_PENDING]);
+        $approved = Comment::factory()->create(['page_id' => 'loadout-7']);
 
-        $this->get('/admin')->assertOk()
-            ->assertSee('Comment Dashboard')
-            ->assertSee(route('comments.dashboard'));
+        $pending->reports()->create(['user_id' => $reporter->id]);
+
+        $this->get(CommentResource::getUrl())->assertOk()
+            ->assertSee('href="'.url('/preview/7').'#!comment='.$pending->id.'"', false);
+
+        Livewire::test(ManageComment::class)
+            ->set('activeTab', Comment::STATUS_PENDING)
+            ->assertCanSeeTableRecords([$pending])
+            ->assertCanNotSeeTableRecords([$approved])
+            ->callTableAction('approve', $pending);
+
+        $this->assertSame(Comment::STATUS_APPROVED, $pending->fresh()->status);
+        $this->assertDatabaseMissing('comment_reports', ['comment_id' => $pending->id]);
     }
 
-    public function test_admins_without_comments_permission_do_not_see_the_comment_dashboard_link(): void
+    public function test_comment_moderators_can_clear_reports_with_bulk_approval(): void
+    {
+        $this->manager(['view-admin', 'manage-comments']);
+        $reporter = User::factory()->create();
+        $reported = Comment::factory(2)->create(['page_id' => 'loadout-7', 'status' => Comment::STATUS_PENDING]);
+        $reported->each(fn (Comment $comment) => $comment->reports()->create(['user_id' => $reporter->id]));
+
+        Livewire::test(ManageComment::class)->callTableBulkAction(Comment::STATUS_APPROVED, $reported);
+
+        $this->assertSame([Comment::STATUS_APPROVED, Comment::STATUS_APPROVED], $reported->map->fresh()->pluck('status')->all());
+        $this->assertDatabaseCount('comment_reports', 0);
+    }
+
+    public function test_comment_moderators_can_bulk_mark_comments_as_spam(): void
+    {
+        $this->manager(['view-admin', 'manage-comments']);
+        $spam = Comment::factory(2)->create(['page_id' => 'loadout-7']);
+        $kept = Comment::factory()->create(['page_id' => 'loadout-7']);
+
+        Livewire::test(ManageComment::class)->callTableBulkAction(Comment::STATUS_SPAM, $spam);
+
+        $this->assertSame([Comment::STATUS_SPAM, Comment::STATUS_SPAM], $spam->map->fresh()->pluck('status')->all());
+        $this->assertSame(Comment::STATUS_APPROVED, $kept->fresh()->status);
+    }
+
+    public function test_comment_moderators_can_edit_comment_content(): void
+    {
+        $this->manager(['view-admin', 'manage-comments']);
+        $comment = Comment::factory()->create(['page_id' => 'loadout-7', 'content' => 'Original']);
+
+        Livewire::test(ManageComment::class)
+            ->callTableAction('edit', $comment, data: ['content' => 'Edited **text**', 'status' => Comment::STATUS_PENDING])
+            ->assertHasNoTableActionErrors();
+
+        $comment->refresh();
+        $this->assertSame('Edited **text**', $comment->content);
+        $this->assertSame(Comment::STATUS_PENDING, $comment->status);
+    }
+
+    public function test_approving_through_the_comment_editor_clears_reports(): void
+    {
+        $this->manager(['view-admin', 'manage-comments']);
+        $reporter = User::factory()->create();
+        $comment = Comment::factory()->create(['page_id' => 'loadout-7', 'status' => Comment::STATUS_PENDING]);
+        $comment->reports()->create(['user_id' => $reporter->id]);
+
+        Livewire::test(ManageComment::class)
+            ->callTableAction('edit', $comment, data: ['status' => Comment::STATUS_APPROVED])
+            ->assertHasNoTableActionErrors();
+
+        $this->assertSame(Comment::STATUS_APPROVED, $comment->fresh()->status);
+        $this->assertDatabaseMissing('comment_reports', ['comment_id' => $comment->id]);
+    }
+
+    public function test_admins_without_comments_permission_can_not_manage_comments(): void
     {
         $this->manager(['view-admin']);
 
-        $this->get('/admin')->assertOk()
-            ->assertDontSee('Comment Dashboard');
+        $this->get(CommentResource::getUrl())->assertForbidden();
     }
 
     public function test_all_admin_screens_render_for_an_authorized_manager()
     {
-        $this->manager(['view-admin', 'manage-stats', 'manage-posts', 'manage-users']);
+        $this->manager(['view-admin', 'manage-stats', 'manage-posts', 'manage-users', 'manage-comments']);
         $this->get('/admin')->assertOk();
         foreach (Filament::getPanel('admin')->getResources() as $resource) {
             $this->get($resource::getUrl())->assertOk();

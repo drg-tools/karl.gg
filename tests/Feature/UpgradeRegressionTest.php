@@ -3,14 +3,15 @@
 namespace Tests\Feature;
 
 use App\Character;
+use App\Comment;
 use App\Loadout;
 use App\Patch;
 use App\User;
 use ErrorException;
-use Hazzard\Comments\Comment;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Attributes\TestWith;
@@ -129,6 +130,34 @@ class UpgradeRegressionTest extends TestCase
         $this->getJson('/comments?page_id=upgrade-test')->assertOk()->assertJsonCount(1, 'comments');
         $this->deleteJson('/comments/'.$pending->id)->assertUnauthorized();
         $this->assertDatabaseHas('comments', ['id' => $pending->id, 'status' => 'pending']);
+    }
+
+    public function test_existing_comment_markup_renders_through_the_app_backend(): void
+    {
+        DB::table('comments')->insert([
+            'page_id' => 'existing-thread',
+            'content' => '<t>Legacy &amp; stable</t>',
+            'permalink' => 'https://example.test/preview/1',
+            'status' => Comment::STATUS_APPROVED,
+            'created_at' => now(),
+        ]);
+
+        $this->getJson(route('comments.index', ['page_id' => 'existing-thread']))
+            ->assertOk()
+            ->assertJsonPath('comments.0.content', 'Legacy & stable')
+            ->assertJsonPath('comments.0.content_html', 'Legacy &amp; stable');
+    }
+
+    public function test_loadout_pages_mount_the_comment_thread(): void
+    {
+        $loadout = $this->loadout(User::factory()->create());
+
+        $html = $this->get(route('preview.show', $loadout->id))->assertOk()->getContent();
+
+        $this->assertSame(1, preg_match('/data-comments="([^"]+)"/', $html, $matches));
+        $config = json_decode(html_entity_decode($matches[1]), true, flags: JSON_THROW_ON_ERROR);
+        $this->assertSame('loadout-'.$loadout->id, $config['pageId']);
+        $this->assertFalse($config['loggedIn']);
     }
 
     public function test_admin_requires_authentication_and_permission()

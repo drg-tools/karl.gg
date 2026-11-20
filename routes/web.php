@@ -3,6 +3,8 @@
 use App\Http\Controllers\AccountSettingsController;
 use App\Http\Controllers\BuilderController;
 use App\Http\Controllers\BuildMetricController;
+use App\Http\Controllers\Comments\CommentController;
+use App\Http\Controllers\Comments\VoteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoadoutsController;
 use App\Http\Controllers\LoadoutVoteController;
@@ -57,3 +59,20 @@ Route::get('asv/{gun}/{combo}', [BuildMetricController::class, 'show'])->name('a
 Route::get('profile/{id}', [ProfileController::class, 'index'])->name('user.profile')->where('id', '[0-9]+');
 Route::permanentRedirect('profile/{id}/edit', '/settings')->where('id', '[0-9]+');
 Auth::routes();
+
+Route::controller(CommentController::class)->prefix('comments')->name('comments.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->middleware('throttle:comments')->name('store');
+    Route::post('preview', 'preview')->name('preview');
+    Route::middleware('auth')->group(function () {
+        Route::patch('{comment}', 'update')->name('update');
+        Route::delete('{comment}', 'destroy')->name('destroy');
+        Route::put('{comment}/report', 'report')->name('report');
+    });
+});
+
+Route::controller(VoteController::class)->prefix('comments/{comment}')->middleware('auth')->name('comments.')->group(function () {
+    Route::post('upvote', 'upvote')->name('upvote');
+    Route::post('downvote', 'downvote')->name('downvote');
+    Route::delete('remove-vote', 'remove')->name('remove-vote');
+});

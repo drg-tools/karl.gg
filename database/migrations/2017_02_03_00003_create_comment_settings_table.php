@@ -13,7 +13,7 @@ class CreateCommentSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('comments.table_names.settings'), function (Blueprint $table) {
+        Schema::create('comment_settings', function (Blueprint $table) {
             $table->string('key')->unique();
             $table->text('value');
         });
@@ -26,6 +26,6 @@ class CreateCommentSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('comments.table_names.settings'));
+        Schema::dropIfExists('comment_settings');
     }
 }
