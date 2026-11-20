@@ -2,14 +2,14 @@
   <div class="comment__votes">
     <button @click="vote('upvote')" :disabled="voting" type="button" class="comment__vote-btn comment__upvote"
       :class="{ 'comment--voted': comment.voted === 'up' }" :title="$t('upvote')"
-      :aria-pressed="comment.voted === 'up'">
+      :aria-label="$t('upvote_label', comment.upvotes || 0)" :aria-pressed="comment.voted === 'up'">
       <icon type="chevron-up"></icon>
       <span class="comment__upvotes">{{ comment.upvotes || 0 }}</span>
     </button>
 
     <button @click="vote('downvote')" :disabled="voting" type="button" class="comment__vote-btn comment__downvote"
       :class="{ 'comment--voted': comment.voted === 'down' }" :title="$t('downvote')"
-      :aria-pressed="comment.voted === 'down'">
+      :aria-label="$t('downvote_label', comment.downvotes || 0)" :aria-pressed="comment.voted === 'down'">
       <icon type="chevron-down"></icon>
       <span class="comment__downvotes">{{ comment.downvotes || 0 }}</span>
     </button>
