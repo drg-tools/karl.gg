@@ -15,7 +15,7 @@ class PrivacyPolicyTest extends TestCase
 
         preg_match_all('/<a href="#([a-z-]+)">/', $response->getContent(), $tocLinks);
 
-        $this->assertCount(12, $tocLinks[1]);
+        $this->assertCount(13, $tocLinks[1]);
 
         foreach ($tocLinks[1] as $sectionId) {
             $response->assertSee('<section id="'.$sectionId.'"', false);

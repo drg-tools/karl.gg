@@ -129,12 +129,6 @@
     }
 }
 
-.legal-address {
-    font-style: normal;
-    padding-left: 16px;
-    border-left: 2px solid var(--line-2);
-}
-
 .legal-document .legal-attribution {
     margin-top: 48px;
     padding-top: 20px;

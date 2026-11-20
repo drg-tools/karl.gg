@@ -8,6 +8,7 @@
         'how-we-use-information' => 'How do we use your information?',
         'sharing-information' => 'Will your information be shared with anyone?',
         'third-parties' => 'Who will your information be shared with?',
+        'cookies' => 'Do we use cookies and other tracking technologies?',
         'retention' => 'How long do we keep your information?',
         'security' => 'How do we keep your information safe?',
         'privacy-rights' => 'What are your privacy rights?',
@@ -25,7 +26,7 @@
     <div class="loadout-page legal">
         <header class="legal-header">
             <h1 class="legal-header__title">Privacy policy</h1>
-            <p class="legal-header__meta">Last updated <time datetime="2020-05-07">May 07, 2020</time></p>
+            <p class="legal-header__meta">Last updated <time datetime="2026-11-19">November 19, 2026</time></p>
         </header>
 
         <div class="legal-layout">
@@ -63,7 +64,6 @@
                     your personal information with us.
                 </p>
 
-                {{-- 1 --}}
                 <section id="information-we-collect" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['information-we-collect'] + 1 }}.</span> {{ $sections['information-we-collect'] }}</h2>
 
@@ -71,19 +71,30 @@
                     <p class="legal-summary"><strong>In Short:</strong> We collect personal information that you provide to us.</p>
                     <p>
                         We collect personal information that you voluntarily provide to us when registering at the
-                        Services expressing an interest in obtaining information about us or our products and services,
-                        when participating in activities on the Services (such as posting messages in our online forums or
-                        entering competitions, contests or giveaways) or otherwise contacting us.
+                        Services, when participating in activities on the Services (such as publishing builds, posting
+                        comments, voting on or favoriting builds) or otherwise contacting us.
                     </p>
                     <p>
                         The personal information that we collect depends on the context of your interactions with us and
                         the Services, the choices you make and the products and features you use. The personal
                         information we collect can include the following:
                     </p>
-                    <p>
-                        <strong>Publicly Available Personal Information.</strong> We collect email addresses; and other
-                        similar data.
-                    </p>
+                    <ul>
+                        <li>
+                            <strong>Account Information.</strong> We collect the display name, email address and password
+                            you provide when you register. Passwords are stored in hashed form.
+                        </li>
+                        <li>
+                            <strong>Content You Publish.</strong> We collect the builds, comments, votes and favorites you
+                            create on the Services. Builds and comments are publicly visible together with your display
+                            name.
+                        </li>
+                        <li>
+                            <strong>Guest Comments.</strong> If you comment without an account, we collect the name, email
+                            address and optional website you enter. Your name and website are shown with your comment; your
+                            email address is not.
+                        </li>
+                    </ul>
                     <p>
                         All personal information that you provide to us must be true, complete and accurate, and you must
                         notify us of any changes to such personal information.
@@ -105,11 +116,11 @@
                     </p>
                     <p>
                         <strong>Online Identifiers.</strong> We collect tools and protocols, such as IP (Internet
-                        Protocol) addresses; and other similar data.
+                        Protocol) addresses; and other similar data. We store your IP address and browser user agent with
+                        your login session and with any comment you post.
                     </p>
                 </section>
 
-                {{-- 2 --}}
                 <section id="how-we-use-information" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['how-we-use-information'] + 1 }}.</span> {{ $sections['how-we-use-information'] }}</h2>
 
@@ -128,15 +139,32 @@
                     <p>We use the information we collect or receive:</p>
                     <ul>
                         <li>
-                            <strong>To facilitate account creation and logon process.</strong> If you choose to link your
-                            account with us to a third party account (such as your Google or Facebook account), we use the
-                            information you allowed us to collect from those third parties to facilitate account creation
-                            and logon process for the performance of the contract.
+                            <strong>To facilitate account creation and logon process.</strong> We use your account
+                            information to create your account and let you sign in, for the performance of the contract.
+                        </li>
+                        <li>
+                            <strong>To publish your content.</strong> We display the builds and comments you publish,
+                            together with your display name and a profile image from Gravatar, for the performance of the
+                            contract.
+                        </li>
+                        <li>
+                            <strong>To send you service emails.</strong> We use your email address to send password
+                            resets and, when a new game patch is released, notices that your builds may be out of date,
+                            based on our legitimate business interests.
+                        </li>
+                        <li>
+                            <strong>To keep our Services secure and working.</strong> We use device and usage information
+                            to protect against abuse, troubleshoot problems and moderate comments, based on our legitimate
+                            business interests.
+                        </li>
+                        <li>
+                            <strong>For analytics and advertising.</strong> We use Google Analytics to understand how the
+                            Services are used, and we display advertising through Google AdSense, which helps fund the
+                            Services. See "Do we use cookies and other tracking technologies?" below.
                         </li>
                     </ul>
                 </section>
 
-                {{-- 3 --}}
                 <section id="sharing-information" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['sharing-information'] + 1 }}.</span> {{ $sections['sharing-information'] }}</h2>
 
@@ -181,8 +209,8 @@
                             <strong>Vendors, Consultants and Other Third-Party Service Providers.</strong> We may share
                             your data with third party vendors, service providers, contractors or agents who perform
                             services for us or on our behalf and require access to such information to do that work.
-                            Examples include: payment processing, data analysis, email delivery, hosting services,
-                            customer service and marketing efforts. We may allow selected third parties to use tracking
+                            Examples include: data analysis, email delivery, hosting services, backups and
+                            advertising. We may allow selected third parties to use tracking
                             technology on the Services, which will enable them to collect data about how you interact
                             with the Services over time. This information may be used to, among other things, analyze and
                             track data, determine the popularity of certain content and better understand online
@@ -201,7 +229,6 @@
                     </ul>
                 </section>
 
-                {{-- 4 --}}
                 <section id="third-parties" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['third-parties'] + 1 }}.</span> {{ $sections['third-parties'] }}</h2>
 
@@ -221,10 +248,56 @@
                             <dt>Web and Mobile Analytics</dt>
                             <dd>Google Analytics</dd>
                         </div>
+                        <div>
+                            <dt>Advertising</dt>
+                            <dd>Google AdSense</dd>
+                        </div>
+                        <div>
+                            <dt>Profile Images</dt>
+                            <dd>Gravatar</dd>
+                        </div>
+                        <div>
+                            <dt>Email Delivery</dt>
+                            <dd>A transactional email provider</dd>
+                        </div>
                     </dl>
+                    <p>
+                        To display profile images, a hashed form of your email address is sent to Gravatar. If you have
+                        no Gravatar account, a default image is shown.
+                    </p>
                 </section>
 
-                {{-- 5 --}}
+                <section id="cookies" class="legal-section">
+                    <h2><span class="legal-section__number">{{ $sectionNumbers['cookies'] + 1 }}.</span> {{ $sections['cookies'] }}</h2>
+
+                    <p class="legal-summary">
+                        <strong>In Short:</strong> We use cookies to keep you signed in, and our analytics and
+                        advertising partners use cookies to measure usage and serve ads.
+                    </p>
+                    <p>We and our partners use cookies and similar technologies for the following purposes:</p>
+                    <ul>
+                        <li>
+                            <strong>Essential cookies.</strong> We set cookies to keep you signed in and to protect forms
+                            against cross-site request forgery. The Services do not work correctly without them.
+                        </li>
+                        <li>
+                            <strong>Analytics cookies.</strong> Google Analytics sets cookies to collect information about
+                            how visitors use the Services, such as pages visited and time spent on them.
+                        </li>
+                        <li>
+                            <strong>Advertising cookies.</strong> Google AdSense and its partners use cookies to serve ads
+                            based on your prior visits to this and other websites. You can opt out of personalized
+                            advertising at <a href="https://adssettings.google.com" rel="noopener">Google Ads Settings</a>.
+                            Google describes how it uses data from sites that use its services at
+                            <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">policies.google.com/technologies/partner-sites</a>.
+                        </li>
+                    </ul>
+                    <p>
+                        Most web browsers let you block or delete cookies through their settings. If you block essential
+                        cookies, you will not be able to sign in.
+                    </p>
+                </section>
+
                 <section id="retention" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['retention'] + 1 }}.</span> {{ $sections['retention'] }}</h2>
 
@@ -247,7 +320,6 @@
                     </p>
                 </section>
 
-                {{-- 6 --}}
                 <section id="security" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['security'] + 1 }}.</span> {{ $sections['security'] }}</h2>
 
@@ -264,7 +336,6 @@
                     </p>
                 </section>
 
-                {{-- 7 --}}
                 <section id="privacy-rights" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['privacy-rights'] + 1 }}.</span> {{ $sections['privacy-rights'] }}</h2>
 
@@ -286,24 +357,25 @@
                         your account, you can:
                     </p>
                     <ul>
+                        <li>Update your display name, email address or password in your account settings.</li>
+                        <li>Delete your account from your account settings.</li>
                         <li>Contact us using the contact information provided.</li>
                     </ul>
                     <p>
-                        Upon your request to terminate your account, we will deactivate or delete your account and
-                        information from our active databases. However, some information may be retained in our files to
-                        prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use
-                        and/or comply with legal requirements.
+                        When you delete your account, we permanently delete your account information, favorites, votes and
+                        login sessions from our active databases. Builds and comments you have published remain on the
+                        Services but are no longer associated with you and are shown as "Anonymous". Copies of deleted
+                        information may remain in our backup archives until those backups expire.
                     </p>
                     <p>
                         <strong>Opting out of email marketing:</strong> You can unsubscribe from our marketing email list
                         at any time by clicking on the unsubscribe link in the emails that we send or by contacting us
                         using the details provided below. You will then be removed from the marketing email list –
                         however, we will still need to send you service-related emails that are necessary for the
-                        administration and use of your account. To otherwise opt-out, you may:
+                        administration and use of your account.
                     </p>
                 </section>
 
-                {{-- 8 --}}
                 <section id="data-breach" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['data-breach'] + 1 }}.</span> {{ $sections['data-breach'] }}</h2>
 
@@ -320,7 +392,6 @@
                     </p>
                 </section>
 
-                {{-- 9 --}}
                 <section id="do-not-track" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['do-not-track'] + 1 }}.</span> {{ $sections['do-not-track'] }}</h2>
 
@@ -336,7 +407,6 @@
                     </p>
                 </section>
 
-                {{-- 10 --}}
                 <section id="california" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['california'] + 1 }}.</span> {{ $sections['california'] }}</h2>
 
@@ -364,7 +434,6 @@
                     </p>
                 </section>
 
-                {{-- 11 --}}
                 <section id="updates" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['updates'] + 1 }}.</span> {{ $sections['updates'] }}</h2>
 
@@ -381,26 +450,20 @@
                     </p>
                 </section>
 
-                {{-- 12 --}}
                 <section id="contact" class="legal-section">
                     <h2><span class="legal-section__number">{{ $sectionNumbers['contact'] + 1 }}.</span> {{ $sections['contact'] }}</h2>
 
                     <p>
                         If you have questions or comments about this policy, you may email us at
-                        <a href="mailto:admin@karl.gg">admin@karl.gg</a> or by post to:
+                        <a href="mailto:admin@karl.gg">admin@karl.gg</a>.
                     </p>
-                    <address class="legal-address">
-                        Karl.gg<br>
-                        __________<br>
-                        __________<br>
-                        United States
-                    </address>
 
                     <h3>How can you review, update, or delete the data we collect from you?</h3>
                     <p>
                         Based on the laws of some countries, you may have the right to request access to the personal
-                        information we collect from you, change that information, or delete it in some circumstances. To
-                        request to review, update, or delete your personal information, please visit:
+                        information we collect from you, change that information, or delete it in some circumstances. You
+                        can update or delete your account information from your account settings. To request to review,
+                        update, or delete any other personal information, please email us at
                         <a href="mailto:admin@karl.gg">admin@karl.gg</a>. We will respond to your request within 30 days.
                     </p>
                 </section>
