@@ -792,6 +792,59 @@
         color: var(--ink-2);
     }
 
+    /*
+     * Wider screens stack each option: a large hex the eye can scan as a
+     * picture of the build, with the name and effect centred underneath so
+     * they get the full column width instead of the sliver beside the hex.
+     * Kept tight (letter beside the name, one-line effect) so a tier is no
+     * taller than the side-by-side layout it replaces.
+     */
+    @media (min-width: 701px) {
+        .upgrade-tier {
+            padding: 10px 0 8px;
+        }
+        .tier-label {
+            padding-top: 4px;
+        }
+        .upgrade-options::before {
+            top: 28px;
+            left: calc((100% - 12px) / 6);
+        }
+        .upgrade-option {
+            grid-template-columns: minmax(0, 1fr);
+            justify-items: center;
+            gap: 4px;
+            padding: 2px 6px 4px;
+            text-align: center;
+        }
+        /* The info button sits in the empty corner, so keep the option centred. */
+        .upgrade-options .upgrade-option-wrap.has-info .upgrade-option {
+            padding-right: 6px;
+        }
+        .upgrade-hex {
+            width: 72px;
+            height: 52px;
+        }
+        .upgrade-hex img {
+            width: 36px;
+            height: 36px;
+        }
+        .upgrade-label {
+            padding: 0;
+            background: none;
+        }
+        .upgrade-index {
+            display: inline;
+            margin-right: 5px;
+        }
+        .upgrade-option strong {
+            display: inline;
+        }
+        .upgrade-effect {
+            margin-top: 1px;
+        }
+    }
+
     .upgrade-inspection {
         grid-column: 2;
         display: flex;
