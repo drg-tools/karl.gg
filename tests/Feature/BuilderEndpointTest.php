@@ -320,6 +320,15 @@ class BuilderEndpointTest extends TestCase
             ->assertSee('var view = \'compact\'', false);
     }
 
+    public function test_preview_share_button_shares_the_preview_url_not_the_builder(): void
+    {
+        $engineer = Character::factory()->create(['name' => 'Engineer']);
+        $loadout = Loadout::factory()->create(['character_id' => $engineer->id, 'user_id' => null]);
+
+        $this->get(route('preview.show', $loadout->id))->assertOk()
+            ->assertSee('data-share-url="'.route('preview.show', $loadout->id).'"', false);
+    }
+
     private function input(): array
     {
         Patch::factory()->create(['launched_at' => now()->subDay()]);
