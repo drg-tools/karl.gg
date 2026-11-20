@@ -46,7 +46,7 @@
             @forelse ($overclocks as $overclock)
                 <span @class(['loadout-row__oc', 'kit-oc-'.strtolower($overclock->overclock_type)]) title="{{ $overclock->overclock_name }} ({{ $overclock->overclock_type }} overclock)">
                     <span class="loadout-row__oc-mark" aria-hidden="true"></span>
-                    <span class="sr-only">Overclock:</span> {{ $overclock->overclock_name }}
+                    <span class="loadout-row__oc-name"><span class="sr-only">Overclock:</span> {{ $overclock->overclock_name }}</span>
                 </span>
             @empty
                 <span class="loadout-row__oc is-empty">No overclock</span>

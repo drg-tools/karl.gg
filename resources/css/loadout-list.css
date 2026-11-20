@@ -114,6 +114,12 @@
         color: var(--faint);
     }
 }
+/* Text overflow only applies to a block box, not the bare text of a flex row. */
+.loadout-row__oc-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .loadout-row__oc-mark {
     flex: none;
     width: 9px;
