@@ -23,7 +23,7 @@ return [
     'edit_window' => 60 * 60 * 24 * 30,
 
     // Comments with at least this many links are held for moderation.
-    'max_links' => 10,
+    'max_links' => 2,
 
     // Authors with this many comments awaiting moderation cannot post more.
     'max_unapproved' => 5,
