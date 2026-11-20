@@ -2,6 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Character;
+use App\Comment;
+use App\Loadout;
+use App\Patch;
+use App\Post;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -82,5 +87,71 @@ class AccountSettingsTest extends TestCase
             ->assertSessionHas('status', 'password-updated');
 
         $this->assertTrue(Hash::check('brand-new-password', $user->fresh()->password));
+    }
+
+    public function test_account_deletion_requires_the_current_password(): void
+    {
+        $user = User::factory()->create(['password' => Hash::make('secret-password')]);
+
+        $this->actingAs($user)
+            ->from(route('account.settings'))
+            ->delete(route('account.destroy'), ['delete_password' => 'wrong-password'])
+            ->assertRedirect(route('account.settings'))
+            ->assertSessionHasErrorsIn('deleteAccount', ['delete_password' => 'The password is incorrect.']);
+
+        $this->assertModelExists($user);
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_blog_authors_cannot_delete_their_own_account(): void
+    {
+        $author = User::factory()->create(['password' => Hash::make('secret-password')]);
+        Post::factory()->create(['user_id' => $author->id]);
+
+        $this->actingAs($author)
+            ->from(route('account.settings'))
+            ->delete(route('account.destroy'), ['delete_password' => 'secret-password'])
+            ->assertRedirect(route('account.settings'))
+            ->assertSessionHasErrorsIn('deleteAccount', 'delete_password');
+
+        $this->assertModelExists($author);
+    }
+
+    public function test_deleting_an_account_removes_personal_data_and_keeps_content_anonymously(): void
+    {
+        $user = User::factory()->create(['password' => Hash::make('secret-password')]);
+        $otherUser = User::factory()->create();
+        Patch::factory()->create(['launched_at' => now()->subDay()]);
+        $loadout = Loadout::factory()->create(['user_id' => $user->id, 'character_id' => Character::factory()->create()->id]);
+        $otherLoadout = Loadout::factory()->create(['user_id' => $otherUser->id, 'character_id' => $loadout->character_id]);
+        $user->favorite($otherLoadout);
+        $user->upVote($otherLoadout);
+        $otherUser->upVote($otherLoadout);
+        $comment = Comment::factory()->create([
+            'user_id' => $user->id,
+            'author_email' => $user->email,
+            'author_ip' => '203.0.113.7',
+            'user_agent' => 'Test Browser',
+        ]);
+
+        $this->actingAs($user)
+            ->delete(route('account.destroy'), ['delete_password' => 'secret-password'])
+            ->assertRedirect('/')
+            ->assertSessionHas('status', 'account-deleted');
+
+        $this->assertGuest();
+        $this->assertDatabaseMissing('users', ['id' => $user->id]);
+        $this->assertDatabaseHas('loadouts', ['id' => $loadout->id, 'user_id' => null]);
+        $this->assertDatabaseHas('comments', [
+            'id' => $comment->id,
+            'user_id' => null,
+            'author_name' => 'Anonymous',
+            'author_email' => null,
+            'author_ip' => null,
+            'user_agent' => null,
+        ]);
+        $this->assertSame(0, $otherLoadout->favorites()->count());
+        $this->assertSame(1, $otherLoadout->votes()->count());
+        $this->assertModelExists($otherUser);
     }
 }

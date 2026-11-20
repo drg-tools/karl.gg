@@ -7,6 +7,7 @@
     ];
     $profileErrors = $errors->updateProfile;
     $passwordErrors = $errors->updatePassword;
+    $deleteErrors = $errors->deleteAccount;
 @endphp
 
 @section('content')
@@ -96,6 +97,33 @@
                         @if (Route::has('password.request'))
                             <a class="browse-clear" href="{{ route('password.request') }}">Forgot your password?</a>
                         @endif
+                    </div>
+                </form>
+            </section>
+            <section class="loadout-panel settings-panel is-danger" aria-labelledby="settings-delete-title">
+                <div class="settings-panel__head">
+                    <h2 id="settings-delete-title">Delete account</h2>
+                    <p>
+                        Permanently deletes your account, email address, favorites and votes. Builds and comments you
+                        have posted stay up and show as Anonymous. This can't be undone.
+                    </p>
+                </div>
+
+                <form class="settings-form" method="POST" action="{{ route('account.destroy') }}" x-data x-on:submit="if (! confirm('Permanently delete your account? This can\'t be undone.')) $event.preventDefault()">
+                    @csrf
+                    @method('DELETE')
+                    <input type="text" name="username" value="{{ $user->email }}" autocomplete="username" hidden>
+
+                    <div class="settings-field">
+                        <label class="browse-label" for="delete_password">Current password</label>
+                        <input id="delete_password" type="password" name="delete_password" required autocomplete="current-password" @if ($deleteErrors->has('delete_password')) aria-invalid="true" aria-describedby="delete-password-error" @endif>
+                        @if ($deleteErrors->has('delete_password'))
+                            <p class="settings-field__error" id="delete-password-error">{{ $deleteErrors->first('delete_password') }}</p>
+                        @endif
+                    </div>
+
+                    <div class="settings-form__foot">
+                        <button class="loadout-button is-danger" type="submit">Delete my account</button>
                     </div>
                 </form>
             </section>
