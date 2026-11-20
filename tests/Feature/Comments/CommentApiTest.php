@@ -172,6 +172,42 @@ class CommentApiTest extends CommentsTestCase
         $this->assertDatabaseMissing('comments', ['page_id' => 'loadout-1']);
     }
 
+    public function test_comments_containing_slurs_are_rejected(): void
+    {
+        $this->actingAs($this->testUser)
+            ->postJson('/comments', ['content' => 'Aim, you retard', 'page_id' => 'loadout-1'])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['content' => 'The content contains profanity.']);
+
+        $this->assertDatabaseMissing('comments', ['page_id' => 'loadout-1']);
+    }
+
+    public function test_guest_author_names_containing_slurs_are_rejected(): void
+    {
+        $this->postJson('/comments', [
+            'content' => 'Nice build',
+            'page_id' => 'loadout-1',
+            'author_name' => 'retard',
+            'author_email' => 'guest@example.com',
+        ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['author_name' => 'The author name contains profanity.']);
+
+        $this->assertDatabaseMissing('comments', ['page_id' => 'loadout-1']);
+    }
+
+    public function test_edits_containing_slurs_are_rejected_and_keep_the_original_content(): void
+    {
+        $comment = Comment::factory()->create(['user_id' => $this->testUser->id, 'content' => 'original']);
+
+        $this->actingAs($this->testUser)
+            ->patchJson("/comments/{$comment->id}", ['content' => 'Aim, you retard'])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['content' => 'The content contains profanity.']);
+
+        $this->assertDatabaseHas('comments', ['id' => $comment->id, 'content' => 'original']);
+    }
+
     public function test_it_can_check_if_the_parent_comment_exists(): void
     {
         $this->actingAs($this->testUser)

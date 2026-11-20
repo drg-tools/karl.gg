@@ -4,6 +4,8 @@ namespace App\Http\Requests\Comments;
 
 use App\Comment;
 use App\Comments\CommentRepository;
+use Blaspsoft\Blasp\Enums\Severity;
+use Blaspsoft\Blasp\Rules\Profanity;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
@@ -24,7 +26,7 @@ class StoreComment extends FormRequest
     {
         $rules = [
             'page_id' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string', 'min:2', 'max:'.config('comments.max_length')],
+            'content' => ['required', 'string', 'min:2', 'max:'.config('comments.max_length'), Profanity::severity(Severity::Extreme)],
             'root_id' => ['nullable', 'integer'],
             'parent_id' => ['nullable', 'required_with:root_id', 'integer'],
             'permalink' => ['nullable', 'url'],
@@ -32,7 +34,7 @@ class StoreComment extends FormRequest
 
         if (! $this->user()) {
             $rules += [
-                'author_name' => ['required', 'max:100'],
+                'author_name' => ['required', 'max:100', Profanity::severity(Severity::Extreme)],
                 'author_email' => ['required', 'email', 'max:200'],
                 'author_url' => ['nullable', 'url', 'max:200'],
             ];

@@ -1,0 +1,320 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Driver
+    |--------------------------------------------------------------------------
+    |
+    | The default detection driver. 'regex' provides full obfuscation
+    | detection. 'pattern' is faster but only matches exact words.
+    |
+    | We use 'pattern' because 'regex' treats spaces and markdown as letter
+    | separators, flagging game terms like "multi-target" and "Born Ready".
+    |
+    */
+    'default' => env('BLASP_DRIVER', 'pattern'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Language
+    |--------------------------------------------------------------------------
+    |
+    | The default language to use for profanity detection.
+    |
+    */
+    'language' => env('BLASP_LANGUAGE', 'english'),
+
+    // Backward compat alias
+    'default_language' => env('BLASP_LANGUAGE', 'english'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mask Character
+    |--------------------------------------------------------------------------
+    |
+    | The character used to mask detected profanities.
+    |
+    */
+    'mask' => '*',
+
+    // Backward compat alias
+    'mask_character' => '*',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Minimum Severity
+    |--------------------------------------------------------------------------
+    |
+    | The minimum severity level to detect. Words below this severity
+    | will be ignored. Options: mild, moderate, high, extreme
+    |
+    */
+    'severity' => 'mild',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maximum Length
+    |--------------------------------------------------------------------------
+    |
+    | Checking time grows with the length of the text. When set, the
+    | middleware and the validation rule reject text longer than this many
+    | characters instead of checking it. Calls to Blasp::check() are not
+    | limited. Null turns the limit off.
+    |
+    */
+    'max_length' => env('BLASP_MAX_LENGTH'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Match Embedded Profanity
+    |--------------------------------------------------------------------------
+    |
+    | By default the regex driver skips a plain-letter match embedded inside
+    | a longer word ("ass" in "classroom"). Enable this to flag those too,
+    | e.g. for usernames, slugs or short codes with no spaces. False
+    | positives in the language files still apply.
+    |
+    */
+    'match_embedded' => env('BLASP_MATCH_EMBEDDED', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Events
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, ProfanityDetected events will be fired automatically
+    | when profanity is found during a check.
+    |
+    */
+    'events' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Configuration
+    |--------------------------------------------------------------------------
+    */
+    'cache' => [
+        'enabled' => true,
+        'driver' => env('BLASP_CACHE_DRIVER'),
+        'ttl' => 86400,
+        'results' => true,
+    ],
+
+    // Backward compat alias
+    'cache_driver' => env('BLASP_CACHE_DRIVER'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Middleware Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Nested and array input is checked too, by dotted path ("comment.body",
+    | "tags.0"). 'fields' and 'except' accept dotted paths and wildcards
+    | ("comments.*.body"); a name without a dot also matches nested keys
+    | with that name. Password fields are never checked.
+    |
+    */
+    'middleware' => [
+        'action' => 'reject',
+        'fields' => ['*'],
+        'except' => ['password', 'email', '_token'],
+        'severity' => 'mild',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Controls how the Blaspable trait behaves on Eloquent models.
+    | 'sanitize' replaces profanity with the mask character.
+    | 'reject' throws a ProfanityRejectedException instead of saving.
+    |
+    */
+    'model' => [
+        'mode' => env('BLASP_MODEL_MODE', 'sanitize'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Driver-Specific Configuration
+    |--------------------------------------------------------------------------
+    */
+    'drivers' => [
+        'pipeline' => [
+            'drivers' => ['regex', 'phonetic'],
+        ],
+
+        'phonetic' => [
+            'phonemes' => 4,              // metaphone code length (2-8, lower=more aggressive)
+            'min_word_length' => 3,        // skip words shorter than this
+            'max_distance_ratio' => 0.6,   // levenshtein threshold (0.3-0.8, lower=stricter)
+            'supported_languages' => ['english'],
+            'false_positives' => [
+                'fork', 'forked', 'forking',
+                'beach', 'beaches',
+                'witch', 'witches',
+                'sheet', 'sheets',
+                'deck', 'decks',
+                'count', 'counts', 'counter', 'county',
+                'ship', 'shipped', 'shipping',
+                'duck', 'ducked', 'ducking',
+                'fudge', 'fudging',
+                'buck', 'bucks',
+                'puck', 'pucks',
+                'bass',
+                'mass',
+                'pass', 'passed',
+                'heck',
+                'shoot', 'shot',
+                'what', 'white', 'while', 'whole',
+            ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Homoglyph Folding
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, characters that imitate Latin letters (Cyrillic and Greek
+    | lookalikes, fullwidth letters and accented letters missing from the
+    | substitution table) are folded to the letter they imitate before
+    | matching, so "fuсk" (Cyrillic с) or "ｆｕｃｋ" is caught. Folding runs
+    | after the language normalizer. The original text is what gets masked.
+    |
+    */
+    'homoglyphs' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Extended Substitutions
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, these are added to the substitution table: 1 → l,
+    | 7 and + → t, 2 → z. They catch "s1ut" and "sh17", but can also flag
+    | text that passed before, so they are off by default.
+    |
+    */
+    'extended_substitutions' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Flexible Phrases
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, a space in a word list entry is a separator slot rather
+    | than a literal space: "sieg heil" also matches "sieg-heil" and
+    | "siegheil".
+    |
+    */
+    'flexible_phrases' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Character Separators
+    |--------------------------------------------------------------------------
+    */
+    'separators' => [
+        '@', '#', '%', '&', '_', ';', "'", '"', ',', '~', '`', '|',
+        '!', '$', '^', '*', '(', ')', '-', '+', '=', '{', '}',
+        '[', ']', ':', '<', '>', '?', '.', '/',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Character Substitutions
+    |--------------------------------------------------------------------------
+    */
+    'substitutions' => [
+        '/a/' => ['a', '4', '@', '*', 'Á', 'á', 'À', 'Â', 'à', 'Â', 'â', 'Ä', 'ä', 'Ã', 'ã', 'Å', 'å', 'æ', 'Æ', 'α', 'Δ', 'Λ', 'λ'],
+        '/b/' => ['b', '8', '\\', '3', '*', 'ß', 'Β', 'β'],
+        '/c/' => ['c', '*', 'Ç', 'ç', 'ć', 'Ć', 'č', 'Č', '¢', '€', '<', '(', '{', '©'],
+        '/d/' => ['d', '*', '\\', ')', 'Þ', 'þ', 'Ð', 'ð'],
+        '/e/' => ['e', '3', '*', '€', 'È', 'è', 'É', 'é', 'Ê', 'ê', 'ë', 'Ë', 'ē', 'Ē', 'ė', 'Ė', 'ę', 'Ę', '∑'],
+        '/f/' => ['f', '*', 'ƒ'],
+        '/g/' => ['g', '6', '9', '*'],
+        '/h/' => ['h', '*', 'Η'],
+        '/i/' => ['i', '!', '|', ']', '[', '1', '*', '∫', 'Ì', 'Í', 'Î', 'Ï', 'ì', 'í', 'î', 'ï', 'ī', 'Ī', 'į', 'Į'],
+        '/j/' => ['j', '*'],
+        '/k/' => ['k', '*', 'Κ', 'κ'],
+        '/l/' => ['l', '!', '|', ']', '[', '*', '£', '∫', 'Ì', 'Í', 'Î', 'Ï', 'ł', 'Ł'],
+        '/m/' => ['m', '*'],
+        '/n/' => ['n', '*', 'η', 'Ν', 'Π', 'ñ', 'Ñ', 'ń', 'Ń'],
+        '/o/' => ['o', '0', '*', 'Ο', 'ο', 'Φ', '¤', '°', 'ø', 'ô', 'Ô', 'ö', 'Ö', 'ò', 'Ò', 'ó', 'Ó', 'œ', 'Œ', 'ø', 'Ø', 'ō', 'Ō', 'õ', 'Õ'],
+        '/p/' => ['p', '*', 'ρ', 'Ρ', '¶', 'þ'],
+        '/q/' => ['q', '*'],
+        '/r/' => ['r', '*', '®'],
+        '/s/' => ['s', '5', '*', '\$', '§', 'ß', 'Ś', 'ś', 'Š', 'š'],
+        '/t/' => ['t', '*', 'Τ', 'τ'],
+        '/u/' => ['u', 'υ', 'µ', 'û', 'ü', 'ù', 'ú', 'ū', 'Û', 'Ü', 'Ù', 'Ú', 'Ū', '@', '*'],
+        '/v/' => ['v', '*', 'υ', 'ν'],
+        '/w/' => ['w', '*', 'ω', 'ψ', 'Ψ'],
+        '/x/' => ['x', '*', 'Χ', 'χ'],
+        '/y/' => ['y', '*', '¥', 'γ', 'ÿ', 'ý', 'Ÿ', 'Ý'],
+        '/z/' => ['z', '*', 'Ζ', 'ž', 'Ž', 'ź', 'Ź', 'ż', 'Ż'],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Appended Character Substitutions
+    |--------------------------------------------------------------------------
+    |
+    | Substitutions added to the table above, keyed the same way. Set this in
+    | the published config to extend the defaults without copying the whole
+    | table; the characters are merged per letter.
+    |
+    | 'substitutions_append' => ['/u/' => ['v']],
+    |
+    */
+    'substitutions_append' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | False Positives
+    |--------------------------------------------------------------------------
+    */
+    'false_positives' => [
+        'hello', 'scunthorpe', 'cockburn', 'penistone', 'lightwater',
+        'assume', 'bass', 'class', 'compass', 'pass',
+        'dickinson', 'middlesex', 'cockerel', 'butterscotch', 'blackcock',
+        'countryside', 'arsenal', 'flick', 'flicker', 'analyst',
+        'cocktail', 'musicals hit', 'is hit', 'blackcocktail', 'its not',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global Allow List
+    |--------------------------------------------------------------------------
+    |
+    | Words in this list will never be flagged as profanity.
+    |
+    */
+    'allow' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global Block List
+    |--------------------------------------------------------------------------
+    |
+    | Additional words to always flag as profanity.
+    |
+    */
+    'block' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backward Compatibility: Profanities
+    |--------------------------------------------------------------------------
+    |
+    | Basic profanity list for backward compatibility.
+    | Full lists are in config/languages/*.php
+    |
+    */
+    'profanities' => [
+        'fuck', 'shit', 'damn', 'bitch', 'ass', 'hell',
+    ],
+
+];

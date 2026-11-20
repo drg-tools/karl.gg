@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use App\EquipmentMod;
 use App\Mod;
 use App\Overclock;
+use Blaspsoft\Blasp\Enums\Severity;
+use Blaspsoft\Blasp\Rules\Profanity;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -24,8 +26,8 @@ class SaveLoadoutRequest extends FormRequest
         $characterId = $this->integer('character_id');
 
         return [
-            'name' => ['required', 'string', 'max:255', 'strictly_profane'],
-            'description' => ['nullable', 'string', 'max:50000', 'strictly_profane'],
+            'name' => ['required', 'string', 'max:255', Profanity::severity(Severity::Extreme)],
+            'description' => ['nullable', 'string', 'max:50000', Profanity::severity(Severity::Extreme)],
             'character_id' => ['required', 'integer', 'exists:characters,id'],
             'throwable_id' => ['nullable', 'integer', Rule::exists('throwables', 'id')->where('character_id', $characterId)],
             'mods' => ['present', 'array', 'max:10'],

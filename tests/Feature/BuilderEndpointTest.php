@@ -12,6 +12,7 @@ use App\Mod;
 use App\Patch;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
 class BuilderEndpointTest extends TestCase
@@ -160,6 +161,33 @@ class BuilderEndpointTest extends TestCase
 
         $id = $this->postJson('/build', $input)->assertCreated()->json('id');
         $this->assertEqualsCanonicalizing([$tierTwo->id, $tierFour->id], Loadout::findOrFail($id)->equipment_mods()->pluck('equipment_mods.id')->all());
+    }
+
+    #[TestWith(['name'])]
+    #[TestWith(['description'])]
+    public function test_slurs_are_rejected_without_saving_the_build(string $field): void
+    {
+        $input = $this->input();
+        $input[$field] = 'Aim, you retard';
+
+        $this->postJson('/build', $input)->assertUnprocessable()
+            ->assertJsonPath("errors.{$field}.0", "The {$field} contains profanity.");
+        $this->assertDatabaseCount('loadouts', 0);
+    }
+
+    #[TestWith(['Blow up the bugs and taint the swarm'])]
+    #[TestWith(['Web Spitter flamer with Necro-Thermal Catalyst'])]
+    #[TestWith(['multi-target **Born Ready** for **Field Medic**'])]
+    #[TestWith(['This shitty build is fucking great'])]
+    public function test_game_terms_and_casual_swearing_are_accepted(string $text): void
+    {
+        $input = $this->input();
+        $input['name'] = $text;
+        $input['description'] = $text;
+
+        $id = $this->postJson('/build', $input)->assertCreated()->json('id');
+
+        $this->assertDatabaseHas('loadouts', ['id' => $id, 'name' => $text, 'description' => $text]);
     }
 
     public function test_required_fields_and_unknown_ids_are_rejected(): void
