@@ -16,9 +16,14 @@
         ->unique('id')
         ->sortBy('character_slot');
     $equipments = $loadout->equipment_mods->pluck('equipment')->filter()->unique('id');
+    $kitViewKey = 'karl:loadout-view';
+    $defaultKitView = auth()->check() ? 'compact' : 'detailed';
 @endphp
 
 @section('content')
+    {{-- Apply the saved kit layout before the cards paint, so compact readers never see the detailed cards flash. --}}
+    <script>(function () { var view = @js($defaultKitView); try { view = localStorage.getItem(@js($kitViewKey)) || view; } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); })();</script>
+
     <div class="loadout-page" style="--class-accent: {{ $class['color'] }}">
         <x-loadout-outdated :outdated="! $isCurrentPatch"/>
 
@@ -86,8 +91,22 @@
         </header>
 
         <section class="loadout-section" aria-labelledby="loadout-kit">
-            <div class="loadout-section__heading">
+            <div class="loadout-section__heading has-toggle"
+                 x-data="{
+                     compact: document.documentElement.classList.contains('is-kit-compact'),
+                     show(compact) {
+                         this.compact = compact;
+                         document.documentElement.classList.toggle('is-kit-compact', compact);
+                         try { localStorage.setItem(@js($kitViewKey), compact ? 'compact' : 'detailed'); } catch (e) {}
+                     },
+                 }">
                 <h2 id="loadout-kit">Weapons &amp; gear</h2>
+                <div class="loadout-view-toggle" role="group" aria-label="Weapons and gear layout">
+                    <button type="button" title="Every upgrade with its full description"
+                            :class="{ 'is-active': ! compact }" :aria-pressed="! compact" x-on:click="show(false)">Detailed</button>
+                    <button type="button" title="Every tree on one screen, icons only"
+                            :class="{ 'is-active': compact }" :aria-pressed="compact" x-on:click="show(true)">Compact</button>
+                </div>
             </div>
             <div class="loadout-kit">
                 @foreach ($guns as $gun)

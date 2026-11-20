@@ -35,7 +35,7 @@
 <article {{ $attributes->class('kit-card') }} @if ($accent) style="--kit-accent: {{ $accent }}" @endif>
     <div class="kit-card__head">
         <div>
-            <span class="kit-card__eyebrow">{{ $label }}@if ($kind) · {{ $kind }}@endif</span>
+            <span class="kit-card__eyebrow">{{ $label }}@if ($kind)<span class="kit-card__kind"> · {{ $kind }}</span>@endif</span>
             <h3 class="kit-card__name">{{ $name }}</h3>
             @if ($code)
                 <div><span class="sr-only">Upgrade code:</span><code class="kit-card__code" title="Upgrade code: type it into the compact builder">{{ $code }}</code></div>
@@ -71,6 +71,13 @@
                     </span>
                 @endif
             </div>
+
+            @if ($overclock)
+                <p class="kit-card__oc-caption {{ $overclockClass }}">
+                    <small>{{ $overclock->overclock_type }} overclock</small>
+                    {{ $overclock->overclock_name }}
+                </p>
+            @endif
 
             <ol class="kit-choices">
                 @foreach ($tiers->whereNotNull('chosen') as $row)
