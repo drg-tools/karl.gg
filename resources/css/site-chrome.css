@@ -4,6 +4,16 @@
  * and dashboard: slate surfaces, amber for the primary action and the
  * current page, display face for the wordmark.
  */
+
+/*
+ * Paint the page itself, not just the shell, so overscroll bounce and any
+ * space below the footer stay dark. No `color-scheme: dark` here: it makes
+ * browsers paint an opaque white backdrop behind the light-scheme ad iframes.
+ */
+html {
+    background-color: var(--karl-bg);
+}
+
 .site-shell {
     --chrome-bg: var(--karl-bg);
     --chrome-bg-2: var(--karl-bg-2);
