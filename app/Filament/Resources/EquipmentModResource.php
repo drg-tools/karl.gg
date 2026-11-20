@@ -6,10 +6,13 @@ use App\EquipmentMod;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use UnitEnum;
 
 class EquipmentModResource extends AdminResource
 {
     protected static ?string $model = EquipmentMod::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Game Data';
 
     protected static string $permission = 'manage-stats';
 

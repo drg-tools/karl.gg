@@ -6,10 +6,13 @@ use App\Gun;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use UnitEnum;
 
 class GunResource extends AdminResource
 {
     protected static ?string $model = Gun::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Game Data';
 
     protected static string $permission = 'manage-stats';
 

@@ -5,10 +5,13 @@ namespace App\Filament\Resources;
 use App\Patch;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
+use UnitEnum;
 
 class PatchResource extends AdminResource
 {
     protected static ?string $model = Patch::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Game Data';
 
     protected static string $permission = 'manage-stats';
 

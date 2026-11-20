@@ -7,10 +7,13 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use UnitEnum;
 
 class PostResource extends AdminResource
 {
     protected static ?string $model = Post::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Community';
 
     protected static string $permission = 'manage-posts';
 

@@ -7,10 +7,13 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Facades\Hash;
+use UnitEnum;
 
 class UserResource extends AdminResource
 {
     protected static ?string $model = User::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'User Management';
 
     protected static string $permission = 'manage-users';
 

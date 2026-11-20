@@ -4,10 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Character;
 use Filament\Forms\Components\TextInput;
+use UnitEnum;
 
 class CharacterResource extends AdminResource
 {
     protected static ?string $model = Character::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Game Data';
 
     protected static string $permission = 'manage-stats';
 

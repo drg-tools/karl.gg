@@ -6,10 +6,13 @@ use App\Throwable;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use UnitEnum;
 
 class ThrowableResource extends AdminResource
 {
     protected static ?string $model = Throwable::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Game Data';
 
     protected static string $permission = 'manage-stats';
 

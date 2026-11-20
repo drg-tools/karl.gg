@@ -22,6 +22,8 @@ class LoadoutResource extends AdminResource
 {
     protected static ?string $model = Loadout::class;
 
+    protected static string|UnitEnum|null $navigationGroup = 'Community';
+
     protected static array $listColumns = ['name', 'creator.name', 'character.name'];
 
     protected static array $relationshipFilters = ['character' => 'name', 'creator' => 'name'];

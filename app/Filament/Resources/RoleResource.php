@@ -6,10 +6,13 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Spatie\Permission\Models\Role;
+use UnitEnum;
 
 class RoleResource extends AdminResource
 {
     protected static ?string $model = Role::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'User Management';
 
     protected static string $permission = 'manage-users';
 
