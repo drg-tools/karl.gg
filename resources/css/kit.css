@@ -237,6 +237,22 @@
     color: var(--kit-faint);
 }
 
+/* Overclock name under the tree; the loadout page's compact view shows it in place of the upgrade list. */
+.kit-card__oc-caption {
+    display: none;
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.25;
+    color: var(--kit-ink);
+}
+.kit-card__oc-caption small {
+    display: block;
+    font: 600 9.5px/1.4 var(--kit-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--kit-oc, var(--kit-muted));
+}
+
 .kit-card__description {
     margin: 0;
     font-size: 13px;

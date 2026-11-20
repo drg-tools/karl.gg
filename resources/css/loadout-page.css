@@ -154,6 +154,11 @@
         margin: 0;
     }
 }
+/* One row on wide screens; on phones the buttons and the chips each get a row of their own. */
+.loadout-hero__buttons,
+.loadout-hero__chips {
+    display: contents;
+}
 .loadout-button {
     display: inline-flex;
     align-items: center;
@@ -174,6 +179,21 @@
     }
     &.is-secondary:hover {
         background: #5c4935;
+    }
+}
+.loadout-share {
+    gap: 8px;
+    cursor: pointer;
+
+    svg {
+        width: 16px;
+        height: 16px;
+        flex: none;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
     }
 }
 .loadout-chip {
@@ -243,6 +263,108 @@
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr));
     gap: 12px;
 }
+
+/* ---------- detailed / compact kit toggle ---------- */
+.loadout-section__heading.has-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 10px 16px;
+}
+.loadout-view-toggle {
+    display: inline-flex;
+    flex: none;
+    padding: 3px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    background: var(--panel);
+}
+.loadout-view-toggle button {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font: 600 11px var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+}
+.loadout-view-toggle button:hover {
+    color: var(--ink);
+}
+.loadout-view-toggle button.is-active {
+    background: var(--ink);
+    color: var(--bg);
+}
+.loadout-view-toggle button:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+}
+
+/* Compact: every tree side by side, icons and overclock only, so a whole build fits on one phone screen. */
+.is-kit-compact .loadout-kit {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+    gap: 10px;
+
+    .kit-card {
+        gap: 10px;
+        padding: 14px 10px 16px;
+        text-align: center;
+    }
+    .kit-card__head {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+    }
+    .kit-card__eyebrow {
+        font-size: 9.5px;
+    }
+    .kit-card__name {
+        font-size: 19px;
+        line-height: 1.05;
+    }
+    .kit-card__code {
+        margin-top: 6px;
+        font-size: 11px;
+    }
+    .kit-card__kind,
+    .kit-card__art,
+    .kit-card__description,
+    .kit-choices {
+        display: none;
+    }
+    .kit-card__body {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        gap: 8px;
+    }
+    .kit-card__oc-caption {
+        display: block;
+    }
+    .mod-tree {
+        gap: 4px;
+    }
+    .mod-tree__row {
+        gap: 3px;
+    }
+    .mod-tree__hex {
+        width: 33px;
+        height: 24px;
+    }
+    .mod-tree__hex img {
+        width: 16px;
+        height: 16px;
+    }
+    .mod-tree__overclock {
+        width: 40px;
+        height: 40px;
+        margin-top: 4px;
+    }
+    .mod-tree__overclock img {
+        width: 22px;
+        height: 22px;
+    }
+}
+
 .loadout-panel {
     padding: 22px 24px;
     background: var(--panel);
@@ -257,6 +379,32 @@
     .loadout-hero {
         min-height: 0;
         padding: 24px 20px;
+    }
+    .loadout-hero__buttons,
+    .loadout-hero__chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+    .loadout-hero__buttons .loadout-button {
+        justify-content: center;
+    }
+    .loadout-hero__buttons > .loadout-button:first-child {
+        flex: 1;
+    }
+    /* Owners also get Edit, and three labelled buttons don't fit a phone row, so Share keeps just its icon. */
+    .loadout-hero__buttons:has(> :nth-child(3)) .loadout-share {
+        padding-inline: 14px;
+
+        span {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+        }
     }
     .loadout-hero__art {
         width: 60%;

@@ -305,6 +305,39 @@ class BuilderEndpointTest extends TestCase
         $response->assertOk()->assertSeeHtml('<span class="sr-only">Upgrade code:</span><code class="kit-card__code" title="Upgrade code: type it into the compact builder">C–A–B</code>');
     }
 
+    public function test_preview_kit_layout_defaults_to_compact_for_signed_in_players(): void
+    {
+        $input = $this->input();
+        $overclock = Mod::find($input['mods'][0])->gun->overclocks->first();
+        $input['overclocks'] = [$overclock->id];
+        $url = route('preview.show', $this->postJson('/build', $input)->assertCreated()->json('id'));
+
+        $this->get($url)->assertOk()
+            ->assertSee('var view = false || (true && window.matchMedia', false)
+            ->assertSee('aria-label="Weapons and gear layout"', false)
+            ->assertSeeInOrder(['kit-card__oc-caption', $overclock->overclock_type.' overclock', $overclock->overclock_name], false);
+        $this->actingAs(User::factory()->create())->get($url)->assertOk()
+            ->assertSee('var view = true || (true && window.matchMedia', false);
+    }
+
+    public function test_preview_kit_layout_starts_detailed_for_search_crawlers_on_any_screen(): void
+    {
+        $url = route('preview.show', $this->postJson('/build', $this->input())->assertCreated()->json('id'));
+        $googlebot = 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
+
+        $this->withHeader('User-Agent', $googlebot)->get($url)->assertOk()
+            ->assertSee('var view = false || (false && window.matchMedia', false);
+    }
+
+    public function test_preview_share_button_shares_the_preview_url_not_the_builder(): void
+    {
+        $engineer = Character::factory()->create(['name' => 'Engineer']);
+        $loadout = Loadout::factory()->create(['character_id' => $engineer->id, 'user_id' => null]);
+
+        $this->get(route('preview.show', $loadout->id))->assertOk()
+            ->assertSee('data-share-url="'.route('preview.show', $loadout->id).'"', false);
+    }
+
     private function input(): array
     {
         Patch::factory()->create(['launched_at' => now()->subDay()]);
