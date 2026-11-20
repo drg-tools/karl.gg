@@ -52,7 +52,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(90deg, var(--bg) 30%, rgba(14, 23, 34, 0.8) 52%, rgba(14, 23, 34, 0.1) 80%);
+    background: linear-gradient(90deg, var(--bg) 30%, rgba(var(--karl-bg-rgb), 0.8) 52%, rgba(var(--karl-bg-rgb), 0.1) 80%);
 }
 .dashboard-hero__copy {
     max-width: 600px;
@@ -165,7 +165,7 @@
     width: 44px;
     height: 44px;
     clip-path: var(--octagon);
-    background: color-mix(in srgb, var(--kit-oc, var(--line-2)) 30%, #16212d);
+    background: color-mix(in srgb, var(--kit-oc, var(--line-2)) 30%, #20180f);
 
     img {
         width: 24px;

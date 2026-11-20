@@ -21,7 +21,7 @@
     $isCurrentPatch = $currentPatchId !== null && $loadout->patch_id === $currentPatchId;
 @endphp
 
-<a @class(['loadout-row', 'is-detailed' => $detailed]) href="{{ route('preview.show', $loadout->id) }}" style="--class-accent: {{ $accents[$loadout->character->name] ?? '#ffb547' }}">
+<a @class(['loadout-row', 'is-detailed' => $detailed]) href="{{ route('preview.show', $loadout->id) }}" style="--class-accent: {{ $accents[$loadout->character->name] ?? '#fc9e00' }}">
     <span class="loadout-row__copy">
         <span class="loadout-row__name">{{ $loadout->name }}</span>
         <span class="loadout-row__meta">
@@ -35,7 +35,10 @@
     </span>
     <span class="loadout-row__guns">
         @foreach ($guns as $gun)
-            <img src="/assets/{{ $gun->image }}.svg" alt="{{ $gun->name }}" title="{{ $gun->name }}">
+            <span class="loadout-row__gun">
+                <img src="/assets/{{ $gun->image }}.svg" alt="{{ $gun->name }}" title="{{ $gun->name }}">
+                <span class="sr-only">{{ $gun->name }} upgrade code:</span><code title="{{ $gun->name }} upgrade code">{{ $loadout->upgradeCode($gun->id) }}</code>
+            </span>
         @endforeach
     </span>
     @if ($detailed)

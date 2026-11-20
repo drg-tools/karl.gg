@@ -5,20 +5,20 @@
  * current page, display face for the wordmark.
  */
 .site-shell {
-    --chrome-bg: #0e1722;
-    --chrome-bg-2: #121d2a;
-    --chrome-panel: #172431;
-    --chrome-panel-2: #1c2a38;
-    --chrome-line: #2a3a4a;
-    --chrome-line-2: #344758;
-    --chrome-hair: rgba(255, 255, 255, 0.06);
-    --chrome-ink: #e9eef3;
-    --chrome-ink-2: #c3cdd6;
-    --chrome-muted: #8e9eac;
-    --chrome-faint: #64778a;
-    --chrome-amber: #ffb547;
-    --chrome-amber-2: #ffcf80;
-    --chrome-amber-ink: #2b1903;
+    --chrome-bg: var(--karl-bg);
+    --chrome-bg-2: var(--karl-bg-2);
+    --chrome-panel: var(--karl-panel);
+    --chrome-panel-2: var(--karl-panel-2);
+    --chrome-line: var(--karl-line);
+    --chrome-line-2: var(--karl-line-2);
+    --chrome-hair: var(--karl-hair);
+    --chrome-ink: var(--karl-ink);
+    --chrome-ink-2: var(--karl-ink-2);
+    --chrome-muted: var(--karl-muted);
+    --chrome-faint: var(--karl-faint);
+    --chrome-amber: var(--karl-amber);
+    --chrome-amber-2: var(--karl-amber-2);
+    --chrome-amber-ink: var(--karl-amber-ink);
     --chrome-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
     --chrome-display: "Karl Display", Impact, "Arial Narrow", sans-serif;
     --chrome-chamfer: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));

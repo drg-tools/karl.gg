@@ -852,7 +852,10 @@ const builderModes = [
     { key: "compact", label: "Compact", hint: "Every tree on one screen, icons only" },
 ];
 
-/** Guided or compact layout, remembered in this browser. */
+/**
+ * Guided or compact layout. A choice made in this browser wins; otherwise
+ * signed-in players start in compact and guests start in guided.
+ */
 const builderMode = ref(readBuilderMode());
 watch(builderMode, (mode) => {
     try {
@@ -863,12 +866,14 @@ watch(builderMode, (mode) => {
 });
 
 function readBuilderMode() {
+    const fallback = config.signedIn ? "compact" : "guided";
     try {
-        return localStorage.getItem(builderModeKey) === "compact"
-            ? "compact"
-            : "guided";
+        const stored = localStorage.getItem(builderModeKey);
+        return builderModes.some((mode) => mode.key === stored)
+            ? stored
+            : fallback;
     } catch {
-        return "guided";
+        return fallback;
     }
 }
 

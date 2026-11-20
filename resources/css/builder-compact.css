@@ -296,7 +296,7 @@
         transform: translateX(-50%);
         border: 1px solid var(--ice);
         border-radius: 6px;
-        background: #0a121b;
+        background: #100b07;
         box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
         font-size: 12px;
         line-height: 1.4;
@@ -363,131 +363,78 @@
         filter: brightness(0) invert(0.74);
     }
 
-    /* Overclock: one slot under the tree, choices in an overlay. */
+    /* Overclock: every option on the board, like the in-game overclock grid. */
     .compact-oc-slot {
-        position: relative;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 4px;
         margin-top: 5px;
         padding-top: 7px;
         border-top: 1px dashed var(--line-2);
     }
     .compact-oc-slot > .compact-tier-number {
+        padding-top: 12px;
         font-size: 8px;
     }
-    .compact-oc-trigger {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+    .compact-oc-body {
+        display: grid;
+        gap: 6px;
         min-width: 0;
-        padding-right: 8px;
-        border-radius: 6px;
-        text-align: left;
     }
-    .compact-oc-trigger:not(.is-empty) .compact-octagon {
-        background: var(--amber);
+    .compact-oc-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 34px);
+        gap: 4px;
     }
-    .compact-oc-trigger:not(.is-empty) .compact-octagon img {
+    .compact-oc-choice .compact-octagon {
+        width: 34px;
+        height: 34px;
+    }
+    .compact-oc-choice .compact-octagon img {
+        width: 20px;
+        height: 20px;
+    }
+    .compact-oc-choice:hover .compact-octagon,
+    .compact-oc-choice:focus-visible .compact-octagon {
+        background: var(--ice);
+    }
+    .compact-oc-choice:hover .compact-octagon img,
+    .compact-oc-choice:focus-visible .compact-octagon img,
+    .compact-oc-choice.is-selected .compact-octagon img {
         filter: brightness(0);
         opacity: 0.85;
     }
-    .compact-oc-trigger:hover .compact-octagon,
-    .compact-oc-trigger:focus-visible .compact-octagon,
-    .compact-oc-trigger[aria-expanded="true"] .compact-octagon {
-        background: var(--ice);
-        color: var(--bg);
+    .compact-oc-choice.is-selected .compact-octagon {
+        background: var(--amber);
     }
-    .compact-oc-trigger:focus-visible {
-        outline: none;
-    }
-    .compact-oc-trigger-text,
-    .compact-oc-option-text {
+    .compact-oc-picked {
         display: grid;
-        min-width: 0;
+        margin: 0;
         line-height: 1.25;
     }
-    .compact-oc-trigger-text strong,
-    .compact-oc-option-text strong {
+    .compact-oc-picked strong {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         font-size: 12px;
     }
-    .compact-oc-trigger-text small,
-    .compact-oc-option-text small {
+    .compact-oc-picked.is-empty strong {
+        font-weight: 500;
+        color: var(--faint);
+    }
+    .compact-oc-picked small {
         font: 600 10px var(--mono);
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--faint);
     }
-    .compact-oc-trigger.oc-clean small,
-    .compact-oc-option.oc-clean small {
+    .compact-oc-picked.oc-clean small {
         color: var(--clean);
     }
-    .compact-oc-trigger.oc-balanced small,
-    .compact-oc-option.oc-balanced small {
+    .compact-oc-picked.oc-balanced small {
         color: var(--balanced);
     }
-    .compact-oc-trigger.oc-unstable small,
-    .compact-oc-option.oc-unstable small {
+    .compact-oc-picked.oc-unstable small {
         color: var(--unstable);
-    }
-    .compact-oc-panel {
-        position: absolute;
-        top: calc(100% + 6px);
-        left: 0;
-        z-index: 30;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 2px;
-        width: 430px;
-        padding: 6px;
-        border: 1px solid var(--line-2);
-        border-radius: 8px;
-        background: #0a121b;
-        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
-    }
-    .compact-oc-option {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 4px 8px 4px 4px;
-        border-radius: 6px;
-        text-align: left;
-    }
-    .compact-oc-option .compact-octagon {
-        width: 34px;
-        height: 34px;
-    }
-    .compact-oc-option .compact-octagon img {
-        width: 20px;
-        height: 20px;
-    }
-    .compact-oc-option:hover,
-    .compact-oc-option:focus-visible {
-        outline: none;
-        background: var(--panel-2);
-    }
-    .compact-oc-option.is-selected {
-        background: var(--amber-wash);
-        box-shadow: inset 0 0 0 1px var(--amber);
-    }
-    .compact-oc-option.is-selected .compact-octagon {
-        background: var(--amber);
-    }
-    .compact-oc-option.is-selected .compact-octagon img {
-        filter: brightness(0);
-        opacity: 0.85;
-    }
-    .compact-oc-option .compact-tip {
-        top: auto;
-        bottom: calc(100% + 4px);
-    }
-    /* Hover only: the overlay focuses an option on open, and a focus tip would cover its neighbours. */
-    .compact-oc-option:hover .compact-tip {
-        display: block;
     }
 
     .compact-deltas {
@@ -598,10 +545,6 @@
             margin-left: auto;
         }
         .compact-slots {
-            grid-template-columns: 1fr;
-        }
-        .compact-oc-panel {
-            width: min(340px, calc(100vw - 48px));
             grid-template-columns: 1fr;
         }
         .compact-tip {

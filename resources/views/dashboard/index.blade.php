@@ -67,7 +67,7 @@
             <div class="dashboard-classes">
                 @foreach ($patchStats['classes'] as $character)
                     @php
-                        $meta = $classes[$character->name] ?? ['color' => '#ffb547', 'role' => ''];
+                        $meta = $classes[$character->name] ?? ['color' => '#fc9e00', 'role' => ''];
                         $share = $patchLoadouts > 0 ? round($character->loadouts_count / $patchLoadouts * 100) : 0;
                     @endphp
                     <a class="dashboard-class" href="{{ route('loadout.index') }}?characters[]={{ $character->id }}" style="--class-accent: {{ $meta['color'] }}">
@@ -102,7 +102,7 @@
                 <ol class="dashboard-overclocks">
                     @foreach ($patchStats['popularOverclocks'] as $overclock)
                         <li @class(['dashboard-overclock', 'kit-oc-'.strtolower($overclock->overclock_type)])
-                            style="--class-accent: {{ $classes[$overclock->character?->name]['color'] ?? '#ffb547' }}">
+                            style="--class-accent: {{ $classes[$overclock->character?->name]['color'] ?? '#fc9e00' }}">
                             <span class="dashboard-overclock__rank">{{ $loop->iteration }}</span>
                             <span class="dashboard-overclock__icon">
                                 @if ($overclock->icon)

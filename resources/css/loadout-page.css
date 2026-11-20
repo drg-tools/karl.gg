@@ -3,19 +3,19 @@
  * slate/navy surfaces, amber for actions, class colour for identity.
  */
 .loadout-page {
-    --bg: #0e1722;
-    --panel: #172431;
-    --panel-2: #1c2a38;
-    --line: #2a3a4a;
-    --line-2: #344758;
-    --hair: rgba(255, 255, 255, 0.06);
-    --ink: #e9eef3;
-    --ink-2: #c3cdd6;
-    --muted: #8e9eac;
-    --faint: #64778a;
-    --amber: #ffb547;
-    --amber-2: #ffcf80;
-    --amber-ink: #2b1903;
+    --bg: var(--karl-bg);
+    --panel: var(--karl-panel);
+    --panel-2: var(--karl-panel-2);
+    --line: var(--karl-line);
+    --line-2: var(--karl-line-2);
+    --hair: var(--karl-hair);
+    --ink: var(--karl-ink);
+    --ink-2: var(--karl-ink-2);
+    --muted: var(--karl-muted);
+    --faint: var(--karl-faint);
+    --amber: var(--karl-amber);
+    --amber-2: var(--karl-amber-2);
+    --amber-ink: var(--karl-amber-ink);
     --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
     --display: "Karl Display", Impact, "Arial Narrow", sans-serif;
 
@@ -90,7 +90,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(90deg, rgba(14, 23, 34, 0.96) 30%, rgba(14, 23, 34, 0.55) 62%, transparent 85%);
+    background: linear-gradient(90deg, rgba(var(--karl-bg-rgb), 0.96) 30%, rgba(var(--karl-bg-rgb), 0.55) 62%, transparent 85%);
 }
 .loadout-hero__copy {
     max-width: 640px;
@@ -111,7 +111,7 @@
     a {
         color: var(--amber);
         text-decoration: underline;
-        text-decoration-color: rgba(255, 181, 71, 0.4);
+        text-decoration-color: rgba(var(--karl-amber-rgb), 0.4);
         text-underline-offset: 3px;
     }
 }
@@ -125,7 +125,7 @@
 
     div {
         padding: 10px 14px;
-        background: rgba(14, 23, 34, 0.82);
+        background: rgba(var(--karl-bg-rgb), 0.82);
     }
     dt {
         font: 500 10.5px var(--mono);
@@ -173,7 +173,7 @@
         background: var(--line-2);
     }
     &.is-secondary:hover {
-        background: #415669;
+        background: #5c4935;
     }
 }
 .loadout-chip {
@@ -184,7 +184,7 @@
     font-size: 13px;
     font-weight: 600;
     color: var(--ink-2);
-    background: rgba(14, 23, 34, 0.7);
+    background: rgba(var(--karl-bg-rgb), 0.7);
     border: 1px solid var(--line-2);
     cursor: pointer;
     transition: border-color 0.15s, color 0.15s;
@@ -195,7 +195,7 @@
     }
     &[aria-pressed="true"] {
         color: var(--amber-2);
-        border-color: rgba(255, 181, 71, 0.55);
+        border-color: rgba(var(--karl-amber-rgb), 0.55);
     }
     &.is-static {
         cursor: default;

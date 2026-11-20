@@ -51,12 +51,12 @@
                 <fieldset class="pickrates-classes">
                     <legend class="browse-label">Class</legend>
                     <div class="pickrates-classes__options">
-                        <label class="pickrates-class" style="--class-accent: #ffb547">
+                        <label class="pickrates-class" style="--class-accent: #fc9e00">
                             <input type="radio" name="character" value="" @checked($selectedCharacterId === null)>
                             <span>All</span>
                         </label>
                         @foreach ($characters as $character)
-                            <label class="pickrates-class" style="--class-accent: {{ $accents[$character->name] ?? '#ffb547' }}">
+                            <label class="pickrates-class" style="--class-accent: {{ $accents[$character->name] ?? '#fc9e00' }}">
                                 <input type="radio" name="character" value="{{ $character->id }}" @checked($selectedCharacterId === $character->id)>
                                 <span>{{ $character->name }}</span>
                             </label>
@@ -139,7 +139,7 @@
                             ]);
                             $deltaState = $row['delta'] > 0 ? 'is-up' : ($row['delta'] < 0 ? 'is-down' : 'is-flat');
                         @endphp
-                        <li class="pickrates-row" style="--class-accent: {{ $accents[$className] ?? '#ffb547' }}">
+                        <li class="pickrates-row" style="--class-accent: {{ $accents[$className] ?? '#fc9e00' }}">
                             <span class="pickrates-row__rank" aria-hidden="true">{{ $rankOffset + $loop->iteration }}</span>
 
                             <span @class(['pickrates-row__icon', 'is-portrait' => $type === 'classes'])>

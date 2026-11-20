@@ -7,7 +7,7 @@
         'Driller' => ['letter' => 'D', 'color' => '#ebc64d', 'role' => 'Excavate & eliminate'],
         'Gunner' => ['letter' => 'G', 'color' => '#9cba6f', 'role' => 'Firepower & protection'],
     ];
-    $class = $classes[$loadout->character->name] ?? ['letter' => 'E', 'color' => '#ffb547', 'role' => ''];
+    $class = $classes[$loadout->character->name] ?? ['letter' => 'E', 'color' => '#fc9e00', 'role' => ''];
     $selectedMods = $loadout->mods->modelKeys();
     $selectedEquipmentMods = $loadout->equipment_mods->modelKeys();
     $guns = $loadout->mods->pluck('gun')
@@ -102,6 +102,7 @@
                         :overclock="$loadout->overclocks->firstWhere('gun_id', $gun->id)"
                         :has-overclock-slot="true"
                         :accent="$class['color']"
+                        :code="$loadout->upgradeCode($gun->id)"
                     />
                 @endforeach
                 @foreach ($equipments as $equipment)

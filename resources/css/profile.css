@@ -215,7 +215,7 @@
 
     &:hover {
         color: var(--amber-2);
-        border-color: rgba(255, 181, 71, 0.55);
+        border-color: rgba(var(--karl-amber-rgb), 0.55);
     }
     &.is-danger:hover {
         color: #f2b8c2;

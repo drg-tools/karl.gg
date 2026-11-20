@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 /* App stylesheets stay unlayered so they keep overriding utilities, as they did under Tailwind v3. */
+@import './tokens.css';
 @import './builder.css';
 @import './preview.css';
 @import './ads.css';

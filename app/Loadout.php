@@ -3,12 +3,16 @@
 namespace App;
 
 use App\Events\LoadoutSaving;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Kyslik\ColumnSortable\Sortable;
+use Nagy\LaravelRating\Models\Rating;
 use Nagy\LaravelRating\Traits\Like\Likeable;
 use Nagy\LaravelRating\Traits\Vote\Votable;
 
@@ -20,26 +24,26 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @property string|null $description
  * @property int|null $user_id
  * @property int $character_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int|null $throwable_id
  * @property bool $is_hidden
- * @property-read \App\Character $character
- * @property-read \App\User|null $creator
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\EquipmentMod[] $equipment_mods
+ * @property-read Character $character
+ * @property-read User|null $creator
+ * @property-read Collection|EquipmentMod[] $equipment_mods
  * @property-read int|null $equipment_mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\ChristianKuri\LaravelFavorite\Models\Favorite[] $favorites
+ * @property-read Collection|Favorite[] $favorites
  * @property-read int $favorites_count
  * @property-read null $primary_gun
  * @property-read null $secondary_gun
- * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $likes
+ * @property-read Collection|Rating[] $likes
  * @property-read int|null $likes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Mod[] $mods
+ * @property-read Collection|Mod[] $mods
  * @property-read int|null $mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Overclock[] $overclocks
+ * @property-read Collection|Overclock[] $overclocks
  * @property-read int|null $overclocks_count
- * @property-read \App\Throwable|null $throwable
- * @property-read \Illuminate\Database\Eloquent\Collection|\Nagy\LaravelRating\Models\Rating[] $votes
+ * @property-read Throwable|null $throwable
+ * @property-read Collection|Rating[] $votes
  * @property-read int|null $votes_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout filter($input = [], $filter = null)
@@ -64,18 +68,20 @@ use Nagy\LaravelRating\Traits\Vote\Votable;
  * @mixin \Eloquent
  *
  * @property int $patch_id
- * @property-read \App\Patch $patch
+ * @property-read Patch $patch
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Loadout wherePatchId($value)
  * @method static Builder|Loadout onOlderPatch()
  */
 class Loadout extends Model
 {
+    use Favoriteable, Filterable, Likeable, Sortable, Votable;
     use HasFactory;
-    use Favoriteable, Filterable, Votable, Likeable, Sortable;
 
     public $sortable = ['name', 'description', 'character_id', 'throwable_id', 'created_at', 'updated_at'];
+
     public $sortableAs = ['votes_sum_value'];
+
     private static $whiteListFilter = [
         'creator',
         'name',
@@ -164,6 +170,19 @@ class Loadout extends Model
     }
 
     /**
+     * The weapon's upgrade code: one letter per tier, a dash for a tier left open (e.g. "BA–CB").
+     * Matches the code box in the compact builder, so players can copy it straight in.
+     */
+    public function upgradeCode(int $gunId, int $tiers = 5): string
+    {
+        $chosen = $this->mods->where('gun_id', $gunId)->pluck('mod_index', 'mod_tier');
+
+        return collect(range(1, $tiers))
+            ->map(fn (int $tier): string => $chosen->get($tier) ?? '–')
+            ->join('');
+    }
+
+    /**
      * We don't have a native relationship to guns, so we must traverse the mods to derive primary weapon.
      *
      * @return |null
@@ -192,7 +211,6 @@ class Loadout extends Model
     /**
      * We don't have a native relationship to guns, so we must traverse the mods to derive weapon.
      *
-     * @param  $slot
      * @return mixed
      */
     private function getGunFromMods($slot)
@@ -227,7 +245,6 @@ class Loadout extends Model
     /**
      * Saves the model without running any model events.
      *
-     * @param  array  $options
      * @return bool
      */
     public function saveQuietly(array $options = [])

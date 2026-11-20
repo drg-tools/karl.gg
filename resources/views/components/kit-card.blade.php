@@ -9,6 +9,7 @@
     'hasOverclockSlot' => false,
     'description' => null,
     'accent' => null,
+    'code' => null,
 ])
 
 @php
@@ -36,6 +37,9 @@
         <div>
             <span class="kit-card__eyebrow">{{ $label }}@if ($kind) · {{ $kind }}@endif</span>
             <h3 class="kit-card__name">{{ $name }}</h3>
+            @if ($code)
+                <div><span class="sr-only">Upgrade code:</span><code class="kit-card__code" title="Upgrade code: type it into the compact builder">{{ $code }}</code></div>
+            @endif
         </div>
         @if ($image)
             <img class="kit-card__art" src="{{ $image }}" alt="">

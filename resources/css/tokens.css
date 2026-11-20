@@ -1,0 +1,28 @@
+/*
+ * Shared palette. Warm mine-shaft browns and the game's orange, taken from
+ * the Deep Rock Galactic interface. Page stylesheets alias these tokens under
+ * their own short names instead of repeating colour values.
+ */
+:root {
+    --karl-bg: #16100b;
+    --karl-bg-rgb: 22, 16, 11;
+    --karl-bg-2: #1c150e;
+    --karl-panel: #231a12;
+    --karl-panel-2: #2b2016;
+    --karl-stats: #1a130d;
+    --karl-stats-2: #241a11;
+    --karl-line: #3d2f22;
+    --karl-line-2: #4d3c2b;
+    --karl-hair: rgba(255, 240, 220, 0.06);
+
+    --karl-ink: #f3ece2;
+    --karl-ink-2: #d4c8b8;
+    --karl-muted: #ada195;
+    --karl-faint: #82735f;
+
+    --karl-amber: #fc9e00;
+    --karl-amber-rgb: 252, 158, 0;
+    --karl-amber-2: #ffc04d;
+    --karl-amber-deep: #c97b00;
+    --karl-amber-ink: #1f1200;
+}

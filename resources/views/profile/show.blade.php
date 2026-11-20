@@ -77,7 +77,7 @@
                             $overclock = $loadout->overclocks->first();
                         @endphp
                         <li>
-                            <a class="profile-top__card" href="{{ route('preview.show', $loadout->id) }}" style="--class-accent: {{ $accents[$loadout->character->name] ?? '#ffb547' }}">
+                            <a class="profile-top__card" href="{{ route('preview.show', $loadout->id) }}" style="--class-accent: {{ $accents[$loadout->character->name] ?? '#fc9e00' }}">
                                 <span class="profile-top__head">
                                     <span class="profile-top__class">{{ $loadout->character->name }}</span>
                                     <span class="profile-top__rank" aria-hidden="true">{{ sprintf('%02d', $loop->iteration) }}</span>
@@ -126,7 +126,7 @@
                 <div class="profile-toolbar">
                     @if ($classTabs !== [])
                         <nav class="profile-classes" aria-label="Filter by class">
-                            <a class="profile-class" href="{{ $tabUrl(null) }}" style="--class-accent: #ffb547" @if ($classId === null) aria-current="page" @endif>
+                            <a class="profile-class" href="{{ $tabUrl(null) }}" style="--class-accent: #fc9e00" @if ($classId === null) aria-current="page" @endif>
                                 All <span>{{ number_format($stats['loadouts']) }}</span>
                             </a>
                             @foreach ($classTabs as $tab)
