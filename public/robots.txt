@@ -1,2 +1,5 @@
 User-agent: *
 Disallow:
+
+User-agent: ClaudeBot
+Crawl-delay: 5
