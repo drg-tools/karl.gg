@@ -1,3 +1,13 @@
+/*
+ * Full-width responsive units stretch past their container with negative
+ * margins, and iOS Safari lets the whole page pan sideways when anything
+ * pokes past the viewport. Clip (not hide) so sticky elements keep working.
+ */
+html,
+body {
+    overflow-x: clip;
+}
+
 /* Reserve space so units don't push the page around when they fill. */
 .ad-unit {
     width: 100%;
