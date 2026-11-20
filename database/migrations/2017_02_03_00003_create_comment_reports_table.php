@@ -13,16 +13,16 @@ class CreateCommentReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('comments.table_names.reports'), function (Blueprint $table) {
+        Schema::create('comment_reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('comment_id')->unsigned()->index();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
 
             $table->foreign('comment_id')
-                    ->references('id')
-                    ->on(config('comments.table_names.comments'))
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on('comments')
+                ->onDelete('cascade');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateCommentReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('comments.table_names.reports'));
+        Schema::dropIfExists('comment_reports');
     }
 }

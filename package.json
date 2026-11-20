@@ -11,18 +11,30 @@
         "@tailwindcss/typography": "^0.5.20",
         "@tailwindcss/vite": "^4.3.5",
         "@vitejs/plugin-vue": "^6.0.11",
+        "autosize": "^6.0.1",
+        "axios": "^1.21.1",
         "concurrently": "^10.0.7",
         "laravel-vite-plugin": "^3.2.1",
         "lodash-es": "^4.17.21",
         "prettier": "2.4.1",
+        "prismjs": "^1.30.0",
+        "stringz": "^2.1.0",
         "tailwindcss": "^4.3.5",
+        "vform": "^2.1.2",
         "vite": "^8.3.8",
-        "vue": "^3.5.0"
+        "vue": "^3.5.0",
+        "vue-i18n": "^11.4.23",
+        "vuex": "^4.1.0"
     },
     "dependencies": {
         "alpinejs": "^2.8.2"
     },
     "optionalDependencies": {
         "@laravel/multiplex": "^0.4.5"
+    },
+    "overrides": {
+        "@tailwindcss/typography": {
+            "postcss-selector-parser": "6.1.5"
+        }
     }
 }

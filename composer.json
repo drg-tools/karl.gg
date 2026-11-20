@@ -9,10 +9,6 @@
     "repositories": [
         {
             "type": "path",
-            "url": "./packages/laravel-comments"
-        },
-        {
-            "type": "path",
             "url": "./packages/laravel-rating"
         }
     ],
@@ -24,7 +20,6 @@
         "christiankuri/laravel-favorite": "^1.4",
         "creativeorange/gravatar": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "hazzard/laravel-comments": "dev-master",
         "kyslik/column-sortable": "^8.0",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
@@ -33,6 +28,7 @@
         "nagy/laravel-rating": "2.2.1",
         "php": "^8.4",
         "rollbar/rollbar-laravel": "^8.1",
+        "s9e/text-formatter": "^0.9.1",
         "spatie/laravel-backup": "^10.4",
         "spatie/laravel-permission": "^8.0",
         "tucker-eric/eloquentfilter": "^3.0",
