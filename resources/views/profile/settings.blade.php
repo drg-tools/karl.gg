@@ -109,7 +109,7 @@
                     </p>
                 </div>
 
-                <form class="settings-form" method="POST" action="{{ route('account.destroy') }}">
+                <form class="settings-form" method="POST" action="{{ route('account.destroy') }}" x-data x-on:submit="if (! confirm('Permanently delete your account? This can\'t be undone.')) $event.preventDefault()">
                     @csrf
                     @method('DELETE')
                     <input type="text" name="username" value="{{ $user->email }}" autocomplete="username" hidden>
