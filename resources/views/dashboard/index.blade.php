@@ -13,6 +13,12 @@
 
 @section('content')
     <div class="loadout-page dashboard">
+        @if (session('status') === 'account-deleted')
+            <div class="loadout-notice" role="status">
+                <strong>Your account has been deleted.</strong>
+            </div>
+        @endif
+
         <header class="dashboard-hero">
             <img class="dashboard-hero__art" src="{{ asset('assets/img/home-base.png') }}" alt="">
             <div class="dashboard-hero__copy">

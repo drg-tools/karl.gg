@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\DeleteAccount;
+use App\Post;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AccountSettingsController extends Controller
@@ -43,5 +47,28 @@ class AccountSettingsController extends Controller
         $request->user()->forceFill(['password' => Hash::make($validated['password'])])->save();
 
         return redirect()->route('account.settings')->with('status', 'password-updated');
+    }
+
+    public function destroy(Request $request, DeleteAccount $deleteAccount): RedirectResponse
+    {
+        $request->validateWithBag('deleteAccount', [
+            'delete_password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        if (Post::where('user_id', $user->id)->exists()) {
+            throw ValidationException::withMessages([
+                'delete_password' => 'Accounts that have written blog posts must be deleted by an administrator. Email admin@karl.gg.',
+            ])->errorBag('deleteAccount');
+        }
+
+        Auth::logout();
+        $deleteAccount->handle($user);
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('status', 'account-deleted');
     }
 }

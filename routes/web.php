@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings', [AccountSettingsController::class, 'edit'])->name('account.settings');
     Route::put('settings/profile', [AccountSettingsController::class, 'updateProfile'])->name('account.profile.update');
     Route::put('settings/password', [AccountSettingsController::class, 'updatePassword'])->name('account.password.update');
+    Route::delete('settings', [AccountSettingsController::class, 'destroy'])->name('account.destroy');
 
     Route::delete('build/delete/{id}', [LoadoutsController::class, 'delete']);
     Route::post('build/{id}/favorite', [LoadoutsController::class, 'toggleFavorite'])->name('loadout.favorite');

@@ -239,6 +239,22 @@
     gap: 20px;
     border-top: 2px solid var(--amber);
 }
+.settings-panel.is-danger {
+    grid-column: 1 / -1;
+    border-top-color: #e87a8e;
+
+    .settings-form {
+        max-width: 420px;
+    }
+    .loadout-button.is-danger {
+        color: #2a0a10;
+        background: #e87a8e;
+
+        &:hover {
+            background: #f2b8c2;
+        }
+    }
+}
 .settings-panel__head {
     h2 {
         margin: 0;
