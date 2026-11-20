@@ -17,15 +17,14 @@
         ->sortBy('character_slot');
     $equipments = $loadout->equipment_mods->pluck('equipment')->filter()->unique('id');
     $kitViewKey = 'karl:loadout-view';
-    $compactByDefault = auth()->check();
     /** Search crawlers always start detailed, so the upgrade descriptions are visible when the page is indexed. */
     $compactOnPhones = ! preg_match('/bot|crawl|spider|slurp|mediapartners/i', request()->userAgent() ?? '');
 @endphp
 
 @section('content')
     {{-- Apply the saved kit layout before the cards paint, so compact readers never see the detailed cards flash.
-         Without a saved choice, signed-in players and phone-sized screens (the page's 760px breakpoint) start compact, except for crawlers. --}}
-    <script>(function () { var view = @js($compactByDefault) || (@js($compactOnPhones) && window.matchMedia('(max-width: 760px)').matches) ? 'compact' : 'detailed'; try { view = localStorage.getItem(@js($kitViewKey)) || view; } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); })();</script>
+         Without a saved choice, phone-sized screens (the page's 760px breakpoint) start compact, except for crawlers. --}}
+    <script>(function () { var view = @js($compactOnPhones) && window.matchMedia('(max-width: 760px)').matches ? 'compact' : 'detailed'; try { view = localStorage.getItem(@js($kitViewKey)) || view; } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); })();</script>
 
     <div class="loadout-page" style="--class-accent: {{ $class['color'] }}">
         <x-loadout-outdated :outdated="! $isCurrentPatch"/>
