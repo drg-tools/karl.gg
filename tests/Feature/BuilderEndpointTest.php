@@ -305,7 +305,7 @@ class BuilderEndpointTest extends TestCase
         $response->assertOk()->assertSeeHtml('<span class="sr-only">Upgrade code:</span><code class="kit-card__code" title="Upgrade code: type it into the compact builder">C–A–B</code>');
     }
 
-    public function test_preview_kit_layout_defaults_to_compact_only_for_signed_in_players(): void
+    public function test_preview_kit_layout_defaults_to_compact_for_signed_in_players(): void
     {
         $input = $this->input();
         $overclock = Mod::find($input['mods'][0])->gun->overclocks->first();
@@ -313,11 +313,11 @@ class BuilderEndpointTest extends TestCase
         $url = route('preview.show', $this->postJson('/build', $input)->assertCreated()->json('id'));
 
         $this->get($url)->assertOk()
-            ->assertSee('var view = \'detailed\'', false)
+            ->assertSee('var view = false || window.matchMedia', false)
             ->assertSee('aria-label="Weapons and gear layout"', false)
             ->assertSeeInOrder(['kit-card__oc-caption', $overclock->overclock_type.' overclock', $overclock->overclock_name], false);
         $this->actingAs(User::factory()->create())->get($url)->assertOk()
-            ->assertSee('var view = \'compact\'', false);
+            ->assertSee('var view = true || window.matchMedia', false);
     }
 
     public function test_preview_share_button_shares_the_preview_url_not_the_builder(): void

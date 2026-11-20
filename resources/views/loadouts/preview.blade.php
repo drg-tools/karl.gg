@@ -17,12 +17,13 @@
         ->sortBy('character_slot');
     $equipments = $loadout->equipment_mods->pluck('equipment')->filter()->unique('id');
     $kitViewKey = 'karl:loadout-view';
-    $defaultKitView = auth()->check() ? 'compact' : 'detailed';
+    $compactByDefault = auth()->check();
 @endphp
 
 @section('content')
-    {{-- Apply the saved kit layout before the cards paint, so compact readers never see the detailed cards flash. --}}
-    <script>(function () { var view = @js($defaultKitView); try { view = localStorage.getItem(@js($kitViewKey)) || view; } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); })();</script>
+    {{-- Apply the saved kit layout before the cards paint, so compact readers never see the detailed cards flash.
+         Without a saved choice, signed-in players and phone-sized screens (the page's 760px breakpoint) start compact. --}}
+    <script>(function () { var view = @js($compactByDefault) || window.matchMedia('(max-width: 760px)').matches ? 'compact' : 'detailed'; try { view = localStorage.getItem(@js($kitViewKey)) || view; } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); })();</script>
 
     <div class="loadout-page" style="--class-accent: {{ $class['color'] }}">
         <x-loadout-outdated :outdated="! $isCurrentPatch"/>
