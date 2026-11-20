@@ -77,8 +77,7 @@ export default {
   methods: {
     post () {
       if (this.comment) {
-        this.form.parent_id = this.comment ? this.comment.id : null
-        this.form.root_id = this.comment ? (this.comment.root_id || this.comment.id) : null
+        this.form.parent_id = this.comment.id
       }
 
       this.form.post('/comments')

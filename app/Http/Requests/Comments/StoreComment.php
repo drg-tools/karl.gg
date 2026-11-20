@@ -6,12 +6,17 @@ use App\Comment;
 use App\Comments\CommentRepository;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Exists;
 use Illuminate\Validation\Validator;
 
 class StoreComment extends FormRequest
 {
+    private ?int $replyRootId = null;
+
+    public function replyRootId(): ?int
+    {
+        return $this->replyRootId;
+    }
+
     /**
      * @return array<string, ValidationRule|array<mixed>|string>
      */
@@ -20,8 +25,8 @@ class StoreComment extends FormRequest
         $rules = [
             'page_id' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'min:2', 'max:'.config('comments.max_length')],
-            'root_id' => ['nullable', Rule::exists('comments', 'id')->whereNull('parent_id')],
-            'parent_id' => ['nullable', 'required_with:root_id', $this->parentRule()],
+            'root_id' => ['nullable', 'integer'],
+            'parent_id' => ['nullable', 'required_with:root_id', 'integer'],
             'permalink' => ['nullable', 'url'],
         ];
 
@@ -43,7 +48,13 @@ class StoreComment extends FormRequest
     {
         return [
             function (Validator $validator): void {
-                $author = $this->user()?->getKey() ?? $this->input('author_email');
+                if ($validator->errors()->isNotEmpty()) {
+                    return;
+                }
+
+                $this->validateThread($validator);
+
+                $author = $this->user()?->getKey();
 
                 if ($author && app(CommentRepository::class)->unapprovedCount($author) >= config('comments.max_unapproved')) {
                     $validator->errors()->add('content', trans('comments-messages.max_unapproved'));
@@ -52,17 +63,37 @@ class StoreComment extends FormRequest
         ];
     }
 
-    /**
-     * Only moderators may reply to comments that are not approved.
-     */
-    protected function parentRule(): Exists
+    private function validateThread(Validator $validator): void
     {
-        $rule = Rule::exists('comments', 'id');
-
-        if (! $this->user()?->can('moderate', Comment::class)) {
-            $rule->where('status', Comment::STATUS_APPROVED);
+        if (! $this->filled('parent_id')) {
+            return;
         }
 
-        return $rule;
+        $pageComments = Comment::query()->where('page_id', $this->string('page_id')->value());
+        $parent = (clone $pageComments)->find($this->integer('parent_id'));
+
+        if (! $parent) {
+            $validator->errors()->add('parent_id', __('validation.exists', ['attribute' => 'parent id']));
+
+            return;
+        }
+
+        $root = $parent->parent_id === null
+            ? $parent
+            : (clone $pageComments)->whereNull('parent_id')->find($parent->root_id);
+
+        if (! $root || (! $this->user()?->can('moderate', Comment::class) && (! $parent->approved() || ! $root->approved()))) {
+            $validator->errors()->add('parent_id', __('validation.exists', ['attribute' => 'parent id']));
+
+            return;
+        }
+
+        if ($this->filled('root_id') && $this->integer('root_id') !== $root->id) {
+            $validator->errors()->add('root_id', __('validation.exists', ['attribute' => 'root id']));
+
+            return;
+        }
+
+        $this->replyRootId = $root->id;
     }
 }

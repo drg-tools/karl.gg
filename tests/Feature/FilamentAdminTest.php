@@ -151,8 +151,11 @@ class FilamentAdminTest extends TestCase
     public function test_comment_moderators_can_approve_and_filter_comments_by_status(): void
     {
         $this->manager(['view-admin', 'manage-comments']);
+        $reporter = User::factory()->create();
         $pending = Comment::factory()->create(['page_id' => 'loadout-7', 'status' => Comment::STATUS_PENDING]);
         $approved = Comment::factory()->create(['page_id' => 'loadout-7']);
+
+        $pending->reports()->create(['user_id' => $reporter->id]);
 
         $this->get(CommentResource::getUrl())->assertOk()
             ->assertSee('href="'.url('/preview/7').'#!comment='.$pending->id.'"', false);
@@ -164,6 +167,20 @@ class FilamentAdminTest extends TestCase
             ->callTableAction('approve', $pending);
 
         $this->assertSame(Comment::STATUS_APPROVED, $pending->fresh()->status);
+        $this->assertDatabaseMissing('comment_reports', ['comment_id' => $pending->id]);
+    }
+
+    public function test_comment_moderators_can_clear_reports_with_bulk_approval(): void
+    {
+        $this->manager(['view-admin', 'manage-comments']);
+        $reporter = User::factory()->create();
+        $reported = Comment::factory(2)->create(['page_id' => 'loadout-7', 'status' => Comment::STATUS_PENDING]);
+        $reported->each(fn (Comment $comment) => $comment->reports()->create(['user_id' => $reporter->id]));
+
+        Livewire::test(ManageComment::class)->callTableBulkAction(Comment::STATUS_APPROVED, $reported);
+
+        $this->assertSame([Comment::STATUS_APPROVED, Comment::STATUS_APPROVED], $reported->map->fresh()->pluck('status')->all());
+        $this->assertDatabaseCount('comment_reports', 0);
     }
 
     public function test_comment_moderators_can_bulk_mark_comments_as_spam(): void
@@ -190,6 +207,21 @@ class FilamentAdminTest extends TestCase
         $comment->refresh();
         $this->assertSame('Edited **text**', $comment->content);
         $this->assertSame(Comment::STATUS_PENDING, $comment->status);
+    }
+
+    public function test_approving_through_the_comment_editor_clears_reports(): void
+    {
+        $this->manager(['view-admin', 'manage-comments']);
+        $reporter = User::factory()->create();
+        $comment = Comment::factory()->create(['page_id' => 'loadout-7', 'status' => Comment::STATUS_PENDING]);
+        $comment->reports()->create(['user_id' => $reporter->id]);
+
+        Livewire::test(ManageComment::class)
+            ->callTableAction('edit', $comment, data: ['status' => Comment::STATUS_APPROVED])
+            ->assertHasNoTableActionErrors();
+
+        $this->assertSame(Comment::STATUS_APPROVED, $comment->fresh()->status);
+        $this->assertDatabaseMissing('comment_reports', ['comment_id' => $comment->id]);
     }
 
     public function test_admins_without_comments_permission_can_not_manage_comments(): void

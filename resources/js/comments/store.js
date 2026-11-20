@@ -125,7 +125,7 @@ const mutations = {
 
 // Actions
 const actions = {
-  fetch ({ state, commit, dispatch }, payload = {}) {
+  fetch ({ state, commit }, payload = {}) {
     state.target = payload.target ?? null
     state.loading = true
 
@@ -149,30 +149,24 @@ const actions = {
       .finally(() => {
         state.loading = false
       })
-      .then(({ data }) => {
-        if (data.comments.length === 0 && data.total > 0) {
-          dispatch('fetch', { page: state.page - 1 })
-        } else {
-          commit('SET_COMMENTS', data)
-        }
-      })
+      .then(({ data }) => commit('SET_COMMENTS', data))
   },
 
-  upvote ({ commit }, comment) {
+  async upvote ({ commit }, comment) {
     if (comment.voted === UPVOTE) {
-      api.removeVote(comment.id)
+      await api.removeVote(comment.id)
     } else {
-      api.upvote(comment.id)
+      await api.upvote(comment.id)
     }
 
     commit('UPVOTE', comment)
   },
 
-  downvote ({ commit }, comment) {
+  async downvote ({ commit }, comment) {
     if (comment.voted === DOWNVOTE) {
-      api.removeVote(comment.id)
+      await api.removeVote(comment.id)
     } else {
-      api.downvote(comment.id)
+      await api.downvote(comment.id)
     }
 
     commit('DOWNVOTE', comment)
@@ -193,9 +187,7 @@ const actions = {
   },
 
   report ({ commit }, comment) {
-    api.report(comment.id)
-
-    commit('REPORT_COMMENT', comment)
+    return api.report(comment.id).then(() => commit('REPORT_COMMENT', comment))
   }
 }
 

@@ -5,7 +5,7 @@
       <icon :type="comment.collapsed ? 'plus' : 'minus'"></icon>
     </button>
 
-    <dropdown v-if="loggedIn && (comment.can_update || comment.can_delete || !comment.reported)" label="Comment actions">
+    <dropdown v-if="loggedIn && (comment.can_update || comment.can_delete || canReport)" label="Comment actions">
       <template #toggle>
         <icon type="menu"></icon>
       </template>
@@ -17,7 +17,7 @@
         <button v-if="comment.can_delete" @click="destroy" class="comments-dropdown__item" role="menuitem" type="button">
           {{ $t('delete_button') }}
         </button>
-        <button v-if="!comment.reported" @click="report" class="comments-dropdown__item" role="menuitem" type="button">
+        <button v-if="canReport" @click="report" class="comments-dropdown__item" role="menuitem" type="button">
           {{ $t('report_button') }}
         </button>
       </template>
@@ -34,6 +34,12 @@ export default {
   data: () => ({
     loggedIn: config.loggedIn
   }),
+
+  computed: {
+    canReport () {
+      return this.comment.status === 'approved' && !this.comment.reported
+    }
+  },
 
   methods: {
     collapse () {
@@ -68,6 +74,7 @@ export default {
       setTimeout(() => {
         if (confirm(this.$t('confirm_report'))) {
           this.$store.dispatch('report', this.comment)
+            .catch(error => alert(this.$t(error.response?.status === 403 ? 'error_403' : 'error_500')))
         }
       }, 10)
     }

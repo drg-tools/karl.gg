@@ -36,6 +36,15 @@ class CommentPolicy
         return ($comment->approved() || $comment->pending()) && $this->isRecentCommentBy($user, $comment);
     }
 
+    public function vote(User $user, Comment $comment): bool
+    {
+        return $comment->approved() && ($comment->parent_id === null || $comment->root()
+            ->where('page_id', $comment->page_id)
+            ->whereNull('parent_id')
+            ->where('status', Comment::STATUS_APPROVED)
+            ->exists());
+    }
+
     public function report(User $user, Comment $comment): bool
     {
         return $comment->approved();

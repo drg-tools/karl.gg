@@ -195,7 +195,7 @@ class Comment extends Model
             'can_delete' => Gate::allows('delete', $this),
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
-            'replies' => $this->relationLoaded('replies') ? $this->replies->toArray() : [],
+            'replies' => $attributes['replies'] ?? [],
         ]);
     }
 }

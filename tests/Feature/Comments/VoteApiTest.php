@@ -149,6 +149,21 @@ class VoteApiTest extends CommentsTestCase
         ]);
     }
 
+    public function test_users_cannot_vote_on_a_hidden_thread_or_its_replies(): void
+    {
+        $hidden = Comment::factory()->create(['status' => Comment::STATUS_PENDING, 'page_id' => 'bar']);
+        $reply = Comment::factory()->create(['page_id' => 'bar', 'parent_id' => $hidden->id, 'root_id' => $hidden->id]);
+
+        $this->actingAs($this->testUser)
+            ->postJson("/comments/{$hidden->id}/upvote")
+            ->assertForbidden();
+
+        $this->postJson("/comments/{$reply->id}/downvote")
+            ->assertForbidden();
+
+        $this->assertDatabaseCount('comment_votes', 0);
+    }
+
     public function test_it_can_not_vote_if_is_a_guest(): void
     {
         $comment = Comment::factory()->create(['user_id' => $this->testUser->id]);

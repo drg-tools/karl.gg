@@ -34,7 +34,7 @@ class CommentApiTest extends CommentsTestCase
             ->assertJsonCount(4, 'comments');
     }
 
-    public function test_it_can_fetch_pending_comments_if_author_email_cookie_is_set(): void
+    public function test_guest_email_cookie_does_not_grant_access_to_pending_comments(): void
     {
         Comment::factory(2)->create(['page_id' => 1, 'status' => Comment::STATUS_PENDING, 'author_email' => 'foo@bar.app']);
         Comment::factory(2)->create(['page_id' => 1, 'author_email' => 'foo@bar.app']);
@@ -46,7 +46,7 @@ class CommentApiTest extends CommentsTestCase
         $this->withCookie('comment_author_email', 'foo@bar.app')
             ->get('/comments?page_id=1', ['Accept' => 'application/json'])
             ->assertSuccessful()
-            ->assertJsonCount(4, 'comments');
+            ->assertJsonCount(2, 'comments');
     }
 
     public function test_it_can_paginate_comments(): void
@@ -62,6 +62,56 @@ class CommentApiTest extends CommentsTestCase
         $this->getJson('/comments?page_id=1&page=3')
             ->assertSuccessful()
             ->assertJsonCount(1, 'comments');
+    }
+
+    public function test_empty_threads_ignore_hidden_and_orphaned_replies(): void
+    {
+        $hidden = Comment::factory()->create(['page_id' => 'bar', 'status' => Comment::STATUS_PENDING]);
+        Comment::factory()->create(['page_id' => 'bar', 'parent_id' => $hidden->id, 'root_id' => $hidden->id]);
+        Comment::factory()->create(['page_id' => 'bar', 'parent_id' => $hidden->id]);
+
+        $this->getJson('/comments?page_id=bar&page=2')
+            ->assertOk()
+            ->assertJsonPath('total', 0)
+            ->assertJsonPath('pagination.current_page', 1)
+            ->assertJsonCount(0, 'comments');
+    }
+
+    public function test_deep_link_uses_the_current_order_and_only_visible_threads_on_the_requested_page(): void
+    {
+        config(['comments.per_page' => 1]);
+        $older = Comment::factory()->create(['page_id' => 'bar', 'upvotes' => 0, 'created_at' => now()->subDay()]);
+        $newer = Comment::factory()->create(['page_id' => 'bar', 'upvotes' => 0, 'created_at' => now()]);
+        $reply = Comment::factory()->create(['page_id' => 'bar', 'parent_id' => $older->id, 'root_id' => $older->id]);
+        Comment::factory()->create(['page_id' => 'bar', 'upvotes' => 50, 'status' => Comment::STATUS_PENDING]);
+        $otherPageTarget = Comment::factory()->create(['page_id' => 'elsewhere', 'upvotes' => 1]);
+        Comment::factory()->create(['page_id' => 'elsewhere', 'upvotes' => 2]);
+
+        $this->getJson('/comments?page_id=bar&order=best&page=1')
+            ->assertOk()
+            ->assertJsonPath('comments.0.id', $newer->id)
+            ->assertJsonPath('total', 3);
+
+        $this->getJson("/comments?page_id=bar&order=best&target={$reply->id}")
+            ->assertOk()
+            ->assertJsonPath('pagination.current_page', 2)
+            ->assertJsonPath('comments.0.id', $older->id)
+            ->assertJsonPath('comments.0.replies.0.id', $reply->id);
+
+        $this->getJson("/comments?page_id=bar&order=oldest&target={$reply->id}")
+            ->assertOk()
+            ->assertJsonPath('pagination.current_page', 1)
+            ->assertJsonPath('comments.0.id', $older->id);
+
+        $this->getJson("/comments?page_id=bar&order=best&target={$otherPageTarget->id}")
+            ->assertOk()
+            ->assertJsonPath('pagination.current_page', 1)
+            ->assertJsonPath('comments.0.id', $newer->id);
+
+        $this->getJson('/comments?page_id=bar&order=best&page=99')
+            ->assertOk()
+            ->assertJsonPath('pagination.current_page', 2)
+            ->assertJsonPath('comments.0.id', $older->id);
     }
 
     public function test_it_can_order_comments_by_date(): void
@@ -131,9 +181,9 @@ class CommentApiTest extends CommentsTestCase
                 'root_id' => 1,
                 'parent_id' => 1,
             ])
-            ->assertJsonValidationErrors(['root_id', 'parent_id']);
+            ->assertJsonValidationErrors('parent_id');
 
-        $parent = Comment::factory()->create();
+        $parent = Comment::factory()->create(['page_id' => 'bar']);
 
         $this->actingAs($this->testUser)
             ->postJson('/comments', [
@@ -145,9 +195,40 @@ class CommentApiTest extends CommentsTestCase
             ->assertSuccessful();
     }
 
+    public function test_replies_inherit_the_root_of_their_parent(): void
+    {
+        $root = Comment::factory()->create(['page_id' => 'bar']);
+        $parent = Comment::factory()->create(['page_id' => 'bar', 'parent_id' => $root->id, 'root_id' => $root->id]);
+
+        $this->actingAs($this->testUser)
+            ->postJson('/comments', ['page_id' => 'bar', 'content' => 'reply', 'parent_id' => $parent->id])
+            ->assertCreated()
+            ->assertJsonPath('root_id', $root->id)
+            ->assertJsonPath('parent_id', $parent->id);
+    }
+
+    public function test_replies_reject_a_parent_on_another_page_or_a_root_in_another_thread(): void
+    {
+        $parent = Comment::factory()->create(['page_id' => 'bar']);
+        $otherRoot = Comment::factory()->create(['page_id' => 'bar']);
+        $reply = ['content' => 'reply', 'parent_id' => $parent->id];
+
+        $this->actingAs($this->testUser)
+            ->postJson('/comments', $reply + ['page_id' => 'elsewhere'])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('parent_id');
+
+        $this->postJson('/comments', $reply + ['page_id' => 'bar', 'root_id' => $otherRoot->id])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('root_id');
+
+        $this->assertDatabaseCount('comments', 2);
+    }
+
     public function test_it_can_check_if_the_parent_comment_is_approved(): void
     {
         $parent = Comment::factory()->create([
+            'page_id' => 'bar',
             'status' => Comment::STATUS_PENDING,
         ]);
 
@@ -177,7 +258,7 @@ class CommentApiTest extends CommentsTestCase
         $this->assertDatabaseCount('comments', 2);
     }
 
-    public function test_it_remembers_the_author_email(): void
+    public function test_guests_can_post_when_the_contact_email_has_pending_comments(): void
     {
         $author = [
             'author_name' => 'Test User',
@@ -185,9 +266,12 @@ class CommentApiTest extends CommentsTestCase
             'author_url' => 'http://example.org',
         ];
 
+        config(['comments.max_unapproved' => 1]);
+        Comment::factory()->create(['author_email' => $author['author_email'], 'status' => Comment::STATUS_PENDING]);
+
         $this->postJson('/comments', array_merge($author, ['content' => 'foo', 'page_id' => 'bar']))
-            ->assertSuccessful()
-            ->assertCookie('comment_author_email', $author['author_email']);
+            ->assertCreated()
+            ->assertCookieMissing('comment_author_email');
     }
 
     public function test_it_can_post_a_new_comment(): void
@@ -236,14 +320,10 @@ class CommentApiTest extends CommentsTestCase
     public function test_it_rejects_new_comments_from_authors_with_too_many_unapproved_comments(): void
     {
         config(['comments.max_unapproved' => 2]);
-        Comment::factory(2)->create(['author_email' => 'guest@example.org', 'status' => Comment::STATUS_PENDING]);
+        Comment::factory(2)->create(['user_id' => $this->testUser->id, 'status' => Comment::STATUS_PENDING]);
 
-        $this->postJson('/comments', [
-            'content' => 'foo',
-            'page_id' => 'bar',
-            'author_name' => 'Guest',
-            'author_email' => 'guest@example.org',
-        ])
+        $this->actingAs($this->testUser)
+            ->postJson('/comments', ['content' => 'foo', 'page_id' => 'bar'])
             ->assertUnprocessable()
             ->assertJsonValidationErrors(['content' => 'You have too many unapproved comments. Wait until some are approved.']);
     }

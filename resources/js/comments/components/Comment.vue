@@ -43,7 +43,7 @@
           </div>
 
           <div v-if="!editComment && !comment.reported" class="comment__footer">
-            <votes :comment="comment"></votes>
+            <votes v-if="approved" :comment="comment"></votes>
 
             <button v-if="approved" @click="reply" type="button" class="comment__action"
               :aria-expanded="showReply">

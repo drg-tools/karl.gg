@@ -10,47 +10,50 @@ use Illuminate\Support\Facades\DB;
 
 class CommentRepository
 {
-    public function __construct(protected Formatter $formatter)
-    {
-    }
+    public function __construct(protected Formatter $formatter) {}
 
     /**
      * Get one page of approved threads for a page, plus the viewer's own pending comments.
      *
-     * @param  array{page?: int, order?: ?string, target?: ?int, user_id?: ?int, email?: ?string}  $args
+     * @param  array{page?: int, order?: ?string, target?: ?int, user_id?: ?int}  $args
      */
     public function forPage(string $pageId, array $args = []): Paginator
     {
         $perPage = config('comments.per_page');
         $userId = $args['user_id'] ?? null;
-        $viewer = $userId ?: ($args['email'] ?? null);
         [$column, $direction] = $this->orderFields($args['order'] ?? null);
+        $visible = Comment::query()->where('page_id', $pageId);
+        $this->visibleTo($visible, $userId);
 
-        $page = (int) ($args['page'] ?? 1) ?: 1;
+        $query = (clone $visible)->whereNull('parent_id');
+        $total = $query->count('id');
+        $count = $total + (clone $visible)
+            ->whereNotNull('parent_id')
+            ->whereIn('root_id', (clone $query)->select('id'))
+            ->count('id');
+
+        $page = $args['page'] ?? 1;
 
         if (! empty($args['target'])) {
-            $page = $this->pageNumberFor((int) $args['target']) ?? $page;
+            $page = $this->pageNumberFor($visible, $query, $args['target'], $column, $direction, $perPage) ?? $page;
         }
 
-        $query = Comment::query()->where('page_id', $pageId);
-        $this->visibleTo($query, $viewer);
-
-        $count = $query->count('id');
-        $query->whereNull('parent_id');
-        $total = $query->count('id');
+        $page = min(max(1, $page), max(1, (int) ceil($total / $perPage)));
 
         $comments = $query->with('user')
             ->when($userId, fn (Builder $query) => $query->withUserVote($userId))
-            ->with(['replies' => function (HasMany $query) use ($column, $direction, $viewer, $userId): void {
-                $query->orderBy($column, $direction)->with('user');
+            ->with(['replies' => function (HasMany $query) use ($column, $direction, $pageId, $userId): void {
+                $query->where('page_id', $pageId)->whereNotNull('parent_id')
+                    ->orderBy($column, $direction)->orderBy('id', $direction)->with('user');
 
                 if ($userId) {
                     $query->withUserVote($userId);
                 }
 
-                $this->visibleTo($query->getQuery(), $viewer);
+                $this->visibleTo($query->getQuery(), $userId);
             }])
             ->orderBy($column, $direction)
+            ->orderBy('id', $direction)
             ->forPage($page, $perPage)
             ->get()
             ->makeHidden(['author_email', 'user_agent', 'author_ip']);
@@ -122,12 +125,12 @@ class CommentRepository
     }
 
     /**
-     * Count the comments by a user id or guest email that are not yet approved.
+     * Count the comments that are not yet approved for a signed-in author.
      */
-    public function unapprovedCount(int|string $userIdOrEmail): int
+    public function unapprovedCount(int $userId): int
     {
         return Comment::query()
-            ->where($this->authorColumn($userIdOrEmail), $userIdOrEmail)
+            ->where('user_id', $userId)
             ->where('status', '!=', Comment::STATUS_APPROVED)
             ->count('id');
     }
@@ -166,40 +169,41 @@ class CommentRepository
         });
     }
 
-    /**
-     * Find which page a deep-linked comment's thread sits on, using the default order.
-     */
-    protected function pageNumberFor(int $commentId): ?int
+    protected function pageNumberFor(Builder $visible, Builder $threads, int $commentId, string $column, string $direction, int $perPage): ?int
     {
-        $comment = Comment::query()->find($commentId);
+        $comment = (clone $visible)->find($commentId);
 
         if (! $comment) {
             return null;
         }
 
-        [$column, $direction] = $this->orderFields(null);
-        $value = $comment->root_id ? $comment->root()->value($column) : $comment->getRawOriginal($column);
+        $root = $comment->parent_id === null ? $comment : (clone $threads)->find($comment->root_id);
 
-        $before = Comment::query()
-            ->where('page_id', $comment->page_id)
-            ->whereNull('root_id')
-            ->where($column, $direction === 'desc' ? '>' : '<', $value)
-            ->count('id');
+        if (! $root) {
+            return null;
+        }
 
-        return intdiv($before, config('comments.per_page')) + 1;
+        $value = $root->getRawOriginal($column);
+        $operator = $direction === 'desc' ? '>' : '<';
+        $before = (clone $threads)->where(function (Builder $query) use ($column, $operator, $value, $root): void {
+            $query->where($column, $operator, $value)
+                ->orWhere(fn (Builder $query) => $query->where($column, $value)->where('id', $operator, $root->id));
+        })->count('id');
+
+        return intdiv($before, $perPage) + 1;
     }
 
     /**
      * Hide trashed comments, and unapproved ones unless the viewer wrote them.
      */
-    protected function visibleTo(Builder $query, int|string|null $viewer): void
+    protected function visibleTo(Builder $query, ?int $userId): void
     {
         $query->where('status', '!=', Comment::STATUS_TRASH)
-            ->where(function (Builder $query) use ($viewer): void {
+            ->where(function (Builder $query) use ($userId): void {
                 $query->where('status', Comment::STATUS_APPROVED);
 
-                if ($viewer) {
-                    $query->orWhere($this->authorColumn($viewer), $viewer);
+                if ($userId) {
+                    $query->orWhere('user_id', $userId);
                 }
             });
     }
@@ -214,10 +218,5 @@ class CommentRepository
             Comment::ORDER_OLDEST => ['created_at', 'asc'],
             default => ['upvotes', 'desc'],
         };
-    }
-
-    protected function authorColumn(int|string $userIdOrEmail): string
-    {
-        return is_string($userIdOrEmail) && str_contains($userIdOrEmail, '@') ? 'author_email' : 'user_id';
     }
 }

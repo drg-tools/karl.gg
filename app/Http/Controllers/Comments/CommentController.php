@@ -14,9 +14,7 @@ use Illuminate\Http\Response;
 
 class CommentController extends Controller
 {
-    public function __construct(protected CommentRepository $comments)
-    {
-    }
+    public function __construct(protected CommentRepository $comments) {}
 
     /**
      * List one page of a page's comment threads.
@@ -30,7 +28,6 @@ class CommentController extends Controller
             'order' => $request->string('order')->value() ?: null,
             'target' => $request->integer('target') ?: null,
             'user_id' => $request->user()?->getKey(),
-            'email' => $request->user() ? null : $request->cookie('comment_author_email'),
         ]);
 
         return response()->json($comments->toArray());
@@ -38,8 +35,9 @@ class CommentController extends Controller
 
     public function store(StoreComment $request): JsonResponse
     {
-        $attributes = $request->safe()->only('page_id', 'root_id', 'parent_id', 'content', 'permalink');
+        $attributes = $request->safe()->only('page_id', 'parent_id', 'content', 'permalink');
         $attributes += [
+            'root_id' => $request->replyRootId(),
             'author_ip' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ];
@@ -51,13 +49,8 @@ class CommentController extends Controller
         }
 
         $comment = $this->comments->create($attributes);
-        $response = response()->json($comment, 201);
 
-        if (! $request->user()) {
-            $response->withCookie(cookie()->forever('comment_author_email', $comment->author_email));
-        }
-
-        return $response;
+        return response()->json($comment, 201);
     }
 
     public function update(UpdateComment $request, Comment $comment): JsonResponse

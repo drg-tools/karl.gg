@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Comment;
+use App\Comments\Report;
 use App\Filament\Resources\CommentResource\Pages\ManageComment;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -21,6 +22,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CommentResource extends AdminResource
@@ -104,8 +106,8 @@ class CommentResource extends AdminResource
                 Action::make('approve')
                     ->icon(Heroicon::OutlinedCheck)
                     ->color('success')
-                    ->visible(fn (Comment $record): bool => ! $record->approved())
-                    ->action(fn (Comment $record) => $record->update(['status' => Comment::STATUS_APPROVED])),
+                    ->visible(fn (Comment $record): bool => ! $record->approved() || $record->reports_count > 0)
+                    ->action(fn (Comment $record) => static::updateStatus([$record->id], Comment::STATUS_APPROVED)),
                 Action::make('hold')
                     ->label('Unapprove')
                     ->icon(Heroicon::OutlinedPause)
@@ -117,7 +119,18 @@ class CommentResource extends AdminResource
                         ->label('View on site')
                         ->icon(Heroicon::OutlinedArrowTopRightOnSquare)
                         ->url(fn (Comment $record): ?string => static::publicUrl($record), shouldOpenInNewTab: true),
-                    EditAction::make(),
+                    EditAction::make()
+                        ->using(function (Comment $record, array $data): Comment {
+                            return DB::transaction(function () use ($record, $data): Comment {
+                                $record->update($data);
+
+                                if ($record->wasChanged('status') && $record->approved()) {
+                                    $record->reports()->delete();
+                                }
+
+                                return $record;
+                            });
+                        }),
                     Action::make('spam')
                         ->label('Mark as spam')
                         ->icon(Heroicon::OutlinedShieldExclamation)
@@ -192,7 +205,21 @@ class CommentResource extends AdminResource
         return BulkAction::make($status)
             ->label($label)
             ->icon($icon)
-            ->action(fn (Collection $records) => Comment::query()->whereKey($records->modelKeys())->update(['status' => $status]))
+            ->action(fn (Collection $records) => static::updateStatus($records->modelKeys(), $status))
             ->deselectRecordsAfterCompletion();
+    }
+
+    /**
+     * @param  list<int>  $commentIds
+     */
+    protected static function updateStatus(array $commentIds, string $status): void
+    {
+        DB::transaction(function () use ($commentIds, $status): void {
+            Comment::query()->whereKey($commentIds)->update(['status' => $status]);
+
+            if ($status === Comment::STATUS_APPROVED) {
+                Report::query()->whereIn('comment_id', $commentIds)->delete();
+            }
+        });
     }
 }
