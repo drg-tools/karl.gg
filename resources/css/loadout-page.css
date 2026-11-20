@@ -67,8 +67,7 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    min-height: 360px;
-    padding: 36px 40px 32px;
+    padding: 22px 32px 20px;
     background: linear-gradient(105deg, var(--bg) 35%, color-mix(in srgb, var(--class-accent) 22%, var(--bg)) 100%);
     border: 1px solid var(--hair);
     border-bottom: 3px solid var(--class-accent);
@@ -99,10 +98,23 @@
     color: var(--class-accent);
 }
 .loadout-hero__name {
-    margin: 12px 0 10px;
-    font: 400 64px/0.92 var(--display);
+    margin: 6px 0;
+    font: 400 44px/0.92 var(--display);
     letter-spacing: 0.005em;
     overflow-wrap: anywhere;
+}
+.loadout-hero__outdated {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 1px 7px;
+    border: 1px solid rgba(var(--karl-amber-rgb), 0.55);
+    color: var(--amber-2);
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    cursor: help;
+}
+.loadout-hero .loadout-hero__actions {
+    margin-top: 16px;
 }
 .loadout-hero__meta {
     margin: 0;
@@ -377,8 +389,7 @@
         padding: 0 16px;
     }
     .loadout-hero {
-        min-height: 0;
-        padding: 24px 20px;
+        padding: 22px 20px 20px;
     }
     .loadout-hero__buttons,
     .loadout-hero__chips {
@@ -410,9 +421,6 @@
         width: 60%;
         height: 70%;
         opacity: 0.45;
-    }
-    .loadout-hero__name {
-        font-size: 44px;
     }
     .loadout-hero__summary {
         grid-template-columns: minmax(0, 1fr);

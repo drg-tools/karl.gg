@@ -229,13 +229,13 @@ class BuilderEndpointTest extends TestCase
 
         $this->get($url)->assertOk()
             ->assertSeeText('· Current Patch')
-            ->assertDontSeeText('This build may be outdated.');
+            ->assertDontSeeText('Older patch');
 
         Patch::factory()->create(['launched_at' => now()]);
 
         $this->get($url)->assertOk()
             ->assertSeeText('· Season 5')
-            ->assertSeeText('This build may be outdated.')
+            ->assertSeeText('Older patch: made in an earlier patch, so some upgrades may perform differently today.')
             ->assertDontSeeText('· Current Patch');
     }
 

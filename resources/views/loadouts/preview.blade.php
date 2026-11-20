@@ -27,8 +27,6 @@
     <script>(function () { var view = @js($compactOnPhones) && window.matchMedia('(max-width: 760px)').matches ? 'compact' : 'detailed'; try { view = localStorage.getItem(@js($kitViewKey)) || view; } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); })();</script>
 
     <div class="loadout-page" style="--class-accent: {{ $class['color'] }}">
-        <x-loadout-outdated :outdated="! $isCurrentPatch"/>
-
         <header class="loadout-hero">
             <img class="loadout-hero__art" src="/assets/img/full-{{ $class['letter'] }}_image.png" alt="">
             <div class="loadout-hero__copy">
@@ -39,6 +37,11 @@
                     @elseif ($loadout->patch)
                         · {{ $loadout->patch->label }}
                     @endif
+                    @unless ($isCurrentPatch)
+                        <span class="loadout-hero__outdated" title="Made in an earlier patch, so some upgrades may perform differently today.">
+                            <span aria-hidden="true">&#x26A0;&#xFE0E;</span> Older patch<span class="sr-only">: made in an earlier patch, so some upgrades may perform differently today.</span>
+                        </span>
+                    @endunless
                 </p>
                 <h1 class="loadout-hero__name">{{ $loadout->name }}</h1>
                 <p class="loadout-hero__meta">
@@ -50,19 +53,6 @@
                     @endif
                     · Updated {{ $loadout->updated_at->format('j M Y') }}
                 </p>
-
-                <dl class="loadout-hero__summary">
-                    @foreach ([1 => 'Primary', 2 => 'Secondary'] as $slot => $label)
-                        <div>
-                            <dt>{{ $label }}</dt>
-                            <dd>{{ $guns->firstWhere('character_slot', $slot)?->name ?? '—' }}</dd>
-                        </div>
-                    @endforeach
-                    <div>
-                        <dt>Throwable</dt>
-                        <dd>{{ $loadout->throwable?->name ?? '—' }}</dd>
-                    </div>
-                </dl>
 
                 <div class="loadout-hero__actions">
                     <div class="loadout-hero__buttons">
