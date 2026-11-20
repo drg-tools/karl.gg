@@ -6,7 +6,9 @@ use App\Character;
 use App\Equipment;
 use App\EquipmentMod;
 use App\GameDataCatalog;
+use App\Gun;
 use App\Loadout;
+use App\Mod;
 use App\Patch;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -285,6 +287,24 @@ class BuilderEndpointTest extends TestCase
     }
 
     /** @return array<string, mixed> */
+    public function test_preview_shows_each_weapon_upgrade_code_with_open_tiers_dashed(): void
+    {
+        $engineer = Character::factory()->create(['name' => 'Engineer']);
+        $gun = Gun::factory()->create(['name' => 'Warthog Auto 210', 'gun_class' => 'Shotgun', 'character_id' => $engineer->id]);
+        $chosen = collect([[1, 'C'], [3, 'A'], [5, 'B']])->map(fn (array $pick): int => Mod::create([
+            'character_id' => $engineer->id, 'gun_id' => $gun->id, 'mod_tier' => $pick[0], 'mod_index' => $pick[1],
+            'mod_name' => 'Tier '.$pick[0].' upgrade', 'credits_cost' => 0, 'magnite_cost' => 0, 'bismor_cost' => 0,
+            'umanite_cost' => 0, 'croppa_cost' => 0, 'enor_pearl_cost' => 0, 'jadiz_cost' => 0,
+            'text_description' => '', 'json_stats' => '', 'icon' => '', 'mod_type' => '',
+        ])->id);
+        $loadout = Loadout::factory()->create(['character_id' => $engineer->id, 'user_id' => null]);
+        $loadout->mods()->attach($chosen);
+
+        $response = $this->get(route('preview.show', $loadout->id));
+
+        $response->assertOk()->assertSeeHtml('<span class="sr-only">Upgrade code:</span><code class="kit-card__code" title="Upgrade code: type it into the compact builder">C–A–B</code>');
+    }
+
     private function input(): array
     {
         Patch::factory()->create(['launched_at' => now()->subDay()]);

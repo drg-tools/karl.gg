@@ -191,7 +191,7 @@
         line-height: 1.1;
     }
     :where(a) {
-        text-decoration-color: rgba(255, 181, 71, 0.4);
+        text-decoration-color: rgba(var(--karl-amber-rgb), 0.4);
         text-underline-offset: 3px;
     }
     :where(a):hover {

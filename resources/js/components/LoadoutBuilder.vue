@@ -77,13 +77,8 @@
             class="class-selection"
             aria-label="Choose your class"
         >
-            <div class="section-heading">
-                <div>
-                    <p class="terminal-label">Start here</p>
-                    <h2>Who’s going down?</h2>
-                </div>
+            <div v-if="form.character_id" class="section-heading">
                 <button
-                    v-if="form.character_id"
                     type="button"
                     class="text-action"
                     @click="cancelClassSelection"
@@ -116,12 +111,7 @@
                     />
                     <span class="class-caption"
                         ><small>{{ classInfo[character.name]?.role }}</small
-                        ><strong>{{ character.name }}</strong
-                        ><span>{{
-                            classInfo[character.name]?.description
-                        }}</span></span
-                    ><span class="class-arrow" aria-hidden="true"
-                        >Select ↗︎</span
+                        ><strong>{{ character.name }}</strong></span
                     >
                 </button>
             </div>
@@ -735,7 +725,6 @@
                                                 ? "Save changes"
                                                 : "Publish loadout"
                                         }}
-                                        <span aria-hidden="true">↗︎</span>
                                     </button>
                                 </div>
                             </form>
@@ -852,7 +841,10 @@ const builderModes = [
     { key: "compact", label: "Compact", hint: "Every tree on one screen, icons only" },
 ];
 
-/** Guided or compact layout, remembered in this browser. */
+/**
+ * Guided or compact layout. A choice made in this browser wins; otherwise
+ * signed-in players start in compact and guests start in guided.
+ */
 const builderMode = ref(readBuilderMode());
 watch(builderMode, (mode) => {
     try {
@@ -863,12 +855,14 @@ watch(builderMode, (mode) => {
 });
 
 function readBuilderMode() {
+    const fallback = config.signedIn ? "compact" : "guided";
     try {
-        return localStorage.getItem(builderModeKey) === "compact"
-            ? "compact"
-            : "guided";
+        const stored = localStorage.getItem(builderModeKey);
+        return builderModes.some((mode) => mode.key === stored)
+            ? stored
+            : fallback;
     } catch {
-        return "guided";
+        return fallback;
     }
 }
 

@@ -39,7 +39,7 @@
 
             @if ($isOwner)
                 <div class="profile-hero__actions">
-                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
+                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build</a>
                     <a class="loadout-button is-secondary" href="{{ route('account.settings') }}">Account settings</a>
                 </div>
             @endif
@@ -67,7 +67,6 @@
         @if ($topLoadouts->isNotEmpty())
             <section class="loadout-section" aria-labelledby="profile-top-title">
                 <div class="loadout-section__heading">
-                    <p class="loadout-eyebrow">Most saluted</p>
                     <h2 id="profile-top-title">Top builds</h2>
                 </div>
                 <ol class="profile-top">
@@ -77,7 +76,7 @@
                             $overclock = $loadout->overclocks->first();
                         @endphp
                         <li>
-                            <a class="profile-top__card" href="{{ route('preview.show', $loadout->id) }}" style="--class-accent: {{ $accents[$loadout->character->name] ?? '#ffb547' }}">
+                            <a class="profile-top__card" href="{{ route('preview.show', $loadout->id) }}" style="--class-accent: {{ $accents[$loadout->character->name] ?? '#fc9e00' }}">
                                 <span class="profile-top__head">
                                     <span class="profile-top__class">{{ $loadout->character->name }}</span>
                                     <span class="profile-top__rank" aria-hidden="true">{{ sprintf('%02d', $loop->iteration) }}</span>
@@ -108,7 +107,6 @@
 
         <section class="loadout-section" id="loadouts" aria-labelledby="profile-loadouts-title">
             <div class="loadout-section__heading">
-                <p class="loadout-eyebrow">Loadout library</p>
                 <h2 id="profile-loadouts-title">{{ $isOwner ? 'Your builds' : 'Builds by '.$user->name }}</h2>
             </div>
 
@@ -126,7 +124,7 @@
                 <div class="profile-toolbar">
                     @if ($classTabs !== [])
                         <nav class="profile-classes" aria-label="Filter by class">
-                            <a class="profile-class" href="{{ $tabUrl(null) }}" style="--class-accent: #ffb547" @if ($classId === null) aria-current="page" @endif>
+                            <a class="profile-class" href="{{ $tabUrl(null) }}" style="--class-accent: #fc9e00" @if ($classId === null) aria-current="page" @endif>
                                 All <span>{{ number_format($stats['loadouts']) }}</span>
                             </a>
                             @foreach ($classTabs as $tab)

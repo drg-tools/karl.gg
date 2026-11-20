@@ -15,28 +15,24 @@ export function useLoadoutBuilder(config) {
             color: "#eb745d",
             role: "Fortify & defend",
             number: "01",
-            description: "Build a better plan.",
         },
         Scout: {
             letter: "S",
             color: "#68aaf6",
             role: "Light & mobility",
             number: "02",
-            description: "Leave no cave unexplored.",
         },
         Driller: {
             letter: "D",
             color: "#ebc64d",
             role: "Excavate & eliminate",
             number: "03",
-            description: "Make your own way.",
         },
         Gunner: {
             letter: "G",
             color: "#9cba6f",
             role: "Firepower & protection",
             number: "04",
-            description: "Hold the line.",
         },
     };
     const sections = [

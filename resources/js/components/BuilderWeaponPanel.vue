@@ -228,7 +228,7 @@
                 @toggle="loadMetrics"
             >
                 <summary>
-                    Advanced statistics <span aria-hidden="true">↗︎</span>
+                    Advanced statistics
                 </summary>
                 <p v-if="metrics?.message" role="status">
                     {{ metrics.message }}

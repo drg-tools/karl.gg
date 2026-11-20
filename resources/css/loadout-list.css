@@ -83,6 +83,17 @@
         opacity: 0.75;
     }
 }
+.loadout-row__gun {
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+
+    code {
+        font: 600 10px/1 var(--mono);
+        letter-spacing: 0.08em;
+        color: var(--karl-amber);
+    }
+}
 .loadout-row__overclock {
     display: grid;
     gap: 2px;

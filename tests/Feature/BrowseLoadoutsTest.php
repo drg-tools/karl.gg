@@ -144,6 +144,22 @@ class BrowseLoadoutsTest extends TestCase
     /**
      * @return array<string, mixed>
      */
+    public function test_results_show_each_weapon_upgrade_code_with_open_tiers_dashed(): void
+    {
+        $scout = Character::factory()->create(['name' => 'Scout']);
+        $gun = Gun::factory()->create(['name' => 'Deepcore GK2', 'gun_class' => 'Rifle', 'character_id' => $scout->id]);
+        $loadout = Loadout::factory()->create(['name' => 'Coded Build', 'character_id' => $scout->id]);
+        $loadout->mods()->attach([
+            Mod::create([...$this->modAttributes($gun, 'Gyro Stabilisation'), 'mod_tier' => 1, 'mod_index' => 'B'])->id,
+            Mod::create([...$this->modAttributes($gun, 'Expanded Ammo Bags'), 'mod_tier' => 2, 'mod_index' => 'A'])->id,
+            Mod::create([...$this->modAttributes($gun, 'Hollow-Point Bullets'), 'mod_tier' => 4, 'mod_index' => 'C'])->id,
+        ]);
+
+        $response = $this->get(route('loadout.index'));
+
+        $response->assertOk()->assertSeeHtml('<code title="Deepcore GK2 upgrade code">BA–C–</code>');
+    }
+
     private function modAttributes(Gun $gun, string $name): array
     {
         return [
