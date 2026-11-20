@@ -9,7 +9,6 @@
     <div class="loadout-page blog">
         <header class="browse-header">
             <div>
-                <p class="loadout-eyebrow">Mission control</p>
                 <h1 class="browse-header__title">Blog</h1>
                 <p class="browse-header__lede">
                     Patch breakdowns, site updates and news from the Karl.gg crew.
@@ -36,7 +35,6 @@
 
         @if ($featuredPost)
             <article class="blog-feature" aria-labelledby="post-{{ $featuredPost->id }}">
-                <p class="loadout-eyebrow">Latest post</p>
                 <h2 class="blog-feature__title" id="post-{{ $featuredPost->id }}">
                     <a href="{{ route('blog.show', $featuredPost->id) }}">{{ $featuredPost->title }}</a>
                 </h2>
@@ -51,7 +49,6 @@
         @if ($gridPosts->isNotEmpty())
             <section class="loadout-section" aria-labelledby="blog-archive">
                 <div class="loadout-section__heading">
-                    <p class="loadout-eyebrow">{{ $featuredPost ? 'Earlier dispatches' : 'Page '.$posts->currentPage() }}</p>
                     <h2 id="blog-archive">{{ $featuredPost ? 'More from the blog' : 'Older posts' }}</h2>
                 </div>
                 <div class="blog-grid">

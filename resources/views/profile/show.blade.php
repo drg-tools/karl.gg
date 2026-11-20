@@ -39,7 +39,7 @@
 
             @if ($isOwner)
                 <div class="profile-hero__actions">
-                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
+                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build</a>
                     <a class="loadout-button is-secondary" href="{{ route('account.settings') }}">Account settings</a>
                 </div>
             @endif
@@ -67,7 +67,6 @@
         @if ($topLoadouts->isNotEmpty())
             <section class="loadout-section" aria-labelledby="profile-top-title">
                 <div class="loadout-section__heading">
-                    <p class="loadout-eyebrow">Most saluted</p>
                     <h2 id="profile-top-title">Top builds</h2>
                 </div>
                 <ol class="profile-top">
@@ -108,7 +107,6 @@
 
         <section class="loadout-section" id="loadouts" aria-labelledby="profile-loadouts-title">
             <div class="loadout-section__heading">
-                <p class="loadout-eyebrow">Loadout library</p>
                 <h2 id="profile-loadouts-title">{{ $isOwner ? 'Your builds' : 'Builds by '.$user->name }}</h2>
             </div>
 

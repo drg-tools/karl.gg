@@ -50,7 +50,7 @@ class BlogTest extends TestCase
 
         $this->get(route('blog.index'))
             ->assertOk()
-            ->assertSeeInOrder(['Latest post', 'Newest dispatch', 'More from the blog', 'Older dispatch'])
+            ->assertSeeInOrder(['Newest dispatch', 'More from the blog', 'Older dispatch'])
             ->assertDontSee('Scheduled dispatch');
     }
 

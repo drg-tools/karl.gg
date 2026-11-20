@@ -175,8 +175,8 @@
         color: var(--amber);
         font-size: 14px;
     }
-    .class-selection .section-heading h2 {
-        font-size: 34px;
+    .class-selection .section-heading {
+        justify-content: flex-end;
     }
     .class-roster {
         display: grid;
@@ -255,10 +255,6 @@
         margin: 6px 0;
         font-weight: 400;
     }
-    .class-caption > span {
-        font-size: 13px;
-        color: var(--ink-2);
-    }
     .class-number {
         position: absolute;
         top: 16px;
@@ -273,19 +269,6 @@
         color: #14100a;
         font: 600 11px var(--mono);
     }
-    .class-arrow {
-        position: absolute;
-        top: 16px;
-        right: 26px;
-        z-index: 2;
-        font: 600 11px var(--mono);
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: color-mix(in srgb, var(--c) 85%, white);
-        opacity: 0;
-        transform: translateX(-4px);
-        transition: opacity 0.2s, transform 0.2s;
-    }
     .class-choice:hover,
     .class-choice:focus-visible {
         transform: translateY(-3px);
@@ -294,19 +277,6 @@
     .class-choice:focus-visible img {
         transform: scale(1.035);
         filter: saturate(1.05);
-    }
-    .class-choice:hover .class-arrow,
-    .class-choice:focus-visible .class-arrow,
-    .class-choice[aria-pressed="true"] .class-arrow {
-        opacity: 1;
-        transform: none;
-    }
-    .class-choice[aria-pressed="true"] .class-arrow {
-        font-size: 0;
-    }
-    .class-choice[aria-pressed="true"] .class-arrow::after {
-        content: "Current";
-        font-size: 11px;
     }
     .class-choice:focus-visible {
         outline: none;

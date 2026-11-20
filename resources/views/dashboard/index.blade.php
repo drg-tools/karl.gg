@@ -30,12 +30,9 @@
                     @endif
                 </p>
                 <h1 class="dashboard-hero__title">Deep Rock Galactic builds, born ready</h1>
-                <p class="dashboard-hero__lede">
-                    Plan a loadout, compare upgrades and overclocks, and borrow the builds other dwarves swear by.
-                </p>
 
                 <div class="loadout-hero__actions">
-                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
+                    <a class="loadout-button" href="{{ route('builder.create') }}">Start a build</a>
                     <a class="loadout-button is-secondary" href="{{ route('loadout.index') }}">Browse loadouts</a>
                 </div>
 
@@ -59,7 +56,6 @@
         <section class="loadout-section" aria-labelledby="dashboard-classes">
             <div class="loadout-section__heading dashboard-heading">
                 <div>
-                    <p class="loadout-eyebrow">Pick your dwarf</p>
                     <h2 id="dashboard-classes">Find loadouts by class</h2>
                 </div>
                 <a class="dashboard-more" href="{{ route('pickrates.classes') }}">Class pick rates →</a>
@@ -74,7 +70,6 @@
                         <img class="dashboard-class__portrait" src="{{ $character->potrait }}" alt="">
                         <span class="dashboard-class__copy">
                             <span class="dashboard-class__name">{{ $character->name }}</span>
-                            <span class="dashboard-class__role">{{ $meta['role'] }}</span>
                         </span>
                         <span class="dashboard-class__share">
                             <span class="dashboard-class__meter" aria-hidden="true"><span style="width: {{ $share }}%"></span></span>
@@ -86,15 +81,14 @@
         </section>
 
         <div class="dashboard-lists">
-            <x-dashboard-listing :loadoutList="$recentTopLoadouts" eyebrow="Squad favorites" title="Top loadouts in past 2 weeks"/>
-            <x-dashboard-listing :loadoutList="$latestLoadouts" eyebrow="Fresh off the forge" title="Newest loadouts"/>
+            <x-dashboard-listing :loadoutList="$recentTopLoadouts" title="Top loadouts in past 2 weeks"/>
+            <x-dashboard-listing :loadoutList="$latestLoadouts" title="Newest loadouts"/>
         </div>
 
         @if ($patchStats['popularOverclocks']->isNotEmpty())
             <section class="loadout-section" aria-labelledby="dashboard-overclocks">
                 <div class="loadout-section__heading dashboard-heading">
                     <div>
-                        <p class="loadout-eyebrow">Meta report</p>
                         <h2 id="dashboard-overclocks">Most-picked overclocks this patch</h2>
                     </div>
                     <a class="dashboard-more" href="{{ route('pickrates.guns') }}">Weapon pick rates →</a>
@@ -129,7 +123,6 @@
             <section class="loadout-section" aria-labelledby="dashboard-posts">
                 <div class="loadout-section__heading dashboard-heading">
                     <div>
-                        <p class="loadout-eyebrow">Mission control</p>
                         <h2 id="dashboard-posts">From the blog</h2>
                     </div>
                     <a class="dashboard-more" href="{{ route('blog.index') }}">All posts →</a>

@@ -58,7 +58,7 @@
                 </dl>
 
                 <div class="loadout-hero__actions">
-                    <a class="loadout-button" href="{{ route('build.show', $loadout->id) }}">Use this build <span aria-hidden="true">↗︎</span></a>
+                    <a class="loadout-button" href="{{ route('build.show', $loadout->id) }}">Use this build</a>
                     @can('update', $loadout)
                         <a class="loadout-button is-secondary" href="/build/{{ $loadout->id }}">Edit</a>
                     @endcan
@@ -87,7 +87,6 @@
 
         <section class="loadout-section" aria-labelledby="loadout-kit">
             <div class="loadout-section__heading">
-                <p class="loadout-eyebrow">The kit</p>
                 <h2 id="loadout-kit">Weapons &amp; gear</h2>
             </div>
             <div class="loadout-kit">
@@ -132,7 +131,6 @@
         @if (trim($guideHtml) !== '')
             <section class="loadout-section" aria-labelledby="loadout-guide">
                 <div class="loadout-section__heading">
-                    <p class="loadout-eyebrow">Field notes</p>
                     <h2 id="loadout-guide">Loadout guide</h2>
                 </div>
                 <div class="loadout-panel prose prose-invert max-w-none">{!! $guideHtml !!}</div>
@@ -144,7 +142,6 @@
 
         <section class="loadout-section" aria-labelledby="loadout-comments-heading">
             <div class="loadout-section__heading">
-                <p class="loadout-eyebrow">Squad chatter</p>
                 <h2 id="loadout-comments-heading">Comments</h2>
             </div>
             <div class="loadout-panel">

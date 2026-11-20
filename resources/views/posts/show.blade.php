@@ -6,7 +6,6 @@
             <a class="blog-back" href="{{ route('blog.index') }}">← All posts</a>
 
             <header class="blog-post__header">
-                <p class="loadout-eyebrow">Mission control · Deep Rock Galactic news</p>
                 <h1 class="blog-post__title">{{ $post->title }}</h1>
                 <x-blog-byline :post="$post" />
             </header>
@@ -15,7 +14,7 @@
 
             <footer class="blog-post__footer">
                 <a class="blog-back" href="{{ route('blog.index') }}">← All posts</a>
-                <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
+                <a class="loadout-button" href="{{ route('builder.create') }}">Start a build</a>
             </footer>
         </article>
 
@@ -25,7 +24,6 @@
             <section class="loadout-section" aria-labelledby="blog-more">
                 <div class="loadout-section__heading dashboard-heading">
                     <div>
-                        <p class="loadout-eyebrow">Keep reading</p>
                         <h2 id="blog-more">More from the blog</h2>
                     </div>
                     <a class="dashboard-more" href="{{ route('blog.index') }}">All posts →</a>

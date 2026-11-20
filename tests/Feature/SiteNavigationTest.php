@@ -34,4 +34,15 @@ class SiteNavigationTest extends TestCase
         $response->assertSee('action="'.route('logout').'"', false)
             ->assertDontSee('<a class="site-nav__login" href="/login">', false);
     }
+
+    public function test_site_notice_appears_on_the_dashboard_only(): void
+    {
+        config(['app.banner.enabled' => true, 'app.banner.message' => 'Rock and stone notice']);
+
+        $dashboard = $this->get('/');
+        $blog = $this->get('/blog');
+
+        $dashboard->assertOk()->assertSeeText('Rock and stone notice')->assertSee('aria-label="Dismiss notice"', false);
+        $blog->assertOk()->assertDontSeeText('Rock and stone notice');
+    }
 }

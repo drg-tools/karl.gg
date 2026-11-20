@@ -17,11 +17,10 @@
     <div class="loadout-page browse" data-browse>
         <header class="browse-header">
             <div>
-                <p class="loadout-eyebrow">Loadout library</p>
                 <h1 class="browse-header__title">Browse loadouts</h1>
                 <p class="browse-header__lede">Narrow it down by class, weapon, overclock or mod to find a build worth borrowing.</p>
             </div>
-            <a class="loadout-button" href="{{ route('builder.create') }}">Start a build <span aria-hidden="true">↗︎</span></a>
+            <a class="loadout-button" href="{{ route('builder.create') }}">Start a build</a>
         </header>
 
         <div class="browse-layout">
