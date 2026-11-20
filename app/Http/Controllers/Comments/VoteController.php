@@ -10,7 +10,9 @@ use Illuminate\Http\Response;
 
 class VoteController extends Controller
 {
-    public function __construct(protected CommentRepository $comments) {}
+    public function __construct(protected CommentRepository $comments)
+    {
+    }
 
     public function upvote(Request $request, Comment $comment): Response
     {
