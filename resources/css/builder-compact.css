@@ -224,6 +224,7 @@
     }
     .compact-hex {
         position: relative;
+        isolation: isolate;
         width: 46px;
         height: 40px;
         display: grid;
@@ -231,6 +232,23 @@
         clip-path: var(--hex);
         background: var(--line);
         transition: background 0.15s;
+    }
+    /*
+     * Inner face of the hex; the hex's own background shows as a rim around
+     * it, so hover can light the rim amber like the guided view does.
+     */
+    .compact-hex::before,
+    .compact-octagon::before {
+        content: "";
+        position: absolute;
+        inset: 1.5px;
+        z-index: -1;
+        clip-path: var(--hex);
+        background: var(--line);
+        transition: background 0.15s;
+    }
+    .compact-octagon::before {
+        clip-path: var(--octagon);
     }
     .compact-hex img {
         width: 26px;
@@ -248,17 +266,17 @@
     }
     .compact-choice:not(:disabled):hover .compact-hex,
     .compact-choice:focus-visible .compact-hex {
-        background: var(--ice);
+        background: var(--amber);
     }
-    .compact-choice:not(:disabled):hover .compact-hex img,
-    .compact-choice:focus-visible .compact-hex img {
-        filter: brightness(0);
-        opacity: 0.8;
+    .compact-choice:not(:disabled, .is-selected):hover .compact-hex img,
+    .compact-choice:not(.is-selected):focus-visible .compact-hex img {
+        filter: brightness(0) invert(1);
     }
     .compact-choice:focus-visible {
         outline: none;
     }
-    .compact-choice.is-selected .compact-hex {
+    .compact-choice.is-selected .compact-hex,
+    .compact-choice.is-selected .compact-hex::before {
         background: var(--amber);
     }
     .compact-choice.is-selected .compact-hex img {
@@ -294,7 +312,8 @@
         width: 240px;
         padding: 8px 10px;
         transform: translateX(-50%);
-        border: 1px solid var(--ice);
+        border: 1px solid var(--line-2);
+        border-top: 2px solid var(--amber);
         border-radius: 6px;
         background: #100b07;
         box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
@@ -305,7 +324,7 @@
     }
     .compact-tip strong {
         display: block;
-        color: var(--ice-2);
+        color: var(--amber);
     }
     .compact-tip small {
         display: block;
@@ -330,6 +349,7 @@
     }
     .compact-octagon {
         position: relative;
+        isolation: isolate;
         flex: none;
         width: 40px;
         height: 40px;
@@ -396,15 +416,18 @@
     }
     .compact-oc-choice:hover .compact-octagon,
     .compact-oc-choice:focus-visible .compact-octagon {
-        background: var(--ice);
+        background: var(--amber);
     }
     .compact-oc-choice:hover .compact-octagon img,
-    .compact-oc-choice:focus-visible .compact-octagon img,
+    .compact-oc-choice:focus-visible .compact-octagon img {
+        filter: brightness(0) invert(1);
+    }
     .compact-oc-choice.is-selected .compact-octagon img {
         filter: brightness(0);
         opacity: 0.85;
     }
-    .compact-oc-choice.is-selected .compact-octagon {
+    .compact-oc-choice.is-selected .compact-octagon,
+    .compact-oc-choice.is-selected .compact-octagon::before {
         background: var(--amber);
     }
     .compact-oc-picked {
