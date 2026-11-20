@@ -15,7 +15,9 @@ use s9e\TextFormatter\Unparser;
  */
 class Formatter
 {
-    public function __construct(protected Cache $cache) {}
+    public function __construct(protected Cache $cache)
+    {
+    }
 
     /**
      * Parse plain text into the stored XML document.
