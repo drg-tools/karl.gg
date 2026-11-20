@@ -303,7 +303,7 @@
 
 /* Compact: every tree side by side, icons and overclock only, so a whole build fits on one phone screen. */
 .is-kit-compact .loadout-kit {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
     gap: 10px;
 
     .kit-card {
