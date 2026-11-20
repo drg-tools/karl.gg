@@ -18,7 +18,9 @@ return new class extends Migration
     /**
      * Restore a database backup to recover retired OAuth tables and data.
      */
-    public function down(): void {}
+    public function down(): void
+    {
+    }
 
     public function getConnection(): ?string
     {
