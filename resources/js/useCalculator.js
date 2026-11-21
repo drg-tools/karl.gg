@@ -4,9 +4,57 @@ import { calculateDamage, getModifiedStats } from "./statCalculator";
 const storageKey = "karl:calculator:v1";
 const gunTierLevels = [1, 4, 8, 12, 16];
 
-/** Stats where a smaller number is the better result. */
-const lowerIsBetter =
-    /reload|spinup|spin-up|spindown|spread|recoil|heat|cooling delay|charge time|overheat duration|delay|cooldown/i;
+/**
+ * Stats where a smaller number is the better result. Listed by exact name:
+ * a pattern such as /heat/ would also catch "Heat", the burn damage a
+ * flamethrower deals, where more is better.
+ */
+const lowerIsBetter = new Set(
+    [
+        "Base Spread",
+        "Max Spread",
+        "Spread per Shot",
+        "Recoil",
+        "Horizontal Recoil",
+        "Vertical Recoil",
+        "Reload Time",
+        "Spinup Time",
+        "Charge Time",
+        "Chargeup Time",
+        "Charge Up Time",
+        "Wind up time",
+        "Cooldown",
+        "Cooldown Delay",
+        "Power Attack Cooldown",
+        "Recharge Time",
+        "Heat Generation",
+        "Normal Shot Heat Generation",
+        "Charged Shot Heat Generation",
+        "Heat per Shot",
+        "Heat Buildup When Charged",
+        "Overheat Duration",
+        "Ammo Swap Time",
+        "Construction Time",
+        "Time to Acquire a Lock-On",
+        "Total Time to Fire All Bullets",
+        "Charged Shot Cost",
+        "Focused Shot Ammo Cost",
+        "Pressure Drop Rate",
+        "Self-Slow Duration",
+        "Cloud Deploy Delay",
+        "Cloud Deploy Time",
+        "Plasma Expansion Delay",
+        "Regeneration Delay",
+        "Repressurization Delay",
+        "Override Delay Before Reloading",
+        "Explosion Delay after Triggering",
+        "Delay between Detonations",
+        "Delay between Volleys during Burst",
+        "Initial Arming Time",
+        "Arming Time after Explosion",
+        "Arming Time between Bursts",
+    ].map((name) => name.toLowerCase())
+);
 
 export const classColors = {
     Engineer: "#eb745d",
@@ -52,7 +100,9 @@ export function statDifference(row, from, to) {
 }
 
 export function isImprovement(statName, from, to) {
-    return lowerIsBetter.test(statName) ? to < from : to > from;
+    return lowerIsBetter.has(String(statName).toLowerCase())
+        ? to < from
+        : to > from;
 }
 
 function numeric(value) {
@@ -91,6 +141,8 @@ export function useCalculator(config) {
         /** Throwable shown per class. */
         throwables: stored.throwables || {},
         hover: null,
+        /** Last upgrade hovered or focused; stays after the pointer leaves. */
+        inspected: null,
         baseline: null,
         showInactive: false,
     });
@@ -305,12 +357,9 @@ export function useCalculator(config) {
             row.highlighted = row.without !== row.value;
             row.baselineDiff =
                 row.baseline !== null && row.baseline !== row.value;
+            // Ignore hover state here, so previews never add or remove rows.
             row.inactive =
-                !row.modified &&
-                !row.previewed &&
-                !row.highlighted &&
-                !row.baselineDiff &&
-                row.base === 0;
+                !row.modified && !row.baselineDiff && row.base === 0;
 
             return row;
         });
@@ -436,16 +485,16 @@ export function useCalculator(config) {
 
     function selectCharacter(id) {
         state.characterId = id;
-        state.hover = null;
+        state.hover = state.inspected = null;
         loadCatalog(id);
     }
     function selectTab(kind, id = null) {
         state.tabs[state.characterId] = { kind, id };
-        state.hover = null;
+        state.hover = state.inspected = null;
     }
     function selectThrowable(id) {
         state.throwables[state.characterId] = id;
-        state.hover = null;
+        state.hover = state.inspected = null;
     }
     function toggleMod(mod) {
         const current = ensurePicks();
@@ -504,7 +553,7 @@ export function useCalculator(config) {
         state.baseline = null;
     }
     function hover(kind, item) {
-        state.hover = { kind, item };
+        state.hover = state.inspected = { kind, item };
     }
     function unhover() {
         state.hover = null;

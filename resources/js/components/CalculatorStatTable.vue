@@ -5,21 +5,9 @@
                 <dt>{{ metric.label }}</dt>
                 <dd>
                     {{ figure(showPreview(metric) ? metric.preview : metric.value)
-                    }}<small
-                        v-if="showPreview(metric)"
-                        :class="metric.preview > metric.value ? 'is-good' : 'is-bad'"
-                        >{{ change(metric.value, metric.preview) }} if
-                        swapped</small
-                    ><small
-                        v-else-if="
-                            calc.hasBaseline &&
-                            metric.baseline !== null &&
-                            metric.baseline !== metric.value
-                        "
-                        :class="metric.value > metric.baseline ? 'is-good' : 'is-bad'"
-                        >{{ change(metric.baseline, metric.value) }} vs
-                        pin</small
-                    >
+                    }}<small :class="note(metric).tone">{{
+                        note(metric).text
+                    }}</small>
                 </dd>
             </div>
         </dl>
@@ -122,6 +110,30 @@ function showPreview(metric) {
         metric.preview !== null &&
         metric.preview !== metric.value
     );
+}
+
+/**
+ * The line under a damage figure. It is always rendered, empty or not, so
+ * hovering never changes the height of the stats column.
+ */
+function note(metric) {
+    if (showPreview(metric)) {
+        return {
+            text: `${change(metric.value, metric.preview)} swap`,
+            tone: metric.preview > metric.value ? "is-good" : "is-bad",
+        };
+    }
+    if (
+        props.calc.hasBaseline &&
+        metric.baseline !== null &&
+        metric.baseline !== metric.value
+    ) {
+        return {
+            text: `${change(metric.baseline, metric.value)} vs pin`,
+            tone: metric.value > metric.baseline ? "is-good" : "is-bad",
+        };
+    }
+    return { text: "\u00a0", tone: "" };
 }
 
 function tone(row, from, to) {

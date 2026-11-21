@@ -132,7 +132,7 @@
                             class="calc-tier"
                             role="group"
                             :aria-label="`Tier ${tier.tier}`"
-                            @mouseleave="calc.unhover()"
+                            @pointerleave="pointerLeave"
                         >
                             <div class="calc-tier-label">
                                 T{{ tier.tier
@@ -154,10 +154,11 @@
                                 :aria-pressed="
                                     calc.isEquipped({ kind: 'mod', item: mod })
                                 "
-                                @mouseenter="calc.hover('mod', mod)"
-                                @focus="calc.hover('mod', mod)"
+                                @pointerdown="lastPointer = $event.pointerType"
+                                @pointerenter="pointerEnter($event, 'mod', mod)"
+                                @focus="keyboardFocus($event, 'mod', mod)"
                                 @blur="calc.unhover()"
-                                @click="calc.toggleMod(mod)"
+                                @click="pick('mod', mod)"
                             >
                                 <span class="calc-hex"
                                     ><img
@@ -180,7 +181,7 @@
                             <div class="calc-tier-label">OC</div>
                             <div
                                 class="calc-overclock-list"
-                                @mouseleave="calc.unhover()"
+                                @pointerleave="pointerLeave"
                             >
                                 <button
                                     v-for="item in subject.overclocks"
@@ -195,10 +196,13 @@
                                         },
                                     ]"
                                     :aria-pressed="calc.overclock?.id === item.id"
-                                    @mouseenter="calc.hover('overclock', item)"
-                                    @focus="calc.hover('overclock', item)"
+                                    @pointerdown="lastPointer = $event.pointerType"
+                                    @pointerenter="
+                                        pointerEnter($event, 'overclock', item)
+                                    "
+                                    @focus="keyboardFocus($event, 'overclock', item)"
                                     @blur="calc.unhover()"
-                                    @click="calc.toggleOverclock(item.id)"
+                                    @click="pick('overclock', item)"
                                 >
                                     <span class="calc-oct"
                                         ><img
@@ -441,6 +445,33 @@ watch(
         codeDraft.value = null;
     }
 );
+
+/*
+ * Hover previews follow a mouse or keyboard focus only. Changing the page on a
+ * touch "hover" makes mobile Safari treat the first tap as a hover and drop
+ * the click, so touch input skips previews and inspects the tapped upgrade.
+ */
+const lastPointer = ref("mouse");
+
+function pointerEnter(event, kind, item) {
+    if (event.pointerType === "mouse") calc.hover(kind, item);
+}
+function pointerLeave(event) {
+    if (event.pointerType === "mouse") calc.unhover();
+}
+function keyboardFocus(event, kind, item) {
+    if (event.target.matches(":focus-visible")) calc.hover(kind, item);
+}
+function pick(kind, item) {
+    if (kind === "mod") calc.toggleMod(item);
+    else calc.toggleOverclock(item.id);
+
+    if (lastPointer.value === "mouse") return;
+    lastPointer.value = "mouse";
+    // On touch, show the tapped upgrade in the inspector if it is now equipped.
+    if (calc.isEquipped({ kind, item })) calc.hover(kind, item);
+    else calc.unhover();
+}
 
 function modAt(tier) {
     return calc.selectedMods.find((mod) => mod.mod_tier === tier);

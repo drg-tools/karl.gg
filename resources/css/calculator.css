@@ -294,10 +294,14 @@
         font: 22px/1.1 var(--display);
         letter-spacing: 0.02em;
     }
+    /* One line only, so the note never changes the box height. */
     .calc-derived small {
         display: block;
-        font: 10.5px var(--mono);
+        overflow: hidden;
+        font: 10px var(--mono);
         letter-spacing: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .calc-table {
@@ -335,8 +339,13 @@
     .calc-table .calc-base {
         color: var(--faint);
     }
+    /* Fixed widths keep columns still while hover changes the numbers. */
+    .calc-table .calc-base,
+    .calc-table .calc-value {
+        width: 4.5em;
+    }
     .calc-table .calc-delta {
-        width: 1%;
+        width: 5em;
         font-size: 11px;
     }
     .calc-table .is-changed {
@@ -627,15 +636,33 @@
     }
 
     /* Details, pin and equipped list */
+    /* Fits a one-line name, three lines of text and four stat changes, the
+       most the panel shows before "More", so hovering never moves the panels
+       below it. */
     .calc-inspector {
+        min-height: 15.5rem;
         padding: 10px 12px;
         border: 1px solid var(--line);
         background: var(--panel);
+    }
+    .calc-description.is-clamped {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+    .calc-inspector .calc-link {
+        margin-top: 2px;
+    }
+    /* Keeps its line when unused, so the panel height doesn't change. */
+    .calc-inspector .calc-link.is-hidden {
+        visibility: hidden;
     }
     .calc-kicker {
         display: flex;
         justify-content: space-between;
         gap: 8px;
+        white-space: nowrap;
     }
     .calc-kicker .is-equipped {
         color: var(--ice);
@@ -644,6 +671,9 @@
         color: var(--amber-2);
     }
     .calc-inspector h3 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         margin: 4px 0;
         font-size: 14px;
         font-weight: 600;
@@ -668,6 +698,14 @@
         padding: 2px 0;
         border-top: 1px solid var(--hair);
         color: var(--ink-2);
+    }
+    .calc-inspector li > span:first-child {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .calc-inspector li > span:last-child {
+        flex: none;
     }
     .calc-inspector li b {
         font-weight: 600;

@@ -7,7 +7,7 @@
                     {{ target.item.mod_index }}</span
                 >
                 <span v-else class="calc-label"
-                    >Overclock ·
+                    >OC ·
                     <span
                         :class="`is-${target.item.overclock_type?.toLowerCase()}`"
                         >{{ target.item.overclock_type }}</span
@@ -16,14 +16,37 @@
                 <span
                     class="calc-label"
                     :class="equipped ? 'is-equipped' : 'is-preview'"
-                    >{{ equipped ? "Equipped" : "Preview" }}</span
+                    >{{ equipped ? "Equipped" : "Not equipped" }}</span
                 >
             </div>
-            <h3>{{ upgradeName(target.item) }}</h3>
-            <p>{{ upgradeDescription(target.item) }}</p>
+            <h3 :title="upgradeName(target.item)">
+                {{ upgradeName(target.item) }}
+            </h3>
+            <p
+                ref="description"
+                class="calc-description"
+                :class="{ 'is-clamped': !expanded }"
+            >
+                {{ upgradeDescription(target.item) }}
+            </p>
+            <button
+                type="button"
+                class="calc-link"
+                :class="{ 'is-hidden': !truncated && !hiddenEffects && !expanded }"
+                :aria-expanded="expanded"
+                @click="expanded = !expanded"
+            >
+                {{
+                    expanded
+                        ? "Less"
+                        : hiddenEffects
+                        ? `More (+${hiddenEffects} stats)`
+                        : "More"
+                }}
+            </button>
             <ul v-if="effects.length">
-                <li v-for="effect in effects" :key="effect.name">
-                    <span>{{ effect.name }}</span
+                <li v-for="effect in shownEffects" :key="effect.name">
+                    <span :title="effect.name">{{ effect.name }}</span
                     ><span
                         >{{ effect.from }} →
                         <b :class="effect.good ? 'is-good' : 'is-bad'">{{
@@ -44,18 +67,43 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { upgradeDescription, upgradeName } from "../useCalculator";
 
 const props = defineProps({ calc: { type: Object, required: true } });
 
-/** The hovered upgrade, or the equipped overclock when nothing is hovered. */
+/** The last upgrade hovered, or the equipped overclock before any hover. */
 const target = computed(() => {
-    if (props.calc.state.hover?.item) return props.calc.state.hover;
+    if (props.calc.state.inspected?.item) return props.calc.state.inspected;
     if (props.calc.overclock)
         return { kind: "overclock", item: props.calc.overclock };
     return null;
 });
 const equipped = computed(() => props.calc.isEquipped(target.value));
 const effects = computed(() => props.calc.effectOf(target.value));
+
+/*
+ * The panel keeps one height while hovering: descriptions are cut to three
+ * lines and stat changes to four rows, and "More" shows the rest.
+ */
+const effectLimit = 4;
+const shownEffects = computed(() =>
+    expanded.value ? effects.value : effects.value.slice(0, effectLimit)
+);
+const hiddenEffects = computed(() =>
+    Math.max(0, effects.value.length - effectLimit)
+);
+const description = ref(null);
+const expanded = ref(false);
+const truncated = ref(false);
+watch(
+    () => target.value?.item,
+    () => {
+        expanded.value = false;
+        truncated.value =
+            !!description.value &&
+            description.value.scrollHeight > description.value.clientHeight + 1;
+    },
+    { flush: "post", immediate: true }
+);
 </script>
