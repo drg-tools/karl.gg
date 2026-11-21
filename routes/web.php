@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountSettingsController;
 use App\Http\Controllers\BuilderController;
 use App\Http\Controllers\BuildMetricController;
+use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\Comments\CommentController;
 use App\Http\Controllers\Comments\VoteController;
 use App\Http\Controllers\DashboardController;
@@ -51,6 +52,7 @@ Route::get('preview/{loadoutId}', [LoadoutsController::class, 'preview'])->name(
 Route::get('build', [BuilderController::class, 'create'])->name('builder.create');
 Route::get('builder/catalog/{character}', [BuilderController::class, 'catalog'])->name('builder.catalog');
 Route::get('builder/metrics', [BuilderController::class, 'metrics'])->name('builder.metrics');
+Route::get('calculator', [CalculatorController::class, 'show'])->name('calculator');
 Route::post('build', [BuilderController::class, 'store'])->middleware('throttle:30,1')->name('builder.store');
 Route::put('build/{loadout}', [BuilderController::class, 'update'])->middleware(['auth', 'throttle:30,1'])->name('builder.update');
 Route::post('build/{loadout}/vote', LoadoutVoteController::class)->middleware('auth')->name('loadout.vote');
