@@ -111,7 +111,7 @@
 .mod-tree {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* rows line up on the left so A/B/C read as columns, like the in-game tree */
     gap: 7px;
 }
 .mod-tree__row {
@@ -164,6 +164,7 @@
     opacity: 0.35;
 }
 .mod-tree__overclock {
+    align-self: center;
     width: 52px;
     height: 52px;
     margin-top: 8px;
