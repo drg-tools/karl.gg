@@ -264,6 +264,9 @@
     .kit-card__body {
         grid-template-columns: minmax(0, 1fr);
     }
+    .mod-tree {
+        justify-self: center;
+    }
     .kit-card__art {
         width: 84px;
     }
