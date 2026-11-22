@@ -224,18 +224,36 @@
     }
 
     /* Columns */
+    /* The title sits above the stats on wide screens and above the tree on
+       phones, so it is its own grid area. */
     .calc-columns {
         display: grid;
         grid-template-columns: 350px minmax(0, 1fr) 300px;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "title tree notes"
+            "stats tree notes";
     }
     .calc-col {
         padding: 14px 16px;
     }
+    .calc-title {
+        grid-area: title;
+    }
+    .calc-stats-col {
+        grid-area: stats;
+        padding-top: 0;
+    }
+    .calc-tree {
+        grid-area: tree;
+    }
+    .calc-title,
     .calc-stats-col {
         background: var(--stats);
         border-right: 1px solid var(--line);
     }
     .calc-notes {
+        grid-area: notes;
         display: grid;
         align-content: start;
         gap: 14px;
@@ -246,7 +264,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 12px;
+        padding-bottom: 12px;
     }
     .calc-title img {
         width: 64px;
@@ -771,39 +789,286 @@
         font: 600 10.5px var(--mono);
     }
 
+    .calc-dock {
+        display: none;
+    }
+
     @media (max-width: 1180px) {
         .calc-columns {
             grid-template-columns: 330px minmax(0, 1fr);
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "title tree"
+                "stats tree"
+                "notes notes";
         }
         .calc-notes {
-            grid-column: 1 / -1;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             border-left: 0;
             border-top: 1px solid var(--line);
         }
     }
+
+    /* Phones: one column with the tree straight under the title, and a dock
+       that keeps the effect of each tap in view. */
     @media (max-width: 760px) {
         .calc-columns {
-            grid-template-columns: 1fr;
-        }
-        .calc-stats-col {
-            border-right: 0;
-            border-bottom: 1px solid var(--line);
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: none;
+            grid-template-areas:
+                "title"
+                "tree"
+                "stats"
+                "notes";
         }
         .calc-col {
             padding: 12px;
         }
-        .calc-tier {
-            grid-template-columns: 30px repeat(3, minmax(0, 1fr));
+        .calc-title,
+        .calc-stats-col {
+            border-right: 0;
         }
-        .calc-option-name {
+        .calc-title {
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--line);
+        }
+        .calc-title img {
+            width: 52px;
+            height: 30px;
+        }
+        .calc-title h2 {
+            font-size: 22px;
+        }
+        .calc-stats-col {
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+        }
+        .calc-notes {
+            gap: 12px;
+        }
+
+        .calc-intro {
+            gap: 4px;
+            margin-bottom: 10px;
+            padding-inline: 12px;
+        }
+        .calc-intro h1 {
+            font-size: 30px;
+        }
+        .calc-intro p {
+            font-size: 12.5px;
+        }
+
+        /* Class tabs share the width instead of scrolling. */
+        .calc-classes button {
+            flex: 1 1 0;
+            justify-content: center;
+            gap: 5px;
+            padding: 6px 4px;
+            font-size: 10px;
+            letter-spacing: 0.04em;
+        }
+        .calc-classes img {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* Items scroll sideways in one strip, faded at the edge so the rest
+           reads as more to swipe to. */
+        .calc-kit {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scrollbar-width: none;
+            -webkit-mask-image: linear-gradient(
+                to right,
+                #000 calc(100% - 28px),
+                transparent
+            );
+            mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+        }
+        .calc-kit::-webkit-scrollbar {
             display: none;
         }
-        .calc-option {
-            justify-content: center;
+        .calc-kit-group {
+            overflow: visible;
+            box-shadow: none;
         }
-        .calc-intro {
-            padding-inline: 12px;
+        .calc-kit-group:last-child {
+            margin-right: 28px;
+        }
+        .calc-kit-tab {
+            flex-direction: column;
+            justify-content: center;
+            gap: 3px;
+            min-width: 76px;
+            padding: 6px 8px;
+            font-size: 11px;
+            position: relative;
+        }
+        .calc-kit-tab img {
+            width: 40px;
+            height: 20px;
+        }
+        .calc-kit-tab .calc-dot {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+        }
+
+        .calc-codebar {
+            gap: 6px 10px;
+        }
+        .calc-codebar .calc-hint {
+            order: 3;
+            flex-basis: 100%;
+        }
+        .calc-codebar .calc-button {
+            margin-left: auto;
+            padding-block: 9px;
+        }
+
+        /* Upgrades stack their name under the icon so all three fit. */
+        .calc-tier {
+            grid-template-columns: 30px repeat(3, minmax(0, 1fr));
+            gap: 4px;
+            align-items: stretch;
+        }
+        .calc-tier-label {
+            align-self: center;
+        }
+        .calc-option {
+            flex-direction: column;
+            justify-content: start;
+            gap: 4px;
+            padding: 5px 2px;
+            text-align: center;
+        }
+        .calc-option-name {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            font-size: 11px;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+        .calc-option-name b {
+            display: none;
+        }
+
+        .calc-overclocks {
+            grid-template-columns: 30px minmax(0, 1fr);
+        }
+        .calc-overclock-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .calc-overclock {
+            min-height: 48px;
+            padding: 5px 6px 5px 4px;
+        }
+        .calc-overclock .calc-option-name {
+            display: block;
+            white-space: normal;
+            font-size: 11.5px;
+        }
+
+        .calc-throwables {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .calc-throwable {
+            min-height: 44px;
+        }
+
+        .calc-button {
+            min-height: 36px;
+        }
+
+        /* Sticks to the bottom of the screen while the tree is in view, then
+           settles under it. */
+        .calc-dock {
+            display: block;
+            position: sticky;
+            bottom: 0;
+            z-index: 5;
+            margin: 12px -12px -12px;
+            border-top: 2px solid var(--amber);
+            background: var(--bg-2);
+            box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.45);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .calc-dock-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+        }
+        .calc-dock-figures {
+            display: grid;
+            grid-auto-columns: minmax(0, 1fr);
+            grid-auto-flow: column;
+            flex: 1;
+            gap: 10px;
+            margin: 0;
+        }
+        .calc-dock-figures dt,
+        .calc-dock-figures dd {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .calc-dock-figures dt {
+            white-space: nowrap;
+            font: 600 9px var(--mono);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+        .calc-dock-figures dd {
+            margin: 0;
+            font: 17px/1.1 var(--display);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .calc-dock-figures small {
+            margin-left: 4px;
+            font: 10.5px var(--mono);
+            letter-spacing: 0;
+        }
+        .calc-dock-toggle {
+            flex: none;
+            min-height: 34px;
+            padding: 0 10px;
+            border: 1px solid var(--line-2);
+            font: 600 10px var(--mono);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .calc-inspector.is-compact {
+            min-height: 0;
+            max-height: 55vh;
+            padding: 8px 12px;
+            overflow-y: auto;
+            border: 0;
+            border-top: 1px solid var(--line);
+            background: transparent;
+        }
+        .calc-inspector.is-compact .calc-description.is-clamped {
+            -webkit-line-clamp: 2;
+        }
+        .calc-inspector.is-compact h3 {
+            margin: 2px 0;
+        }
+        .calc-inspector.is-compact .calc-link {
+            padding: 2px 0;
+        }
+        /* The dock may change height; it is pinned to the screen bottom, so
+           nothing above it moves. */
+        .calc-inspector.is-compact .calc-link.is-hidden {
+            display: none;
+        }
+        .calc-inspector.is-compact ul {
+            margin-top: 6px;
         }
     }
 }

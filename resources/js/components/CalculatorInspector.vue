@@ -1,5 +1,9 @@
 <template>
-    <section class="calc-inspector" aria-live="polite">
+    <section
+        class="calc-inspector"
+        :class="{ 'is-compact': compact }"
+        aria-live="polite"
+    >
         <template v-if="target">
             <div class="calc-kicker">
                 <span v-if="target.kind === 'mod'" class="calc-label"
@@ -55,10 +59,14 @@
                     >
                 </li>
             </ul>
-            <p v-if="target.item.credits_cost" class="calc-cost">
+            <p v-if="target.item.credits_cost && !compact" class="calc-cost">
                 {{ target.item.credits_cost.toLocaleString() }} credits
             </p>
         </template>
+        <p v-else-if="compact" class="calc-hint">
+            Tap an upgrade to equip it and see what it changes. Tap it again to
+            take it off.
+        </p>
         <p v-else class="calc-hint">
             Hover or focus any upgrade to read its full effect here. The stats
             column previews the swap.
@@ -70,7 +78,11 @@
 import { computed, ref, watch } from "vue";
 import { upgradeDescription, upgradeName } from "../useCalculator";
 
-const props = defineProps({ calc: { type: Object, required: true } });
+const props = defineProps({
+    calc: { type: Object, required: true },
+    /** The phone dock: shorter text, fewer rows, no cost line. */
+    compact: { type: Boolean, default: false },
+});
 
 /** The last upgrade hovered, or the equipped overclock before any hover. */
 const target = computed(() => {
@@ -86,7 +98,7 @@ const effects = computed(() => props.calc.effectOf(target.value));
  * The panel keeps one height while hovering: descriptions are cut to three
  * lines and stat changes to four rows, and "More" shows the rest.
  */
-const effectLimit = 4;
+const effectLimit = props.compact ? 3 : 4;
 const shownEffects = computed(() =>
     expanded.value ? effects.value : effects.value.slice(0, effectLimit)
 );

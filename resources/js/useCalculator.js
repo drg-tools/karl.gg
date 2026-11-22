@@ -401,6 +401,7 @@ export function useCalculator(config) {
         const current = damageFor(equipped.value);
         const preview = damageFor(previewUpgrades.value);
         const baseline = damageFor(baselineUpgrades.value);
+        const bare = damageFor([]);
 
         return current
             .map(([label, value], index) => ({
@@ -408,6 +409,7 @@ export function useCalculator(config) {
                 value,
                 preview: preview?.[index][1] ?? null,
                 baseline: baseline?.[index][1] ?? null,
+                base: bare?.[index][1] ?? null,
             }))
             .filter((metric) => metric.value !== null);
     });

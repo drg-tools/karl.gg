@@ -30,7 +30,12 @@
                 </button>
             </nav>
 
-            <nav v-if="calc.catalog" class="calc-kit" aria-label="Item">
+            <nav
+                v-if="calc.catalog"
+                ref="kitNav"
+                class="calc-kit"
+                aria-label="Item"
+            >
                 <div
                     v-for="group in kitGroups"
                     :key="group.label"
@@ -72,21 +77,22 @@
             </p>
 
             <div v-else-if="subject" class="calc-columns">
-                <section class="calc-col calc-stats-col" aria-label="Statistics">
-                    <div class="calc-title">
-                        <img :src="subject.image" alt="" />
-                        <div>
-                            <h2>{{ subject.item.name }}</h2>
-                            <p>
-                                {{ subjectKind
-                                }}<template v-if="calc.tiers.length">
-                                    · {{ calc.code }}</template
-                                ><template v-if="calc.overclock">
-                                    · {{ calc.overclock.overclock_name }}</template
-                                >
-                            </p>
-                        </div>
+                <div class="calc-col calc-title">
+                    <img :src="subject.image" alt="" />
+                    <div>
+                        <h2>{{ subject.item.name }}</h2>
+                        <p>
+                            {{ subjectKind
+                            }}<template v-if="calc.tiers.length">
+                                · {{ calc.code }}</template
+                            ><template v-if="calc.overclock">
+                                · {{ calc.overclock.overclock_name }}</template
+                            >
+                        </p>
                     </div>
+                </div>
+
+                <section class="calc-col calc-stats-col" aria-label="Statistics">
                     <CalculatorStatTable :calc="calc" />
                     <p v-if="calc.credits" class="calc-footnote">
                         {{ calc.credits.toLocaleString() }} credits to unlock
@@ -243,6 +249,62 @@
                     </template>
 
                     <p v-else class="calc-hint">This item has no upgrades.</p>
+
+                    <!-- Phones: what the last tap changed, kept in view while
+                         picking upgrades. -->
+                    <div
+                        v-if="isNarrow && calc.tiers.length"
+                        class="calc-dock"
+                        :class="{ 'is-collapsed': dockCollapsed }"
+                    >
+                        <div class="calc-dock-bar">
+                            <dl class="calc-dock-figures">
+                                <div
+                                    v-for="metric in calc.derived"
+                                    :key="metric.label"
+                                >
+                                    <dt :title="metric.label">
+                                        {{ dockLabels[metric.label] || metric.label }}
+                                    </dt>
+                                    <dd>
+                                        {{ figure(metric.value)
+                                        }}<small
+                                            v-if="dockNote(metric)"
+                                            :class="dockNote(metric).tone"
+                                            :title="
+                                                calc.hasBaseline
+                                                    ? 'Difference from the pinned build'
+                                                    : 'Difference from no upgrades'
+                                            "
+                                            >{{ dockNote(metric).text }}</small
+                                        >
+                                    </dd>
+                                </div>
+                                <div v-if="!calc.derived.length">
+                                    <dt>Build</dt>
+                                    <dd>{{ calc.code }}</dd>
+                                </div>
+                            </dl>
+                            <button
+                                type="button"
+                                class="calc-dock-toggle"
+                                :aria-expanded="!dockCollapsed"
+                                :aria-label="
+                                    dockCollapsed
+                                        ? 'Show upgrade details'
+                                        : 'Hide upgrade details'
+                                "
+                                @click="dockCollapsed = !dockCollapsed"
+                            >
+                                {{ dockCollapsed ? "Details ▴" : "Hide ▾" }}
+                            </button>
+                        </div>
+                        <CalculatorInspector
+                            v-show="!dockCollapsed"
+                            :calc="calc"
+                            compact
+                        />
+                    </div>
                 </section>
 
                 <aside
@@ -250,7 +312,7 @@
                     class="calc-col calc-notes"
                     aria-label="Details and comparison"
                 >
-                    <CalculatorInspector :calc="calc" />
+                    <CalculatorInspector v-if="!isNarrow" :calc="calc" />
 
                     <section class="calc-pin">
                         <span class="calc-label">Compare</span>
@@ -337,7 +399,15 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref, watch } from "vue";
+import {
+    computed,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    reactive,
+    ref,
+    watch,
+} from "vue";
 import CalculatorInspector from "./CalculatorInspector.vue";
 import CalculatorStatTable from "./CalculatorStatTable.vue";
 import {
@@ -475,6 +545,63 @@ function pick(kind, item) {
 
 function modAt(tier) {
     return calc.selectedMods.find((mod) => mod.mod_tier === tier);
+}
+
+/*
+ * Phones get one column, so the details panel moves into a dock that stays
+ * at the bottom of the screen while the upgrade tree scrolls under it.
+ */
+const narrowQuery = window.matchMedia("(max-width: 760px)");
+const isNarrow = ref(narrowQuery.matches);
+const dockCollapsed = ref(false);
+function syncNarrow(event) {
+    isNarrow.value = event.matches;
+}
+onMounted(() => narrowQuery.addEventListener("change", syncNarrow));
+onBeforeUnmount(() => narrowQuery.removeEventListener("change", syncNarrow));
+
+/** Scroll the item strip sideways so the open item is in view. */
+const kitNav = ref(null);
+function revealActiveTab() {
+    const nav = kitNav.value;
+    const active = nav?.querySelector(".calc-kit-tab.is-active");
+    if (!nav || !active || nav.scrollWidth <= nav.clientWidth) return;
+    const navBox = nav.getBoundingClientRect();
+    const tabBox = active.getBoundingClientRect();
+    if (tabBox.left >= navBox.left && tabBox.right <= navBox.right) return;
+    nav.scrollTo({
+        left: nav.scrollLeft + tabBox.left - navBox.left - 24,
+        behavior: "smooth",
+    });
+}
+watch(
+    () => [calc.catalog, subject.value?.key],
+    () => nextTick(revealActiveTab),
+    { immediate: true }
+);
+
+function figure(value) {
+    return value === null
+        ? "—"
+        : Number(value).toLocaleString(undefined, { maximumFractionDigits: 1 });
+}
+
+/** Short names so three figures fit across a phone. */
+const dockLabels = {
+    "Damage per second": "DPS",
+    "Magazine damage": "Magazine",
+    "Total damage": "Total",
+};
+
+/** Change shown beside a dock figure: from the pin, or from the bare item. */
+function dockNote(metric) {
+    const from = calc.hasBaseline ? metric.baseline : metric.base;
+    if (from === null || from === undefined || from === metric.value) return null;
+    const difference = Math.round((metric.value - from) * 10) / 10;
+    return {
+        text: `${difference > 0 ? "+" : ""}${difference.toLocaleString()}`,
+        tone: difference > 0 ? "is-good" : "is-bad",
+    };
 }
 
 const pinLabel = computed(() => {
