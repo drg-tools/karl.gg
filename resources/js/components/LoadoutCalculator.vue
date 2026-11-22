@@ -8,7 +8,9 @@
             <p>
                 Try upgrade combinations and compare their stats. Picks stay in
                 this browser.
-                <a :href="calc.handoff?.url || config.builderUrl"
+                <a
+                    :href="calc.handoff?.url || config.builderUrl"
+                    @click="trackHandoff('intro_link')"
                     >Save it as a loadout in the builder →</a
                 >
             </p>
@@ -367,7 +369,10 @@
                     <section v-if="calc.handoff" class="calc-handoff">
                         <span class="calc-label">Save as a loadout</span>
                         <p>{{ handoffSummary }}</p>
-                        <a :href="calc.handoff.url" class="calc-button is-primary"
+                        <a
+                            :href="calc.handoff.url"
+                            class="calc-button is-primary"
+                            @click="trackHandoff('handoff_button')"
                             >Use in builder</a
                         >
                     </section>
@@ -420,6 +425,7 @@ import {
 } from "vue";
 import CalculatorInspector from "./CalculatorInspector.vue";
 import CalculatorStatTable from "./CalculatorStatTable.vue";
+import { trackCalculatorToBuilder } from "../analytics";
 import {
     classColors,
     upgradeDescription,
@@ -627,6 +633,19 @@ const handoffSummary = computed(() => {
             : parts[0];
     return `Opens the builder with ${listed}, with your picks for them. A loadout holds one weapon per slot.`;
 });
+
+/** @param {"intro_link"|"handoff_button"} placement */
+function trackHandoff(placement) {
+    trackCalculatorToBuilder({
+        placement,
+        characterName:
+            config.characters.find(
+                (character) => character.id === calc.state.characterId
+            )?.name ?? null,
+        gunCount: calc.handoff?.guns.length ?? 0,
+        equipmentUpgradeCount: calc.handoff?.equipmentCount ?? 0,
+    });
+}
 
 const pinLabel = computed(() => {
     const pinned = calc.state.baseline;
