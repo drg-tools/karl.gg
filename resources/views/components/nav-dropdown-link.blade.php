@@ -1,5 +1,5 @@
-@props(['link' => '#', 'title', 'active' => false])
+@props(['link' => '#', 'title', 'active' => false, 'badge' => null])
 
 <a href="{{ $link }}" @class(['site-nav__menu-link', 'is-active' => $active]) @if ($active) aria-current="page" @endif>
-    {{ $title }}
+    {{ $title }}@if ($badge) <span class="site-nav__badge">{{ $badge }}</span>@endif
 </a>
