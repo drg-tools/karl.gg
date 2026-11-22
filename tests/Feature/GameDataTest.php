@@ -33,7 +33,11 @@ class GameDataTest extends TestCase
     {
         $character = Character::factory()->create(['name' => 'Engineer']);
 
-        $this->artisan('app:sync-game-data', ['--apply' => true, '--weapon' => 'Shard Diffractor'])->assertSuccessful();
+        $this->artisan('app:sync-game-data', [
+            'file' => database_path('seeders/game_data.json'),
+            '--apply' => true,
+            '--weapon' => 'Shard Diffractor',
+        ])->assertSuccessful();
 
         $this->assertDatabaseCount('guns', 1);
         $this->assertDatabaseCount('mods', 12);
@@ -214,6 +218,7 @@ class GameDataTest extends TestCase
         }
         $catalog = app(GameDataCatalog::class);
         $catalog->sync(true);
+        $file = 'database/seeders/game_data_season_7.json';
 
         $launcher = Gun::where('name', 'Deepcore 40MM PGL')->firstOrFail();
         $existingOverclock = $launcher->overclocks()->where('overclock_index', 6)->firstOrFail();
@@ -225,12 +230,12 @@ class GameDataTest extends TestCase
         ]);
         $loadout->overclocks()->attach($existingOverclock);
 
-        $this->artisan('app:sync-game-data', ['--season-seven' => true])
+        $this->artisan('app:sync-game-data', ['file' => $file])
             ->expectsOutputToContain('Smart Cluster')
             ->assertSuccessful();
         $this->assertDatabaseCount('overclocks', 160);
 
-        $this->artisan('app:sync-game-data', ['--season-seven' => true, '--apply' => true])
+        $this->artisan('app:sync-game-data', ['file' => $file, '--apply' => true])
             ->assertSuccessful();
         $this->assertDatabaseCount('overclocks', 182);
         $this->assertDatabaseCount('mods', 308);
@@ -244,9 +249,14 @@ class GameDataTest extends TestCase
         $smartCluster = collect($launcherData['overclocks'])->firstWhere('overclock_name', 'Smart Cluster');
         $this->assertSame(8, $smartCluster['overclock_index']);
         $this->assertSame(0.8, $smartCluster['json_stats']['dmg']['value']);
-        $this->assertSame([], $catalog->sync(apply: true, seasonSeven: true));
+        $this->assertSame(0, $smartCluster['credits_cost']);
+        Overclock::findOrFail($smartCluster['id'])->update(['credits_cost' => 8000]);
 
-        foreach ($catalog->data(seasonSeven: true)['weapons'] as $weapon) {
+        $seasonCatalog = $catalog->data($file);
+        $this->assertSame([], $catalog->sync(apply: true, data: $seasonCatalog));
+        $this->assertDatabaseHas('overclocks', ['id' => $smartCluster['id'], 'credits_cost' => 8000]);
+
+        foreach ($seasonCatalog['weapons'] as $weapon) {
             foreach ($weapon['overclocks'] as $overclock) {
                 $this->assertFileExists(public_path('assets/mods/optimized/'.$overclock['icon'].'.svg'));
             }
@@ -257,12 +267,28 @@ class GameDataTest extends TestCase
     {
         Character::factory()->create(['name' => 'Driller']);
 
-        $this->artisan('app:sync-game-data', ['--season-seven' => true, '--apply' => true, '--weapon' => 'Subata 120'])
-            ->expectsOutputToContain('Season 7 requires an existing weapon: Subata 120.')
+        $this->artisan('app:sync-game-data', [
+            'file' => database_path('seeders/game_data_season_7.json'),
+            '--apply' => true,
+            '--weapon' => 'Subata 120',
+        ])->expectsOutputToContain('Catalog requires an existing weapon: Subata 120.')
             ->assertFailed();
 
         $this->assertDatabaseCount('guns', 0);
         $this->assertDatabaseCount('overclocks', 0);
+    }
+
+    public function test_invalid_catalog_paths_fail_without_falling_back_to_the_default(): void
+    {
+        $this->artisan('app:sync-game-data', ['file' => database_path('seeders/missing.json'), '--apply' => true])
+            ->expectsOutputToContain('Cannot read catalog file')
+            ->assertFailed();
+
+        $this->artisan('app:sync-game-data', ['file' => base_path('composer.json'), '--apply' => true])
+            ->expectsOutputToContain('Catalog must contain a list of weapons')
+            ->assertFailed();
+
+        $this->assertDatabaseCount('guns', 0);
     }
 
     public function test_reviewed_obsolete_modifier_is_removed_without_replacing_its_upgrade(): void

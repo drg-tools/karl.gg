@@ -9,17 +9,31 @@ use RuntimeException;
 class GameDataCatalog
 {
     /** @return array<string, mixed> */
-    public function data(bool $seasonSeven = false): array
+    public function data(?string $file = null): array
     {
-        $file = $seasonSeven ? 'game_data_season_7.json' : 'game_data.json';
+        $file ??= database_path('seeders/game_data.json');
+        if (! is_file($file) || ! is_readable($file)) {
+            throw new RuntimeException("Cannot read catalog file: {$file}.");
+        }
 
-        return json_decode(file_get_contents(database_path('seeders/'.$file)), true, flags: JSON_THROW_ON_ERROR);
+        $data = json_decode(file_get_contents($file), true, flags: JSON_THROW_ON_ERROR);
+        if (! is_array($data['weapons'] ?? null) || ! array_is_list($data['weapons'])) {
+            throw new RuntimeException("Catalog must contain a list of weapons: {$file}.");
+        }
+
+        return $data;
     }
 
-    /** @return list<array{record: string, action: string, changes: array<string, array{before: mixed, after: mixed}>}> */
-    public function sync(bool $apply = false, ?string $weaponName = null, bool $seasonSeven = false): array
+    /**
+     * @param  array<string, mixed>|null  $data
+     * @return list<array{record: string, action: string, changes: array<string, array{before: mixed, after: mixed}>}>
+     */
+    public function sync(bool $apply = false, ?string $weaponName = null, ?array $data = null): array
     {
-        $weapons = $this->data($seasonSeven)['weapons'];
+        $data ??= $this->data();
+        $weapons = $data['weapons'];
+        $requiresExistingWeapons = $data['requires_existing_weapons'] ?? false;
+        $newOverclockCosts = $data['new_overclock_costs'] ?? [];
         if ($weaponName !== null) {
             $weapons = array_values(array_filter($weapons, fn (array $weapon): bool => $weapon['name'] === $weaponName));
             if ($weapons === []) {
@@ -27,7 +41,7 @@ class GameDataCatalog
             }
         }
 
-        return DB::transaction(function () use ($apply, $weapons, $seasonSeven): array {
+        return DB::transaction(function () use ($apply, $weapons, $requiresExistingWeapons, $newOverclockCosts): array {
             $changes = [];
             foreach ($weapons as $weapon) {
                 $characters = Character::where('name', $weapon['character'])->when($apply, fn ($query) => $query->lockForUpdate())->get();
@@ -40,8 +54,8 @@ class GameDataCatalog
                     throw new RuntimeException("Duplicate weapon: {$weapon['name']}.");
                 }
                 $gun = $guns->first() ?? new Gun;
-                if ($seasonSeven && ! $gun->exists) {
-                    throw new RuntimeException("Season 7 requires an existing weapon: {$weapon['name']}.");
+                if ($requiresExistingWeapons && ! $gun->exists) {
+                    throw new RuntimeException("Catalog requires an existing weapon: {$weapon['name']}.");
                 }
                 if ($gun->exists && ($gun->character_id !== $character->id || $gun->character_slot !== $weapon['character_slot'])) {
                     throw new RuntimeException("Weapon ownership conflict: {$weapon['name']}.");
@@ -68,11 +82,8 @@ class GameDataCatalog
                             throw new RuntimeException("Upgrade ownership conflict: {$entry[$nameKey]}.");
                         }
                         $attributes = array_diff_key($entry, ['remove_stats' => true]);
-                        if ($seasonSeven && ! $record->exists && $relation === 'overclocks') {
-                            $attributes += array_fill_keys([
-                                'credits_cost', 'magnite_cost', 'bismor_cost', 'umanite_cost',
-                                'croppa_cost', 'enor_pearl_cost', 'jadiz_cost',
-                            ], 0);
+                        if (! $record->exists && $relation === 'overclocks') {
+                            $attributes += $newOverclockCosts;
                         }
                         $this->stage($record, [...$attributes, 'gun_id' => $gun->id, 'character_id' => $character->id], $weapon['name'].' / '.$entry[$nameKey], $apply, $changes, $entry['remove_stats'] ?? []);
                     }

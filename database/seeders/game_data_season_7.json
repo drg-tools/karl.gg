@@ -1,5 +1,15 @@
 {
   "target": "Season 07: Contingency Protocol (Experimental preview)",
+  "requires_existing_weapons": true,
+  "new_overclock_costs": {
+    "credits_cost": 0,
+    "magnite_cost": 0,
+    "bismor_cost": 0,
+    "umanite_cost": 0,
+    "croppa_cost": 0,
+    "enor_pearl_cost": 0,
+    "jadiz_cost": 0
+  },
   "limitations": [
     "Experimental values may change. See SEASON_7_SOURCES.txt for release checks.",
     "Forge costs omitted from the preview data default to zero when inserting new rows.",

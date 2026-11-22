@@ -89,10 +89,12 @@ Release workflow
 
 1. Reconcile the manifest and assets with the release build and notes above.
 2. Preview against the target catalog with
-   php artisan app:sync-game-data --season-seven --no-interaction
+   php artisan app:sync-game-data database/seeders/game_data_season_7.json --no-interaction
    Add --weapon="Deepcore 40MM PGL" to narrow the preview.
 3. Apply the reviewed catalog with --apply. Before release, use --apply only
-   against a preview database. Omitted costs insert as zero for preview rows.
+   against a preview database. The catalog's new_overclock_costs field sets
+   the default for new rows with omitted costs. Remove those defaults after
+   adding the verified costs to each overclock.
    The importer requires the existing weapons and rolls back on conflicts.
 4. At launch, add the Patch through the existing admin flow using the live
    public patch number and actual launch time, short name "Season 7", and
