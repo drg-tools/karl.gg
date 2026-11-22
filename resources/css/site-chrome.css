@@ -208,6 +208,18 @@ html {
         border-left-color: var(--chrome-amber);
     }
 }
+/* Small tag after a menu entry, such as "Beta". */
+.site-nav__badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 5px;
+    border: 1px solid var(--chrome-amber);
+    font: 600 9.5px/1.4 var(--chrome-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    vertical-align: 1px;
+    color: var(--chrome-amber-2);
+}
 .site-nav__actions {
     display: flex;
     align-items: center;

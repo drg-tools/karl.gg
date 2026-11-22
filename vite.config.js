@@ -18,6 +18,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/builder.js',
+                'resources/js/calculator.js',
                 `${commentsAssets}/app.js`,
             ],
             refresh: true,

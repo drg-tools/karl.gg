@@ -1,0 +1,1083 @@
+/*
+ * Build calculator — one item at a time, full stats on the left, the
+ * upgrade tree in the middle and details on the right. Same palette as the
+ * builder: amber marks selection, ice marks what the build changed.
+ */
+#loadout-calculator .calculator {
+    --bg: var(--karl-bg);
+    --bg-2: var(--karl-bg-2);
+    --panel: var(--karl-panel);
+    --line: var(--karl-line);
+    --line-2: var(--karl-line-2);
+    --hair: var(--karl-hair);
+    --ink: var(--karl-ink);
+    --ink-2: var(--karl-ink-2);
+    --muted: var(--karl-muted);
+    --faint: var(--karl-faint);
+    --amber: var(--karl-amber);
+    --amber-2: var(--karl-amber-2);
+    --amber-ink: var(--karl-amber-ink);
+    --amber-wash: rgba(var(--karl-amber-rgb), 0.09);
+    --stats: var(--karl-stats);
+    --stats-2: var(--karl-stats-2);
+    --ice: #9cc8e8;
+    --ice-2: #cfe5f5;
+    --good: #8fd19e;
+    --bad: #ec7a62;
+    --clean: #82c9a5;
+    --balanced: #e9c25c;
+    --unstable: #ec7a62;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    --display: "Karl Display", Impact, "Arial Narrow", sans-serif;
+    --hex: polygon(18% 0, 82% 0, 100% 50%, 82% 100%, 18% 100%, 0 50%);
+    --octagon: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);
+
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+
+    * {
+        min-width: 0;
+    }
+    h1,
+    h2,
+    h3,
+    p {
+        margin: 0;
+    }
+    button {
+        cursor: pointer;
+        transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+    }
+    button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+    }
+
+    .calc-label {
+        font: 600 10.5px var(--mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+    }
+    .calc-hint {
+        font-size: 12px;
+        color: var(--faint);
+    }
+    .is-good {
+        color: var(--good) !important;
+    }
+    .is-bad {
+        color: var(--bad) !important;
+    }
+    .is-clean {
+        color: var(--clean);
+    }
+    .is-balanced {
+        color: var(--balanced);
+    }
+    .is-unstable {
+        color: var(--unstable);
+    }
+
+    /* Intro */
+    .calc-intro {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: 8px 24px;
+        margin-bottom: 14px;
+    }
+    .calc-intro h1 {
+        font: 38px/1 var(--display);
+        letter-spacing: 0.02em;
+    }
+    .calc-intro p {
+        max-width: 60ch;
+        color: var(--muted);
+        font-size: 13px;
+    }
+    .calc-intro a {
+        color: var(--amber-2);
+        white-space: nowrap;
+    }
+
+    .calc-frame {
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--class-accent);
+        background: var(--bg);
+    }
+
+    /* Class and item tabs */
+    .calc-classes,
+    .calc-kit {
+        display: flex;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--line);
+        background: var(--bg-2);
+    }
+    .calc-classes button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px 6px 8px;
+        border-bottom: 2px solid transparent;
+        font: 600 11px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+        white-space: nowrap;
+    }
+    .calc-classes img {
+        width: 28px;
+        height: 28px;
+        clip-path: var(--hex);
+        filter: grayscale(1) brightness(0.7);
+    }
+    .calc-classes button:hover {
+        color: var(--ink);
+    }
+    .calc-classes button.is-active {
+        color: var(--tab-accent);
+        border-bottom-color: var(--tab-accent);
+        background: var(--panel);
+    }
+    .calc-classes button.is-active img {
+        filter: none;
+    }
+
+    .calc-kit {
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+    .calc-kit-group {
+        display: flex;
+        align-items: stretch;
+        flex: none;
+        max-width: 100%;
+        overflow-x: auto;
+        border-right: 1px solid var(--line);
+        /* Rows that wrap get a rule between them. */
+        box-shadow: 0 1px 0 var(--line);
+    }
+    .calc-kit-label {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        padding: 4px 3px;
+        border-right: 1px solid var(--hair);
+        font: 600 8.5px var(--mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-align: center;
+        color: var(--faint);
+    }
+    .calc-kit-tab {
+        flex: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-bottom: 2px solid transparent;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--muted);
+        white-space: nowrap;
+    }
+    .calc-kit-tab img {
+        width: 34px;
+        height: 18px;
+        object-fit: contain;
+        filter: brightness(0) invert(0.6);
+    }
+    .calc-kit-tab:hover {
+        color: var(--ink);
+    }
+    .calc-kit-tab.is-active {
+        color: var(--amber);
+        border-bottom-color: var(--amber);
+        background: var(--panel);
+    }
+    .calc-kit-tab.is-active img {
+        filter: brightness(0) invert(0.95);
+    }
+    .calc-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ice);
+    }
+
+    .calc-message {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 32px 16px;
+        color: var(--muted);
+    }
+
+    /* Columns */
+    /* The title sits above the stats on wide screens and above the tree on
+       phones, so it is its own grid area. */
+    .calc-columns {
+        display: grid;
+        grid-template-columns: 350px minmax(0, 1fr) 300px;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "title tree notes"
+            "stats tree notes";
+    }
+    .calc-col {
+        padding: 14px 16px;
+    }
+    .calc-title {
+        grid-area: title;
+    }
+    .calc-stats-col {
+        grid-area: stats;
+        padding-top: 0;
+    }
+    .calc-tree {
+        grid-area: tree;
+    }
+    .calc-title,
+    .calc-stats-col {
+        background: var(--stats);
+        border-right: 1px solid var(--line);
+    }
+    .calc-notes {
+        grid-area: notes;
+        display: grid;
+        align-content: start;
+        gap: 14px;
+        border-left: 1px solid var(--line);
+    }
+
+    .calc-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 12px;
+    }
+    .calc-title img {
+        width: 64px;
+        height: 36px;
+        object-fit: contain;
+        filter: brightness(0) invert(0.85);
+        flex: none;
+    }
+    .calc-title h2 {
+        font: 26px/1 var(--display);
+        letter-spacing: 0.02em;
+    }
+    .calc-title p {
+        margin-top: 3px;
+        font: 11px var(--mono);
+        color: var(--faint);
+    }
+    .calc-footnote {
+        margin-top: 10px;
+        font: 11px var(--mono);
+        color: var(--faint);
+    }
+
+    /* Derived figures and stat table */
+    .calc-derived {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 1px;
+        margin: 0 0 12px;
+        background: var(--line);
+        border: 1px solid var(--line);
+    }
+    .calc-derived div {
+        padding: 8px 10px;
+        background: var(--stats-2);
+    }
+    .calc-derived dt {
+        font: 600 9.5px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+    }
+    .calc-derived dd {
+        margin: 2px 0 0;
+        font: 22px/1.1 var(--display);
+        letter-spacing: 0.02em;
+    }
+    /* One line only, so the note never changes the box height. */
+    .calc-derived small {
+        display: block;
+        overflow: hidden;
+        font: 10px var(--mono);
+        letter-spacing: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .calc-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .calc-table thead th {
+        padding: 0 0 6px 8px;
+        font: 600 10px var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-align: right;
+        color: var(--faint);
+    }
+    .calc-table thead th:first-child {
+        padding-left: 0;
+        text-align: left;
+    }
+    .calc-table tbody th {
+        padding: 4px 0;
+        border-top: 1px solid var(--hair);
+        font-size: 13px;
+        font-weight: 400;
+        text-align: left;
+        color: var(--ink-2);
+    }
+    .calc-table td {
+        padding: 4px 0 4px 8px;
+        border-top: 1px solid var(--hair);
+        font: 12.5px var(--mono);
+        text-align: right;
+        white-space: nowrap;
+        color: var(--ink-2);
+    }
+    .calc-table .calc-base {
+        color: var(--faint);
+    }
+    /* Fixed widths keep columns still while hover changes the numbers. */
+    .calc-table .calc-base,
+    .calc-table .calc-value {
+        width: 4.5em;
+    }
+    .calc-table .calc-delta {
+        width: 5em;
+        font-size: 11px;
+    }
+    .calc-table .is-changed {
+        color: var(--ice);
+    }
+    .calc-table .is-highlight {
+        padding: 0 3px;
+        background: rgba(156, 200, 232, 0.18);
+        color: var(--ink);
+    }
+    .calc-table tr.is-modified .calc-value {
+        color: var(--ice-2);
+    }
+    .calc-table tr.is-previewed {
+        background: var(--amber-wash);
+    }
+    .calc-table tr.is-previewed .calc-value {
+        color: var(--amber-2);
+    }
+    .calc-table tr.is-inactive > * {
+        opacity: 0.55;
+    }
+    .calc-link {
+        margin-top: 6px;
+        font: 600 10.5px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        color: var(--muted);
+    }
+    .calc-link:hover {
+        color: var(--amber-2);
+    }
+
+    /* Upgrade tree */
+    .calc-codebar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--line);
+    }
+    .calc-codebar label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .calc-codebar .calc-hint {
+        flex: 1;
+    }
+    .calc-code {
+        width: 96px;
+        padding: 5px 8px;
+        border: 1px solid var(--line-2);
+        border-radius: 0;
+        background: var(--bg);
+        font: 600 16px var(--mono);
+        letter-spacing: 0.3em;
+        color: var(--amber-2);
+    }
+    .calc-code::placeholder {
+        color: var(--faint);
+    }
+    .calc-code:focus {
+        border-color: var(--amber);
+        box-shadow: none;
+    }
+
+    .calc-button {
+        padding: 6px 10px;
+        border: 1px solid var(--line-2);
+        font: 600 10.5px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-2);
+    }
+    .calc-button:not(:disabled):hover {
+        border-color: var(--amber);
+        color: var(--amber-2);
+    }
+    .calc-button.is-primary {
+        border-color: var(--amber);
+        background: var(--amber);
+        color: var(--amber-ink);
+    }
+    .calc-button.is-primary:hover {
+        background: var(--amber-2);
+        color: var(--amber-ink);
+    }
+
+    .calc-tier,
+    .calc-overclocks {
+        display: grid;
+        grid-template-columns: 38px repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--hair);
+    }
+    .calc-overclocks {
+        grid-template-columns: 38px minmax(0, 1fr);
+        align-items: start;
+        padding-top: 10px;
+        border-bottom: 0;
+    }
+    .calc-tier-label {
+        font: 600 11px var(--mono);
+        color: var(--ink-2);
+    }
+    .calc-tier-label small {
+        display: block;
+        font-size: 9.5px;
+        font-weight: 400;
+        color: var(--faint);
+    }
+
+    .calc-option,
+    .calc-overclock,
+    .calc-throwable {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 3px 6px 3px 3px;
+        border: 1px solid transparent;
+        text-align: left;
+    }
+    .calc-option:hover,
+    .calc-option:focus-visible,
+    .calc-overclock:hover,
+    .calc-overclock:focus-visible,
+    .calc-throwable:hover {
+        border-color: var(--line-2);
+        background: var(--panel);
+    }
+    .calc-option.is-selected,
+    .calc-overclock.is-selected,
+    .calc-throwable.is-selected {
+        border-color: var(--amber);
+        background: var(--amber-wash);
+    }
+    .calc-option-name {
+        font-size: 12.5px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: var(--ink-2);
+    }
+    .calc-option-name b {
+        margin-right: 4px;
+        font: 600 10px var(--mono);
+        color: var(--faint);
+    }
+    .calc-option.is-selected .calc-option-name {
+        color: var(--amber-2);
+    }
+
+    .calc-hex {
+        position: relative;
+        isolation: isolate;
+        display: grid;
+        place-items: center;
+        flex: none;
+        width: 44px;
+        height: 32px;
+        clip-path: var(--hex);
+        background: var(--line-2);
+    }
+    .calc-hex::before {
+        content: "";
+        position: absolute;
+        inset: 1.5px;
+        z-index: -1;
+        clip-path: var(--hex);
+        background: linear-gradient(165deg, #4a3826, #3a2b1d);
+    }
+    .calc-hex img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        filter: brightness(0) invert(0.74);
+    }
+    .calc-option:hover .calc-hex,
+    .calc-option:focus-visible .calc-hex {
+        background: var(--amber-2);
+    }
+    .calc-option.is-selected .calc-hex {
+        background: var(--amber);
+    }
+    .calc-option.is-selected .calc-hex::before {
+        background: linear-gradient(165deg, #5a3d10, #3d2908);
+    }
+    .calc-option.is-selected .calc-hex img {
+        filter: brightness(0) invert(0.92) sepia(1) saturate(4) hue-rotate(-8deg);
+    }
+
+    .calc-overclock-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 4px;
+    }
+    .calc-overclock {
+        border-color: var(--line);
+        background: var(--panel);
+    }
+    .calc-overclock .calc-option-name {
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .calc-overclock small {
+        display: block;
+        font: 400 9.5px var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+    .calc-overclock.is-clean small {
+        color: var(--clean);
+    }
+    .calc-overclock.is-balanced small {
+        color: var(--balanced);
+    }
+    .calc-overclock.is-unstable small {
+        color: var(--unstable);
+    }
+    .calc-oct {
+        position: relative;
+        isolation: isolate;
+        display: grid;
+        place-items: center;
+        flex: none;
+        width: 26px;
+        height: 26px;
+        clip-path: var(--octagon);
+        background: var(--line-2);
+    }
+    .calc-overclock.is-clean .calc-oct {
+        background: var(--clean);
+    }
+    .calc-overclock.is-balanced .calc-oct {
+        background: var(--balanced);
+    }
+    .calc-overclock.is-unstable .calc-oct {
+        background: var(--unstable);
+    }
+    .calc-oct::before {
+        content: "";
+        position: absolute;
+        inset: 2px;
+        z-index: -1;
+        clip-path: var(--octagon);
+        background: #2a1f15;
+    }
+    .calc-overclock.is-selected .calc-oct::before {
+        background: #4a3210;
+    }
+    .calc-oct img {
+        width: 62%;
+        height: 62%;
+        object-fit: contain;
+        filter: brightness(0) invert(0.8);
+    }
+
+    .calc-throwables {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+    .calc-throwable {
+        padding: 6px 10px;
+        border-color: var(--line);
+        background: var(--panel);
+        font-weight: 600;
+        color: var(--ink-2);
+    }
+    .calc-throwable img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        filter: brightness(0) invert(0.8);
+    }
+    .calc-about {
+        max-width: 65ch;
+        margin-bottom: 8px;
+        color: var(--ink-2);
+    }
+
+    /* Details, pin and equipped list */
+    /* Fits a one-line name, three lines of text and four stat changes, the
+       most the panel shows before "More", so hovering never moves the panels
+       below it. */
+    .calc-inspector {
+        min-height: 15.5rem;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+    }
+    .calc-description.is-clamped {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+    .calc-inspector .calc-link {
+        margin-top: 2px;
+    }
+    /* Keeps its line when unused, so the panel height doesn't change. */
+    .calc-inspector .calc-link.is-hidden {
+        visibility: hidden;
+    }
+    .calc-kicker {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        white-space: nowrap;
+    }
+    .calc-kicker .is-equipped {
+        color: var(--ice);
+    }
+    .calc-kicker .is-preview {
+        color: var(--amber-2);
+    }
+    .calc-inspector h3 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 4px 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .calc-inspector p {
+        font-size: 12.5px;
+        color: var(--ink-2);
+    }
+    .calc-inspector .calc-hint {
+        color: var(--faint);
+    }
+    .calc-inspector ul {
+        margin: 8px 0 0;
+        padding: 0;
+        list-style: none;
+        font: 11.5px var(--mono);
+    }
+    .calc-inspector li {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 2px 0;
+        border-top: 1px solid var(--hair);
+        color: var(--ink-2);
+    }
+    .calc-inspector li > span:first-child {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .calc-inspector li > span:last-child {
+        flex: none;
+    }
+    .calc-inspector li b {
+        font-weight: 600;
+    }
+    .calc-inspector .calc-cost {
+        margin-top: 6px;
+        font: 10.5px var(--mono);
+        color: var(--faint);
+    }
+
+    .calc-pin {
+        padding: 10px 12px;
+        border: 1px dashed var(--line-2);
+    }
+    .calc-pin p {
+        margin: 4px 0 8px;
+        font-size: 12.5px;
+        color: var(--ink-2);
+    }
+    .calc-pin b {
+        color: var(--ink);
+    }
+    .calc-handoff p {
+        margin: 4px 0 8px;
+        font-size: 12.5px;
+        color: var(--ink-2);
+    }
+    .calc-handoff .calc-button {
+        display: inline-block;
+        text-decoration: none;
+    }
+    .calc-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .calc-equipped {
+        margin: 4px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+    .calc-equipped li {
+        display: grid;
+        grid-template-columns: 26px 1fr;
+        gap: 6px;
+        padding: 6px 0;
+        border-top: 1px solid var(--hair);
+        font-size: 12px;
+        color: var(--faint);
+    }
+    .calc-equipped b {
+        display: block;
+        font-size: 12.5px;
+        color: var(--ink);
+    }
+    .calc-equipped b.is-clean {
+        color: var(--clean);
+    }
+    .calc-equipped b.is-balanced {
+        color: var(--balanced);
+    }
+    .calc-equipped b.is-unstable {
+        color: var(--unstable);
+    }
+    .calc-equipped li.is-empty b {
+        font-weight: 400;
+        color: var(--faint);
+    }
+    .calc-equipped-tier {
+        padding-top: 1px;
+        font: 600 10.5px var(--mono);
+    }
+
+    .calc-dock {
+        display: none;
+    }
+
+    @media (max-width: 1180px) {
+        .calc-columns {
+            grid-template-columns: 330px minmax(0, 1fr);
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "title tree"
+                "stats tree"
+                "notes notes";
+        }
+        .calc-notes {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            border-left: 0;
+            border-top: 1px solid var(--line);
+        }
+    }
+
+    /* Phones: one column with the tree straight under the title, and a dock
+       that keeps the effect of each tap in view. */
+    @media (max-width: 760px) {
+        .calc-columns {
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: none;
+            grid-template-areas:
+                "title"
+                "tree"
+                "stats"
+                "notes";
+        }
+        .calc-col {
+            padding: 12px;
+        }
+        .calc-title,
+        .calc-stats-col {
+            border-right: 0;
+        }
+        .calc-title {
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--line);
+        }
+        .calc-title img {
+            width: 52px;
+            height: 30px;
+        }
+        .calc-title h2 {
+            font-size: 22px;
+        }
+        .calc-stats-col {
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+        }
+        .calc-notes {
+            gap: 12px;
+        }
+
+        .calc-intro {
+            gap: 4px;
+            margin-bottom: 10px;
+            padding-inline: 12px;
+        }
+        .calc-intro h1 {
+            font-size: 30px;
+        }
+        .calc-intro p {
+            font-size: 12.5px;
+        }
+
+        /* Class tabs share the width instead of scrolling. */
+        .calc-classes button {
+            flex: 1 1 0;
+            justify-content: center;
+            gap: 5px;
+            padding: 6px 4px;
+            font-size: 10px;
+            letter-spacing: 0.04em;
+        }
+        .calc-classes img {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* Items scroll sideways in one strip, faded at the edge so the rest
+           reads as more to swipe to. */
+        .calc-kit {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scrollbar-width: none;
+            -webkit-mask-image: linear-gradient(
+                to right,
+                #000 calc(100% - 28px),
+                transparent
+            );
+            mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+        }
+        .calc-kit::-webkit-scrollbar {
+            display: none;
+        }
+        .calc-kit-group {
+            overflow: visible;
+            box-shadow: none;
+        }
+        .calc-kit-group:last-child {
+            margin-right: 28px;
+        }
+        .calc-kit-tab {
+            flex-direction: column;
+            justify-content: center;
+            gap: 3px;
+            min-width: 76px;
+            padding: 6px 8px;
+            font-size: 11px;
+            position: relative;
+        }
+        .calc-kit-tab img {
+            width: 40px;
+            height: 20px;
+        }
+        .calc-kit-tab .calc-dot {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+        }
+
+        .calc-codebar {
+            gap: 6px 10px;
+        }
+        .calc-codebar .calc-hint {
+            order: 3;
+            flex-basis: 100%;
+        }
+        .calc-codebar .calc-button {
+            margin-left: auto;
+            padding-block: 9px;
+        }
+
+        /* Upgrades stack their name under the icon so all three fit. */
+        .calc-tier {
+            grid-template-columns: 30px repeat(3, minmax(0, 1fr));
+            gap: 4px;
+            align-items: stretch;
+        }
+        .calc-tier-label {
+            align-self: center;
+        }
+        .calc-option {
+            flex-direction: column;
+            justify-content: start;
+            gap: 4px;
+            padding: 5px 2px;
+            text-align: center;
+        }
+        .calc-option-name {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            font-size: 11px;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+        .calc-option-name b {
+            display: none;
+        }
+
+        .calc-overclocks {
+            grid-template-columns: 30px minmax(0, 1fr);
+        }
+        .calc-overclock-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .calc-overclock {
+            min-height: 48px;
+            padding: 5px 6px 5px 4px;
+        }
+        .calc-overclock .calc-option-name {
+            display: block;
+            white-space: normal;
+            font-size: 11.5px;
+        }
+
+        .calc-throwables {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .calc-throwable {
+            min-height: 44px;
+        }
+
+        .calc-button {
+            min-height: 36px;
+        }
+
+        /* Sticks to the bottom of the screen while the tree is in view, then
+           settles under it. */
+        .calc-dock {
+            display: block;
+            position: sticky;
+            bottom: 0;
+            z-index: 5;
+            margin: 12px -12px -12px;
+            border-top: 2px solid var(--amber);
+            background: var(--bg-2);
+            box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.45);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .calc-dock-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+        }
+        .calc-dock-figures {
+            display: grid;
+            grid-auto-columns: minmax(0, 1fr);
+            grid-auto-flow: column;
+            flex: 1;
+            gap: 10px;
+            margin: 0;
+        }
+        .calc-dock-figures dt,
+        .calc-dock-figures dd {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .calc-dock-figures dt {
+            white-space: nowrap;
+            font: 600 9px var(--mono);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+        .calc-dock-figures dd {
+            margin: 0;
+            font: 17px/1.1 var(--display);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .calc-dock-figures small {
+            margin-left: 4px;
+            font: 10.5px var(--mono);
+            letter-spacing: 0;
+        }
+        .calc-dock-toggle {
+            flex: none;
+            min-height: 34px;
+            padding: 0 10px;
+            border: 1px solid var(--line-2);
+            font: 600 10px var(--mono);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .calc-inspector.is-compact {
+            min-height: 0;
+            max-height: 55vh;
+            padding: 8px 12px;
+            overflow-y: auto;
+            border: 0;
+            border-top: 1px solid var(--line);
+            background: transparent;
+        }
+        .calc-inspector.is-compact .calc-description.is-clamped {
+            -webkit-line-clamp: 2;
+        }
+        .calc-inspector.is-compact h3 {
+            margin: 2px 0;
+        }
+        .calc-inspector.is-compact .calc-link {
+            padding: 2px 0;
+        }
+        /* The dock may change height; it is pinned to the screen bottom, so
+           nothing above it moves. */
+        .calc-inspector.is-compact .calc-link.is-hidden {
+            display: none;
+        }
+        .calc-inspector.is-compact ul {
+            margin-top: 6px;
+        }
+    }
+}
