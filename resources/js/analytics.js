@@ -50,3 +50,24 @@ export function trackViewModeChange(surface, from, to) {
         to_mode: to,
     });
 }
+
+/**
+ * Record a reader taking a calculator build to the builder.
+ *
+ * gtag sends with sendBeacon, so the event survives the page navigating away.
+ *
+ * @param {{ placement: "intro_link"|"handoff_button", characterName: string|null, gunCount: number, equipmentUpgradeCount: number }} handoff
+ */
+export function trackCalculatorToBuilder({
+    placement,
+    characterName,
+    gunCount,
+    equipmentUpgradeCount,
+}) {
+    gtag("event", "calculator_to_builder", {
+        placement,
+        character: characterName,
+        gun_count: gunCount,
+        equipment_upgrade_count: equipmentUpgradeCount,
+    });
+}
