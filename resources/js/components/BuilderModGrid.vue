@@ -73,7 +73,21 @@
                         :aria-controls="popoverId"
                         @click="toggleInfo(mod, $event)"
                     >
-                        i
+                        <svg
+                            viewBox="0 0 12 12"
+                            width="12"
+                            height="12"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M2.5 4.5 6 8l3.5-3.5"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
                     </button>
                 </div>
             </div>

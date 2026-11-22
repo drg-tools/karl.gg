@@ -817,9 +817,10 @@
             padding: 2px 6px 4px;
             text-align: center;
         }
-        /* The info button sits in the empty corner, so keep the option centred. */
-        .upgrade-options .upgrade-option-wrap.has-info .upgrade-option {
-            padding-right: 6px;
+        /* No label gutter here, so the chevron meets the option's own padding. */
+        .upgrade-option-wrap .upgrade-info {
+            right: 6px;
+            bottom: 4px;
         }
         .upgrade-hex {
             width: 72px;
@@ -877,27 +878,39 @@
         position: relative;
         display: grid;
     }
-    .upgrade-option-wrap.has-info .upgrade-option {
-        padding-right: 30px;
+    /*
+     * The expand chevron sits at the end of the clipped description line, so
+     * the wrap hugs its option (instead of stretching to the row) to keep the
+     * bottom-anchored chevron level with that line.
+     */
+    .upgrade-option-wrap.has-info {
+        align-self: start;
+    }
+    .upgrade-option-wrap.has-info .upgrade-effect {
+        padding-right: 18px;
     }
     .upgrade-info {
         position: absolute;
-        top: 4px;
-        right: 4px;
+        right: 18px;
+        bottom: 6px;
         display: grid;
         place-items: center;
-        width: 22px;
-        height: 22px;
-        font: 600 11px var(--mono);
+        width: 16px;
+        height: 16px;
         color: var(--muted);
-        background: var(--bg);
-        border: 1px solid var(--line-2);
-        border-radius: 50%;
+        border-radius: 3px;
+        transition: color 0.15s, background 0.15s;
+    }
+    .upgrade-info svg {
+        transition: transform 0.15s;
     }
     .upgrade-info:hover,
     .upgrade-info[aria-expanded="true"] {
         color: var(--amber);
-        border-color: var(--amber);
+        background: var(--bg-2);
+    }
+    .upgrade-info[aria-expanded="true"] svg {
+        transform: rotate(180deg);
     }
     .upgrade-info:focus-visible {
         outline: 2px solid var(--amber);
