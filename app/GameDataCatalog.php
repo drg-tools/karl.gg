@@ -9,15 +9,17 @@ use RuntimeException;
 class GameDataCatalog
 {
     /** @return array<string, mixed> */
-    public function data(): array
+    public function data(bool $seasonSeven = false): array
     {
-        return json_decode(file_get_contents(database_path('seeders/game_data.json')), true, flags: JSON_THROW_ON_ERROR);
+        $file = $seasonSeven ? 'game_data_season_7.json' : 'game_data.json';
+
+        return json_decode(file_get_contents(database_path('seeders/'.$file)), true, flags: JSON_THROW_ON_ERROR);
     }
 
     /** @return list<array{record: string, action: string, changes: array<string, array{before: mixed, after: mixed}>}> */
-    public function sync(bool $apply = false, ?string $weaponName = null): array
+    public function sync(bool $apply = false, ?string $weaponName = null, bool $seasonSeven = false): array
     {
-        $weapons = $this->data()['weapons'];
+        $weapons = $this->data($seasonSeven)['weapons'];
         if ($weaponName !== null) {
             $weapons = array_values(array_filter($weapons, fn (array $weapon): bool => $weapon['name'] === $weaponName));
             if ($weapons === []) {
@@ -25,7 +27,7 @@ class GameDataCatalog
             }
         }
 
-        return DB::transaction(function () use ($apply, $weapons): array {
+        return DB::transaction(function () use ($apply, $weapons, $seasonSeven): array {
             $changes = [];
             foreach ($weapons as $weapon) {
                 $characters = Character::where('name', $weapon['character'])->when($apply, fn ($query) => $query->lockForUpdate())->get();
@@ -38,6 +40,9 @@ class GameDataCatalog
                     throw new RuntimeException("Duplicate weapon: {$weapon['name']}.");
                 }
                 $gun = $guns->first() ?? new Gun;
+                if ($seasonSeven && ! $gun->exists) {
+                    throw new RuntimeException("Season 7 requires an existing weapon: {$weapon['name']}.");
+                }
                 if ($gun->exists && ($gun->character_id !== $character->id || $gun->character_slot !== $weapon['character_slot'])) {
                     throw new RuntimeException("Weapon ownership conflict: {$weapon['name']}.");
                 }
@@ -63,6 +68,12 @@ class GameDataCatalog
                             throw new RuntimeException("Upgrade ownership conflict: {$entry[$nameKey]}.");
                         }
                         $attributes = array_diff_key($entry, ['remove_stats' => true]);
+                        if ($seasonSeven && ! $record->exists && $relation === 'overclocks') {
+                            $attributes += array_fill_keys([
+                                'credits_cost', 'magnite_cost', 'bismor_cost', 'umanite_cost',
+                                'croppa_cost', 'enor_pearl_cost', 'jadiz_cost',
+                            ], 0);
+                        }
                         $this->stage($record, [...$attributes, 'gun_id' => $gun->id, 'character_id' => $character->id], $weapon['name'].' / '.$entry[$nameKey], $apply, $changes, $entry['remove_stats'] ?? []);
                     }
                 }

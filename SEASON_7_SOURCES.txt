@@ -1,0 +1,102 @@
+Season 07: Contingency Protocol
+Preview reviewed November 22, 2026. Announced Steam launch: December 3, 2026.
+Console target: by December 17, subject to certification.
+
+Sources to revisit at release
+
+- Ghost Ship Games / Invisible Walls, November 19 full preview and future patch notes
+  https://store.steampowered.com/news/posts/?appids=548430
+  The article says 20 but lists 22 distinct overclocks. Its name, weapon and
+  type table matches the initial Experimental playtest. Use the live
+  Equipment and Forge terminals to confirm the release roster and values.
+- Steam Experimental branch instructions and build history
+  https://deeprockgalactic.wiki.gg/wiki/Experimental_Branch
+  https://steamdb.info/app/548430/depots/
+  https://steamdb.info/patchnotes/26808185/
+  Experimental received an update on November 20. The player notes below
+  describe the initial preview and do not establish changes in later builds.
+- Firsthand Experimental overclock playtest (provisional figures and behavior)
+  https://www.reddit.com/r/DeepRockGalactic/comments/1y0ki6p/
+- Official community wiki overclock tables and linked weapon pages
+  https://deeprockgalactic.wiki.gg/wiki/Weapon_Overclocks
+  https://deeprockgalactic.wiki.gg/wiki/Perks
+  The overclock tables checked still reflected the pre-Season 7 baseline.
+  The existing pinned weapon revisions are in database/seeders/game_data.json.
+- Firsthand Experimental perk reports
+  https://www.reddit.com/r/DeepRockGalactic/comments/1y0atys/
+  https://www.reddit.com/r/DeepRockGalactic/comments/1y0au98/
+
+Overclock data and assets
+
+database/seeders/game_data_season_7.json contains 22 entries for 12 secondary
+weapons. Slots append to the existing Karl.gg indices to keep saved builds
+and numeric build codes stable. Forge prices are absent pending verification.
+Existing SVGs are mapped to each new entry for preview. Compare each icon
+against the live Equipment terminal and record the game asset names when known.
+Confirm all preview stats, costs and descriptions against the live build, then
+fill the seven *_cost fields on each row (credits and six minerals).
+
+Priority stat checks in the release build
+
+- Subata: confirm Elemental Primer stacking and duration and Neurotoxin
+  Minelets' trigger, cloud and poison durations.
+- EPC: check Field Magnifier's charged splash and charged projectile speed,
+  distance scaling, and Thin Containment Field interaction.
+- Wave Cooker: check Brain Wave Scrambler's base multiplier, extra grunt
+  penalty, conversion chance and duration. Verify Sinusoidal Amplifier's
+  cycle timing and minimum/maximum damage.
+- PGL: verify Smart Cluster damage per subprojectile, Manual Detonator's
+  hold bonuses and fuse, and Supercell Payload's field radius, DPS, duration
+  and upgrade interactions.
+- Breach Cutter: verify Velocity Rounds' ammo and clip factors, rounding,
+  projectile speed and damage growth.
+- Shard Diffractor: verify Prismatic Lens per-beam damage and radius and
+  Shield Transfer Module's healing, splash radius and target conditions.
+- Bulldog and BRT7: confirm Stopping Power's conditional bonus, Dismantler
+  Rounds' armor and explosion effects, and Magnetic Barrel Alignment's
+  fire-rate and recoil changes.
+- Coil Gun: check Trick Shot pierce, charge, and ricochet behavior. Verify
+  Delayed Discharge radius and damage for full and partial shots.
+- Boomstick: check Shockwave Amplifier's ammo, shockwave damage and stun with
+  pellet-count and stun mods. Confirm Dragonfire Shells' field damage,
+  duration and effect of existing heat and pellet mods.
+- Zhukov: check Tactical Mobility's horizontal spread, High Caliber Rounds'
+  weakpoint and spread scaling, and Berzerkovs' fear radius. Keep Karl's
+  combined clip/rate convention when mapping game values.
+- Boltshark: check Quickdraw Quiver special ammo rounding and ammo swap time.
+
+Other announced changes
+
+- Perks: the public preview names Management's Favorite, Second Chance,
+  Precision Streak, Liquid Courage, Splatter Shield, Last Call, Fear the
+  Beard, Momentum Strike, Pressure Performer, Hold the Line and Taunt.
+  Experimental called Last Call "Clock Out Fervor" in one report. Existing
+  perk changes were reported for Beast Master, Berserker, Hover Boots,
+  Shield Link, Second Wind, Strong Arm, Unstoppable and Veteran Depositor.
+  Karl.gg has no perk picker, perk progression or proficiency mastery
+  settings. Check the live notes for any weapon-stat changes tied to these
+  systems before modeling them as unconditional stats.
+- Gravitational Recovery, Heavy Impact, Kadoc Inkers, tattoos, the
+  Performance Pass, traversal tool paintjobs, Space Rig changes, auto-sprint
+  and Rocked and Loaded DLC have no corresponding catalog entries.
+- The full preview defers detailed tuning and fixes to the launch notes.
+  Compare existing weapon, equipment, mod, overclock and throwable data with
+  those notes and with the live build. Review any base-stat changes against
+  Karl's calculator and regenerate patch-specific advanced metrics where
+  those data are available.
+
+Release workflow
+
+1. Reconcile the manifest and assets with the release build and notes above.
+2. Preview against the target catalog with
+   php artisan app:sync-game-data --season-seven --no-interaction
+   Add --weapon="Deepcore 40MM PGL" to narrow the preview.
+3. Apply the reviewed catalog with --apply. Before release, use --apply only
+   against a preview database. Omitted costs insert as zero for preview rows.
+   The importer requires the existing weapons and rolls back on conflicts.
+4. At launch, add the Patch through the existing admin flow using the live
+   public patch number and actual launch time, short name "Season 7", and
+   title "Season 07: Contingency Protocol". Publishing a patch changes which
+   loadouts count as current. The equipment import does not create the patch.
+5. Confirm new overclocks appear in the builder, old loadouts still resolve
+   their overclocks, and new loadouts are assigned the released patch.

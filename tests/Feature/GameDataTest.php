@@ -207,6 +207,64 @@ class GameDataTest extends TestCase
         $this->assertSame([], app(GameDataCatalog::class)->sync(true));
     }
 
+    public function test_season_seven_previews_and_installs_new_overclocks_alongside_existing_builds(): void
+    {
+        foreach (['Scout', 'Gunner', 'Engineer', 'Driller'] as $name) {
+            Character::factory()->create(['name' => $name]);
+        }
+        $catalog = app(GameDataCatalog::class);
+        $catalog->sync(true);
+
+        $launcher = Gun::where('name', 'Deepcore 40MM PGL')->firstOrFail();
+        $existingOverclock = $launcher->overclocks()->where('overclock_index', 6)->firstOrFail();
+        $existingOverclock->update(['text_description' => 'Locally reviewed']);
+        $loadout = Loadout::factory()->create([
+            'user_id' => User::factory()->create()->id,
+            'character_id' => $launcher->character_id,
+            'patch_id' => Patch::factory()->create()->id,
+        ]);
+        $loadout->overclocks()->attach($existingOverclock);
+
+        $this->artisan('app:sync-game-data', ['--season-seven' => true])
+            ->expectsOutputToContain('Smart Cluster')
+            ->assertSuccessful();
+        $this->assertDatabaseCount('overclocks', 160);
+
+        $this->artisan('app:sync-game-data', ['--season-seven' => true, '--apply' => true])
+            ->assertSuccessful();
+        $this->assertDatabaseCount('overclocks', 182);
+        $this->assertDatabaseCount('mods', 308);
+        $this->assertDatabaseCount('patches', 1);
+        $this->assertSame('Locally reviewed', $existingOverclock->refresh()->text_description);
+        $this->assertDatabaseHas('loadout_overclock', ['loadout_id' => $loadout->id, 'overclock_id' => $existingOverclock->id]);
+
+        $response = $this->getJson('/builder/catalog/'.$launcher->character_id)->assertOk();
+        $launcherData = collect($response->json('data.guns'))->firstWhere('id', $launcher->id);
+        $this->assertCount(9, $launcherData['overclocks']);
+        $smartCluster = collect($launcherData['overclocks'])->firstWhere('overclock_name', 'Smart Cluster');
+        $this->assertSame(8, $smartCluster['overclock_index']);
+        $this->assertSame(0.8, $smartCluster['json_stats']['dmg']['value']);
+        $this->assertSame([], $catalog->sync(apply: true, seasonSeven: true));
+
+        foreach ($catalog->data(seasonSeven: true)['weapons'] as $weapon) {
+            foreach ($weapon['overclocks'] as $overclock) {
+                $this->assertFileExists(public_path('assets/mods/optimized/'.$overclock['icon'].'.svg'));
+            }
+        }
+    }
+
+    public function test_season_seven_requires_an_existing_weapon(): void
+    {
+        Character::factory()->create(['name' => 'Driller']);
+
+        $this->artisan('app:sync-game-data', ['--season-seven' => true, '--apply' => true, '--weapon' => 'Subata 120'])
+            ->expectsOutputToContain('Season 7 requires an existing weapon: Subata 120.')
+            ->assertFailed();
+
+        $this->assertDatabaseCount('guns', 0);
+        $this->assertDatabaseCount('overclocks', 0);
+    }
+
     public function test_reviewed_obsolete_modifier_is_removed_without_replacing_its_upgrade(): void
     {
         Character::factory()->create(['name' => 'Engineer']);
