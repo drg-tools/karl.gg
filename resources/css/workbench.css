@@ -997,7 +997,7 @@
     }
     .overclock-option {
         display: grid;
-        grid-template-columns: 34px minmax(0, 1fr);
+        grid-template-columns: 44px minmax(0, 1fr);
         gap: 10px;
         align-items: center;
         padding: 8px 10px;
@@ -1006,13 +1006,13 @@
         border: 1px solid var(--line);
     }
     .overclock-option .overclock-octagon {
-        width: 34px;
-        height: 34px;
-        font-size: 14px;
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
     }
     .overclock-option .overclock-octagon img {
-        width: 20px;
-        height: 20px;
+        width: 28px;
+        height: 28px;
     }
     .overclock-option strong {
         display: block;

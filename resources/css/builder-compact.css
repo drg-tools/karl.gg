@@ -393,7 +393,7 @@
         border-top: 1px dashed var(--line-2);
     }
     .compact-oc-slot > .compact-tier-number {
-        padding-top: 12px;
+        padding-top: 15px;
         font-size: 8px;
     }
     .compact-oc-body {
@@ -403,16 +403,16 @@
     }
     .compact-oc-grid {
         display: grid;
-        grid-template-columns: repeat(4, 34px);
+        grid-template-columns: repeat(4, 40px);
         gap: 4px;
     }
     .compact-oc-choice .compact-octagon {
-        width: 34px;
-        height: 34px;
+        width: 40px;
+        height: 40px;
     }
     .compact-oc-choice .compact-octagon img {
-        width: 20px;
-        height: 20px;
+        width: 26px;
+        height: 26px;
     }
     .compact-oc-choice:hover .compact-octagon,
     .compact-oc-choice:focus-visible .compact-octagon {
