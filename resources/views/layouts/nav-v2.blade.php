@@ -14,7 +14,7 @@
 
             <div class="site-nav__dropdown" x-on:click.away="openBuild = false">
                 <x-nav-dropdown title="Loadouts" x-on:click="openBuild = !openBuild" ::aria-expanded="openBuild.toString()" aria-controls="loadouts-menu"
-                    :active="\Request::is('browse') || \Request::is('pickrates/*') || \Request::is('preview/*')"/>
+                    :active="\Request::is('browse') || \Request::is('pickrates/*') || \Request::is('preview/*') || \Request::is('calculator')"/>
 
                 <div x-show="openBuild" style="display:none;" class="site-nav__menu" id="loadouts-menu">
                     <x-nav-dropdown-link :link="route('loadout.index')" :active="\Request::is('browse') && !\Request::query('favorites')" title="Browse" />
@@ -22,6 +22,7 @@
                         <x-nav-dropdown-link :link="route('loadout.index', ['favorites' => 1])" :active="\Request::query('favorites')" title="Favorites" />
                     @endauth
                     <x-nav-dropdown-link :link="route('pickrates.classes')" :active="\Request::is('pickrates/*')" title="Pick Rates" />
+                    <x-nav-dropdown-link :link="route('calculator')" :active="\Request::is('calculator')" title="Calculator" badge="Beta" />
                 </div>
             </div>
 
@@ -78,6 +79,7 @@
             <x-mobile-nav-link :active="\Request::query('favorites')" :link="route('loadout.index', ['favorites' => 1])" title="Favorites" />
         @endauth
         <x-mobile-nav-link :active="\Request::is('pickrates/*')" :link="route('pickrates.classes')" title="Pick Rates"/>
+        <x-mobile-nav-link :active="\Request::is('calculator')" :link="route('calculator')" title="Calculator" badge="Beta"/>
         <x-mobile-nav-link :active="$isBuilding" link="/build" title="Build"/>
         <x-mobile-nav-link :active="\Request::is('blog') || \Request::is('blog/*')" link="/blog" title="Blog"/>
         @can('view-admin')

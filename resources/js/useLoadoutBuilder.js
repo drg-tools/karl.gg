@@ -74,7 +74,8 @@ export function useLoadoutBuilder(config) {
     let catalogRequest = 0;
     let draftTimer;
     let navigatingAway = false;
-    let restoreWeapons = null;
+    /** Weapons to open per slot: a restored draft or a calculator handoff. */
+    let restoreWeapons = config.weapons || null;
     const draftKey = `karl:loadout-draft:v1:${window.location.pathname}`;
     const draftSaved = ref(false);
     const storageAvailable = ref(true);
@@ -585,7 +586,8 @@ export function useLoadoutBuilder(config) {
         }
     }
     onMounted(() => {
-        readDraft();
+        // A build handed over from the calculator wins over an older draft.
+        if (!config.weapons) readDraft();
         if (form.character_id) loadCatalog(form.character_id);
         window.addEventListener("beforeunload", beforeUnload);
     });

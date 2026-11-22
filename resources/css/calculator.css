@@ -746,6 +746,15 @@
     .calc-pin b {
         color: var(--ink);
     }
+    .calc-handoff p {
+        margin: 4px 0 8px;
+        font-size: 12.5px;
+        color: var(--ink-2);
+    }
+    .calc-handoff .calc-button {
+        display: inline-block;
+        text-decoration: none;
+    }
     .calc-actions {
         display: flex;
         flex-wrap: wrap;

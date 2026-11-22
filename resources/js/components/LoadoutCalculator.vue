@@ -2,13 +2,15 @@
     <div class="calculator" :style="{ '--class-accent': calc.color }">
         <header class="calc-intro">
             <div>
-                <span class="calc-label">Beta · Unlisted</span>
+                <span class="calc-label">Beta</span>
                 <h1>Build calculator</h1>
             </div>
             <p>
                 Try upgrade combinations and compare their stats. Picks stay in
                 this browser.
-                <a href="/build">Build a loadout to save and share →</a>
+                <a :href="calc.handoff?.url || config.builderUrl"
+                    >Save it as a loadout in the builder →</a
+                >
             </p>
         </header>
 
@@ -362,6 +364,14 @@
                         </template>
                     </section>
 
+                    <section v-if="calc.handoff" class="calc-handoff">
+                        <span class="calc-label">Save as a loadout</span>
+                        <p>{{ handoffSummary }}</p>
+                        <a :href="calc.handoff.url" class="calc-button is-primary"
+                            >Use in builder</a
+                        >
+                    </section>
+
                     <section>
                         <span class="calc-label">Equipped</span>
                         <ul class="calc-equipped">
@@ -440,11 +450,6 @@ function shortName(name) {
         .join(" ");
 }
 
-function hasPicks(key) {
-    const picks = calc.picksFor(key);
-    return !!picks && (Object.keys(picks.tiers).length > 0 || !!picks.overclock);
-}
-
 const kitGroups = computed(() => {
     const gunEntry = (gun) => ({
         key: `gun:${gun.id}`,
@@ -453,7 +458,7 @@ const kitGroups = computed(() => {
         label: shortName(gun.name),
         title: gun.name,
         image: `/assets/${gun.image}.svg`,
-        touched: hasPicks(`gun:${gun.id}`),
+        touched: calc.hasPicks(`gun:${gun.id}`),
     });
     const groups = [
         { label: "Primary", items: calc.guns(1).map(gunEntry) },
@@ -467,7 +472,7 @@ const kitGroups = computed(() => {
                 label: item.name,
                 title: item.name,
                 image: `/assets/${item.icon}.svg`,
-                touched: hasPicks(`equipment:${item.id}`),
+                touched: calc.hasPicks(`equipment:${item.id}`),
             })),
         },
     ];
@@ -603,6 +608,25 @@ function dockNote(metric) {
         tone: difference > 0 ? "is-good" : "is-bad",
     };
 }
+
+/** Which picks "Use in builder" takes, since a loadout has one weapon per slot. */
+const handoffSummary = computed(() => {
+    const { guns, equipmentCount } = calc.handoff;
+    const parts = [...guns];
+    if (equipmentCount) {
+        parts.push(
+            `${equipmentCount} equipment ${
+                equipmentCount === 1 ? "upgrade" : "upgrades"
+            }`
+        );
+    }
+    if (!parts.length) return "Opens the builder with this class.";
+    const listed =
+        parts.length > 1
+            ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}`
+            : parts[0];
+    return `Opens the builder with ${listed}, with your picks for them. A loadout holds one weapon per slot.`;
+});
 
 const pinLabel = computed(() => {
     const pinned = calc.state.baseline;

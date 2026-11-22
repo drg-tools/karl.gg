@@ -457,14 +457,81 @@ export function useCalculator(config) {
             });
     }
 
-    function picksFor(key) {
-        return state.picks[key] || null;
-    }
     function ensurePicks() {
         const key = subject.value.key;
         state.picks[key] ||= { tiers: {}, overclock: null };
+        // Lets the builder handoff pick the weapon changed most recently.
+        state.picks[key].changedAt = Date.now();
         return state.picks[key];
     }
+
+    function hasPicks(key) {
+        const found = state.picks[key];
+        return (
+            !!found &&
+            (Object.keys(found.tiers).length > 0 || !!found.overclock)
+        );
+    }
+
+    /**
+     * What "Use in builder" carries over for this class. A loadout holds one
+     * weapon per slot: the open weapon wins its slot, otherwise the weapon
+     * with picks that changed most recently. Every equipment pick goes along.
+     */
+    const handoff = computed(() => {
+        if (!catalog.value) return null;
+        const open = tab.value?.kind === "gun" ? tab.value.id : null;
+        const chosenGuns = [1, 2]
+            .map((slot) => {
+                const slotGuns = guns(slot);
+                const opened = slotGuns.find((gun) => gun.id === open);
+                if (opened) return opened;
+                return (
+                    slotGuns
+                        .filter((gun) => hasPicks(`gun:${gun.id}`))
+                        .sort(
+                            (a, b) =>
+                                (state.picks[`gun:${b.id}`].changedAt || 0) -
+                                (state.picks[`gun:${a.id}`].changedAt || 0)
+                        )[0] || null
+                );
+            })
+            .filter(Boolean);
+        const gunPicks = chosenGuns.map(
+            (gun) => state.picks[`gun:${gun.id}`] || { tiers: {} }
+        );
+        const equipmentPicks = equipments.value
+            .map((item) => state.picks[`equipment:${item.id}`])
+            .filter(Boolean);
+        const chosenThrowable = state.throwables[state.characterId] ?? null;
+
+        const params = new URLSearchParams({ class: state.characterId });
+        const list = (key, ids) => {
+            if (ids.length) params.set(key, ids.join(","));
+        };
+        list("guns", chosenGuns.map((gun) => gun.id));
+        list("mods", gunPicks.flatMap((found) => Object.values(found.tiers)));
+        list(
+            "overclocks",
+            gunPicks.map((found) => found.overclock).filter(Boolean)
+        );
+        list(
+            "equipment_mods",
+            equipmentPicks.flatMap((found) => Object.values(found.tiers))
+        );
+        if (chosenThrowable) params.set("throwable", chosenThrowable);
+
+        const equipmentCount = equipmentPicks.reduce(
+            (total, found) => total + Object.keys(found.tiers).length,
+            0
+        );
+
+        return {
+            url: `${config.builderUrl}?${params}`,
+            guns: chosenGuns.map((gun) => gun.name),
+            equipmentCount,
+        };
+    });
 
     async function loadCatalog(id) {
         if (catalogs[id]) return;
@@ -613,7 +680,8 @@ export function useCalculator(config) {
         code,
         isEquipped,
         effectOf,
-        picksFor,
+        hasPicks,
+        handoff,
         loadCatalog,
         selectCharacter,
         selectTab,
