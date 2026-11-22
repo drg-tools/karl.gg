@@ -24,7 +24,7 @@
 @section('content')
     {{-- Apply the saved kit layout before the cards paint, so compact readers never see the detailed cards flash.
          Without a saved choice, phone-sized screens (the page's 760px breakpoint) start compact, except for crawlers. --}}
-    <script>(function () { var view = @js($compactOnPhones) && window.matchMedia('(max-width: 760px)').matches ? 'compact' : 'detailed'; try { view = localStorage.getItem(@js($kitViewKey)) || view; } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); })();</script>
+    <script>(function () { var view = @js($compactOnPhones) && window.matchMedia('(max-width: 760px)').matches ? 'compact' : 'detailed'; var source = 'default'; try { var saved = localStorage.getItem(@js($kitViewKey)); if (saved) { view = saved; source = 'saved'; } } catch (e) {} document.documentElement.classList.toggle('is-kit-compact', view === 'compact'); document.documentElement.dataset.kitViewSource = source; })();</script>
 
     <div class="loadout-page" style="--class-accent: {{ $class['color'] }}">
         <header class="loadout-hero">
@@ -114,12 +114,15 @@
             <div class="loadout-section__heading has-toggle"
                  x-data="{
                      compact: document.documentElement.classList.contains('is-kit-compact'),
+                     view(compact) { return compact ? 'compact' : 'detailed'; },
                      show(compact) {
+                         window.karlAnalytics?.trackViewModeChange('loadout_page', this.view(this.compact), this.view(compact));
                          this.compact = compact;
                          document.documentElement.classList.toggle('is-kit-compact', compact);
                          try { localStorage.setItem(@js($kitViewKey), compact ? 'compact' : 'detailed'); } catch (e) {}
                      },
-                 }">
+                 }"
+                 x-init="window.karlAnalytics?.trackViewModeShown('loadout_page', view(compact), document.documentElement.dataset.kitViewSource)">
                 <h2 id="loadout-kit">Weapons &amp; gear</h2>
                 <div class="loadout-view-toggle" role="group" aria-label="Weapons and gear layout">
                     <button type="button" title="Every upgrade with its full description"

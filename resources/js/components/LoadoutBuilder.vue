@@ -773,6 +773,7 @@ import BuilderStatReadout from "./BuilderStatReadout.vue";
 import BuilderKitCard from "./BuilderKitCard.vue";
 import CreditsCalculator from "./CreditsCalculator.vue";
 import { useLoadoutBuilder } from "../useLoadoutBuilder";
+import { trackViewModeChange, trackViewModeShown } from "../analytics";
 
 const { config } = defineProps({ config: { type: Object, required: true } });
 const builderState = useLoadoutBuilder(config);
@@ -845,8 +846,11 @@ const builderModes = [
  * Guided or compact layout. A choice made in this browser wins; otherwise
  * signed-in players start in compact and guests start in guided.
  */
-const builderMode = ref(readBuilderMode());
-watch(builderMode, (mode) => {
+const initialBuilderMode = readBuilderMode();
+const builderMode = ref(initialBuilderMode.mode);
+trackViewModeShown("builder", initialBuilderMode.mode, initialBuilderMode.source);
+watch(builderMode, (mode, previousMode) => {
+    trackViewModeChange("builder", previousMode, mode);
     try {
         localStorage.setItem(builderModeKey, mode);
     } catch {
@@ -854,12 +858,18 @@ watch(builderMode, (mode) => {
     }
 });
 
+/**
+ * @returns {{ mode: string, source: "saved"|"default" }}
+ */
 function readBuilderMode() {
-    const fallback = config.signedIn ? "compact" : "guided";
+    const fallback = {
+        mode: config.signedIn ? "compact" : "guided",
+        source: "default",
+    };
     try {
         const stored = localStorage.getItem(builderModeKey);
         return builderModes.some((mode) => mode.key === stored)
-            ? stored
+            ? { mode: stored, source: "saved" }
             : fallback;
     } catch {
         return fallback;

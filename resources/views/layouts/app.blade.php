@@ -1,15 +1,18 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJ6GL0WN2F"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    @if (config('app.google_analytics_id'))
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('app.google_analytics_id') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-        gtag('config', 'G-KJ6GL0WN2F');
-    </script>
+            gtag('set', 'user_properties', { signed_in: @js(auth()->check() ? 'yes' : 'no') });
+            gtag('config', @js(config('app.google_analytics_id')));
+        </script>
+    @endif
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

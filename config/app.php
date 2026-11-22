@@ -151,6 +151,12 @@ return [
     'adsense_client' => env('ADSENSE_CLIENT', 'ca-pub-3237881937260629'),
 
     /*
+     * Google Analytics 4 measurement ID. Leave GOOGLE_ANALYTICS_ID empty to
+     * keep the tag (and the view-mode events in resources/js/analytics.js) off.
+     */
+    'google_analytics_id' => env('GOOGLE_ANALYTICS_ID', 'G-KJ6GL0WN2F'),
+
+    /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
