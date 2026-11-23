@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\NotificationType;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 use Filament\Models\Contracts\FilamentUser;
@@ -104,7 +105,13 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'notification_preferences' => 'array',
     ];
+
+    public function wantsNotification(NotificationType $type): bool
+    {
+        return (bool) ($this->notification_preferences[$type->value] ?? $type->enabledByDefault());
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {

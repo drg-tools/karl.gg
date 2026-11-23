@@ -1,0 +1,143 @@
+/* ---------- notification bell (top bar) ---------- */
+.site-nav__bell {
+    position: relative;
+    display: inline-flex;
+    padding: 7px;
+    color: var(--chrome-ink-2);
+    border: 1px solid var(--chrome-line-2);
+    transition: border-color 0.15s, color 0.15s;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+    &:hover,
+    &.is-active {
+        color: var(--chrome-ink);
+        border-color: var(--chrome-amber);
+    }
+    &:focus-visible {
+        outline: 2px solid var(--chrome-amber);
+        outline-offset: 2px;
+    }
+}
+.site-nav__bell-count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 18px;
+    padding: 1px 4px;
+    font: 700 10.5px/16px var(--chrome-mono);
+    text-align: center;
+    color: var(--chrome-amber-ink);
+    background: var(--chrome-amber);
+}
+
+/* ---------- notifications page ---------- */
+.notifications-empty p {
+    margin: 0;
+    color: var(--muted);
+}
+.notifications-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.notifications-item + .notifications-item {
+    border-top: 1px solid var(--hair);
+}
+.notifications-item__link {
+    display: grid;
+    gap: 4px;
+    padding: 14px 16px;
+    color: var(--ink-2);
+    border-left: 2px solid transparent;
+    transition: background 0.15s;
+
+    &:hover {
+        background: var(--panel-2);
+    }
+    &:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: -2px;
+    }
+    strong {
+        color: var(--ink);
+    }
+}
+.notifications-item.is-unread .notifications-item__link {
+    border-left-color: var(--amber);
+    background: var(--panel-2);
+}
+.notifications-item__excerpt {
+    color: var(--muted);
+    overflow-wrap: anywhere;
+}
+.notifications-item__time {
+    font: 500 11.5px var(--mono);
+    color: var(--faint);
+}
+
+/* ---------- notification settings ---------- */
+.settings-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+
+    > span {
+        display: grid;
+        gap: 2px;
+    }
+    small {
+        font-size: 12.5px;
+        color: var(--muted);
+    }
+}
+/* A checkbox drawn as an on/off switch. */
+.settings-toggle__switch {
+    position: relative;
+    flex: none;
+    width: 40px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    background: var(--line-2);
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 16px;
+        height: 16px;
+        background: var(--ink);
+        border-radius: 50%;
+        transition: transform 0.15s;
+    }
+    &:checked {
+        background: var(--amber);
+
+        &::before {
+            background: var(--amber-ink);
+            transform: translateX(18px);
+        }
+    }
+    &:focus {
+        box-shadow: none;
+    }
+    &:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+    }
+}
+.notifications .browse-header .loadout-button {
+    border: 0;
+    cursor: pointer;
+}

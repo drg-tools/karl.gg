@@ -1,5 +1,7 @@
 @php
     $isBuilding = \Request::is('build') || \Request::is('build/*');
+    $unreadNotifications = auth()->check() ? auth()->user()->unreadNotifications()->count() : 0;
+    $notificationsLabel = $unreadNotifications ? trans_choice(':count unread notification|:count unread notifications', $unreadNotifications) : 'Notifications';
 @endphp
 
 <nav class="site-nav" x-data="{ mobileOpen: false, profileOpen: false, openBuild: false }" aria-label="Main">
@@ -43,6 +45,16 @@
             @endguest
 
             @auth
+                <a href="{{ route('notifications.index') }}" @class(['site-nav__bell', 'is-active' => \Request::is('notifications')]) title="{{ $notificationsLabel }}">
+                    <span class="sr-only">{{ $notificationsLabel }}</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5m6 0v1a3 3 0 1 1-6 0v-1m6 0H9"/>
+                    </svg>
+                    @if ($unreadNotifications)
+                        <span class="site-nav__bell-count" aria-hidden="true">{{ $unreadNotifications > 99 ? '99+' : $unreadNotifications }}</span>
+                    @endif
+                </a>
+
                 <div class="site-nav__dropdown" x-on:click.away="profileOpen = false">
                     <button type="button" class="site-nav__avatar" x-on:click="profileOpen = !profileOpen"
                             :aria-expanded="profileOpen.toString()" aria-controls="profile-menu">
@@ -98,6 +110,7 @@
                         <small>{{ auth()->user()->email }}</small>
                     </span>
                 </div>
+                <x-mobile-nav-link :link="route('notifications.index')" :active="\Request::is('notifications')" :title="$unreadNotifications ? 'Notifications ('.$unreadNotifications.')' : 'Notifications'" />
                 <x-mobile-nav-link :link="route('user.profile', ['id' => Auth::id()])" title="My builds" />
                 <x-mobile-nav-link :link="route('account.settings')" title="Account settings" />
                 <button type="submit" form="logout-form" class="site-nav__mobile-link">{{ __('Sign out') }}</button>

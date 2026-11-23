@@ -33,6 +33,7 @@ class DeleteAccount
             Favorite::where('user_id', $user->id)->delete();
             Rating::where('model_type', $user->getMorphClass())->where('model_id', $user->id)->delete();
 
+            $user->notifications()->delete();
             DB::table('sessions')->where('user_id', $user->id)->delete();
 
             $user->roles()->detach();

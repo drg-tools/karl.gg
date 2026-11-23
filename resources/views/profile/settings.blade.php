@@ -4,6 +4,7 @@
     $statusMessages = [
         'profile-updated' => 'Profile saved.',
         'password-updated' => 'Password updated.',
+        'notifications-updated' => 'Notification settings saved.',
     ];
     $profileErrors = $errors->updateProfile;
     $passwordErrors = $errors->updatePassword;
@@ -100,6 +101,32 @@
                     </div>
                 </form>
             </section>
+            <section class="loadout-panel settings-panel" aria-labelledby="settings-notifications-title">
+                <div class="settings-panel__head">
+                    <h2 id="settings-notifications-title">Notifications</h2>
+                    <p>Choose what shows up under the bell in the top bar. Notifications stay on Karl.gg and are never emailed.</p>
+                </div>
+
+                <form class="settings-form" method="POST" action="{{ route('account.notifications.update') }}">
+                    @csrf
+                    @method('PUT')
+
+                    @foreach (\App\Notifications\NotificationType::cases() as $type)
+                        <label class="settings-toggle">
+                            <span>
+                                <strong>{{ $type->label() }}</strong>
+                                <small>{{ $type->description() }}</small>
+                            </span>
+                            <input class="settings-toggle__switch" type="checkbox" role="switch" name="notifications[{{ $type->value }}]" value="1" @checked($user->wantsNotification($type))>
+                        </label>
+                    @endforeach
+
+                    <div class="settings-form__foot">
+                        <button class="loadout-button" type="submit">Save notifications</button>
+                    </div>
+                </form>
+            </section>
+
             <section class="loadout-panel settings-panel is-danger" aria-labelledby="settings-delete-title">
                 <div class="settings-panel__head">
                     <h2 id="settings-delete-title">Delete account</h2>

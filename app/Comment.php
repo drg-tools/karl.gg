@@ -135,6 +135,14 @@ class Comment extends Model
         return $this->permalink.'#!comment='.$this->getKey();
     }
 
+    /**
+     * The loadout this comment was posted on, read from a page id such as "loadout-12".
+     */
+    public function loadoutId(): ?int
+    {
+        return preg_match('/^loadout-(\d+)$/', (string) $this->page_id, $matches) ? (int) $matches[1] : null;
+    }
+
     public function getVotedAttribute(): ?string
     {
         return $this->relationLoaded('userVote') ? $this->userVote?->type : null;
