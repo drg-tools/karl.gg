@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Character;
-use App\Gun;
-use App\Loadout;
-use App\Mod;
-use App\Patch;
+use App\Models\Character;
+use App\Models\Gun;
+use App\Models\Loadout;
+use App\Models\Mod;
+use App\Models\Patch;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;

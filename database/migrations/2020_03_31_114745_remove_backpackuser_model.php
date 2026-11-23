@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class RemoveBackpackuserModel extends Migration
 {
@@ -18,10 +19,10 @@ class RemoveBackpackuserModel extends Migration
         $model_has_permissions = config('permission.table_names.model_has_permissions');
 
         // replace the BackpackUser model with User
-        if (\Illuminate\Support\Facades\Schema::hasTable($model_has_roles)) {
+        if (Schema::hasTable($model_has_roles)) {
             $this->replaceModels($model_has_roles);
         }
-        if (\Illuminate\Support\Facades\Schema::hasTable($model_has_permissions)) {
+        if (Schema::hasTable($model_has_permissions)) {
             $this->replaceModels($model_has_permissions);
         }
     }
@@ -33,7 +34,7 @@ class RemoveBackpackuserModel extends Migration
         // if you've ended up with duplicate entries (both for App\User and App\Models\BackpackUser)
         // we can just delete them
         $userEntries = DB::table($table_name)
-            ->where('model_type', \App\User::class)
+            ->where('model_type', 'App\User')
             ->get();
 
         foreach ($userEntries as $entry) {
@@ -48,7 +49,7 @@ class RemoveBackpackuserModel extends Migration
         DB::table($table_name)
             ->where('model_type', "App\Models\BackpackUser")
             ->update([
-                'model_type' => \App\User::class,
+                'model_type' => 'App\User',
             ]);
     }
 }

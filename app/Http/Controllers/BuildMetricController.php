@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\BuildMetric;
-use App\Gun;
+use App\Models\BuildMetric;
+use App\Models\Gun;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;

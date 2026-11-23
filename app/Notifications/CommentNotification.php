@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Comment;
-use App\User;
+use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
@@ -16,9 +16,7 @@ abstract class CommentNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public Comment $comment, public int $loadoutId, public string $loadoutName)
-    {
-    }
+    public function __construct(public Comment $comment, public int $loadoutId, public string $loadoutName) {}
 
     abstract public function type(): NotificationType;
 

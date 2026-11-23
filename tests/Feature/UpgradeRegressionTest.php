@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Character;
-use App\Comment;
-use App\Loadout;
-use App\Patch;
-use App\User;
+use App\Models\Character;
+use App\Models\Comment;
+use App\Models\Loadout;
+use App\Models\Patch;
+use App\Models\User;
 use ErrorException;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Schema\Blueprint;

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Loadout;
-use App\Patch;
-use App\User;
+use App\Models\Loadout;
+use App\Models\Patch;
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;

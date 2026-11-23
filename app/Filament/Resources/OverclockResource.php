@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Overclock;
+use App\Models\Overclock;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;

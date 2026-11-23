@@ -1,14 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * App\Mod.
+ * App\Models\Mod.
  *
  * @property int $id
  * @property int $character_id
@@ -27,9 +28,9 @@ use Illuminate\Support\Str;
  * @property string $json_stats
  * @property string $icon
  * @property string $mod_type
- * @property-read \App\Character $character
- * @property-read \App\Gun $gun
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
+ * @property-read Character $character
+ * @property-read Gun $gun
+ * @property-read Collection|Loadout[] $loadouts
  * @property-read int|null $loadouts_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Mod filter($input = [], $filter = null)
@@ -63,10 +64,11 @@ use Illuminate\Support\Str;
  */
 class Mod extends Model
 {
-    use HasFactory;
     use Filterable;
+    use HasFactory;
 
     public $identifiableAttribute = 'name';
+
     protected $guarded = ['id'];
 
     public function gun()

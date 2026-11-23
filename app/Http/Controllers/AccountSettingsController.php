@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DeleteAccount;
+use App\Models\Post;
 use App\Notifications\NotificationType;
-use App\Post;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

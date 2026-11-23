@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Character;
-use App\Loadout;
-use App\Patch;
-use App\User;
+use App\Models\Character;
+use App\Models\Loadout;
+use App\Models\Patch;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;

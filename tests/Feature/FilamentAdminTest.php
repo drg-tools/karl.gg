@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Character;
-use App\Comment;
 use App\Filament\Resources\CharacterResource;
 use App\Filament\Resources\CharacterResource\Pages\ManageCharacter;
 use App\Filament\Resources\CommentResource;
@@ -12,9 +10,11 @@ use App\Filament\Resources\LoadoutResource;
 use App\Filament\Resources\LoadoutResource\Pages\ManageLoadout;
 use App\Filament\Resources\PostResource;
 use App\Filament\Resources\UserResource;
-use App\Loadout;
-use App\Patch;
-use App\User;
+use App\Models\Character;
+use App\Models\Comment;
+use App\Models\Loadout;
+use App\Models\Patch;
+use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;

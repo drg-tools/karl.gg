@@ -2,7 +2,8 @@
 
 namespace App\Comments;
 
-use App\Comment;
+use App\Models\Comment;
+use App\Models\Vote;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
@@ -10,9 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class CommentRepository
 {
-    public function __construct(protected Formatter $formatter)
-    {
-    }
+    public function __construct(protected Formatter $formatter) {}
 
     /**
      * Get one page of approved threads for a page, plus the viewer's own pending comments.

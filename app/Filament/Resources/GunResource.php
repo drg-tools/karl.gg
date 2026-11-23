@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Gun;
+use App\Models\Gun;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;

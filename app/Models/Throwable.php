@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
- * App\Throwable.
+ * App\Models\Throwable.
  *
  * @property int $id
  * @property int $character_id
@@ -21,9 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $enor_pearl_cost
  * @property int $jadiz_cost
  * @property string $icon
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Character $character
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Character $character
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable filter($input = [], $filter = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Throwable newModelQuery()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Events\LoadoutSaving;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
@@ -17,7 +17,7 @@ use Nagy\LaravelRating\Traits\Like\Likeable;
 use Nagy\LaravelRating\Traits\Vote\Votable;
 
 /**
- * App\Loadout.
+ * App\Models\Loadout.
  *
  * @property int $id
  * @property string $name

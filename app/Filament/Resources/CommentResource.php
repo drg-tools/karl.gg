@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Comment;
-use App\Comments\Report;
 use App\Filament\Resources\CommentResource\Pages\ManageComment;
+use App\Models\Comment;
+use App\Models\Report;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkAction;

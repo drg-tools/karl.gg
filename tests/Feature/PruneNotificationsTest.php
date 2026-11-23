@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Notifications\DatabaseNotification;
+use App\Models\DatabaseNotification;
+use App\Models\User;
 use App\Notifications\NotificationType;
-use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -23,7 +23,7 @@ class PruneNotificationsTest extends TestCase
         $unreadButAncient = $this->notificationFor($user, now()->subDays(91));
         $unreadAndRecent = $this->notificationFor($user, now()->subDays(89));
 
-        $this->artisan('model:prune', ['--path' => 'app'])->assertSuccessful();
+        $this->artisan('model:prune')->assertSuccessful();
 
         $this->assertModelMissing($readLongAgo);
         $this->assertModelMissing($unreadButAncient);

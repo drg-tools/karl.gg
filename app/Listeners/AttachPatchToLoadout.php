@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\LoadoutSaving;
-use App\Patch;
+use App\Models\Patch;
 
 class AttachPatchToLoadout
 {
@@ -14,8 +14,6 @@ class AttachPatchToLoadout
 
     /**
      * Create the event listener.
-     *
-     * @param  Patch  $patch
      */
     public function __construct(Patch $patch)
     {
@@ -25,7 +23,6 @@ class AttachPatchToLoadout
     /**
      * Handle the event.
      *
-     * @param  LoadoutSaving  $event
      * @return void
      */
     public function handle(LoadoutSaving $event)

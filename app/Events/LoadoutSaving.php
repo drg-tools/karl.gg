@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Loadout;
+use App\Models\Loadout;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -17,8 +17,6 @@ class LoadoutSaving
 
     /**
      * Create a new event instance.
-     *
-     * @param  Loadout  $loadout
      */
     public function __construct(Loadout $loadout)
     {

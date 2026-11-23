@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\EquipmentMod;
+use App\Models\EquipmentMod;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;

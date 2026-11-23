@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Character;
+use App\Models\Character;
 use Illuminate\Database\Seeder;
 
 class CharacterSeeder extends Seeder

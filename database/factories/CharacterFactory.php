@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Character;
+use App\Models\Character;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CharacterFactory extends Factory

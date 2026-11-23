@@ -2,7 +2,7 @@
 
 namespace App\Filament\Widgets;
 
-use App\Loadout;
+use App\Models\Loadout;
 
 class DailyUpdatedLoadouts extends DailyActivity
 {

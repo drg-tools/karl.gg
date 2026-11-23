@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Loadout;
+use App\Models\Loadout;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 

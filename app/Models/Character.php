@@ -1,30 +1,32 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
- * App\Character.
+ * App\Models\Character.
  *
  * @property int $id
  * @property string $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $image
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\EquipmentMod[] $equipment_mods
+ * @property-read Collection|EquipmentMod[] $equipment_mods
  * @property-read int|null $equipment_mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Equipment[] $equipments
+ * @property-read Collection|Equipment[] $equipments
  * @property-read int|null $equipments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Gun[] $guns
+ * @property-read Collection|Gun[] $guns
  * @property-read int|null $guns_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Mod[] $mods
+ * @property-read Collection|Mod[] $mods
  * @property-read int|null $mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Overclock[] $overclocks
+ * @property-read Collection|Overclock[] $overclocks
  * @property-read int|null $overclocks_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Throwable[] $throwables
+ * @property-read Collection|Throwable[] $throwables
  * @property-read int|null $throwables_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Character newModelQuery()
@@ -40,8 +42,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Character extends Model
 {
-    use HasFactory;
     use Filterable;
+    use HasFactory;
 
     protected $guarded = ['id'];
 

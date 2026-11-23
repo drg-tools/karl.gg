@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Patch;
 use Illuminate\Database\Seeder;
 
 class PatchSeeder extends Seeder
@@ -13,6 +14,6 @@ class PatchSeeder extends Seeder
      */
     public function run()
     {
-        \App\Patch::factory()->count(20)->create();
+        Patch::factory()->count(20)->create();
     }
 }

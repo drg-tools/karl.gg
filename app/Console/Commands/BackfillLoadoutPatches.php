@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Loadout;
-use App\Patch;
+use App\Models\Loadout;
+use App\Models\Patch;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;

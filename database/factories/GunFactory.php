@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Gun;
+use App\Models\Gun;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GunFactory extends Factory

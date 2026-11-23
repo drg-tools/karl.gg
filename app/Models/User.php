@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Notifications\DatabaseNotification;
 use App\Notifications\NotificationType;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
@@ -11,6 +10,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -25,7 +25,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\User.
+ * App\Models\User.
  *
  * @property int $id
  * @property string $name
@@ -76,7 +76,9 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable implements FilamentUser
 {
-    use CanLike, CanRate, CanVote, Favoriteability, HasRoles, Notifiable, SoftDeletes;
+    use CanLike, CanRate, CanVote, Favoriteability, HasRoles, Notifiable, SoftDeletes {
+        Favoriteability::favorite as private favoriteByStoredType;
+    }
     use HasFactory;
 
     /**
@@ -108,6 +110,11 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
         'notification_preferences' => 'array',
     ];
+
+    public function favorite(string $class): \Illuminate\Support\Collection
+    {
+        return $this->favoriteByStoredType(Relation::getMorphAlias($class));
+    }
 
     /**
      * Use the app's notification model so old notifications can be pruned.

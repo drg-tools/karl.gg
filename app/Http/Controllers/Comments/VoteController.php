@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Comments;
 
-use App\Comment;
 use App\Comments\CommentRepository;
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class VoteController extends Controller
 {
-    public function __construct(protected CommentRepository $comments)
-    {
-    }
+    public function __construct(protected CommentRepository $comments) {}
 
     public function upvote(Request $request, Comment $comment): Response
     {

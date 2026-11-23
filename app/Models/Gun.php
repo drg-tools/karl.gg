@@ -1,29 +1,31 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
- * App\Gun.
+ * App\Models\Gun.
  *
  * @property int $id
  * @property string $name
  * @property string $gun_class
  * @property int $character_slot
  * @property int $character_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string $json_stats
  * @property string|null $image
- * @property-read \App\Character $character
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
+ * @property-read Character $character
+ * @property-read Collection|Loadout[] $loadouts
  * @property-read int|null $loadouts_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Mod[] $mods
+ * @property-read Collection|Mod[] $mods
  * @property-read int|null $mods_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Overclock[] $overclocks
+ * @property-read Collection|Overclock[] $overclocks
  * @property-read int|null $overclocks_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Gun filter($input = [], $filter = null)
@@ -49,8 +51,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Gun extends Model
 {
-    use HasFactory;
     use Filterable;
+    use HasFactory;
+
     protected $guarded = ['id'];
 
     public function loadouts()

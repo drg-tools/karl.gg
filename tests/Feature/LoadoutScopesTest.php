@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Loadout;
-use App\Patch;
+use App\Models\Loadout;
+use App\Models\Patch;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,7 +13,7 @@ class LoadoutScopesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    public function testOnOlderPatchScopeGrabsOldLoadouts()
+    public function test_on_older_patch_scope_grabs_old_loadouts()
     {
         // Order here matters because of our onSaved model event!
         $oldPatch = Patch::factory()->create([

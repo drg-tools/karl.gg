@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
-use App\Gun;
-use App\Mod;
-use App\Patch;
+use App\Models\Character;
+use App\Models\Gun;
+use App\Models\Mod;
+use App\Models\Patch;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder as QueryBuilder;

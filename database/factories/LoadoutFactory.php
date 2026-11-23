@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Loadout;
+use App\Models\Loadout;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LoadoutFactory extends Factory

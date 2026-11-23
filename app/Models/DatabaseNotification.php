@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;

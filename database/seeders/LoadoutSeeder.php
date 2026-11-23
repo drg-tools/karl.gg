@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Equipment;
-use App\Gun;
-use App\Loadout;
-use App\User;
+use App\Models\Equipment;
+use App\Models\Gun;
+use App\Models\Loadout;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 

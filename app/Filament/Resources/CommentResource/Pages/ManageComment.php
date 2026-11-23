@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\CommentResource\Pages;
 
-use App\Comment;
 use App\Filament\Resources\CommentResource;
+use App\Models\Comment;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;

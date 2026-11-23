@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Comment;
-use App\User;
+use App\Models\Comment;
+use App\Models\User;
 
 class CommentPolicy
 {

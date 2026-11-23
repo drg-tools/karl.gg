@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Comment;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
