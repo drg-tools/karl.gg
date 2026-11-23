@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Comments;
 
 use App\Comment;
+use App\Comments\CommentNotifier;
 use App\Comments\CommentRepository;
 use App\Comments\Formatter;
 use App\Http\Controllers\Controller;
@@ -35,7 +36,7 @@ class CommentController extends Controller
         return response()->json($comments->toArray());
     }
 
-    public function store(StoreComment $request): JsonResponse
+    public function store(StoreComment $request, CommentNotifier $notifier): JsonResponse
     {
         $attributes = $request->safe()->only('page_id', 'parent_id', 'content', 'permalink');
         $attributes += [
@@ -51,6 +52,8 @@ class CommentController extends Controller
         }
 
         $comment = $this->comments->create($attributes);
+
+        $notifier->commentPosted($comment);
 
         return response()->json($comment, 201);
     }

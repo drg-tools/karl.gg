@@ -2,15 +2,17 @@
 
 namespace App;
 
+use App\Notifications\DatabaseNotification;
+use App\Notifications\NotificationType;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -104,7 +106,21 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'notification_preferences' => 'array',
     ];
+
+    /**
+     * Use the app's notification model so old notifications can be pruned.
+     */
+    public function notifications(): MorphMany
+    {
+        return $this->morphMany(DatabaseNotification::class, 'notifiable')->latest();
+    }
+
+    public function wantsNotification(NotificationType $type): bool
+    {
+        return (bool) ($this->notification_preferences[$type->value] ?? $type->enabledByDefault());
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {

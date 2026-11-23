@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DeleteAccount;
+use App\Notifications\NotificationType;
 use App\Post;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\RedirectResponse;
@@ -47,6 +48,27 @@ class AccountSettingsController extends Controller
         $request->user()->forceFill(['password' => Hash::make($validated['password'])])->save();
 
         return redirect()->route('account.settings')->with('status', 'password-updated');
+    }
+
+    /**
+     * Save which in-app notifications the user receives. Unchecked boxes are not
+     * submitted, so every type missing from the request is turned off.
+     */
+    public function updateNotifications(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'notifications' => ['array'],
+            'notifications.*' => ['boolean'],
+        ]);
+
+        $enabled = $validated['notifications'] ?? [];
+        $preferences = collect(NotificationType::cases())
+            ->mapWithKeys(fn (NotificationType $type) => [$type->value => (bool) ($enabled[$type->value] ?? false)])
+            ->all();
+
+        $request->user()->forceFill(['notification_preferences' => $preferences])->save();
+
+        return redirect()->route('account.settings')->with('status', 'notifications-updated');
     }
 
     public function destroy(Request $request, DeleteAccount $deleteAccount): RedirectResponse
