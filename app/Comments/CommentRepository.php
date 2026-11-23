@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\DB;
 
 class CommentRepository
 {
-    public function __construct(protected Formatter $formatter) {}
+    public function __construct(protected Formatter $formatter)
+    {
+    }
 
     /**
      * Get one page of approved threads for a page, plus the viewer's own pending comments.

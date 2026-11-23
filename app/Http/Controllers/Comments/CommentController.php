@@ -15,7 +15,9 @@ use Illuminate\Http\Response;
 
 class CommentController extends Controller
 {
-    public function __construct(protected CommentRepository $comments) {}
+    public function __construct(protected CommentRepository $comments)
+    {
+    }
 
     /**
      * List one page of a page's comment threads.
