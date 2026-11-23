@@ -23,7 +23,7 @@ class PruneNotificationsTest extends TestCase
         $unreadButAncient = $this->notificationFor($user, now()->subDays(91));
         $unreadAndRecent = $this->notificationFor($user, now()->subDays(89));
 
-        $this->artisan('model:prune', ['--model' => [DatabaseNotification::class]])->assertSuccessful();
+        $this->artisan('model:prune', ['--path' => 'app'])->assertSuccessful();
 
         $this->assertModelMissing($readLongAgo);
         $this->assertModelMissing($unreadButAncient);

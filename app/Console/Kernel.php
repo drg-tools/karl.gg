@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Notifications\DatabaseNotification;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,7 +25,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('backup:clean')->daily()->at('01:00');
         $schedule->command('backup:run')->daily()->at('02:00');
-        $schedule->command('model:prune', ['--model' => [DatabaseNotification::class]])->daily()->at('03:00');
+        $schedule->command('model:prune', ['--path' => 'app'])->daily()->at('03:00');
     }
 
     /**
