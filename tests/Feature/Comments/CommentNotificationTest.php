@@ -75,6 +75,31 @@ class CommentNotificationTest extends CommentsTestCase
         $this->assertSame(NotificationType::BuildComment->value, $owner->notifications()->sole()->type);
     }
 
+    public function test_reply_responses_do_not_expose_the_parent_authors_private_details(): void
+    {
+        $loadout = $this->loadoutOwnedBy(User::factory()->create());
+        $parentAuthor = User::factory()->create(['email' => 'parent@example.com']);
+        $parent = Comment::factory()->create([
+            'page_id' => 'loadout-'.$loadout->id,
+            'user_id' => $parentAuthor->id,
+            'author_ip' => '203.0.113.7',
+            'user_agent' => 'Parent Browser',
+        ]);
+
+        $this->postJson('/comments', [
+            'content' => 'Agreed',
+            'page_id' => 'loadout-'.$loadout->id,
+            'parent_id' => $parent->id,
+            'author_name' => 'Guest Dwarf',
+            'author_email' => 'guest@example.com',
+        ])
+            ->assertCreated()
+            ->assertJsonMissingPath('parent')
+            ->assertDontSee('parent@example.com')
+            ->assertDontSee('203.0.113.7')
+            ->assertDontSee('Parent Browser');
+    }
+
     public function test_a_reply_to_the_owner_sends_them_one_reply_notification(): void
     {
         $owner = User::factory()->create();
