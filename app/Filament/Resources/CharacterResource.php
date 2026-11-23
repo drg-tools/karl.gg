@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Character;
+use App\Models\Character;
 use Filament\Forms\Components\TextInput;
 use UnitEnum;
 

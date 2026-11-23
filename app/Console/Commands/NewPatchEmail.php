@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Loadout;
 use App\Mail\LoadoutOutdated;
-use App\User;
+use App\Models\Loadout;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Gun;
+use App\Models\Gun;
 use Illuminate\Database\Seeder;
 
 class GunSeeder extends Seeder

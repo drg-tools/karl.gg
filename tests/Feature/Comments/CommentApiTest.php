@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Comments;
 
-use App\Comment;
 use App\Comments\Formatter;
-use App\User;
+use App\Models\Comment;
+use App\Models\User;
 use Carbon\Carbon;
 use Spatie\Permission\Models\Permission;
 

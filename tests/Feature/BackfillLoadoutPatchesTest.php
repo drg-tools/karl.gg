@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Loadout;
-use App\Patch;
+use App\Models\Loadout;
+use App\Models\Patch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

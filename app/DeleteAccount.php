@@ -2,8 +2,11 @@
 
 namespace App;
 
-use App\Comments\Report;
-use App\Comments\Vote;
+use App\Models\Comment;
+use App\Models\Loadout;
+use App\Models\Report;
+use App\Models\User;
+use App\Models\Vote;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\DB;
 use Nagy\LaravelRating\Models\Rating;

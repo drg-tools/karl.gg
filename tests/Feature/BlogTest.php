@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Post;
-use App\User;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;

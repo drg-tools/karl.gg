@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
-use App\Gun;
-use App\Loadout;
 use App\LoadoutBrowseQuery;
-use App\Mod;
-use App\Overclock;
-use App\Patch;
-use App\Throwable;
+use App\Models\Character;
+use App\Models\Gun;
+use App\Models\Loadout;
+use App\Models\Mod;
+use App\Models\Overclock;
+use App\Models\Patch;
+use App\Models\Throwable;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

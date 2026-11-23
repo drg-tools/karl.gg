@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Post;
+use App\Models\Post;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;

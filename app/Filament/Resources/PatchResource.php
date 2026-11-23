@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Patch;
+use App\Models\Patch;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
 use UnitEnum;

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\User;
+use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;

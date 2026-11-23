@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Comments;
 
-use App\Comment;
 use App\Comments\CommentNotifier;
 use App\Comments\CommentRepository;
 use App\Comments\Formatter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comments\StoreComment;
 use App\Http\Requests\Comments\UpdateComment;
+use App\Models\Comment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

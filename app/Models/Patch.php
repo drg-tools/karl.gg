@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Patch.
+ * App\Models\Patch.
  *
  * @property int $id
  * @property string $patch_num

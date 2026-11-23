@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Comments;
 
-use App\Character;
-use App\Comment;
 use App\Comments\Formatter;
-use App\Loadout;
+use App\Models\Character;
+use App\Models\Comment;
+use App\Models\Loadout;
+use App\Models\Patch;
+use App\Models\User;
 use App\Notifications\NotificationType;
-use App\Patch;
-use App\User;
 
 class CommentNotificationTest extends CommentsTestCase
 {

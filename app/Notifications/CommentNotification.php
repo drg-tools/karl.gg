@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Comment;
-use App\User;
+use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;

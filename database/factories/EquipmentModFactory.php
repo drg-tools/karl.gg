@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Equipment;
-use App\EquipmentMod;
+use App\Models\Equipment;
+use App\Models\EquipmentMod;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

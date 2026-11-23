@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Patch;
+use App\Models\Patch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PatchFactory extends Factory

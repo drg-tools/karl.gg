@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\EquipmentMod;
-use App\Mod;
-use App\Overclock;
+use App\Models\EquipmentMod;
+use App\Models\Mod;
+use App\Models\Overclock;
 use Blaspsoft\Blasp\Enums\Severity;
 use Blaspsoft\Blasp\Rules\Profanity;
 use Illuminate\Foundation\Http\FormRequest;

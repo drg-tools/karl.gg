@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\BuildMetric;
-use App\Character;
-use App\Gun;
-use App\Overclock;
-use App\Patch;
+use App\Models\BuildMetric;
+use App\Models\Character;
+use App\Models\Gun;
+use App\Models\Overclock;
+use App\Models\Patch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;

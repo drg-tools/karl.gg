@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\BuildMetric;
-use App\Character;
-use App\EquipmentMod;
-use App\Gun;
 use App\Http\Requests\SaveLoadoutRequest;
 use App\Http\Resources\BuilderCatalogResource;
-use App\Loadout;
-use App\Mod;
+use App\Models\BuildMetric;
+use App\Models\Character;
+use App\Models\EquipmentMod;
+use App\Models\Gun;
+use App\Models\Loadout;
+use App\Models\Mod;
 use App\SaveLoadout;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\JsonResponse;

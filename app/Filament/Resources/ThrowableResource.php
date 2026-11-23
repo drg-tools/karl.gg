@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Throwable;
+use App\Models\Throwable;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;

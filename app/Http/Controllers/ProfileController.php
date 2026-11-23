@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
-use App\Loadout;
 use App\LoadoutBrowseQuery;
-use App\Patch;
-use App\User;
+use App\Models\Character;
+use App\Models\Loadout;
+use App\Models\Patch;
+use App\Models\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;

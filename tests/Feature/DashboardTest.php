@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Character;
-use App\Gun;
-use App\Loadout;
-use App\Overclock;
-use App\Patch;
+use App\Models\Character;
+use App\Models\Gun;
+use App\Models\Loadout;
+use App\Models\Overclock;
+use App\Models\Patch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;

@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Models\Character;
+use App\Models\Gun;
+use App\Models\Mod;
+use App\Models\Overclock;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;

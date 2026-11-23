@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Loadout;
-use App\Patch;
+use App\Models\Loadout;
+use App\Models\Patch;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,7 +13,7 @@ class LoadoutNewPatchTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    public function testLoadoutGetsLatestPatchWhenCreated()
+    public function test_loadout_gets_latest_patch_when_created()
     {
         $patch = Patch::factory()->create([
             'launched_at' => Carbon::now()->subYear(),
@@ -25,7 +25,7 @@ class LoadoutNewPatchTest extends TestCase
         $this->assertEquals($loadout->patch->patch_title, $patch->patch_title);
     }
 
-    public function testLoadoutGetsLatestPatchWhenUpdating()
+    public function test_loadout_gets_latest_patch_when_updating()
     {
         $oldPatch = Patch::factory()->create([
             'launched_at' => Carbon::now()->subYear(),

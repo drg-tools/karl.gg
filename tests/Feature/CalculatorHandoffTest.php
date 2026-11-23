@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\Character;
-use App\Equipment;
-use App\EquipmentMod;
 use App\GameDataCatalog;
-use App\Gun;
-use App\Loadout;
-use App\Mod;
+use App\Models\Character;
+use App\Models\Equipment;
+use App\Models\EquipmentMod;
+use App\Models\Gun;
+use App\Models\Loadout;
+use App\Models\Mod;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

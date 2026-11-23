@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\BuildMetric;
 use App\GameDataCatalog;
-use App\Gun;
-use App\Patch;
-use App\Throwable;
+use App\Models\BuildMetric;
+use App\Models\Gun;
+use App\Models\Patch;
+use App\Models\Throwable;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;

@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Comments;
+namespace App\Models;
 
-use App\Comment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Report extends Model
+class Vote extends Model
 {
-    protected $table = 'comment_reports';
+    const UP = 'up';
+
+    const DOWN = 'down';
+
+    protected $table = 'comment_votes';
 
     /**
      * @var list<string>

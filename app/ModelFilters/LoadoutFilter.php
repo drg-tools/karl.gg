@@ -2,7 +2,7 @@
 
 namespace App\ModelFilters;
 
-use App\Patch;
+use App\Models\Patch;
 use EloquentFilter\ModelFilter;
 
 class LoadoutFilter extends ModelFilter

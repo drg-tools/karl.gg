@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Models\Post;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Carbon;
 use Str;

@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Character;
-use App\Comment;
-use App\Loadout;
-use App\Patch;
-use App\Post;
-use App\User;
+use App\Models\Character;
+use App\Models\Comment;
+use App\Models\Loadout;
+use App\Models\Patch;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -124,7 +124,7 @@ class AccountSettingsTest extends TestCase
         Patch::factory()->create(['launched_at' => now()->subDay()]);
         $loadout = Loadout::factory()->create(['user_id' => $user->id, 'character_id' => Character::factory()->create()->id]);
         $otherLoadout = Loadout::factory()->create(['user_id' => $otherUser->id, 'character_id' => $loadout->character_id]);
-        $user->favorite($otherLoadout);
+        $user->addFavorite($otherLoadout);
         $user->upVote($otherLoadout);
         $otherUser->upVote($otherLoadout);
         $comment = Comment::factory()->create([

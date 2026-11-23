@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
+use App\Models\Character;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\View\View;
 

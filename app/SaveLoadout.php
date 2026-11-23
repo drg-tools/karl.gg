@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Loadout;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 

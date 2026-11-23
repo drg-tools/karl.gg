@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
-use App\Loadout;
-use App\Overclock;
-use App\Patch;
-use App\Post;
+use App\Models\Character;
+use App\Models\Loadout;
+use App\Models\Overclock;
+use App\Models\Patch;
+use App\Models\Post;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Comments;
 
-use App\Comment;
 use App\Comments\CommentRepository;
+use App\Models\Comment;
 use Blaspsoft\Blasp\Enums\Severity;
 use Blaspsoft\Blasp\Rules\Profanity;
 use Illuminate\Contracts\Validation\ValidationRule;

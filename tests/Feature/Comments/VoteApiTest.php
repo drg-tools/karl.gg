@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Comments;
 
-use App\Comment;
-use App\Comments\Vote;
+use App\Models\Comment;
+use App\Models\Vote;
 
 class VoteApiTest extends CommentsTestCase
 {

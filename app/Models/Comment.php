@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Comments\Formatter;
-use App\Comments\Report;
-use App\Comments\Vote;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

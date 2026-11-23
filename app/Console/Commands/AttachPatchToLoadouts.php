@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Loadout;
-use App\Patch;
+use App\Models\Loadout;
+use App\Models\Patch;
 use Illuminate\Console\Command;
 
 class AttachPatchToLoadouts extends Command
@@ -21,6 +21,7 @@ class AttachPatchToLoadouts extends Command
      * @var string
      */
     protected $description = 'Ensures that all loadouts have the proper patch attached based on date information';
+
     /**
      * @var Patch
      */
@@ -33,9 +34,6 @@ class AttachPatchToLoadouts extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param  Patch  $patch
-     * @param  Loadout  $loadout
      */
     public function __construct(Patch $patch, Loadout $loadout)
     {

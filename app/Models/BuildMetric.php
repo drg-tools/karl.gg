@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\BuildMetric.
+ * App\Models\BuildMetric.
  *
  * @property int $id
  * @property int $character_id

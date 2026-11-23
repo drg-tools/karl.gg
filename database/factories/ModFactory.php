@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Mod;
+use App\Models\Mod;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModFactory extends Factory

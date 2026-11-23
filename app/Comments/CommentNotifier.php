@@ -2,12 +2,12 @@
 
 namespace App\Comments;
 
-use App\Comment;
-use App\Loadout;
+use App\Models\Comment;
+use App\Models\Loadout;
+use App\Models\User;
 use App\Notifications\BuildCommented;
 use App\Notifications\CommentReplied;
 use App\Notifications\NotificationType;
-use App\User;
 
 /**
  * Tells the people involved in a thread about a new comment. Nobody is told about

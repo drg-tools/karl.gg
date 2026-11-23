@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Character;
 use App\GameDataCatalog;
-use App\Gun;
-use App\Loadout;
-use App\Mod;
-use App\Overclock;
-use App\Patch;
-use App\User;
+use App\Models\Character;
+use App\Models\Gun;
+use App\Models\Loadout;
+use App\Models\Mod;
+use App\Models\Overclock;
+use App\Models\Patch;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;

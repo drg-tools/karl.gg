@@ -2,7 +2,8 @@
 
 namespace App\Comments;
 
-use App\Comment;
+use App\Models\Comment;
+use App\Models\Vote;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;

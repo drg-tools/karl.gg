@@ -2,7 +2,7 @@
 
 namespace App\Filament\Widgets;
 
-use App\User;
+use App\Models\User;
 
 class DailyUsers extends DailyActivity
 {

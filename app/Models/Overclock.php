@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Overclock.
+ * App\Models\Overclock.
  *
  * @property int $id
  * @property int $character_id
@@ -24,9 +25,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $text_description
  * @property string $json_stats
  * @property string $icon
- * @property-read \App\Character $character
- * @property-read \App\Gun $gun
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadouts
+ * @property-read Character $character
+ * @property-read Gun $gun
+ * @property-read Collection|Loadout[] $loadouts
  * @property-read int|null $loadouts_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Overclock filter($input = [], $filter = null)
@@ -62,6 +63,7 @@ class Overclock extends Model
     use Filterable;
 
     protected $primaryKey = 'id';
+
     protected $guarded = ['id'];
 
     public function gun()
