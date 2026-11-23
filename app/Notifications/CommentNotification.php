@@ -16,7 +16,9 @@ abstract class CommentNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public Comment $comment, public int $loadoutId, public string $loadoutName) {}
+    public function __construct(public Comment $comment, public int $loadoutId, public string $loadoutName)
+    {
+    }
 
     abstract public function type(): NotificationType;
 
