@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25c452faa52c223fc447811c07dcffb9",
+    "content-hash": "465c29be983b2eda5df4c00f0ee6193a",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1446,6 +1446,62 @@
             ],
             "time": "2026-10-01T06:59:29+00:00",
             "published-time": "2026-10-01T07:01:28+00:00"
+        },
+        {
+            "name": "doctrine/sql-formatter",
+            "version": "1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/sql-formatter.git",
+                "reference": "9563949f5cd3bd12a17d12fb980528bc141c5806"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/9563949f5cd3bd12a17d12fb980528bc141c5806",
+                "reference": "9563949f5cd3bd12a17d12fb980528bc141c5806",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^14",
+                "ergebnis/phpunit-slow-test-detector": "^2.20",
+                "phpstan/phpstan": "^2.1.31",
+                "phpunit/phpunit": "^10.5.58"
+            },
+            "bin": [
+                "bin/sql-formatter"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\SqlFormatter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Dorn",
+                    "email": "jeremy@jeremydorn.com",
+                    "homepage": "https://jeremydorn.com/"
+                }
+            ],
+            "description": "a PHP SQL highlighting library",
+            "homepage": "https://github.com/doctrine/sql-formatter/",
+            "keywords": [
+                "highlight",
+                "sql"
+            ],
+            "support": {
+                "issues": "https://github.com/doctrine/sql-formatter/issues",
+                "source": "https://github.com/doctrine/sql-formatter/tree/1.5.4"
+            },
+            "time": "2026-02-08T16:21:46+00:00",
+            "published-time": "2026-02-08T16:22:50+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -3056,6 +3112,153 @@
             },
             "time": "2026-11-09T16:07:10+00:00",
             "published-time": "2026-11-09T16:09:07+00:00"
+        },
+        {
+            "name": "laravel/pulse",
+            "version": "v1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/pulse.git",
+                "reference": "e84f5b3aeac2785670c22defd6aa56a02f194bcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/pulse/zipball/e84f5b3aeac2785670c22defd6aa56a02f194bcf",
+                "reference": "e84f5b3aeac2785670c22defd6aa56a02f194bcf",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/sql-formatter": "^1.4.1",
+                "guzzlehttp/promises": "^1.0|^2.0|^3.0",
+                "illuminate/auth": "^12.0|^13.0",
+                "illuminate/cache": "^12.0|^13.0",
+                "illuminate/config": "^12.0|^13.0",
+                "illuminate/console": "^12.0|^13.0",
+                "illuminate/contracts": "^12.0|^13.0",
+                "illuminate/database": "^12.0|^13.0",
+                "illuminate/events": "^12.0|^13.0",
+                "illuminate/http": "^12.0|^13.0",
+                "illuminate/queue": "^12.0|^13.0",
+                "illuminate/redis": "^12.0|^13.0",
+                "illuminate/routing": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "illuminate/view": "^12.0|^13.0",
+                "laravel/sentinel": "^1.0",
+                "league/uri": "^7.5.1",
+                "livewire/livewire": "^3.6.4|^4.0",
+                "nesbot/carbon": "^2.67|^3.0",
+                "php": "^8.2",
+                "symfony/console": "^7.0|^8.0"
+            },
+            "conflict": {
+                "nunomaduro/collision": "<7.7.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.15.2|^8.0.1",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^10.8|^11.0",
+                "pestphp/pest": "^3.0|^4.0",
+                "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+                "phpstan/phpstan": "^2.1.33",
+                "predis/predis": "^1.0|^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Pulse": "Laravel\\Pulse\\Facades\\Pulse"
+                    },
+                    "providers": [
+                        "Laravel\\Pulse\\PulseServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Pulse\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Pulse is a real-time application performance monitoring tool and dashboard for your Laravel application.",
+            "homepage": "https://github.com/laravel/pulse",
+            "keywords": [
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/pulse/issues",
+                "source": "https://github.com/laravel/pulse"
+            },
+            "time": "2026-11-11T14:20:00+00:00",
+            "published-time": "2026-11-17T15:18:32+00:00"
+        },
+        {
+            "name": "laravel/sentinel",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sentinel.git",
+                "reference": "972d9885d9d14312a118e9565c4e6ecc5e751ea1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sentinel/zipball/972d9885d9d14312a118e9565c4e6ecc5e751ea1",
+                "reference": "972d9885d9d14312a118e9565c4e6ecc5e751ea1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/container": "^8.37|^9.0|^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.27",
+                "orchestra/testbench": "^6.47.1|^7.56|^8.37|^9.16|^10.9|^11.0",
+                "phpstan/phpstan": "^2.1.33"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Sentinel\\SentinelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Sentinel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "mior@laravel.com"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/laravel/sentinel/tree/v1.1.0"
+            },
+            "time": "2026-03-24T14:03:38+00:00",
+            "published-time": "2026-03-31T03:26:34+00:00"
         },
         {
             "name": "laravel/serializable-closure",

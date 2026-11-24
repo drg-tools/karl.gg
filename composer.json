@@ -24,6 +24,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "kyslik/column-sortable": "^8.0",
         "laravel/framework": "^13.0",
+        "laravel/pulse": "^1.11",
         "laravel/tinker": "^3.0",
         "laravel/ui": "^4.0",
         "league/flysystem-aws-s3-v3": "^3.0",

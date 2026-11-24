@@ -23,6 +23,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('viewPulse', fn (User $user): bool => $user->can(['view-admin', 'manage-stats']));
+
         Relation::morphMap([
             'App\BuildMetric' => BuildMetric::class,
             'App\Character' => Character::class,
