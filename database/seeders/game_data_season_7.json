@@ -1,0 +1,561 @@
+{
+  "target": "Season 07: Contingency Protocol (Experimental preview)",
+  "requires_existing_weapons": true,
+  "new_overclock_costs": {
+    "credits_cost": 0,
+    "magnite_cost": 0,
+    "bismor_cost": 0,
+    "umanite_cost": 0,
+    "croppa_cost": 0,
+    "enor_pearl_cost": 0,
+    "jadiz_cost": 0
+  },
+  "limitations": [
+    "Experimental values may change. See SEASON_7_SOURCES.txt for release checks.",
+    "Forge costs omitted from the preview data default to zero when inserting new rows.",
+    "Icons use existing Karl.gg assets as placeholders for unverified in-game art.",
+    "The existing calculator handles only numeric modifiers it can express. Conditional effects are described in text."
+  ],
+  "weapons": [
+    {
+      "name": "Subata 120",
+      "character": "Driller",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Elemental Primer",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_Heat",
+          "text_description": "Hits stack 10% elemental damage vulnerability and temperature sensitivity per shot for 10 seconds.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": -4
+            },
+            "ammo": {
+              "name": "Max Ammo",
+              "value": -48
+            }
+          }
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "Neurotoxin Minelets",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Overclock_Neuro",
+          "text_description": "Terrain hits plant mines that release a neurotoxin cloud after arming.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": 0.5,
+              "multiply": true
+            },
+            "rate": {
+              "name": "Rate of Fire",
+              "value": 0.5,
+              "multiply": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Experimental Plasma Charger",
+      "character": "Driller",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Field Magnifier",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_Area",
+          "text_description": "Normal and charged projectiles slow down and gain damage and radius in flight. Normal shots gain splash damage.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": 0.8,
+              "multiply": true
+            },
+            "ex1": {
+              "name": "Charged Damage",
+              "value": 0.8,
+              "multiply": true
+            },
+            "ex7": {
+              "name": "Normal Projectile Velocity",
+              "value": 0.5,
+              "percent": true,
+              "multiply": true
+            },
+            "ex14": {
+              "name": "Normal Shot Area Damage",
+              "value": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Colette Wave Cooker",
+      "character": "Driller",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Sinusoidal Amplifier",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_TemperatureCoolDown",
+          "text_description": "Damage cycles from 3 below to 9 above the ordinary damage value.",
+          "json_stats": {
+            "reload": {
+              "name": "Cooling Rate",
+              "value": 50,
+              "percent": true
+            }
+          }
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "Brain Wave Scrambler",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_Pheremones",
+          "text_description": "Hits can briefly turn grunts, slashers and guards into allies. Damage is reduced, with a further penalty against those glyphids.",
+          "json_stats": {}
+        }
+      ]
+    },
+    {
+      "name": "Deepcore 40MM PGL",
+      "character": "Engineer",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Manual Detonator",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_Explosion",
+          "text_description": "Grenades stick and detonate on trigger release. Holding the trigger builds up to 80 extra area damage and 1 m extra radius.",
+          "json_stats": {
+            "ex1": {
+              "name": "Effect Radius",
+              "value": 0.5
+            },
+            "ex4": {
+              "name": "Projectile Velocity",
+              "value": 0.7,
+              "percent": true,
+              "multiply": true
+            }
+          }
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "Smart Cluster",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_AreaDamage",
+          "text_description": "Grenades split into seven smaller projectiles that can home toward nearby enemies.",
+          "json_stats": {
+            "ex8": {
+              "name": "Direct Damage",
+              "value": 0.3,
+              "multiply": true
+            },
+            "dmg": {
+              "name": "Area Damage",
+              "value": 0.8,
+              "multiply": true
+            },
+            "ex1": {
+              "name": "Effect Radius",
+              "value": 0.8,
+              "multiply": true
+            },
+            "ammo": {
+              "name": "Max Ammo",
+              "value": -2
+            },
+            "ex4": {
+              "name": "Projectile Velocity",
+              "value": 0.7,
+              "percent": true,
+              "multiply": true
+            }
+          }
+        },
+        {
+          "overclock_index": 9,
+          "overclock_name": "Supercell Payload",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Overclock_Slowdown",
+          "text_description": "Impact creates a persistent field that damages and slows enemies.",
+          "json_stats": {}
+        }
+      ]
+    },
+    {
+      "name": "Breach Cutter",
+      "character": "Engineer",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 8,
+          "overclock_name": "Velocity Rounds",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_ProjectileSpeed",
+          "text_description": "The beam travels 40% faster and gains damage as it travels.",
+          "json_stats": {
+            "dmg": {
+              "name": "Beam DPS",
+              "value": 1.05,
+              "multiply": true
+            },
+            "ex4": {
+              "name": "Armor Breaking",
+              "value": 0.25,
+              "percent": true,
+              "multiply": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shard Diffractor",
+      "character": "Engineer",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Prismatic Lens",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_Area",
+          "text_description": "Splits the beam into eight cycling beams. Multiple beams can hit one target.",
+          "json_stats": {}
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "Shield Transfer Module",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_Resistance",
+          "text_description": "Restore teammates’ shields by shooting them. Hitting shielded teammates or sentries can trigger splash damage. Ordinary hits lose their splash and direct heating.",
+          "json_stats": {
+            "ex1": {
+              "name": "Direct Target Heating",
+              "value": 0.0,
+              "percent": true,
+              "multiply": true
+            },
+            "ex2": {
+              "name": "Area Damage",
+              "value": -2
+            },
+            "ex3": {
+              "name": "Effect Radius",
+              "value": 0.0,
+              "multiply": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "BRT7 Burst Fire Gun",
+      "character": "Gunner",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 8,
+          "overclock_name": "Magnetic Barrel Alignment",
+          "overclock_type": "Clean",
+          "icon": "Icon_Upgrade_FireRate",
+          "text_description": "Increases the rate of fire and halves recoil.",
+          "json_stats": {
+            "rate": {
+              "name": "Rate of Fire",
+              "value": 4
+            },
+            "ex4": {
+              "name": "Recoil",
+              "value": 0.5,
+              "percent": true,
+              "multiply": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "\"Bulldog\" Heavy Revolver",
+      "character": "Gunner",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Stopping Power",
+          "overclock_type": "Clean",
+          "icon": "Icon_Upgrade_Stun",
+          "text_description": "Improves stun chance and duration, and deals 30% more damage to stunned targets.",
+          "json_stats": {
+            "ex4": {
+              "name": "Stun Chance",
+              "value": 50,
+              "percent": true
+            },
+            "ex10": {
+              "name": "Stun Duration",
+              "value": 1.5
+            }
+          }
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "Dismantler Rounds",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_ArmorBreaking",
+          "text_description": "Armor hits damage the plate over time and trigger an explosion when it breaks or the effect expires.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": 0.75,
+              "multiply": true
+            },
+            "rate": {
+              "name": "Rate of Fire",
+              "value": 0.5,
+              "multiply": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Armskore Coil Gun",
+      "character": "Gunner",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Trick Shot",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_Ricoshet",
+          "text_description": "Shots ricochet twice off terrain or enemies and can seek nearby targets after a bounce.",
+          "json_stats": {
+            "ammo": {
+              "name": "Max Ammo",
+              "value": 2.0,
+              "multiply": true
+            },
+            "rate": {
+              "name": "Charge Speed",
+              "value": 2.0,
+              "percent": true,
+              "multiply": true
+            },
+            "reload": {
+              "name": "Reload Time",
+              "value": -0.5
+            }
+          }
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "Delayed Discharge",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_Electricity",
+          "text_description": "The trail releases a damaging pulse when it expires, including after a partial-charge shot.",
+          "json_stats": {
+            "ammo": {
+              "name": "Max Ammo",
+              "value": -240
+            },
+            "ex3": {
+              "name": "Trail Duration",
+              "value": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jury-Rigged Boomstick",
+      "character": "Scout",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Shockwave Amplifier",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_AreaDamage",
+          "text_description": "Replaces the pellet shot with a forward shockwave. Pellet-count upgrades can change the shockwave’s effect.",
+          "json_stats": {
+            "ex5": {
+              "name": "Front AoE shock wave Damage",
+              "value": 90
+            },
+            "reload": {
+              "name": "Reload Time",
+              "value": -0.6
+            }
+          }
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "Dragonfire Shells",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_Heat",
+          "text_description": "Fires a lingering fire zone in place of pellets. Direct pellet damage and pellet stun are removed.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": 0.0,
+              "multiply": true
+            },
+            "ex1": {
+              "name": "Pellets",
+              "value": 0.0,
+              "multiply": true
+            },
+            "ammo": {
+              "name": "Max Ammo",
+              "value": 0.5,
+              "multiply": true
+            },
+            "clip": {
+              "name": "Magazine Size",
+              "value": 0.5,
+              "multiply": true
+            },
+            "rate": {
+              "name": "Rate of Fire",
+              "value": 0.5,
+              "multiply": true
+            },
+            "ex2": {
+              "name": "Stun Chance",
+              "value": 0.0,
+              "percent": true,
+              "multiply": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Zhukov NUK17",
+      "character": "Scout",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 6,
+          "overclock_name": "Berzerkovs",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_ScareEnemies",
+          "text_description": "Reloading frightens nearby enemies. Shots deal more damage with much wider spread.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": 2
+            },
+            "ex1": {
+              "name": "Base Spread",
+              "value": 3.0,
+              "percent": true,
+              "multiply": true
+            }
+          }
+        },
+        {
+          "overclock_index": 7,
+          "overclock_name": "Tactical Mobility",
+          "overclock_type": "Balanced",
+          "icon": "Icon_Upgrade_MovementSpeed",
+          "text_description": "Increases movement speed while firing and tightens horizontal spread.",
+          "json_stats": {
+            "rate": {
+              "name": "Combined Rate of Fire",
+              "value": -4
+            },
+            "ex9": {
+              "name": "Movement Speed While Using",
+              "value": 50,
+              "percent": true
+            }
+          }
+        },
+        {
+          "overclock_index": 8,
+          "overclock_name": "High Caliber Rounds",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_DamageGeneral",
+          "text_description": "Trades ammo and fire rate for damage and accuracy.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": 6
+            },
+            "ammo": {
+              "name": "Max Ammo",
+              "value": -250
+            },
+            "clip": {
+              "name": "Combined Clip Size",
+              "value": -20
+            },
+            "rate": {
+              "name": "Combined Rate of Fire",
+              "value": 0.5,
+              "multiply": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Nishanka Boltshark X-80",
+      "character": "Scout",
+      "character_slot": 2,
+      "mods": [],
+      "overclocks": [
+        {
+          "overclock_index": 7,
+          "overclock_name": "Quickdraw Quiver",
+          "overclock_type": "Unstable",
+          "icon": "Icon_Upgrade_Ammo",
+          "text_description": "Carry more standard bolts and reload faster at the cost of damage, special bolts and slower bolt switching.",
+          "json_stats": {
+            "dmg": {
+              "name": "Damage",
+              "value": -15
+            },
+            "ammo": {
+              "name": "Max Ammo",
+              "value": 1.75,
+              "multiply": true
+            },
+            "ex7": {
+              "name": "Special Ammo",
+              "value": 0.33,
+              "multiply": true
+            },
+            "reload": {
+              "name": "Reload Time",
+              "value": -0.8
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
