@@ -44,7 +44,7 @@ class DashboardController extends Controller
     private function getPatchStats(?Patch $currentPatch): array
     {
         return Cache::remember(
-            'dashboard.patch-stats.'.($currentPatch?->id ?? 'none'),
+            'dashboard.patch-stats.v2.'.($currentPatch?->id ?? 'none'),
             self::STATS_CACHE_SECONDS,
             function () use ($currentPatch): array {
                 $onCurrentPatch = fn (Builder $query) => $query->where('patch_id', $currentPatch?->id);

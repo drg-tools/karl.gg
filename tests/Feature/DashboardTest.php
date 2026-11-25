@@ -9,6 +9,7 @@ use App\Models\Overclock;
 use App\Models\Patch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
 class DashboardTest extends TestCase
@@ -23,6 +24,21 @@ class DashboardTest extends TestCase
             ->assertSee('<meta name="description" content="Best builds for the best game. Your go to partner for Deep Rock Galactic builds and content.">', false)
             ->assertSee('<meta property="og:title" content="Karl.gg: The best Deep Rock Galactic Builds">', false)
             ->assertSee('<meta name="twitter:site" content="@DrgTools">', false);
+    }
+
+    public function test_dashboard_rebuilds_patch_stats_cached_before_the_model_move(): void
+    {
+        Character::factory()->create(['name' => 'Scout']);
+        Cache::put('dashboard.patch-stats.none', [
+            'totalLoadouts' => 0,
+            'patchLoadouts' => 0,
+            'classes' => collect([unserialize('O:13:"App\\Character":0:{}', ['allowed_classes' => false])]),
+            'popularOverclocks' => collect(),
+        ], 900);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Scout');
     }
 
     public function test_dashboard_summarises_the_current_patch(): void
